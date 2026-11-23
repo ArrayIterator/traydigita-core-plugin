@@ -3,22 +3,17 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Email;
 
+use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function absint;
-use function array_key_exists;
-use function dbDelta;
-use function delete_transient;
 use function function_exists;
 use function get_current_user_id;
 use function get_option;
-use function get_transient;
 use function gmdate;
 use function in_array;
-use function is_admin;
 use function is_array;
 use function is_string;
 use function json_decode;
 use function json_encode;
-use function set_transient;
 use function sprintf;
 use function strtotime;
 use function time;
@@ -59,9 +54,9 @@ use function wp_date;
  *   hard-deletes (the historical TemplateBuilder behaviour).
  *
  * Schema handling follows the dbDelta FINAL pattern (see
- * AgendaTable): the table is created lazily on the write path
- * (ensureTableExists(), ONE `CREATE TABLE IF NOT EXISTS`, no
- * dbDelta, no error_log, never throws) and upgraded with
+ * `Libs\SchemaTable`): the table is created lazily on the write
+ * path (ensureTableExists(), ONE `CREATE TABLE IF NOT EXISTS`,
+ * no dbDelta, no error_log, never throws) and upgraded with
  * dbDelta() only when the schema version changes
  * (ensureTable(), version-gated, 3600s check transient, 60s
  * lock released in `finally`, admin-only).
@@ -159,18 +154,9 @@ final class TemplateStore
     public const string AUTOSAVE_SLUG_SUFFIX = '-autosave';
 
     /**
-     * Whether each table was verified present in this request.
-     *
-     * Static cache for the lazy paths, keyed by full table
-     * name: the existence check runs at most once per request
-     * per table, whatever the outcome. Keyed (not a single
-     * bool) so a mid-request prefix change — multisite
-     * switch_to_blog() does exactly that — re-checks the new
-     * table instead of trusting the old prefix's verdict.
-     *
-     * @var array<string, bool>
+     * Shared table kernel for this class's table.
      */
-    private static array $tableExists = [];
+    private static ?SchemaTable $schema = null;
 
     /**
      * Full table name (prefix + suffix).
@@ -187,6 +173,44 @@ final class TemplateStore
     {
         global $wpdb;
         return $wpdb->prefix . self::TABLE_SUFFIX;
+    }
+
+    /**
+     * Shared table kernel, built once from this class's constants.
+     *
+     * The constants above stay the single definition of the
+     * table's stored state (version option, check/lock transient
+     * names and TTLs); SchemaTable only executes the pattern.
+     *
+     * @return SchemaTable
+     */
+    private static function schema(): SchemaTable
+    {
+        if (self::$schema === null) {
+            self::$schema = new SchemaTable(
+                self::TABLE_SUFFIX,
+                self::DB_VERSION,
+                self::DB_VERSION_OPTION,
+                self::VERSION_CHECK_TRANSIENT,
+                self::VERSION_CHECK_TTL,
+                self::DELTA_LOCK_TRANSIENT,
+                self::DELTA_LOCK_TTL,
+                self::schemaSql(...)
+            );
+        }
+        return self::$schema;
+    }
+
+    /**
+     * Table SQL for the shared kernel.
+     *
+     * @param bool $ifNotExists Add IF NOT EXISTS (lazy write path).
+     * @return string
+     */
+    private static function schemaSql(bool $ifNotExists): string
+    {
+        global $wpdb;
+        return self::createTableSql(self::tableName(), $wpdb->get_charset_collate(), $ifNotExists);
     }
 
     /**
@@ -233,46 +257,29 @@ final class TemplateStore
      * Make sure the templates table exists, lazily.
      *
      * Called from the read and write paths — never from a page
-     * load that does not touch templates. The existence check
-     * runs at most once per request (static cache); when the
-     * table is missing it is created with one idempotent
-     * CREATE TABLE IF NOT EXISTS and the operation then
-     * proceeds, so no template is ever lost to a deleted table.
-     * No dbDelta, no error_log, no throw.
+     * load that does not touch templates. When the table is
+     * missing it is created with one idempotent CREATE TABLE IF
+     * NOT EXISTS and the operation then proceeds, so no template
+     * is ever lost to a deleted table. No dbDelta, no error_log,
+     * no throw.
      *
      * @return bool True when the table exists after this call.
      */
     public static function ensureTableExists(): bool
     {
-        global $wpdb;
-        $table = self::tableName();
-        if (array_key_exists($table, self::$tableExists)) {
-            return self::$tableExists[$table];
-        }
-        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
-            self::$tableExists[$table] = true;
-            return true;
-        }
-        $wpdb->query(self::createTableSql($table, $wpdb->get_charset_collate(), true));
-        self::$tableExists[$table] = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-        return self::$tableExists[$table];
+        return self::schema()->ensureForInsert();
     }
 
     /**
      * Upgrade the templates table schema when the version changed.
      *
-     * dbDelta is for schema upgrades ONLY, and runs at most once
-     * an hour: a version-check transient (1 hour) gates the check,
-     * the stored version option decides whether dbDelta runs at
-     * all, and a separate transient lock (60s) serialises
-     * concurrent upgrades — a request that finds the lock held
-     * skips instead of starting a second dbDelta. The lock is
-     * released in a `finally` block, so a throwing dbDelta can
-     * never leave it held. Admin-only: frontend requests never
-     * run this path. Pass $force to bypass the hourly check; the
-     * lock is still respected.
-     *
-     * Table creation itself never happens here: the lazy paths
+     * See `SchemaTable::ensureSchema()` for the gating: dbDelta
+     * runs at most once an hour behind the version-check
+     * transient, a separate transient lock (60s) serialises
+     * concurrent upgrades and is released in a `finally` block,
+     * and the path is admin-only. Pass $force to bypass the
+     * hourly check; the lock is still respected. Table creation
+     * itself never happens here: the lazy paths
      * (ensureTableExists()) create a missing table with CREATE
      * TABLE IF NOT EXISTS.
      *
@@ -281,36 +288,7 @@ final class TemplateStore
      */
     public static function ensureTable(bool $force = false): bool
     {
-        if (!is_admin() && !$force) {
-            return true;
-        }
-        if (!$force && get_transient(self::VERSION_CHECK_TRANSIENT) !== false) {
-            return true;
-        }
-        if ((int) get_option(self::DB_VERSION_OPTION, 0) === self::DB_VERSION) {
-            set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
-            return true;
-        }
-        if (get_transient(self::DELTA_LOCK_TRANSIENT) !== false) {
-            return true;
-        }
-        set_transient(self::DELTA_LOCK_TRANSIENT, time(), self::DELTA_LOCK_TTL);
-        $exists = false;
-        try {
-            global $wpdb;
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-            $table = self::tableName();
-            dbDelta(self::createTableSql($table, $wpdb->get_charset_collate()));
-            $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-            if ($exists) {
-                update_option(self::DB_VERSION_OPTION, self::DB_VERSION, false);
-                self::$tableExists[$table] = true;
-            }
-        } finally {
-            delete_transient(self::DELTA_LOCK_TRANSIENT);
-        }
-        set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
-        return $exists;
+        return self::schema()->ensureSchema($force);
     }
 
     /**
@@ -323,7 +301,7 @@ final class TemplateStore
      */
     public static function isInstalled(): bool
     {
-        return (int) get_option(self::DB_VERSION_OPTION, 0) === self::DB_VERSION;
+        return self::schema()->isCurrentVersion();
     }
 
     /**

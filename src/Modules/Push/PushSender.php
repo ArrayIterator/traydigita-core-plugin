@@ -4,18 +4,16 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Modules\Push;
 
 use TrayDigita\WP\Plugin\Core\Libs\GoogleServiceAccount;
+use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function __;
-use function absint;
 use function array_slice;
 use function current_time;
-use function dbDelta;
 use function delete_option;
 use function delete_transient;
 use function esc_url_raw;
 use function get_option;
 use function get_transient;
 use function hash;
-use function is_admin;
 use function is_array;
 use function is_string;
 use function is_wp_error;
@@ -28,7 +26,6 @@ use function sprintf;
 use function stripos;
 use function strlen;
 use function substr;
-use function time;
 use function trim;
 use function update_option;
 use function usleep;
@@ -363,10 +360,48 @@ final class PushSender
     /**
      * Whether the tokens table was verified present in this request.
      *
-     * Static cache for the lazy insert path: the existence check
-     * runs at most once per request, whatever the outcome.
+     * Shared table kernel for this class's table (see
+     * `Libs\SchemaTable`).
      */
-    private static ?bool $tableExists = null;
+    private static ?SchemaTable $schema = null;
+
+    /**
+     * Shared table kernel, built once from this class's constants.
+     *
+     * The constants above stay the single definition of the
+     * table's stored state (version option, check/lock transient
+     * names and TTLs); SchemaTable only executes the pattern.
+     *
+     * @return SchemaTable
+     */
+    private static function schema(): SchemaTable
+    {
+        if (self::$schema === null) {
+            self::$schema = new SchemaTable(
+                self::TABLE,
+                self::TABLE_VERSION,
+                self::TABLE_VERSION_OPTION,
+                self::VERSION_CHECK_TRANSIENT,
+                self::VERSION_CHECK_TTL,
+                self::DELTA_LOCK_TRANSIENT,
+                self::DELTA_LOCK_TTL,
+                self::schemaSql(...)
+            );
+        }
+        return self::$schema;
+    }
+
+    /**
+     * Table SQL for the shared kernel.
+     *
+     * @param bool $ifNotExists Add IF NOT EXISTS (lazy insert path).
+     * @return string
+     */
+    private static function schemaSql(bool $ifNotExists): string
+    {
+        global $wpdb;
+        return self::createTableSql($wpdb->prefix . self::TABLE, $wpdb->get_charset_collate(), $ifNotExists);
+    }
 
     /**
      * DDL for the subscriber-token table.
@@ -395,80 +430,38 @@ final class PushSender
      * Make sure the subscriber-token table exists, lazily.
      *
      * Called from the insert path (saveToken()) only — never from
-     * a page load. The existence check runs at most once per
-     * request (static cache); when the table is missing it is
-     * created with one idempotent CREATE TABLE IF NOT EXISTS and
-     * the insert then proceeds, so no token is ever lost to a
-     * deleted table. No dbDelta, no error_log, no throw.
+     * a page load. When the table is missing it is created with
+     * one idempotent CREATE TABLE IF NOT EXISTS and the insert
+     * then proceeds, so no token is ever lost to a deleted table.
+     * No dbDelta, no error_log, no throw.
      *
      * @return bool True when the table exists after this call.
      */
     public static function ensureTableExists(): bool
     {
-        if (self::$tableExists !== null) {
-            return self::$tableExists;
-        }
-        global $wpdb;
-        $table = $wpdb->prefix . self::TABLE;
-        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
-            self::$tableExists = true;
-            return true;
-        }
-        $wpdb->query(self::createTableSql($table, $wpdb->get_charset_collate(), true));
-        self::$tableExists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-        return self::$tableExists;
+        return self::schema()->ensureForInsert();
     }
 
     /**
      * Upgrade the subscriber-token table schema when the version changed.
      *
-     * dbDelta is for schema upgrades ONLY, and runs at most once
-     * an hour: a version-check transient (1 hour) gates the check,
-     * the stored version option decides whether dbDelta runs at
-     * all, and a separate transient lock (60s) serialises
-     * concurrent upgrades — a request that finds the lock held
-     * skips instead of starting a second dbDelta. The lock is
-     * released in a `finally` block, so a throwing dbDelta can
-     * never leave it held. Admin-only: frontend requests never
-     * run this path. Pass $force to bypass the hourly check (the
-     * Setup create-table button); the lock is still respected.
-     *
-     * Table creation itself never happens here: the lazy insert
-     * path (ensureTableExists(), called from saveToken()) creates
-     * a missing table with CREATE TABLE IF NOT EXISTS.
+     * See `SchemaTable::ensureSchema()` for the gating: dbDelta
+     * runs at most once an hour behind the version-check
+     * transient, a separate transient lock (60s) serialises
+     * concurrent upgrades and is released in a `finally` block,
+     * and the path is admin-only. Pass $force to bypass the
+     * hourly check (the Setup create-table button); the lock is
+     * still respected. Table creation itself never happens here:
+     * the lazy insert path (ensureTableExists(), called from
+     * saveToken()) creates a missing table with CREATE TABLE IF
+     * NOT EXISTS.
      *
      * @param bool $force Bypass the hourly version-check throttle.
      * @return void
      */
     public static function ensureTokensTable(bool $force = false): void
     {
-        if (!is_admin() && !$force) {
-            return;
-        }
-        if (!$force && get_transient(self::VERSION_CHECK_TRANSIENT) !== false) {
-            return;
-        }
-        if (absint(get_option(self::TABLE_VERSION_OPTION, 0)) === self::TABLE_VERSION) {
-            set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
-            return;
-        }
-        if (get_transient(self::DELTA_LOCK_TRANSIENT) !== false) {
-            return;
-        }
-        set_transient(self::DELTA_LOCK_TRANSIENT, time(), self::DELTA_LOCK_TTL);
-        try {
-            global $wpdb;
-            $table = $wpdb->prefix . self::TABLE;
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-            dbDelta(self::createTableSql($table, $wpdb->get_charset_collate()));
-            if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
-                update_option(self::TABLE_VERSION_OPTION, self::TABLE_VERSION, false);
-                self::$tableExists = true;
-            }
-        } finally {
-            delete_transient(self::DELTA_LOCK_TRANSIENT);
-        }
-        set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
+        self::schema()->ensureSchema($force);
     }
 
     /**

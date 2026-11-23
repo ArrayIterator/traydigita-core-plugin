@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\FormBuilder;
 
+use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function array_keys;
 use function array_map;
 use function current_time;
-use function dbDelta;
 use function fclose;
 use function fopen;
 use function fputcsv;
-use function get_option;
 use function implode;
 use function in_array;
 use function is_array;
@@ -19,7 +18,6 @@ use function json_decode;
 use function json_encode;
 use function rewind;
 use function stream_get_contents;
-use function update_option;
 
 /**
  * Form submission storage.
@@ -39,15 +37,18 @@ use function update_option;
  * and only then is the mail attempted (the result is recorded
  * in the `email_sent` column).
  *
- * Schema handling follows the dbDelta FINAL pattern:
+ * Schema handling follows the dbDelta FINAL pattern (see
+ * `Libs\SchemaTable`):
  * - The table is created lazily on the insert path
- *   (ensureTable()), so the first submission can never fail
- *   with "table does not exist".
+ *   (ensureTableForInsert(), ONE `CREATE TABLE IF NOT EXISTS`,
+ *   no dbDelta, no error_log, never throws), so the first
+ *   submission can never fail with "table does not exist".
  * - Schema upgrades are version-gated: SCHEMA_VERSION is
  *   compared with the `traydigita_contact_form_db_version`
  *   option, and ensureTable() (dbDelta) runs again when the
- *   stored version is older. Bump SCHEMA_VERSION when the
- *   $schema changes.
+ *   stored version is older — throttled by a 3600s check
+ *   transient, serialised by a 60s lock, admin-only. Bump
+ *   SCHEMA_VERSION when the schema changes.
  * - Retention is enforced by prune(): rows older than the
  *   configured retention days are deleted on insert and on the
  *   daily `traydigita_contact_form_prune` cron event. A
@@ -68,9 +69,34 @@ final class SubmissionStore
     public const string DB_VERSION_OPTION = 'traydigita_contact_form_db_version';
 
     /**
+     * Transient throttling the schema-upgrade check (1 hour).
+     */
+    public const string VERSION_CHECK_TRANSIENT = 'traydigita_contact_submissions_db_version_check';
+
+    /**
+     * How long the version-check throttle lives, in seconds.
+     */
+    public const int VERSION_CHECK_TTL = 3600;
+
+    /**
+     * Transient serialising concurrent schema upgrades.
+     */
+    public const string DELTA_LOCK_TRANSIENT = 'traydigita_db_delta_lock_contact_submissions';
+
+    /**
+     * How long the upgrade lock lives, in seconds.
+     */
+    public const int DELTA_LOCK_TTL = 60;
+
+    /**
      * Cron hook for the daily retention prune.
      */
     public const string PRUNE_CRON_HOOK = 'traydigita_contact_form_prune';
+
+    /**
+     * Shared table kernel for this class's table.
+     */
+    private static ?SchemaTable $schema = null;
 
     /**
      * Full table name.
@@ -85,24 +111,48 @@ final class SubmissionStore
     }
 
     /**
-     * Create or upgrade the table (dbDelta).
+     * Shared table kernel, built once from this class's constants.
      *
-     * Safe to call on every insert: dbDelta is a no-op when the
-     * schema already matches, and the version check keeps the
-     * call cheap (the option read is cached).
+     * The constants above stay the single definition of the
+     * table's stored state (version option, check/lock transient
+     * names and TTLs); SchemaTable only executes the pattern.
      *
-     * @return void
+     * @return SchemaTable
      */
-    public static function ensureTable(): void
+    private static function schema(): SchemaTable
     {
-        $installed = (int) get_option(self::DB_VERSION_OPTION, 0);
-        if ($installed >= self::SCHEMA_VERSION) {
-            return;
+        if (self::$schema === null) {
+            self::$schema = new SchemaTable(
+                'traydigita_contact_submissions',
+                self::SCHEMA_VERSION,
+                self::DB_VERSION_OPTION,
+                self::VERSION_CHECK_TRANSIENT,
+                self::VERSION_CHECK_TTL,
+                self::DELTA_LOCK_TRANSIENT,
+                self::DELTA_LOCK_TTL,
+                self::schemaSql(...)
+            );
         }
+        return self::$schema;
+    }
+
+    /**
+     * Table SQL for the shared kernel.
+     *
+     * The DDL is a FIXED string: only the table name (prefix +
+     * constant suffix) is interpolated, and no user input of any
+     * kind reaches it.
+     *
+     * @param bool $ifNotExists Add IF NOT EXISTS (lazy insert path).
+     * @return string
+     */
+    private static function schemaSql(bool $ifNotExists): string
+    {
         global $wpdb;
         $table = self::tableName();
         $charset = $wpdb->get_charset_collate();
-        $schema = "CREATE TABLE {$table} (
+        $guard = $ifNotExists ? 'IF NOT EXISTS ' : '';
+        return "CREATE TABLE {$guard}{$table} (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             form_id varchar(100) NOT NULL DEFAULT '',
             form_title varchar(200) NOT NULL DEFAULT '',
@@ -121,9 +171,42 @@ final class SubmissionStore
             KEY status (status),
             KEY created_at (created_at)
         ) {$charset};";
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta($schema);
-        update_option(self::DB_VERSION_OPTION, self::SCHEMA_VERSION, false);
+    }
+
+    /**
+     * Lazy table creation for the insert path.
+     *
+     * Creates the table with ONE `CREATE TABLE IF NOT EXISTS`
+     * when it is missing, then the caller inserts. Never dbDelta
+     * here, never error_log, never throws.
+     *
+     * @return bool True when the table exists after this call.
+     */
+    public static function ensureTableForInsert(): bool
+    {
+        return self::schema()->ensureForInsert();
+    }
+
+    /**
+     * Version-gated dbDelta upgrade path (admin-only).
+     *
+     * See `SchemaTable::ensureSchema()` for the gating: dbDelta
+     * runs at most once an hour behind the version-check
+     * transient, a separate transient lock (60s) serialises
+     * concurrent upgrades and is released in a `finally` block.
+     * Pass $force to bypass the hourly check (the lock is still
+     * respected). Table creation itself never happens here: the
+     * lazy insert path (ensureTableForInsert(), called from
+     * insert()) creates a missing table with CREATE TABLE IF NOT
+     * EXISTS.
+     *
+     * @param bool $force Bypass the hourly version-check throttle.
+     * @return bool True when the table exists with the current version,
+     *     or when the check was legitimately skipped.
+     */
+    public static function ensureTable(bool $force = false): bool
+    {
+        return self::schema()->ensureSchema($force);
     }
 
     /**
@@ -134,7 +217,7 @@ final class SubmissionStore
      */
     public static function insert(array $submission): int
     {
-        self::ensureTable();
+        self::ensureTableForInsert();
         global $wpdb;
         $fields = isset($submission['fields']) && is_array($submission['fields']) ? $submission['fields'] : [];
         $encoded = json_encode($fields);

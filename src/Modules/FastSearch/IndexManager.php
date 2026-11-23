@@ -37,6 +37,12 @@ use function wp_generate_password;
  * The "ready" flag (both FULLTEXT indexes installed) is cached
  * in an option so the frontend `posts_search` filter never has
  * to query information_schema on a search request.
+ *
+ * Deliberately NOT a `Libs\SchemaTable`: SchemaTable owns
+ * CREATE TABLE + dbDelta for a plugin-owned table, while this
+ * class adds indexes to WordPress core tables with chunked
+ * ALTER TABLE builds, one index per AJAX request — a different
+ * object with a different lifecycle.
  */
 final class IndexManager
 {

@@ -5,18 +5,15 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Agenda;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function __;
 use function absint;
 use function array_merge;
-use function dbDelta;
 use function delete_option;
 use function delete_transient;
 use function esc_url_raw;
-use function get_option;
 use function get_post;
-use function get_transient;
 use function implode;
-use function is_admin;
 use function is_array;
 use function is_string;
 use function max;
@@ -25,11 +22,8 @@ use function mb_substr;
 use function min;
 use function sanitize_text_field;
 use function sanitize_textarea_field;
-use function set_transient;
 use function sprintf;
-use function time;
 use function trim;
-use function update_option;
 use function wp_timezone;
 
 /**
@@ -38,7 +32,8 @@ use function wp_timezone;
  * Events live in their own custom table
  * `$wpdb->prefix . 'traydigita_agenda'` — never in `wp_posts` — so
  * the agenda is independent of the post workflow (no post statuses,
- * no revisions, no trash). The table is created lazily with
+ * no revisions, no trash). Table handling lives in the shared
+ * `SchemaTable` kernel: the table is created lazily with
  * CREATE TABLE IF NOT EXISTS on the first write (see
  * ensureTableExists()) and upgraded with dbDelta() only when the
  * schema version changes (see ensureTable()).
@@ -152,12 +147,47 @@ final class AgendaTable
     }
 
     /**
-     * Whether the agenda table was verified present in this request.
-     *
-     * Static cache for the lazy write path: the existence check
-     * runs at most once per request, whatever the outcome.
+     * Shared table kernel for this class's table.
      */
-    private static ?bool $tableExists = null;
+    private static ?SchemaTable $schema = null;
+
+    /**
+     * Shared table kernel, built once from this class's constants.
+     *
+     * The constants above stay the single definition of the
+     * table's stored state (version option, check/lock transient
+     * names and TTLs); SchemaTable only executes the pattern.
+     *
+     * @return SchemaTable
+     */
+    private static function schema(): SchemaTable
+    {
+        if (self::$schema === null) {
+            self::$schema = new SchemaTable(
+                self::TABLE_SUFFIX,
+                self::DB_VERSION,
+                self::DB_VERSION_OPTION,
+                self::VERSION_CHECK_TRANSIENT,
+                self::VERSION_CHECK_TTL,
+                self::DELTA_LOCK_TRANSIENT,
+                self::DELTA_LOCK_TTL,
+                self::schemaSql(...)
+            );
+        }
+        return self::$schema;
+    }
+
+    /**
+     * Table SQL for the shared kernel.
+     *
+     * @param bool $ifNotExists Add IF NOT EXISTS (lazy write path).
+     * @return string
+     */
+    private static function schemaSql(bool $ifNotExists): string
+    {
+        global $wpdb;
+        return self::createTableSql(self::tableName(), $wpdb->get_charset_collate(), $ifNotExists);
+    }
 
     /**
      * DDL for the agenda table.
@@ -201,85 +231,38 @@ final class AgendaTable
      * Make sure the agenda table exists, lazily.
      *
      * Called from the write path (insert/update/delete) only —
-     * never from a page load. The existence check runs at most
-     * once per request (static cache); when the table is missing
-     * it is created with one idempotent CREATE TABLE IF NOT
-     * EXISTS and the write then proceeds, so no event is ever
-     * lost to a deleted table. No dbDelta, no error_log, no throw.
+     * never from a page load. When the table is missing it is
+     * created with one idempotent CREATE TABLE IF NOT EXISTS
+     * and the write then proceeds, so no event is ever lost to
+     * a deleted table. No dbDelta, no error_log, no throw.
      *
      * @return bool True when the table exists after this call.
      */
     public static function ensureTableExists(): bool
     {
-        if (self::$tableExists !== null) {
-            return self::$tableExists;
-        }
-        global $wpdb;
-        $table = self::tableName();
-        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
-            self::$tableExists = true;
-            return true;
-        }
-        $wpdb->query(self::createTableSql($table, $wpdb->get_charset_collate(), true));
-        self::$tableExists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-        return self::$tableExists;
+        return self::schema()->ensureForInsert();
     }
 
     /**
      * Upgrade the agenda table schema when the version changed.
      *
-     * dbDelta is for schema upgrades ONLY, and runs at most once
-     * an hour: a version-check transient (1 hour) gates the check,
-     * the stored version option decides whether dbDelta runs at
-     * all, and a separate transient lock (60s) serialises
-     * concurrent upgrades — a request that finds the lock held
-     * skips instead of starting a second dbDelta. The lock is
-     * released in a `finally` block, so a throwing dbDelta can
-     * never leave it held. Admin-only: frontend requests never
-     * run this path. Pass $force to bypass the hourly check (the
-     * Setup create-table button); the lock is still respected.
-     *
-     * Table creation itself never happens here: the lazy write
-     * path (ensureTableExists(), called from insert/update/
-     * delete) creates a missing table with CREATE TABLE IF NOT
-     * EXISTS. This method still returns whether the table exists
-     * afterwards, so existing callers (settings page, AJAX save)
-     * keep working unchanged.
+     * See `SchemaTable::ensureSchema()` for the gating: dbDelta
+     * runs at most once an hour behind the version-check
+     * transient, a separate transient lock (60s) serialises
+     * concurrent upgrades and is released in a `finally` block,
+     * and the path is admin-only. Pass $force to bypass the
+     * hourly check (the Setup create-table button); the lock is
+     * still respected. Table creation itself never happens here:
+     * the lazy write path (ensureTableExists(), called from
+     * insert/update/delete) creates a missing table with
+     * CREATE TABLE IF NOT EXISTS.
      *
      * @param bool $force Bypass the hourly version-check throttle.
      * @return bool True when the table exists after this call.
      */
     public static function ensureTable(bool $force = false): bool
     {
-        if (!is_admin() && !$force) {
-            return true;
-        }
-        if (!$force && get_transient(self::VERSION_CHECK_TRANSIENT) !== false) {
-            return true;
-        }
-        if ((int) get_option(self::DB_VERSION_OPTION, 0) === self::DB_VERSION) {
-            set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
-            return true;
-        }
-        if (get_transient(self::DELTA_LOCK_TRANSIENT) !== false) {
-            return true;
-        }
-        set_transient(self::DELTA_LOCK_TRANSIENT, time(), self::DELTA_LOCK_TTL);
-        try {
-            global $wpdb;
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-            $table = self::tableName();
-            dbDelta(self::createTableSql($table, $wpdb->get_charset_collate()));
-            $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-            if ($exists) {
-                update_option(self::DB_VERSION_OPTION, self::DB_VERSION, false);
-                self::$tableExists = true;
-            }
-        } finally {
-            delete_transient(self::DELTA_LOCK_TRANSIENT);
-        }
-        set_transient(self::VERSION_CHECK_TRANSIENT, 1, self::VERSION_CHECK_TTL);
-        return $exists;
+        return self::schema()->ensureSchema($force);
     }
 
     /**
@@ -292,7 +275,7 @@ final class AgendaTable
      */
     public static function isInstalled(): bool
     {
-        return (int) get_option(self::DB_VERSION_OPTION, 0) === self::DB_VERSION;
+        return self::schema()->isCurrentVersion();
     }
 
     /**
@@ -744,6 +727,6 @@ final class AgendaTable
         $wpdb->query('DROP TABLE IF EXISTS ' . self::tableName());
         delete_option(self::DB_VERSION_OPTION);
         delete_transient(self::VERSION_CHECK_TRANSIENT);
-        self::$tableExists = null;
+        self::schema()->invalidate();
     }
 }

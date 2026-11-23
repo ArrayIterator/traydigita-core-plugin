@@ -6,6 +6,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\ActivityLog;
 use Throwable;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
+use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use WP_User;
 use function __;
 use function absint;
@@ -14,13 +15,10 @@ use function array_merge;
 use function array_slice;
 use function current_user_can;
 use function date_i18n;
-use function dbDelta;
-use function delete_transient;
 use function esc_html__;
 use function file_exists;
 use function get_current_user_id;
 use function get_option;
-use function get_transient;
 use function get_userdata;
 use function implode;
 use function is_admin;
@@ -33,7 +31,6 @@ use function mb_substr;
 use function min;
 use function sanitize_key;
 use function sanitize_text_field;
-use function set_transient;
 use function sprintf;
 use function str_contains;
 use function strtotime;
@@ -54,27 +51,15 @@ use function wp_unslash;
  * logging, no postmeta, no option blobs — one dedicated table,
  * capped rows, auto-prune, and a viewer with filters.
  *
- * Table handling (the theme-wide pattern, final form):
- * - INSERT PATH (lazy, Stack-style): record() checks table
- *   existence through the static-cached $tableExistsCache (at
- *   most one cheap `SHOW TABLES LIKE` per request, zero on
- *   later inserts). Table exists → insert. Table missing → run
- *   ONE `CREATE TABLE IF NOT EXISTS` (idempotent, silent) and
- *   then insert — no log loss. Never dbDelta on the insert
- *   path, never error_log, never throw: a log-write failure
- *   returns false and the action being logged carries on.
- * - UPGRADE PATH (dbDelta, admin-only): ensureSchema() runs
- *   dbDelta only when the stored version differs from
- *   TABLE_VERSION. The check is throttled by the transient
- *   `traydigita_db_check_activity_log` (TTL 3600 seconds / 1
- *   hour): a fresh transient returns immediately with no DB
- *   query at all. A concurrent dbDelta is prevented by the
- *   lock transient `traydigita_db_delta_lock_activity_log`
- *   (TTL 60 seconds): when the lock exists the upgrade is
- *   skipped, and the lock is always released in a `finally`
- *   block. The Setup create-table button calls
- *   ensureSchema(true) and bypasses the version transient
- *   (but still respects the lock).
+ * Table handling lives in the shared `SchemaTable` kernel
+ * (see `Libs\SchemaTable`): record() inserts through the lazy
+ * path — one `CREATE TABLE IF NOT EXISTS` when the table is
+ * missing, never dbDelta, never error_log, never throws, so a
+ * log-write failure returns false and the action being logged
+ * carries on — and ensureSchema() runs the version-gated
+ * dbDelta upgrade (admin-only, throttled, locked). The Setup
+ * create-table button calls ensureSchema(true) and bypasses
+ * the version transient (but still respects the lock).
  * - SURFACING: the Setup checklist item and this module's
  *   settings page both show the table status (exists /
  *   missing, row count), so a missing table is visible and
@@ -153,17 +138,9 @@ final class ActivityLogModule implements ModuleInterface
     public const int PER_PAGE = 20;
 
     /**
-     * Static cache of the table-existence check.
-     *
-     * Null until the first check in this request; afterwards
-     * record() reuses it, so at most one cheap `SHOW TABLES
-     * LIKE` runs per request. PHP statics reset per request
-     * automatically, so a dropped table is noticed again on
-     * the next request at the latest.
-     *
-     * @var bool|null
+     * Shared table kernel for this module's table.
      */
-    private static ?bool $tableExistsCache = null;
+    private static ?SchemaTable $schema = null;
 
     /**
      * Whether `boot()` has already registered the hooks.
@@ -366,6 +343,32 @@ final class ActivityLogModule implements ModuleInterface
     }
 
     /**
+     * Shared table kernel, built once from this module's constants.
+     *
+     * The constants above stay the single definition of the
+     * table's stored state (version option, check/lock transient
+     * names and TTLs); SchemaTable only executes the pattern.
+     *
+     * @return SchemaTable
+     */
+    private static function schema(): SchemaTable
+    {
+        if (self::$schema === null) {
+            self::$schema = new SchemaTable(
+                self::TABLE_SUFFIX,
+                self::TABLE_VERSION,
+                self::TABLE_VERSION_OPTION,
+                self::DB_CHECK_TRANSIENT,
+                self::DB_CHECK_TTL,
+                self::DB_DELTA_LOCK_TRANSIENT,
+                self::DB_DELTA_LOCK_TTL,
+                self::tableSql(...)
+            );
+        }
+        return self::$schema;
+    }
+
+    /**
      * CREATE TABLE statement for the log table.
      *
      * Indexes: `created_at` (date-range + ordering), `module`,
@@ -406,23 +409,15 @@ final class ActivityLogModule implements ModuleInterface
     /**
      * Whether the log table exists (static-cached per request).
      *
-     * At most one cheap `SHOW TABLES LIKE` per request; later
-     * calls reuse the cached result. Pass $refresh to re-check
-     * after a CREATE (the lazy path does this).
+     * Pass $refresh to re-check after a CREATE (the lazy path
+     * does this).
      *
      * @param bool $refresh Whether to ignore the static cache.
      * @return bool
      */
     public static function tableExists(bool $refresh = false): bool
     {
-        if (self::$tableExistsCache !== null && !$refresh) {
-            return self::$tableExistsCache;
-        }
-        global $wpdb;
-        $table = self::tableName();
-        $found = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table;
-        self::$tableExistsCache = $found;
-        return $found;
+        return self::schema()->exists($refresh);
     }
 
     /**
@@ -432,94 +427,40 @@ final class ActivityLogModule implements ModuleInterface
      */
     public static function tableVersion(): int
     {
-        return absint(get_option(self::TABLE_VERSION_OPTION, 0));
+        return self::schema()->storedVersion();
     }
 
     /**
      * Lazy table creation for the insert path (Stack pattern).
      *
      * Creates the table with ONE `CREATE TABLE IF NOT EXISTS`
-     * (cheap, idempotent, silent) when it is missing, then the
-     * caller inserts. Never dbDelta here, never error_log,
-     * never throws: any failure returns false and the caller
-     * skips the insert.
+     * when it is missing, then the caller inserts. Never
+     * dbDelta here, never error_log, never throws: any failure
+     * returns false and the caller skips the insert.
      *
      * @return bool True when the table exists after this call.
      */
     public static function ensureTableForInsert(): bool
     {
-        try {
-            if (self::tableExists()) {
-                return true;
-            }
-            global $wpdb;
-            $wpdb->query(self::tableSql(true));
-            $exists = self::tableExists(true);
-            if ($exists && self::tableVersion() === 0) {
-                update_option(self::TABLE_VERSION_OPTION, self::TABLE_VERSION, false);
-            }
-            return $exists;
-        } catch (Throwable) {
-            return false;
-        }
+        return self::schema()->ensureForInsert();
     }
 
     /**
      * Version-gated dbDelta upgrade path (admin-only).
      *
-     * Gating, in order:
-     * 1. Non-admin callers return immediately unless $force
-     *    (the Setup button) — dbDelta never runs on frontend
-     *    requests.
-     * 2. A fresh `traydigita_db_check_activity_log` transient
-     *    (TTL 3600s) returns immediately with no DB query.
-     * 3. Table present AND stored version current → set the
-     *    transient and return (no dbDelta).
-     * 4. Otherwise acquire the `traydigita_db_delta_lock_activity_log`
-     *    transient (TTL 60s); when it already exists a migration
-     *    is running elsewhere, so skip. dbDelta runs inside
-     *    try/finally so the lock is always released, even when
-     *    dbDelta throws.
+     * See `SchemaTable::ensureSchema()` for the gating: fresh
+     * check transient returns immediately, a held lock skips
+     * the upgrade, and the lock is always released in a
+     * `finally` block. The Setup button passes $force to bypass
+     * the version transient (the lock is still respected).
      *
      * @param bool $force Bypass the version transient (Setup button).
-     * @return bool True when the table exists with the current version.
+     * @return bool True when the table exists with the current version,
+     *     or when the check was legitimately skipped.
      */
     public static function ensureSchema(bool $force = false): bool
     {
-        try {
-            if (!$force && !is_admin()) {
-                return false;
-            }
-            if (!$force && get_transient(self::DB_CHECK_TRANSIENT) !== false) {
-                return true;
-            }
-            $exists = self::tableExists();
-            $version = self::tableVersion();
-            if ($exists && $version === self::TABLE_VERSION) {
-                set_transient(self::DB_CHECK_TRANSIENT, '1', self::DB_CHECK_TTL);
-                return true;
-            }
-            if (get_transient(self::DB_DELTA_LOCK_TRANSIENT) !== false) {
-                return false;
-            }
-            set_transient(self::DB_DELTA_LOCK_TRANSIENT, time(), self::DB_DELTA_LOCK_TTL);
-            try {
-                require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-                dbDelta(self::tableSql(false));
-                $exists = self::tableExists(true);
-                if ($exists) {
-                    update_option(self::TABLE_VERSION_OPTION, self::TABLE_VERSION, false);
-                }
-            } catch (Throwable) {
-                $exists = false;
-            } finally {
-                delete_transient(self::DB_DELTA_LOCK_TRANSIENT);
-            }
-            set_transient(self::DB_CHECK_TRANSIENT, '1', self::DB_CHECK_TTL);
-            return $exists;
-        } catch (Throwable) {
-            return false;
-        }
+        return self::schema()->ensureSchema($force);
     }
 
     /**
