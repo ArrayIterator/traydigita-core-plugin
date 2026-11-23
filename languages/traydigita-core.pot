@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 00:46+0700\n"
-"PO-Revision-Date: 2026-11-24 00:46+0700\n"
+"POT-Creation-Date: 2026-11-24 04:09+0700\n"
+"PO-Revision-Date: 2026-11-24 04:09+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr[0] ""
 msgid "%1$d passed · %2$d warnings · %3$d failed"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:59
+#: templates/admin/contact-submissions.php:60
 #. translators: 1: total submissions, 2: unread submissions.
 msgid "%1$d submissions (%2$d unread)."
 msgstr ""
@@ -73,7 +73,7 @@ msgstr ""
 msgid "%1$s: %2$d rows"
 msgstr ""
 
-#: templates/admin/modules/email.php:59
+#: templates/admin/modules/email.php:62
 #. translators: %d: number of blocks in the template.
 msgid "%d block"
 msgid_plural "%d blocks"
@@ -295,6 +295,10 @@ msgstr ""
 msgid "(deleted)"
 msgstr ""
 
+#: templates/admin/modules/form-builder.php:210
+msgid "(Draft)"
+msgstr ""
+
 #: src/Modules/Ads/AdsModule.php:1145
 #. translators: %d is the post id.
 msgid "(No title) #%d"
@@ -403,12 +407,12 @@ msgstr ""
 msgid "A bulk optimization is currently running."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2550
+#: src/Modules/MemberProfile/MemberProfile.php:324
 #. translators: %s: pending new email address.
 msgid "A change to %s is waiting for confirmation. Check your inbox for the confirmation email."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1509
+#: src/Modules/MemberArea/MemberDashboard.php:633
 msgid "A confirmation email was sent to your new address. Click the link in it to confirm the change."
 msgstr ""
 
@@ -432,8 +436,8 @@ msgstr ""
 msgid "A font file could not be downloaded."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1264
-msgid "A hidden section disappears from the sidebar and its URL redirects to Overview. Sections a user may not use (for example Write for non-contributors) are already hidden by capability and need no ticking here."
+#: src/Modules/MemberArea/MemberAreaModule.php:695
+msgid "A hidden section disappears from the sidebar and its URL redirects to Overview."
 msgstr ""
 
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:250
@@ -583,7 +587,7 @@ msgstr ""
 msgid "A token with the Zone → Cache Purge permission for this zone (create one under My Profile → API Tokens in the Cloudflare dashboard)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1106
+#: src/Modules/RoleAccess/RoleAccessModule.php:485
 msgid "A user holding both a dashboard role and a frontend-only role keeps dashboard access."
 msgstr ""
 
@@ -648,8 +652,8 @@ msgstr ""
 msgid "Accepted"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1079
 #: src/Modules/Maintenance/MaintenanceModule.php:331
+#: src/Modules/RoleAccess/RoleAccessModule.php:458
 #: templates/admin/modules/maintenance.php:260
 #: templates/admin/modules/maintenance.php:76
 msgid "Access"
@@ -683,16 +687,16 @@ msgstr ""
 #: src/Modules/Avatar/AvatarModule.php:400
 #: src/Modules/Redirects/RedirectsModule.php:374
 #: src/Modules/Redirects/RedirectsModule.php:440
-#: templates/admin/contact-submissions.php:184
+#: templates/admin/contact-submissions.php:185
 #: templates/admin/modules/activity-log.php:142
 #: templates/admin/modules/agenda.php:211
-#: templates/admin/modules/contact-form.php:61
 #: templates/admin/modules/db-tools.php:104
 #: templates/admin/modules/dynamic-sidebars.php:303
 #: templates/admin/modules/epaper.php:174
 #: templates/admin/modules/fonts.php:108
-#: templates/admin/modules/form-builder.php:188
-#: templates/admin/modules/form-builder.php:57
+#: templates/admin/modules/form-builder.php:202
+#: templates/admin/modules/form-builder.php:307
+#: templates/admin/modules/form-builder.php:63
 #: templates/admin/modules/role-editor.php:75
 msgid "Actions"
 msgstr ""
@@ -759,11 +763,11 @@ msgstr ""
 msgid "Ad code is stored exactly as pasted and may contain scripts."
 msgstr ""
 
-#: templates/admin/modules/email.php:96
+#: templates/admin/modules/email-builder.php:76
 msgid "Add a block"
 msgstr ""
 
-#: src/Bookmarks.php:112
+#: src/Bookmarks.php:121
 msgid "Add a note"
 msgstr ""
 
@@ -811,7 +815,7 @@ msgstr ""
 msgid "Add sidebar"
 msgstr ""
 
-#: templates/admin/modules/email.php:216
+#: templates/admin/modules/email.php:213
 msgid "Add subscriber"
 msgstr ""
 
@@ -850,7 +854,7 @@ msgstr ""
 msgid "Added: %s"
 msgstr ""
 
-#: templates/admin/hub-page.php:145
+#: templates/admin/hub-page.php:148
 msgid "Admin palette"
 msgstr ""
 
@@ -858,7 +862,7 @@ msgstr ""
 msgid "Admin UI to create and order series."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1036
+#: src/Admin/ModuleRegistry.php:1046
 msgid "Administration"
 msgstr ""
 
@@ -866,7 +870,8 @@ msgstr ""
 msgid "Administrator — protected"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1058
+#: src/Modules/RoleAccess/RoleAccessModule.php:194
+#: src/Modules/RoleAccess/RoleAccessModule.php:441
 msgid "Administrators are never affected."
 msgstr ""
 
@@ -976,11 +981,11 @@ msgstr ""
 msgid "AI suggestions are off. Switch them on above to generate meta titles and descriptions for a post."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1898
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2006
 #: src/Modules/Installer/InstallerModule.php:317
 #: src/Modules/Integrations/IntegrationsModule.php:395
-#: templates/admin/contact-submissions.php:150
+#: src/Modules/MemberArea/MemberDashboard.php:1001
+#: src/Modules/MemberArea/MemberDashboard.php:1109
+#: templates/admin/contact-submissions.php:151
 #: templates/admin/modules/agenda.php:178
 #: templates/admin/shell.php:121
 msgid "All"
@@ -995,7 +1000,7 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2327
+#: src/Modules/FrontendEditor/FrontendEditor.php:924
 msgid "All changes saved"
 msgstr ""
 
@@ -1012,7 +1017,7 @@ msgstr ""
 msgid "All events"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:141
+#: templates/admin/contact-submissions.php:142
 msgid "All forms"
 msgstr ""
 
@@ -1061,23 +1066,23 @@ msgstr ""
 msgid "Allow avatars by remote image URL"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1092
+#: src/Modules/RoleAccess/RoleAccessModule.php:471
 msgid "Allow dashboard access"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1252
+#: src/Modules/MemberProfile/MemberProfileModule.php:297
 msgid "Allow email change in the dashboard"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1150
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:502
 msgid "Allow links in article text"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1182
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:534
 msgid "Allowed blocks"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1222
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:574
 msgid "Allowed image types"
 msgstr ""
 
@@ -1147,7 +1152,7 @@ msgstr ""
 msgid "Analytics, Search Console, AdSense and PageSpeed Insights are owned by Site Kit."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1766
+#: src/Modules/MemberArea/MemberDashboard.php:869
 msgid "Announcements"
 msgstr ""
 
@@ -1231,7 +1236,7 @@ msgstr ""
 msgid "Articles only"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2595
+#: src/Modules/Bookmarks/BookmarksModule.php:311
 msgid "Articles you saved for later. Bookmarks live in this browser only — they do not sync to other devices."
 msgstr ""
 
@@ -1316,7 +1321,7 @@ msgstr ""
 msgid "Authenticator-app codes (TOTP)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2093
+#: src/Modules/MemberArea/MemberDashboard.php:1196
 #: templates/admin/modules/dynamic-sidebars.php:233
 #: templates/admin/shell.php:173
 msgid "Author"
@@ -1363,7 +1368,7 @@ msgstr ""
 msgid "Auto-Submitted + Precedence: bulk (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:35
+#: templates/admin/modules/form-builder.php:282
 msgid "Automatic (Turnstile first, then reCAPTCHA v3)"
 msgstr ""
 
@@ -1379,8 +1384,12 @@ msgstr ""
 msgid "Autosave and the post lock depend on it — without it, two editors could overwrite each other without warning and drafts would stop autosaving."
 msgstr ""
 
+#: src/Modules/Email/EmailAjax.php:237
+msgid "Autosave discarded."
+msgstr ""
+
 #: src/Modules/Avatar/AvatarModule.php:397
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2494
+#: src/Modules/MemberProfile/MemberProfile.php:268
 #: src/Modules/UserManager/UserManagerModule.php:578
 msgid "Avatar"
 msgstr ""
@@ -1415,6 +1424,10 @@ msgstr ""
 msgid "Avatar size (pixels)"
 msgstr ""
 
+#: src/Modules/MemberProfile/MemberProfileModule.php:155
+msgid "Avatar upload when the Avatar module is active."
+msgstr ""
+
 #: src/Modules/Avatar/AvatarStorage.php:629
 msgid "Avatar uploaded."
 msgstr ""
@@ -1427,7 +1440,7 @@ msgstr ""
 msgid "Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1227
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
 #: templates/admin/modules/image-optimizer.php:83
 msgid "AVIF"
 msgstr ""
@@ -1436,15 +1449,15 @@ msgstr ""
 msgid "AVIF compresses smaller but needs a newer image editor and is not supported by older browsers."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:118
+#: src/Modules/FrontendEditor/FeaturedUpload.php:117
 msgid "AVIF images are not supported on this server."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1234
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:586
 msgid "AVIF uploads are accepted when ticked, because this server’s image editor can handle AVIF."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1235
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
 msgid "AVIF uploads are refused even when ticked, because this server’s image editor cannot handle AVIF. Enable AVIF support in GD or Imagick to offer it."
 msgstr ""
 
@@ -1484,7 +1497,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:68
+#: templates/admin/contact-submissions.php:69
 msgid "Back to all submissions"
 msgstr ""
 
@@ -1494,7 +1507,7 @@ msgstr ""
 msgid "Back to log in"
 msgstr ""
 
-#: src/Admin/AdminMenu.php:784
+#: src/Admin/AdminMenu.php:826
 #: src/Modules/Ads/AdsModule.php:874
 #: templates/admin/shell.php:381
 msgid "Back to Modules"
@@ -1506,7 +1519,7 @@ msgstr ""
 msgid "Back to roles"
 msgstr ""
 
-#: src/Admin/AdminMenu.php:783
+#: src/Admin/AdminMenu.php:825
 msgid "Back to Settings"
 msgstr ""
 
@@ -1535,7 +1548,7 @@ msgstr ""
 msgid "Background image"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1168
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:520
 msgid "Background of the editor canvas."
 msgstr ""
 
@@ -1635,7 +1648,7 @@ msgstr ""
 msgid "Below the threshold the content is left untouched."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1207
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:559
 msgid "Between 1 and 10 MB. Larger files are refused with a clear error before anything is stored."
 msgstr ""
 
@@ -1643,7 +1656,7 @@ msgstr ""
 msgid "Between 30 and 365 days. After this period the banner is shown again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1216
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:568
 msgid "Between 600 and 4000 px. Images wider or taller than this are refused with a clear error; they are never silently downscaled."
 msgstr ""
 
@@ -1651,7 +1664,7 @@ msgstr ""
 msgid "Binance"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2509
+#: src/Modules/MemberProfile/MemberProfile.php:283
 msgid "Biography"
 msgstr ""
 
@@ -1671,16 +1684,17 @@ msgstr ""
 msgid "Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1144
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
 msgid "Block editor behaviour for the frontend dashboard."
 msgstr ""
 
+#: templates/admin/modules/email-builder.php:90
 #: templates/admin/modules/login.php:130
 #: templates/admin/modules/login.php:131
 msgid "Block settings"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:177
+#: templates/admin/modules/form-builder.php:191
 msgid "Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph."
 msgstr ""
 
@@ -1688,14 +1702,13 @@ msgstr ""
 msgid "Block-based page builder, same pattern as the Login Designer. An empty heading uses the maintenance title; an empty text block uses the maintenance message; the countdown reads the date from General. Image fields take a media library attachment ID (find it in Media → Library → the image → copy the ID from the URL)."
 msgstr ""
 
-#: templates/admin/modules/email.php:105
-#: templates/admin/modules/form-builder.php:187
+#: templates/admin/modules/form-builder.php:201
 #: templates/admin/modules/login.php:73
 #: templates/admin/modules/login.php:74
 msgid "Blocks"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1190
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:542
 msgid "Blocks the frontend editor offers."
 msgstr ""
 
@@ -1713,13 +1726,30 @@ msgstr ""
 msgid "Body text. Empty uses the maintenance message."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2593
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:707
+#: src/Modules/Bookmarks/BookmarksModule.php:253
+msgid "Bookmark settings saved."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:289
+#: src/Modules/Bookmarks/BookmarksModule.php:309
+#: src/Modules/Bookmarks/BookmarksModule.php:79
 msgid "Bookmarks"
 msgstr ""
 
-#: src/Bookmarks.php:150
+#: src/Bookmarks.php:162
 msgid "Bookmarks are not available in this browser."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:143
+msgid "Bookmarks is now a module of its own, with an enable/disable toggle."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:220
+msgid "Bookmarks live in the reader’s browser (IndexedDB database traydigita-bookmarks, version 1) — never in the WordPress database, never in user meta, never synced through REST. The article toggle, the bookmark list page and the member-area Bookmarks section all read the same store, so a bookmark saved on an article shows up in the member area on the same browser."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:126
+msgid "Bookmarks section in the member area."
 msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:457
@@ -1789,7 +1819,7 @@ msgstr ""
 msgid "Broadcast sent through AWeber."
 msgstr ""
 
-#: templates/admin/modules/email.php:46
+#: templates/admin/modules/email.php:49
 msgid "Build a template from blocks. The template marked as default wraps all WordPress notification emails."
 msgstr ""
 
@@ -1801,8 +1831,8 @@ msgstr ""
 msgid "Build job not found or expired."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:120
-msgid "Build reusable forms and email templates (field builder + email template builder) for the Contact Form, Newsletter and other modules."
+#: src/Modules/FormBuilder/FormBuilderModule.php:197
+msgid "Build reusable forms and email templates (field builder + email template builder) for contact forms, the Newsletter and other modules. Submissions are stored in their own table, with a CSV export and retention prune."
 msgstr ""
 
 #: templates/admin/modules/fast-search.php:53
@@ -1866,21 +1896,13 @@ msgstr ""
 msgid "Bulk-optimize the existing media library in small chunks."
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:455
+#: src/Modules/Email/TemplateBuilder.php:739
 #: src/Modules/Maintenance/MaintenanceDesigner.php:230
 msgid "Button"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:295
-msgid "Button blocks need both a label and a URL. Image blocks need an image URL. Leave the last empty row blank to ignore it."
-msgstr ""
-
 #: templates/admin/modules/login.php:236
 msgid "Button colour"
-msgstr ""
-
-#: templates/admin/modules/form-builder.php:244
-msgid "Button label"
 msgstr ""
 
 #: src/Modules/PrintArticle/PrintArticleModule.php:274
@@ -1888,16 +1910,12 @@ msgstr ""
 msgid "Button position"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:245
-msgid "Button URL"
-msgstr ""
-
 #: src/Modules/CookieConsent/CookieConsentModule.php:288
 #: templates/admin/modules/cookie-consent.php:88
 msgid "Buttons"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1160
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:512
 msgid "Buttons and the active state in the frontend editor."
 msgstr ""
 
@@ -1906,7 +1924,7 @@ msgstr ""
 msgid "Buyback: %s"
 msgstr ""
 
-#: templates/admin/hub-page.php:170
+#: templates/admin/hub-page.php:173
 #: templates/admin/shell.php:127
 #: templates/admin/shell.php:405
 #. translators: %s is the module author name.
@@ -2030,8 +2048,8 @@ msgstr ""
 msgid "Can be disabled entirely."
 msgstr ""
 
-#: src/Bookmarks.php:119
-#: src/Bookmarks.php:148
+#: src/Bookmarks.php:128
+#: src/Bookmarks.php:160
 #: src/Modules/Redirects/RedirectsModule.php:274
 #: src/Modules/Redirects/RedirectsModule.php:362
 #: src/Modules/TwoFactor/TwoFactorModule.php:2161
@@ -2079,8 +2097,8 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2094
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2340
+#: src/Modules/FrontendEditor/FrontendEditor.php:937
+#: src/Modules/MemberArea/MemberDashboard.php:1197
 #: templates/admin/modules/agenda.php:144
 #: templates/admin/modules/agenda.php:209
 #: templates/admin/modules/dynamic-sidebars.php:203
@@ -2146,12 +2164,20 @@ msgstr ""
 msgid "Change %"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2542
+#: src/Modules/MemberProfile/MemberProfile.php:316
 msgid "Change email"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:721
+#: src/Modules/MemberProfile/MemberProfileModule.php:382
 msgid "Change Email"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:292
+msgid "Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:154
+msgid "Change Email section, confirmed through WordPress core."
 msgstr ""
 
 #: src/MenuIcons/MenuIcons.php:676
@@ -2184,7 +2210,7 @@ msgstr ""
 msgid "Change weather location"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2520
+#: src/Modules/MemberProfile/MemberProfile.php:294
 msgid "Change your password and security settings on your WordPress profile page."
 msgstr ""
 
@@ -2538,7 +2564,7 @@ msgstr ""
 msgid "Comfortable or relaxed line spacing for article text, for readers who find tight lines hard to follow."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1271
+#: src/Modules/MemberArea/MemberAreaModule.php:702
 msgid "Comma-separated section ids, in display order."
 msgstr ""
 
@@ -2591,11 +2617,11 @@ msgstr ""
 msgid "Comments marked as spam, including their commentmeta."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1028
+#: src/Admin/ModuleRegistry.php:1038
 msgid "Communication"
 msgstr ""
 
-#: templates/admin/modules/email.php:167
+#: templates/admin/modules/email.php:164
 msgid "Compose and send"
 msgstr ""
 
@@ -2643,7 +2669,7 @@ msgstr ""
 msgid "Confirmation word"
 msgstr ""
 
-#: templates/admin/modules/email.php:238
+#: templates/admin/modules/email.php:235
 msgid "Confirmed"
 msgstr ""
 
@@ -2699,46 +2725,39 @@ msgstr ""
 msgid "Constant Contact — trial only, no free plan. Campaign provider: a mail is sent as an email campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for small businesses already running email marketing on Constant Contact."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:147
-msgid "Contact Form"
-msgstr ""
-
-#: src/Modules/ContactForm/ContactFormModule.php:668
+#: src/Modules/FormBuilder/FormBuilderModule.php:1296
 msgid "Contact form created."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:747
+#: src/Modules/FormBuilder/FormBuilderModule.php:1375
 msgid "Contact form deleted. Its submissions are kept."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:723
+#: src/Modules/FormBuilder/FormBuilderModule.php:1351
 msgid "Contact form saved."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:633
+#: src/Modules/FormBuilder/FormBuilderModule.php:1261
 msgid "Contact Form settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:44
+#: src/Modules/FormBuilder/FormBuilderModule.php:346
+#: templates/admin/modules/form-builder.php:290
 msgid "Contact forms"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:192
-msgid "Contact forms built with the Form Builder."
+#: src/Modules/FormBuilder/FormBuilderModule.php:239
+msgid "Contact forms with recipient, spam protection and notification mail."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:157
-msgid "Contact forms built with the Form Builder: submissions are stored in their own table, sent via the Core Mailer, and protected by Turnstile or reCAPTCHA."
-msgstr ""
-
-#: src/Modules/ContactForm/ContactFormModule.php:360
-#: src/Modules/ContactForm/ContactFormModule.php:361
-#: templates/admin/contact-submissions.php:53
+#: src/Modules/FormBuilder/FormBuilderModule.php:424
+#: src/Modules/FormBuilder/FormBuilderModule.php:425
+#: templates/admin/contact-submissions.php:54
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1004
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
+#: src/Admin/ModuleRegistry.php:1014
+#: src/Modules/FrontendEditor/FrontendEditor.php:920
 msgid "Content"
 msgstr ""
 
@@ -2760,24 +2779,16 @@ msgstr ""
 msgid "Contrast"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:350
-msgid "Contributor Frontend Editor"
-msgstr ""
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1420
-msgid "Contributor settings saved."
-msgstr ""
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1152
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:504
 msgid "Contributors can add links to their article text."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1199
-msgid "Contributors upload through a dedicated endpoint, not the Media Library: they never gain the upload_files capability and cannot open the Media Library. Replacing an image deletes the previous one only when it was uploaded through this endpoint; an image an editor set is detached, never deleted."
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:185
+msgid "Contributors cannot set editorial statuses."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1052
-msgid "Contributors write and submit articles from a frontend dashboard instead of wp-admin."
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:551
+msgid "Contributors upload through a dedicated endpoint, not the Media Library: they never gain the upload_files capability and cannot open the Media Library. Replacing an image deletes the previous one only when it was uploaded through this endpoint; an image an editor set is detached, never deleted."
 msgstr ""
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:187
@@ -2916,10 +2927,10 @@ msgstr ""
 msgid "Core"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1621
-#: src/Admin/ModuleRegistry.php:1658
-#: src/Admin/ModuleRegistry.php:953
-#: templates/admin/hub-page.php:78
+#: src/Admin/ModuleRegistry.php:1636
+#: src/Admin/ModuleRegistry.php:1673
+#: src/Admin/ModuleRegistry.php:963
+#: templates/admin/hub-page.php:81
 #: templates/admin/shell.php:433
 msgid "Core module"
 msgstr ""
@@ -2938,6 +2949,10 @@ msgstr ""
 
 #: templates/admin/shell.php:163
 msgid "Could not assign the module. Please try again."
+msgstr ""
+
+#: src/Modules/Email/EmailAjax.php:193
+msgid "Could not autosave the template."
 msgstr ""
 
 #: templates/admin/shell.php:106
@@ -3055,7 +3070,7 @@ msgstr ""
 msgid "Could not sign the Service Account JWT. Check the private_key."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:288
+#: src/Modules/Email/EmailAjax.php:368
 msgid "Could not start the download."
 msgstr ""
 
@@ -3244,7 +3259,7 @@ msgstr ""
 msgid "Create category"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:97
+#: templates/admin/modules/form-builder.php:347
 msgid "Create contact form"
 msgstr ""
 
@@ -3256,7 +3271,7 @@ msgstr ""
 msgid "Create custom widget areas."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:91
+#: templates/admin/modules/form-builder.php:97
 msgid "Create form"
 msgstr ""
 
@@ -3280,7 +3295,7 @@ msgstr ""
 msgid "Create series"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:221
+#: templates/admin/modules/form-builder.php:239
 msgid "Create template"
 msgstr ""
 
@@ -3367,7 +3382,6 @@ msgstr ""
 msgid "Current overrides for this post"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:430
 #: src/Modules/Seo/SeoModule.php:216
 msgid "Current version in TrayDigita Core."
 msgstr ""
@@ -3459,11 +3473,15 @@ msgstr ""
 msgid "Dashboard interval"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1637
+#: src/Modules/MemberArea/MemberDashboard.php:740
 msgid "Dashboard menu"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1246
+#: src/Modules/MemberArea/MemberAreaModule.php:684
+msgid "Dashboard sections"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:291
 msgid "Dashboard sections and email changes."
 msgstr ""
 
@@ -3476,11 +3494,11 @@ msgstr ""
 msgid "Database server: %1$s %2$s. InnoDB FULLTEXT support: %3$s."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2095
 #: src/Modules/FormBuilder/FormBuilder.php:129
+#: src/Modules/MemberArea/MemberDashboard.php:1198
 #: src/Widgets/WidgetBase.php:286
-#: templates/admin/contact-submissions.php:177
-#: templates/admin/contact-submissions.php:74
+#: templates/admin/contact-submissions.php:178
+#: templates/admin/contact-submissions.php:75
 #: templates/admin/modules/agenda.php:207
 #: templates/admin/modules/epaper.php:172
 msgid "Date"
@@ -3532,8 +3550,8 @@ msgstr ""
 
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:384
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:392
-#: templates/admin/modules/email.php:63
-#: templates/admin/modules/form-builder.php:117
+#: templates/admin/modules/email.php:66
+#: templates/admin/modules/form-builder.php:131
 msgid "Default"
 msgstr ""
 
@@ -3546,28 +3564,28 @@ msgstr ""
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:233
+#: templates/admin/modules/form-builder.php:483
 msgid "Default recipient email"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:355
+#: src/Modules/Email/EmailModule.php:356
 msgid "Default template cleared."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:174
-#: src/Modules/Email/EmailModule.php:360
+#: src/Modules/Email/EmailAjax.php:254
+#: src/Modules/Email/EmailModule.php:361
 msgid "Default template updated."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1177
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
 msgid "Defaults to slate #1e293b. It only affects the contributor dashboard editor, never the site theme."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1161
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
 msgid "Defaults to the Elegant Blue accent #2563eb. The colour only affects the contributor dashboard editor, never the site theme."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1169
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
 msgid "Defaults to white. Dark mode on the reader’s device switches the dashboard to its dark palette instead; this colour is the light-mode canvas."
 msgstr ""
 
@@ -3582,19 +3600,18 @@ msgstr ""
 #: src/Modules/Avatar/AvatarModule.php:424
 #: src/Modules/Redirects/RedirectsModule.php:271
 #: src/Modules/Redirects/RedirectsModule.php:393
-#: templates/admin/contact-submissions.php:133
-#: templates/admin/contact-submissions.php:207
+#: templates/admin/contact-submissions.php:134
+#: templates/admin/contact-submissions.php:208
 #: templates/admin/modules/activity-log.php:157
 #: templates/admin/modules/agenda.php:231
-#: templates/admin/modules/contact-form.php:81
 #: templates/admin/modules/dynamic-sidebars.php:327
-#: templates/admin/modules/email.php:79
+#: templates/admin/modules/email.php:87
 #: templates/admin/modules/epaper.php:197
 #: templates/admin/modules/fonts.php:140
-#: templates/admin/modules/form-builder.php:119
-#: templates/admin/modules/form-builder.php:205
-#: templates/admin/modules/form-builder.php:247
-#: templates/admin/modules/form-builder.php:75
+#: templates/admin/modules/form-builder.php:133
+#: templates/admin/modules/form-builder.php:223
+#: templates/admin/modules/form-builder.php:331
+#: templates/admin/modules/form-builder.php:81
 #: templates/admin/modules/role-editor.php:103
 #: templates/admin/shell.php:142
 msgid "Delete"
@@ -3612,7 +3629,7 @@ msgstr ""
 msgid "Delete config"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2163
+#: src/Modules/MemberArea/MemberDashboard.php:1266
 msgid "Delete permanently"
 msgstr ""
 
@@ -3724,7 +3741,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1008
+#: src/Admin/ModuleRegistry.php:1018
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3784,8 +3801,8 @@ msgstr ""
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1637
-#: src/Admin/ModuleRegistry.php:962
+#: src/Admin/ModuleRegistry.php:1652
+#: src/Admin/ModuleRegistry.php:972
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3818,6 +3835,10 @@ msgstr ""
 msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the \"Install App\" buttons entirely."
 msgstr ""
 
+#: src/Modules/Bookmarks/BookmarksModule.php:224
+msgid "Disabling this module removes the Bookmarks section from the member area and hides the save-for-later toggle on articles. Bookmarks already saved in a reader’s browser stay there until the reader clears them; they are not deleted by disabling the module."
+msgstr ""
+
 #: src/Modules/SiteInfo/SiteInfoModule.php:643
 msgid "DISALLOW_FILE_EDIT"
 msgstr ""
@@ -3836,6 +3857,10 @@ msgstr ""
 
 #: src/Modules/Security/Checks.php:175
 msgid "DISALLOW_FILE_MODS is set, but DISALLOW_FILE_EDIT is not."
+msgstr ""
+
+#: templates/admin/modules/email-builder.php:70
+msgid "Discard"
 msgstr ""
 
 #: templates/admin/modules/mailer.php:359
@@ -3858,7 +3883,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2499
+#: src/Modules/MemberProfile/MemberProfile.php:273
 #: templates/admin/modules/role-editor.php:249
 msgid "Display name"
 msgstr ""
@@ -3891,7 +3916,7 @@ msgstr ""
 msgid "Disqus shortname"
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:457
+#: src/Modules/Email/TemplateBuilder.php:741
 msgid "Divider"
 msgstr ""
 
@@ -3903,7 +3928,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: templates/admin/modules/email.php:133
+#: templates/admin/modules/email.php:130
 msgid "Double opt-in"
 msgstr ""
 
@@ -3938,12 +3963,13 @@ msgstr ""
 msgid "Downloading font…"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1901
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2007
+#: src/Modules/MemberArea/MemberDashboard.php:1004
+#: src/Modules/MemberArea/MemberDashboard.php:1110
+#: templates/admin/modules/email.php:69
 msgid "Draft"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1677
+#: src/Modules/MemberArea/MemberDashboard.php:780
 msgid "Drafts"
 msgstr ""
 
@@ -3989,7 +4015,7 @@ msgstr ""
 msgid "E-Paper settings saved."
 msgstr ""
 
-#: templates/admin/modules/email.php:93
+#: templates/admin/modules/email.php:99
 msgid "e.g. Newsletter default"
 msgstr ""
 
@@ -4005,7 +4031,7 @@ msgstr ""
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:46
+#: templates/admin/modules/form-builder.php:292
 msgid "Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on)."
 msgstr ""
 
@@ -4029,17 +4055,17 @@ msgstr ""
 msgid "Each visitor’s choices are remembered in their own browser."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2169
+#: src/Modules/MemberArea/MemberDashboard.php:1272
 #: src/Modules/PostSeries/PostSeriesModule.php:1075
 #: src/Modules/Redirects/RedirectsModule.php:270
 #: src/Modules/Redirects/RedirectsModule.php:390
 #: templates/admin/modules/agenda.php:230
-#: templates/admin/modules/contact-form.php:74
 #: templates/admin/modules/dynamic-sidebars.php:324
-#: templates/admin/modules/email.php:68
+#: templates/admin/modules/email.php:74
 #: templates/admin/modules/epaper.php:196
-#: templates/admin/modules/form-builder.php:198
-#: templates/admin/modules/form-builder.php:68
+#: templates/admin/modules/form-builder.php:216
+#: templates/admin/modules/form-builder.php:324
+#: templates/admin/modules/form-builder.php:74
 #: templates/admin/modules/role-editor.php:98
 msgid "Edit"
 msgstr ""
@@ -4049,11 +4075,11 @@ msgstr ""
 msgid "Edit capabilities: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:103
+#: templates/admin/modules/form-builder.php:353
 msgid "Edit contact form"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:227
+#: templates/admin/modules/form-builder.php:245
 msgid "Edit email template"
 msgstr ""
 
@@ -4061,15 +4087,15 @@ msgstr ""
 msgid "Edit event"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:97
+#: templates/admin/modules/form-builder.php:103
 msgid "Edit form"
 msgstr ""
 
-#: src/Bookmarks.php:146
+#: src/Bookmarks.php:158
 msgid "Edit note"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1717
+#: src/Modules/MemberArea/MemberDashboard.php:820
 msgid "Edit profile"
 msgstr ""
 
@@ -4081,20 +4107,40 @@ msgstr ""
 msgid "Edit sidebar"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1143
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
 msgid "Editor"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1158
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:510
 msgid "Editor accent colour"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1166
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:518
 msgid "Editor paper colour"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1174
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:526
 msgid "Editor text colour"
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:137
+msgid "Editorial Workflow"
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:278
+msgid "Editorial workflow for posts, in wp-admin."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:147
+msgid "Editorial workflow in wp-admin: needs-revision and rejected post statuses only editors may set, with a revision-note box telling the author what to fix."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:309
+msgid "Editorial workflow settings saved."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:279
+msgid "Editors send a post back with the needs-revision status and a note telling the author what to fix, or reject it outright. Contributors can never set these statuses themselves: any save that tries is forced back to the post’s current status (or draft for a new post). The statuses appear in the post list, in Quick Edit and Bulk Edit, and in the block editor."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/ElasticEmailProvider.php:48
@@ -4112,15 +4158,15 @@ msgstr ""
 #: src/Modules/Email/EmailModule.php:96
 #: src/Modules/FormBuilder/FormBuilder.php:121
 #: src/Modules/Share/ShareModule.php:309
-#: templates/admin/contact-submissions.php:180
-#: templates/admin/contact-submissions.php:82
-#: templates/admin/modules/email.php:224
+#: templates/admin/contact-submissions.php:181
+#: templates/admin/contact-submissions.php:83
+#: templates/admin/modules/email.php:221
 msgid "Email"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:383
+#: src/Modules/Email/EmailModule.php:384
 #: src/Modules/Maintenance/MaintenanceDesigner.php:1029
-#: templates/admin/modules/email.php:213
+#: templates/admin/modules/email.php:210
 #: templates/maintenance.php:296
 #: templates/maintenance.php:297
 msgid "Email address"
@@ -4130,15 +4176,15 @@ msgstr ""
 msgid "Email marketing and newsletters via the MailPoet plugin."
 msgstr ""
 
-#: templates/admin/modules/email.php:117
+#: templates/admin/modules/email-builder.php:123
 msgid "Email preview"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:183
+#: templates/admin/contact-submissions.php:184
 msgid "Email sent"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:305
+#: src/Modules/Email/EmailModule.php:306
 msgid "Email settings are unavailable."
 msgstr ""
 
@@ -4146,29 +4192,29 @@ msgstr ""
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:179
+#: templates/admin/modules/form-builder.php:429
 msgid "Email subject prefix"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:156
+#: src/Modules/FormBuilder/FormBuilderModule.php:238
 msgid "Email template builder."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:556
+#: src/Modules/FormBuilder/FormBuilderModule.php:742
 msgid "Email template created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:663
+#: src/Modules/FormBuilder/FormBuilderModule.php:876
 msgid "Email template deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:602
+#: src/Modules/FormBuilder/FormBuilderModule.php:788
 msgid "Email template saved."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:261
-#: templates/admin/modules/email.php:44
-#: templates/admin/modules/form-builder.php:175
+#: src/Modules/FormBuilder/FormBuilderModule.php:345
+#: templates/admin/modules/email.php:47
+#: templates/admin/modules/form-builder.php:189
 msgid "Email templates"
 msgstr ""
 
@@ -4234,8 +4280,8 @@ msgstr ""
 msgid "Enable the recommended security headers."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1633
-#: src/Admin/ModuleRegistry.php:959
+#: src/Admin/ModuleRegistry.php:1648
+#: src/Admin/ModuleRegistry.php:969
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
@@ -4308,15 +4354,15 @@ msgstr ""
 msgid "Enter a title for the issue."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:649
+#: src/Modules/FormBuilder/FormBuilderModule.php:1277
 msgid "Enter a title for the new contact form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:543
+#: src/Modules/FormBuilder/FormBuilderModule.php:729
 msgid "Enter a title for the new email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:435
+#: src/Modules/FormBuilder/FormBuilderModule.php:619
 msgid "Enter a title for the new form."
 msgstr ""
 
@@ -4630,6 +4676,10 @@ msgstr ""
 msgid "Everything below is read-only information about this installation."
 msgstr ""
 
+#: templates/admin/modules/email-builder.php:114
+msgid "Exact email preview"
+msgstr ""
+
 #: src/Modules/Ads/AdsModule.php:740
 #. translators: %s is a comma-separated list of category names.
 msgid "except in %s"
@@ -4640,7 +4690,7 @@ msgstr ""
 msgid "except when tagged %s"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2335
+#: src/Modules/FrontendEditor/FrontendEditor.php:932
 msgid "Excerpt"
 msgstr ""
 
@@ -4660,8 +4710,8 @@ msgstr ""
 msgid "Expired transients"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:168
-#: templates/admin/modules/email.php:209
+#: templates/admin/contact-submissions.php:169
+#: templates/admin/modules/email.php:206
 msgid "Export CSV"
 msgstr ""
 
@@ -4725,7 +4775,7 @@ msgstr ""
 #: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:871
 #: src/Modules/Turnstile/TurnstileModule.php:1021
-#: templates/admin/modules/email.php:278
+#: templates/admin/modules/email.php:275
 #: templates/admin/modules/fast-search.php:60
 #: templates/admin/modules/mailer.php:145
 #: templates/admin/modules/mailer.php:530
@@ -4770,8 +4820,8 @@ msgstr ""
 msgid "FCM token of the test device"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2380
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1197
+#: src/Modules/FrontendEditor/FrontendEditor.php:977
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
 msgid "Featured image"
 msgstr ""
 
@@ -4783,7 +4833,7 @@ msgstr ""
 msgid "Feedback-ID (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:160
+#: templates/admin/modules/form-builder.php:174
 msgid "Field IDs must start with a letter and contain only lowercase letters, digits and underscores. Choice fields (dropdown, radio, checkboxes) need at least one option. Leave the last empty row blank to ignore it."
 msgstr ""
 
@@ -4791,7 +4841,7 @@ msgstr ""
 msgid "Field label"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:55
+#: templates/admin/modules/form-builder.php:61
 msgid "Fields"
 msgstr ""
 
@@ -4819,7 +4869,7 @@ msgstr ""
 msgid "Files are stored under wp-content/traydigita-avatar/ and never in the media library."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:167
+#: templates/admin/contact-submissions.php:168
 #: templates/admin/modules/activity-log.php:126
 msgid "Filter"
 msgstr ""
@@ -4857,7 +4907,7 @@ msgstr ""
 msgid "Finish"
 msgstr ""
 
-#: templates/admin/modules/email.php:279
+#: templates/admin/modules/email.php:276
 msgid "Finished"
 msgstr ""
 
@@ -4996,11 +5046,11 @@ msgstr ""
 msgid "Font used for headings. The same setting is available in the Customizer."
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:458
+#: src/Modules/Email/TemplateBuilder.php:742
 msgid "Footer"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1272
+#: src/Modules/MemberArea/MemberAreaModule.php:703
 msgid "For example: overview,posts,contributions,write,bookmark,profile,change-email. Sections left out keep their registered order after the listed ones. Unknown ids are ignored."
 msgstr ""
 
@@ -5009,8 +5059,8 @@ msgstr ""
 msgid "Forest"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:139
-#: templates/admin/contact-submissions.php:178
+#: templates/admin/contact-submissions.php:140
+#: templates/admin/contact-submissions.php:179
 msgid "Form"
 msgstr ""
 
@@ -5018,28 +5068,28 @@ msgstr ""
 msgid "Form background colour"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:110
+#: src/Modules/FormBuilder/FormBuilderModule.php:187
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:126
-#: templates/admin/modules/contact-form.php:56
+#: templates/admin/modules/form-builder.php:302
+#: templates/admin/modules/form-builder.php:376
 msgid "Form Builder form"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:460
+#: src/Modules/FormBuilder/FormBuilderModule.php:645
 msgid "Form created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:524
+#: src/Modules/FormBuilder/FormBuilderModule.php:710
 msgid "Form deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:500
+#: src/Modules/FormBuilder/FormBuilderModule.php:686
 msgid "Form saved."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:54
+#: templates/admin/contact-submissions.php:55
 msgid "Form settings"
 msgstr ""
 
@@ -5060,14 +5110,13 @@ msgstr ""
 msgid "Format: Label|price|change|change_percent|buyback. Used when no API provider is configured."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:320
-#: src/Modules/FormBuilder/FormBuilderModule.php:260
-#: templates/admin/modules/form-builder.php:43
+#: src/Modules/FormBuilder/FormBuilderModule.php:344
+#: templates/admin/modules/form-builder.php:49
 msgid "Forms"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:45
-msgid "Forms built here can be used by the Contact Form module and rendered anywhere with the shortcode shown below. The Contact Form module owns its own submissions; the shortcode form below only validates and hands the values to the traydigita:core:form-builder/submitted action."
+#: templates/admin/modules/form-builder.php:51
+msgid "Forms built here can be used by the contact forms below and rendered anywhere with the shortcode shown below. A form stores its submissions in the submissions table when \"Store submissions\" is on for it; every submission is also handed to the traydigita:core:form-builder/submitted action."
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:959
@@ -5101,7 +5150,7 @@ msgid "Free public tier, no API key needed. Paid plans exist, but the theme uses
 msgstr ""
 
 #: src/Modules/Mailer/MailerModule.php:1721
-#: templates/admin/contact-submissions.php:156
+#: templates/admin/contact-submissions.php:157
 #: templates/admin/modules/activity-log.php:114
 #: templates/admin/modules/mailer.php:367
 #: templates/admin/modules/mailer.php:368
@@ -5149,24 +5198,36 @@ msgstr ""
 msgid "From the Zoho CPaaS dashboard (Mail Agents → API). The From address must be a verified sender. Zoho CPaaS is transactional-only."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:406
-msgid "Frontend dashboard for contributors — no wp-admin needed."
+#: src/Modules/MemberArea/MemberAreaModule.php:196
+msgid "Frontend dashboard for every logged-in user: Overview, Posts and My Contributions in one shell, plus sections other modules plug in (Write, Bookmarks, Profile, Change Email). The configured member page becomes the dashboard; sections are manageable from the settings."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:189
+msgid "Frontend Editor"
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:673
+msgid "Frontend editor settings saved."
 msgstr ""
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:319
 msgid "Frontend interval"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1093
+#: src/Modules/RoleAccess/RoleAccessModule.php:472
 msgid "Frontend only"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1104
+#: src/Modules/RoleAccess/RoleAccessModule.php:483
 msgid "Frontend only hides the admin bar and redirects wp-admin to the member area."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1125
-msgid "Frontend-only users are redirected here when they open wp-admin."
+#: src/Modules/RoleAccess/RoleAccessModule.php:193
+msgid "Frontend-only users are redirected from wp-admin to the member area."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:192
+msgid "Frontend-only users lose the admin bar."
 msgstr ""
 
 #: src/Modules/Installer/PluginList.php:311
@@ -5277,7 +5338,7 @@ msgstr ""
 msgid "Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail."
 msgstr ""
 
-#: templates/admin/hub-page.php:136
+#: templates/admin/hub-page.php:139
 msgid "Go to Modules"
 msgstr ""
 
@@ -5478,7 +5539,11 @@ msgstr ""
 msgid "Guard against duplicate analytics tracking."
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:453
+#: src/Modules/Bookmarks/BookmarksModule.php:128
+msgid "Guests can bookmark exactly like members."
+msgstr ""
+
+#: src/Modules/Email/TemplateBuilder.php:737
 #: templates/admin/modules/headers.php:49
 msgid "Header"
 msgstr ""
@@ -5510,7 +5575,7 @@ msgstr ""
 msgid "Headers this module will send"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1185
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
 #: src/Modules/Maintenance/MaintenanceDesigner.php:227
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:363
 #: src/Modules/Share/ShareModule.php:346
@@ -5562,13 +5627,21 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1260
+#: src/Modules/MemberArea/MemberAreaModule.php:691
 msgid "Hidden sections"
 msgstr ""
 
 #: src/Modules/Toc/TocModule.php:690
 #: src/Modules/Toc/TocModule.php:691
 msgid "Hide"
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:236
+msgid "Hide and reorder sections from the settings."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:685
+msgid "Hide and reorder the dashboard sections."
 msgstr ""
 
 #: templates/admin/shell.php:111
@@ -5629,7 +5702,7 @@ msgstr ""
 msgid "Home URL"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1118
+#: src/Modules/MemberArea/MemberAreaModule.php:663
 msgid "Homepage"
 msgstr ""
 
@@ -5752,9 +5825,9 @@ msgstr ""
 msgid "ICS export for events."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:113
-#: templates/admin/modules/form-builder.php:186
-#: templates/admin/modules/form-builder.php:54
+#: templates/admin/modules/form-builder.php:127
+#: templates/admin/modules/form-builder.php:200
+#: templates/admin/modules/form-builder.php:60
 msgid "ID"
 msgstr ""
 
@@ -5775,7 +5848,7 @@ msgstr ""
 msgid "If you enable Security Headers later, it takes over the overlapping headers automatically and this module defers to it."
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:456
+#: src/Modules/Email/TemplateBuilder.php:740
 #: src/Modules/Installer/InstallerModule.php:638
 #: templates/admin/modules/login.php:190
 #: templates/admin/modules/maintenance.php:146
@@ -5804,7 +5877,6 @@ msgid "Image Optimizer settings saved."
 msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:339
-#: templates/admin/modules/form-builder.php:246
 msgid "Image URL"
 msgstr ""
 
@@ -5854,9 +5926,9 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1678
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1900
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2008
+#: src/Modules/MemberArea/MemberDashboard.php:1003
+#: src/Modules/MemberArea/MemberDashboard.php:1111
+#: src/Modules/MemberArea/MemberDashboard.php:781
 msgid "In Review"
 msgstr ""
 
@@ -5954,7 +6026,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:918
+#: src/Admin/ModuleRegistry.php:928
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -5964,7 +6036,6 @@ msgstr ""
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:223
 #: src/Modules/Cache/CacheModule.php:228
 #: src/Modules/Comments/CommentsModule.php:211
-#: src/Modules/ContactForm/ContactFormModule.php:215
 #: src/Modules/CookieConsent/CookieConsentModule.php:202
 #: src/Modules/Core/MenuIconsModule.php:150
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:206
@@ -5974,7 +6045,7 @@ msgstr ""
 #: src/Modules/Email/EmailModule.php:163
 #: src/Modules/FastSearch/FastSearchModule.php:165
 #: src/Modules/Fonts/FontsModule.php:224
-#: src/Modules/FormBuilder/FormBuilderModule.php:177
+#: src/Modules/FormBuilder/FormBuilderModule.php:261
 #: src/Modules/Headers/HeadersModule.php:265
 #: src/Modules/Heartbeat/HeartbeatModule.php:210
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:177
@@ -6106,7 +6177,7 @@ msgstr ""
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1032
+#: src/Admin/ModuleRegistry.php:1042
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr ""
@@ -6115,7 +6186,7 @@ msgstr ""
 msgid "Integrations has no settings to save. This page is read-only status."
 msgstr ""
 
-#: templates/admin/modules/email.php:184
+#: templates/admin/modules/email.php:181
 msgid "Intro text (optional)"
 msgstr ""
 
@@ -6123,7 +6194,7 @@ msgstr ""
 msgid "Invalid response from the reCAPTCHA verification service."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:102
+#: templates/admin/contact-submissions.php:103
 msgid "IP address"
 msgstr ""
 
@@ -6213,7 +6284,7 @@ msgstr ""
 msgid "Its FULLTEXT indexes (%s) were carried over by InnoDB."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1224
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
 msgid "JPEG"
 msgstr ""
 
@@ -6237,7 +6308,7 @@ msgstr ""
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:224
+#: templates/admin/modules/form-builder.php:474
 msgid "Keep submissions (days)"
 msgstr ""
 
@@ -6270,7 +6341,7 @@ msgid "Klaviyo — free 500 profiles. Campaign provider: a mail is sent as a cam
 msgstr ""
 
 #: src/Modules/Ads/AdsModule.php:1198
-#: templates/admin/modules/form-builder.php:114
+#: templates/admin/modules/form-builder.php:128
 #: templates/admin/modules/login.php:259
 #: templates/admin/modules/maintenance.php:206
 #: templates/admin/modules/maintenance.php:224
@@ -6285,7 +6356,7 @@ msgstr ""
 msgid "Large tables can take a while per index; the page stays responsive and shows progress. WP-CLI (`wp td-search install`) is the faster route on very large sites."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1206
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:558
 msgid "Largest featured image a contributor may upload."
 msgstr ""
 
@@ -6394,7 +6465,7 @@ msgstr ""
 msgid "Leave empty to use the default banner text colour."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:138
+#: templates/admin/modules/form-builder.php:388
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6420,10 +6491,6 @@ msgstr ""
 
 #: templates/admin/modules/role-editor.php:255
 msgid "Leave this off unless the new role really is an administrator role."
-msgstr ""
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:364
-msgid "Let contributors write and submit articles from a frontend dashboard instead of wp-admin: a simple block editor, a scoped featured-image upload, and custom needs-revision / rejected statuses editors set from wp-admin. Per-role access modes (dashboard or frontend-only), with the admin bar hidden and wp-admin redirected to the member area for frontend-only users. Administrators are never affected."
 msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:279
@@ -6524,7 +6591,7 @@ msgstr ""
 msgid "Links to your own subscription page."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1186
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:538
 msgid "List"
 msgstr ""
 
@@ -6565,7 +6632,6 @@ msgstr ""
 #: src/Modules/Ads/AdsModule.php:866
 #: src/Widgets/WidgetBase.php:633
 #: templates/admin/modules/cookie-consent.php:208
-#: templates/admin/modules/email.php:116
 #: templates/admin/modules/login.php:139
 #: templates/admin/modules/login.php:140
 msgid "Live preview"
@@ -6591,8 +6657,8 @@ msgstr ""
 msgid "Loading weather…"
 msgstr ""
 
-#: src/Bookmarks.php:141
 #: src/Bookmarks.php:153
+#: src/Bookmarks.php:165
 msgid "Loading your bookmarks…"
 msgstr ""
 
@@ -6638,7 +6704,7 @@ msgid "Lockout duration in minutes"
 msgstr ""
 
 #: src/Modules/ActivityLog/ActivityLogModule.php:932
-#: templates/admin/modules/email.php:37
+#: templates/admin/modules/email.php:40
 msgid "Log"
 msgstr ""
 
@@ -6654,7 +6720,7 @@ msgstr ""
 msgid "Log In"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1652
+#: src/Modules/MemberArea/MemberDashboard.php:755
 #: templates/admin/shell.php:245
 msgid "Log out"
 msgstr ""
@@ -6724,7 +6790,7 @@ msgstr ""
 msgid "Long-running SEO plugin with titles, sitemaps and schema for a news site. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1215
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
 msgid "Longest side, in pixels, of an uploaded featured image."
 msgstr ""
 
@@ -6852,7 +6918,7 @@ msgstr ""
 msgid "MailPoet is not installed — install it to use it for email marketing and newsletters."
 msgstr ""
 
-#: templates/admin/modules/email.php:190
+#: templates/admin/modules/email.php:187
 msgid "Mails are sent in batches of 25 to confirmed subscribers only."
 msgstr ""
 
@@ -6913,7 +6979,7 @@ msgstr ""
 msgid "Manage module categories"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:218
+#: templates/admin/modules/form-builder.php:468
 msgid "Manage reCAPTCHA keys"
 msgstr ""
 
@@ -6958,19 +7024,19 @@ msgstr ""
 msgid "Manual snapshots"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:131
+#: templates/admin/contact-submissions.php:132
 msgid "Mark as read"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:131
+#: templates/admin/contact-submissions.php:132
 msgid "Mark as unread"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:204
+#: templates/admin/contact-submissions.php:205
 msgid "Mark read"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:204
+#: templates/admin/contact-submissions.php:205
 msgid "Mark unread"
 msgstr ""
 
@@ -7006,7 +7072,7 @@ msgstr ""
 msgid "Maximum ads per page"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1213
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:565
 msgid "Maximum dimension (px)"
 msgstr ""
 
@@ -7014,7 +7080,7 @@ msgstr ""
 msgid "Maximum entries kept"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1204
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:556
 msgid "Maximum file size (MB)"
 msgstr ""
 
@@ -7026,17 +7092,44 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1636
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1644
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1245
+#: src/Modules/MemberArea/MemberAreaModule.php:186
+msgid "Member Area"
+msgstr ""
+
+#: src/Modules/MemberArea/MemberDashboard.php:739
+#: src/Modules/MemberArea/MemberDashboard.php:747
 msgid "Member area"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1112
+#: src/Modules/MemberArea/MemberAreaModule.php:657
 msgid "Member area page"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1254
+#: src/Modules/MemberArea/MemberAreaModule.php:779
+msgid "Member area settings saved."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:233
+msgid "Member dashboard shell for every logged-in user."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:106
+msgid "Member Profile"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:290
+msgid "Member profile"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:334
+msgid "Member profile settings saved."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:280
+msgid "Members edit their own display name, website, bio and avatar from the Profile section. Password changes stay on the wp-admin profile page."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:299
 msgid "Members may change their own email from the dashboard."
 msgstr ""
 
@@ -7132,7 +7225,7 @@ msgstr ""
 msgid "Missing reCAPTCHA token or secret key."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:257
+#: src/Modules/Email/EmailAjax.php:337
 msgid "Missing send job."
 msgstr ""
 
@@ -7145,12 +7238,17 @@ msgstr ""
 msgid "Missing static files (stylesheets, scripts, images, fonts) are never logged, and the log keeps at most 200 paths."
 msgstr ""
 
+#: src/Modules/Email/EmailAjax.php:212
+#: src/Modules/Email/EmailAjax.php:234
+msgid "Missing template."
+msgstr ""
+
 #: templates/admin/modules/fonts.php:47
 msgid "Mixed"
 msgstr ""
 
 #: src/Admin/AdminPointerTour.php:125
-#: templates/admin/hub-page.php:150
+#: templates/admin/hub-page.php:153
 msgid "Mobile bottom navigation"
 msgstr ""
 
@@ -7201,10 +7299,10 @@ msgstr ""
 msgid "Module settings live in the Settings hub, not in a long menu. Each active module links to its own settings page from there."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:321
-#: src/Admin/AdminMenu.php:322
-#: src/Admin/AdminMenu.php:492
-#: src/Admin/AdminMenu.php:613
+#: src/Admin/AdminMenu.php:363
+#: src/Admin/AdminMenu.php:364
+#: src/Admin/AdminMenu.php:534
+#: src/Admin/AdminMenu.php:655
 msgid "Modules"
 msgstr ""
 
@@ -7216,7 +7314,7 @@ msgstr ""
 msgid "Modules: enable what you need"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1024
+#: src/Admin/ModuleRegistry.php:1034
 msgid "Monetization"
 msgstr ""
 
@@ -7259,9 +7357,9 @@ msgstr ""
 msgid "Must be a valid email address. Leave empty to use the WordPress default sender. Gmail always sends from the connected account, whatever is entered here."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1715
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2286
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:693
+#: src/Modules/FrontendEditor/FrontendEditor.php:883
+#: src/Modules/MemberArea/MemberAreaModule.php:428
+#: src/Modules/MemberArea/MemberDashboard.php:818
 msgid "My Contributions"
 msgstr ""
 
@@ -7273,16 +7371,16 @@ msgstr ""
 msgid "MySQL version"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:389
-#: src/Modules/FormBuilder/FormBuilderModule.php:448
-#: templates/admin/contact-submissions.php:179
-#: templates/admin/contact-submissions.php:78
+#: src/Modules/Email/EmailModule.php:390
+#: src/Modules/FormBuilder/FormBuilderModule.php:632
+#: templates/admin/contact-submissions.php:180
+#: templates/admin/contact-submissions.php:79
 #: templates/admin/modules/dynamic-sidebars.php:133
-#: templates/admin/modules/email.php:225
+#: templates/admin/modules/email.php:222
 msgid "Name"
 msgstr ""
 
-#: templates/admin/modules/email.php:215
+#: templates/admin/modules/email.php:212
 msgid "Name (optional)"
 msgstr ""
 
@@ -7307,27 +7405,27 @@ msgstr ""
 msgid "Needs a service-account JSON below. Only while no SEO plugin is active."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1679
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1902
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2009
+#: src/Modules/MemberArea/MemberDashboard.php:1005
+#: src/Modules/MemberArea/MemberDashboard.php:1112
+#: src/Modules/MemberArea/MemberDashboard.php:782
 msgid "Needs Revision"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1489
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:351
 msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 
-#: src/Admin/ModuleRegistry.php:1629
-#: src/Admin/ModuleRegistry.php:956
+#: src/Admin/ModuleRegistry.php:1644
+#: src/Admin/ModuleRegistry.php:966
 #: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
 msgid "Needs setup"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:409
-msgid "Needs-revision and rejected statuses set by editors."
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:184
+msgid "Needs-revision and rejected post statuses."
 msgstr ""
 
 #: src/Modules/Security/Checks.php:194
@@ -7357,20 +7455,20 @@ msgstr ""
 msgid "New backup codes generated. The old codes no longer work."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:206
+#: src/Modules/FormBuilder/ContactFormAjax.php:230
 #. translators: %s: contact form title.
 msgid "New contact form submission: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:94
+#: templates/admin/modules/form-builder.php:344
 msgid "New contact form title"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2561
+#: src/Modules/MemberProfile/MemberProfile.php:335
 msgid "New email address"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:88
+#: templates/admin/modules/form-builder.php:94
 msgid "New form title"
 msgstr ""
 
@@ -7386,11 +7484,11 @@ msgstr ""
 msgid "New series name"
 msgstr ""
 
-#: templates/admin/modules/email.php:112
+#: templates/admin/modules/email-builder.php:109
 msgid "New template"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:218
+#: templates/admin/modules/form-builder.php:236
 msgid "New template title"
 msgstr ""
 
@@ -7406,8 +7504,8 @@ msgstr ""
 msgid "NewsArticle JSON-LD on single posts: headline, publish and modification dates, author, publisher with logo, and the featured image."
 msgstr ""
 
-#: templates/admin/modules/email.php:123
-#: templates/admin/modules/email.php:34
+#: templates/admin/modules/email.php:120
+#: templates/admin/modules/email.php:37
 msgid "Newsletter"
 msgstr ""
 
@@ -7419,7 +7517,7 @@ msgstr ""
 msgid "Newsletter sending to confirmed subscribers."
 msgstr ""
 
-#: templates/admin/modules/email.php:128
+#: templates/admin/modules/email.php:125
 msgid "Newsletter settings"
 msgstr ""
 
@@ -7431,12 +7529,12 @@ msgstr ""
 msgid "Newsletter signup"
 msgstr ""
 
-#: templates/admin/modules/email.php:159
+#: templates/admin/modules/email.php:156
 msgid "Newsletters are sent through the Core Mailer provider and appear in the Mailer send log."
 msgstr ""
 
 #: src/Admin/AdminPointerTour.php:309
-#: templates/admin/contact-submissions.php:228
+#: templates/admin/contact-submissions.php:229
 #: templates/admin/modules/activity-log.php:176
 #: templates/admin/shell.php:130
 #: templates/widgets/weather.php:71
@@ -7464,8 +7562,8 @@ msgstr ""
 msgid "Next location"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1955
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2066
+#: src/Modules/MemberArea/MemberDashboard.php:1058
+#: src/Modules/MemberArea/MemberDashboard.php:1169
 msgid "Next page"
 msgstr ""
 
@@ -7478,8 +7576,8 @@ msgid "Nginx"
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
-#: templates/admin/contact-submissions.php:196
-#: templates/admin/contact-submissions.php:99
+#: templates/admin/contact-submissions.php:100
+#: templates/admin/contact-submissions.php:197
 msgid "No"
 msgstr ""
 
@@ -7507,7 +7605,7 @@ msgstr ""
 msgid "No action needed."
 msgstr ""
 
-#: templates/admin/hub-page.php:132
+#: templates/admin/hub-page.php:135
 msgid "No active module has settings yet. Enable a module on the Modules page first."
 msgstr ""
 
@@ -7519,7 +7617,7 @@ msgstr ""
 msgid "No ads were placed on this post with the current rules."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1770
+#: src/Modules/MemberArea/MemberDashboard.php:873
 msgid "No announcements."
 msgstr ""
 
@@ -7531,8 +7629,8 @@ msgstr ""
 msgid "No articles found."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1933
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2044
+#: src/Modules/MemberArea/MemberDashboard.php:1036
+#: src/Modules/MemberArea/MemberDashboard.php:1147
 msgid "No articles here yet."
 msgstr ""
 
@@ -7548,12 +7646,12 @@ msgstr ""
 msgid "No avatar file was uploaded."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:208
-#: src/Modules/Email/EmailAjax.php:215
+#: src/Modules/Email/EmailAjax.php:288
+#: src/Modules/Email/EmailAjax.php:295
 msgid "No blocks to preview."
 msgstr ""
 
-#: templates/admin/modules/email.php:107
+#: templates/admin/modules/email-builder.php:48
 msgid "No blocks yet. Add one from the palette above."
 msgstr ""
 
@@ -7579,7 +7677,7 @@ msgstr ""
 msgid "No capability changes for this role."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:50
+#: templates/admin/modules/form-builder.php:296
 msgid "No contact forms yet. Create the first one below."
 msgstr ""
 
@@ -7620,7 +7718,7 @@ msgstr ""
 msgid "No editable roles are available."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:180
+#: templates/admin/modules/form-builder.php:194
 msgid "No email templates yet. Create the first one below."
 msgstr ""
 
@@ -7657,7 +7755,7 @@ msgstr ""
 msgid "No fonts installed yet. Download a Google Font below, or upload your own font files."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:48
+#: templates/admin/modules/form-builder.php:54
 msgid "No forms yet. Create the first one below."
 msgstr ""
 
@@ -7707,7 +7805,7 @@ msgstr ""
 msgid "No modules match your search."
 msgstr ""
 
-#: templates/admin/modules/email.php:271
+#: templates/admin/modules/email.php:268
 msgid "No newsletters sent yet."
 msgstr ""
 
@@ -7715,7 +7813,7 @@ msgstr ""
 msgid "No notifications sent yet."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1750
+#: src/Modules/MemberArea/MemberDashboard.php:853
 msgid "No notifications yet. Status changes on your articles will appear here."
 msgstr ""
 
@@ -7805,11 +7903,11 @@ msgstr ""
 msgid "No series yet. Create the first one below, or from the Series screen."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:172
+#: templates/admin/contact-submissions.php:173
 msgid "No submissions match the filters."
 msgstr ""
 
-#: templates/admin/modules/email.php:219
+#: templates/admin/modules/email.php:216
 msgid "No subscribers yet."
 msgstr ""
 
@@ -7817,7 +7915,11 @@ msgstr ""
 msgid "No tables found for this site."
 msgstr ""
 
-#: templates/admin/modules/email.php:51
+#: src/Modules/Email/EmailAjax.php:189
+msgid "No template to autosave."
+msgstr ""
+
+#: templates/admin/modules/email.php:54
 msgid "No templates yet. Build your first template below."
 msgstr ""
 
@@ -7853,9 +7955,9 @@ msgid "No WordPress AI provider is available: WordPress ships the AI Client API 
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:743
-#: templates/admin/modules/contact-form.php:39
 #: templates/admin/modules/db-tools.php:118
 #: templates/admin/modules/db-tools.php:63
+#: templates/admin/modules/form-builder.php:286
 #: templates/admin/modules/mailer.php:216
 #: templates/admin/modules/mailer.php:56
 msgid "None"
@@ -7881,8 +7983,8 @@ msgstr ""
 msgid "Not applicable"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1617
-#: src/Admin/ModuleRegistry.php:950
+#: src/Admin/ModuleRegistry.php:1632
+#: src/Admin/ModuleRegistry.php:960
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr ""
@@ -7949,7 +8051,7 @@ msgstr ""
 msgid "Not supported"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:422
+#: src/Modules/Email/EmailAjax.php:502
 msgid "Not unsubscribed"
 msgstr ""
 
@@ -7962,7 +8064,7 @@ msgstr ""
 msgid "Not yet processed: %d"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1689
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:551
 msgid "Note shown to the author when the post needs revision."
 msgstr ""
 
@@ -7983,15 +8085,15 @@ msgstr ""
 msgid "Nothing to apply: the title or description is empty."
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:362
+#: src/Modules/Email/EmailModule.php:363
 msgid "Nothing to save."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:98
+#: templates/admin/contact-submissions.php:99
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:170
+#: templates/admin/modules/form-builder.php:420
 msgid "Notification email template"
 msgstr ""
 
@@ -7999,7 +8101,7 @@ msgstr ""
 msgid "Notification permission was denied. Enable it from the lock icon in the address bar if you change your mind."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1746
+#: src/Modules/MemberArea/MemberDashboard.php:849
 msgid "Notifications"
 msgstr ""
 
@@ -8297,7 +8399,7 @@ msgstr ""
 msgid "OPcache status, object-cache and transient flushing."
 msgstr ""
 
-#: templates/admin/hub-page.php:190
+#: templates/admin/hub-page.php:193
 #: templates/admin/shell.php:126
 msgid "Open"
 msgstr ""
@@ -8457,7 +8559,7 @@ msgstr ""
 msgid "Optional instant indexing."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/form-builder.php:431
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8473,7 +8575,7 @@ msgstr ""
 msgid "Optional. Save a Cloudflare API token and the zone ID below to enable purge-everything for this site’s Cloudflare zone."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:118
+#: templates/admin/modules/form-builder.php:132
 msgid "Options (one per box, choice fields only)"
 msgstr ""
 
@@ -8542,13 +8644,17 @@ msgstr ""
 msgid "Overrides saved for this post."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:679
+#: src/Modules/MemberArea/MemberAreaModule.php:414
 msgid "Overview"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1947
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2058
-#: templates/admin/contact-submissions.php:222
+#: src/Modules/MemberArea/MemberAreaModule.php:234
+msgid "Overview, Posts and My Contributions sections."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberDashboard.php:1050
+#: src/Modules/MemberArea/MemberDashboard.php:1161
+#: templates/admin/contact-submissions.php:223
 #: templates/epaper/archive.php:51
 #. translators: %1$d is the current page, %2$d is the total number of pages.
 #. translators: 1: current page, 2: total pages.
@@ -8599,7 +8705,7 @@ msgstr ""
 msgid "Pages use their ancestor chain: Home / Parent page / Current page."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1184
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:536
 msgid "Paragraph"
 msgstr ""
 
@@ -8810,7 +8916,7 @@ msgstr ""
 
 #: src/Admin/SetupPage.php:152
 #: src/Admin/SetupPage.php:711
-#: templates/admin/modules/email.php:240
+#: templates/admin/modules/email.php:237
 msgid "Pending"
 msgstr ""
 
@@ -8822,15 +8928,23 @@ msgstr ""
 msgid "Per-path exceptions"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:410
-msgid "Per-role access modes; administrators are never affected."
+#: src/Modules/RoleAccess/RoleAccessModule.php:436
+msgid "Per-role access modes for the frontend."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:154
+msgid "Per-role access modes: dashboard access or frontend-only. Frontend-only users get no admin bar and any wp-admin page redirects them to the member area. Administrators are never affected."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:191
+msgid "Per-role access modes: dashboard or frontend-only."
 msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:443
 msgid "Per-role enforcement and rate limiting."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1016
+#: src/Admin/ModuleRegistry.php:1026
 msgid "Performance"
 msgstr ""
 
@@ -8908,8 +9022,8 @@ msgstr ""
 msgid "Pick a provider and enter its details below. Until then, WordPress keeps sending mail with its default mailer."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1054
-msgid "Pick an access mode per role below. Frontend-only users get no admin bar, and any wp-admin page they open redirects them to the member area. The member page is the dashboard: Overview, Posts, My Contributions, Write, Bookmarks, Profile and Change Email in one shell."
+#: src/Modules/RoleAccess/RoleAccessModule.php:437
+msgid "Pick an access mode per role below. Frontend-only users get no admin bar, and any wp-admin page they open redirects them to the member area."
 msgstr ""
 
 #: src/Admin/AdminPointerTour.php:118
@@ -8949,11 +9063,11 @@ msgstr ""
 msgid "Place the table-of-contents partial (or call TocModule::render()) where the list belongs."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1067
+#: src/Modules/MemberArea/MemberAreaModule.php:649
 msgid "Place this shortcode on the member page to show the dashboard:"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:116
+#: templates/admin/modules/form-builder.php:130
 msgid "Placeholder"
 msgstr ""
 
@@ -8973,7 +9087,7 @@ msgstr ""
 msgid "Play auto-scroll"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:284
+#: src/Modules/MemberArea/MemberDashboard.php:156
 #. translators: %s: login URL.
 msgid "Please <a href=\"%s\">log in</a> to use the member area."
 msgstr ""
@@ -8984,8 +9098,8 @@ msgstr ""
 msgid "Please check the following fields: %s."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:90
-#: src/Modules/FormBuilder/FormBuilderModule.php:770
+#: src/Modules/FormBuilder/ContactFormAjax.php:94
+#: src/Modules/FormBuilder/FormBuilderModule.php:985
 msgid "Please check the form and try again."
 msgstr ""
 
@@ -9002,9 +9116,9 @@ msgstr ""
 msgid "Please choose a post to preview."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:269
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:85
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:96
+#: src/Modules/FrontendEditor/FeaturedUpload.php:268
+#: src/Modules/FrontendEditor/FeaturedUpload.php:84
+#: src/Modules/FrontendEditor/FeaturedUpload.php:95
 msgid "Please choose an image file."
 msgstr ""
 
@@ -9018,13 +9132,13 @@ msgstr ""
 msgid "Please enable JavaScript to view the comments powered by Disqus."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1483
+#: src/Modules/MemberArea/MemberDashboard.php:607
 msgid "Please enter a title."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1488
 #: src/Modules/Email/Newsletter.php:266
 #: src/Modules/Email/Newsletter.php:411
+#: src/Modules/MemberArea/MemberDashboard.php:612
 msgid "Please enter a valid email address."
 msgstr ""
 
@@ -9106,7 +9220,7 @@ msgstr ""
 msgid "Plunk — free 1,000 emails/month, then $0.001 per email. Best for simple transactional mail with a generous pay-as-you-go price after the free tier."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1225
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:577
 msgid "PNG"
 msgstr ""
 
@@ -9142,7 +9256,7 @@ msgstr ""
 msgid "Post #%1$d (%2$s)"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1613
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:475
 #. translators: %d: post id.
 msgid "Post #%d"
 msgstr ""
@@ -9201,7 +9315,7 @@ msgstr ""
 msgid "Postmeta rows whose post no longer exists."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:686
+#: src/Modules/MemberArea/MemberAreaModule.php:421
 #: src/Modules/RoleEditor/RoleEditorModule.php:410
 msgid "Posts"
 msgstr ""
@@ -9226,7 +9340,7 @@ msgstr ""
 msgid "Posts without any image show no thumbnail."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:157
+#: src/Modules/FormBuilder/FormBuilderModule.php:241
 msgid "Powers the Contact Form, Newsletter, and other modules."
 msgstr ""
 
@@ -9243,12 +9357,10 @@ msgstr ""
 msgid "Prevents a plain-text file from being treated as JavaScript, for example."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2176
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2191
 #: src/Modules/Maintenance/MaintenanceModule.php:332
-#: templates/admin/modules/email.php:110
-#: templates/admin/modules/form-builder.php:164
-#: templates/admin/modules/form-builder.php:299
+#: src/Modules/MemberArea/MemberDashboard.php:1279
+#: src/Modules/MemberArea/MemberDashboard.php:1294
+#: templates/admin/modules/form-builder.php:178
 #: templates/admin/modules/maintenance.php:349
 #: templates/admin/modules/maintenance.php:350
 #: templates/admin/modules/maintenance.php:79
@@ -9275,7 +9387,7 @@ msgstr ""
 msgid "Preview with current rules"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:217
+#: templates/admin/contact-submissions.php:218
 #: templates/admin/modules/activity-log.php:173
 #: templates/admin/shell.php:129
 #: templates/widgets/weather.php:67
@@ -9298,8 +9410,8 @@ msgstr ""
 msgid "Previous location"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1943
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2054
+#: src/Modules/MemberArea/MemberDashboard.php:1046
+#: src/Modules/MemberArea/MemberDashboard.php:1157
 msgid "Previous page"
 msgstr ""
 
@@ -9360,7 +9472,7 @@ msgstr ""
 msgid "Print this article button on single posts."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:122
+#: templates/admin/contact-submissions.php:123
 msgid "Print view"
 msgstr ""
 
@@ -9407,10 +9519,22 @@ msgstr ""
 msgid "Production manifest missing. Run the asset build to regenerate it."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2482
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:714
+#: src/Modules/MemberProfile/MemberProfile.php:256
+#: src/Modules/MemberProfile/MemberProfileModule.php:375
 #: templates/admin/shell.php:235
 msgid "Profile"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:279
+msgid "Profile and email change for members in the dashboard."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:116
+msgid "Profile and email change for members, as sections of the member dashboard: display name, website, bio and avatar, plus an optional email change confirmed through WordPress core."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:153
+msgid "Profile section in the member dashboard."
 msgstr ""
 
 #: src/Modules/Paywall/PaywallModule.php:324
@@ -9431,10 +9555,6 @@ msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:1074
 msgid "Protect the newsletter subscribe form"
-msgstr ""
-
-#: src/Modules/ContactForm/ContactFormModule.php:195
-msgid "Protected by Turnstile or reCAPTCHA."
 msgstr ""
 
 #: src/Modules/UserManager/UserManagerModule.php:395
@@ -9472,7 +9592,7 @@ msgstr ""
 msgid "Public market data, no API key. Prices are USDT pairs, so the display currency is always USDT — never USD or IDR. There is no Pro tier for public market data."
 msgstr ""
 
-#: templates/admin/modules/email.php:260
+#: templates/admin/modules/email.php:257
 msgid "Public subscribe form: visitors confirm via a double opt-in email."
 msgstr ""
 
@@ -9484,9 +9604,9 @@ msgstr ""
 msgid "Publish the newspaper as PDF issues: upload verified PDFs with a cover image, browse them in a dated archive, and read each issue in the browser with prev/next navigation."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1680
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1899
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2010
+#: src/Modules/MemberArea/MemberDashboard.php:1002
+#: src/Modules/MemberArea/MemberDashboard.php:1113
+#: src/Modules/MemberArea/MemberDashboard.php:783
 msgid "Published"
 msgstr ""
 
@@ -9571,8 +9691,8 @@ msgstr ""
 msgid "Push notifications split out of the PWA module into their own module (settings, tokens, and sending unchanged)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1126
-msgid "Put the editor shortcode on this page. The page becomes the member dashboard (Overview, Posts, My Contributions, Write, Bookmarks, Profile, Change Email) for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
+#: src/Modules/MemberArea/MemberAreaModule.php:670
+msgid "Put the dashboard shortcode on this page."
 msgstr ""
 
 #: src/Modules/Push/PushModule.php:601
@@ -9611,7 +9731,7 @@ msgstr ""
 msgid "Quick role changes."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1187
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
 msgid "Quote"
 msgstr ""
 
@@ -9647,7 +9767,7 @@ msgstr ""
 msgid "Re-check statuses"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:152
+#: templates/admin/contact-submissions.php:153
 msgid "Read"
 msgstr ""
 
@@ -9688,6 +9808,14 @@ msgstr ""
 msgid "Read-only status of the Google Site Kit plugin."
 msgstr ""
 
+#: src/Modules/Bookmarks/BookmarksModule.php:89
+msgid "Reader bookmarks stored in the browser only (IndexedDB): a save-for-later toggle on articles, a bookmark list page, and a Bookmarks section in the member area. Nothing is stored on the server."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:219
+msgid "Reader bookmarks, stored in the browser only."
+msgstr ""
+
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:151
 msgid "Reading Progress"
 msgstr ""
@@ -9716,19 +9844,19 @@ msgstr ""
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:201
+#: templates/admin/modules/form-builder.php:451
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:216
+#: templates/admin/modules/form-builder.php:466
 msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:214
+#: templates/admin/modules/form-builder.php:464
 msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:199
+#: templates/admin/modules/form-builder.php:449
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
@@ -9740,11 +9868,11 @@ msgstr ""
 msgid "reCAPTCHA settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:37
+#: templates/admin/modules/form-builder.php:284
 msgid "reCAPTCHA v2 (checkbox)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:38
+#: templates/admin/modules/form-builder.php:285
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
@@ -9770,15 +9898,15 @@ msgstr ""
 msgid "Recent sends"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:57
+#: templates/admin/modules/form-builder.php:303
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:136
+#: templates/admin/modules/form-builder.php:386
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1658
+#: src/Admin/ModuleRegistry.php:1673
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr ""
@@ -9894,13 +10022,13 @@ msgstr ""
 msgid "Registered image sizes"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1681
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1903
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2011
+#: src/Modules/MemberArea/MemberDashboard.php:1006
+#: src/Modules/MemberArea/MemberDashboard.php:1114
+#: src/Modules/MemberArea/MemberDashboard.php:784
 msgid "Rejected"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1502
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:364
 msgid "Rejected <span class=\"count\">(%s)</span>"
 msgid_plural "Rejected <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -9938,11 +10066,11 @@ msgstr ""
 msgid "Remote URLs are always verified as real images before they are saved."
 msgstr ""
 
-#: src/Bookmarks.php:149
+#: src/Bookmarks.php:161
 #: src/Modules/TwoFactor/TwoFactorModule.php:2121
 #: src/Modules/TwoFactor/TwoFactorModule.php:2213
 #: src/Modules/TwoFactor/TwoFactorModule.php:2252
-#: templates/admin/modules/email.php:249
+#: templates/admin/modules/email.php:246
 #: templates/admin/modules/headers.php:231
 #: templates/admin/modules/headers.php:248
 msgid "Remove"
@@ -9983,7 +10111,7 @@ msgstr ""
 msgid "Remove icon"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2404
+#: src/Modules/FrontendEditor/FrontendEditor.php:1001
 #: templates/admin/modules/login.php:167
 #: templates/admin/modules/login.php:206
 msgid "Remove image"
@@ -10009,7 +10137,7 @@ msgstr ""
 msgid "Remove the authenticator app from this account? You will no longer be asked for a code at login."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2407
+#: src/Modules/FrontendEditor/FrontendEditor.php:1004
 msgid "Remove the featured image?"
 msgstr ""
 
@@ -10048,11 +10176,15 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
+#: templates/admin/modules/email-builder.php:117
+msgid "Rendered by the same code that sends the email, refreshed as you type."
+msgstr ""
+
 #: src/Modules/Redirects/RedirectsModule.php:496
 msgid "Replace all existing rules with the imported ones"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2403
+#: src/Modules/FrontendEditor/FrontendEditor.php:1000
 msgid "Replace image"
 msgstr ""
 
@@ -10065,7 +10197,7 @@ msgstr ""
 msgid "Replaces Gravatar wherever WordPress shows an avatar."
 msgstr ""
 
-#: templates/admin/hub-page.php:155
+#: templates/admin/hub-page.php:158
 msgid "Replay tour"
 msgstr ""
 
@@ -10091,7 +10223,7 @@ msgstr ""
 
 #: src/Modules/Installer/InstallerModule.php:460
 #: src/Modules/Installer/InstallerModule.php:633
-#: templates/admin/modules/form-builder.php:115
+#: templates/admin/modules/form-builder.php:129
 msgid "Required"
 msgstr ""
 
@@ -10135,7 +10267,8 @@ msgstr ""
 msgid "Reset to defaults"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2156
+#: src/Modules/MemberArea/MemberDashboard.php:1259
+#: templates/admin/modules/email-builder.php:66
 msgid "Restore"
 msgstr ""
 
@@ -10158,16 +10291,20 @@ msgstr ""
 msgid "Retention"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:155
+#: src/Modules/FormBuilder/FormBuilderModule.php:237
 msgid "Reusable form builder with fields."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1704
+#: src/Modules/MemberArea/MemberDashboard.php:807
 msgid "Review queue"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1664
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:526
 msgid "Revision note for the author"
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:186
+msgid "Revision note shown to the author."
 msgstr ""
 
 #: src/Admin/SetupPage.php:261
@@ -10182,7 +10319,7 @@ msgstr ""
 msgid "Rewrite rules were flushed, but the Agenda or E-Paper rules are still missing. Check that both modules are enabled."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1078
+#: src/Modules/RoleAccess/RoleAccessModule.php:457
 #: templates/admin/modules/role-editor.php:121
 #: templates/admin/modules/role-editor.php:71
 msgid "Role"
@@ -10196,6 +10333,14 @@ msgstr ""
 #: src/Modules/RoleEditor/RoleEditorModule.php:740
 #. translators: %s is the deleted role slug.
 msgid "Role %s deleted."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:144
+msgid "Role Access"
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:549
+msgid "Role access settings saved."
 msgstr ""
 
 #: src/Modules/RoleEditor/RoleEditorModule.php:732
@@ -10283,6 +10428,10 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: templates/admin/modules/email-builder.php:103
+msgid "Save & publish"
+msgstr ""
+
 #: src/Admin/Settings/SettingsControls.php:702
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:263
 #: src/Modules/Ads/AdsModule.php:862
@@ -10291,11 +10440,13 @@ msgstr ""
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:363
 #: src/Modules/Cache/CacheModule.php:971
 #: src/Modules/Comments/CommentsModule.php:531
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1280
 #: src/Modules/Core/MenuIconsModule.php:293
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:329
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
 #: src/Modules/Heartbeat/HeartbeatModule.php:338
 #: src/Modules/Installer/InstallerModule.php:559
+#: src/Modules/MemberArea/MemberAreaModule.php:711
+#: src/Modules/MemberProfile/MemberProfileModule.php:307
 #: src/Modules/Paywall/PaywallModule.php:333
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
@@ -10303,6 +10454,7 @@ msgstr ""
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
+#: src/Modules/RoleAccess/RoleAccessModule.php:500
 #: src/Modules/Seo/SeoModule.php:895
 #: src/Modules/Share/ShareModule.php:355
 #: src/Modules/Toc/TocModule.php:366
@@ -10310,7 +10462,6 @@ msgstr ""
 #: src/Modules/UserManager/UserManagerModule.php:384
 #: templates/admin/modules/agenda.php:115
 #: templates/admin/modules/dynamic-sidebars.php:279
-#: templates/admin/modules/email.php:111
 #: templates/admin/modules/epaper.php:224
 #: templates/admin/modules/login.php:66
 #: templates/admin/modules/role-editor.php:208
@@ -10323,22 +10474,23 @@ msgstr ""
 msgid "Save config"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1630
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2357
+#: src/Modules/FrontendEditor/FrontendEditor.php:954
+#: src/Modules/MemberArea/MemberDashboard.php:733
+#: templates/admin/modules/email-builder.php:99
 msgid "Save draft"
 msgstr ""
 
-#: src/Bookmarks.php:104
-#: src/Bookmarks.php:108
+#: src/Bookmarks.php:113
+#: src/Bookmarks.php:117
 msgid "Save for later"
 msgstr ""
 
-#: src/Bookmarks.php:117
-#: src/Bookmarks.php:147
+#: src/Bookmarks.php:126
+#: src/Bookmarks.php:159
 msgid "Save note"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2515
+#: src/Modules/MemberProfile/MemberProfile.php:289
 msgid "Save profile"
 msgstr ""
 
@@ -10346,8 +10498,8 @@ msgstr ""
 msgid "Save series order"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2383
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:199
+#: src/Modules/FrontendEditor/FeaturedUpload.php:198
+#: src/Modules/FrontendEditor/FrontendEditor.php:980
 msgid "Save the article as a draft first, then add a featured image."
 msgstr ""
 
@@ -10367,11 +10519,15 @@ msgstr ""
 msgid "Save to apply the design to the WordPress login page."
 msgstr ""
 
-#: src/Bookmarks.php:105
+#: src/Modules/Bookmarks/BookmarksModule.php:125
+msgid "Save-for-later toggle on articles."
+msgstr ""
+
+#: src/Bookmarks.php:114
 msgid "Saved"
 msgstr ""
 
-#: src/Bookmarks.php:144
+#: src/Bookmarks.php:156
 msgid "Saved on %s"
 msgstr ""
 
@@ -10400,7 +10556,7 @@ msgstr ""
 msgid "Scan this code with your authenticator app (Google Authenticator, Authy, 1Password, or any TOTP app), then enter the 6-digit code it shows to confirm."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2221
+#: src/Modules/MemberArea/MemberDashboard.php:1324
 msgid "Scheduled"
 msgstr ""
 
@@ -10409,11 +10565,11 @@ msgstr ""
 msgid "Scheduled events"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:408
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:237
 msgid "Scoped featured-image upload."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1198
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
 msgid "Scoped upload limits for the one featured image per article."
 msgstr ""
 
@@ -10433,7 +10589,7 @@ msgstr ""
 msgid "Scripts do not run inside the preview — it shows where the ads will appear, not the ads themselves."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:164
+#: templates/admin/contact-submissions.php:165
 #: templates/admin/modules/activity-log.php:122
 #: templates/agenda/archive.php:46
 msgid "Search"
@@ -10529,15 +10685,19 @@ msgstr ""
 msgid "Secret key (manual entry):"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1269
+#: src/Modules/MemberArea/MemberAreaModule.php:700
 msgid "Section order"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1247
-msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
+#: src/Modules/MemberArea/MemberAreaModule.php:686
+msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Sections a user may not use (for example Write for non-contributors) are already hidden by capability and need no ticking here."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1012
+#: src/Modules/MemberArea/MemberAreaModule.php:235
+msgid "Sections other modules plug in through a filter."
+msgstr ""
+
+#: src/Admin/ModuleRegistry.php:1022
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr ""
@@ -10546,13 +10706,13 @@ msgstr ""
 msgid "Security check failed"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:66
-#: src/Modules/FormBuilder/FormBuilderModule.php:757
+#: src/Modules/FormBuilder/ContactFormAjax.php:70
+#: src/Modules/FormBuilder/FormBuilderModule.php:972
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1481
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:192
+#: src/Modules/FrontendEditor/FeaturedUpload.php:191
+#: src/Modules/MemberArea/MemberDashboard.php:605
 #: src/Modules/PostSeries/PostSeriesModule.php:911
 #: src/Modules/Seo/SeoModule.php:1058
 msgid "Security check failed. Please try again."
@@ -10604,6 +10764,10 @@ msgstr ""
 msgid "Seeded placement keeps the ad spot stable per article."
 msgstr ""
 
+#: templates/admin/modules/email-builder.php:91
+msgid "Select a block in the email to edit its settings."
+msgstr ""
+
 #: templates/admin/modules/login.php:133
 msgid "Select a block on the canvas to edit its settings."
 msgstr ""
@@ -10633,19 +10797,19 @@ msgstr ""
 msgid "Selected icon"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2566
+#: src/Modules/MemberProfile/MemberProfile.php:340
 msgid "Send confirmation email"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:58
+#: templates/admin/modules/form-builder.php:304
 msgid "Send email"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:261
+#: src/Modules/Email/EmailAjax.php:341
 msgid "Send job not found or expired."
 msgstr ""
 
-#: templates/admin/modules/email.php:269
+#: templates/admin/modules/email.php:266
 #: templates/admin/modules/mailer.php:500
 msgid "Send log"
 msgstr ""
@@ -10654,7 +10818,7 @@ msgstr ""
 msgid "Send manual push notifications to subscribers with Firebase Cloud Messaging. Subscribers register from the [traydigita_push_subscribe] button; sending is manual only, never automatic on publish."
 msgstr ""
 
-#: templates/admin/modules/email.php:195
+#: templates/admin/modules/email.php:192
 msgid "Send newsletter"
 msgstr ""
 
@@ -10670,7 +10834,7 @@ msgstr ""
 msgid "Send test email to"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:144
+#: templates/admin/modules/form-builder.php:394
 msgid "Send to email"
 msgstr ""
 
@@ -10678,19 +10842,19 @@ msgstr ""
 msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
 msgstr ""
 
-#: templates/admin/modules/email.php:149
+#: templates/admin/modules/email.php:146
 msgid "Sender email"
 msgstr ""
 
-#: templates/admin/modules/email.php:151
+#: templates/admin/modules/email.php:148
 msgid "Sender email for newsletter mail. Leave empty to use the Mailer From email. Gmail always sends from the connected account, whatever is entered here."
 msgstr ""
 
-#: templates/admin/modules/email.php:142
+#: templates/admin/modules/email.php:139
 msgid "Sender identity for newsletter mail. Leave empty to use the Mailer From name."
 msgstr ""
 
-#: templates/admin/modules/email.php:140
+#: templates/admin/modules/email.php:137
 msgid "Sender name"
 msgstr ""
 
@@ -10776,7 +10940,7 @@ msgid "Sends defensive HTTP security headers."
 msgstr ""
 
 #: src/Modules/Push/PushModule.php:588
-#: templates/admin/modules/email.php:277
+#: templates/admin/modules/email.php:274
 #: templates/admin/modules/mailer.php:528
 msgid "Sent"
 msgstr ""
@@ -10894,10 +11058,6 @@ msgstr ""
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:194
-msgid "Sent via the Core Mailer."
-msgstr ""
-
 #: src/Modules/Installer/InstallerModule.php:475
 #: src/Modules/Installer/InstallerModule.php:635
 #: src/Modules/RoleEditor/RoleEditorModule.php:419
@@ -10905,7 +11065,7 @@ msgstr ""
 msgid "SEO"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1020
+#: src/Admin/ModuleRegistry.php:1030
 msgid "SEO & Discovery"
 msgstr ""
 
@@ -11002,7 +11162,7 @@ msgstr ""
 msgid "Set a From email address in the Mailer settings first."
 msgstr ""
 
-#: templates/admin/modules/email.php:73
+#: templates/admin/modules/email.php:81
 msgid "Set as default"
 msgstr ""
 
@@ -11035,10 +11195,10 @@ msgstr ""
 msgid "Setting your own avatar is disabled by the site administrator."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:332
-#: src/Admin/AdminMenu.php:333
-#: src/Admin/AdminMenu.php:497
-#: src/Admin/AdminMenu.php:627
+#: src/Admin/AdminMenu.php:374
+#: src/Admin/AdminMenu.php:375
+#: src/Admin/AdminMenu.php:539
+#: src/Admin/AdminMenu.php:669
 #: src/Modules/DbTools/DbToolsModule.php:271
 #: src/Modules/EPaper/EPaperModule.php:233
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:275
@@ -11068,10 +11228,10 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:346
-#: src/Admin/AdminMenu.php:347
-#: src/Admin/AdminMenu.php:502
-#: src/Admin/AdminMenu.php:637
+#: src/Admin/AdminMenu.php:388
+#: src/Admin/AdminMenu.php:389
+#: src/Admin/AdminMenu.php:544
+#: src/Admin/AdminMenu.php:679
 #: templates/admin/shell.php:446
 msgid "Setup"
 msgstr ""
@@ -11124,8 +11284,8 @@ msgstr ""
 msgid "Shares one service worker with the PWA, so install and push never conflict."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:60
-#: templates/admin/modules/form-builder.php:56
+#: templates/admin/modules/form-builder.php:306
+#: templates/admin/modules/form-builder.php:62
 msgid "Shortcode"
 msgstr ""
 
@@ -11378,13 +11538,21 @@ msgstr ""
 msgid "Simple .htaccess-based page cache — the easiest to set up, serving static HTML files straight from disk."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:407
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:484
+msgid "Simple block editor for contributors on the frontend."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:199
+msgid "Simple block editor for contributors on the frontend: paragraph, heading, list and quote blocks only, enforced server-side on save, with a scoped featured-image upload that never opens the Media Library."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:236
 msgid "Simple block editor for writing articles."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:384
-#: src/Admin/AdminMenu.php:385
-#: src/Admin/AdminMenu.php:515
+#: src/Admin/AdminMenu.php:426
+#: src/Admin/AdminMenu.php:427
+#: src/Admin/AdminMenu.php:557
 msgid "Site Health"
 msgstr ""
 
@@ -11628,6 +11796,10 @@ msgstr ""
 msgid "Source: Open-Meteo"
 msgstr ""
 
+#: src/Modules/FormBuilder/FormBuilderModule.php:347
+msgid "Spam & retention"
+msgstr ""
+
 #: src/Modules/DbTools/Cleaner.php:66
 msgid "Spam comments"
 msgstr ""
@@ -11636,18 +11808,17 @@ msgstr ""
 msgid "Spam detected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:321
-#: templates/admin/modules/contact-form.php:157
-#: templates/admin/modules/contact-form.php:59
+#: templates/admin/modules/form-builder.php:305
+#: templates/admin/modules/form-builder.php:407
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:191
+#: templates/admin/modules/form-builder.php:441
 msgid "Spam protection & retention"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:154
-#: src/Modules/ContactForm/ContactFormAjax.php:170
+#: src/Modules/FormBuilder/ContactFormAjax.php:178
+#: src/Modules/FormBuilder/ContactFormAjax.php:194
 msgid "Spam protection failed. Please try again."
 msgstr ""
 
@@ -11661,6 +11832,14 @@ msgstr ""
 
 #: src/Modules/FastSearch/FastSearchModule.php:109
 msgid "Speed up frontend search with FULLTEXT and composite database indexes, with a safe fallback to standard WordPress search while the indexes are missing."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:202
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:254
+#: src/Modules/MemberArea/MemberAreaModule.php:251
+#: src/Modules/MemberProfile/MemberProfileModule.php:170
+#: src/Modules/RoleAccess/RoleAccessModule.php:209
+msgid "Split out of the Contributor Frontend Editor module."
 msgstr ""
 
 #: src/Modules/Toc/TocModule.php:220
@@ -11695,19 +11874,19 @@ msgstr ""
 msgid "Static HTML cache with a simple setup and ready-made rewrite rules for Apache and nginx."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1524
+#: src/Modules/MemberArea/MemberDashboard.php:648
 msgid "Statistics are not available yet: no views have been recorded for your published articles."
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:759
 #: src/Modules/Cache/CacheModule.php:811
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2092
+#: src/Modules/MemberArea/MemberDashboard.php:1195
 #: src/Modules/Redirects/RedirectsModule.php:373
-#: templates/admin/contact-submissions.php:148
-#: templates/admin/contact-submissions.php:182
-#: templates/admin/contact-submissions.php:94
+#: templates/admin/contact-submissions.php:149
+#: templates/admin/contact-submissions.php:183
+#: templates/admin/contact-submissions.php:95
 #: templates/admin/modules/agenda.php:210
-#: templates/admin/modules/email.php:226
+#: templates/admin/modules/email.php:223
 #: templates/admin/modules/fast-search.php:101
 #: templates/admin/modules/headers.php:50
 #: templates/admin/shell.php:175
@@ -11764,8 +11943,12 @@ msgstr ""
 msgid "Stops browsers from guessing a file’s type."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:70
+#: templates/admin/modules/form-builder.php:316
 msgid "Store only"
+msgstr ""
+
+#: templates/admin/modules/form-builder.php:119
+msgid "Store submissions"
 msgstr ""
 
 #: src/Modules/Pwa/PwaModule.php:131
@@ -11774,6 +11957,10 @@ msgstr ""
 
 #: src/Modules/UserManager/UserManagerModule.php:376
 msgid "Stored as a timestamp in user meta and shown in the site timezone."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:127
+msgid "Stored in the browser only — nothing on the server."
 msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:175
@@ -11793,16 +11980,16 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:181
-#: templates/admin/contact-submissions.php:90
-#: templates/admin/modules/email.php:180
-#: templates/admin/modules/email.php:276
+#: templates/admin/contact-submissions.php:182
+#: templates/admin/contact-submissions.php:91
+#: templates/admin/modules/email.php:177
+#: templates/admin/modules/email.php:273
 #: templates/admin/modules/mailer.php:473
 #: templates/admin/modules/mailer.php:509
 msgid "Subject"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:226
+#: templates/admin/modules/form-builder.php:476
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
@@ -11810,21 +11997,21 @@ msgstr ""
 msgid "Submissions scoring below this (0.0–1.0) are rejected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:193
-msgid "Submissions stored in their own table."
+#: src/Modules/FormBuilder/FormBuilderModule.php:240
+msgid "Submissions stored in their own table, with CSV export and retention prune."
 msgstr ""
 
 #: src/Modules/FormBuilder/FormBuilder.php:301
-#: templates/admin/modules/form-builder.php:168
+#: templates/admin/modules/form-builder.php:182
 msgid "Submit"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1632
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2359
+#: src/Modules/FrontendEditor/FrontendEditor.php:956
+#: src/Modules/MemberArea/MemberDashboard.php:735
 msgid "Submit for review"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:395
+#: src/Modules/Email/EmailModule.php:396
 #: src/Modules/Paywall/PaywallModule.php:459
 msgid "Subscribe"
 msgstr ""
@@ -11833,7 +12020,7 @@ msgstr ""
 msgid "Subscribe page URL"
 msgstr ""
 
-#: templates/admin/modules/email.php:227
+#: templates/admin/modules/email.php:224
 msgid "Subscribed"
 msgstr ""
 
@@ -11841,15 +12028,15 @@ msgstr ""
 msgid "Subscriber added."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:335
+#: src/Modules/Email/EmailAjax.php:415
 msgid "Subscriber not found."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:337
+#: src/Modules/Email/EmailAjax.php:417
 msgid "Subscriber removed."
 msgstr ""
 
-#: templates/admin/modules/email.php:204
+#: templates/admin/modules/email.php:201
 msgid "Subscribers"
 msgstr ""
 
@@ -11857,11 +12044,11 @@ msgstr ""
 msgid "Subscribers register from the [traydigita_push_subscribe] button on the site."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:386
+#: src/Modules/Email/EmailAjax.php:466
 msgid "Subscription confirmed"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:392
+#: src/Modules/Email/EmailAjax.php:472
 msgid "Subscription not confirmed"
 msgstr ""
 
@@ -12004,7 +12191,7 @@ msgstr ""
 msgid "Take the site offline for visitors with a branded 503 page, a countdown, and role, IP, and signed-token bypasses."
 msgstr ""
 
-#: src/Bookmarks.php:143
+#: src/Bookmarks.php:155
 msgid "Tap the bookmark button on any article to save it here."
 msgstr ""
 
@@ -12026,31 +12213,31 @@ msgstr ""
 msgid "Tells browsers to only ever reach this site over HTTPS for the next year, including subdomains: max-age=31536000; includeSubDomains"
 msgstr ""
 
-#: templates/admin/modules/email.php:169
+#: templates/admin/modules/email.php:166
 msgid "Template"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:191
+#: src/Modules/Email/EmailAjax.php:271
 msgid "Template deleted."
 msgstr ""
 
-#: templates/admin/modules/email.php:89
+#: templates/admin/modules/email.php:95
 msgid "Template name"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:172
-#: src/Modules/Email/EmailAjax.php:189
-#: src/Modules/Email/EmailAjax.php:238
-#: src/Modules/Email/EmailModule.php:344
-#: src/Modules/Email/EmailModule.php:358
+#: src/Modules/Email/EmailAjax.php:252
+#: src/Modules/Email/EmailAjax.php:269
+#: src/Modules/Email/EmailAjax.php:318
+#: src/Modules/Email/EmailModule.php:345
+#: src/Modules/Email/EmailModule.php:359
 msgid "Template not found."
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:348
+#: src/Modules/Email/EmailModule.php:349
 msgid "Template renamed."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:156
+#: src/Modules/Email/EmailAjax.php:169
 msgid "Template saved."
 msgstr ""
 
@@ -12062,7 +12249,7 @@ msgstr ""
 msgid "Templated meta title and description, canonical URL, Open Graph and Twitter card tags, and a robots tag."
 msgstr ""
 
-#: templates/admin/modules/email.php:31
+#: templates/admin/modules/email.php:34
 msgid "Templates"
 msgstr ""
 
@@ -12109,15 +12296,14 @@ msgstr ""
 msgid "Testing config…"
 msgstr ""
 
-#: src/Modules/Email/TemplateBuilder.php:454
+#: src/Modules/Email/TemplateBuilder.php:738
 #: src/Modules/FormBuilder/FormBuilder.php:120
 #: src/Modules/Maintenance/MaintenanceDesigner.php:228
-#: templates/admin/modules/form-builder.php:243
 #: templates/admin/modules/maintenance.php:195
 msgid "Text"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1176
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:528
 msgid "Text colour inside the editor canvas."
 msgstr ""
 
@@ -12146,15 +12332,15 @@ msgstr ""
 msgid "Thank you! Please check your email to confirm the subscription."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:133
+#: src/Modules/FormBuilder/ContactFormAjax.php:126
 msgid "Thank you. Your message has been sent."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:128
+#: src/Modules/FormBuilder/ContactFormAjax.php:121
 msgid "Thank you. Your message was saved, but the notification email could not be sent — the site administrator has been notified through the submissions list."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:783
+#: src/Modules/FormBuilder/FormBuilderModule.php:1014
 msgid "Thank you. Your submission was received."
 msgstr ""
 
@@ -12255,7 +12441,7 @@ msgstr ""
 msgid "That redirect no longer exists."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1523
+#: src/Modules/MemberArea/MemberDashboard.php:647
 msgid "That section is not available."
 msgstr ""
 
@@ -12296,7 +12482,7 @@ msgstr ""
 msgid "The administrator role can never be edited."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1062
+#: src/Modules/RoleAccess/RoleAccessModule.php:445
 msgid "The administrator role is not listed here and cannot be restricted: administrators always keep the admin bar and full wp-admin access, no matter what is configured below."
 msgstr ""
 
@@ -12349,23 +12535,23 @@ msgstr ""
 msgid "The App ID of your Facebook app. It is stored like a secret and never printed. Leave empty to keep the saved App ID."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1486
+#: src/Modules/MemberArea/MemberDashboard.php:610
 msgid "The article could not be found."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1484
+#: src/Modules/MemberArea/MemberDashboard.php:608
 msgid "The article could not be saved. Please try again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1505
+#: src/Modules/MemberArea/MemberDashboard.php:629
 msgid "The article was moved to Trash."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1507
+#: src/Modules/MemberArea/MemberDashboard.php:631
 msgid "The article was permanently deleted."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1506
+#: src/Modules/MemberArea/MemberDashboard.php:630
 msgid "The article was restored."
 msgstr ""
 
@@ -12389,7 +12575,7 @@ msgstr ""
 msgid "The avatar comes from the Custom Avatar module when it is enabled, otherwise from the standard avatar."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1487
+#: src/Modules/MemberArea/MemberDashboard.php:611
 msgid "The avatar could not be uploaded. Please try again."
 msgstr ""
 
@@ -12491,10 +12677,6 @@ msgstr ""
 msgid "The confirmation word must be 3–20 letters or digits."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:574
-msgid "The Contact Form settings template is missing."
-msgstr ""
-
 #: src/Modules/UserManager/UserManagerModule.php:366
 msgid "The control is disabled for protected users (see the safety rule above)."
 msgstr ""
@@ -12588,7 +12770,7 @@ msgstr ""
 msgid "The E-Paper storage directory could not be created. Check that wp-content is writable, then try uploading again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2299
+#: src/Modules/FrontendEditor/FrontendEditor.php:896
 msgid "The editor asked for revisions:"
 msgstr ""
 
@@ -12596,7 +12778,8 @@ msgstr ""
 msgid "The editor heartbeat can never be disabled, so autosave and post locking keep working."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1145
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:485
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:497
 msgid "The editor only offers paragraph, heading, list and quote blocks. Anything else a contributor pastes in is stripped when the article is saved, so the allowlist is enforced on the server, never trusted from the browser."
 msgstr ""
 
@@ -12606,7 +12789,7 @@ msgstr ""
 msgid "The email has no recipients."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:596
+#: src/Modules/FormBuilder/FormBuilderModule.php:782
 msgid "The email template is invalid."
 msgstr ""
 
@@ -12614,7 +12797,7 @@ msgstr ""
 msgid "The email template the campaign message uses (Content → Templates → your template; the ID is in the URL)."
 msgstr ""
 
-#: templates/admin/hub-page.php:124
+#: templates/admin/hub-page.php:127
 msgid "The engine behind the TrayDigita theme: modules, mail, security, and performance — one core, everything connected."
 msgstr ""
 
@@ -12686,13 +12869,13 @@ msgstr ""
 msgid "The font files could not be saved on this site."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:380
+#: src/Modules/FormBuilder/FormBuilderModule.php:555
 msgid "The Form Builder settings template is missing."
 msgstr ""
 
 #: src/Modules/FormBuilder/FormBuilder.php:150
 #: src/Modules/FormBuilder/FormBuilder.php:415
-#: src/Modules/FormBuilder/FormBuilderModule.php:492
+#: src/Modules/FormBuilder/FormBuilderModule.php:677
 msgid "The form definition is invalid."
 msgstr ""
 
@@ -12708,8 +12891,8 @@ msgstr ""
 msgid "The form has no valid fields."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:693
-#: src/Modules/FormBuilder/FormBuilderModule.php:485
+#: src/Modules/FormBuilder/FormBuilderModule.php:1321
+#: src/Modules/FormBuilder/FormBuilderModule.php:670
 msgid "The form title must not be empty."
 msgstr ""
 
@@ -12745,22 +12928,22 @@ msgstr ""
 msgid "The ID of a transactional template in Loops (Transactional → your template). The template should use {{subject}} and {{body}} to render the mail content."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2408
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:138
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:270
+#: src/Modules/FrontendEditor/FeaturedUpload.php:137
+#: src/Modules/FrontendEditor/FeaturedUpload.php:269
+#: src/Modules/FrontendEditor/FrontendEditor.php:1005
 msgid "The image could not be uploaded. Please try again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:103
+#: src/Modules/FrontendEditor/FeaturedUpload.php:102
 #. translators: %d: maximum file size in megabytes.
 msgid "The image is too large. Maximum file size is %d MB."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:264
+#: src/Modules/FrontendEditor/FeaturedUpload.php:263
 msgid "The image is too large. Please choose a smaller file."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:132
+#: src/Modules/FrontendEditor/FeaturedUpload.php:131
 #. translators: %d: maximum image dimension in pixels.
 msgid "The image is too large. The longest side must be %d px or less."
 msgstr ""
@@ -12944,6 +13127,10 @@ msgstr ""
 msgid "The Media Library is not available."
 msgstr ""
 
+#: src/Modules/MemberArea/MemberAreaModule.php:644
+msgid "The member dashboard for every logged-in user: Overview, Posts and My Contributions in one shell."
+msgstr ""
+
 #: src/Modules/Redirects/RedirectsModule.php:428
 msgid "The missing URLs visitors hit most often."
 msgstr ""
@@ -12960,7 +13147,7 @@ msgstr ""
 msgid "The name must be at most 120 characters."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2570
+#: src/Modules/MemberProfile/MemberProfile.php:344
 msgid "The new address only takes effect after you click the confirmation link sent to it."
 msgstr ""
 
@@ -12972,7 +13159,7 @@ msgstr ""
 msgid "The new role slug must be 2–60 lowercase letters, digits, or underscores."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:235
+#: src/Modules/Email/EmailAjax.php:315
 msgid "The newsletter needs a subject."
 msgstr ""
 
@@ -12994,6 +13181,10 @@ msgstr ""
 
 #: src/Modules/Comments/Providers/FacebookProvider.php:112
 msgid "The order Facebook shows comments in."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:671
+msgid "The page becomes the member dashboard for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
 msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:321
@@ -13102,11 +13293,11 @@ msgstr ""
 msgid "The redirect list is full. Delete a rule before adding another."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1135
+#: src/Modules/RoleAccess/RoleAccessModule.php:493
 msgid "The redirect never fires for admin-ajax.php, admin-post.php (the editor form handler), the user’s own profile page, REST requests, WP-CLI, cron, or the login and logout flows."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1134
+#: src/Modules/RoleAccess/RoleAccessModule.php:492
 msgid "The redirect skips system and editor requests."
 msgstr ""
 
@@ -13267,7 +13458,7 @@ msgstr ""
 msgid "The strip under the ticker shows the first gold price and up to four stocks."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:811
+#: src/Modules/FormBuilder/FormBuilderModule.php:1417
 msgid "The submissions template is missing."
 msgstr ""
 
@@ -13279,11 +13470,11 @@ msgstr ""
 msgid "The table of contents is built from the h2 and h3 headings of each single post."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:151
+#: src/Modules/Email/EmailAjax.php:159
 msgid "The template needs a name and at least one block."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:585
+#: src/Modules/FormBuilder/FormBuilderModule.php:771
 msgid "The template title must not be empty."
 msgstr ""
 
@@ -13316,7 +13507,7 @@ msgstr ""
 msgid "The toggles below only take effect when no SEO plugin is active."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:788
+#: src/Admin/AdminMenu.php:830
 msgid "The TrayDigita admin shell template is missing."
 msgstr ""
 
@@ -13336,7 +13527,7 @@ msgstr ""
 msgid "The two-factor scripts are not loaded yet (the theme entry is missing). The settings below will work after the theme is rebuilt."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:268
+#: src/Modules/FrontendEditor/FeaturedUpload.php:267
 msgid "The upload was interrupted. Please try again."
 msgstr ""
 
@@ -13458,7 +13649,7 @@ msgstr ""
 msgid "Theme and plugin versions, limits, debug settings."
 msgstr ""
 
-#: templates/admin/modules/email.php:261
+#: templates/admin/modules/email.php:258
 msgid "Themes and widgets can print it with EmailModule::subscribeFormHtml()."
 msgstr ""
 
@@ -13507,9 +13698,9 @@ msgstr ""
 msgid "This ad has not been configured yet."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1485
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2283
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:207
+#: src/Modules/FrontendEditor/FeaturedUpload.php:206
+#: src/Modules/FrontendEditor/FrontendEditor.php:880
+#: src/Modules/MemberArea/MemberDashboard.php:609
 msgid "This article cannot be edited."
 msgstr ""
 
@@ -13526,20 +13717,20 @@ msgstr ""
 msgid "This change would leave no user able to manage the site. Nothing was saved."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:391
+#: src/Modules/Email/EmailAjax.php:471
 msgid "This confirmation link is invalid or has expired."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1490
+#: src/Modules/MemberArea/MemberDashboard.php:614
 msgid "This email address is already used by another account."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:122
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:127
+#: src/Modules/FrontendEditor/FeaturedUpload.php:121
+#: src/Modules/FrontendEditor/FeaturedUpload.php:126
 msgid "This file is not a valid image."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:111
+#: src/Modules/FrontendEditor/FeaturedUpload.php:110
 msgid "This file type is not allowed. Please upload an image."
 msgstr ""
 
@@ -13547,7 +13738,7 @@ msgstr ""
 msgid "This flush deletes every transient, including live ones — not just expired ones."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:75
+#: src/Modules/FormBuilder/ContactFormAjax.php:79
 msgid "This form is not configured yet."
 msgstr ""
 
@@ -13555,7 +13746,7 @@ msgstr ""
 msgid "This format is not supported by the image editor on this server. Choose the other format."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:115
+#: src/Modules/FrontendEditor/FeaturedUpload.php:114
 msgid "This image type is not allowed."
 msgstr ""
 
@@ -13568,7 +13759,7 @@ msgstr ""
 msgid "This is a test email from %1$s (%2$s).\n\nIf you received this message, the Mailer settings are working."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1489
+#: src/Modules/MemberArea/MemberDashboard.php:613
 msgid "This is already your email address."
 msgstr ""
 
@@ -13587,6 +13778,14 @@ msgstr ""
 #: src/Modules/Cache/CacheModule.php:521
 #: src/Modules/Installer/PluginList.php:436
 msgid "This looks like a development site, so no server-specific recommendation can be made — page caching is not needed while developing. Install a cache plugin when the site goes live."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:227
+msgid "This module has no settings. Bookmarks do not sync across devices and are lost when the browser data is cleared — that trade-off is accepted."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:283
+msgid "This module has no settings. Disable it to remove the statuses and the revision-note box from wp-admin."
 msgstr ""
 
 #: templates/admin/shell.php:377
@@ -13628,7 +13827,7 @@ msgstr ""
 msgid "This theme never runs its own page cache."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:421
+#: src/Modules/Email/EmailAjax.php:501
 msgid "This unsubscribe link is invalid or has expired."
 msgstr ""
 
@@ -13661,7 +13860,7 @@ msgstr ""
 msgid "Thumbnails come from the featured image (or the first image in the post) through the theme image helper, with Photon serving when enabled."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1263
+#: src/Modules/MemberArea/MemberAreaModule.php:694
 msgid "Tick a section to hide it from the dashboard."
 msgstr ""
 
@@ -13676,8 +13875,8 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2091
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2310
+#: src/Modules/FrontendEditor/FrontendEditor.php:907
+#: src/Modules/MemberArea/MemberDashboard.php:1194
 #: src/Modules/Push/PushModule.php:547
 #: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:1000
@@ -13685,15 +13884,15 @@ msgstr ""
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
-#: templates/admin/modules/contact-form.php:113
-#: templates/admin/modules/contact-form.php:55
 #: templates/admin/modules/epaper.php:119
 #: templates/admin/modules/epaper.php:171
 #: templates/admin/modules/epaper.php:205
-#: templates/admin/modules/form-builder.php:105
-#: templates/admin/modules/form-builder.php:185
-#: templates/admin/modules/form-builder.php:235
-#: templates/admin/modules/form-builder.php:53
+#: templates/admin/modules/form-builder.php:111
+#: templates/admin/modules/form-builder.php:199
+#: templates/admin/modules/form-builder.php:250
+#: templates/admin/modules/form-builder.php:301
+#: templates/admin/modules/form-builder.php:363
+#: templates/admin/modules/form-builder.php:59
 #: templates/admin/modules/maintenance.php:98
 msgid "Title"
 msgstr ""
@@ -13722,7 +13921,7 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:160
+#: templates/admin/contact-submissions.php:161
 #: templates/admin/modules/activity-log.php:118
 #: templates/admin/modules/mailer.php:508
 msgid "To"
@@ -13749,9 +13948,9 @@ msgstr ""
 msgid "Too many failed attempts. Please try again later."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:354
-#: src/Modules/Email/EmailAjax.php:381
-#: src/Modules/Email/EmailAjax.php:411
+#: src/Modules/Email/EmailAjax.php:434
+#: src/Modules/Email/EmailAjax.php:461
+#: src/Modules/Email/EmailAjax.php:491
 msgid "Too many requests. Please try again later."
 msgstr ""
 
@@ -13808,8 +14007,8 @@ msgstr ""
 msgid "Translations"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2012
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2204
+#: src/Modules/MemberArea/MemberDashboard.php:1115
+#: src/Modules/MemberArea/MemberDashboard.php:1307
 msgid "Trash"
 msgstr ""
 
@@ -13825,8 +14024,8 @@ msgstr ""
 msgid "Tray Digita: Upcoming Events"
 msgstr ""
 
-#: src/Admin/AdminMenu.php:308
-#: src/Admin/AdminMenu.php:309
+#: src/Admin/AdminMenu.php:350
+#: src/Admin/AdminMenu.php:351
 #: src/Admin/SiteHealth.php:415
 #: templates/admin/shell.php:269
 #: templates/admin/shell.php:279
@@ -13835,7 +14034,7 @@ msgstr ""
 msgid "TrayDigita"
 msgstr ""
 
-#: templates/admin/hub-page.php:118
+#: templates/admin/hub-page.php:121
 msgid "TrayDigita Core"
 msgstr ""
 
@@ -13933,15 +14132,15 @@ msgstr ""
 msgid "Turning the module off hides the market strip and removes the Gold, Stock, and Crypto widgets. No price is ever invented: a provider with no data contributes nothing."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:36
+#: templates/admin/modules/form-builder.php:283
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:194
+#: templates/admin/modules/form-builder.php:444
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:196
+#: templates/admin/modules/form-builder.php:446
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14011,8 +14210,7 @@ msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:399
 #: templates/admin/modules/fast-search.php:99
-#: templates/admin/modules/form-builder.php:112
-#: templates/admin/modules/form-builder.php:242
+#: templates/admin/modules/form-builder.php:126
 #: templates/admin/modules/role-editor.php:74
 msgid "Type"
 msgstr ""
@@ -14091,8 +14289,8 @@ msgstr ""
 msgid "Unavailable: this site does not run over HTTPS yet. HSTS only works on HTTPS, so turn on HTTPS first."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2122
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2342
+#: src/Modules/FrontendEditor/FrontendEditor.php:939
+#: src/Modules/MemberArea/MemberDashboard.php:1225
 msgid "Uncategorized"
 msgstr ""
 
@@ -14105,7 +14303,7 @@ msgstr ""
 msgid "Uncheck to block them too. This is an explicit choice: these forms are lower risk than login, so availability wins by default."
 msgstr ""
 
-#: templates/admin/modules/email.php:191
+#: templates/admin/modules/email.php:188
 msgid "Unconfirmed addresses never receive newsletters."
 msgstr ""
 
@@ -14162,33 +14360,33 @@ msgstr ""
 msgid "Unknown category."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:609
+#: src/Modules/FormBuilder/FormBuilderModule.php:1237
 msgid "Unknown Contact Form action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:71
-#: src/Modules/ContactForm/ContactFormModule.php:686
-#: src/Modules/ContactForm/ContactFormModule.php:740
+#: src/Modules/FormBuilder/ContactFormAjax.php:75
+#: src/Modules/FormBuilder/FormBuilderModule.php:1314
+#: src/Modules/FormBuilder/FormBuilderModule.php:1368
 msgid "Unknown contact form."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:707
-#: src/Modules/FormBuilder/FormBuilderModule.php:578
-#: src/Modules/FormBuilder/FormBuilderModule.php:658
+#: src/Modules/FormBuilder/FormBuilderModule.php:1335
+#: src/Modules/FormBuilder/FormBuilderModule.php:764
+#: src/Modules/FormBuilder/FormBuilderModule.php:871
 msgid "Unknown email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:418
+#: src/Modules/FormBuilder/FormBuilderModule.php:602
 msgid "Unknown Form Builder action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:700
+#: src/Modules/FormBuilder/FormBuilderModule.php:1328
 msgid "Unknown Form Builder form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:478
-#: src/Modules/FormBuilder/FormBuilderModule.php:517
-#: src/Modules/FormBuilder/FormBuilderModule.php:762
+#: src/Modules/FormBuilder/FormBuilderModule.php:663
+#: src/Modules/FormBuilder/FormBuilderModule.php:703
+#: src/Modules/FormBuilder/FormBuilderModule.php:977
 msgid "Unknown form."
 msgstr ""
 
@@ -14259,11 +14457,11 @@ msgstr ""
 msgid "Unlock to edit"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:151
+#: templates/admin/contact-submissions.php:152
 msgid "Unread"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2326
+#: src/Modules/FrontendEditor/FrontendEditor.php:923
 msgid "Unsaved changes"
 msgstr ""
 
@@ -14273,15 +14471,15 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
-#: templates/admin/modules/email.php:158
+#: templates/admin/modules/email.php:155
 msgid "Unsubscribe: every newsletter carries an unsubscribe link in its footer, and the Mailer List-Unsubscribe header points to the same link for each subscriber."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:416
+#: src/Modules/Email/EmailAjax.php:496
 msgid "Unsubscribed"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1191
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:543
 msgid "Unticked blocks disappear from the editor, and any such block in a submitted article is stripped on save. At least the paragraph block is always kept, so the editor never ends up empty."
 msgstr ""
 
@@ -14295,6 +14493,10 @@ msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:995
 msgid "Until both keys are saved, no challenge is shown and logins work exactly as before."
+msgstr ""
+
+#: src/Modules/Email/TemplateBuilder.php:621
+msgid "Untitled template"
 msgstr ""
 
 #: templates/widgets/gold-market.php:74
@@ -14356,7 +14558,7 @@ msgstr ""
 msgid "Upload Avatar"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2402
+#: src/Modules/FrontendEditor/FrontendEditor.php:999
 msgid "Upload featured image"
 msgstr ""
 
@@ -14385,7 +14587,7 @@ msgid "Uploading font…"
 msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:308
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2405
+#: src/Modules/FrontendEditor/FrontendEditor.php:1002
 #: templates/admin/modules/epaper.php:46
 msgid "Uploading…"
 msgstr ""
@@ -14476,11 +14678,11 @@ msgstr ""
 msgid "Use the copy button to paste the whole report into a support request."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:124
+#: templates/admin/contact-submissions.php:125
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:235
+#: templates/admin/modules/form-builder.php:485
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14620,8 +14822,8 @@ msgstr ""
 msgid "Version unknown"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2183
-#: templates/admin/contact-submissions.php:198
+#: src/Modules/MemberArea/MemberDashboard.php:1286
+#: templates/admin/contact-submissions.php:199
 #: templates/admin/modules/agenda.php:220
 #: templates/admin/shell.php:177
 msgid "View"
@@ -14635,7 +14837,7 @@ msgstr ""
 msgid "View saved."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1649
+#: src/Modules/MemberArea/MemberDashboard.php:752
 msgid "View site"
 msgstr ""
 
@@ -14643,7 +14845,7 @@ msgstr ""
 msgid "View Site Kit in the plugin installer"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:47
+#: templates/admin/modules/form-builder.php:293
 msgid "View submissions"
 msgstr ""
 
@@ -14651,16 +14853,16 @@ msgstr ""
 msgid "View the public agenda"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1721
+#: src/Modules/MemberArea/MemberDashboard.php:824
 #: src/Widgets/WidgetBase.php:292
 msgid "Views"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1741
+#: src/Modules/MemberArea/MemberDashboard.php:844
 msgid "views"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1727
+#: src/Modules/MemberArea/MemberDashboard.php:830
 msgid "Views in the last 30 days"
 msgstr ""
 
@@ -14703,7 +14905,7 @@ msgstr ""
 msgid "Web server"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1226
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
 #: templates/admin/modules/image-optimizer.php:75
 msgid "WebP"
 msgstr ""
@@ -14713,7 +14915,7 @@ msgid "WebP works everywhere modern browsers do."
 msgstr ""
 
 #: src/Modules/AuthorBox/AuthorBoxModule.php:627
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2504
+#: src/Modules/MemberProfile/MemberProfile.php:278
 msgid "Website"
 msgstr ""
 
@@ -14793,7 +14995,7 @@ msgstr ""
 msgid "When off, the area shows whenever the provider and scope allow it."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1153
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:505
 msgid "When off, the link button disappears from the editor and any link in a submitted article is stripped on save, keeping only the link text."
 msgstr ""
 
@@ -14805,15 +15007,19 @@ msgstr ""
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/form-builder.php:396
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
-#: templates/admin/modules/email.php:135
+#: templates/admin/modules/form-builder.php:121
+msgid "When on, every submission of this form is stored in the submissions table (listed on the submissions page, with CSV export and retention prune). When off, submissions are only handed to the traydigita:core:form-builder/submitted action."
+msgstr ""
+
+#: templates/admin/modules/email.php:132
 msgid "When on, new subscribers must confirm by email before they receive newsletters. When off, subscriptions are confirmed immediately (single opt-in)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1255
+#: src/Modules/MemberProfile/MemberProfileModule.php:300
 msgid "When on, the Change Email section appears in the dashboard and the new address is confirmed through the email WordPress sends. When off, the section is hidden entirely; users who can access wp-admin can still change their email from profile.php."
 msgstr ""
 
@@ -15026,6 +15232,14 @@ msgstr ""
 msgid "Working…"
 msgstr ""
 
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:239
+msgid "Works on its own when the member area is disabled."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:187
+msgid "Works without the frontend editor."
+msgstr ""
+
 #: src/Modules/Security/Checks.php:249
 msgid "World-writable: any user on this server can change it."
 msgstr ""
@@ -15067,20 +15281,28 @@ msgstr ""
 msgid "Wraps WordPress notification emails."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2302
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:700
+#: src/Modules/FrontendEditor/FrontendEditor.php:899
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:733
 msgid "Write"
 msgstr ""
 
-#: src/Bookmarks.php:114
-#: src/Bookmarks.php:151
+#: src/Bookmarks.php:123
+#: src/Bookmarks.php:163
 msgid "Write a note about this article…"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1711
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1909
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2018
+#: src/Modules/MemberArea/MemberDashboard.php:1012
+#: src/Modules/MemberArea/MemberDashboard.php:1121
+#: src/Modules/MemberArea/MemberDashboard.php:814
 msgid "Write New"
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:238
+msgid "Write section in the member dashboard."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:645
+msgid "Write, Bookmarks, Profile and Change Email plug in as sections from their own modules — disabling one of them removes its section from the dashboard without touching anything here."
 msgstr ""
 
 #: src/Modules/AuthorBox/AuthorBoxModule.php:516
@@ -15140,9 +15362,9 @@ msgid "Yahoo Finance is an unofficial endpoint and may break or rate-limit witho
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
-#: templates/admin/contact-submissions.php:196
-#: templates/admin/contact-submissions.php:99
-#: templates/admin/modules/contact-form.php:70
+#: templates/admin/contact-submissions.php:100
+#: templates/admin/contact-submissions.php:197
+#: templates/admin/modules/form-builder.php:316
 msgid "Yes"
 msgstr ""
 
@@ -15155,9 +15377,14 @@ msgstr ""
 msgid "Yes — the OPcache is full and is evicting scripts. Consider raising opcache.memory_consumption."
 msgstr ""
 
-#: src/Admin/AdminMenu.php:768
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1041
+#: src/Admin/AdminMenu.php:810
+#: src/Modules/Bookmarks/BookmarksModule.php:213
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:272
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:476
 #: src/Modules/Login/LoginModule.php:267
+#: src/Modules/MemberArea/MemberAreaModule.php:636
+#: src/Modules/MemberProfile/MemberProfileModule.php:272
+#: src/Modules/RoleAccess/RoleAccessModule.php:427
 msgid "You are not allowed to access this page."
 msgstr ""
 
@@ -15195,6 +15422,10 @@ msgstr ""
 msgid "You are not allowed to change avatar settings."
 msgstr ""
 
+#: src/Modules/Bookmarks/BookmarksModule.php:248
+msgid "You are not allowed to change bookmark settings."
+msgstr ""
+
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:390
 msgid "You are not allowed to change breadcrumb settings."
 msgstr ""
@@ -15207,12 +15438,8 @@ msgstr ""
 msgid "You are not allowed to change comment settings."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:598
+#: src/Modules/FormBuilder/FormBuilderModule.php:1226
 msgid "You are not allowed to change Contact Form settings."
-msgstr ""
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1307
-msgid "You are not allowed to change contributor settings."
 msgstr ""
 
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:352
@@ -15227,7 +15454,11 @@ msgstr ""
 msgid "You are not allowed to change E-Paper settings."
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:333
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:304
+msgid "You are not allowed to change editorial workflow settings."
+msgstr ""
+
+#: src/Modules/Email/EmailModule.php:334
 msgid "You are not allowed to change Email settings."
 msgstr ""
 
@@ -15239,8 +15470,12 @@ msgstr ""
 msgid "You are not allowed to change font settings."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:405
+#: src/Modules/FormBuilder/FormBuilderModule.php:583
 msgid "You are not allowed to change Form Builder settings."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:617
+msgid "You are not allowed to change frontend editor settings."
 msgstr ""
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:365
@@ -15265,6 +15500,14 @@ msgstr ""
 
 #: src/Modules/Markets/MarketsModule.php:1322
 msgid "You are not allowed to change markets settings."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:735
+msgid "You are not allowed to change member area settings."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:326
+msgid "You are not allowed to change member profile settings."
 msgstr ""
 
 #: src/Modules/Core/MenuIconsModule.php:320
@@ -15309,6 +15552,10 @@ msgstr ""
 
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:400
 msgid "You are not allowed to change Related Posts settings."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:523
+msgid "You are not allowed to change role access settings."
 msgstr ""
 
 #: src/Modules/Seo/SeoModule.php:1166
@@ -15376,8 +15623,8 @@ msgstr ""
 #: src/Modules/DynamicSidebars/DynamicSidebarsAjax.php:69
 #: src/Modules/DynamicSidebars/DynamicSidebarsModule.php:862
 #: src/Modules/EPaper/EPaperModule.php:255
-#: src/Modules/Email/EmailAjax.php:102
-#: src/Modules/Email/EmailAjax.php:280
+#: src/Modules/Email/EmailAjax.php:108
+#: src/Modules/Email/EmailAjax.php:360
 #: src/Modules/FastSearch/FastSearchAjax.php:145
 #: src/Modules/FastSearch/FastSearchAjax.php:176
 #: src/Modules/FastSearch/FastSearchAjax.php:99
@@ -15436,7 +15683,7 @@ msgstr ""
 msgid "You are not allowed to manage E-Paper issues."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:787
+#: src/Modules/FormBuilder/FormBuilderModule.php:1393
 msgid "You are not allowed to view contact submissions."
 msgstr ""
 
@@ -15448,7 +15695,7 @@ msgstr ""
 msgid "You are subscribed."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2575
+#: src/Modules/MemberProfile/MemberProfile.php:349
 msgid "You can also change your email on your WordPress profile page."
 msgstr ""
 
@@ -15456,7 +15703,7 @@ msgstr ""
 msgid "You can keep this page open and watch the progress below, or cancel it."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1571
+#: src/Modules/MemberArea/MemberDashboard.php:695
 msgid "You do not have access to the WordPress dashboard. Use this page to write and submit articles."
 msgstr ""
 
@@ -15464,21 +15711,22 @@ msgstr ""
 msgid "You do not have permission to change these settings."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1482
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:195
+#: src/Modules/FrontendEditor/FeaturedUpload.php:194
+#: src/Modules/FrontendEditor/FrontendEditor.php:178
+#: src/Modules/MemberArea/MemberDashboard.php:606
 msgid "You do not have permission to submit articles."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2479
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2539
+#: src/Modules/MemberProfile/MemberProfile.php:253
+#: src/Modules/MemberProfile/MemberProfile.php:313
 msgid "You do not have permission to use the member area."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:415
+#: src/Modules/Email/EmailAjax.php:495
 msgid "You have been unsubscribed."
 msgstr ""
 
-#: src/Bookmarks.php:142
+#: src/Bookmarks.php:154
 msgid "You have no saved articles yet."
 msgstr ""
 
@@ -15498,7 +15746,7 @@ msgstr ""
 msgid "You must be logged in to change an avatar."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1504
+#: src/Modules/MemberArea/MemberDashboard.php:628
 msgid "Your article was saved."
 msgstr ""
 
@@ -15518,23 +15766,23 @@ msgstr ""
 msgid "Your browser does not support passkeys. Please use your authenticator code."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2544
+#: src/Modules/MemberProfile/MemberProfile.php:318
 msgid "Your current email address is:"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:387
+#: src/Modules/Email/EmailModule.php:388
 msgid "Your email address"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:111
+#: src/Modules/FormBuilder/ContactFormAjax.php:104
 msgid "Your message could not be saved. Please try again later."
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:393
+#: src/Modules/Email/EmailModule.php:394
 msgid "Your name (optional)"
 msgstr ""
 
-#: src/Bookmarks.php:145
+#: src/Bookmarks.php:157
 msgid "Your note"
 msgstr ""
 
@@ -15546,27 +15794,27 @@ msgstr ""
 msgid "Your own subscription or payment page. The prompt links here. Leave empty to show the message with no button."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1625
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:487
 #. translators: %s: post title.
 msgid "Your post \"%s\" needs revision."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1635
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:497
 #. translators: %s: post title.
 msgid "Your post \"%s\" was published."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1630
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:492
 #. translators: %s: post title.
 msgid "Your post \"%s\" was rejected."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1620
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:482
 #. translators: %s: post title.
 msgid "Your post \"%s\" was sent for review."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1508
+#: src/Modules/MemberArea/MemberDashboard.php:632
 msgid "Your profile was saved."
 msgstr ""
 
@@ -15574,15 +15822,19 @@ msgstr ""
 msgid "Your role requires two-factor authentication. Set it up below to keep using the admin area."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1232
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:584
 msgid "Your server does not support AVIF images."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1231
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:583
 msgid "Your server supports AVIF images."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:385
+#: src/Modules/FormBuilder/FormBuilderModule.php:998
+msgid "Your submission could not be saved. Please try again later."
+msgstr ""
+
+#: src/Modules/Email/EmailAjax.php:465
 msgid "Your subscription is confirmed. Thank you!"
 msgstr ""
 
@@ -15602,15 +15854,15 @@ msgstr ""
 msgid "— No series —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/form-builder.php:314
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:163
+#: templates/admin/modules/form-builder.php:413
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/form-builder.php:369
 msgid "— Select a form —"
 msgstr ""
 
@@ -15646,14 +15898,14 @@ msgctxt "db-tools table row count, singular form for JavaScript"
 msgid "%d row"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1488
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1575
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:350
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:437
 msgctxt "post status"
 msgid "Needs Revision"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1501
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1576
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:363
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:438
 msgctxt "post status"
 msgid "Rejected"
 msgstr ""

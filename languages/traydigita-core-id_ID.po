@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 00:46+0700\n"
-"PO-Revision-Date: 2026-11-24 00:46+0700\n"
+"POT-Creation-Date: 2026-11-24 04:09+0700\n"
+"PO-Revision-Date: 2026-11-24 04:09+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr[0] "%1$d entri tercatat (versi tabel %2$d)."
 msgid "%1$d passed · %2$d warnings · %3$d failed"
 msgstr "%1$d lulus · %2$d peringatan · %3$d gagal"
 
-#: templates/admin/contact-submissions.php:59
+#: templates/admin/contact-submissions.php:60
 #. translators: 1: total submissions, 2: unread submissions.
 msgid "%1$d submissions (%2$d unread)."
 msgstr ""
@@ -75,7 +75,7 @@ msgstr "%1$s, %2$s."
 msgid "%1$s: %2$d rows"
 msgstr "%1$s: %2$d baris"
 
-#: templates/admin/modules/email.php:59
+#: templates/admin/modules/email.php:62
 #. translators: %d: number of blocks in the template.
 msgid "%d block"
 msgid_plural "%d blocks"
@@ -297,6 +297,10 @@ msgstr "(Disimpan di cache, maksimal satu jam.)"
 msgid "(deleted)"
 msgstr "(dihapus)"
 
+#: templates/admin/modules/form-builder.php:210
+msgid "(Draft)"
+msgstr ""
+
 #: src/Modules/Ads/AdsModule.php:1145
 #. translators: %d is the post id.
 msgid "(No title) #%d"
@@ -405,12 +409,12 @@ msgstr "Optimasi massal sedang berjalan. Tunggu hingga selesai atau batalkan ter
 msgid "A bulk optimization is currently running."
 msgstr "Optimasi massal sedang berjalan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2550
+#: src/Modules/MemberProfile/MemberProfile.php:324
 #. translators: %s: pending new email address.
 msgid "A change to %s is waiting for confirmation. Check your inbox for the confirmation email."
 msgstr "Perubahan ke %s sedang menunggu konfirmasi. Periksa kotak masuk Anda untuk email konfirmasinya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1509
+#: src/Modules/MemberArea/MemberDashboard.php:633
 msgid "A confirmation email was sent to your new address. Click the link in it to confirm the change."
 msgstr "Email konfirmasi telah dikirim ke alamat baru Anda. Klik tautan di dalamnya untuk mengonfirmasi perubahan."
 
@@ -434,9 +438,9 @@ msgstr "Tombol aksesibilitas mengambang dengan kontrol ukuran teks, kontras ting
 msgid "A font file could not be downloaded."
 msgstr "Berkas fon tidak dapat diunduh."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1264
-msgid "A hidden section disappears from the sidebar and its URL redirects to Overview. Sections a user may not use (for example Write for non-contributors) are already hidden by capability and need no ticking here."
-msgstr "Bagian yang disembunyikan akan hilang dari bilah sisi dan URL-nya dialihkan ke Ringkasan. Bagian yang tidak boleh digunakan pengguna (misalnya Tulis untuk non-kontributor) sudah disembunyikan berdasarkan kemampuan dan tidak perlu dicentang di sini."
+#: src/Modules/MemberArea/MemberAreaModule.php:695
+msgid "A hidden section disappears from the sidebar and its URL redirects to Overview."
+msgstr ""
 
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:250
 msgid "A high-contrast palette: near-black text on white in light mode, near-white text on black in dark mode."
@@ -585,7 +589,7 @@ msgstr "Token yang ditolak secara definitif oleh Cloudflare selalu diblokir, apa
 msgid "A token with the Zone → Cache Purge permission for this zone (create one under My Profile → API Tokens in the Cloudflare dashboard)."
 msgstr "Token dengan izin Zone → Cache Purge untuk zona ini (buat di My Profile → API Tokens pada dasbor Cloudflare)."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1106
+#: src/Modules/RoleAccess/RoleAccessModule.php:485
 msgid "A user holding both a dashboard role and a frontend-only role keeps dashboard access."
 msgstr "Pengguna yang memiliki peran dasbor sekaligus peran frontend saja tetap mendapat akses dasbor."
 
@@ -650,8 +654,8 @@ msgstr "Teks tombol Terima"
 msgid "Accepted"
 msgstr "Diterima"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1079
 #: src/Modules/Maintenance/MaintenanceModule.php:331
+#: src/Modules/RoleAccess/RoleAccessModule.php:458
 #: templates/admin/modules/maintenance.php:260
 #: templates/admin/modules/maintenance.php:76
 msgid "Access"
@@ -685,16 +689,16 @@ msgstr "Tindakan"
 #: src/Modules/Avatar/AvatarModule.php:400
 #: src/Modules/Redirects/RedirectsModule.php:374
 #: src/Modules/Redirects/RedirectsModule.php:440
-#: templates/admin/contact-submissions.php:184
+#: templates/admin/contact-submissions.php:185
 #: templates/admin/modules/activity-log.php:142
 #: templates/admin/modules/agenda.php:211
-#: templates/admin/modules/contact-form.php:61
 #: templates/admin/modules/db-tools.php:104
 #: templates/admin/modules/dynamic-sidebars.php:303
 #: templates/admin/modules/epaper.php:174
 #: templates/admin/modules/fonts.php:108
-#: templates/admin/modules/form-builder.php:188
-#: templates/admin/modules/form-builder.php:57
+#: templates/admin/modules/form-builder.php:202
+#: templates/admin/modules/form-builder.php:307
+#: templates/admin/modules/form-builder.php:63
 #: templates/admin/modules/role-editor.php:75
 msgid "Actions"
 msgstr "Tindakan"
@@ -761,11 +765,11 @@ msgstr "Kode iklan"
 msgid "Ad code is stored exactly as pasted and may contain scripts."
 msgstr "Kode iklan disimpan persis seperti yang ditempel dan dapat berisi skrip."
 
-#: templates/admin/modules/email.php:96
+#: templates/admin/modules/email-builder.php:76
 msgid "Add a block"
 msgstr "Tambah blok"
 
-#: src/Bookmarks.php:112
+#: src/Bookmarks.php:121
 msgid "Add a note"
 msgstr "Tambah catatan"
 
@@ -813,7 +817,7 @@ msgstr "Tambah aturan"
 msgid "Add sidebar"
 msgstr "Tambah sidebar"
 
-#: templates/admin/modules/email.php:216
+#: templates/admin/modules/email.php:213
 msgid "Add subscriber"
 msgstr "Tambah pelanggan"
 
@@ -852,7 +856,7 @@ msgstr "Ditambahkan %s"
 msgid "Added: %s"
 msgstr "Ditambahkan: %s"
 
-#: templates/admin/hub-page.php:145
+#: templates/admin/hub-page.php:148
 msgid "Admin palette"
 msgstr "Palet admin"
 
@@ -860,7 +864,7 @@ msgstr "Palet admin"
 msgid "Admin UI to create and order series."
 msgstr "Antarmuka admin untuk membuat dan mengurutkan seri."
 
-#: src/Admin/ModuleRegistry.php:1036
+#: src/Admin/ModuleRegistry.php:1046
 msgid "Administration"
 msgstr "Administrasi"
 
@@ -868,7 +872,8 @@ msgstr "Administrasi"
 msgid "Administrator — protected"
 msgstr "Administrator — dilindungi"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1058
+#: src/Modules/RoleAccess/RoleAccessModule.php:194
+#: src/Modules/RoleAccess/RoleAccessModule.php:441
 msgid "Administrators are never affected."
 msgstr "Administrator tidak pernah terpengaruh."
 
@@ -978,11 +983,11 @@ msgstr "Saran AI hanya tersedia untuk posting dan halaman."
 msgid "AI suggestions are off. Switch them on above to generate meta titles and descriptions for a post."
 msgstr "Saran AI mati. Nyalakan di atas untuk membuat judul dan deskripsi meta untuk sebuah posting."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1898
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2006
 #: src/Modules/Installer/InstallerModule.php:317
 #: src/Modules/Integrations/IntegrationsModule.php:395
-#: templates/admin/contact-submissions.php:150
+#: src/Modules/MemberArea/MemberDashboard.php:1001
+#: src/Modules/MemberArea/MemberDashboard.php:1109
+#: templates/admin/contact-submissions.php:151
 #: templates/admin/modules/agenda.php:178
 #: templates/admin/shell.php:121
 msgid "All"
@@ -997,7 +1002,7 @@ msgstr "Semua data agenda telah dihapus."
 msgid "All categories"
 msgstr "Semua kategori"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2327
+#: src/Modules/FrontendEditor/FrontendEditor.php:924
 msgid "All changes saved"
 msgstr "Semua perubahan tersimpan"
 
@@ -1014,7 +1019,7 @@ msgstr "Semua perangkat"
 msgid "All events"
 msgstr "Semua acara"
 
-#: templates/admin/contact-submissions.php:141
+#: templates/admin/contact-submissions.php:142
 msgid "All forms"
 msgstr ""
 
@@ -1063,23 +1068,23 @@ msgstr "Semua pengguna"
 msgid "Allow avatars by remote image URL"
 msgstr "Izinkan avatar melalui URL gambar jarak jauh"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1092
+#: src/Modules/RoleAccess/RoleAccessModule.php:471
 msgid "Allow dashboard access"
 msgstr "Izinkan akses dasbor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1252
+#: src/Modules/MemberProfile/MemberProfileModule.php:297
 msgid "Allow email change in the dashboard"
 msgstr "Izinkan perubahan email di dasbor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1150
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:502
 msgid "Allow links in article text"
 msgstr "Izinkan tautan dalam teks artikel"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1182
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:534
 msgid "Allowed blocks"
 msgstr "Blok yang diizinkan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1222
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:574
 msgid "Allowed image types"
 msgstr "Jenis gambar yang diizinkan"
 
@@ -1149,7 +1154,7 @@ msgstr "Analitik"
 msgid "Analytics, Search Console, AdSense and PageSpeed Insights are owned by Site Kit."
 msgstr "Analytics, Search Console, AdSense, dan PageSpeed Insights dikelola oleh Site Kit."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1766
+#: src/Modules/MemberArea/MemberDashboard.php:869
 msgid "Announcements"
 msgstr "Pengumuman"
 
@@ -1233,7 +1238,7 @@ msgstr "Artikel selalu dirender penuh untuk mesin pencari."
 msgid "Articles only"
 msgstr "Hanya artikel"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2595
+#: src/Modules/Bookmarks/BookmarksModule.php:311
 msgid "Articles you saved for later. Bookmarks live in this browser only — they do not sync to other devices."
 msgstr "Artikel yang Anda simpan untuk nanti. Markah hanya tersimpan di peramban ini — tidak tersinkron ke perangkat lain."
 
@@ -1318,7 +1323,7 @@ msgstr "Kode aplikasi autentikator (TOTP), login passkey dengan sidik jari atau 
 msgid "Authenticator-app codes (TOTP)."
 msgstr "Kode aplikasi autentikator (TOTP)."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2093
+#: src/Modules/MemberArea/MemberDashboard.php:1196
 #: templates/admin/modules/dynamic-sidebars.php:233
 #: templates/admin/shell.php:173
 msgid "Author"
@@ -1365,7 +1370,7 @@ msgstr "Membuat daftar isi secara otomatis dari judul artikel, dengan id jangkar
 msgid "Auto-Submitted + Precedence: bulk (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:35
+#: templates/admin/modules/form-builder.php:282
 msgid "Automatic (Turnstile first, then reCAPTCHA v3)"
 msgstr ""
 
@@ -1381,8 +1386,12 @@ msgstr "Autosave dan penguncian posting memerlukan heartbeat editor, sehingga he
 msgid "Autosave and the post lock depend on it — without it, two editors could overwrite each other without warning and drafts would stop autosaving."
 msgstr "Autosave dan kunci posting bergantung padanya — tanpanya, dua editor dapat saling menimpa tanpa peringatan dan draf akan berhenti tersimpan otomatis."
 
+#: src/Modules/Email/EmailAjax.php:237
+msgid "Autosave discarded."
+msgstr ""
+
 #: src/Modules/Avatar/AvatarModule.php:397
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2494
+#: src/Modules/MemberProfile/MemberProfile.php:268
 #: src/Modules/UserManager/UserManagerModule.php:578
 msgid "Avatar"
 msgstr "Avatar"
@@ -1417,6 +1426,10 @@ msgstr "Pengaturan avatar disimpan."
 msgid "Avatar size (pixels)"
 msgstr "Ukuran avatar (piksel)"
 
+#: src/Modules/MemberProfile/MemberProfileModule.php:155
+msgid "Avatar upload when the Avatar module is active."
+msgstr ""
+
 #: src/Modules/Avatar/AvatarStorage.php:629
 msgid "Avatar uploaded."
 msgstr "Avatar terunggah."
@@ -1429,7 +1442,7 @@ msgstr "Avatar, bio, tautan sosial, dan jumlah artikel."
 msgid "Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default."
 msgstr "Avatar berasal dari modul Custom Avatar saat diaktifkan, jika tidak dari Gravatar atau bawaan situs."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1227
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
 #: templates/admin/modules/image-optimizer.php:83
 msgid "AVIF"
 msgstr "AVIF"
@@ -1438,15 +1451,15 @@ msgstr "AVIF"
 msgid "AVIF compresses smaller but needs a newer image editor and is not supported by older browsers."
 msgstr "AVIF mengompres lebih kecil tetapi memerlukan editor gambar yang lebih baru dan tidak didukung oleh peramban lama."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:118
+#: src/Modules/FrontendEditor/FeaturedUpload.php:117
 msgid "AVIF images are not supported on this server."
 msgstr "Gambar AVIF tidak didukung di server ini."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1234
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:586
 msgid "AVIF uploads are accepted when ticked, because this server’s image editor can handle AVIF."
 msgstr "Unggahan AVIF diterima saat dicentang, karena editor gambar server ini dapat menangani AVIF."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1235
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
 msgid "AVIF uploads are refused even when ticked, because this server’s image editor cannot handle AVIF. Enable AVIF support in GD or Imagick to offer it."
 msgstr "Unggahan AVIF ditolak meskipun dicentang, karena editor gambar server ini tidak dapat menangani AVIF. Aktifkan dukungan AVIF di GD atau Imagick untuk menyediakannya."
 
@@ -1486,7 +1499,7 @@ msgstr ""
 msgid "Back"
 msgstr "Kembali"
 
-#: templates/admin/contact-submissions.php:68
+#: templates/admin/contact-submissions.php:69
 msgid "Back to all submissions"
 msgstr ""
 
@@ -1496,7 +1509,7 @@ msgstr ""
 msgid "Back to log in"
 msgstr "Kembali ke login"
 
-#: src/Admin/AdminMenu.php:784
+#: src/Admin/AdminMenu.php:826
 #: src/Modules/Ads/AdsModule.php:874
 #: templates/admin/shell.php:381
 msgid "Back to Modules"
@@ -1508,7 +1521,7 @@ msgstr "Kembali ke Modul"
 msgid "Back to roles"
 msgstr "Kembali ke peran"
 
-#: src/Admin/AdminMenu.php:783
+#: src/Admin/AdminMenu.php:825
 msgid "Back to Settings"
 msgstr "Kembali ke Pengaturan"
 
@@ -1537,7 +1550,7 @@ msgstr "Warna latar tombol Terima. Kosongkan untuk memakai warna biru bawaan."
 msgid "Background image"
 msgstr "Gambar latar"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1168
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:520
 msgid "Background of the editor canvas."
 msgstr "Latar kanvas editor."
 
@@ -1637,7 +1650,7 @@ msgstr "Di bawah header menempatkannya tepat di bawah header entri (judul, meta,
 msgid "Below the threshold the content is left untouched."
 msgstr "Di bawah ambang batas, konten dibiarkan apa adanya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1207
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:559
 msgid "Between 1 and 10 MB. Larger files are refused with a clear error before anything is stored."
 msgstr "Antara 1 dan 10 MB. Berkas yang lebih besar ditolak dengan pesan kesalahan yang jelas sebelum ada yang disimpan."
 
@@ -1645,7 +1658,7 @@ msgstr "Antara 1 dan 10 MB. Berkas yang lebih besar ditolak dengan pesan kesalah
 msgid "Between 30 and 365 days. After this period the banner is shown again."
 msgstr "Antara 30 dan 365 hari. Setelah periode ini spanduk ditampilkan lagi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1216
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:568
 msgid "Between 600 and 4000 px. Images wider or taller than this are refused with a clear error; they are never silently downscaled."
 msgstr "Antara 600 dan 4000 px. Gambar yang lebih lebar atau lebih tinggi dari ini ditolak dengan pesan kesalahan yang jelas; gambar tidak pernah diperkecil diam-diam."
 
@@ -1653,7 +1666,7 @@ msgstr "Antara 600 dan 4000 px. Gambar yang lebih lebar atau lebih tinggi dari i
 msgid "Binance"
 msgstr "Binance"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2509
+#: src/Modules/MemberProfile/MemberProfile.php:283
 msgid "Biography"
 msgstr "Biografi"
 
@@ -1673,16 +1686,17 @@ msgstr ""
 msgid "Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1144
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
 msgid "Block editor behaviour for the frontend dashboard."
 msgstr "Perilaku editor blok untuk dasbor frontend."
 
+#: templates/admin/modules/email-builder.php:90
 #: templates/admin/modules/login.php:130
 #: templates/admin/modules/login.php:131
 msgid "Block settings"
 msgstr "Pengaturan blok"
 
-#: templates/admin/modules/form-builder.php:177
+#: templates/admin/modules/form-builder.php:191
 msgid "Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph."
 msgstr ""
 
@@ -1690,14 +1704,13 @@ msgstr ""
 msgid "Block-based page builder, same pattern as the Login Designer. An empty heading uses the maintenance title; an empty text block uses the maintenance message; the countdown reads the date from General. Image fields take a media library attachment ID (find it in Media → Library → the image → copy the ID from the URL)."
 msgstr ""
 
-#: templates/admin/modules/email.php:105
-#: templates/admin/modules/form-builder.php:187
+#: templates/admin/modules/form-builder.php:201
 #: templates/admin/modules/login.php:73
 #: templates/admin/modules/login.php:74
 msgid "Blocks"
 msgstr "Blok"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1190
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:542
 msgid "Blocks the frontend editor offers."
 msgstr "Blok yang ditawarkan editor frontend."
 
@@ -1715,14 +1728,31 @@ msgstr "Font isi"
 msgid "Body text. Empty uses the maintenance message."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2593
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:707
+#: src/Modules/Bookmarks/BookmarksModule.php:253
+msgid "Bookmark settings saved."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:289
+#: src/Modules/Bookmarks/BookmarksModule.php:309
+#: src/Modules/Bookmarks/BookmarksModule.php:79
 msgid "Bookmarks"
 msgstr "Markah"
 
-#: src/Bookmarks.php:150
+#: src/Bookmarks.php:162
 msgid "Bookmarks are not available in this browser."
 msgstr "Markah tidak tersedia di peramban ini."
+
+#: src/Modules/Bookmarks/BookmarksModule.php:143
+msgid "Bookmarks is now a module of its own, with an enable/disable toggle."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:220
+msgid "Bookmarks live in the reader’s browser (IndexedDB database traydigita-bookmarks, version 1) — never in the WordPress database, never in user meta, never synced through REST. The article toggle, the bookmark list page and the member-area Bookmarks section all read the same store, so a bookmark saved on an article shows up in the member area on the same browser."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:126
+msgid "Bookmarks section in the member area."
+msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:457
 msgid "Bot protection for login, comments and newsletter — save both keys to switch it on."
@@ -1791,7 +1821,7 @@ msgstr ""
 msgid "Broadcast sent through AWeber."
 msgstr ""
 
-#: templates/admin/modules/email.php:46
+#: templates/admin/modules/email.php:49
 msgid "Build a template from blocks. The template marked as default wraps all WordPress notification emails."
 msgstr "Buat templat dari blok. Templat yang ditandai sebagai bawaan membungkus semua email notifikasi WordPress."
 
@@ -1803,8 +1833,8 @@ msgstr "Bangun indeks"
 msgid "Build job not found or expired."
 msgstr "Tugas pembangunan tidak ditemukan atau kedaluwarsa."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:120
-msgid "Build reusable forms and email templates (field builder + email template builder) for the Contact Form, Newsletter and other modules."
+#: src/Modules/FormBuilder/FormBuilderModule.php:197
+msgid "Build reusable forms and email templates (field builder + email template builder) for contact forms, the Newsletter and other modules. Submissions are stored in their own table, with a CSV export and retention prune."
 msgstr ""
 
 #: templates/admin/modules/fast-search.php:53
@@ -1868,38 +1898,26 @@ msgstr "Perubahan peran massal"
 msgid "Bulk-optimize the existing media library in small chunks."
 msgstr "Optimalkan pustaka media yang ada secara massal dalam potongan kecil."
 
-#: src/Modules/Email/TemplateBuilder.php:455
+#: src/Modules/Email/TemplateBuilder.php:739
 #: src/Modules/Maintenance/MaintenanceDesigner.php:230
 msgid "Button"
-msgstr ""
-
-#: templates/admin/modules/form-builder.php:295
-msgid "Button blocks need both a label and a URL. Image blocks need an image URL. Leave the last empty row blank to ignore it."
 msgstr ""
 
 #: templates/admin/modules/login.php:236
 msgid "Button colour"
 msgstr "Warna tombol"
 
-#: templates/admin/modules/form-builder.php:244
-msgid "Button label"
-msgstr ""
-
 #: src/Modules/PrintArticle/PrintArticleModule.php:274
 #: src/Modules/ReadAloud/ReadAloudModule.php:279
 msgid "Button position"
 msgstr "Posisi tombol"
-
-#: templates/admin/modules/form-builder.php:245
-msgid "Button URL"
-msgstr ""
 
 #: src/Modules/CookieConsent/CookieConsentModule.php:288
 #: templates/admin/modules/cookie-consent.php:88
 msgid "Buttons"
 msgstr "Tombol"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1160
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:512
 msgid "Buttons and the active state in the frontend editor."
 msgstr "Tombol dan status aktif di editor frontend."
 
@@ -1908,7 +1926,7 @@ msgstr "Tombol dan status aktif di editor frontend."
 msgid "Buyback: %s"
 msgstr "Buyback: %s"
 
-#: templates/admin/hub-page.php:170
+#: templates/admin/hub-page.php:173
 #: templates/admin/shell.php:127
 #: templates/admin/shell.php:405
 #. translators: %s is the module author name.
@@ -2032,8 +2050,8 @@ msgstr ""
 msgid "Can be disabled entirely."
 msgstr "Dapat dinonaktifkan sepenuhnya."
 
-#: src/Bookmarks.php:119
-#: src/Bookmarks.php:148
+#: src/Bookmarks.php:128
+#: src/Bookmarks.php:160
 #: src/Modules/Redirects/RedirectsModule.php:274
 #: src/Modules/Redirects/RedirectsModule.php:362
 #: src/Modules/TwoFactor/TwoFactorModule.php:2161
@@ -2081,8 +2099,8 @@ msgstr "Tampilan kartu"
 msgid "Categories"
 msgstr "Kategori"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2094
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2340
+#: src/Modules/FrontendEditor/FrontendEditor.php:937
+#: src/Modules/MemberArea/MemberDashboard.php:1197
 #: templates/admin/modules/agenda.php:144
 #: templates/admin/modules/agenda.php:209
 #: templates/admin/modules/dynamic-sidebars.php:203
@@ -2148,13 +2166,21 @@ msgstr "Perubahan"
 msgid "Change %"
 msgstr "Perubahan %"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2542
+#: src/Modules/MemberProfile/MemberProfile.php:316
 msgid "Change email"
 msgstr "Ubah email"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:721
+#: src/Modules/MemberProfile/MemberProfileModule.php:382
 msgid "Change Email"
 msgstr "Ubah Email"
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:292
+msgid "Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:154
+msgid "Change Email section, confirmed through WordPress core."
+msgstr ""
 
 #: src/MenuIcons/MenuIcons.php:676
 #: src/MenuIcons/MenuIcons.php:698
@@ -2186,7 +2212,7 @@ msgstr "Ubah peran beberapa pengguna sekaligus."
 msgid "Change weather location"
 msgstr "Ubah lokasi cuaca"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2520
+#: src/Modules/MemberProfile/MemberProfile.php:294
 msgid "Change your password and security settings on your WordPress profile page."
 msgstr "Ubah kata sandi dan pengaturan keamanan Anda di halaman profil WordPress."
 
@@ -2540,7 +2566,7 @@ msgstr "Nyaman"
 msgid "Comfortable or relaxed line spacing for article text, for readers who find tight lines hard to follow."
 msgstr "Spasi baris nyaman atau longgar untuk teks artikel, bagi pembaca yang sulit mengikuti baris yang rapat."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1271
+#: src/Modules/MemberArea/MemberAreaModule.php:702
 msgid "Comma-separated section ids, in display order."
 msgstr "ID bagian yang dipisahkan koma, sesuai urutan tampil."
 
@@ -2593,11 +2619,11 @@ msgstr "Komentar di Sampah, termasuk commentmeta-nya."
 msgid "Comments marked as spam, including their commentmeta."
 msgstr "Komentar yang ditandai sebagai spam, termasuk commentmeta-nya."
 
-#: src/Admin/ModuleRegistry.php:1028
+#: src/Admin/ModuleRegistry.php:1038
 msgid "Communication"
 msgstr "Komunikasi"
 
-#: templates/admin/modules/email.php:167
+#: templates/admin/modules/email.php:164
 msgid "Compose and send"
 msgstr "Tulis dan kirim"
 
@@ -2645,7 +2671,7 @@ msgstr "Konfirmasi langganan Anda ke %s"
 msgid "Confirmation word"
 msgstr "Kata konfirmasi"
 
-#: templates/admin/modules/email.php:238
+#: templates/admin/modules/email.php:235
 msgid "Confirmed"
 msgstr "Dikonfirmasi"
 
@@ -2701,46 +2727,39 @@ msgstr ""
 msgid "Constant Contact — trial only, no free plan. Campaign provider: a mail is sent as an email campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for small businesses already running email marketing on Constant Contact."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:147
-msgid "Contact Form"
-msgstr ""
-
-#: src/Modules/ContactForm/ContactFormModule.php:668
+#: src/Modules/FormBuilder/FormBuilderModule.php:1296
 msgid "Contact form created."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:747
+#: src/Modules/FormBuilder/FormBuilderModule.php:1375
 msgid "Contact form deleted. Its submissions are kept."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:723
+#: src/Modules/FormBuilder/FormBuilderModule.php:1351
 msgid "Contact form saved."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:633
+#: src/Modules/FormBuilder/FormBuilderModule.php:1261
 msgid "Contact Form settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:44
+#: src/Modules/FormBuilder/FormBuilderModule.php:346
+#: templates/admin/modules/form-builder.php:290
 msgid "Contact forms"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:192
-msgid "Contact forms built with the Form Builder."
-msgstr "Formulir kontak yang dibuat dengan Form Builder."
-
-#: src/Modules/ContactForm/ContactFormModule.php:157
-msgid "Contact forms built with the Form Builder: submissions are stored in their own table, sent via the Core Mailer, and protected by Turnstile or reCAPTCHA."
+#: src/Modules/FormBuilder/FormBuilderModule.php:239
+msgid "Contact forms with recipient, spam protection and notification mail."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:360
-#: src/Modules/ContactForm/ContactFormModule.php:361
-#: templates/admin/contact-submissions.php:53
+#: src/Modules/FormBuilder/FormBuilderModule.php:424
+#: src/Modules/FormBuilder/FormBuilderModule.php:425
+#: templates/admin/contact-submissions.php:54
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1004
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
+#: src/Admin/ModuleRegistry.php:1014
+#: src/Modules/FrontendEditor/FrontendEditor.php:920
 msgid "Content"
 msgstr "Konten"
 
@@ -2762,25 +2781,17 @@ msgstr "Catatan Content-Security-Policy: Turnstile memuat skrip dan iframe tanta
 msgid "Contrast"
 msgstr "Kontras"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:350
-msgid "Contributor Frontend Editor"
-msgstr "Editor Frontend Kontributor"
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1420
-msgid "Contributor settings saved."
-msgstr "Pengaturan kontributor disimpan."
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1152
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:504
 msgid "Contributors can add links to their article text."
 msgstr "Kontributor dapat menambahkan tautan ke teks artikel mereka."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1199
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:185
+msgid "Contributors cannot set editorial statuses."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:551
 msgid "Contributors upload through a dedicated endpoint, not the Media Library: they never gain the upload_files capability and cannot open the Media Library. Replacing an image deletes the previous one only when it was uploaded through this endpoint; an image an editor set is detached, never deleted."
 msgstr "Kontributor mengunggah melalui endpoint khusus, bukan Pustaka Media: mereka tidak pernah mendapatkan kemampuan upload_files dan tidak dapat membuka Pustaka Media. Mengganti gambar hanya menghapus gambar sebelumnya bila diunggah melalui endpoint ini; gambar yang dipasang editor hanya dilepas, tidak pernah dihapus."
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1052
-msgid "Contributors write and submit articles from a frontend dashboard instead of wp-admin."
-msgstr "Kontributor menulis dan mengirim artikel dari dasbor frontend, bukan wp-admin."
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:187
 msgid "Control Heartbeat frequency on dashboard, editor, and frontend."
@@ -2918,10 +2929,10 @@ msgstr "Cuplikan server siap salin-tempel."
 msgid "Core"
 msgstr "Inti"
 
-#: src/Admin/ModuleRegistry.php:1621
-#: src/Admin/ModuleRegistry.php:1658
-#: src/Admin/ModuleRegistry.php:953
-#: templates/admin/hub-page.php:78
+#: src/Admin/ModuleRegistry.php:1636
+#: src/Admin/ModuleRegistry.php:1673
+#: src/Admin/ModuleRegistry.php:963
+#: templates/admin/hub-page.php:81
 #: templates/admin/shell.php:433
 msgid "Core module"
 msgstr "Modul inti"
@@ -2941,6 +2952,10 @@ msgstr "Gaya kosmetik untuk admin WordPress: preset merek dan warna aksen. Hanya
 #: templates/admin/shell.php:163
 msgid "Could not assign the module. Please try again."
 msgstr "Modul tidak dapat ditetapkan. Silakan coba lagi."
+
+#: src/Modules/Email/EmailAjax.php:193
+msgid "Could not autosave the template."
+msgstr ""
 
 #: templates/admin/shell.php:106
 msgid "Could not change the module state. Please try again."
@@ -3057,7 +3072,7 @@ msgstr "Tidak dapat mengirim: Service Account belum disimpan. Simpan dulu di tab
 msgid "Could not sign the Service Account JWT. Check the private_key."
 msgstr "Tidak dapat menandatangani JWT Service Account. Periksa private_key."
 
-#: src/Modules/Email/EmailAjax.php:288
+#: src/Modules/Email/EmailAjax.php:368
 msgid "Could not start the download."
 msgstr "Tidak dapat memulai unduhan."
 
@@ -3246,7 +3261,7 @@ msgstr ""
 msgid "Create category"
 msgstr "Buat kategori"
 
-#: templates/admin/modules/contact-form.php:97
+#: templates/admin/modules/form-builder.php:347
 msgid "Create contact form"
 msgstr ""
 
@@ -3258,7 +3273,7 @@ msgstr "Buat area widget khusus dan tampilkan berdasarkan aturan — per kategor
 msgid "Create custom widget areas."
 msgstr "Buat area widget kustom."
 
-#: templates/admin/modules/form-builder.php:91
+#: templates/admin/modules/form-builder.php:97
 msgid "Create form"
 msgstr ""
 
@@ -3282,7 +3297,7 @@ msgstr "Buat peran"
 msgid "Create series"
 msgstr "Buat seri"
 
-#: templates/admin/modules/form-builder.php:221
+#: templates/admin/modules/form-builder.php:239
 msgid "Create template"
 msgstr ""
 
@@ -3369,7 +3384,6 @@ msgstr "Avatar saat ini"
 msgid "Current overrides for this post"
 msgstr "Override saat ini untuk posting ini"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:430
 #: src/Modules/Seo/SeoModule.php:216
 msgid "Current version in TrayDigita Core."
 msgstr "Versi saat ini di TrayDigita Core."
@@ -3461,11 +3475,15 @@ msgstr "Pengaturan Dashboard Designer disimpan."
 msgid "Dashboard interval"
 msgstr "Interval dasbor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1637
+#: src/Modules/MemberArea/MemberDashboard.php:740
 msgid "Dashboard menu"
 msgstr "Menu dasbor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1246
+#: src/Modules/MemberArea/MemberAreaModule.php:684
+msgid "Dashboard sections"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:291
 msgid "Dashboard sections and email changes."
 msgstr "Bagian dasbor dan perubahan email."
 
@@ -3478,11 +3496,11 @@ msgstr "Data"
 msgid "Database server: %1$s %2$s. InnoDB FULLTEXT support: %3$s."
 msgstr "Server basis data: %1$s %2$s. Dukungan FULLTEXT InnoDB: %3$s."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2095
 #: src/Modules/FormBuilder/FormBuilder.php:129
+#: src/Modules/MemberArea/MemberDashboard.php:1198
 #: src/Widgets/WidgetBase.php:286
-#: templates/admin/contact-submissions.php:177
-#: templates/admin/contact-submissions.php:74
+#: templates/admin/contact-submissions.php:178
+#: templates/admin/contact-submissions.php:75
 #: templates/admin/modules/agenda.php:207
 #: templates/admin/modules/epaper.php:172
 msgid "Date"
@@ -3534,8 +3552,8 @@ msgstr "Teks tombol Tolak"
 
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:384
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:392
-#: templates/admin/modules/email.php:63
-#: templates/admin/modules/form-builder.php:117
+#: templates/admin/modules/email.php:66
+#: templates/admin/modules/form-builder.php:131
 msgid "Default"
 msgstr "Bawaan"
 
@@ -3548,28 +3566,28 @@ msgstr "Nama pengguna admin bawaan"
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:233
+#: templates/admin/modules/form-builder.php:483
 msgid "Default recipient email"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:355
+#: src/Modules/Email/EmailModule.php:356
 msgid "Default template cleared."
 msgstr "Templat bawaan dihapus."
 
-#: src/Modules/Email/EmailAjax.php:174
-#: src/Modules/Email/EmailModule.php:360
+#: src/Modules/Email/EmailAjax.php:254
+#: src/Modules/Email/EmailModule.php:361
 msgid "Default template updated."
 msgstr "Templat bawaan diperbarui."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1177
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
 msgid "Defaults to slate #1e293b. It only affects the contributor dashboard editor, never the site theme."
 msgstr "Bawaan: slate #1e293b. Hanya memengaruhi editor dasbor kontributor, bukan tema situs."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1161
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
 msgid "Defaults to the Elegant Blue accent #2563eb. The colour only affects the contributor dashboard editor, never the site theme."
 msgstr "Bawaan: aksen Elegant Blue #2563eb. Warna ini hanya memengaruhi editor dasbor kontributor, bukan tema situs."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1169
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
 msgid "Defaults to white. Dark mode on the reader’s device switches the dashboard to its dark palette instead; this colour is the light-mode canvas."
 msgstr "Bawaan: putih. Mode gelap di perangkat pembaca mengalihkan dasbor ke palet gelapnya; warna ini adalah kanvas mode terang."
 
@@ -3584,19 +3602,18 @@ msgstr "Mengalah pada Yoast, Rank Math, All in One SEO, atau SEOPress jika salah
 #: src/Modules/Avatar/AvatarModule.php:424
 #: src/Modules/Redirects/RedirectsModule.php:271
 #: src/Modules/Redirects/RedirectsModule.php:393
-#: templates/admin/contact-submissions.php:133
-#: templates/admin/contact-submissions.php:207
+#: templates/admin/contact-submissions.php:134
+#: templates/admin/contact-submissions.php:208
 #: templates/admin/modules/activity-log.php:157
 #: templates/admin/modules/agenda.php:231
-#: templates/admin/modules/contact-form.php:81
 #: templates/admin/modules/dynamic-sidebars.php:327
-#: templates/admin/modules/email.php:79
+#: templates/admin/modules/email.php:87
 #: templates/admin/modules/epaper.php:197
 #: templates/admin/modules/fonts.php:140
-#: templates/admin/modules/form-builder.php:119
-#: templates/admin/modules/form-builder.php:205
-#: templates/admin/modules/form-builder.php:247
-#: templates/admin/modules/form-builder.php:75
+#: templates/admin/modules/form-builder.php:133
+#: templates/admin/modules/form-builder.php:223
+#: templates/admin/modules/form-builder.php:331
+#: templates/admin/modules/form-builder.php:81
 #: templates/admin/modules/role-editor.php:103
 #: templates/admin/shell.php:142
 msgid "Delete"
@@ -3614,7 +3631,7 @@ msgstr "Hapus semua entri log? Tindakan ini tidak dapat dibatalkan."
 msgid "Delete config"
 msgstr "Hapus konfigurasi"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2163
+#: src/Modules/MemberArea/MemberDashboard.php:1266
 msgid "Delete permanently"
 msgstr "Hapus permanen"
 
@@ -3726,7 +3743,7 @@ msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgid "Description"
 msgstr "Deskripsi"
 
-#: src/Admin/ModuleRegistry.php:1008
+#: src/Admin/ModuleRegistry.php:1018
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3786,8 +3803,8 @@ msgstr "Perangkat yang Anda percayai melewati faktor kedua selama %d hari. Hapus
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr "Nonaktifkan modul Security Headers jika modul ini yang mengirim header yang tumpang tindih itu sendiri."
 
-#: src/Admin/ModuleRegistry.php:1637
-#: src/Admin/ModuleRegistry.php:962
+#: src/Admin/ModuleRegistry.php:1652
+#: src/Admin/ModuleRegistry.php:972
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3820,6 +3837,10 @@ msgstr "Menonaktifkannya menghapus semua jejak."
 msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the \"Install App\" buttons entirely."
 msgstr ""
 
+#: src/Modules/Bookmarks/BookmarksModule.php:224
+msgid "Disabling this module removes the Bookmarks section from the member area and hides the save-for-later toggle on articles. Bookmarks already saved in a reader’s browser stay there until the reader clears them; they are not deleted by disabling the module."
+msgstr ""
+
 #: src/Modules/SiteInfo/SiteInfoModule.php:643
 msgid "DISALLOW_FILE_EDIT"
 msgstr "DISALLOW_FILE_EDIT"
@@ -3839,6 +3860,10 @@ msgstr "DISALLOW_FILE_MODS"
 #: src/Modules/Security/Checks.php:175
 msgid "DISALLOW_FILE_MODS is set, but DISALLOW_FILE_EDIT is not."
 msgstr "DISALLOW_FILE_MODS diatur, tetapi DISALLOW_FILE_EDIT tidak."
+
+#: templates/admin/modules/email-builder.php:70
+msgid "Discard"
+msgstr ""
 
 #: templates/admin/modules/mailer.php:359
 msgid "Disconnect Gmail"
@@ -3860,7 +3885,7 @@ msgstr "Spanduk persetujuan cookie yang dapat ditutup."
 msgid "Display"
 msgstr "Display"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2499
+#: src/Modules/MemberProfile/MemberProfile.php:273
 #: templates/admin/modules/role-editor.php:249
 msgid "Display name"
 msgstr "Nama tampilan"
@@ -3893,7 +3918,7 @@ msgstr "Disqus dipilih — simpan shortname Disqus untuk mengaktifkannya."
 msgid "Disqus shortname"
 msgstr "Shortname Disqus"
 
-#: src/Modules/Email/TemplateBuilder.php:457
+#: src/Modules/Email/TemplateBuilder.php:741
 msgid "Divider"
 msgstr ""
 
@@ -3905,7 +3930,7 @@ msgstr ""
 msgid "Done"
 msgstr "Selesai"
 
-#: templates/admin/modules/email.php:133
+#: templates/admin/modules/email.php:130
 msgid "Double opt-in"
 msgstr ""
 
@@ -3940,12 +3965,13 @@ msgstr "Unduh PDF"
 msgid "Downloading font…"
 msgstr "Mengunduh font…"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1901
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2007
+#: src/Modules/MemberArea/MemberDashboard.php:1004
+#: src/Modules/MemberArea/MemberDashboard.php:1110
+#: templates/admin/modules/email.php:69
 msgid "Draft"
 msgstr "Draft"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1677
+#: src/Modules/MemberArea/MemberDashboard.php:780
 msgid "Drafts"
 msgstr "Draft"
 
@@ -3991,7 +4017,7 @@ msgstr "Rule E-Paper ada."
 msgid "E-Paper settings saved."
 msgstr "Pengaturan E-Paper disimpan."
 
-#: templates/admin/modules/email.php:93
+#: templates/admin/modules/email.php:99
 msgid "e.g. Newsletter default"
 msgstr "cth. Bawaan buletin"
 
@@ -4007,7 +4033,7 @@ msgstr "Setiap pemeriksaan di bawah menunjukkan statusnya, artinya dalam bahasa 
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr "Setiap kode hanya berlaku sekali, jika Anda kehilangan akses ke aplikasi autentikator. Simpan di tempat yang aman — kode tersebut hanya ditampilkan sekali."
 
-#: templates/admin/modules/contact-form.php:46
+#: templates/admin/modules/form-builder.php:292
 msgid "Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on)."
 msgstr ""
 
@@ -4031,17 +4057,17 @@ msgstr "Pilihan setiap pengunjung hanya diingat di perambannya sendiri — tidak
 msgid "Each visitor’s choices are remembered in their own browser."
 msgstr "Pilihan setiap pengunjung diingat di browser mereka sendiri."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2169
+#: src/Modules/MemberArea/MemberDashboard.php:1272
 #: src/Modules/PostSeries/PostSeriesModule.php:1075
 #: src/Modules/Redirects/RedirectsModule.php:270
 #: src/Modules/Redirects/RedirectsModule.php:390
 #: templates/admin/modules/agenda.php:230
-#: templates/admin/modules/contact-form.php:74
 #: templates/admin/modules/dynamic-sidebars.php:324
-#: templates/admin/modules/email.php:68
+#: templates/admin/modules/email.php:74
 #: templates/admin/modules/epaper.php:196
-#: templates/admin/modules/form-builder.php:198
-#: templates/admin/modules/form-builder.php:68
+#: templates/admin/modules/form-builder.php:216
+#: templates/admin/modules/form-builder.php:324
+#: templates/admin/modules/form-builder.php:74
 #: templates/admin/modules/role-editor.php:98
 msgid "Edit"
 msgstr "Edit"
@@ -4051,11 +4077,11 @@ msgstr "Edit"
 msgid "Edit capabilities: %s"
 msgstr "Edit kapabilitas: %s"
 
-#: templates/admin/modules/contact-form.php:103
+#: templates/admin/modules/form-builder.php:353
 msgid "Edit contact form"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:227
+#: templates/admin/modules/form-builder.php:245
 msgid "Edit email template"
 msgstr ""
 
@@ -4063,15 +4089,15 @@ msgstr ""
 msgid "Edit event"
 msgstr "Edit acara"
 
-#: templates/admin/modules/form-builder.php:97
+#: templates/admin/modules/form-builder.php:103
 msgid "Edit form"
 msgstr ""
 
-#: src/Bookmarks.php:146
+#: src/Bookmarks.php:158
 msgid "Edit note"
 msgstr "Ubah catatan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1717
+#: src/Modules/MemberArea/MemberDashboard.php:820
 msgid "Edit profile"
 msgstr "Ubah profil"
 
@@ -4083,21 +4109,41 @@ msgstr "Sunting seri"
 msgid "Edit sidebar"
 msgstr "Edit sidebar"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1143
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
 msgid "Editor"
 msgstr "Editor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1158
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:510
 msgid "Editor accent colour"
 msgstr "Warna aksen editor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1166
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:518
 msgid "Editor paper colour"
 msgstr "Warna kertas editor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1174
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:526
 msgid "Editor text colour"
 msgstr "Warna teks editor"
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:137
+msgid "Editorial Workflow"
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:278
+msgid "Editorial workflow for posts, in wp-admin."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:147
+msgid "Editorial workflow in wp-admin: needs-revision and rejected post statuses only editors may set, with a revision-note box telling the author what to fix."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:309
+msgid "Editorial workflow settings saved."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:279
+msgid "Editors send a post back with the needs-revision status and a note telling the author what to fix, or reject it outright. Contributors can never set these statuses themselves: any save that tries is forced back to the post’s current status (or draft for a new post). The statuses appear in the post list, in Quick Edit and Bulk Edit, and in the block editor."
+msgstr ""
 
 #: src/Modules/Mailer/Providers/ElasticEmailProvider.php:48
 msgid "Elastic Email API key"
@@ -4114,15 +4160,15 @@ msgstr ""
 #: src/Modules/Email/EmailModule.php:96
 #: src/Modules/FormBuilder/FormBuilder.php:121
 #: src/Modules/Share/ShareModule.php:309
-#: templates/admin/contact-submissions.php:180
-#: templates/admin/contact-submissions.php:82
-#: templates/admin/modules/email.php:224
+#: templates/admin/contact-submissions.php:181
+#: templates/admin/contact-submissions.php:83
+#: templates/admin/modules/email.php:221
 msgid "Email"
 msgstr "Email"
 
-#: src/Modules/Email/EmailModule.php:383
+#: src/Modules/Email/EmailModule.php:384
 #: src/Modules/Maintenance/MaintenanceDesigner.php:1029
-#: templates/admin/modules/email.php:213
+#: templates/admin/modules/email.php:210
 #: templates/maintenance.php:296
 #: templates/maintenance.php:297
 msgid "Email address"
@@ -4132,15 +4178,15 @@ msgstr "Alamat email"
 msgid "Email marketing and newsletters via the MailPoet plugin."
 msgstr "Email marketing dan newsletter melalui plugin MailPoet."
 
-#: templates/admin/modules/email.php:117
+#: templates/admin/modules/email-builder.php:123
 msgid "Email preview"
 msgstr "Pratinjau email"
 
-#: templates/admin/contact-submissions.php:183
+#: templates/admin/contact-submissions.php:184
 msgid "Email sent"
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:305
+#: src/Modules/Email/EmailModule.php:306
 msgid "Email settings are unavailable."
 msgstr "Pengaturan email tidak tersedia."
 
@@ -4148,29 +4194,29 @@ msgstr "Pengaturan email tidak tersedia."
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:179
+#: templates/admin/modules/form-builder.php:429
 msgid "Email subject prefix"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:156
+#: src/Modules/FormBuilder/FormBuilderModule.php:238
 msgid "Email template builder."
 msgstr "Pembuat templat email."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:556
+#: src/Modules/FormBuilder/FormBuilderModule.php:742
 msgid "Email template created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:663
+#: src/Modules/FormBuilder/FormBuilderModule.php:876
 msgid "Email template deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:602
+#: src/Modules/FormBuilder/FormBuilderModule.php:788
 msgid "Email template saved."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:261
-#: templates/admin/modules/email.php:44
-#: templates/admin/modules/form-builder.php:175
+#: src/Modules/FormBuilder/FormBuilderModule.php:345
+#: templates/admin/modules/email.php:47
+#: templates/admin/modules/form-builder.php:189
 msgid "Email templates"
 msgstr "Templat email"
 
@@ -4236,8 +4282,8 @@ msgstr "Aktifkan header keamanan yang direkomendasikan, periksa header tersebut 
 msgid "Enable the recommended security headers."
 msgstr "Aktifkan header keamanan yang direkomendasikan."
 
-#: src/Admin/ModuleRegistry.php:1633
-#: src/Admin/ModuleRegistry.php:959
+#: src/Admin/ModuleRegistry.php:1648
+#: src/Admin/ModuleRegistry.php:969
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
@@ -4310,15 +4356,15 @@ msgstr "Masukkan ID posting atau halaman terlebih dahulu."
 msgid "Enter a title for the issue."
 msgstr "Masukkan judul edisi."
 
-#: src/Modules/ContactForm/ContactFormModule.php:649
+#: src/Modules/FormBuilder/FormBuilderModule.php:1277
 msgid "Enter a title for the new contact form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:543
+#: src/Modules/FormBuilder/FormBuilderModule.php:729
 msgid "Enter a title for the new email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:435
+#: src/Modules/FormBuilder/FormBuilderModule.php:619
 msgid "Enter a title for the new form."
 msgstr ""
 
@@ -4632,6 +4678,10 @@ msgstr "Permintaan berikutnya dari setiap pengunjung akan kembali ke origin samp
 msgid "Everything below is read-only information about this installation."
 msgstr "Semua yang di bawah ini adalah informasi hanya-baca tentang instalasi ini."
 
+#: templates/admin/modules/email-builder.php:114
+msgid "Exact email preview"
+msgstr ""
+
 #: src/Modules/Ads/AdsModule.php:740
 #. translators: %s is a comma-separated list of category names.
 msgid "except in %s"
@@ -4642,7 +4692,7 @@ msgstr "kecuali di %s"
 msgid "except when tagged %s"
 msgstr "kecuali bila diberi tag %s"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2335
+#: src/Modules/FrontendEditor/FrontendEditor.php:932
 msgid "Excerpt"
 msgstr "Kutipan"
 
@@ -4662,8 +4712,8 @@ msgstr "Nilai transient yang kedaluwarsa beserta baris timeout-nya, ditambah bar
 msgid "Expired transients"
 msgstr "Transient kedaluwarsa"
 
-#: templates/admin/contact-submissions.php:168
-#: templates/admin/modules/email.php:209
+#: templates/admin/contact-submissions.php:169
+#: templates/admin/modules/email.php:206
 msgid "Export CSV"
 msgstr "Ekspor CSV"
 
@@ -4727,7 +4777,7 @@ msgstr "Izinkan formulir komentar dan buletin saat Cloudflare tidak dapat dijang
 #: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:871
 #: src/Modules/Turnstile/TurnstileModule.php:1021
-#: templates/admin/modules/email.php:278
+#: templates/admin/modules/email.php:275
 #: templates/admin/modules/fast-search.php:60
 #: templates/admin/modules/mailer.php:145
 #: templates/admin/modules/mailer.php:530
@@ -4772,8 +4822,8 @@ msgstr "Pengaturan Fast Search tersimpan."
 msgid "FCM token of the test device"
 msgstr "Token FCM perangkat tes"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2380
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1197
+#: src/Modules/FrontendEditor/FrontendEditor.php:977
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
 msgid "Featured image"
 msgstr "Gambar unggulan"
 
@@ -4785,7 +4835,7 @@ msgstr "Fitur"
 msgid "Feedback-ID (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:160
+#: templates/admin/modules/form-builder.php:174
 msgid "Field IDs must start with a letter and contain only lowercase letters, digits and underscores. Choice fields (dropdown, radio, checkboxes) need at least one option. Leave the last empty row blank to ignore it."
 msgstr ""
 
@@ -4793,7 +4843,7 @@ msgstr ""
 msgid "Field label"
 msgstr "Label kolom"
 
-#: templates/admin/modules/form-builder.php:55
+#: templates/admin/modules/form-builder.php:61
 msgid "Fields"
 msgstr ""
 
@@ -4821,7 +4871,7 @@ msgstr "Izin berkas dan akun pengguna juga demikian — server web mungkin bukan
 msgid "Files are stored under wp-content/traydigita-avatar/ and never in the media library."
 msgstr "Berkas disimpan di wp-content/traydigita-avatar/ dan tidak pernah di pustaka media."
 
-#: templates/admin/contact-submissions.php:167
+#: templates/admin/contact-submissions.php:168
 #: templates/admin/modules/activity-log.php:126
 msgid "Filter"
 msgstr "Filter"
@@ -4859,7 +4909,7 @@ msgstr "Temukan ID di Posting → Semua Posting dengan mengarahkan kursor ke jud
 msgid "Finish"
 msgstr "Selesai"
 
-#: templates/admin/modules/email.php:279
+#: templates/admin/modules/email.php:276
 msgid "Finished"
 msgstr "Selesai"
 
@@ -4998,11 +5048,11 @@ msgstr "Fon yang digunakan untuk judul, melalui variabel serif tema. Hanya fon y
 msgid "Font used for headings. The same setting is available in the Customizer."
 msgstr "Font yang digunakan untuk judul. Pengaturan yang sama tersedia di Customizer."
 
-#: src/Modules/Email/TemplateBuilder.php:458
+#: src/Modules/Email/TemplateBuilder.php:742
 msgid "Footer"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1272
+#: src/Modules/MemberArea/MemberAreaModule.php:703
 msgid "For example: overview,posts,contributions,write,bookmark,profile,change-email. Sections left out keep their registered order after the listed ones. Unknown ids are ignored."
 msgstr "Contoh: overview,posts,contributions,write,bookmark,profile,change-email. Bagian yang tidak dicantumkan tetap mengikuti urutan terdaftarnya setelah bagian yang dicantumkan. ID yang tidak dikenal diabaikan."
 
@@ -5011,8 +5061,8 @@ msgstr "Contoh: overview,posts,contributions,write,bookmark,profile,change-email
 msgid "Forest"
 msgstr "Hutan"
 
-#: templates/admin/contact-submissions.php:139
-#: templates/admin/contact-submissions.php:178
+#: templates/admin/contact-submissions.php:140
+#: templates/admin/contact-submissions.php:179
 msgid "Form"
 msgstr ""
 
@@ -5020,28 +5070,28 @@ msgstr ""
 msgid "Form background colour"
 msgstr "Warna latar formulir"
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:110
+#: src/Modules/FormBuilder/FormBuilderModule.php:187
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:126
-#: templates/admin/modules/contact-form.php:56
+#: templates/admin/modules/form-builder.php:302
+#: templates/admin/modules/form-builder.php:376
 msgid "Form Builder form"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:460
+#: src/Modules/FormBuilder/FormBuilderModule.php:645
 msgid "Form created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:524
+#: src/Modules/FormBuilder/FormBuilderModule.php:710
 msgid "Form deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:500
+#: src/Modules/FormBuilder/FormBuilderModule.php:686
 msgid "Form saved."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:54
+#: templates/admin/contact-submissions.php:55
 msgid "Form settings"
 msgstr ""
 
@@ -5062,14 +5112,13 @@ msgstr "Dukungan format"
 msgid "Format: Label|price|change|change_percent|buyback. Used when no API provider is configured."
 msgstr "Format: Label|price|change|change_percent|buyback. Digunakan saat tidak ada penyedia API yang dikonfigurasi."
 
-#: src/Modules/ContactForm/ContactFormModule.php:320
-#: src/Modules/FormBuilder/FormBuilderModule.php:260
-#: templates/admin/modules/form-builder.php:43
+#: src/Modules/FormBuilder/FormBuilderModule.php:344
+#: templates/admin/modules/form-builder.php:49
 msgid "Forms"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:45
-msgid "Forms built here can be used by the Contact Form module and rendered anywhere with the shortcode shown below. The Contact Form module owns its own submissions; the shortcode form below only validates and hands the values to the traydigita:core:form-builder/submitted action."
+#: templates/admin/modules/form-builder.php:51
+msgid "Forms built here can be used by the contact forms below and rendered anywhere with the shortcode shown below. A form stores its submissions in the submissions table when \"Store submissions\" is on for it; every submission is also handed to the traydigita:core:form-builder/submitted action."
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:959
@@ -5103,7 +5152,7 @@ msgid "Free public tier, no API key needed. Paid plans exist, but the theme uses
 msgstr "Tingkat publik gratis, tanpa kunci API. Paket berbayar tersedia, tetapi tema hanya memakai tingkat tanpa kunci."
 
 #: src/Modules/Mailer/MailerModule.php:1721
-#: templates/admin/contact-submissions.php:156
+#: templates/admin/contact-submissions.php:157
 #: templates/admin/modules/activity-log.php:114
 #: templates/admin/modules/mailer.php:367
 #: templates/admin/modules/mailer.php:368
@@ -5151,25 +5200,37 @@ msgstr ""
 msgid "From the Zoho CPaaS dashboard (Mail Agents → API). The From address must be a verified sender. Zoho CPaaS is transactional-only."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:406
-msgid "Frontend dashboard for contributors — no wp-admin needed."
-msgstr "Dasbor frontend untuk kontributor — tanpa perlu wp-admin."
+#: src/Modules/MemberArea/MemberAreaModule.php:196
+msgid "Frontend dashboard for every logged-in user: Overview, Posts and My Contributions in one shell, plus sections other modules plug in (Write, Bookmarks, Profile, Change Email). The configured member page becomes the dashboard; sections are manageable from the settings."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:189
+msgid "Frontend Editor"
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:673
+msgid "Frontend editor settings saved."
+msgstr ""
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:319
 msgid "Frontend interval"
 msgstr "Interval frontend"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1093
+#: src/Modules/RoleAccess/RoleAccessModule.php:472
 msgid "Frontend only"
 msgstr "Frontend saja"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1104
+#: src/Modules/RoleAccess/RoleAccessModule.php:483
 msgid "Frontend only hides the admin bar and redirects wp-admin to the member area."
 msgstr "Frontend saja menyembunyikan admin bar dan mengalihkan wp-admin ke area member."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1125
-msgid "Frontend-only users are redirected here when they open wp-admin."
-msgstr "Pengguna frontend saja dialihkan ke sini saat mereka membuka wp-admin."
+#: src/Modules/RoleAccess/RoleAccessModule.php:193
+msgid "Frontend-only users are redirected from wp-admin to the member area."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:192
+msgid "Frontend-only users lose the admin bar."
+msgstr ""
 
 #: src/Modules/Installer/PluginList.php:311
 msgid "Full caching suite — page, object and browser cache with CDN support — that runs on any server. Powerful, but needs careful setup to run well."
@@ -5279,7 +5340,7 @@ msgstr "Login Gmail OAuth."
 msgid "Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail."
 msgstr ""
 
-#: templates/admin/hub-page.php:136
+#: templates/admin/hub-page.php:139
 msgid "Go to Modules"
 msgstr "Ke Modul"
 
@@ -5480,7 +5541,11 @@ msgstr "Kotak centang kapabilitas yang dikelompokkan."
 msgid "Guard against duplicate analytics tracking."
 msgstr "Mencegah pelacakan analitik ganda."
 
-#: src/Modules/Email/TemplateBuilder.php:453
+#: src/Modules/Bookmarks/BookmarksModule.php:128
+msgid "Guests can bookmark exactly like members."
+msgstr ""
+
+#: src/Modules/Email/TemplateBuilder.php:737
 #: templates/admin/modules/headers.php:49
 msgid "Header"
 msgstr "Header"
@@ -5512,7 +5577,7 @@ msgstr "Header yang akan dikirim"
 msgid "Headers this module will send"
 msgstr "Header yang akan dikirim modul ini"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1185
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
 #: src/Modules/Maintenance/MaintenanceDesigner.php:227
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:363
 #: src/Modules/Share/ShareModule.php:346
@@ -5564,7 +5629,7 @@ msgstr "Warna heksa untuk bilah, misalnya #166534."
 msgid "Hidden"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1260
+#: src/Modules/MemberArea/MemberAreaModule.php:691
 msgid "Hidden sections"
 msgstr "Bagian tersembunyi"
 
@@ -5572,6 +5637,14 @@ msgstr "Bagian tersembunyi"
 #: src/Modules/Toc/TocModule.php:691
 msgid "Hide"
 msgstr "Sembunyikan"
+
+#: src/Modules/MemberArea/MemberAreaModule.php:236
+msgid "Hide and reorder sections from the settings."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:685
+msgid "Hide and reorder the dashboard sections."
+msgstr ""
 
 #: templates/admin/shell.php:111
 msgid "Hide help"
@@ -5631,7 +5704,7 @@ msgstr "Template judul halaman beranda"
 msgid "Home URL"
 msgstr "URL Beranda"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1118
+#: src/Modules/MemberArea/MemberAreaModule.php:663
 msgid "Homepage"
 msgstr "Beranda"
 
@@ -5754,9 +5827,9 @@ msgstr "Ikon tampil di samping label menu di frontend."
 msgid "ICS export for events."
 msgstr "Ekspor ICS untuk acara."
 
-#: templates/admin/modules/form-builder.php:113
-#: templates/admin/modules/form-builder.php:186
-#: templates/admin/modules/form-builder.php:54
+#: templates/admin/modules/form-builder.php:127
+#: templates/admin/modules/form-builder.php:200
+#: templates/admin/modules/form-builder.php:60
 msgid "ID"
 msgstr ""
 
@@ -5777,7 +5850,7 @@ msgstr "Jika server (atau Cloudflare) sudah mengirim salah satu header ini, kedu
 msgid "If you enable Security Headers later, it takes over the overlapping headers automatically and this module defers to it."
 msgstr "Jika Security Headers diaktifkan nanti, modul tersebut mengambil alih header yang tumpang tindih secara otomatis dan modul ini mengalah."
 
-#: src/Modules/Email/TemplateBuilder.php:456
+#: src/Modules/Email/TemplateBuilder.php:740
 #: src/Modules/Installer/InstallerModule.php:638
 #: templates/admin/modules/login.php:190
 #: templates/admin/modules/maintenance.php:146
@@ -5806,7 +5879,6 @@ msgid "Image Optimizer settings saved."
 msgstr "Pengaturan Image Optimizer disimpan."
 
 #: src/Modules/Avatar/AvatarModule.php:339
-#: templates/admin/modules/form-builder.php:246
 msgid "Image URL"
 msgstr "URL gambar"
 
@@ -5856,9 +5928,9 @@ msgstr "Impresi"
 msgid "in %s"
 msgstr "di %s"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1678
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1900
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2008
+#: src/Modules/MemberArea/MemberDashboard.php:1003
+#: src/Modules/MemberArea/MemberDashboard.php:1111
+#: src/Modules/MemberArea/MemberDashboard.php:781
 msgid "In Review"
 msgstr "Dalam Review"
 
@@ -5956,7 +6028,7 @@ msgstr "Harga saham Indonesia"
 msgid "Info"
 msgstr "Info"
 
-#: src/Admin/ModuleRegistry.php:918
+#: src/Admin/ModuleRegistry.php:928
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -5966,7 +6038,6 @@ msgstr "Info"
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:223
 #: src/Modules/Cache/CacheModule.php:228
 #: src/Modules/Comments/CommentsModule.php:211
-#: src/Modules/ContactForm/ContactFormModule.php:215
 #: src/Modules/CookieConsent/CookieConsentModule.php:202
 #: src/Modules/Core/MenuIconsModule.php:150
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:206
@@ -5976,7 +6047,7 @@ msgstr "Info"
 #: src/Modules/Email/EmailModule.php:163
 #: src/Modules/FastSearch/FastSearchModule.php:165
 #: src/Modules/Fonts/FontsModule.php:224
-#: src/Modules/FormBuilder/FormBuilderModule.php:177
+#: src/Modules/FormBuilder/FormBuilderModule.php:261
 #: src/Modules/Headers/HeadersModule.php:265
 #: src/Modules/Heartbeat/HeartbeatModule.php:210
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:177
@@ -6108,7 +6179,7 @@ msgstr "Pengindeksan instan: Google Indexing API"
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr "Pengindeksan instan: IndexNow (Bing, Yandex)"
 
-#: src/Admin/ModuleRegistry.php:1032
+#: src/Admin/ModuleRegistry.php:1042
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr "Integrasi"
@@ -6117,7 +6188,7 @@ msgstr "Integrasi"
 msgid "Integrations has no settings to save. This page is read-only status."
 msgstr "Integrasi tidak memiliki pengaturan untuk disimpan. Halaman ini hanya menampilkan status."
 
-#: templates/admin/modules/email.php:184
+#: templates/admin/modules/email.php:181
 msgid "Intro text (optional)"
 msgstr "Teks pengantar (opsional)"
 
@@ -6125,7 +6196,7 @@ msgstr "Teks pengantar (opsional)"
 msgid "Invalid response from the reCAPTCHA verification service."
 msgstr ""
 
-#: templates/admin/contact-submissions.php:102
+#: templates/admin/contact-submissions.php:103
 msgid "IP address"
 msgstr ""
 
@@ -6215,7 +6286,7 @@ msgstr "Tombol-tombolnya tidak berfungsi di sini kecuali Sesuaikan, yang membuka
 msgid "Its FULLTEXT indexes (%s) were carried over by InnoDB."
 msgstr "Indeks FULLTEXT-nya (%s) ikut dibawa oleh InnoDB."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1224
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
 msgid "JPEG"
 msgstr "JPEG"
 
@@ -6239,7 +6310,7 @@ msgstr "Simpan entri selama (hari)"
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr "Jaga URL lama tetap berfungsi setelah migrasi dan perubahan slug: aturan pengalihan dengan dukungan wildcard, pemantau 404 yang menunjukkan URL hilang yang benar-benar dikunjungi pengunjung, serta impor/ekspor aturan dalam format JSON."
 
-#: templates/admin/modules/contact-form.php:224
+#: templates/admin/modules/form-builder.php:474
 msgid "Keep submissions (days)"
 msgstr ""
 
@@ -6272,7 +6343,7 @@ msgid "Klaviyo — free 500 profiles. Campaign provider: a mail is sent as a cam
 msgstr ""
 
 #: src/Modules/Ads/AdsModule.php:1198
-#: templates/admin/modules/form-builder.php:114
+#: templates/admin/modules/form-builder.php:128
 #: templates/admin/modules/login.php:259
 #: templates/admin/modules/maintenance.php:206
 #: templates/admin/modules/maintenance.php:224
@@ -6287,7 +6358,7 @@ msgstr "Bahasa"
 msgid "Large tables can take a while per index; the page stays responsive and shows progress. WP-CLI (`wp td-search install`) is the faster route on very large sites."
 msgstr "Tabel besar dapat memakan waktu cukup lama per indeks; halaman tetap responsif dan menampilkan kemajuan. WP-CLI (`wp td-search install`) adalah jalur yang lebih cepat di situs yang sangat besar."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1206
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:558
 msgid "Largest featured image a contributor may upload."
 msgstr "Gambar unggulan terbesar yang boleh diunggah kontributor."
 
@@ -6396,7 +6467,7 @@ msgstr "Biarkan kosong untuk menggunakan latar spanduk bawaan."
 msgid "Leave empty to use the default banner text colour."
 msgstr "Biarkan kosong untuk menggunakan warna teks spanduk bawaan."
 
-#: templates/admin/modules/contact-form.php:138
+#: templates/admin/modules/form-builder.php:388
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6423,10 +6494,6 @@ msgstr ""
 #: templates/admin/modules/role-editor.php:255
 msgid "Leave this off unless the new role really is an administrator role."
 msgstr "Biarkan nonaktif kecuali peran baru tersebut memang merupakan peran administrator."
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:364
-msgid "Let contributors write and submit articles from a frontend dashboard instead of wp-admin: a simple block editor, a scoped featured-image upload, and custom needs-revision / rejected statuses editors set from wp-admin. Per-role access modes (dashboard or frontend-only), with the admin bar hidden and wp-admin redirected to the member area for frontend-only users. Administrators are never affected."
-msgstr "Biarkan kontributor menulis dan mengirim artikel dari dasbor frontend, bukan wp-admin: editor blok sederhana, unggahan gambar unggulan yang dibatasi, dan status perlu-revisi / ditolak yang ditetapkan editor dari wp-admin. Mode akses per peran (dasbor atau frontend-only), dengan bilah admin disembunyikan dan wp-admin dialihkan ke area anggota untuk pengguna frontend-only. Administrator tidak pernah terpengaruh."
 
 #: src/Modules/Avatar/AvatarModule.php:279
 msgid "Let users set their own avatar from their profile page"
@@ -6526,7 +6593,7 @@ msgstr "Menaut ke arsip penulis beserta jumlah artikel yang diterbitkan."
 msgid "Links to your own subscription page."
 msgstr "Tautan ke halaman langganan Anda sendiri."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1186
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:538
 msgid "List"
 msgstr "Daftar"
 
@@ -6567,7 +6634,6 @@ msgstr "Harga kripto live dari %s."
 #: src/Modules/Ads/AdsModule.php:866
 #: src/Widgets/WidgetBase.php:633
 #: templates/admin/modules/cookie-consent.php:208
-#: templates/admin/modules/email.php:116
 #: templates/admin/modules/login.php:139
 #: templates/admin/modules/login.php:140
 msgid "Live preview"
@@ -6593,8 +6659,8 @@ msgstr "Memuat pratinjau…"
 msgid "Loading weather…"
 msgstr "Memuat cuaca…"
 
-#: src/Bookmarks.php:141
 #: src/Bookmarks.php:153
+#: src/Bookmarks.php:165
 msgid "Loading your bookmarks…"
 msgstr "Memuat markah Anda…"
 
@@ -6640,7 +6706,7 @@ msgid "Lockout duration in minutes"
 msgstr "Durasi penguncian dalam menit"
 
 #: src/Modules/ActivityLog/ActivityLogModule.php:932
-#: templates/admin/modules/email.php:37
+#: templates/admin/modules/email.php:40
 msgid "Log"
 msgstr "Log"
 
@@ -6656,7 +6722,7 @@ msgstr "Entri log dihapus."
 msgid "Log In"
 msgstr "Masuk"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1652
+#: src/Modules/MemberArea/MemberDashboard.php:755
 #: templates/admin/shell.php:245
 msgid "Log out"
 msgstr "Keluar"
@@ -6726,7 +6792,7 @@ msgstr ""
 msgid "Long-running SEO plugin with titles, sitemaps and schema for a news site. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr "Plugin SEO yang sudah lama berjalan, dengan judul, sitemap, dan schema untuk situs berita. Saat plugin ini aktif, modul SEO bawaan tema akan menepi dan tidak mengeluarkan meta tag duplikat."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1215
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
 msgid "Longest side, in pixels, of an uploaded featured image."
 msgstr "Sisi terpanjang, dalam piksel, dari gambar unggulan yang diunggah."
 
@@ -6854,7 +6920,7 @@ msgstr "MailPoet terinstal tetapi tidak aktif — aktifkan untuk menggunakannya 
 msgid "MailPoet is not installed — install it to use it for email marketing and newsletters."
 msgstr "MailPoet tidak terinstal — instal untuk menggunakannya bagi email marketing dan newsletter."
 
-#: templates/admin/modules/email.php:190
+#: templates/admin/modules/email.php:187
 msgid "Mails are sent in batches of 25 to confirmed subscribers only."
 msgstr "Email dikirim dalam kelompok 25 hanya ke pelanggan yang terkonfirmasi."
 
@@ -6915,7 +6981,7 @@ msgstr "Kelola acara dalam tabelnya sendiri — dengan tampilan arsip dan tungga
 msgid "Manage module categories"
 msgstr "Kelola kategori modul"
 
-#: templates/admin/modules/contact-form.php:218
+#: templates/admin/modules/form-builder.php:468
 msgid "Manage reCAPTCHA keys"
 msgstr "Kelola kunci reCAPTCHA"
 
@@ -6960,19 +7026,19 @@ msgstr "Snapshot manual (bawaan)"
 msgid "Manual snapshots"
 msgstr "Snapshot manual"
 
-#: templates/admin/contact-submissions.php:131
+#: templates/admin/contact-submissions.php:132
 msgid "Mark as read"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:131
+#: templates/admin/contact-submissions.php:132
 msgid "Mark as unread"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:204
+#: templates/admin/contact-submissions.php:205
 msgid "Mark read"
 msgstr ""
 
-#: templates/admin/contact-submissions.php:204
+#: templates/admin/contact-submissions.php:205
 msgid "Mark unread"
 msgstr ""
 
@@ -7008,7 +7074,7 @@ msgstr "Ukuran unggahan maks."
 msgid "Maximum ads per page"
 msgstr "Iklan maksimum per halaman"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1213
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:565
 msgid "Maximum dimension (px)"
 msgstr "Dimensi maksimum (px)"
 
@@ -7016,7 +7082,7 @@ msgstr "Dimensi maksimum (px)"
 msgid "Maximum entries kept"
 msgstr "Jumlah entri maksimum yang disimpan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1204
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:556
 msgid "Maximum file size (MB)"
 msgstr "Ukuran berkas maksimum (MB)"
 
@@ -7028,17 +7094,44 @@ msgstr "Ukuran PDF maksimum (MB)"
 msgid "Media"
 msgstr "Media"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1636
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1644
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1245
+#: src/Modules/MemberArea/MemberAreaModule.php:186
+msgid "Member Area"
+msgstr ""
+
+#: src/Modules/MemberArea/MemberDashboard.php:739
+#: src/Modules/MemberArea/MemberDashboard.php:747
 msgid "Member area"
 msgstr "Area anggota"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1112
+#: src/Modules/MemberArea/MemberAreaModule.php:657
 msgid "Member area page"
 msgstr "Halaman area member"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1254
+#: src/Modules/MemberArea/MemberAreaModule.php:779
+msgid "Member area settings saved."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:233
+msgid "Member dashboard shell for every logged-in user."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:106
+msgid "Member Profile"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:290
+msgid "Member profile"
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:334
+msgid "Member profile settings saved."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:280
+msgid "Members edit their own display name, website, bio and avatar from the Profile section. Password changes stay on the wp-admin profile page."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:299
 msgid "Members may change their own email from the dashboard."
 msgstr "Anggota dapat mengubah email mereka sendiri dari dasbor."
 
@@ -7134,7 +7227,7 @@ msgstr "Jalur tidak ada"
 msgid "Missing reCAPTCHA token or secret key."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:257
+#: src/Modules/Email/EmailAjax.php:337
 msgid "Missing send job."
 msgstr "Tugas pengiriman tidak ditemukan."
 
@@ -7147,12 +7240,17 @@ msgstr "Pernyataan SQL yang hilang"
 msgid "Missing static files (stylesheets, scripts, images, fonts) are never logged, and the log keeps at most 200 paths."
 msgstr "Berkas statis yang hilang (stylesheet, skrip, gambar, fon) tidak pernah dicatat, dan log menyimpan paling banyak 200 jalur."
 
+#: src/Modules/Email/EmailAjax.php:212
+#: src/Modules/Email/EmailAjax.php:234
+msgid "Missing template."
+msgstr ""
+
 #: templates/admin/modules/fonts.php:47
 msgid "Mixed"
 msgstr "Campuran"
 
 #: src/Admin/AdminPointerTour.php:125
-#: templates/admin/hub-page.php:150
+#: templates/admin/hub-page.php:153
 msgid "Mobile bottom navigation"
 msgstr "Navigasi bawah seluler"
 
@@ -7203,10 +7301,10 @@ msgstr "Pengaturan modul"
 msgid "Module settings live in the Settings hub, not in a long menu. Each active module links to its own settings page from there."
 msgstr "Pengaturan modul berada di Pusat Pengaturan, bukan di menu yang panjang. Setiap modul aktif menautkan ke halaman pengaturannya sendiri dari sana."
 
-#: src/Admin/AdminMenu.php:321
-#: src/Admin/AdminMenu.php:322
-#: src/Admin/AdminMenu.php:492
-#: src/Admin/AdminMenu.php:613
+#: src/Admin/AdminMenu.php:363
+#: src/Admin/AdminMenu.php:364
+#: src/Admin/AdminMenu.php:534
+#: src/Admin/AdminMenu.php:655
 msgid "Modules"
 msgstr "Modul"
 
@@ -7218,7 +7316,7 @@ msgstr "Modul dalam kategori ini akan kembali ke kategori bawaannya."
 msgid "Modules: enable what you need"
 msgstr "Modul: aktifkan yang Anda butuhkan"
 
-#: src/Admin/ModuleRegistry.php:1024
+#: src/Admin/ModuleRegistry.php:1034
 msgid "Monetization"
 msgstr "Monetisasi"
 
@@ -7261,9 +7359,9 @@ msgstr "Multisite"
 msgid "Must be a valid email address. Leave empty to use the WordPress default sender. Gmail always sends from the connected account, whatever is entered here."
 msgstr "Harus berupa alamat email yang valid. Kosongkan untuk menggunakan pengirim bawaan WordPress. Gmail selalu mengirim dari akun yang terhubung, apa pun yang dimasukkan di sini."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1715
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2286
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:693
+#: src/Modules/FrontendEditor/FrontendEditor.php:883
+#: src/Modules/MemberArea/MemberAreaModule.php:428
+#: src/Modules/MemberArea/MemberDashboard.php:818
 msgid "My Contributions"
 msgstr "Kontribusi Saya"
 
@@ -7275,16 +7373,16 @@ msgstr "Fon Saya"
 msgid "MySQL version"
 msgstr "Versi MySQL"
 
-#: src/Modules/Email/EmailModule.php:389
-#: src/Modules/FormBuilder/FormBuilderModule.php:448
-#: templates/admin/contact-submissions.php:179
-#: templates/admin/contact-submissions.php:78
+#: src/Modules/Email/EmailModule.php:390
+#: src/Modules/FormBuilder/FormBuilderModule.php:632
+#: templates/admin/contact-submissions.php:180
+#: templates/admin/contact-submissions.php:79
 #: templates/admin/modules/dynamic-sidebars.php:133
-#: templates/admin/modules/email.php:225
+#: templates/admin/modules/email.php:222
 msgid "Name"
 msgstr "Nama"
 
-#: templates/admin/modules/email.php:215
+#: templates/admin/modules/email.php:212
 msgid "Name (optional)"
 msgstr "Nama (opsional)"
 
@@ -7309,28 +7407,28 @@ msgstr "Navigasi"
 msgid "Needs a service-account JSON below. Only while no SEO plugin is active."
 msgstr "Membutuhkan JSON akun layanan di bawah. Hanya saat tidak ada plugin SEO yang aktif."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1679
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1902
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2009
+#: src/Modules/MemberArea/MemberDashboard.php:1005
+#: src/Modules/MemberArea/MemberDashboard.php:1112
+#: src/Modules/MemberArea/MemberDashboard.php:782
 msgid "Needs Revision"
 msgstr "Perlu Revisi"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1489
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:351
 msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] "Perlu Revisi <span class=\"count\">(%s)</span>"
 
-#: src/Admin/ModuleRegistry.php:1629
-#: src/Admin/ModuleRegistry.php:956
+#: src/Admin/ModuleRegistry.php:1644
+#: src/Admin/ModuleRegistry.php:966
 #: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
 msgid "Needs setup"
 msgstr "Perlu penyiapan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:409
-msgid "Needs-revision and rejected statuses set by editors."
-msgstr "Status perlu-revisi dan ditolak yang ditetapkan editor."
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:184
+msgid "Needs-revision and rejected post statuses."
+msgstr ""
 
 #: src/Modules/Security/Checks.php:194
 msgid "Neither DISALLOW_FILE_EDIT nor DISALLOW_FILE_MODS is defined in wp-config.php, so any administrator account can edit plugin and theme files from the dashboard. That turns a stolen administrator password into full code execution on the server. Note that setting DISALLOW_FILE_MODS also disables plugin and theme installs and updates from the dashboard — updates then have to be done another way (for example WP-CLI or FTP)."
@@ -7359,20 +7457,20 @@ msgstr "Jangan bagikan ini kepada siapa pun."
 msgid "New backup codes generated. The old codes no longer work."
 msgstr "Kode cadangan baru telah dibuat. Kode lama tidak lagi berfungsi."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:206
+#: src/Modules/FormBuilder/ContactFormAjax.php:230
 #. translators: %s: contact form title.
 msgid "New contact form submission: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:94
+#: templates/admin/modules/form-builder.php:344
 msgid "New contact form title"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2561
+#: src/Modules/MemberProfile/MemberProfile.php:335
 msgid "New email address"
 msgstr "Alamat email baru"
 
-#: templates/admin/modules/form-builder.php:88
+#: templates/admin/modules/form-builder.php:94
 msgid "New form title"
 msgstr ""
 
@@ -7388,11 +7486,11 @@ msgstr "Seri baru"
 msgid "New series name"
 msgstr "Nama seri baru"
 
-#: templates/admin/modules/email.php:112
+#: templates/admin/modules/email-builder.php:109
 msgid "New template"
 msgstr "Templat baru"
 
-#: templates/admin/modules/form-builder.php:218
+#: templates/admin/modules/form-builder.php:236
 msgid "New template title"
 msgstr ""
 
@@ -7408,8 +7506,8 @@ msgstr "Terbaru"
 msgid "NewsArticle JSON-LD on single posts: headline, publish and modification dates, author, publisher with logo, and the featured image."
 msgstr "JSON-LD NewsArticle pada posting tunggal: judul, tanggal terbit dan modifikasi, penulis, penerbit dengan logo, dan gambar unggulan."
 
-#: templates/admin/modules/email.php:123
-#: templates/admin/modules/email.php:34
+#: templates/admin/modules/email.php:120
+#: templates/admin/modules/email.php:37
 msgid "Newsletter"
 msgstr "Buletin"
 
@@ -7421,7 +7519,7 @@ msgstr ""
 msgid "Newsletter sending to confirmed subscribers."
 msgstr "Pengiriman buletin ke pelanggan terkonfirmasi."
 
-#: templates/admin/modules/email.php:128
+#: templates/admin/modules/email.php:125
 msgid "Newsletter settings"
 msgstr ""
 
@@ -7433,12 +7531,12 @@ msgstr ""
 msgid "Newsletter signup"
 msgstr ""
 
-#: templates/admin/modules/email.php:159
+#: templates/admin/modules/email.php:156
 msgid "Newsletters are sent through the Core Mailer provider and appear in the Mailer send log."
 msgstr ""
 
 #: src/Admin/AdminPointerTour.php:309
-#: templates/admin/contact-submissions.php:228
+#: templates/admin/contact-submissions.php:229
 #: templates/admin/modules/activity-log.php:176
 #: templates/admin/shell.php:130
 #: templates/widgets/weather.php:71
@@ -7466,8 +7564,8 @@ msgstr "Edisi berikutnya"
 msgid "Next location"
 msgstr "Lokasi berikutnya"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1955
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2066
+#: src/Modules/MemberArea/MemberDashboard.php:1058
+#: src/Modules/MemberArea/MemberDashboard.php:1169
 msgid "Next page"
 msgstr "Halaman berikutnya"
 
@@ -7480,8 +7578,8 @@ msgid "Nginx"
 msgstr "Nginx"
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
-#: templates/admin/contact-submissions.php:196
-#: templates/admin/contact-submissions.php:99
+#: templates/admin/contact-submissions.php:100
+#: templates/admin/contact-submissions.php:197
 msgid "No"
 msgstr "Tidak"
 
@@ -7509,7 +7607,7 @@ msgstr "Tanpa akun, tanpa cookie, tanpa penyimpanan server."
 msgid "No action needed."
 msgstr "Tidak ada tindakan yang diperlukan."
 
-#: templates/admin/hub-page.php:132
+#: templates/admin/hub-page.php:135
 msgid "No active module has settings yet. Enable a module on the Modules page first."
 msgstr "Belum ada modul aktif yang memiliki pengaturan. Aktifkan modul di halaman Modul terlebih dahulu."
 
@@ -7521,7 +7619,7 @@ msgstr "Belum ada kode iklan — aturan ini tidak menampilkan apa pun sampai kod
 msgid "No ads were placed on this post with the current rules."
 msgstr "Tidak ada iklan yang ditempatkan pada posting ini dengan aturan saat ini."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1770
+#: src/Modules/MemberArea/MemberDashboard.php:873
 msgid "No announcements."
 msgstr "Tidak ada pengumuman."
 
@@ -7533,8 +7631,8 @@ msgstr "Belum ada kunci API."
 msgid "No articles found."
 msgstr "Tidak ada artikel ditemukan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1933
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2044
+#: src/Modules/MemberArea/MemberDashboard.php:1036
+#: src/Modules/MemberArea/MemberDashboard.php:1147
 msgid "No articles here yet."
 msgstr "Belum ada artikel di sini."
 
@@ -7550,12 +7648,12 @@ msgstr "Tidak ada berkas avatar yang diunggah, atau unggahan gagal."
 msgid "No avatar file was uploaded."
 msgstr "Tidak ada berkas avatar yang diunggah."
 
-#: src/Modules/Email/EmailAjax.php:208
-#: src/Modules/Email/EmailAjax.php:215
+#: src/Modules/Email/EmailAjax.php:288
+#: src/Modules/Email/EmailAjax.php:295
 msgid "No blocks to preview."
 msgstr "Tidak ada blok untuk dipratinjau."
 
-#: templates/admin/modules/email.php:107
+#: templates/admin/modules/email-builder.php:48
 msgid "No blocks yet. Add one from the palette above."
 msgstr "Belum ada blok. Tambahkan dari palet di atas."
 
@@ -7581,7 +7679,7 @@ msgstr "Tidak ada plugin cache yang aktif. %s"
 msgid "No capability changes for this role."
 msgstr "Tidak ada perubahan kapabilitas untuk peran ini."
 
-#: templates/admin/modules/contact-form.php:50
+#: templates/admin/modules/form-builder.php:296
 msgid "No contact forms yet. Create the first one below."
 msgstr ""
 
@@ -7622,7 +7720,7 @@ msgstr "Belum ada edisi E-Paper yang diterbitkan."
 msgid "No editable roles are available."
 msgstr "Tidak ada peran yang dapat diedit."
 
-#: templates/admin/modules/form-builder.php:180
+#: templates/admin/modules/form-builder.php:194
 msgid "No email templates yet. Create the first one below."
 msgstr ""
 
@@ -7659,7 +7757,7 @@ msgstr "Tidak ada font yang pernah di-hotlink dari Google di frontend."
 msgid "No fonts installed yet. Download a Google Font below, or upload your own font files."
 msgstr "Belum ada font yang terpasang. Unduh Google Font di bawah ini, atau unggah berkas font Anda sendiri."
 
-#: templates/admin/modules/form-builder.php:48
+#: templates/admin/modules/form-builder.php:54
 msgid "No forms yet. Create the first one below."
 msgstr ""
 
@@ -7709,7 +7807,7 @@ msgstr "Belum ada email yang dikirim melalui Mailer. 50 pengiriman terakhir munc
 msgid "No modules match your search."
 msgstr "Tidak ada modul yang cocok dengan pencarian Anda."
 
-#: templates/admin/modules/email.php:271
+#: templates/admin/modules/email.php:268
 msgid "No newsletters sent yet."
 msgstr "Belum ada buletin yang dikirim."
 
@@ -7717,7 +7815,7 @@ msgstr "Belum ada buletin yang dikirim."
 msgid "No notifications sent yet."
 msgstr "Belum ada notifikasi yang dikirim."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1750
+#: src/Modules/MemberArea/MemberDashboard.php:853
 msgid "No notifications yet. Status changes on your articles will appear here."
 msgstr "Belum ada notifikasi. Perubahan status artikel Anda akan muncul di sini."
 
@@ -7807,11 +7905,11 @@ msgstr "Tidak ada plugin SEO yang aktif — tema mengeluarkan meta tag, sitemap,
 msgid "No series yet. Create the first one below, or from the Series screen."
 msgstr "Belum ada seri. Buat seri pertama di bawah ini, atau dari layar Seri."
 
-#: templates/admin/contact-submissions.php:172
+#: templates/admin/contact-submissions.php:173
 msgid "No submissions match the filters."
 msgstr ""
 
-#: templates/admin/modules/email.php:219
+#: templates/admin/modules/email.php:216
 msgid "No subscribers yet."
 msgstr "Belum ada pelanggan."
 
@@ -7819,7 +7917,11 @@ msgstr "Belum ada pelanggan."
 msgid "No tables found for this site."
 msgstr "Tidak ada tabel yang ditemukan untuk situs ini."
 
-#: templates/admin/modules/email.php:51
+#: src/Modules/Email/EmailAjax.php:189
+msgid "No template to autosave."
+msgstr ""
+
+#: templates/admin/modules/email.php:54
 msgid "No templates yet. Build your first template below."
 msgstr "Belum ada templat. Buat templat pertama Anda di bawah ini."
 
@@ -7855,9 +7957,9 @@ msgid "No WordPress AI provider is available: WordPress ships the AI Client API 
 msgstr "Tidak ada penyedia AI WordPress yang tersedia: WordPress menyertakan AI Client API tetapi tidak menyertakan penyedia AI sendiri. Pasang dan hubungkan plugin penyedia AI (misalnya plugin penyedia Anthropic, Google, atau OpenAI) untuk mengaktifkan saran meta AI. Tidak ada yang dibuat sampai saat itu."
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:743
-#: templates/admin/modules/contact-form.php:39
 #: templates/admin/modules/db-tools.php:118
 #: templates/admin/modules/db-tools.php:63
+#: templates/admin/modules/form-builder.php:286
 #: templates/admin/modules/mailer.php:216
 #: templates/admin/modules/mailer.php:56
 msgid "None"
@@ -7883,8 +7985,8 @@ msgstr "Tidak aktif. Tema membutuhkan plugin TrayDigita Stack."
 msgid "Not applicable"
 msgstr "Tidak berlaku"
 
-#: src/Admin/ModuleRegistry.php:1617
-#: src/Admin/ModuleRegistry.php:950
+#: src/Admin/ModuleRegistry.php:1632
+#: src/Admin/ModuleRegistry.php:960
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr "Tidak tersedia"
@@ -7951,7 +8053,7 @@ msgstr "Belum disiapkan."
 msgid "Not supported"
 msgstr "Tidak didukung"
 
-#: src/Modules/Email/EmailAjax.php:422
+#: src/Modules/Email/EmailAjax.php:502
 msgid "Not unsubscribed"
 msgstr "Tidak berhenti berlangganan"
 
@@ -7964,7 +8066,7 @@ msgstr "Tidak dapat ditulis oleh grup atau pengguna lain."
 msgid "Not yet processed: %d"
 msgstr "Belum diproses: %d"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1689
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:551
 msgid "Note shown to the author when the post needs revision."
 msgstr "Catatan yang ditampilkan kepada penulis saat artikel perlu revisi."
 
@@ -7985,15 +8087,15 @@ msgstr "Tidak ada yang dicetak tanpa data nyata di baliknya."
 msgid "Nothing to apply: the title or description is empty."
 msgstr "Tidak ada yang diterapkan: judul atau deskripsinya kosong."
 
-#: src/Modules/Email/EmailModule.php:362
+#: src/Modules/Email/EmailModule.php:363
 msgid "Nothing to save."
 msgstr "Tidak ada yang disimpan."
 
-#: templates/admin/contact-submissions.php:98
+#: templates/admin/contact-submissions.php:99
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:170
+#: templates/admin/modules/form-builder.php:420
 msgid "Notification email template"
 msgstr ""
 
@@ -8001,7 +8103,7 @@ msgstr ""
 msgid "Notification permission was denied. Enable it from the lock icon in the address bar if you change your mind."
 msgstr "Izin notifikasi ditolak. Aktifkan lewat ikon gembok di address bar bila Anda berubah pikiran."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1746
+#: src/Modules/MemberArea/MemberDashboard.php:849
 msgid "Notifications"
 msgstr "Notifikasi"
 
@@ -8299,7 +8401,7 @@ msgstr "OPcache di-reset. Berkas PHP akan dikompilasi ulang pada permintaan beri
 msgid "OPcache status, object-cache and transient flushing."
 msgstr "Status OPcache, pengosongan object cache dan transient."
 
-#: templates/admin/hub-page.php:190
+#: templates/admin/hub-page.php:193
 #: templates/admin/shell.php:126
 msgid "Open"
 msgstr "Buka"
@@ -8459,7 +8561,7 @@ msgstr "Warna hex opsional, contoh #1d4ed8."
 msgid "Optional instant indexing."
 msgstr "Pengindeksan instan opsional."
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/form-builder.php:431
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8475,7 +8577,7 @@ msgstr "Opsional. Hanya digunakan jika tidak ada halaman Kebijakan Privasi yang 
 msgid "Optional. Save a Cloudflare API token and the zone ID below to enable purge-everything for this site’s Cloudflare zone."
 msgstr "Opsional. Simpan token API Cloudflare dan ID zona di bawah untuk mengaktifkan purge-everything bagi zona Cloudflare situs ini."
 
-#: templates/admin/modules/form-builder.php:118
+#: templates/admin/modules/form-builder.php:132
 msgid "Options (one per box, choice fields only)"
 msgstr ""
 
@@ -8544,13 +8646,17 @@ msgstr "Override untuk posting ini dihapus."
 msgid "Overrides saved for this post."
 msgstr "Override untuk posting ini disimpan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:679
+#: src/Modules/MemberArea/MemberAreaModule.php:414
 msgid "Overview"
 msgstr "Ringkasan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1947
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2058
-#: templates/admin/contact-submissions.php:222
+#: src/Modules/MemberArea/MemberAreaModule.php:234
+msgid "Overview, Posts and My Contributions sections."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberDashboard.php:1050
+#: src/Modules/MemberArea/MemberDashboard.php:1161
+#: templates/admin/contact-submissions.php:223
 #: templates/epaper/archive.php:51
 #. translators: %1$d is the current page, %2$d is the total number of pages.
 #. translators: 1: current page, 2: total pages.
@@ -8601,7 +8707,7 @@ msgstr "Hanya halaman"
 msgid "Pages use their ancestor chain: Home / Parent page / Current page."
 msgstr "Halaman menggunakan rantai leluhurnya: Beranda / Halaman induk / Halaman saat ini."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1184
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:536
 msgid "Paragraph"
 msgstr "Paragraf"
 
@@ -8812,7 +8918,7 @@ msgstr "Hanya PDF, hingga %d MB."
 
 #: src/Admin/SetupPage.php:152
 #: src/Admin/SetupPage.php:711
-#: templates/admin/modules/email.php:240
+#: templates/admin/modules/email.php:237
 msgid "Pending"
 msgstr "Menunggu"
 
@@ -8824,15 +8930,23 @@ msgstr "Harga per merek selalu tetap snapshot manual — harga spot tidak pernah
 msgid "Per-path exceptions"
 msgstr "Pengecualian per jalur"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:410
-msgid "Per-role access modes; administrators are never affected."
-msgstr "Mode akses per peran; administrator tidak pernah terpengaruh."
+#: src/Modules/RoleAccess/RoleAccessModule.php:436
+msgid "Per-role access modes for the frontend."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:154
+msgid "Per-role access modes: dashboard access or frontend-only. Frontend-only users get no admin bar and any wp-admin page redirects them to the member area. Administrators are never affected."
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:191
+msgid "Per-role access modes: dashboard or frontend-only."
+msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:443
 msgid "Per-role enforcement and rate limiting."
 msgstr "Penegakan per peran dan pembatasan laju."
 
-#: src/Admin/ModuleRegistry.php:1016
+#: src/Admin/ModuleRegistry.php:1026
 msgid "Performance"
 msgstr "Performa"
 
@@ -8910,9 +9024,9 @@ msgstr "Versi PHP"
 msgid "Pick a provider and enter its details below. Until then, WordPress keeps sending mail with its default mailer."
 msgstr "Pilih penyedia dan masukkan detailnya di bawah. Sampai saat itu, WordPress tetap mengirim email dengan mailer bawaannya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1054
-msgid "Pick an access mode per role below. Frontend-only users get no admin bar, and any wp-admin page they open redirects them to the member area. The member page is the dashboard: Overview, Posts, My Contributions, Write, Bookmarks, Profile and Change Email in one shell."
-msgstr "Pilih mode akses per peran di bawah. Pengguna frontend-only tidak mendapatkan bilah admin, dan halaman wp-admin apa pun yang mereka buka akan dialihkan ke area anggota. Halaman anggota adalah dasbornya: Ringkasan, Posting, Kontribusi Saya, Tulis, Markah, Profil, dan Ubah Email dalam satu tampilan."
+#: src/Modules/RoleAccess/RoleAccessModule.php:437
+msgid "Pick an access mode per role below. Frontend-only users get no admin bar, and any wp-admin page they open redirects them to the member area."
+msgstr ""
 
 #: src/Admin/AdminPointerTour.php:118
 msgid "Pick an admin palette"
@@ -8951,11 +9065,11 @@ msgstr "Tempatkan partial kotak penulis (atau panggil AuthorBoxModule::render())
 msgid "Place the table-of-contents partial (or call TocModule::render()) where the list belongs."
 msgstr "Tempatkan partial daftar isi (atau panggil TocModule::render()) di tempat daftar tersebut seharusnya berada."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1067
+#: src/Modules/MemberArea/MemberAreaModule.php:649
 msgid "Place this shortcode on the member page to show the dashboard:"
 msgstr "Tempatkan shortcode ini di halaman anggota untuk menampilkan dasbor:"
 
-#: templates/admin/modules/form-builder.php:116
+#: templates/admin/modules/form-builder.php:130
 msgid "Placeholder"
 msgstr ""
 
@@ -8975,7 +9089,7 @@ msgstr "Hanya deklarasi CSS biasa. Tag, @import, @font-face, serta URL javascrip
 msgid "Play auto-scroll"
 msgstr "Putar gulir otomatis"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:284
+#: src/Modules/MemberArea/MemberDashboard.php:156
 #. translators: %s: login URL.
 msgid "Please <a href=\"%s\">log in</a> to use the member area."
 msgstr "Silakan <a href=\"%s\">masuk</a> untuk menggunakan area anggota."
@@ -8986,8 +9100,8 @@ msgstr "Silakan <a href=\"%s\">masuk</a> untuk menggunakan area anggota."
 msgid "Please check the following fields: %s."
 msgstr "Silakan periksa kolom berikut: %s."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:90
-#: src/Modules/FormBuilder/FormBuilderModule.php:770
+#: src/Modules/FormBuilder/ContactFormAjax.php:94
+#: src/Modules/FormBuilder/FormBuilderModule.php:985
 msgid "Please check the form and try again."
 msgstr ""
 
@@ -9004,9 +9118,9 @@ msgstr "Silakan periksa kotak masuk Anda untuk mengonfirmasi langganan."
 msgid "Please choose a post to preview."
 msgstr "Silakan pilih posting untuk pratinjau."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:269
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:85
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:96
+#: src/Modules/FrontendEditor/FeaturedUpload.php:268
+#: src/Modules/FrontendEditor/FeaturedUpload.php:84
+#: src/Modules/FrontendEditor/FeaturedUpload.php:95
 msgid "Please choose an image file."
 msgstr "Silakan pilih berkas gambar."
 
@@ -9020,13 +9134,13 @@ msgstr "Harap selesaikan pemeriksaan keamanan lalu coba lagi."
 msgid "Please enable JavaScript to view the comments powered by Disqus."
 msgstr "Aktifkan JavaScript untuk melihat komentar yang didukung oleh Disqus."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1483
+#: src/Modules/MemberArea/MemberDashboard.php:607
 msgid "Please enter a title."
 msgstr "Silakan masukkan judul."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1488
 #: src/Modules/Email/Newsletter.php:266
 #: src/Modules/Email/Newsletter.php:411
+#: src/Modules/MemberArea/MemberDashboard.php:612
 msgid "Please enter a valid email address."
 msgstr "Silakan masukkan alamat email yang valid."
 
@@ -9108,7 +9222,7 @@ msgstr ""
 msgid "Plunk — free 1,000 emails/month, then $0.001 per email. Best for simple transactional mail with a generous pay-as-you-go price after the free tier."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1225
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:577
 msgid "PNG"
 msgstr "PNG"
 
@@ -9144,7 +9258,7 @@ msgstr "Artikel"
 msgid "Post #%1$d (%2$s)"
 msgstr "Posting #%1$d (%2$s)"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1613
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:475
 #. translators: %d: post id.
 msgid "Post #%d"
 msgstr "Artikel #%d"
@@ -9203,7 +9317,7 @@ msgstr ""
 msgid "Postmeta rows whose post no longer exists."
 msgstr "Baris postmeta yang artikelnya sudah tidak ada."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:686
+#: src/Modules/MemberArea/MemberAreaModule.php:421
 #: src/Modules/RoleEditor/RoleEditorModule.php:410
 msgid "Posts"
 msgstr "Posting"
@@ -9228,7 +9342,7 @@ msgstr "Artikel yang disimpan otomatis saat diedit tetapi tidak pernah diterbitk
 msgid "Posts without any image show no thumbnail."
 msgstr "Kiriman tanpa gambar tidak menampilkan thumbnail."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:157
+#: src/Modules/FormBuilder/FormBuilderModule.php:241
 msgid "Powers the Contact Form, Newsletter, and other modules."
 msgstr "Menggerakkan Formulir Kontak, Buletin, dan modul lainnya."
 
@@ -9245,12 +9359,10 @@ msgstr "Preset"
 msgid "Prevents a plain-text file from being treated as JavaScript, for example."
 msgstr "Mencegah file teks biasa diperlakukan sebagai JavaScript, misalnya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2176
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2191
 #: src/Modules/Maintenance/MaintenanceModule.php:332
-#: templates/admin/modules/email.php:110
-#: templates/admin/modules/form-builder.php:164
-#: templates/admin/modules/form-builder.php:299
+#: src/Modules/MemberArea/MemberDashboard.php:1279
+#: src/Modules/MemberArea/MemberDashboard.php:1294
+#: templates/admin/modules/form-builder.php:178
 #: templates/admin/modules/maintenance.php:349
 #: templates/admin/modules/maintenance.php:350
 #: templates/admin/modules/maintenance.php:79
@@ -9277,7 +9389,7 @@ msgstr "Hanya pratinjau — banner ini tidak pernah memasang cookie persetujuan.
 msgid "Preview with current rules"
 msgstr "Pratinjau dengan aturan saat ini"
 
-#: templates/admin/contact-submissions.php:217
+#: templates/admin/contact-submissions.php:218
 #: templates/admin/modules/activity-log.php:173
 #: templates/admin/shell.php:129
 #: templates/widgets/weather.php:67
@@ -9300,8 +9412,8 @@ msgstr "Edisi sebelumnya"
 msgid "Previous location"
 msgstr "Lokasi sebelumnya"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1943
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2054
+#: src/Modules/MemberArea/MemberDashboard.php:1046
+#: src/Modules/MemberArea/MemberDashboard.php:1157
 msgid "Previous page"
 msgstr "Halaman sebelumnya"
 
@@ -9362,7 +9474,7 @@ msgstr "Cetak artikel ini"
 msgid "Print this article button on single posts."
 msgstr "Tombol \"Cetak artikel ini\" pada artikel tunggal."
 
-#: templates/admin/contact-submissions.php:122
+#: templates/admin/contact-submissions.php:123
 msgid "Print view"
 msgstr ""
 
@@ -9409,11 +9521,23 @@ msgstr "Manifest produksi ditemukan (dist/manifest.json)."
 msgid "Production manifest missing. Run the asset build to regenerate it."
 msgstr "Manifest produksi hilang. Jalankan build aset untuk membuatnya kembali."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2482
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:714
+#: src/Modules/MemberProfile/MemberProfile.php:256
+#: src/Modules/MemberProfile/MemberProfileModule.php:375
 #: templates/admin/shell.php:235
 msgid "Profile"
 msgstr "Profil"
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:279
+msgid "Profile and email change for members in the dashboard."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:116
+msgid "Profile and email change for members, as sections of the member dashboard: display name, website, bio and avatar, plus an optional email change confirmed through WordPress core."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:153
+msgid "Profile section in the member dashboard."
+msgstr ""
 
 #: src/Modules/Paywall/PaywallModule.php:324
 msgid "Prompt message"
@@ -9434,10 +9558,6 @@ msgstr "Lindungi formulir login"
 #: src/Modules/Turnstile/TurnstileModule.php:1074
 msgid "Protect the newsletter subscribe form"
 msgstr "Lindungi formulir berlangganan buletin"
-
-#: src/Modules/ContactForm/ContactFormModule.php:195
-msgid "Protected by Turnstile or reCAPTCHA."
-msgstr "Dilindungi oleh Turnstile atau reCAPTCHA."
 
 #: src/Modules/UserManager/UserManagerModule.php:395
 msgid "Protected users (anyone who can manage_options, other than yourself) are skipped with an explanation — the rest still change."
@@ -9474,7 +9594,7 @@ msgstr "Penyedia"
 msgid "Public market data, no API key. Prices are USDT pairs, so the display currency is always USDT — never USD or IDR. There is no Pro tier for public market data."
 msgstr "Data pasar publik, tanpa kunci API. Harganya adalah pasangan USDT, jadi mata uang tampilan selalu USDT — bukan USD atau IDR. Tidak ada tingkat Pro untuk data pasar publik."
 
-#: templates/admin/modules/email.php:260
+#: templates/admin/modules/email.php:257
 msgid "Public subscribe form: visitors confirm via a double opt-in email."
 msgstr "Formulir langganan publik: pengunjung mengonfirmasi melalui email double opt-in."
 
@@ -9486,9 +9606,9 @@ msgstr "Terbitkan koran sebagai edisi PDF."
 msgid "Publish the newspaper as PDF issues: upload verified PDFs with a cover image, browse them in a dated archive, and read each issue in the browser with prev/next navigation."
 msgstr "Terbitkan koran sebagai edisi PDF: unggah PDF terverifikasi beserta gambar sampul, jelajahi dalam arsip berdasarkan tanggal, dan baca setiap edisi di peramban dengan navigasi sebelum/berikutnya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1680
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1899
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2010
+#: src/Modules/MemberArea/MemberDashboard.php:1002
+#: src/Modules/MemberArea/MemberDashboard.php:1113
+#: src/Modules/MemberArea/MemberDashboard.php:783
 msgid "Published"
 msgstr "Terbit"
 
@@ -9573,9 +9693,9 @@ msgstr ""
 msgid "Push notifications split out of the PWA module into their own module (settings, tokens, and sending unchanged)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1126
-msgid "Put the editor shortcode on this page. The page becomes the member dashboard (Overview, Posts, My Contributions, Write, Bookmarks, Profile, Change Email) for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
-msgstr "Tempatkan shortcode editor di halaman ini. Halaman tersebut menjadi dasbor anggota (Ringkasan, Posting, Kontribusi Saya, Tulis, Markah, Profil, Ubah Email) untuk setiap pengguna yang masuk: tamu dialihkan ke halaman masuk, dan bagian di dalamnya hanya ditampilkan bila pengguna memiliki kemampuan dan fiturnya tersedia. Bila tidak ada halaman yang dipilih, beranda digunakan dan tidak ada templat dasbor yang diterapkan."
+#: src/Modules/MemberArea/MemberAreaModule.php:670
+msgid "Put the dashboard shortcode on this page."
+msgstr ""
 
 #: src/Modules/Push/PushModule.php:601
 msgid "Put the subscribe button on the site with the shortcode [traydigita_push_subscribe]."
@@ -9613,7 +9733,7 @@ msgstr "Peran Cepat"
 msgid "Quick role changes."
 msgstr "Perubahan peran cepat."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1187
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
 msgid "Quote"
 msgstr "Kutipan"
 
@@ -9649,7 +9769,7 @@ msgstr "Periksa ulang sekarang"
 msgid "Re-check statuses"
 msgstr "Periksa ulang status"
 
-#: templates/admin/contact-submissions.php:152
+#: templates/admin/contact-submissions.php:153
 msgid "Read"
 msgstr ""
 
@@ -9690,6 +9810,14 @@ msgstr "Ringkasan hanya-baca: versi WordPress, PHP, dan database."
 msgid "Read-only status of the Google Site Kit plugin."
 msgstr "Status hanya-baca plugin Google Site Kit."
 
+#: src/Modules/Bookmarks/BookmarksModule.php:89
+msgid "Reader bookmarks stored in the browser only (IndexedDB): a save-for-later toggle on articles, a bookmark list page, and a Bookmarks section in the member area. Nothing is stored on the server."
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:219
+msgid "Reader bookmarks, stored in the browser only."
+msgstr ""
+
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:151
 msgid "Reading Progress"
 msgstr "Progres Membaca"
@@ -9718,19 +9846,19 @@ msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 25 API transaksional, 10 A
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:201
+#: templates/admin/modules/form-builder.php:451
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:216
+#: templates/admin/modules/form-builder.php:466
 msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
 msgstr "Kunci reCAPTCHA belum diatur. Formulir kontak yang memakai proteksi reCAPTCHA tidak akan memiliki proteksi spam hingga kunci disimpan."
 
-#: templates/admin/modules/contact-form.php:214
+#: templates/admin/modules/form-builder.php:464
 msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
 msgstr "Kunci reCAPTCHA sudah diatur di modul Google reCAPTCHA."
 
-#: templates/admin/modules/contact-form.php:199
+#: templates/admin/modules/form-builder.php:449
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
@@ -9742,11 +9870,11 @@ msgstr ""
 msgid "reCAPTCHA settings saved."
 msgstr "Pengaturan reCAPTCHA disimpan."
 
-#: templates/admin/modules/contact-form.php:37
+#: templates/admin/modules/form-builder.php:284
 msgid "reCAPTCHA v2 (checkbox)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:38
+#: templates/admin/modules/form-builder.php:285
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
@@ -9772,15 +9900,15 @@ msgstr "Upaya gagal terbaru"
 msgid "Recent sends"
 msgstr "Pengiriman terakhir"
 
-#: templates/admin/modules/contact-form.php:57
+#: templates/admin/modules/form-builder.php:303
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:136
+#: templates/admin/modules/form-builder.php:386
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1658
+#: src/Admin/ModuleRegistry.php:1673
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr "Disarankan"
@@ -9896,13 +10024,13 @@ msgstr "Perangkat terdaftar: %d."
 msgid "Registered image sizes"
 msgstr "Ukuran gambar terdaftar"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1681
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1903
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2011
+#: src/Modules/MemberArea/MemberDashboard.php:1006
+#: src/Modules/MemberArea/MemberDashboard.php:1114
+#: src/Modules/MemberArea/MemberDashboard.php:784
 msgid "Rejected"
 msgstr "Ditolak"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1502
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:364
 msgid "Rejected <span class=\"count\">(%s)</span>"
 msgid_plural "Rejected <span class=\"count\">(%s)</span>"
 msgstr[0] "Ditolak <span class=\"count\">(%s)</span>"
@@ -9940,11 +10068,11 @@ msgstr "URL jarak jauh"
 msgid "Remote URLs are always verified as real images before they are saved."
 msgstr "URL jarak jauh selalu diverifikasi sebagai gambar asli sebelum disimpan."
 
-#: src/Bookmarks.php:149
+#: src/Bookmarks.php:161
 #: src/Modules/TwoFactor/TwoFactorModule.php:2121
 #: src/Modules/TwoFactor/TwoFactorModule.php:2213
 #: src/Modules/TwoFactor/TwoFactorModule.php:2252
-#: templates/admin/modules/email.php:249
+#: templates/admin/modules/email.php:246
 #: templates/admin/modules/headers.php:231
 #: templates/admin/modules/headers.php:248
 msgid "Remove"
@@ -9985,7 +10113,7 @@ msgstr "Hapus sampul"
 msgid "Remove icon"
 msgstr "Hapus ikon"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2404
+#: src/Modules/FrontendEditor/FrontendEditor.php:1001
 #: templates/admin/modules/login.php:167
 #: templates/admin/modules/login.php:206
 msgid "Remove image"
@@ -10011,7 +10139,7 @@ msgstr "Hapus aturan"
 msgid "Remove the authenticator app from this account? You will no longer be asked for a code at login."
 msgstr "Hapus aplikasi autentikator dari akun ini? Anda tidak lagi diminta kode saat login."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2407
+#: src/Modules/FrontendEditor/FrontendEditor.php:1004
 msgid "Remove the featured image?"
 msgstr "Hapus gambar unggulan?"
 
@@ -10050,11 +10178,15 @@ msgstr "Menghapus manage_options dari peran ini: penyimpanan akan ditolak jika t
 msgid "Rename"
 msgstr "Ganti nama"
 
+#: templates/admin/modules/email-builder.php:117
+msgid "Rendered by the same code that sends the email, refreshed as you type."
+msgstr ""
+
 #: src/Modules/Redirects/RedirectsModule.php:496
 msgid "Replace all existing rules with the imported ones"
 msgstr "Ganti semua aturan yang ada dengan aturan yang diimpor"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2403
+#: src/Modules/FrontendEditor/FrontendEditor.php:1000
 msgid "Replace image"
 msgstr "Ganti gambar"
 
@@ -10067,7 +10199,7 @@ msgstr "Menggantikan"
 msgid "Replaces Gravatar wherever WordPress shows an avatar."
 msgstr "Menggantikan Gravatar di mana pun WordPress menampilkan avatar."
 
-#: templates/admin/hub-page.php:155
+#: templates/admin/hub-page.php:158
 msgid "Replay tour"
 msgstr "Putar ulang tur"
 
@@ -10093,7 +10225,7 @@ msgstr "Wajib untuk peran"
 
 #: src/Modules/Installer/InstallerModule.php:460
 #: src/Modules/Installer/InstallerModule.php:633
-#: templates/admin/modules/form-builder.php:115
+#: templates/admin/modules/form-builder.php:129
 msgid "Required"
 msgstr "Wajib"
 
@@ -10137,7 +10269,8 @@ msgstr "Reset OPcache"
 msgid "Reset to defaults"
 msgstr "Atur ulang ke bawaan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2156
+#: src/Modules/MemberArea/MemberDashboard.php:1259
+#: templates/admin/modules/email-builder.php:66
 msgid "Restore"
 msgstr "Pulihkan"
 
@@ -10160,17 +10293,21 @@ msgstr "Hasil untuk “%s”"
 msgid "Retention"
 msgstr "Retensi"
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:155
+#: src/Modules/FormBuilder/FormBuilderModule.php:237
 msgid "Reusable form builder with fields."
 msgstr "Pembuat formulir yang dapat digunakan kembali dengan kolom-kolom."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1704
+#: src/Modules/MemberArea/MemberDashboard.php:807
 msgid "Review queue"
 msgstr "Antrian review"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1664
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:526
 msgid "Revision note for the author"
 msgstr "Catatan revisi untuk penulis"
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:186
+msgid "Revision note shown to the author."
+msgstr ""
 
 #: src/Admin/SetupPage.php:261
 msgid "Rewrite flag is not set."
@@ -10184,7 +10321,7 @@ msgstr "Flag rewrite sudah diatur."
 msgid "Rewrite rules were flushed, but the Agenda or E-Paper rules are still missing. Check that both modules are enabled."
 msgstr "Rule rewrite sudah di-flush, tetapi rule Agenda atau E-Paper masih tidak ada. Periksa apakah kedua modul diaktifkan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1078
+#: src/Modules/RoleAccess/RoleAccessModule.php:457
 #: templates/admin/modules/role-editor.php:121
 #: templates/admin/modules/role-editor.php:71
 msgid "Role"
@@ -10199,6 +10336,14 @@ msgstr "Peran %s dibuat."
 #. translators: %s is the deleted role slug.
 msgid "Role %s deleted."
 msgstr "Peran %s dihapus."
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:144
+msgid "Role Access"
+msgstr ""
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:549
+msgid "Role access settings saved."
+msgstr ""
 
 #: src/Modules/RoleEditor/RoleEditorModule.php:732
 #. translators: %d is the number of users who held the deleted role.
@@ -10285,6 +10430,10 @@ msgstr "Aturan keamanan: hanya nama kapabilitas yang dikenal WordPress sendiri y
 msgid "Save"
 msgstr "Simpan"
 
+#: templates/admin/modules/email-builder.php:103
+msgid "Save & publish"
+msgstr ""
+
 #: src/Admin/Settings/SettingsControls.php:702
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:263
 #: src/Modules/Ads/AdsModule.php:862
@@ -10293,11 +10442,13 @@ msgstr "Simpan"
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:363
 #: src/Modules/Cache/CacheModule.php:971
 #: src/Modules/Comments/CommentsModule.php:531
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1280
 #: src/Modules/Core/MenuIconsModule.php:293
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:329
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
 #: src/Modules/Heartbeat/HeartbeatModule.php:338
 #: src/Modules/Installer/InstallerModule.php:559
+#: src/Modules/MemberArea/MemberAreaModule.php:711
+#: src/Modules/MemberProfile/MemberProfileModule.php:307
 #: src/Modules/Paywall/PaywallModule.php:333
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
@@ -10305,6 +10456,7 @@ msgstr "Simpan"
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
+#: src/Modules/RoleAccess/RoleAccessModule.php:500
 #: src/Modules/Seo/SeoModule.php:895
 #: src/Modules/Share/ShareModule.php:355
 #: src/Modules/Toc/TocModule.php:366
@@ -10312,7 +10464,6 @@ msgstr "Simpan"
 #: src/Modules/UserManager/UserManagerModule.php:384
 #: templates/admin/modules/agenda.php:115
 #: templates/admin/modules/dynamic-sidebars.php:279
-#: templates/admin/modules/email.php:111
 #: templates/admin/modules/epaper.php:224
 #: templates/admin/modules/login.php:66
 #: templates/admin/modules/role-editor.php:208
@@ -10325,22 +10476,23 @@ msgstr "Simpan perubahan"
 msgid "Save config"
 msgstr "Simpan konfigurasi"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1630
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2357
+#: src/Modules/FrontendEditor/FrontendEditor.php:954
+#: src/Modules/MemberArea/MemberDashboard.php:733
+#: templates/admin/modules/email-builder.php:99
 msgid "Save draft"
 msgstr "Simpan draf"
 
-#: src/Bookmarks.php:104
-#: src/Bookmarks.php:108
+#: src/Bookmarks.php:113
+#: src/Bookmarks.php:117
 msgid "Save for later"
 msgstr "Simpan untuk nanti"
 
-#: src/Bookmarks.php:117
-#: src/Bookmarks.php:147
+#: src/Bookmarks.php:126
+#: src/Bookmarks.php:159
 msgid "Save note"
 msgstr "Simpan catatan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2515
+#: src/Modules/MemberProfile/MemberProfile.php:289
 msgid "Save profile"
 msgstr "Simpan profil"
 
@@ -10348,8 +10500,8 @@ msgstr "Simpan profil"
 msgid "Save series order"
 msgstr "Simpan urutan seri"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2383
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:199
+#: src/Modules/FrontendEditor/FeaturedUpload.php:198
+#: src/Modules/FrontendEditor/FrontendEditor.php:980
 msgid "Save the article as a draft first, then add a featured image."
 msgstr "Simpan artikel sebagai draft terlebih dahulu, lalu tambahkan gambar unggulan."
 
@@ -10369,11 +10521,15 @@ msgstr "Simpan pengaturan, lalu klik \"Hubungkan Gmail\". Google hanya meminta i
 msgid "Save to apply the design to the WordPress login page."
 msgstr "Simpan untuk menerapkan desain ke halaman login WordPress."
 
-#: src/Bookmarks.php:105
+#: src/Modules/Bookmarks/BookmarksModule.php:125
+msgid "Save-for-later toggle on articles."
+msgstr ""
+
+#: src/Bookmarks.php:114
 msgid "Saved"
 msgstr "Tersimpan"
 
-#: src/Bookmarks.php:144
+#: src/Bookmarks.php:156
 msgid "Saved on %s"
 msgstr "Disimpan pada %s"
 
@@ -10402,7 +10558,7 @@ msgstr "Menyimpan…"
 msgid "Scan this code with your authenticator app (Google Authenticator, Authy, 1Password, or any TOTP app), then enter the 6-digit code it shows to confirm."
 msgstr "Pindai kode ini dengan aplikasi autentikator Anda (Google Authenticator, Authy, 1Password, atau aplikasi TOTP apa pun), lalu masukkan kode 6 digit yang ditampilkan untuk mengonfirmasi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2221
+#: src/Modules/MemberArea/MemberDashboard.php:1324
 msgid "Scheduled"
 msgstr "Terjadwal"
 
@@ -10411,11 +10567,11 @@ msgstr "Terjadwal"
 msgid "Scheduled events"
 msgstr "Acara terjadwal"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:408
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:237
 msgid "Scoped featured-image upload."
 msgstr "Unggahan gambar unggulan yang dibatasi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1198
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
 msgid "Scoped upload limits for the one featured image per article."
 msgstr "Batas unggahan khusus untuk satu gambar unggulan per artikel."
 
@@ -10435,7 +10591,7 @@ msgstr "Skrip disimpan apa adanya; hanya administrator yang dapat menyimpan kolo
 msgid "Scripts do not run inside the preview — it shows where the ads will appear, not the ads themselves."
 msgstr "Skrip tidak berjalan di dalam pratinjau — pratinjau menunjukkan di mana iklan akan muncul, bukan iklan itu sendiri."
 
-#: templates/admin/contact-submissions.php:164
+#: templates/admin/contact-submissions.php:165
 #: templates/admin/modules/activity-log.php:122
 #: templates/agenda/archive.php:46
 msgid "Search"
@@ -10531,15 +10687,19 @@ msgstr "Kunci rahasia"
 msgid "Secret key (manual entry):"
 msgstr "Kunci rahasia (entri manual):"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1269
+#: src/Modules/MemberArea/MemberAreaModule.php:700
 msgid "Section order"
 msgstr "Urutan bagian"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1247
-msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
+#: src/Modules/MemberArea/MemberAreaModule.php:686
+msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Sections a user may not use (for example Write for non-contributors) are already hidden by capability and need no ticking here."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1012
+#: src/Modules/MemberArea/MemberAreaModule.php:235
+msgid "Sections other modules plug in through a filter."
+msgstr ""
+
+#: src/Admin/ModuleRegistry.php:1022
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr "Keamanan"
@@ -10548,13 +10708,13 @@ msgstr "Keamanan"
 msgid "Security check failed"
 msgstr "Pemeriksaan keamanan gagal"
 
-#: src/Modules/ContactForm/ContactFormAjax.php:66
-#: src/Modules/FormBuilder/FormBuilderModule.php:757
+#: src/Modules/FormBuilder/ContactFormAjax.php:70
+#: src/Modules/FormBuilder/FormBuilderModule.php:972
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1481
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:192
+#: src/Modules/FrontendEditor/FeaturedUpload.php:191
+#: src/Modules/MemberArea/MemberDashboard.php:605
 #: src/Modules/PostSeries/PostSeriesModule.php:911
 #: src/Modules/Seo/SeoModule.php:1058
 msgid "Security check failed. Please try again."
@@ -10606,6 +10766,10 @@ msgstr "Lihat plugin cache mana yang aktif dan purge melaluinya, periksa status 
 msgid "Seeded placement keeps the ad spot stable per article."
 msgstr "Penempatan berbibit menjaga posisi iklan tetap stabil per artikel."
 
+#: templates/admin/modules/email-builder.php:91
+msgid "Select a block in the email to edit its settings."
+msgstr ""
+
 #: templates/admin/modules/login.php:133
 msgid "Select a block on the canvas to edit its settings."
 msgstr "Pilih blok di kanvas untuk mengedit pengaturannya."
@@ -10635,19 +10799,19 @@ msgstr "Pilih tidak ada"
 msgid "Selected icon"
 msgstr "Ikon terpilih"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2566
+#: src/Modules/MemberProfile/MemberProfile.php:340
 msgid "Send confirmation email"
 msgstr "Kirim email konfirmasi"
 
-#: templates/admin/modules/contact-form.php:58
+#: templates/admin/modules/form-builder.php:304
 msgid "Send email"
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:261
+#: src/Modules/Email/EmailAjax.php:341
 msgid "Send job not found or expired."
 msgstr "Tugas pengiriman tidak ditemukan atau kedaluwarsa."
 
-#: templates/admin/modules/email.php:269
+#: templates/admin/modules/email.php:266
 #: templates/admin/modules/mailer.php:500
 msgid "Send log"
 msgstr "Log pengiriman"
@@ -10656,7 +10820,7 @@ msgstr "Log pengiriman"
 msgid "Send manual push notifications to subscribers with Firebase Cloud Messaging. Subscribers register from the [traydigita_push_subscribe] button; sending is manual only, never automatic on publish."
 msgstr ""
 
-#: templates/admin/modules/email.php:195
+#: templates/admin/modules/email.php:192
 msgid "Send newsletter"
 msgstr "Kirim buletin"
 
@@ -10672,7 +10836,7 @@ msgstr "Kirim email tes"
 msgid "Send test email to"
 msgstr "Kirim email tes ke"
 
-#: templates/admin/modules/contact-form.php:144
+#: templates/admin/modules/form-builder.php:394
 msgid "Send to email"
 msgstr ""
 
@@ -10680,19 +10844,19 @@ msgstr ""
 msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
 msgstr ""
 
-#: templates/admin/modules/email.php:149
+#: templates/admin/modules/email.php:146
 msgid "Sender email"
 msgstr ""
 
-#: templates/admin/modules/email.php:151
+#: templates/admin/modules/email.php:148
 msgid "Sender email for newsletter mail. Leave empty to use the Mailer From email. Gmail always sends from the connected account, whatever is entered here."
 msgstr ""
 
-#: templates/admin/modules/email.php:142
+#: templates/admin/modules/email.php:139
 msgid "Sender identity for newsletter mail. Leave empty to use the Mailer From name."
 msgstr ""
 
-#: templates/admin/modules/email.php:140
+#: templates/admin/modules/email.php:137
 msgid "Sender name"
 msgstr ""
 
@@ -10778,7 +10942,7 @@ msgid "Sends defensive HTTP security headers."
 msgstr "Mengirim header keamanan HTTP defensif."
 
 #: src/Modules/Push/PushModule.php:588
-#: templates/admin/modules/email.php:277
+#: templates/admin/modules/email.php:274
 #: templates/admin/modules/mailer.php:528
 msgid "Sent"
 msgstr "Terkirim"
@@ -10896,10 +11060,6 @@ msgstr ""
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr "Terkirim ke %1$d perangkat, gagal %2$d, token mati yang dihapus: %3$d."
 
-#: src/Modules/ContactForm/ContactFormModule.php:194
-msgid "Sent via the Core Mailer."
-msgstr "Dikirim melalui Core Mailer."
-
 #: src/Modules/Installer/InstallerModule.php:475
 #: src/Modules/Installer/InstallerModule.php:635
 #: src/Modules/RoleEditor/RoleEditorModule.php:419
@@ -10907,7 +11067,7 @@ msgstr "Dikirim melalui Core Mailer."
 msgid "SEO"
 msgstr "SEO"
 
-#: src/Admin/ModuleRegistry.php:1020
+#: src/Admin/ModuleRegistry.php:1030
 msgid "SEO & Discovery"
 msgstr "SEO & Penemuan"
 
@@ -11004,7 +11164,7 @@ msgstr ""
 msgid "Set a From email address in the Mailer settings first."
 msgstr "Atur alamat email From di pengaturan Mailer terlebih dahulu."
 
-#: templates/admin/modules/email.php:73
+#: templates/admin/modules/email.php:81
 msgid "Set as default"
 msgstr "Jadikan bawaan"
 
@@ -11037,10 +11197,10 @@ msgstr "Pengaturan avatar melalui URL dinonaktifkan oleh administrator situs."
 msgid "Setting your own avatar is disabled by the site administrator."
 msgstr "Mengatur avatar sendiri dinonaktifkan oleh administrator situs."
 
-#: src/Admin/AdminMenu.php:332
-#: src/Admin/AdminMenu.php:333
-#: src/Admin/AdminMenu.php:497
-#: src/Admin/AdminMenu.php:627
+#: src/Admin/AdminMenu.php:374
+#: src/Admin/AdminMenu.php:375
+#: src/Admin/AdminMenu.php:539
+#: src/Admin/AdminMenu.php:669
 #: src/Modules/DbTools/DbToolsModule.php:271
 #: src/Modules/EPaper/EPaperModule.php:233
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:275
@@ -11070,10 +11230,10 @@ msgstr "Pengaturan dimigrasikan dari opsi traydigita_smtp lama; opsi lama tetap 
 msgid "Settings saved."
 msgstr "Pengaturan disimpan."
 
-#: src/Admin/AdminMenu.php:346
-#: src/Admin/AdminMenu.php:347
-#: src/Admin/AdminMenu.php:502
-#: src/Admin/AdminMenu.php:637
+#: src/Admin/AdminMenu.php:388
+#: src/Admin/AdminMenu.php:389
+#: src/Admin/AdminMenu.php:544
+#: src/Admin/AdminMenu.php:679
 #: templates/admin/shell.php:446
 msgid "Setup"
 msgstr "Persiapan"
@@ -11126,8 +11286,8 @@ msgstr "Dibagikan dengan Customizer"
 msgid "Shares one service worker with the PWA, so install and push never conflict."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:60
-#: templates/admin/modules/form-builder.php:56
+#: templates/admin/modules/form-builder.php:306
+#: templates/admin/modules/form-builder.php:62
 msgid "Shortcode"
 msgstr ""
 
@@ -11380,13 +11540,21 @@ msgstr "Masuk sebagai %s. Masukkan kode dari aplikasi autentikator Anda untuk me
 msgid "Simple .htaccess-based page cache — the easiest to set up, serving static HTML files straight from disk."
 msgstr "Page cache berbasis .htaccess yang sederhana — paling mudah disiapkan, menyajikan file HTML statis langsung dari disk."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:407
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:484
+msgid "Simple block editor for contributors on the frontend."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:199
+msgid "Simple block editor for contributors on the frontend: paragraph, heading, list and quote blocks only, enforced server-side on save, with a scoped featured-image upload that never opens the Media Library."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:236
 msgid "Simple block editor for writing articles."
 msgstr "Editor blok sederhana untuk menulis artikel."
 
-#: src/Admin/AdminMenu.php:384
-#: src/Admin/AdminMenu.php:385
-#: src/Admin/AdminMenu.php:515
+#: src/Admin/AdminMenu.php:426
+#: src/Admin/AdminMenu.php:427
+#: src/Admin/AdminMenu.php:557
 msgid "Site Health"
 msgstr "Kesehatan Situs"
 
@@ -11630,6 +11798,10 @@ msgstr "Sumber: %s."
 msgid "Source: Open-Meteo"
 msgstr "Sumber: Open-Meteo"
 
+#: src/Modules/FormBuilder/FormBuilderModule.php:347
+msgid "Spam & retention"
+msgstr ""
+
 #: src/Modules/DbTools/Cleaner.php:66
 msgid "Spam comments"
 msgstr "Komentar spam"
@@ -11638,18 +11810,17 @@ msgstr "Komentar spam"
 msgid "Spam detected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:321
-#: templates/admin/modules/contact-form.php:157
-#: templates/admin/modules/contact-form.php:59
+#: templates/admin/modules/form-builder.php:305
+#: templates/admin/modules/form-builder.php:407
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:191
+#: templates/admin/modules/form-builder.php:441
 msgid "Spam protection & retention"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:154
-#: src/Modules/ContactForm/ContactFormAjax.php:170
+#: src/Modules/FormBuilder/ContactFormAjax.php:178
+#: src/Modules/FormBuilder/ContactFormAjax.php:194
 msgid "Spam protection failed. Please try again."
 msgstr ""
 
@@ -11664,6 +11835,14 @@ msgstr "Kecepatan bicara"
 #: src/Modules/FastSearch/FastSearchModule.php:109
 msgid "Speed up frontend search with FULLTEXT and composite database indexes, with a safe fallback to standard WordPress search while the indexes are missing."
 msgstr "Percepat pencarian frontend dengan indeks FULLTEXT dan indeks gabungan basis data, dengan fallback yang aman ke pencarian standar WordPress saat indeks belum ada."
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:202
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:254
+#: src/Modules/MemberArea/MemberAreaModule.php:251
+#: src/Modules/MemberProfile/MemberProfileModule.php:170
+#: src/Modules/RoleAccess/RoleAccessModule.php:209
+msgid "Split out of the Contributor Frontend Editor module."
+msgstr ""
 
 #: src/Modules/Toc/TocModule.php:220
 msgid "Stable anchor ids and smooth scrolling."
@@ -11697,19 +11876,19 @@ msgstr "Memulai pembangunan indeks…"
 msgid "Static HTML cache with a simple setup and ready-made rewrite rules for Apache and nginx."
 msgstr "Cache HTML statis dengan penyiapan sederhana dan rewrite rule siap pakai untuk Apache dan nginx."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1524
+#: src/Modules/MemberArea/MemberDashboard.php:648
 msgid "Statistics are not available yet: no views have been recorded for your published articles."
 msgstr "Statistik belum tersedia: belum ada kunjungan yang tercatat untuk artikel Anda yang terbit."
 
 #: src/Modules/Cache/CacheModule.php:759
 #: src/Modules/Cache/CacheModule.php:811
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2092
+#: src/Modules/MemberArea/MemberDashboard.php:1195
 #: src/Modules/Redirects/RedirectsModule.php:373
-#: templates/admin/contact-submissions.php:148
-#: templates/admin/contact-submissions.php:182
-#: templates/admin/contact-submissions.php:94
+#: templates/admin/contact-submissions.php:149
+#: templates/admin/contact-submissions.php:183
+#: templates/admin/contact-submissions.php:95
 #: templates/admin/modules/agenda.php:210
-#: templates/admin/modules/email.php:226
+#: templates/admin/modules/email.php:223
 #: templates/admin/modules/fast-search.php:101
 #: templates/admin/modules/headers.php:50
 #: templates/admin/shell.php:175
@@ -11766,8 +11945,12 @@ msgstr "Berhenti mendengarkan"
 msgid "Stops browsers from guessing a file’s type."
 msgstr "Mencegah peramban menebak jenis file."
 
-#: templates/admin/modules/contact-form.php:70
+#: templates/admin/modules/form-builder.php:316
 msgid "Store only"
+msgstr ""
+
+#: templates/admin/modules/form-builder.php:119
+msgid "Store submissions"
 msgstr ""
 
 #: src/Modules/Pwa/PwaModule.php:131
@@ -11777,6 +11960,10 @@ msgstr ""
 #: src/Modules/UserManager/UserManagerModule.php:376
 msgid "Stored as a timestamp in user meta and shown in the site timezone."
 msgstr "Disimpan sebagai stempel waktu di meta pengguna dan ditampilkan dalam zona waktu situs."
+
+#: src/Modules/Bookmarks/BookmarksModule.php:127
+msgid "Stored in the browser only — nothing on the server."
+msgstr ""
 
 #: src/Modules/Avatar/AvatarModule.php:175
 msgid "Stored outside the media library."
@@ -11795,16 +11982,16 @@ msgstr "Strict-Transport-Security tidak pernah diserahkan: modul Security Header
 msgid "Style"
 msgstr "Gaya"
 
-#: templates/admin/contact-submissions.php:181
-#: templates/admin/contact-submissions.php:90
-#: templates/admin/modules/email.php:180
-#: templates/admin/modules/email.php:276
+#: templates/admin/contact-submissions.php:182
+#: templates/admin/contact-submissions.php:91
+#: templates/admin/modules/email.php:177
+#: templates/admin/modules/email.php:273
 #: templates/admin/modules/mailer.php:473
 #: templates/admin/modules/mailer.php:509
 msgid "Subject"
 msgstr "Subjek"
 
-#: templates/admin/modules/contact-form.php:226
+#: templates/admin/modules/form-builder.php:476
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
@@ -11812,21 +11999,21 @@ msgstr ""
 msgid "Submissions scoring below this (0.0–1.0) are rejected."
 msgstr "Pengiriman dengan skor di bawah nilai ini (0,0–1,0) ditolak."
 
-#: src/Modules/ContactForm/ContactFormModule.php:193
-msgid "Submissions stored in their own table."
-msgstr "Pengiriman disimpan di tabel sendiri."
+#: src/Modules/FormBuilder/FormBuilderModule.php:240
+msgid "Submissions stored in their own table, with CSV export and retention prune."
+msgstr ""
 
 #: src/Modules/FormBuilder/FormBuilder.php:301
-#: templates/admin/modules/form-builder.php:168
+#: templates/admin/modules/form-builder.php:182
 msgid "Submit"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1632
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2359
+#: src/Modules/FrontendEditor/FrontendEditor.php:956
+#: src/Modules/MemberArea/MemberDashboard.php:735
 msgid "Submit for review"
 msgstr "Kirim untuk ditinjau"
 
-#: src/Modules/Email/EmailModule.php:395
+#: src/Modules/Email/EmailModule.php:396
 #: src/Modules/Paywall/PaywallModule.php:459
 msgid "Subscribe"
 msgstr "Berlangganan"
@@ -11835,7 +12022,7 @@ msgstr "Berlangganan"
 msgid "Subscribe page URL"
 msgstr "URL halaman langganan"
 
-#: templates/admin/modules/email.php:227
+#: templates/admin/modules/email.php:224
 msgid "Subscribed"
 msgstr "Berlangganan"
 
@@ -11843,15 +12030,15 @@ msgstr "Berlangganan"
 msgid "Subscriber added."
 msgstr "Pelanggan ditambahkan."
 
-#: src/Modules/Email/EmailAjax.php:335
+#: src/Modules/Email/EmailAjax.php:415
 msgid "Subscriber not found."
 msgstr "Pelanggan tidak ditemukan."
 
-#: src/Modules/Email/EmailAjax.php:337
+#: src/Modules/Email/EmailAjax.php:417
 msgid "Subscriber removed."
 msgstr "Pelanggan dihapus."
 
-#: templates/admin/modules/email.php:204
+#: templates/admin/modules/email.php:201
 msgid "Subscribers"
 msgstr "Pelanggan"
 
@@ -11859,11 +12046,11 @@ msgstr "Pelanggan"
 msgid "Subscribers register from the [traydigita_push_subscribe] button on the site."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:386
+#: src/Modules/Email/EmailAjax.php:466
 msgid "Subscription confirmed"
 msgstr "Langganan dikonfirmasi"
 
-#: src/Modules/Email/EmailAjax.php:392
+#: src/Modules/Email/EmailAjax.php:472
 msgid "Subscription not confirmed"
 msgstr "Langganan belum dikonfirmasi"
 
@@ -12006,7 +12193,7 @@ msgstr "diberi tag %s"
 msgid "Take the site offline for visitors with a branded 503 page, a countdown, and role, IP, and signed-token bypasses."
 msgstr "Buat situs offline bagi pengunjung dengan halaman 503 bermerek, hitung mundur, serta lewati peran, IP, dan token bertanda tangan."
 
-#: src/Bookmarks.php:143
+#: src/Bookmarks.php:155
 msgid "Tap the bookmark button on any article to save it here."
 msgstr "Ketuk tombol markah di artikel mana pun untuk menyimpannya di sini."
 
@@ -12028,31 +12215,31 @@ msgstr "Telegram"
 msgid "Tells browsers to only ever reach this site over HTTPS for the next year, including subdomains: max-age=31536000; includeSubDomains"
 msgstr "Memberi tahu peramban untuk hanya menjangkau situs ini melalui HTTPS selama setahun ke depan, termasuk subdomain: max-age=31536000; includeSubDomains"
 
-#: templates/admin/modules/email.php:169
+#: templates/admin/modules/email.php:166
 msgid "Template"
 msgstr "Templat"
 
-#: src/Modules/Email/EmailAjax.php:191
+#: src/Modules/Email/EmailAjax.php:271
 msgid "Template deleted."
 msgstr "Templat dihapus."
 
-#: templates/admin/modules/email.php:89
+#: templates/admin/modules/email.php:95
 msgid "Template name"
 msgstr "Nama templat"
 
-#: src/Modules/Email/EmailAjax.php:172
-#: src/Modules/Email/EmailAjax.php:189
-#: src/Modules/Email/EmailAjax.php:238
-#: src/Modules/Email/EmailModule.php:344
-#: src/Modules/Email/EmailModule.php:358
+#: src/Modules/Email/EmailAjax.php:252
+#: src/Modules/Email/EmailAjax.php:269
+#: src/Modules/Email/EmailAjax.php:318
+#: src/Modules/Email/EmailModule.php:345
+#: src/Modules/Email/EmailModule.php:359
 msgid "Template not found."
 msgstr "Templat tidak ditemukan."
 
-#: src/Modules/Email/EmailModule.php:348
+#: src/Modules/Email/EmailModule.php:349
 msgid "Template renamed."
 msgstr "Templat diubah namanya."
 
-#: src/Modules/Email/EmailAjax.php:156
+#: src/Modules/Email/EmailAjax.php:169
 msgid "Template saved."
 msgstr "Templat disimpan."
 
@@ -12064,7 +12251,7 @@ msgstr "Tag meta, sitemap, dan data terstruktur NewsArticle berbasis templat."
 msgid "Templated meta title and description, canonical URL, Open Graph and Twitter card tags, and a robots tag."
 msgstr "Judul dan deskripsi meta berbasis template, URL kanonis, tag Open Graph dan kartu Twitter, serta tag robots."
 
-#: templates/admin/modules/email.php:31
+#: templates/admin/modules/email.php:34
 msgid "Templates"
 msgstr "Templat"
 
@@ -12111,15 +12298,14 @@ msgstr ""
 msgid "Testing config…"
 msgstr "Menguji konfigurasi…"
 
-#: src/Modules/Email/TemplateBuilder.php:454
+#: src/Modules/Email/TemplateBuilder.php:738
 #: src/Modules/FormBuilder/FormBuilder.php:120
 #: src/Modules/Maintenance/MaintenanceDesigner.php:228
-#: templates/admin/modules/form-builder.php:243
 #: templates/admin/modules/maintenance.php:195
 msgid "Text"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1176
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:528
 msgid "Text colour inside the editor canvas."
 msgstr "Warna teks di dalam kanvas editor."
 
@@ -12148,15 +12334,15 @@ msgstr "Terima kasih atas kesabaran Anda. Silakan periksa kembali nanti."
 msgid "Thank you! Please check your email to confirm the subscription."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:133
+#: src/Modules/FormBuilder/ContactFormAjax.php:126
 msgid "Thank you. Your message has been sent."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:128
+#: src/Modules/FormBuilder/ContactFormAjax.php:121
 msgid "Thank you. Your message was saved, but the notification email could not be sent — the site administrator has been notified through the submissions list."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:783
+#: src/Modules/FormBuilder/FormBuilderModule.php:1014
 msgid "Thank you. Your submission was received."
 msgstr ""
 
@@ -12257,7 +12443,7 @@ msgstr "Pengalihan tersebut tidak valid. Sumber harus berupa jalur situs yang di
 msgid "That redirect no longer exists."
 msgstr "Pengalihan itu sudah tidak ada."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1523
+#: src/Modules/MemberArea/MemberDashboard.php:647
 msgid "That section is not available."
 msgstr "Bagian itu tidak tersedia."
 
@@ -12298,7 +12484,7 @@ msgstr "Peran administrator tidak pernah dapat diedit atau dihapus."
 msgid "The administrator role can never be edited."
 msgstr "Peran administrator tidak pernah dapat diedit."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1062
+#: src/Modules/RoleAccess/RoleAccessModule.php:445
 msgid "The administrator role is not listed here and cannot be restricted: administrators always keep the admin bar and full wp-admin access, no matter what is configured below."
 msgstr "Peran administrator tidak tercantum di sini dan tidak dapat dibatasi: administrator selalu mempertahankan admin bar dan akses penuh wp-admin, apa pun yang dikonfigurasi di bawah ini."
 
@@ -12351,23 +12537,23 @@ msgstr ""
 msgid "The App ID of your Facebook app. It is stored like a secret and never printed. Leave empty to keep the saved App ID."
 msgstr "ID Aplikasi dari aplikasi Facebook Anda. Disimpan seperti rahasia dan tidak pernah ditampilkan. Kosongkan untuk mempertahankan ID Aplikasi yang tersimpan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1486
+#: src/Modules/MemberArea/MemberDashboard.php:610
 msgid "The article could not be found."
 msgstr "Artikel tidak dapat ditemukan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1484
+#: src/Modules/MemberArea/MemberDashboard.php:608
 msgid "The article could not be saved. Please try again."
 msgstr "Artikel tidak dapat disimpan. Silakan coba lagi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1505
+#: src/Modules/MemberArea/MemberDashboard.php:629
 msgid "The article was moved to Trash."
 msgstr "Artikel dipindahkan ke Sampah."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1507
+#: src/Modules/MemberArea/MemberDashboard.php:631
 msgid "The article was permanently deleted."
 msgstr "Artikel dihapus permanen."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1506
+#: src/Modules/MemberArea/MemberDashboard.php:630
 msgid "The article was restored."
 msgstr "Artikel dipulihkan."
 
@@ -12391,7 +12577,7 @@ msgstr "Kotak penulis muncul pada artikel tunggal dengan avatar penulis, nama, b
 msgid "The avatar comes from the Custom Avatar module when it is enabled, otherwise from the standard avatar."
 msgstr "Avatar berasal dari modul Avatar Kustom saat diaktifkan, atau dari avatar standar jika tidak."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1487
+#: src/Modules/MemberArea/MemberDashboard.php:611
 msgid "The avatar could not be uploaded. Please try again."
 msgstr "Avatar tidak dapat diunggah. Silakan coba lagi."
 
@@ -12493,10 +12679,6 @@ msgstr "Modul Komentar dinonaktifkan — aktifkan di Modul untuk menggunakan pen
 msgid "The confirmation word must be 3–20 letters or digits."
 msgstr "Kata konfirmasi harus terdiri dari 3–20 huruf atau angka."
 
-#: src/Modules/ContactForm/ContactFormModule.php:574
-msgid "The Contact Form settings template is missing."
-msgstr ""
-
 #: src/Modules/UserManager/UserManagerModule.php:366
 msgid "The control is disabled for protected users (see the safety rule above)."
 msgstr "Kontrol dinonaktifkan untuk pengguna yang dilindungi (lihat aturan keamanan di atas)."
@@ -12590,7 +12772,7 @@ msgstr "Modul E-Paper dinonaktifkan."
 msgid "The E-Paper storage directory could not be created. Check that wp-content is writable, then try uploading again."
 msgstr "Direktori penyimpanan E-Paper tidak dapat dibuat. Periksa apakah wp-content dapat ditulis, lalu coba unggah lagi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2299
+#: src/Modules/FrontendEditor/FrontendEditor.php:896
 msgid "The editor asked for revisions:"
 msgstr "Editor meminta revisi:"
 
@@ -12598,7 +12780,8 @@ msgstr "Editor meminta revisi:"
 msgid "The editor heartbeat can never be disabled, so autosave and post locking keep working."
 msgstr "Heartbeat editor tidak pernah dapat dinonaktifkan, sehingga autosave dan penguncian artikel tetap berfungsi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1145
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:485
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:497
 msgid "The editor only offers paragraph, heading, list and quote blocks. Anything else a contributor pastes in is stripped when the article is saved, so the allowlist is enforced on the server, never trusted from the browser."
 msgstr "Editor hanya menawarkan blok paragraf, judul, daftar, dan kutipan. Apa pun yang ditempel kontributor akan dihapus saat artikel disimpan, jadi daftar izin ditegakkan di server, tidak pernah dipercaya dari peramban."
 
@@ -12608,7 +12791,7 @@ msgstr "Editor hanya menawarkan blok paragraf, judul, daftar, dan kutipan. Apa p
 msgid "The email has no recipients."
 msgstr "Email tidak memiliki penerima."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:596
+#: src/Modules/FormBuilder/FormBuilderModule.php:782
 msgid "The email template is invalid."
 msgstr ""
 
@@ -12616,7 +12799,7 @@ msgstr ""
 msgid "The email template the campaign message uses (Content → Templates → your template; the ID is in the URL)."
 msgstr ""
 
-#: templates/admin/hub-page.php:124
+#: templates/admin/hub-page.php:127
 msgid "The engine behind the TrayDigita theme: modules, mail, security, and performance — one core, everything connected."
 msgstr ""
 
@@ -12688,13 +12871,13 @@ msgstr "URL berkas fon ditolak: host atau jenis berkas tidak terduga."
 msgid "The font files could not be saved on this site."
 msgstr "Berkas font tidak dapat disimpan di situs ini."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:380
+#: src/Modules/FormBuilder/FormBuilderModule.php:555
 msgid "The Form Builder settings template is missing."
 msgstr ""
 
 #: src/Modules/FormBuilder/FormBuilder.php:150
 #: src/Modules/FormBuilder/FormBuilder.php:415
-#: src/Modules/FormBuilder/FormBuilderModule.php:492
+#: src/Modules/FormBuilder/FormBuilderModule.php:677
 msgid "The form definition is invalid."
 msgstr ""
 
@@ -12710,8 +12893,8 @@ msgstr ""
 msgid "The form has no valid fields."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:693
-#: src/Modules/FormBuilder/FormBuilderModule.php:485
+#: src/Modules/FormBuilder/FormBuilderModule.php:1321
+#: src/Modules/FormBuilder/FormBuilderModule.php:670
 msgid "The form title must not be empty."
 msgstr ""
 
@@ -12747,22 +12930,22 @@ msgstr ""
 msgid "The ID of a transactional template in Loops (Transactional → your template). The template should use {{subject}} and {{body}} to render the mail content."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2408
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:138
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:270
+#: src/Modules/FrontendEditor/FeaturedUpload.php:137
+#: src/Modules/FrontendEditor/FeaturedUpload.php:269
+#: src/Modules/FrontendEditor/FrontendEditor.php:1005
 msgid "The image could not be uploaded. Please try again."
 msgstr "Gambar tidak dapat diunggah. Silakan coba lagi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:103
+#: src/Modules/FrontendEditor/FeaturedUpload.php:102
 #. translators: %d: maximum file size in megabytes.
 msgid "The image is too large. Maximum file size is %d MB."
 msgstr "Gambar terlalu besar. Ukuran berkas maksimum adalah %d MB."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:264
+#: src/Modules/FrontendEditor/FeaturedUpload.php:263
 msgid "The image is too large. Please choose a smaller file."
 msgstr "Gambar terlalu besar. Silakan pilih berkas yang lebih kecil."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:132
+#: src/Modules/FrontendEditor/FeaturedUpload.php:131
 #. translators: %d: maximum image dimension in pixels.
 msgid "The image is too large. The longest side must be %d px or less."
 msgstr "Gambar terlalu besar. Sisi terpanjang maksimal %d px."
@@ -12946,6 +13129,10 @@ msgstr "Modul Pasar dinonaktifkan — aktifkan di Modul untuk menggunakan integr
 msgid "The Media Library is not available."
 msgstr "Media Library tidak tersedia."
 
+#: src/Modules/MemberArea/MemberAreaModule.php:644
+msgid "The member dashboard for every logged-in user: Overview, Posts and My Contributions in one shell."
+msgstr ""
+
 #: src/Modules/Redirects/RedirectsModule.php:428
 msgid "The missing URLs visitors hit most often."
 msgstr "URL hilang yang paling sering dikunjungi pengunjung."
@@ -12962,7 +13149,7 @@ msgstr "Daftar modul memerlukan JavaScript. Aktifkan JavaScript untuk menelusuri
 msgid "The name must be at most 120 characters."
 msgstr "Nama maksimal 120 karakter."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2570
+#: src/Modules/MemberProfile/MemberProfile.php:344
 msgid "The new address only takes effect after you click the confirmation link sent to it."
 msgstr "Alamat baru hanya berlaku setelah Anda mengklik tautan konfirmasi yang dikirim ke alamat tersebut."
 
@@ -12974,7 +13161,7 @@ msgstr "Peran baru menyalin kapabilitas peran sumber, kecuali manage_options, ya
 msgid "The new role slug must be 2–60 lowercase letters, digits, or underscores."
 msgstr "Slug peran baru harus 2–60 huruf kecil, angka, atau garis bawah."
 
-#: src/Modules/Email/EmailAjax.php:235
+#: src/Modules/Email/EmailAjax.php:315
 msgid "The newsletter needs a subject."
 msgstr "Buletin memerlukan subjek."
 
@@ -12997,6 +13184,10 @@ msgstr "OPcache tidak dapat di-reset. Silakan coba lagi."
 #: src/Modules/Comments/Providers/FacebookProvider.php:112
 msgid "The order Facebook shows comments in."
 msgstr "Urutan Facebook menampilkan komentar."
+
+#: src/Modules/MemberArea/MemberAreaModule.php:671
+msgid "The page becomes the member dashboard for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
+msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:321
 msgid "The part after the prefix is carried into the target."
@@ -13104,11 +13295,11 @@ msgstr "Plugin push aktif dan memiliki notifikasi push. Kirim dari plugin saja."
 msgid "The redirect list is full. Delete a rule before adding another."
 msgstr "Daftar pengalihan penuh. Hapus aturan sebelum menambahkan yang lain."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1135
+#: src/Modules/RoleAccess/RoleAccessModule.php:493
 msgid "The redirect never fires for admin-ajax.php, admin-post.php (the editor form handler), the user’s own profile page, REST requests, WP-CLI, cron, or the login and logout flows."
 msgstr "Pengalihan tidak pernah terjadi untuk admin-ajax.php, admin-post.php (penangan form editor), halaman profil pengguna sendiri, permintaan REST, WP-CLI, cron, atau alur login dan logout."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1134
+#: src/Modules/RoleAccess/RoleAccessModule.php:492
 msgid "The redirect skips system and editor requests."
 msgstr "Redirect melewati request sistem dan editor."
 
@@ -13269,7 +13460,7 @@ msgstr "Plugin SEO standar untuk situs berita. Saat plugin ini aktif, modul SEO 
 msgid "The strip under the ticker shows the first gold price and up to four stocks."
 msgstr "Strip di bawah ticker menampilkan harga emas pertama dan hingga empat saham."
 
-#: src/Modules/ContactForm/ContactFormModule.php:811
+#: src/Modules/FormBuilder/FormBuilderModule.php:1417
 msgid "The submissions template is missing."
 msgstr ""
 
@@ -13281,11 +13472,11 @@ msgstr "Batas pelanggan telah tercapai."
 msgid "The table of contents is built from the h2 and h3 headings of each single post."
 msgstr "Daftar isi dibuat dari judul h2 dan h3 setiap artikel tunggal."
 
-#: src/Modules/Email/EmailAjax.php:151
+#: src/Modules/Email/EmailAjax.php:159
 msgid "The template needs a name and at least one block."
 msgstr "Templat memerlukan nama dan setidaknya satu blok."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:585
+#: src/Modules/FormBuilder/FormBuilderModule.php:771
 msgid "The template title must not be empty."
 msgstr ""
 
@@ -13318,7 +13509,7 @@ msgstr "Waktunya adalah jumlah kata dibagi laju ini, dibulatkan ke atas, dengan 
 msgid "The toggles below only take effect when no SEO plugin is active."
 msgstr "Sakelar di bawah ini hanya berlaku bila tidak ada plugin SEO yang aktif."
 
-#: src/Admin/AdminMenu.php:788
+#: src/Admin/AdminMenu.php:830
 msgid "The TrayDigita admin shell template is missing."
 msgstr "Templat shell admin TrayDigita tidak ditemukan."
 
@@ -13338,7 +13529,7 @@ msgstr "Skrip login dua faktor belum terdaftar. Tombol passkey tidak akan muncul
 msgid "The two-factor scripts are not loaded yet (the theme entry is missing). The settings below will work after the theme is rebuilt."
 msgstr "Skrip dua faktor belum dimuat (entri tema tidak ada). Pengaturan di bawah ini akan berfungsi setelah tema dibangun ulang."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:268
+#: src/Modules/FrontendEditor/FeaturedUpload.php:267
 msgid "The upload was interrupted. Please try again."
 msgstr "Unggahan terputus. Silakan coba lagi."
 
@@ -13460,7 +13651,7 @@ msgstr "Tema & plugin"
 msgid "Theme and plugin versions, limits, debug settings."
 msgstr "Versi tema dan plugin, batas, pengaturan debug."
 
-#: templates/admin/modules/email.php:261
+#: templates/admin/modules/email.php:258
 msgid "Themes and widgets can print it with EmailModule::subscribeFormHtml()."
 msgstr "Tema dan widget dapat mencetaknya dengan EmailModule::subscribeFormHtml()."
 
@@ -13509,9 +13700,9 @@ msgstr "Akun ini belum menyiapkan metode faktor kedua. Silakan hubungi administr
 msgid "This ad has not been configured yet."
 msgstr "Iklan ini belum dikonfigurasi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1485
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2283
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:207
+#: src/Modules/FrontendEditor/FeaturedUpload.php:206
+#: src/Modules/FrontendEditor/FrontendEditor.php:880
+#: src/Modules/MemberArea/MemberDashboard.php:609
 msgid "This article cannot be edited."
 msgstr "Artikel ini tidak dapat diubah."
 
@@ -13528,20 +13719,20 @@ msgstr "Peramban ini tidak mendukung passkey."
 msgid "This change would leave no user able to manage the site. Nothing was saved."
 msgstr "Perubahan ini akan membuat tidak ada pengguna yang dapat mengelola situs. Tidak ada yang disimpan."
 
-#: src/Modules/Email/EmailAjax.php:391
+#: src/Modules/Email/EmailAjax.php:471
 msgid "This confirmation link is invalid or has expired."
 msgstr "Tautan konfirmasi ini tidak valid atau telah kedaluwarsa."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1490
+#: src/Modules/MemberArea/MemberDashboard.php:614
 msgid "This email address is already used by another account."
 msgstr "Alamat email ini sudah digunakan akun lain."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:122
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:127
+#: src/Modules/FrontendEditor/FeaturedUpload.php:121
+#: src/Modules/FrontendEditor/FeaturedUpload.php:126
 msgid "This file is not a valid image."
 msgstr "Berkas ini bukan gambar yang valid."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:111
+#: src/Modules/FrontendEditor/FeaturedUpload.php:110
 msgid "This file type is not allowed. Please upload an image."
 msgstr "Jenis berkas ini tidak diizinkan. Silakan unggah gambar."
 
@@ -13549,7 +13740,7 @@ msgstr "Jenis berkas ini tidak diizinkan. Silakan unggah gambar."
 msgid "This flush deletes every transient, including live ones — not just expired ones."
 msgstr "Flush ini menghapus semua transient, termasuk yang masih aktif — bukan hanya yang kedaluwarsa."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:75
+#: src/Modules/FormBuilder/ContactFormAjax.php:79
 msgid "This form is not configured yet."
 msgstr ""
 
@@ -13557,7 +13748,7 @@ msgstr ""
 msgid "This format is not supported by the image editor on this server. Choose the other format."
 msgstr "Format ini tidak didukung oleh editor gambar di server ini. Pilih format lainnya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:115
+#: src/Modules/FrontendEditor/FeaturedUpload.php:114
 msgid "This image type is not allowed."
 msgstr "Jenis gambar ini tidak diizinkan."
 
@@ -13570,7 +13761,7 @@ msgstr "Ini adalah log keamanan yang ringan, bukan log aktivitas lengkap."
 msgid "This is a test email from %1$s (%2$s).\n\nIf you received this message, the Mailer settings are working."
 msgstr "Ini adalah email uji dari %1$s (%2$s).\n\nJika Anda menerima pesan ini, pengaturan Mailer berfungsi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1489
+#: src/Modules/MemberArea/MemberDashboard.php:613
 msgid "This is already your email address."
 msgstr "Ini sudah alamat email Anda."
 
@@ -13590,6 +13781,14 @@ msgstr "Ini adalah nama mesin peran dan tidak dapat diubah nanti."
 #: src/Modules/Installer/PluginList.php:436
 msgid "This looks like a development site, so no server-specific recommendation can be made — page caching is not needed while developing. Install a cache plugin when the site goes live."
 msgstr "Ini tampaknya situs pengembangan, sehingga tidak ada rekomendasi khusus server yang dapat diberikan — page caching tidak diperlukan selama pengembangan. Instal plugin cache saat situs sudah live."
+
+#: src/Modules/Bookmarks/BookmarksModule.php:227
+msgid "This module has no settings. Bookmarks do not sync across devices and are lost when the browser data is cleared — that trade-off is accepted."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:283
+msgid "This module has no settings. Disable it to remove the statuses and the revision-note box from wp-admin."
+msgstr ""
 
 #: templates/admin/shell.php:377
 msgid "This module is not available."
@@ -13630,7 +13829,7 @@ msgstr "Situs ini berjalan di %1$s, jadi %2$s adalah plugin cache yang disaranka
 msgid "This theme never runs its own page cache."
 msgstr "Tema ini tidak pernah menjalankan page cache sendiri."
 
-#: src/Modules/Email/EmailAjax.php:421
+#: src/Modules/Email/EmailAjax.php:501
 msgid "This unsubscribe link is invalid or has expired."
 msgstr "Tautan berhenti berlangganan ini tidak valid atau telah kedaluwarsa."
 
@@ -13663,7 +13862,7 @@ msgstr "Tindakan ini akan menghapus baris yang dipilih secara permanen. Ketik ka
 msgid "Thumbnails come from the featured image (or the first image in the post) through the theme image helper, with Photon serving when enabled."
 msgstr "Thumbnail berasal dari gambar unggulan (atau gambar pertama dalam kiriman) melalui helper gambar tema, dengan Photon yang melayani saat diaktifkan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1263
+#: src/Modules/MemberArea/MemberAreaModule.php:694
 msgid "Tick a section to hide it from the dashboard."
 msgstr "Centang bagian untuk menyembunyikannya dari dasbor."
 
@@ -13678,8 +13877,8 @@ msgstr "Centang hanya kategori yang diinginkan, ketik kata konfirmasi, lalu hapu
 msgid "Time"
 msgstr "Waktu"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2091
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2310
+#: src/Modules/FrontendEditor/FrontendEditor.php:907
+#: src/Modules/MemberArea/MemberDashboard.php:1194
 #: src/Modules/Push/PushModule.php:547
 #: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:1000
@@ -13687,15 +13886,15 @@ msgstr "Waktu"
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
-#: templates/admin/modules/contact-form.php:113
-#: templates/admin/modules/contact-form.php:55
 #: templates/admin/modules/epaper.php:119
 #: templates/admin/modules/epaper.php:171
 #: templates/admin/modules/epaper.php:205
-#: templates/admin/modules/form-builder.php:105
-#: templates/admin/modules/form-builder.php:185
-#: templates/admin/modules/form-builder.php:235
-#: templates/admin/modules/form-builder.php:53
+#: templates/admin/modules/form-builder.php:111
+#: templates/admin/modules/form-builder.php:199
+#: templates/admin/modules/form-builder.php:250
+#: templates/admin/modules/form-builder.php:301
+#: templates/admin/modules/form-builder.php:363
+#: templates/admin/modules/form-builder.php:59
 #: templates/admin/modules/maintenance.php:98
 msgid "Title"
 msgstr "Judul"
@@ -13724,7 +13923,7 @@ msgstr "Pemisah judul"
 msgid "Title:"
 msgstr "Judul:"
 
-#: templates/admin/contact-submissions.php:160
+#: templates/admin/contact-submissions.php:161
 #: templates/admin/modules/activity-log.php:118
 #: templates/admin/modules/mailer.php:508
 msgid "To"
@@ -13751,9 +13950,9 @@ msgstr "Terlalu banyak upaya gagal. Silakan coba lagi dalam %d menit."
 msgid "Too many failed attempts. Please try again later."
 msgstr "Terlalu banyak upaya gagal. Silakan coba lagi nanti."
 
-#: src/Modules/Email/EmailAjax.php:354
-#: src/Modules/Email/EmailAjax.php:381
-#: src/Modules/Email/EmailAjax.php:411
+#: src/Modules/Email/EmailAjax.php:434
+#: src/Modules/Email/EmailAjax.php:461
+#: src/Modules/Email/EmailAjax.php:491
 msgid "Too many requests. Please try again later."
 msgstr "Terlalu banyak permintaan. Silakan coba lagi nanti."
 
@@ -13810,8 +14009,8 @@ msgstr "File terjemahan ditemukan untuk %s."
 msgid "Translations"
 msgstr "Terjemahan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2012
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2204
+#: src/Modules/MemberArea/MemberDashboard.php:1115
+#: src/Modules/MemberArea/MemberDashboard.php:1307
 msgid "Trash"
 msgstr "Sampah"
 
@@ -13827,8 +14026,8 @@ msgstr "Artikel yang dibuang"
 msgid "Tray Digita: Upcoming Events"
 msgstr "Tray Digita: Acara Mendatang"
 
-#: src/Admin/AdminMenu.php:308
-#: src/Admin/AdminMenu.php:309
+#: src/Admin/AdminMenu.php:350
+#: src/Admin/AdminMenu.php:351
 #: src/Admin/SiteHealth.php:415
 #: templates/admin/shell.php:269
 #: templates/admin/shell.php:279
@@ -13837,7 +14036,7 @@ msgstr "Tray Digita: Acara Mendatang"
 msgid "TrayDigita"
 msgstr "TrayDigita"
 
-#: templates/admin/hub-page.php:118
+#: templates/admin/hub-page.php:121
 msgid "TrayDigita Core"
 msgstr ""
 
@@ -13935,15 +14134,15 @@ msgstr "Aktifkan setidaknya satu header di atas."
 msgid "Turning the module off hides the market strip and removes the Gold, Stock, and Crypto widgets. No price is ever invented: a provider with no data contributes nothing."
 msgstr "Mematikan modul akan menyembunyikan strip pasar dan menghapus widget Emas, Saham, dan Kripto. Tidak ada harga yang dikarang: penyedia tanpa data tidak menampilkan apa pun."
 
-#: templates/admin/modules/contact-form.php:36
+#: templates/admin/modules/form-builder.php:283
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:194
+#: templates/admin/modules/form-builder.php:444
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:196
+#: templates/admin/modules/form-builder.php:446
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14013,8 +14212,7 @@ msgstr "Verifikasi dua faktor berhasil melalui %s."
 
 #: src/Modules/Avatar/AvatarModule.php:399
 #: templates/admin/modules/fast-search.php:99
-#: templates/admin/modules/form-builder.php:112
-#: templates/admin/modules/form-builder.php:242
+#: templates/admin/modules/form-builder.php:126
 #: templates/admin/modules/role-editor.php:74
 msgid "Type"
 msgstr "Jenis"
@@ -14093,8 +14291,8 @@ msgstr "Tidak tersedia saat plugin SEO aktif, untuk menghindari pengiriman Index
 msgid "Unavailable: this site does not run over HTTPS yet. HSTS only works on HTTPS, so turn on HTTPS first."
 msgstr "Tidak tersedia: situs ini belum berjalan melalui HTTPS. HSTS hanya berfungsi melalui HTTPS, jadi aktifkan HTTPS terlebih dahulu."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2122
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2342
+#: src/Modules/FrontendEditor/FrontendEditor.php:939
+#: src/Modules/MemberArea/MemberDashboard.php:1225
 msgid "Uncategorized"
 msgstr "Tanpa kategori"
 
@@ -14107,7 +14305,7 @@ msgstr "Tidak berubah"
 msgid "Uncheck to block them too. This is an explicit choice: these forms are lower risk than login, so availability wins by default."
 msgstr "Hapus centang untuk memblokirnya juga. Ini pilihan eksplisit: formulir ini berisiko lebih rendah daripada login, sehingga ketersediaan diutamakan secara bawaan."
 
-#: templates/admin/modules/email.php:191
+#: templates/admin/modules/email.php:188
 msgid "Unconfirmed addresses never receive newsletters."
 msgstr "Alamat yang belum terkonfirmasi tidak pernah menerima buletin."
 
@@ -14164,33 +14362,33 @@ msgstr "Kapabilitas tidak dikenal: %s. Tidak ada yang disimpan."
 msgid "Unknown category."
 msgstr "Kategori tidak dikenal."
 
-#: src/Modules/ContactForm/ContactFormModule.php:609
+#: src/Modules/FormBuilder/FormBuilderModule.php:1237
 msgid "Unknown Contact Form action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:71
-#: src/Modules/ContactForm/ContactFormModule.php:686
-#: src/Modules/ContactForm/ContactFormModule.php:740
+#: src/Modules/FormBuilder/ContactFormAjax.php:75
+#: src/Modules/FormBuilder/FormBuilderModule.php:1314
+#: src/Modules/FormBuilder/FormBuilderModule.php:1368
 msgid "Unknown contact form."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:707
-#: src/Modules/FormBuilder/FormBuilderModule.php:578
-#: src/Modules/FormBuilder/FormBuilderModule.php:658
+#: src/Modules/FormBuilder/FormBuilderModule.php:1335
+#: src/Modules/FormBuilder/FormBuilderModule.php:764
+#: src/Modules/FormBuilder/FormBuilderModule.php:871
 msgid "Unknown email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:418
+#: src/Modules/FormBuilder/FormBuilderModule.php:602
 msgid "Unknown Form Builder action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:700
+#: src/Modules/FormBuilder/FormBuilderModule.php:1328
 msgid "Unknown Form Builder form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:478
-#: src/Modules/FormBuilder/FormBuilderModule.php:517
-#: src/Modules/FormBuilder/FormBuilderModule.php:762
+#: src/Modules/FormBuilder/FormBuilderModule.php:663
+#: src/Modules/FormBuilder/FormBuilderModule.php:703
+#: src/Modules/FormBuilder/FormBuilderModule.php:977
 msgid "Unknown form."
 msgstr ""
 
@@ -14261,11 +14459,11 @@ msgstr "Tampilan tidak dikenal."
 msgid "Unlock to edit"
 msgstr "Buka kunci untuk mengedit"
 
-#: templates/admin/contact-submissions.php:151
+#: templates/admin/contact-submissions.php:152
 msgid "Unread"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2326
+#: src/Modules/FrontendEditor/FrontendEditor.php:923
 msgid "Unsaved changes"
 msgstr "Perubahan belum disimpan"
 
@@ -14275,15 +14473,15 @@ msgstr "Perubahan belum disimpan"
 msgid "Unsubscribe"
 msgstr "Berhenti berlangganan"
 
-#: templates/admin/modules/email.php:158
+#: templates/admin/modules/email.php:155
 msgid "Unsubscribe: every newsletter carries an unsubscribe link in its footer, and the Mailer List-Unsubscribe header points to the same link for each subscriber."
 msgstr ""
 
-#: src/Modules/Email/EmailAjax.php:416
+#: src/Modules/Email/EmailAjax.php:496
 msgid "Unsubscribed"
 msgstr "Berhenti berlangganan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1191
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:543
 msgid "Unticked blocks disappear from the editor, and any such block in a submitted article is stripped on save. At least the paragraph block is always kept, so the editor never ends up empty."
 msgstr "Blok yang tidak dicentang hilang dari editor, dan blok semacam itu dalam artikel yang dikirim akan dihapus saat disimpan. Setidaknya blok paragraf selalu dipertahankan, sehingga editor tidak pernah kosong."
 
@@ -14298,6 +14496,10 @@ msgstr "Hingga kedua kunci disimpan, formulir kontak kembali tanpa proteksi spam
 #: src/Modules/Turnstile/TurnstileModule.php:995
 msgid "Until both keys are saved, no challenge is shown and logins work exactly as before."
 msgstr "Hingga kedua kunci disimpan, tidak ada tantangan yang ditampilkan dan login berfungsi seperti sebelumnya."
+
+#: src/Modules/Email/TemplateBuilder.php:621
+msgid "Untitled template"
+msgstr ""
 
 #: templates/widgets/gold-market.php:74
 #: templates/widgets/market-table.php:51
@@ -14358,7 +14560,7 @@ msgstr "Unggah dan instal"
 msgid "Upload Avatar"
 msgstr "Unggah Avatar"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2402
+#: src/Modules/FrontendEditor/FrontendEditor.php:999
 msgid "Upload featured image"
 msgstr "Unggah gambar unggulan"
 
@@ -14387,7 +14589,7 @@ msgid "Uploading font…"
 msgstr "Mengunggah font…"
 
 #: src/Modules/Avatar/AvatarModule.php:308
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2405
+#: src/Modules/FrontendEditor/FrontendEditor.php:1002
 #: templates/admin/modules/epaper.php:46
 msgid "Uploading…"
 msgstr "Mengunggah…"
@@ -14478,11 +14680,11 @@ msgstr "Gunakan ID zona 32 karakter dari dasbor Cloudflare."
 msgid "Use the copy button to paste the whole report into a support request."
 msgstr "Gunakan tombol salin untuk menempelkan seluruh laporan ke permintaan dukungan."
 
-#: templates/admin/contact-submissions.php:124
+#: templates/admin/contact-submissions.php:125
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:235
+#: templates/admin/modules/form-builder.php:485
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14622,8 +14824,8 @@ msgstr "Versi %s"
 msgid "Version unknown"
 msgstr "Versi tidak diketahui"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2183
-#: templates/admin/contact-submissions.php:198
+#: src/Modules/MemberArea/MemberDashboard.php:1286
+#: templates/admin/contact-submissions.php:199
 #: templates/admin/modules/agenda.php:220
 #: templates/admin/shell.php:177
 msgid "View"
@@ -14637,7 +14839,7 @@ msgstr "Lihat arsip"
 msgid "View saved."
 msgstr "Tampilan disimpan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1649
+#: src/Modules/MemberArea/MemberDashboard.php:752
 msgid "View site"
 msgstr "Lihat situs"
 
@@ -14645,7 +14847,7 @@ msgstr "Lihat situs"
 msgid "View Site Kit in the plugin installer"
 msgstr "Lihat Site Kit di pemasang plugin"
 
-#: templates/admin/modules/contact-form.php:47
+#: templates/admin/modules/form-builder.php:293
 msgid "View submissions"
 msgstr ""
 
@@ -14653,16 +14855,16 @@ msgstr ""
 msgid "View the public agenda"
 msgstr "Lihat agenda publik"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1721
+#: src/Modules/MemberArea/MemberDashboard.php:824
 #: src/Widgets/WidgetBase.php:292
 msgid "Views"
 msgstr "Tampilan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1741
+#: src/Modules/MemberArea/MemberDashboard.php:844
 msgid "views"
 msgstr "kunjungan"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1727
+#: src/Modules/MemberArea/MemberDashboard.php:830
 msgid "Views in the last 30 days"
 msgstr "Kunjungan 30 hari terakhir"
 
@@ -14705,7 +14907,7 @@ msgstr "Cuaca per kota"
 msgid "Web server"
 msgstr "Server web"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1226
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
 #: templates/admin/modules/image-optimizer.php:75
 msgid "WebP"
 msgstr "WebP"
@@ -14715,7 +14917,7 @@ msgid "WebP works everywhere modern browsers do."
 msgstr "WebP berfungsi di semua tempat peramban modern berfungsi."
 
 #: src/Modules/AuthorBox/AuthorBoxModule.php:627
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2504
+#: src/Modules/MemberProfile/MemberProfile.php:278
 msgid "Website"
 msgstr "Situs web"
 
@@ -14795,7 +14997,7 @@ msgstr "Saat nonaktif, atau saat indeks belum ada, pencarian standar WordPress d
 msgid "When off, the area shows whenever the provider and scope allow it."
 msgstr "Saat nonaktif, area tampil kapan pun penyedia dan cakupan mengizinkannya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1153
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:505
 msgid "When off, the link button disappears from the editor and any link in a submitted article is stripped on save, keeping only the link text."
 msgstr "Saat mati, tombol tautan hilang dari editor dan tautan apa pun dalam artikel yang dikirim akan dihapus saat disimpan, hanya menyisakan teks tautannya."
 
@@ -14807,15 +15009,19 @@ msgstr "Saat nonaktif, berkas asli dihapus — tetapi hanya setelah berkas hasil
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr "Saat aktif (dan indeks terpasang), pencarian frontend menggunakan MATCH … AGAINST dalam mode boolean, termasuk kecocokan pada nama kategori dan tag."
 
-#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/form-builder.php:396
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
-#: templates/admin/modules/email.php:135
+#: templates/admin/modules/form-builder.php:121
+msgid "When on, every submission of this form is stored in the submissions table (listed on the submissions page, with CSV export and retention prune). When off, submissions are only handed to the traydigita:core:form-builder/submitted action."
+msgstr ""
+
+#: templates/admin/modules/email.php:132
 msgid "When on, new subscribers must confirm by email before they receive newsletters. When off, subscriptions are confirmed immediately (single opt-in)."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1255
+#: src/Modules/MemberProfile/MemberProfileModule.php:300
 msgid "When on, the Change Email section appears in the dashboard and the new address is confirmed through the email WordPress sends. When off, the section is hidden entirely; users who can access wp-admin can still change their email from profile.php."
 msgstr "Saat aktif, bagian Ubah Email muncul di dasbor dan alamat baru dikonfirmasi melalui email yang dikirim WordPress. Saat mati, bagian tersebut disembunyikan sepenuhnya; pengguna yang dapat mengakses wp-admin tetap dapat mengubah email mereka dari profile.php."
 
@@ -15028,6 +15234,14 @@ msgstr "Kerjakan daftar ini sekali setelah menginstal tema. Setiap status di baw
 msgid "Working…"
 msgstr "Memproses…"
 
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:239
+msgid "Works on its own when the member area is disabled."
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:187
+msgid "Works without the frontend editor."
+msgstr ""
+
 #: src/Modules/Security/Checks.php:249
 msgid "World-writable: any user on this server can change it."
 msgstr "Dapat ditulis semua orang: pengguna mana pun di server ini dapat mengubahnya."
@@ -15069,21 +15283,29 @@ msgstr "WP_DEBUG_LOG"
 msgid "Wraps WordPress notification emails."
 msgstr "Membungkus email notifikasi WordPress."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2302
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:700
+#: src/Modules/FrontendEditor/FrontendEditor.php:899
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:733
 msgid "Write"
 msgstr "Tulis"
 
-#: src/Bookmarks.php:114
-#: src/Bookmarks.php:151
+#: src/Bookmarks.php:123
+#: src/Bookmarks.php:163
 msgid "Write a note about this article…"
 msgstr "Tulis catatan tentang artikel ini…"
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1711
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1909
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2018
+#: src/Modules/MemberArea/MemberDashboard.php:1012
+#: src/Modules/MemberArea/MemberDashboard.php:1121
+#: src/Modules/MemberArea/MemberDashboard.php:814
 msgid "Write New"
 msgstr "Tulis Baru"
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:238
+msgid "Write section in the member dashboard."
+msgstr ""
+
+#: src/Modules/MemberArea/MemberAreaModule.php:645
+msgid "Write, Bookmarks, Profile and Change Email plug in as sections from their own modules — disabling one of them removes its section from the dashboard without touching anything here."
+msgstr ""
 
 #: src/Modules/AuthorBox/AuthorBoxModule.php:516
 msgid "Written by"
@@ -15142,9 +15364,9 @@ msgid "Yahoo Finance is an unofficial endpoint and may break or rate-limit witho
 msgstr "Yahoo Finance adalah endpoint tidak resmi dan dapat rusak atau membatasi rate tanpa pemberitahuan."
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
-#: templates/admin/contact-submissions.php:196
-#: templates/admin/contact-submissions.php:99
-#: templates/admin/modules/contact-form.php:70
+#: templates/admin/contact-submissions.php:100
+#: templates/admin/contact-submissions.php:197
+#: templates/admin/modules/form-builder.php:316
 msgid "Yes"
 msgstr "Ya"
 
@@ -15157,9 +15379,14 @@ msgstr "ya"
 msgid "Yes — the OPcache is full and is evicting scripts. Consider raising opcache.memory_consumption."
 msgstr "Ya — OPcache penuh dan sedang mengeluarkan skrip. Pertimbangkan untuk menaikkan opcache.memory_consumption."
 
-#: src/Admin/AdminMenu.php:768
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1041
+#: src/Admin/AdminMenu.php:810
+#: src/Modules/Bookmarks/BookmarksModule.php:213
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:272
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:476
 #: src/Modules/Login/LoginModule.php:267
+#: src/Modules/MemberArea/MemberAreaModule.php:636
+#: src/Modules/MemberProfile/MemberProfileModule.php:272
+#: src/Modules/RoleAccess/RoleAccessModule.php:427
 msgid "You are not allowed to access this page."
 msgstr "Anda tidak diizinkan mengakses halaman ini."
 
@@ -15197,6 +15424,10 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Author Box."
 msgid "You are not allowed to change avatar settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan avatar."
 
+#: src/Modules/Bookmarks/BookmarksModule.php:248
+msgid "You are not allowed to change bookmark settings."
+msgstr ""
+
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:390
 msgid "You are not allowed to change breadcrumb settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan breadcrumb."
@@ -15209,13 +15440,9 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Cache."
 msgid "You are not allowed to change comment settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan komentar."
 
-#: src/Modules/ContactForm/ContactFormModule.php:598
+#: src/Modules/FormBuilder/FormBuilderModule.php:1226
 msgid "You are not allowed to change Contact Form settings."
 msgstr ""
-
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1307
-msgid "You are not allowed to change contributor settings."
-msgstr "Anda tidak diizinkan mengubah pengaturan kontributor."
 
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:352
 msgid "You are not allowed to change dashboard designer settings."
@@ -15229,7 +15456,11 @@ msgstr "Anda tidak diizinkan mengubah pengaturan DB Tools."
 msgid "You are not allowed to change E-Paper settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan E-Paper."
 
-#: src/Modules/Email/EmailModule.php:333
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:304
+msgid "You are not allowed to change editorial workflow settings."
+msgstr ""
+
+#: src/Modules/Email/EmailModule.php:334
 msgid "You are not allowed to change Email settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Email."
 
@@ -15241,8 +15472,12 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Pencarian Cepat."
 msgid "You are not allowed to change font settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan fon."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:405
+#: src/Modules/FormBuilder/FormBuilderModule.php:583
 msgid "You are not allowed to change Form Builder settings."
+msgstr ""
+
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:617
+msgid "You are not allowed to change frontend editor settings."
 msgstr ""
 
 #: src/Modules/Heartbeat/HeartbeatModule.php:365
@@ -15268,6 +15503,14 @@ msgstr "Anda tidak diizinkan mengubah pengaturan perawatan."
 #: src/Modules/Markets/MarketsModule.php:1322
 msgid "You are not allowed to change markets settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan pasar."
+
+#: src/Modules/MemberArea/MemberAreaModule.php:735
+msgid "You are not allowed to change member area settings."
+msgstr ""
+
+#: src/Modules/MemberProfile/MemberProfileModule.php:326
+msgid "You are not allowed to change member profile settings."
+msgstr ""
 
 #: src/Modules/Core/MenuIconsModule.php:320
 msgid "You are not allowed to change menu icon settings."
@@ -15312,6 +15555,10 @@ msgstr "Anda tidak diizinkan mengubah pengaturan pengalihan."
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:400
 msgid "You are not allowed to change Related Posts settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Artikel Terkait."
+
+#: src/Modules/RoleAccess/RoleAccessModule.php:523
+msgid "You are not allowed to change role access settings."
+msgstr ""
 
 #: src/Modules/Seo/SeoModule.php:1166
 msgid "You are not allowed to change SEO settings."
@@ -15378,8 +15625,8 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/DynamicSidebars/DynamicSidebarsAjax.php:69
 #: src/Modules/DynamicSidebars/DynamicSidebarsModule.php:862
 #: src/Modules/EPaper/EPaperModule.php:255
-#: src/Modules/Email/EmailAjax.php:102
-#: src/Modules/Email/EmailAjax.php:280
+#: src/Modules/Email/EmailAjax.php:108
+#: src/Modules/Email/EmailAjax.php:360
 #: src/Modules/FastSearch/FastSearchAjax.php:145
 #: src/Modules/FastSearch/FastSearchAjax.php:176
 #: src/Modules/FastSearch/FastSearchAjax.php:99
@@ -15438,7 +15685,7 @@ msgstr "Anda tidak diizinkan memasang plugin."
 msgid "You are not allowed to manage E-Paper issues."
 msgstr "Anda tidak diizinkan mengelola edisi E-Paper."
 
-#: src/Modules/ContactForm/ContactFormModule.php:787
+#: src/Modules/FormBuilder/FormBuilderModule.php:1393
 msgid "You are not allowed to view contact submissions."
 msgstr ""
 
@@ -15450,7 +15697,7 @@ msgstr "Anda siap"
 msgid "You are subscribed."
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2575
+#: src/Modules/MemberProfile/MemberProfile.php:349
 msgid "You can also change your email on your WordPress profile page."
 msgstr "Anda juga dapat mengubah email di halaman profil WordPress Anda."
 
@@ -15458,7 +15705,7 @@ msgstr "Anda juga dapat mengubah email di halaman profil WordPress Anda."
 msgid "You can keep this page open and watch the progress below, or cancel it."
 msgstr "Anda dapat membiarkan halaman ini tetap terbuka dan memantau kemajuan di bawah, atau membatalkannya."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1571
+#: src/Modules/MemberArea/MemberDashboard.php:695
 msgid "You do not have access to the WordPress dashboard. Use this page to write and submit articles."
 msgstr "Anda tidak memiliki akses ke dasbor WordPress. Gunakan halaman ini untuk menulis dan mengirim artikel."
 
@@ -15466,21 +15713,22 @@ msgstr "Anda tidak memiliki akses ke dasbor WordPress. Gunakan halaman ini untuk
 msgid "You do not have permission to change these settings."
 msgstr "Anda tidak memiliki izin untuk mengubah pengaturan ini."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1482
-#: src/Modules/ContributorFrontend/ContributorFrontendUpload.php:195
+#: src/Modules/FrontendEditor/FeaturedUpload.php:194
+#: src/Modules/FrontendEditor/FrontendEditor.php:178
+#: src/Modules/MemberArea/MemberDashboard.php:606
 msgid "You do not have permission to submit articles."
 msgstr "Anda tidak memiliki izin untuk mengirim artikel."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2479
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2539
+#: src/Modules/MemberProfile/MemberProfile.php:253
+#: src/Modules/MemberProfile/MemberProfile.php:313
 msgid "You do not have permission to use the member area."
 msgstr "Anda tidak memiliki izin untuk menggunakan area anggota."
 
-#: src/Modules/Email/EmailAjax.php:415
+#: src/Modules/Email/EmailAjax.php:495
 msgid "You have been unsubscribed."
 msgstr "Anda telah berhenti berlangganan."
 
-#: src/Bookmarks.php:142
+#: src/Bookmarks.php:154
 msgid "You have no saved articles yet."
 msgstr "Anda belum menyimpan artikel."
 
@@ -15500,7 +15748,7 @@ msgstr "Anda harus masuk untuk mengubah peran."
 msgid "You must be logged in to change an avatar."
 msgstr "Anda harus masuk untuk mengubah avatar."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1504
+#: src/Modules/MemberArea/MemberDashboard.php:628
 msgid "Your article was saved."
 msgstr "Artikel Anda telah disimpan."
 
@@ -15520,23 +15768,23 @@ msgstr "Peramban Anda tidak mendukung passkey. Silakan masuk dengan kata sandi A
 msgid "Your browser does not support passkeys. Please use your authenticator code."
 msgstr "Peramban Anda tidak mendukung passkey. Silakan gunakan kode autentikator Anda."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2544
+#: src/Modules/MemberProfile/MemberProfile.php:318
 msgid "Your current email address is:"
 msgstr "Alamat email Anda saat ini:"
 
-#: src/Modules/Email/EmailModule.php:387
+#: src/Modules/Email/EmailModule.php:388
 msgid "Your email address"
 msgstr "Alamat email Anda"
 
-#: src/Modules/ContactForm/ContactFormAjax.php:111
+#: src/Modules/FormBuilder/ContactFormAjax.php:104
 msgid "Your message could not be saved. Please try again later."
 msgstr ""
 
-#: src/Modules/Email/EmailModule.php:393
+#: src/Modules/Email/EmailModule.php:394
 msgid "Your name (optional)"
 msgstr "Nama Anda (opsional)"
 
-#: src/Bookmarks.php:145
+#: src/Bookmarks.php:157
 msgid "Your note"
 msgstr "Catatan Anda"
 
@@ -15548,27 +15796,27 @@ msgstr ""
 msgid "Your own subscription or payment page. The prompt links here. Leave empty to show the message with no button."
 msgstr "Halaman langganan atau pembayaran Anda sendiri. Perintah menaut ke sini. Kosongkan untuk menampilkan pesan tanpa tombol."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1625
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:487
 #. translators: %s: post title.
 msgid "Your post \"%s\" needs revision."
 msgstr "Artikel Anda \"%s\" perlu revisi."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1635
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:497
 #. translators: %s: post title.
 msgid "Your post \"%s\" was published."
 msgstr "Artikel Anda \"%s\" telah diterbitkan."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1630
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:492
 #. translators: %s: post title.
 msgid "Your post \"%s\" was rejected."
 msgstr "Artikel Anda \"%s\" ditolak."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1620
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:482
 #. translators: %s: post title.
 msgid "Your post \"%s\" was sent for review."
 msgstr "Artikel Anda \"%s\" telah dikirim untuk ditinjau."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1508
+#: src/Modules/MemberArea/MemberDashboard.php:632
 msgid "Your profile was saved."
 msgstr "Profil Anda tersimpan."
 
@@ -15576,15 +15824,19 @@ msgstr "Profil Anda tersimpan."
 msgid "Your role requires two-factor authentication. Set it up below to keep using the admin area."
 msgstr "Peran Anda memerlukan autentikasi dua faktor. Siapkan di bawah ini untuk terus menggunakan area admin."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1232
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:584
 msgid "Your server does not support AVIF images."
 msgstr "Server Anda tidak mendukung gambar AVIF."
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1231
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:583
 msgid "Your server supports AVIF images."
 msgstr "Server Anda mendukung gambar AVIF."
 
-#: src/Modules/Email/EmailAjax.php:385
+#: src/Modules/FormBuilder/FormBuilderModule.php:998
+msgid "Your submission could not be saved. Please try again later."
+msgstr ""
+
+#: src/Modules/Email/EmailAjax.php:465
 msgid "Your subscription is confirmed. Thank you!"
 msgstr "Langganan Anda dikonfirmasi. Terima kasih!"
 
@@ -15604,15 +15856,15 @@ msgstr "ID zona"
 msgid "— No series —"
 msgstr "— Tanpa seri —"
 
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/form-builder.php:314
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:163
+#: templates/admin/modules/form-builder.php:413
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/form-builder.php:369
 msgid "— Select a form —"
 msgstr ""
 
@@ -15648,14 +15900,14 @@ msgctxt "db-tools table row count, singular form for JavaScript"
 msgid "%d row"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1488
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1575
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:350
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:437
 msgctxt "post status"
 msgid "Needs Revision"
 msgstr ""
 
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1501
-#: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1576
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:363
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:438
 msgctxt "post status"
 msgid "Rejected"
 msgstr ""

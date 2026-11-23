@@ -12,7 +12,13 @@ use TrayDigita\WP\Plugin\Core\Modules\Breadcrumb\BreadcrumbModule;
 use TrayDigita\WP\Plugin\Core\Modules\Cache\CacheModule;
 use TrayDigita\WP\Plugin\Core\Modules\CookieConsent\CookieConsentModule;
 use TrayDigita\WP\Plugin\Core\Modules\Comments\CommentsModule;
-use TrayDigita\WP\Plugin\Core\Modules\ContributorFrontend\ContributorFrontendModule;
+use TrayDigita\WP\Plugin\Core\Modules\Bookmarks\BookmarksModule;
+use TrayDigita\WP\Plugin\Core\Modules\EditorialWorkflow\EditorialWorkflowModule;
+use TrayDigita\WP\Plugin\Core\Modules\FrontendEditor\FrontendEditorModule;
+use TrayDigita\WP\Plugin\Core\Modules\MemberArea\ContributorSplitMigration;
+use TrayDigita\WP\Plugin\Core\Modules\MemberArea\MemberAreaModule;
+use TrayDigita\WP\Plugin\Core\Modules\MemberProfile\MemberProfileModule;
+use TrayDigita\WP\Plugin\Core\Modules\RoleAccess\RoleAccessModule;
 use TrayDigita\WP\Plugin\Core\Modules\Core\MenuIconsModule;
 use TrayDigita\WP\Plugin\Core\Modules\DashboardDesigner\DashboardDesignerModule;
 use TrayDigita\WP\Plugin\Core\Modules\DbTools\DbToolsModule;
@@ -312,7 +318,12 @@ final class ModuleRegistry
         RelatedPostsModule::class,
         PostSeriesModule::class,
         CommentsModule::class,
-        ContributorFrontendModule::class,
+        MemberAreaModule::class,
+        FrontendEditorModule::class,
+        BookmarksModule::class,
+        MemberProfileModule::class,
+        RoleAccessModule::class,
+        EditorialWorkflowModule::class,
         DynamicSidebarsModule::class,
         ReadingProgressModule::class,
         ReadAloudModule::class,
@@ -396,6 +407,7 @@ final class ModuleRegistry
         'agenda',
         'user-manager',
         'redirects',
+        'bookmarks',
     ];
 
     /**
@@ -1059,7 +1071,12 @@ final class ModuleRegistry
             'related-posts' => 'content',
             'post-series' => 'content',
             'comments' => 'content',
-            'contributor-frontend' => 'content',
+            'member-area' => 'content',
+            'frontend-editor' => 'content',
+            'bookmarks' => 'content',
+            'member-profile' => 'content',
+            'editorial-workflow' => 'content',
+            'role-access' => 'security',
             'reading-progress' => 'content',
             'print-article' => 'content',
             'agenda' => 'content',
@@ -1703,6 +1720,7 @@ final class ModuleRegistry
      */
     public static function bootEnabled(): void
     {
+        ContributorSplitMigration::migrate();
         FormBuilderModule::migrateEnabledFromContactForm();
         $enabled = self::enabled();
         foreach (self::all() as $class) {

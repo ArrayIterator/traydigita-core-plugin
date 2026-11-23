@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\ContributorFrontend;
+namespace TrayDigita\WP\Plugin\Core\Modules\FrontendEditor;
 
 use function __;
 use function absint;
@@ -45,8 +45,7 @@ use function wp_unslash;
  *   browser sent is never trusted.
  * - Only the MIME types the admin enabled (JPEG, PNG, WebP,
  *   AVIF) are accepted, and AVIF only when the server image
- *   editor supports it (see ContributorFrontendModule::
- *   avifSupported()).
+ *   editor supports it (see FrontendEditorModule::avifSupported()).
  * - The file size and the longest side are capped by the module
  *   settings (defaults 2 MB and 2400 px). Oversized files are
  *   refused, never silently downscaled.
@@ -56,7 +55,7 @@ use function wp_unslash;
  *   meta). A featured image an editor set is detached, never
  *   deleted.
  */
-final class ContributorFrontendUpload
+final class FeaturedUpload
 {
     /**
      * Post statuses an author may attach a featured image to.
@@ -95,7 +94,7 @@ final class ContributorFrontendUpload
         if ($tmpName === '' || $fileName === '' || $size <= 0 || !is_uploaded_file($tmpName)) {
             wp_send_json_error(['message' => __('Please choose an image file.', 'traydigita-core')]);
         }
-        $settings = ContributorFrontendModule::getSettings();
+        $settings = FrontendEditorModule::getSettings();
         $maxBytes = $settings['upload_max_mb'] * 1024 * 1024;
         if ($size > $maxBytes) {
             wp_send_json_error(['message' => sprintf(
@@ -114,7 +113,7 @@ final class ContributorFrontendUpload
         if (!isset($allowedMimes[$ext]) || $allowedMimes[$ext] !== $mime) {
             wp_send_json_error(['message' => __('This image type is not allowed.', 'traydigita-core')]);
         }
-        if ($mime === 'image/avif' && !ContributorFrontendModule::avifSupported()) {
+        if ($mime === 'image/avif' && !FrontendEditorModule::avifSupported()) {
             wp_send_json_error(['message' => __('AVIF images are not supported on this server.', 'traydigita-core')]);
         }
         $imageSize = getimagesize($tmpName);
@@ -143,7 +142,7 @@ final class ContributorFrontendUpload
             self::detachOrDelete($postId, $oldId);
         }
         set_post_thumbnail($postId, $attachmentId);
-        update_post_meta($attachmentId, ContributorFrontendModule::FEATURED_META, '1');
+        update_post_meta($attachmentId, FrontendEditorModule::FEATURED_META, '1');
         $preview = wp_get_attachment_image_src($attachmentId, 'medium');
         wp_send_json_success([
             'attachment_id' => $attachmentId,
@@ -188,7 +187,7 @@ final class ContributorFrontendUpload
      */
     private static function checkRequest(): array
     {
-        if (!check_ajax_referer(ContributorFrontendModule::FEATURED_NONCE_ACTION, '_wpnonce', false)) {
+        if (!check_ajax_referer(FrontendEditorModule::FEATURED_NONCE_ACTION, '_wpnonce', false)) {
             wp_send_json_error(['message' => __('Security check failed. Please try again.', 'traydigita-core')]);
         }
         if (!current_user_can('edit_posts')) {
@@ -220,7 +219,7 @@ final class ContributorFrontendUpload
     private static function detachOrDelete(int $postId, int $attachmentId): void
     {
         delete_post_thumbnail($postId);
-        $scoped = get_post_meta($attachmentId, ContributorFrontendModule::FEATURED_META, true);
+        $scoped = get_post_meta($attachmentId, FrontendEditorModule::FEATURED_META, true);
         if ($scoped === '1') {
             wp_delete_attachment($attachmentId, true);
         }
@@ -244,7 +243,7 @@ final class ContributorFrontendUpload
                 $allowed['jpeg'] = 'image/jpeg';
                 continue;
             }
-            $mime = ContributorFrontendModule::ALLOWED_MIMES[$type] ?? null;
+            $mime = FrontendEditorModule::ALLOWED_MIMES[$type] ?? null;
             if ($mime !== null) {
                 $allowed[$type] = $mime;
             }

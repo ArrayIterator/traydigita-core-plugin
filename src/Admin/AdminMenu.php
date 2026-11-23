@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Admin;
 
 use TrayDigita\WP\Plugin\Core\Core;
+use TrayDigita\WP\Plugin\Core\Modules\MemberArea\MemberAreaModule;
 use function __;
 use function add_action;
 use function add_menu_page;
@@ -19,8 +20,11 @@ use function is_admin;
 use function is_array;
 use function is_string;
 use function method_exists;
+use function sanitize_key;
 use function usort;
 use function wp_die;
+use function wp_safe_redirect;
+use function wp_unslash;
 
 /**
  * TrayDigita admin menu and page shell.
@@ -190,6 +194,7 @@ final class AdminMenu
             return;
         }
         add_action('admin_menu', [$this, 'registerMenus']);
+        add_action('admin_init', [$this, 'redirectLegacyContributorSettings']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminAssets']);
         add_action('admin_head', [$this, 'printAdminPalette']);
         add_filter('admin_body_class', [$this, 'addFullscreenBodyClass']);
@@ -197,6 +202,35 @@ final class AdminMenu
         SetupAjax::register();
         AdminPointerTour::register();
         SiteHealth::register();
+    }
+
+    /**
+     * Redirect the retired contributor settings slug.
+     *
+     * The Contributor Frontend Editor module split into six
+     * modules (MUST-4, 2026-11-24) and its settings page
+     * `admin.php?page=traydigita-contributor-frontend` no
+     * longer exists. A bookmarked or linked visit to it is
+     * sent to the Member Area settings page instead (301, so
+     * bookmarks update). Only administrators can reach an
+     * admin page at all, but the capability is checked
+     * explicitly before redirecting.
+     *
+     * @return void
+     */
+    public function redirectLegacyContributorSettings(): void
+    {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        $page = isset($_GET['page']) && is_string($_GET['page'])
+            ? sanitize_key(wp_unslash($_GET['page']))
+            : '';
+        if ($page !== 'traydigita-contributor-frontend') {
+            return;
+        }
+        wp_safe_redirect(admin_url('admin.php?page=' . MemberAreaModule::settingsPageSlug()), 301);
+        exit;
     }
 
     /**

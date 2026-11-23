@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core;
 
+use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
 use WP_Post;
 use function esc_attr;
 use function esc_attr__;
@@ -49,6 +50,11 @@ use function wp_strip_all_tags;
  * needs all come from here, so the three surfaces can never
  * drift apart. JavaScript renders list entries with DOM APIs
  * only (textContent), never innerHTML with entry data.
+ *
+ * Both public methods return an empty string while the
+ * Bookmarks module is disabled (see
+ * Modules\Bookmarks\BookmarksModule), so disabling the module
+ * hides the toggle on posts and the list shell everywhere.
  */
 final class Bookmarks
 {
@@ -84,6 +90,9 @@ final class Bookmarks
      */
     public static function renderToggle(WP_Post $post): string
     {
+        if (!ModuleRegistry::isEnabled('bookmarks')) {
+            return '';
+        }
         $permalink = get_permalink($post);
         if ($permalink === false) {
             $permalink = '';
@@ -137,6 +146,9 @@ final class Bookmarks
      */
     public static function renderListShell(): string
     {
+        if (!ModuleRegistry::isEnabled('bookmarks')) {
+            return '';
+        }
         return '<div class="td-bookmarks" data-bookmark-list'
             . ' data-msg-loading="' . esc_attr__('Loading your bookmarks…', 'traydigita-core') . '"'
             . ' data-msg-empty="' . esc_attr__('You have no saved articles yet.', 'traydigita-core') . '"'
