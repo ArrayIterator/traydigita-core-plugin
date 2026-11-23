@@ -36,6 +36,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Markets\MarketsModule;
 use TrayDigita\WP\Plugin\Core\Modules\Paywall\PaywallModule;
 use TrayDigita\WP\Plugin\Core\Modules\PostSeries\PostSeriesModule;
 use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
+use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use TrayDigita\WP\Plugin\Core\Modules\PrintArticle\PrintArticleModule;
 use TrayDigita\WP\Plugin\Core\Modules\ReadAloud\ReadAloudModule;
 use TrayDigita\WP\Plugin\Core\Modules\ReadingProgress\ReadingProgressModule;
@@ -98,9 +99,13 @@ use function update_option;
  * Enabled module ids live in ONE option, `traydigita_modules` (an
  * array of ids, autoload 'no'). Push notifications used to be a
  * card only ('push' id, owned by the separate koperasi-kita-push
- * plugin); since the PWA & Push merge the push half lives in the
- * 'pwa' module and the 'push' id no longer exists — a stored
- * 'push' id is dropped as unknown, so no migration is needed.
+ * plugin), then the push half lived in the 'pwa' module (the
+ * PWA & Push merge); since the 2026-11-23 split push is a module
+ * of its own again ('push' id, PushModule), and a stored 'push'
+ * id resolves to it. Sites that had 'pwa' enabled get 'push'
+ * enabled by a one-time migration in
+ * PushModule::migrateEnabledFromPwa(), called from
+ * PwaModule::boot().
  * Missing module classes (other builders run in parallel)
  * are skipped silently, never fatal.
  *
@@ -317,6 +322,7 @@ final class ModuleRegistry
         PaywallModule::class,
         FastSearchModule::class,
         PwaModule::class,
+        PushModule::class,
         LoginModule::class,
         MaintenanceModule::class,
         MailerModule::class,
@@ -372,6 +378,7 @@ final class ModuleRegistry
         'accessibility-toolbar',
         'fast-search',
         'pwa',
+        'push',
         'login',
         'maintenance',
         'smtp',
@@ -465,8 +472,9 @@ final class ModuleRegistry
      * A missing or malformed option falls back to DEFAULT_ENABLED.
      * Stored ids of unknown modules are dropped; the option
      * itself is never written by a read. (A stored 'push' id from
-     * before the PWA & Push merge is unknown now and drops the
-     * same way — no migration step is needed.)
+     * before the PWA & Push merge resolves to the Push module
+     * again since the 2026-11-23 split — no migration step is
+     * needed for the id itself.)
      *
      * Core modules (see isCore()) are always included, even when
      * the stored option does not list them — a core module cannot

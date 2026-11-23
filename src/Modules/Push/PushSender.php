@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\Pwa;
+namespace TrayDigita\WP\Plugin\Core\Modules\Push;
 
+use TrayDigita\WP\Plugin\Core\Libs\GoogleServiceAccount;
 use function __;
 use function absint;
 use function array_slice;
-use function base64_encode;
 use function current_time;
 use function dbDelta;
 use function delete_option;
@@ -20,13 +20,11 @@ use function is_array;
 use function is_string;
 use function is_wp_error;
 use function json_decode;
-use function openssl_sign;
 use function preg_match;
 use function rawurlencode;
-use function sanitize_email;
 use function sanitize_text_field;
 use function set_transient;
-use function str_contains;
+use function sprintf;
 use function stripos;
 use function strlen;
 use function substr;
@@ -41,13 +39,14 @@ use function wp_remote_retrieve_response_code;
 use WP_Error;
 
 /**
- * Firebase Cloud Messaging engine for the PWA module.
+ * Firebase Cloud Messaging engine for the Push module.
  *
  * Adapted from the standalone koperasi-kita-push plugin (which
- * stays untouched as the standalone alternative): pure-PHP JWT
- * RS256 against the Google OAuth token endpoint, then FCM HTTP
- * v1 sends — no Composer, no SDK on the server. Sending is
- * manual only; nothing here ever auto-sends on publish.
+ * stays untouched as the standalone alternative): an OAuth
+ * access token from the shared GoogleServiceAccount client,
+ * then FCM HTTP v1 sends — no Composer, no SDK on the server.
+ * Sending is manual only; nothing here ever auto-sends on
+ * publish.
  *
  * Storage: the web config + VAPID key live in the single option
  * `traydigita_push` (autoload `no`); the Service Account JSON
@@ -61,6 +60,12 @@ use WP_Error;
  * plugin's `wp_kk_push_tokens` table is never touched. The
  * access token is cached in a transient for ~50 minutes and is
  * never logged or returned to the browser.
+ *
+ * These option and table names are unchanged since the push
+ * half lived in the PWA module, so a site that had push
+ * configured keeps its config, its subscribers, and its send
+ * log with no migration step: the Push module simply takes
+ * ownership of the same names.
  */
 final class PushSender
 {
@@ -165,10 +170,15 @@ final class PushSender
     public const int MIN_VAPID_LENGTH = 20;
 
     /**
-     * Google OAuth token endpoint: the only host contacted for
-     * the access token, besides fcm.googleapis.com for sends.
+     * OAuth scope the FCM access token is requested for.
      */
-    public const string TOKEN_URL = 'https://oauth2.googleapis.com/token';
+    public const string FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
+
+    /**
+     * FCM HTTP v1 host: the only host contacted for sends,
+     * besides oauth2.googleapis.com for the access token.
+     */
+    public const string FCM_HOST = 'fcm.googleapis.com';
 
     /**
      * Validate a pasted Firebase web config JSON string.
@@ -223,35 +233,16 @@ final class PushSender
     /**
      * Validate a pasted Service Account JSON string.
      *
+     * Delegates to the shared GoogleServiceAccount client; a
+     * push Service Account must also carry
+     * "type": "service_account".
+     *
      * @param string $raw Raw pasted JSON.
      * @return array{account: array<string, mixed>|null, error: string} Account array on success, else an error message.
      */
     public static function validateServiceAccount(string $raw): array
     {
-        $raw = trim($raw);
-        if ($raw === '') {
-            return ['account' => null, 'error' => __('Service Account JSON is required.', 'traydigita-core')];
-        }
-        $decoded = json_decode($raw, true);
-        if (!is_array($decoded)) {
-            return ['account' => null, 'error' => __('Service Account JSON is not valid JSON.', 'traydigita-core')];
-        }
-        if (($decoded['type'] ?? '') !== 'service_account') {
-            return ['account' => null, 'error' => __('Service Account JSON must have "type": "service_account".', 'traydigita-core')];
-        }
-        $email = isset($decoded['client_email']) && is_string($decoded['client_email'])
-            ? sanitize_email($decoded['client_email'])
-            : '';
-        if ($email === '') {
-            return ['account' => null, 'error' => __('Service Account JSON is missing a valid client_email.', 'traydigita-core')];
-        }
-        $privateKey = isset($decoded['private_key']) && is_string($decoded['private_key'])
-            ? $decoded['private_key']
-            : '';
-        if (!str_contains($privateKey, 'BEGIN PRIVATE KEY')) {
-            return ['account' => null, 'error' => __('Service Account JSON is missing a valid private_key.', 'traydigita-core')];
-        }
-        return ['account' => $decoded, 'error' => ''];
+        return GoogleServiceAccount::validate($raw, true);
     }
 
     /**
@@ -319,14 +310,14 @@ final class PushSender
         if (!is_string($raw) || $raw === '') {
             return null;
         }
-        $data = json_decode($raw, true);
-        if (!is_array($data) || empty($data['client_email']) || empty($data['private_key'])) {
+        $account = GoogleServiceAccount::parse($raw);
+        if ($account === null) {
             return null;
         }
-        if (empty($data['project_id'])) {
-            $data['project_id'] = self::getSettings()['project_id'];
+        if ($account['project_id'] === '') {
+            $account['project_id'] = self::getSettings()['project_id'];
         }
-        return $data;
+        return $account;
     }
 
     /**
@@ -567,18 +558,7 @@ final class PushSender
     }
 
     /**
-     * Base64url-encode without padding (JWT encoding).
-     *
-     * @param string $data Raw bytes.
-     * @return string
-     */
-    private static function base64urlEncode(string $data): string
-    {
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
-    }
-
-    /**
-     * Fetch an FCM access token (OAuth2, JWT RS256, pure PHP).
+     * Fetch an FCM access token (OAuth2, via the shared Google service-account client).
      *
      * The token is cached in a transient for ~50 minutes. The
      * token value itself is never logged or returned to the
@@ -599,49 +579,32 @@ final class PushSender
         if ($account === null || empty($account['project_id'])) {
             return new WP_Error('push_no_service_account', __('Service Account has not been saved yet.', 'traydigita-core'));
         }
-        $now = time();
-        $header = self::base64urlEncode((string) wp_json_encode(['alg' => 'RS256', 'typ' => 'JWT']));
-        $claims = self::base64urlEncode((string) wp_json_encode([
-            'iss' => $account['client_email'],
-            'scope' => 'https://www.googleapis.com/auth/firebase.messaging',
-            'aud' => self::TOKEN_URL,
-            'iat' => $now,
-            'exp' => $now + 3600,
-        ]));
-        $input = $header . '.' . $claims;
-        $signature = '';
-        if (!openssl_sign($input, $signature, (string) $account['private_key'], OPENSSL_ALGO_SHA256)) {
-            return new WP_Error('push_sign_failed', __('Could not sign the Service Account JWT. Check the private_key.', 'traydigita-core'));
+        $token = GoogleServiceAccount::getAccessToken($account, self::FCM_SCOPE);
+        if (is_wp_error($token)) {
+            $code = $token->get_error_code();
+            if ($code === 'google_sa_sign_failed') {
+                return new WP_Error('push_sign_failed', __('Could not sign the Service Account JWT. Check the private_key.', 'traydigita-core'));
+            }
+            if ($code === 'google_sa_token_denied') {
+                $detail = $token->get_error_data();
+                $detail = is_array($detail) && isset($detail['detail']) && is_string($detail['detail'])
+                    ? $detail['detail']
+                    : '';
+                return new WP_Error(
+                    'push_token_denied',
+                    $detail !== ''
+                        ? sprintf(
+                            /* translators: %s is Google's error description. */
+                            __('Google did not return an access token: %s', 'traydigita-core'),
+                            $detail
+                        )
+                        : __('Google did not return an access token. Check the Service Account JSON.', 'traydigita-core')
+                );
+            }
+            return new WP_Error('push_token_request_failed', $token->get_error_message());
         }
-        $jwt = $input . '.' . self::base64urlEncode($signature);
-        $response = wp_remote_post(self::TOKEN_URL, [
-            'timeout' => 20,
-            'body' => [
-                'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                'assertion' => $jwt,
-            ],
-        ]);
-        if (is_wp_error($response)) {
-            return new WP_Error('push_token_request_failed', $response->get_error_message());
-        }
-        $body = json_decode((string) wp_remote_retrieve_body($response), true);
-        if (!is_array($body) || empty($body['access_token']) || !is_string($body['access_token'])) {
-            $detail = isset($body['error_description']) && is_string($body['error_description'])
-                ? $body['error_description']
-                : (isset($body['error']) && is_string($body['error']) ? $body['error'] : '');
-            return new WP_Error(
-                'push_token_denied',
-                $detail !== ''
-                    ? sprintf(
-                        /* translators: %s is Google's error description. */
-                        __('Google did not return an access token: %s', 'traydigita-core'),
-                        $detail
-                    )
-                    : __('Google did not return an access token. Check the Service Account JSON.', 'traydigita-core')
-            );
-        }
-        set_transient(self::TOKEN_TRANSIENT, $body['access_token'], 50 * MINUTE_IN_SECONDS);
-        return $body['access_token'];
+        set_transient(self::TOKEN_TRANSIENT, $token, 50 * MINUTE_IN_SECONDS);
+        return $token;
     }
 
     /**
@@ -683,7 +646,7 @@ final class PushSender
             $message['notification']['image'] = $image;
         }
         $response = wp_remote_post(
-            'https://fcm.googleapis.com/v1/projects/' . rawurlencode($projectId) . '/messages:send',
+            'https://' . self::FCM_HOST . '/v1/projects/' . rawurlencode($projectId) . '/messages:send',
             [
                 'timeout' => 20,
                 'headers' => [

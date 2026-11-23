@@ -13,6 +13,7 @@ use TrayDigita\WP\Plugin\Core\Modules\EPaper\EPaperFrontend;
 use TrayDigita\WP\Plugin\Core\Modules\Installer\InstallerAjax;
 use TrayDigita\WP\Plugin\Core\Modules\Installer\InstallerModule;
 use TrayDigita\WP\Plugin\Core\Modules\Installer\PluginList;
+use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
 use function __;
 use function admin_url;
@@ -57,7 +58,7 @@ use function _n;
  *   SiteHealth::translationFileTest()).
  * - vite-manifest: dist/manifest.json (same check as
  *   SiteHealth::viteManifestTest()).
- * - push: the PWA & Push module's push half (never critical).
+ * - push: the Push module (never critical).
  * - cache: a page-cache plugin (CacheDetector). 'done' when one
  *   is active; otherwise 'pending' with the server-aware
  *   recommendation (CacheModule::recommendedPlugin()) and a link
@@ -478,7 +479,7 @@ final class SetupPage
     }
 
     /**
-     * The push checklist item (PWA & Push module, push half).
+     * The push checklist item (Push module).
      *
      * Status via PwaModule::isPushConfigured(). Push is
      * optional, so an unconfigured push half is 'info', never
@@ -493,12 +494,12 @@ final class SetupPage
             'id' => 'push',
             'title' => __('Push notifications', 'traydigita-core'),
             'description' => __(
-                'Manual push notifications to subscribers, from the PWA & Push module (Firebase Cloud Messaging). Optional: the site works fully without it.',
+                'Manual push notifications to subscribers, from the Push module (Firebase Cloud Messaging). Optional: the site works fully without it.',
                 'traydigita-core'
             ),
             'status' => $active ? 'done' : 'info',
             'detail' => $active
-                ? __('Configured in the PWA & Push module.', 'traydigita-core')
+                ? __('Configured in the Push module.', 'traydigita-core')
                 : __('Not configured yet. Push notifications are unavailable (optional).', 'traydigita-core'),
             'action' => 'link-push',
         ];
@@ -865,8 +866,8 @@ final class SetupPage
             case 'link-push':
                 ?>
                 <a class="traydigita-admin-button traydigita-admin-button-primary"
-                    href="<?php echo esc_url(admin_url('admin.php?page=' . PwaModule::settingsPageSlug())); ?>">
-                    <?php esc_html_e('Open PWA & Push', 'traydigita-core'); ?>
+                    href="<?php echo esc_url(admin_url('admin.php?page=' . PushModule::settingsPageSlug())); ?>">
+                    <?php esc_html_e('Open Push Notifications', 'traydigita-core'); ?>
                 </a>
                 <?php
                 break;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\Pwa;
+namespace TrayDigita\WP\Plugin\Core\Modules\Push;
 
 use TrayDigita\WP\Plugin\Core\Modules\ActivityLog\ActivityLogModule;
 use function add_action;
@@ -21,7 +21,7 @@ use function wp_send_json_success;
 use function wp_unslash;
 
 /**
- * Admin AJAX endpoints for the push half of the PWA module.
+ * Admin AJAX endpoints for the Push module.
  *
  * Every endpoint requires the shared 'traydigita-admin' nonce
  * (sent as `_ajax_nonce`, matching the other module AJAX
@@ -113,7 +113,7 @@ final class PushAjax
      */
     private static function pluginOwnsPush(): bool
     {
-        return PwaModule::isPluginActive();
+        return PushModule::isPluginActive();
     }
 
     /**

@@ -7,7 +7,7 @@ use TrayDigita\WP\Plugin\Core\Admin\AdminMenu;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Modules\Comments\CommentsModule;
 use TrayDigita\WP\Plugin\Core\Modules\Markets\MarketsModule;
-use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
+use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use TrayDigita\WP\Plugin\Core\Modules\Seo\SeoModule;
 use TrayDigita\WP\Plugin\Core\Modules\SiteKit\SiteKitModule;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\TurnstileModule;
@@ -99,9 +99,9 @@ use function trim;
  * whose boot() could register them, so this module registers them
  * itself (see registerPushEntry(), registerWeatherEntry(),
  * registerPhotonEntry(), registerMailPoetEntry()):
- * - Push (Firebase Cloud Messaging): owned by the PWA & Push
- *   module ('pwa'); the entry is built here from
- *   PwaModule::isPushConfigured() because the module itself
+ * - Push (Firebase Cloud Messaging): owned by the Push
+ *   module ('push'); the entry is built here from
+ *   PushModule::isConfigured() because the module itself
  *   does not register integration entries in boot().
  * - Open-Meteo weather: owned by the weather widget and
  *   WeatherHelper, which have no module and no boot(); the entry
@@ -608,7 +608,7 @@ final class IntegrationsModule implements ModuleInterface
     /**
      * Built-in entry: Firebase Cloud Messaging (push).
      *
-     * Registered here because the PWA module does not register
+     * Registered here because the Push module does not register
      * integration entries in boot(). Status comes from the
      * module: 'active' when a valid push config is saved,
      * 'not-configured' otherwise (including when the module is
@@ -620,14 +620,14 @@ final class IntegrationsModule implements ModuleInterface
      */
     public static function registerPushEntry(array $entries): array
     {
-        $active = PwaModule::isPushConfigured();
+        $active = PushModule::isConfigured();
         $description = $active
             ? __(
-                'Manual push notifications to subscribers, configured in the PWA & Push module.',
+                'Manual push notifications to subscribers, configured in the Push module.',
                 'traydigita-core'
             )
             : __(
-                'Manual push notifications to subscribers — save a Firebase config in the PWA & Push module.',
+                'Manual push notifications to subscribers — save a Firebase config in the Push module.',
                 'traydigita-core'
             );
         $entries[] = [
@@ -635,8 +635,8 @@ final class IntegrationsModule implements ModuleInterface
             'name' => 'Firebase Cloud Messaging',
             'description' => $description,
             'status' => $active ? 'active' : 'not-configured',
-            'url' => admin_url('admin.php?page=' . PwaModule::settingsPageSlug()),
-            'module' => PwaModule::id(),
+            'url' => admin_url('admin.php?page=' . PushModule::settingsPageSlug()),
+            'module' => PushModule::id(),
             'icon' => 'notifications',
         ];
         return $entries;

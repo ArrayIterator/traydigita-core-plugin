@@ -233,7 +233,7 @@ final class SiteHealth
     {
         $active = PwaModule::isPushConfigured();
         $description = $active
-            ? __('Configured in the PWA & Push module.', 'traydigita-core')
+            ? __('Configured in the Push module.', 'traydigita-core')
             : __('Not configured yet. Push notifications are unavailable (optional).', 'traydigita-core');
         return self::result(
             __('Push notifications', 'traydigita-core'),

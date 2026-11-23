@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-23 22:28+0700\n"
-"PO-Revision-Date: 2026-11-23 22:28+0700\n"
+"POT-Creation-Date: 2026-11-23 23:35+0700\n"
+"PO-Revision-Date: 2026-11-23 23:35+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d hari"
 
-#: src/Admin/SetupPage.php:164
+#: src/Admin/SetupPage.php:165
 #. translators: %d is the number of checklist items that are done.
 msgid "%d done"
 msgid_plural "%d done"
@@ -99,7 +99,7 @@ msgid "%d font family installed."
 msgid_plural "%d font families installed."
 msgstr[0] "%d keluarga font terpasang."
 
-#: src/Admin/SetupPage.php:188
+#: src/Admin/SetupPage.php:189
 #. translators: %d is the number of informational checklist items.
 msgid "%d info"
 msgid_plural "%d info"
@@ -122,7 +122,7 @@ msgid "%d minute read"
 msgid_plural "%d minutes read"
 msgstr[0] "%d menit baca"
 
-#: src/Admin/SetupPage.php:176
+#: src/Admin/SetupPage.php:177
 #. translators: %d is the number of checklist items still pending.
 msgid "%d pending"
 msgid_plural "%d pending"
@@ -167,7 +167,7 @@ msgstr "%d pengguna memegang peran ini. Centang setiap kapabilitas yang harus di
 msgid "%s API request failed."
 msgstr ""
 
-#: src/Admin/SetupPage.php:595
+#: src/Admin/SetupPage.php:596
 #. translators: %s is a comma-separated list of active cache plugin names.
 msgid "%s are active."
 msgstr "%s aktif."
@@ -213,7 +213,7 @@ msgstr "%s aktif — tema tidak mengeluarkan meta tag duplikat."
 msgid "%s is active, so breadcrumb structured data is handled by %s. The visible trail below is still rendered by this module."
 msgstr "%s aktif, sehingga data terstruktur breadcrumb ditangani oleh %s. Jalur terlihat di bawah tetap dirender oleh modul ini."
 
-#: src/Admin/SetupPage.php:590
+#: src/Admin/SetupPage.php:591
 #. translators: %s is the name of the active cache plugin.
 msgid "%s is active."
 msgstr "%s aktif."
@@ -310,7 +310,7 @@ msgstr ".htaccess (Apache / OpenLiteSpeed)"
 msgid ".htaccess (server rules)"
 msgstr ".htaccess (aturan server)"
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:573
+#: src/Modules/Recaptcha/RecaptchaModule.php:585
 msgid "0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score."
 msgstr "0,5 adalah bawaan yang disarankan Google. Hanya berlaku untuk mode v3 (skor); kotak centang v2 tidak memiliki skor."
 
@@ -458,7 +458,7 @@ msgstr "Berkas kunci disajikan dari root situs. Hanya saat tidak ada plugin SEO 
 msgid "A lightweight central log of module activity — toggles, settings saves, push and mail sends, sign-ins, plugin installs — with filters, retention, and auto-prune."
 msgstr "Log pusat yang ringan untuk aktivitas modul — pengaktifan/nonaktif, penyimpanan pengaturan, pengiriman push dan email, sign-in, instalasi plugin — dengan filter, retensi, dan pemangkasan otomatis."
 
-#: src/Admin/SetupPage.php:521
+#: src/Admin/SetupPage.php:522
 msgid "A lightweight log of what happens across the theme — module toggles, settings saves, push and mail sends, logins — stored in its own table with automatic pruning."
 msgstr "Log ringan tentang apa yang terjadi di seluruh tema — pengaktifan/nonaktif modul, penyimpanan pengaturan, pengiriman push dan email, login — disimpan di tabelnya sendiri dengan pemangkasan otomatis."
 
@@ -482,7 +482,7 @@ msgstr "Pengguna yang masuk dengan peran apa pun yang dicentang tidak menerima h
 msgid "A media-library image used as the cover."
 msgstr "Gambar dari pustaka media yang digunakan sebagai sampul."
 
-#: src/Admin/SetupPage.php:577
+#: src/Admin/SetupPage.php:578
 msgid "A page-cache plugin serves repeat visits from cache instead of rebuilding every page. Which plugin fits best depends on the web server this site runs on."
 msgstr "Plugin page-cache menyajikan kunjungan berulang dari cache, bukan membangun ulang setiap halaman. Plugin yang paling cocok tergantung pada server web yang dipakai situs ini."
 
@@ -540,7 +540,7 @@ msgstr "Jalur situs yang diawali /, atau URL lengkap seperti https://example.com
 msgid "A site path starting with /. End with /* to match everything below it, e.g. /old-category/*."
 msgstr "Jalur situs yang diawali /. Akhiri dengan /* untuk mencocokkan semua di bawahnya, contoh /old-category/*."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:581
+#: src/Modules/Recaptcha/RecaptchaModule.php:595
 #: src/Modules/Turnstile/TurnstileModule.php:1104
 msgid "A site that enforces a Content-Security-Policy must allow that host in script-src and frame-src, or the widget will not load."
 msgstr "Situs yang menerapkan Content-Security-Policy harus mengizinkan host tersebut di script-src dan frame-src, atau widget tidak akan dimuat."
@@ -561,7 +561,7 @@ msgstr "Paywall bermeter yang lembut: sejumlah artikel gratis per periode, lalu 
 msgid "A static single API key (Settings → API → API keys). Only used when the client ID and secret above are empty."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:194
+#: src/Modules/Push/PushAjax.php:194
 msgid "A test token is required for a single-device send."
 msgstr "Token tes wajib diisi untuk pengiriman ke satu perangkat."
 
@@ -699,24 +699,24 @@ msgstr "Tindakan"
 msgid "Actions"
 msgstr "Tindakan"
 
-#: src/Admin/SetupPage.php:1000
-#: src/Admin/SetupPage.php:147
-#: src/Admin/SetupPage.php:821
-#: src/Admin/SetupPage.php:949
+#: src/Admin/SetupPage.php:1001
+#: src/Admin/SetupPage.php:148
+#: src/Admin/SetupPage.php:822
+#: src/Admin/SetupPage.php:950
 #: src/Modules/Installer/InstallerModule.php:329
 #: src/Modules/Installer/InstallerModule.php:500
 msgid "Activate"
 msgstr "Aktifkan"
 
-#: src/Admin/SetupPage.php:144
-#: src/Admin/SetupPage.php:948
+#: src/Admin/SetupPage.php:145
+#: src/Admin/SetupPage.php:949
 #: src/Modules/Installer/InstallerModule.php:327
 msgid "Activating…"
 msgstr "Mengaktifkan…"
 
-#: src/Admin/SetupPage.php:149
-#: src/Admin/SetupPage.php:951
-#: src/Admin/SetupPage.php:961
+#: src/Admin/SetupPage.php:150
+#: src/Admin/SetupPage.php:952
+#: src/Admin/SetupPage.php:962
 #: src/Modules/Cache/CacheModule.php:767
 #: src/Modules/Installer/InstallerModule.php:318
 #: src/Modules/Installer/InstallerModule.php:331
@@ -742,9 +742,9 @@ msgstr "Tema aktif"
 msgid "Active-section highlighting."
 msgstr "Penanda bagian aktif."
 
-#: src/Admin/SetupPage.php:528
-#: src/Admin/SetupPage.php:538
-#: src/Admin/SetupPage.php:548
+#: src/Admin/SetupPage.php:529
+#: src/Admin/SetupPage.php:539
+#: src/Admin/SetupPage.php:549
 #: src/Modules/ActivityLog/ActivityLogModule.php:200
 msgid "Activity Log"
 msgstr "Log Aktivitas"
@@ -856,7 +856,7 @@ msgstr "Palet admin"
 msgid "Admin UI to create and order series."
 msgstr "Antarmuka admin untuk membuat dan mengurutkan seri."
 
-#: src/Admin/ModuleRegistry.php:1026
+#: src/Admin/ModuleRegistry.php:1036
 msgid "Administration"
 msgstr "Administrasi"
 
@@ -944,11 +944,11 @@ msgstr "Agenda"
 msgid "Agenda data could not be deleted."
 msgstr "Data agenda tidak dapat dihapus."
 
-#: src/Admin/SetupPage.php:263
+#: src/Admin/SetupPage.php:264
 msgid "Agenda rules are missing."
 msgstr "Rule Agenda tidak ada."
 
-#: src/Admin/SetupPage.php:262
+#: src/Admin/SetupPage.php:263
 msgid "Agenda rules are present."
 msgstr "Rule Agenda ada."
 
@@ -978,7 +978,6 @@ msgstr "Saran AI mati. Nyalakan di atas untuk membuat judul dan deskripsi meta u
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2006
 #: src/Modules/Installer/InstallerModule.php:317
 #: src/Modules/Integrations/IntegrationsModule.php:395
-#: src/Stack/Libs/Messaging/WordPressTableView.php:137
 #: templates/admin/contact-submissions.php:150
 #: templates/admin/modules/agenda.php:178
 #: templates/admin/shell.php:121
@@ -1040,7 +1039,7 @@ msgstr "Semua seri"
 msgid "All sets"
 msgstr "Semua set"
 
-#: src/Modules/Pwa/PwaModule.php:575
+#: src/Modules/Push/PushModule.php:567
 msgid "All subscribers"
 msgstr "Semua pelanggan"
 
@@ -1238,7 +1237,7 @@ msgstr "Artikel yang Anda simpan untuk nanti. Markah hanya tersimpan di peramban
 msgid "As a last resort, with server file access, define the constant below in wp-config.php (or set the filter) to switch two-factor authentication off site-wide until it can be re-enabled:"
 msgstr "Sebagai upaya terakhir, dengan akses berkas server, definisikan konstanta di bawah ini di wp-config.php (atau atur filter) untuk mematikan autentikasi dua faktor di seluruh situs sampai dapat diaktifkan kembali:"
 
-#: src/Modules/Pwa/PwaModule.php:939
+#: src/Modules/Push/PushModule.php:935
 msgid "Asking for notification permission…"
 msgstr "Meminta izin notifikasi…"
 
@@ -1935,8 +1934,8 @@ msgstr "Cache penuh"
 msgid "Cache lifetime (minutes)"
 msgstr "Masa berlaku cache (menit)"
 
-#: src/Admin/SetupPage.php:600
-#: src/Admin/SetupPage.php:611
+#: src/Admin/SetupPage.php:601
+#: src/Admin/SetupPage.php:612
 #: src/Admin/SiteHealth.php:112
 #: src/Admin/SiteHealth.php:278
 #: src/Admin/SiteHealth.php:291
@@ -2578,7 +2577,7 @@ msgstr "Komentar di Sampah, termasuk commentmeta-nya."
 msgid "Comments marked as spam, including their commentmeta."
 msgstr "Komentar yang ditandai sebagai spam, termasuk commentmeta-nya."
 
-#: src/Admin/ModuleRegistry.php:1018
+#: src/Admin/ModuleRegistry.php:1028
 msgid "Communication"
 msgstr "Komunikasi"
 
@@ -2601,17 +2600,17 @@ msgstr "Konfigurasikan setiap header hanya di satu tempat — di sini atau di ti
 
 #: src/Modules/Integrations/IntegrationsModule.php:397
 #: src/Modules/Integrations/IntegrationsModule.php:897
-#: src/Modules/Recaptcha/RecaptchaModule.php:529
+#: src/Modules/Recaptcha/RecaptchaModule.php:532
 #: src/Modules/Turnstile/TurnstileModule.php:986
 #: templates/admin/modules/mailer.php:112
 #: templates/admin/shell.php:449
 msgid "Configured"
 msgstr "Dikonfigurasi"
 
-#: src/Admin/SetupPage.php:501
+#: src/Admin/SetupPage.php:502
 #: src/Admin/SiteHealth.php:236
-msgid "Configured in the PWA & Push module."
-msgstr "Dikonfigurasi di modul PWA & Push."
+msgid "Configured in the Push module."
+msgstr "Dikonfigurasi di modul Push."
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2160
 msgid "Confirm and enable"
@@ -2645,12 +2644,12 @@ msgstr "Terhubung sebagai %s."
 msgid "Connection"
 msgstr "Koneksi"
 
-#: src/Modules/Pwa/PushAjax.php:150
+#: src/Modules/Push/PushAjax.php:150
 #. translators: %s is the Firebase project id.
 msgid "Connection OK — Google returned an access token for project %s. No notification was sent."
 msgstr "Koneksi OK — Google mengembalikan access token untuk proyek %s. Tidak ada notifikasi yang dikirim."
 
-#: src/Modules/Pwa/PushAjax.php:153
+#: src/Modules/Push/PushAjax.php:153
 msgid "Connection OK — Google returned an access token. No notification was sent."
 msgstr "Koneksi OK — Google mengembalikan access token. Tidak ada notifikasi yang dikirim."
 
@@ -2720,7 +2719,7 @@ msgstr ""
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:994
+#: src/Admin/ModuleRegistry.php:1004
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
 msgid "Content"
 msgstr "Konten"
@@ -2730,7 +2729,7 @@ msgstr "Konten"
 msgid "Content-Security-Policy (report-only)"
 msgstr "Content-Security-Policy (hanya-laporan)"
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:579
+#: src/Modules/Recaptcha/RecaptchaModule.php:593
 msgid "Content-Security-Policy note: reCAPTCHA loads its script and challenge iframe from https://www.google.com/recaptcha/."
 msgstr "Catatan Content-Security-Policy: reCAPTCHA memuat skrip dan iframe tantangannya dari https://www.google.com/recaptcha/."
 
@@ -2893,11 +2892,11 @@ msgstr "Cuplikan server siap salin-tempel."
 
 #: templates/admin/shell.php:122
 msgid "Core"
-msgstr "Inti"
+msgstr "Core"
 
-#: src/Admin/ModuleRegistry.php:1610
-#: src/Admin/ModuleRegistry.php:1647
-#: src/Admin/ModuleRegistry.php:943
+#: src/Admin/ModuleRegistry.php:1621
+#: src/Admin/ModuleRegistry.php:1658
+#: src/Admin/ModuleRegistry.php:953
 #: templates/admin/hub-page.php:78
 #: templates/admin/shell.php:433
 msgid "Core module"
@@ -2952,7 +2951,7 @@ msgstr "Kategori tidak dapat dihapus."
 msgid "Could not delete the redirect."
 msgstr "Tidak dapat menghapus pengalihan."
 
-#: src/Modules/Pwa/PwaModule.php:943
+#: src/Modules/Push/PushModule.php:939
 msgid "Could not enable notifications. Make sure the site uses HTTPS and the service worker loads without a redirect."
 msgstr "Tidak dapat mengaktifkan notifikasi. Pastikan situs memakai HTTPS dan service worker dimuat tanpa redirect."
 
@@ -2964,7 +2963,7 @@ msgstr "Pengalihan tidak dapat diekspor."
 msgid "Could not generate a bypass secret. Please try again."
 msgstr "Tidak dapat membuat rahasia lewati. Silakan coba lagi."
 
-#: src/Modules/Pwa/PushSender.php:745
+#: src/Modules/Push/PushSender.php:708
 #. translators: %s is the token error.
 msgid "Could not get an access token: %s"
 msgstr "Tidak dapat memperoleh access token: %s"
@@ -3022,15 +3021,15 @@ msgstr "Pengalihan tidak dapat disimpan. Periksa sumber dan target lalu coba lag
 msgid "Could not save the settings."
 msgstr "Tidak dapat menyimpan pengaturan."
 
-#: src/Modules/Pwa/PushAjax.php:197
+#: src/Modules/Push/PushAjax.php:197
 msgid "Could not send the notification."
 msgstr "Tidak dapat mengirim notifikasi."
 
-#: src/Modules/Pwa/PushSender.php:733
+#: src/Modules/Push/PushSender.php:696
 msgid "Could not send: Service Account has not been saved yet. Save it on the Settings tab first."
 msgstr "Tidak dapat mengirim: Service Account belum disimpan. Simpan dulu di tab Pengaturan."
 
-#: src/Modules/Pwa/PushSender.php:614
+#: src/Modules/Push/PushSender.php:586
 msgid "Could not sign the Service Account JWT. Check the private_key."
 msgstr "Tidak dapat menandatangani JWT Service Account. Periksa private_key."
 
@@ -3119,7 +3118,7 @@ msgstr ""
 msgid "Create a private app in HubSpot (Settings → Integrations → Private Apps) with the transactional email scope. Leave empty to keep the saved token."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:536
+#: src/Modules/Recaptcha/RecaptchaModule.php:539
 msgid "Create a reCAPTCHA site in the Google reCAPTCHA admin console and paste its site key and secret key below."
 msgstr "Buat situs reCAPTCHA di konsol admin Google reCAPTCHA lalu tempel site key dan secret key-nya di bawah ini."
 
@@ -3255,7 +3254,7 @@ msgstr "Buat seri"
 msgid "Create template"
 msgstr ""
 
-#: src/Admin/SetupPage.php:837
+#: src/Admin/SetupPage.php:838
 #: templates/admin/modules/activity-log.php:78
 msgid "Create the log table"
 msgstr "Buat tabel log"
@@ -3264,15 +3263,11 @@ msgstr "Buat tabel log"
 msgid "Created"
 msgstr "Dibuat"
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:121
-msgid "Created At"
-msgstr ""
-
 #: templates/admin/modules/activity-log.php:61
 msgid "Creating the log table…"
 msgstr "Membuat tabel log…"
 
-#: src/Admin/SetupPage.php:145
+#: src/Admin/SetupPage.php:146
 msgid "Creating…"
 msgstr "Membuat…"
 
@@ -3521,7 +3516,7 @@ msgstr "Nama pengguna admin bawaan"
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:220
+#: templates/admin/modules/contact-form.php:233
 msgid "Default recipient email"
 msgstr ""
 
@@ -3557,7 +3552,6 @@ msgstr "Mengalah pada Yoast, Rank Math, All in One SEO, atau SEOPress jika salah
 #: src/Modules/Avatar/AvatarModule.php:424
 #: src/Modules/Redirects/RedirectsModule.php:271
 #: src/Modules/Redirects/RedirectsModule.php:393
-#: src/Stack/Libs/Messaging/WordPressTableView.php:139
 #: templates/admin/contact-submissions.php:133
 #: templates/admin/contact-submissions.php:207
 #: templates/admin/modules/activity-log.php:157
@@ -3584,7 +3578,7 @@ msgstr "Hapus semua data agenda"
 msgid "Delete all log entries? This cannot be undone."
 msgstr "Hapus semua entri log? Tindakan ini tidak dapat dibatalkan."
 
-#: src/Modules/Pwa/PwaModule.php:526
+#: src/Modules/Push/PushModule.php:518
 msgid "Delete config"
 msgstr "Hapus konfigurasi"
 
@@ -3609,7 +3603,7 @@ msgstr "Hapus yang dipilih"
 msgid "Delete the custom avatar (fall back to Gravatar)"
 msgstr "Hapus avatar kustom (kembali ke Gravatar)"
 
-#: src/Modules/Pwa/PwaModule.php:392
+#: src/Modules/Push/PushModule.php:402
 msgid "Delete the saved push config? Subscriber tokens are kept."
 msgstr "Hapus konfigurasi push yang tersimpan? Token pelanggan tetap disimpan."
 
@@ -3700,7 +3694,7 @@ msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgid "Description"
 msgstr "Deskripsi"
 
-#: src/Admin/ModuleRegistry.php:998
+#: src/Admin/ModuleRegistry.php:1008
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3722,7 +3716,7 @@ msgstr "Rancang halaman login WordPress dengan blok seret-dan-letakkan: logo, la
 msgid "Desktop only"
 msgstr "Hanya desktop"
 
-#: src/Modules/Pwa/PwaModule.php:565
+#: src/Modules/Push/PushModule.php:557
 msgid "Destination link"
 msgstr "Tautan tujuan"
 
@@ -3760,8 +3754,8 @@ msgstr "Perangkat yang Anda percayai melewati faktor kedua selama %d hari. Hapus
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr "Nonaktifkan modul Security Headers jika modul ini yang mengirim header yang tumpang tindih itu sendiri."
 
-#: src/Admin/ModuleRegistry.php:1626
-#: src/Admin/ModuleRegistry.php:952
+#: src/Admin/ModuleRegistry.php:1637
+#: src/Admin/ModuleRegistry.php:962
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3786,13 +3780,13 @@ msgstr "Dinonaktifkan sampai site key dan secret key dimasukkan."
 msgid "Disabled — this rule shows nothing until it is enabled."
 msgstr "Dinonaktifkan — aturan ini tidak menampilkan apa pun sampai diaktifkan."
 
-#: src/Modules/Pwa/PwaModule.php:198
+#: src/Modules/Pwa/PwaModule.php:132
 msgid "Disabling removes every trace."
 msgstr "Menonaktifkannya menghapus semua jejak."
 
-#: src/Modules/Pwa/PwaModule.php:432
-msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, the \"Install App\" buttons, the service worker, and the subscribe button entirely."
-msgstr "Menonaktifkan modul ini di grid modul akan menghapus tautan manifes, meta tag theme-color, lembar instalasi, tombol \"Install App\", service worker, dan tombol langganan sepenuhnya."
+#: src/Modules/Pwa/PwaModule.php:283
+msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the \"Install App\" buttons entirely."
+msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:643
 msgid "DISALLOW_FILE_EDIT"
@@ -3871,8 +3865,8 @@ msgstr "Shortname Disqus"
 msgid "Divider"
 msgstr ""
 
-#: src/Admin/SetupPage.php:150
-#: src/Admin/SetupPage.php:708
+#: src/Admin/SetupPage.php:151
+#: src/Admin/SetupPage.php:709
 #: src/MenuIcons/MenuIcons.php:692
 #: src/Modules/TwoFactor/TwoFactorModule.php:2171
 #: templates/admin/shell.php:115
@@ -3953,11 +3947,11 @@ msgstr "E-Paper"
 msgid "E-Paper pages"
 msgstr "Halaman E-Paper"
 
-#: src/Admin/SetupPage.php:266
+#: src/Admin/SetupPage.php:267
 msgid "E-Paper rules are missing."
 msgstr "Rule E-Paper tidak ada."
 
-#: src/Admin/SetupPage.php:265
+#: src/Admin/SetupPage.php:266
 msgid "E-Paper rules are present."
 msgstr "Rule E-Paper ada."
 
@@ -4122,7 +4116,7 @@ msgstr "Pengaturan email tidak tersedia."
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:166
+#: templates/admin/modules/contact-form.php:179
 msgid "Email subject prefix"
 msgstr ""
 
@@ -4185,7 +4179,7 @@ msgstr "Aktifkan unduhan iCal (.ics) per acara"
 msgid "Enable maintenance mode"
 msgstr "Aktifkan mode perawatan"
 
-#: src/Modules/Pwa/PwaModule.php:945
+#: src/Modules/Push/PushModule.php:941
 msgid "Enable notifications"
 msgstr "Aktifkan notifikasi"
 
@@ -4210,8 +4204,8 @@ msgstr "Aktifkan header keamanan yang direkomendasikan, periksa header tersebut 
 msgid "Enable the recommended security headers."
 msgstr "Aktifkan header keamanan yang direkomendasikan."
 
-#: src/Admin/ModuleRegistry.php:1622
-#: src/Admin/ModuleRegistry.php:949
+#: src/Admin/ModuleRegistry.php:1633
+#: src/Admin/ModuleRegistry.php:959
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
@@ -4323,7 +4317,7 @@ msgstr "Masukkan ID Aplikasi"
 msgid "Enter at least one valid weight, for example 400, 700."
 msgstr "Masukkan setidaknya satu bobot yang valid, misalnya 400, 700."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:565
+#: src/Modules/Recaptcha/RecaptchaModule.php:576
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 msgid "Enter secret key"
 msgstr "Masukkan kunci rahasia"
@@ -4703,10 +4697,9 @@ msgstr "Gagal tertutup untuk login ketika Cloudflare tidak dapat dijangkau"
 msgid "Fail open for comment and newsletter forms when Cloudflare is unreachable"
 msgstr "Izinkan formulir komentar dan buletin saat Cloudflare tidak dapat dijangkau"
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:871
 #: src/Modules/Turnstile/TurnstileModule.php:1021
-#: src/Stack/Libs/Messaging/WordPressTableView.php:136
 #: templates/admin/modules/email.php:278
 #: templates/admin/modules/fast-search.php:60
 #: templates/admin/modules/mailer.php:144
@@ -4748,11 +4741,7 @@ msgstr "Pencarian Cepat"
 msgid "Fast Search settings saved."
 msgstr "Pengaturan Fast Search tersimpan."
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:520
-msgid "FCM credentials not ready"
-msgstr ""
-
-#: src/Modules/Pwa/PwaModule.php:578
+#: src/Modules/Push/PushModule.php:570
 msgid "FCM token of the test device"
 msgstr "Token FCM perangkat tes"
 
@@ -4852,39 +4841,39 @@ msgstr "Selesai"
 msgid "Finished: %1$d optimized, %2$d skipped, %3$d failed."
 msgstr "Selesai: %1$d dioptimasi, %2$d dilewati, %3$d gagal."
 
-#: src/Modules/Pwa/PwaModule.php:473
+#: src/Modules/Push/PushModule.php:465
 msgid "Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 msgstr "Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 
-#: src/Modules/Pwa/PwaModule.php:504
+#: src/Modules/Push/PushModule.php:496
 msgid "Firebase Console > Project Settings > Service accounts > Generate new private key. Required for sending (FCM HTTP v1)."
 msgstr "Firebase Console > Project Settings > Service accounts > Generate new private key. Wajib untuk mengirim (FCM HTTP v1)."
 
-#: src/Modules/Pwa/PwaModule.php:464
+#: src/Modules/Push/PushModule.php:456
 msgid "Firebase Console > Project Settings > Your apps (Web) > firebaseConfig. Paste the whole JSON object."
 msgstr "Firebase Console > Project Settings > Your apps (Web) > firebaseConfig. Tempel seluruh objek JSON."
 
-#: src/Modules/Pwa/PwaModule.php:944
+#: src/Modules/Push/PushModule.php:940
 msgid "Firebase has not loaded yet."
 msgstr "Firebase belum dimuat."
 
-#: src/Modules/Pwa/PwaModule.php:461
+#: src/Modules/Push/PushModule.php:453
 msgid "Firebase Web Config (JSON)"
 msgstr "Web Config Firebase (JSON)"
 
-#: src/Modules/Pwa/PushSender.php:194
-#: src/Modules/Pwa/PwaModule.php:384
+#: src/Modules/Push/PushModule.php:394
+#: src/Modules/Push/PushSender.php:204
 #. translators: %s is the missing Firebase web config key.
 msgid "Firebase web config is missing the required key: %s."
 msgstr "Web config Firebase tidak memiliki kunci wajib: %s."
 
-#: src/Modules/Pwa/PushSender.php:187
-#: src/Modules/Pwa/PwaModule.php:383
+#: src/Modules/Push/PushModule.php:393
+#: src/Modules/Push/PushSender.php:197
 msgid "Firebase web config is not valid JSON."
 msgstr "Web config Firebase bukan JSON yang valid."
 
-#: src/Modules/Pwa/PushSender.php:183
-#: src/Modules/Pwa/PwaModule.php:382
+#: src/Modules/Push/PushModule.php:392
+#: src/Modules/Push/PushSender.php:193
 msgid "Firebase web config is required."
 msgstr "Web config Firebase wajib diisi."
 
@@ -4917,7 +4906,7 @@ msgstr "Flush semua transient"
 msgid "Flush object cache"
 msgstr "Flush object cache"
 
-#: src/Admin/SetupPage.php:829
+#: src/Admin/SetupPage.php:830
 msgid "Flush permalink rules"
 msgstr "Flush rule permalink"
 
@@ -4929,7 +4918,7 @@ msgstr "Mengosongkannya akan menghapus cache bersama untuk seluruh situs, bukan 
 msgid "Flushing it still clears anything cached so far in this request."
 msgstr "Mengosongkannya tetap menghapus semua yang sudah di-cache sejauh ini dalam permintaan tersebut."
 
-#: src/Admin/SetupPage.php:146
+#: src/Admin/SetupPage.php:147
 msgid "Flushing…"
 msgstr "Mem-flush…"
 
@@ -5008,7 +4997,7 @@ msgstr "Warna latar formulir"
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:126
 #: templates/admin/modules/contact-form.php:56
 msgid "Form Builder form"
 msgstr ""
@@ -5300,11 +5289,11 @@ msgstr "GoldAPI.io"
 msgid "GoldAPI.io API key"
 msgstr "Kunci API GoldAPI.io"
 
-#: src/Modules/Pwa/PushSender.php:640
+#: src/Modules/Push/PushSender.php:601
 msgid "Google did not return an access token. Check the Service Account JSON."
 msgstr "Google tidak mengembalikan access token. Periksa Service Account JSON."
 
-#: src/Modules/Pwa/PushSender.php:637
+#: src/Modules/Push/PushSender.php:598
 #. translators: %s is Google's error description.
 msgid "Google did not return an access token: %s"
 msgstr "Google tidak mengembalikan access token: %s"
@@ -5320,11 +5309,6 @@ msgstr "Google tidak mengembalikan alamat akun Gmail."
 #: src/Modules/Mailer/GmailOAuth.php:164
 msgid "Google did not return usable tokens. Check the client ID and secret, then try connecting again."
 msgstr "Google tidak mengembalikan token yang dapat digunakan. Periksa client ID dan secret, lalu coba hubungkan lagi."
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1066
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1074
-msgid "Google FCM credentials data has invalid"
-msgstr ""
 
 #: templates/admin/modules/fonts.php:45
 msgid "Google Fonts"
@@ -5387,11 +5371,11 @@ msgstr "Google menolak kode otorisasi. Periksa client ID dan secret, lalu coba h
 msgid "Google refused to refresh the Gmail access token. Reconnect Gmail from the Mailer settings."
 msgstr "Google menolak memperbarui access token Gmail. Hubungkan kembali Gmail dari pengaturan Mailer."
 
-#: src/Modules/Seo/SeoIndexing.php:407
+#: src/Modules/Seo/SeoIndexing.php:396
 msgid "Google service account removed."
 msgstr "Akun layanan Google dihapus."
 
-#: src/Modules/Seo/SeoIndexing.php:432
+#: src/Modules/Seo/SeoIndexing.php:416
 msgid "Google service account saved."
 msgstr "Akun layanan Google disimpan."
 
@@ -5739,7 +5723,6 @@ msgstr "Ikon tampil di samping label menu di frontend."
 msgid "ICS export for events."
 msgstr "Ekspor ICS untuk acara."
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:113
 #: templates/admin/modules/form-builder.php:113
 #: templates/admin/modules/form-builder.php:186
 #: templates/admin/modules/form-builder.php:54
@@ -5765,7 +5748,7 @@ msgstr "Jika Security Headers diaktifkan nanti, modul tersebut mengambil alih he
 msgid "Image"
 msgstr "Gambar"
 
-#: src/Modules/Pwa/PwaModule.php:569
+#: src/Modules/Push/PushModule.php:561
 msgid "Image (optional)"
 msgstr "Gambar (opsional)"
 
@@ -5932,11 +5915,11 @@ msgstr "Rupiah Indonesia (IDR)"
 msgid "Indonesian stock prices"
 msgstr "Harga saham Indonesia"
 
-#: src/Admin/SetupPage.php:711
+#: src/Admin/SetupPage.php:712
 msgid "Info"
 msgstr "Info"
 
-#: src/Admin/ModuleRegistry.php:908
+#: src/Admin/ModuleRegistry.php:918
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -6006,13 +5989,13 @@ msgstr "Periksa tabel basis data, konversi tabel MyISAM ke InnoDB hanya bila ama
 msgid "Inspect database tables."
 msgstr "Periksa tabel database."
 
-#: src/Admin/SetupPage.php:994
+#: src/Admin/SetupPage.php:995
 #: src/Modules/Installer/InstallerModule.php:328
 #: src/Modules/Installer/InstallerModule.php:491
 msgid "Install"
 msgstr "Pasang"
 
-#: src/Admin/SetupPage.php:813
+#: src/Admin/SetupPage.php:814
 msgid "Install from GitHub release"
 msgstr "Instal dari rilis GitHub"
 
@@ -6024,17 +6007,17 @@ msgstr "Instal Site Kit (Saran Plugin)"
 msgid "Install the plugin before activating it."
 msgstr "Pasang plugin sebelum mengaktifkannya."
 
-#: src/Modules/Pwa/PwaModule.php:218
+#: src/Modules/Pwa/PwaModule.php:152
 msgid "Installable web app with manifest and service worker."
 msgstr "Aplikasi web yang dapat diinstal dengan manifes dan service worker."
 
-#: src/Modules/Pwa/PwaModule.php:195
+#: src/Modules/Pwa/PwaModule.php:130
 msgid "Installable web app: manifest, theme colour, store-style install sheet."
 msgstr "Aplikasi web yang dapat diinstal: manifes, warna tema, lembar instal gaya toko."
 
-#: src/Admin/SetupPage.php:148
-#: src/Admin/SetupPage.php:950
-#: src/Admin/SetupPage.php:963
+#: src/Admin/SetupPage.php:149
+#: src/Admin/SetupPage.php:951
+#: src/Admin/SetupPage.php:964
 #: src/Modules/Installer/InstallerModule.php:319
 #: src/Modules/Installer/InstallerModule.php:330
 #: src/Modules/Installer/InstallerModule.php:432
@@ -6043,12 +6026,12 @@ msgstr "Aplikasi web yang dapat diinstal: manifes, warna tema, lembar instal gay
 msgid "Installed"
 msgstr "Terpasang"
 
-#: src/Admin/SetupPage.php:308
+#: src/Admin/SetupPage.php:309
 #: src/Admin/SiteHealth.php:217
 msgid "Installed and active."
 msgstr "Terpasang dan aktif."
 
-#: src/Admin/SetupPage.php:321
+#: src/Admin/SetupPage.php:322
 msgid "Installed but not active. Activate it so the theme can boot."
 msgstr "Terinstal tetapi tidak aktif. Aktifkan agar tema dapat berjalan."
 
@@ -6057,7 +6040,7 @@ msgstr "Terinstal tetapi tidak aktif. Aktifkan agar tema dapat berjalan."
 msgid "Installed fonts"
 msgstr "Fon terpasang"
 
-#: src/Admin/SetupPage.php:390
+#: src/Admin/SetupPage.php:391
 #. translators: 1: installed count, 2: total recommended plugins, 3: active count.
 msgid "Installed: %1$d of %2$d recommended plugins; active: %3$d."
 msgstr "Terinstal: %1$d dari %2$d plugin yang disarankan; aktif: %3$d."
@@ -6066,8 +6049,8 @@ msgstr "Terinstal: %1$d dari %2$d plugin yang disarankan; aktif: %3$d."
 msgid "Installing never activates anything — activation takes a separate click."
 msgstr "Menginstal tidak pernah mengaktifkan apa pun — aktivasi memerlukan klik terpisah."
 
-#: src/Admin/SetupPage.php:143
-#: src/Admin/SetupPage.php:947
+#: src/Admin/SetupPage.php:144
+#: src/Admin/SetupPage.php:948
 #: src/Modules/Installer/InstallerModule.php:326
 msgid "Installing…"
 msgstr "Memasang…"
@@ -6088,7 +6071,7 @@ msgstr "Pengindeksan instan: Google Indexing API"
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr "Pengindeksan instan: IndexNow (Bing, Yandex)"
 
-#: src/Admin/ModuleRegistry.php:1022
+#: src/Admin/ModuleRegistry.php:1032
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr "Integrasi"
@@ -6101,16 +6084,8 @@ msgstr "Integrasi tidak memiliki pengaturan untuk disimpan. Halaman ini hanya me
 msgid "Intro text (optional)"
 msgstr "Teks pengantar (opsional)"
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1160
-msgid "Invalid access token response"
-msgstr ""
-
 #: src/Modules/Recaptcha/Verifier.php:75
 msgid "Invalid response from the reCAPTCHA verification service."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:532
-msgid "Invalid token, token is empty"
 msgstr ""
 
 #: templates/admin/contact-submissions.php:102
@@ -6173,7 +6148,7 @@ msgstr "Tombol ini tidak menambah pilihan cookie."
 msgid "It is never shown again after saving."
 msgstr "JSON tidak pernah ditampilkan lagi setelah disimpan."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:553
+#: src/Modules/Recaptcha/RecaptchaModule.php:562
 #: src/Modules/Turnstile/TurnstileModule.php:1034
 msgid "It is shown in the page markup by design — only the secret key must stay private."
 msgstr "Kunci ini ditampilkan dalam markup halaman sesuai desain — hanya kunci rahasia yang harus tetap privat."
@@ -6227,13 +6202,17 @@ msgstr "Simpan entri selama (hari)"
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr "Jaga URL lama tetap berfungsi setelah migrasi dan perubahan slug: aturan pengalihan dengan dukungan wildcard, pemantau 404 yang menunjukkan URL hilang yang benar-benar dikunjungi pengunjung, serta impor/ekspor aturan dalam format JSON."
 
-#: templates/admin/modules/contact-form.php:211
+#: templates/admin/modules/contact-form.php:224
 msgid "Keep submissions (days)"
 msgstr ""
 
 #: templates/admin/modules/image-optimizer.php:157
 msgid "Keep the original file"
 msgstr "Simpan berkas asli"
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
+msgid "Keys"
+msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:469
 msgid "Keys are saved, but no form is protected yet — switch on login, comment or newsletter protection."
@@ -6347,7 +6326,7 @@ msgstr "Kosongkan untuk tidak mengecualikan apa pun."
 msgid "Leave empty to generate the slug from the name."
 msgstr "Kosongkan untuk membuat slug dari nama."
 
-#: src/Modules/Pwa/PwaModule.php:494
+#: src/Modules/Push/PushModule.php:486
 msgid "Leave empty to keep the saved key."
 msgstr "Kosongkan untuk mempertahankan kunci yang tersimpan."
 
@@ -6355,7 +6334,7 @@ msgstr "Kosongkan untuk mempertahankan kunci yang tersimpan."
 msgid "Leave empty to keep the saved password. The password is never shown."
 msgstr "Kosongkan untuk mempertahankan kata sandi yang tersimpan. Kata sandi tidak pernah ditampilkan."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:567
+#: src/Modules/Recaptcha/RecaptchaModule.php:572
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "Leave empty to keep the saved secret key."
 msgstr "Biarkan kosong untuk mempertahankan kunci rahasia yang tersimpan."
@@ -6380,7 +6359,7 @@ msgstr "Biarkan kosong untuk menggunakan latar spanduk bawaan."
 msgid "Leave empty to use the default banner text colour."
 msgstr "Biarkan kosong untuk menggunakan warna teks spanduk bawaan."
 
-#: templates/admin/modules/contact-form.php:134
+#: templates/admin/modules/contact-form.php:138
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6416,9 +6395,9 @@ msgstr "Biarkan kontributor menulis dan mengirim artikel dari dasbor frontend, b
 msgid "Let users set their own avatar from their profile page"
 msgstr "Biarkan pengguna mengatur avatar mereka sendiri dari halaman profil"
 
-#: src/Modules/Pwa/PwaModule.php:154
-msgid "Let visitors install the site as an app (web manifest, theme colour, store-style install sheet) and send manual push notifications to subscribers with Firebase Cloud Messaging. One service worker serves both. Disable to remove every trace of it."
-msgstr "Biarkan pengunjung menginstal situs sebagai aplikasi (manifes web, warna tema, lembar instalasi bergaya toko) dan kirim notifikasi push manual ke pelanggan dengan Firebase Cloud Messaging. Satu service worker melayani keduanya. Nonaktifkan untuk menghapus semua jejaknya."
+#: src/Modules/Pwa/PwaModule.php:87
+msgid "Let visitors install the site as an app (web manifest, theme colour, store-style install sheet). Push notifications live in the Push module. Disable to remove every trace of it."
+msgstr ""
 
 #: src/Modules/Toc/TocModule.php:353
 msgid "Lets readers collapse the list. The list is expanded by default."
@@ -6498,7 +6477,7 @@ msgstr "Tautan yang ditampilkan di bawah formulir login."
 msgid "Links shown below the page content."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:427
+#: src/Modules/Pwa/PwaModule.php:279
 msgid "Links the web manifest (manifest.webmanifest) from every page head, so browsers know the app name, theme colour, icons, start URL, and scope."
 msgstr "Menautkan manifes web (manifest.webmanifest) dari setiap kepala halaman, sehingga peramban mengetahui nama aplikasi, warna tema, ikon, URL awal, dan cakupan."
 
@@ -6895,7 +6874,7 @@ msgstr "Kelola acara dalam tabelnya sendiri — dengan tampilan arsip dan tungga
 msgid "Manage module categories"
 msgstr "Kelola kategori modul"
 
-#: templates/admin/modules/contact-form.php:205
+#: templates/admin/modules/contact-form.php:218
 msgid "Manage reCAPTCHA keys"
 msgstr "Kelola kunci reCAPTCHA"
 
@@ -6918,21 +6897,21 @@ msgstr "Penempatan manual (hanya partial templat)"
 msgid "Manual price snapshot (one per line):"
 msgstr "Cuplikan harga manual (satu per baris):"
 
-#: src/Modules/Pwa/PwaModule.php:196
+#: src/Modules/Push/PushModule.php:200
 msgid "Manual push notifications to subscribers via Firebase Cloud Messaging."
 msgstr "Notifikasi push manual ke pelanggan melalui Firebase Cloud Messaging."
 
 #: src/Modules/Integrations/IntegrationsModule.php:629
-msgid "Manual push notifications to subscribers — save a Firebase config in the PWA & Push module."
-msgstr "Notifikasi push manual ke pelanggan — simpan konfigurasi Firebase di modul PWA & Push."
+msgid "Manual push notifications to subscribers — save a Firebase config in the Push module."
+msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:625
-msgid "Manual push notifications to subscribers, configured in the PWA & Push module."
-msgstr "Notifikasi push manual ke pelanggan, dikonfigurasi di modul PWA & Push."
+msgid "Manual push notifications to subscribers, configured in the Push module."
+msgstr ""
 
-#: src/Admin/SetupPage.php:495
-msgid "Manual push notifications to subscribers, from the PWA & Push module (Firebase Cloud Messaging). Optional: the site works fully without it."
-msgstr "Notifikasi push manual ke pelanggan, dari modul PWA & Push (Firebase Cloud Messaging). Opsional: situs berfungsi penuh tanpanya."
+#: src/Admin/SetupPage.php:496
+msgid "Manual push notifications to subscribers, from the Push module (Firebase Cloud Messaging). Optional: the site works fully without it."
+msgstr "Notifikasi push manual ke pelanggan, dari modul Push (Firebase Cloud Messaging). Opsional: situs berfungsi penuh tanpanya."
 
 #: src/Modules/Markets/MarketsModule.php:1042
 #: src/Modules/Markets/MarketsModule.php:1052
@@ -7054,16 +7033,15 @@ msgstr "Ikon Menu"
 msgid "Menu icons are picked per menu item on the Menus screen. The settings below control the default behaviour for every icon on the frontend."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:267
-#: src/Modules/Pwa/PwaModule.php:560
-#: src/Stack/Libs/Messaging/WordPressTableView.php:116
+#: src/Modules/Push/PushModule.php:264
+#: src/Modules/Push/PushModule.php:552
 #: templates/admin/modules/activity-log.php:141
 #: templates/admin/modules/mailer.php:430
 #: templates/admin/modules/maintenance.php:105
 msgid "Message"
 msgstr "Pesan"
 
-#: src/Modules/Pwa/PushAjax.php:191
+#: src/Modules/Push/PushAjax.php:191
 msgid "Message is required."
 msgstr "Pesan wajib diisi."
 
@@ -7203,7 +7181,7 @@ msgstr "Modul dalam kategori ini akan kembali ke kategori bawaannya."
 msgid "Modules: enable what you need"
 msgstr "Modul: aktifkan yang Anda butuhkan"
 
-#: src/Admin/ModuleRegistry.php:1014
+#: src/Admin/ModuleRegistry.php:1024
 msgid "Monetization"
 msgstr "Monetisasi"
 
@@ -7298,16 +7276,16 @@ msgstr "Membutuhkan JSON akun layanan di bawah. Hanya saat tidak ada plugin SEO 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1902
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2009
 msgid "Needs Revision"
-msgstr "Perlu Revisi"
+msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1489
 msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] "Perlu Revisi <span class=\"count\">(%s)</span>"
 
-#: src/Admin/ModuleRegistry.php:1618
-#: src/Admin/ModuleRegistry.php:946
-#: src/Modules/Recaptcha/RecaptchaModule.php:532
+#: src/Admin/ModuleRegistry.php:1629
+#: src/Admin/ModuleRegistry.php:956
+#: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
 msgid "Needs setup"
@@ -7336,7 +7314,7 @@ msgstr "Tidak pernah"
 msgid "never"
 msgstr "tidak pernah"
 
-#: src/Modules/Pwa/PwaModule.php:506
+#: src/Modules/Push/PushModule.php:498
 msgid "Never share this with anyone."
 msgstr "Jangan bagikan ini kepada siapa pun."
 
@@ -7628,7 +7606,7 @@ msgstr "Tanpa halaman pengaturan tambahan — semuanya terjadi di layar Menu."
 msgid "No failed attempts recorded yet."
 msgstr "Belum ada upaya gagal yang tercatat."
 
-#: src/Admin/SetupPage.php:671
+#: src/Admin/SetupPage.php:672
 msgid "No file was uploaded. Choose the TrayDigita Stack .zip file and try again."
 msgstr "Tidak ada file yang diunggah. Pilih file .zip TrayDigita Stack lalu coba lagi."
 
@@ -7698,7 +7676,7 @@ msgstr "Tidak ada modul yang cocok dengan pencarian Anda."
 msgid "No newsletters sent yet."
 msgstr "Belum ada buletin yang dikirim."
 
-#: src/Modules/Pwa/PwaModule.php:593
+#: src/Modules/Push/PushModule.php:585
 msgid "No notifications sent yet."
 msgstr "Belum ada notifikasi yang dikirim."
 
@@ -7812,7 +7790,7 @@ msgstr "Belum ada templat. Buat templat pertama Anda di bawah ini."
 msgid "No third-party scripts."
 msgstr "Tanpa skrip pihak ketiga."
 
-#: src/Admin/SetupPage.php:436
+#: src/Admin/SetupPage.php:437
 #: src/Admin/SiteHealth.php:387
 #. translators: %s is the site locale, e.g. id_ID.
 msgid "No translation file for %s. English strings are used as fallback."
@@ -7834,10 +7812,6 @@ msgstr "Belum ada pengguna yang memiliki avatar kustom."
 #: src/Modules/Security/Checks.php:348
 msgid "No user named \"admin\" exists, so automated attacks cannot rely on that username."
 msgstr "Tidak ada pengguna bernama \"admin\", sehingga serangan otomatis tidak dapat mengandalkan nama pengguna itu."
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:544
-msgid "No valid topics provided"
-msgstr ""
 
 #: src/Modules/Seo/SeoAi.php:159
 msgid "No WordPress AI provider is available: WordPress ships the AI Client API but no AI provider of its own. Install and connect an AI provider plugin (for example the Anthropic, Google, or OpenAI provider plugin) to enable AI meta suggestions. Nothing is generated until then."
@@ -7872,8 +7846,8 @@ msgstr "Tidak aktif. Tema membutuhkan plugin TrayDigita Stack."
 msgid "Not applicable"
 msgstr "Tidak berlaku"
 
-#: src/Admin/ModuleRegistry.php:1606
-#: src/Admin/ModuleRegistry.php:940
+#: src/Admin/ModuleRegistry.php:1617
+#: src/Admin/ModuleRegistry.php:950
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr "Tidak tersedia"
@@ -7890,7 +7864,7 @@ msgstr "Tidak tersedia dari wordpress.org — pasang dari rilis proyek itu sendi
 msgid "Not configured"
 msgstr "Belum dikonfigurasi"
 
-#: src/Admin/SetupPage.php:502
+#: src/Admin/SetupPage.php:503
 #: src/Admin/SiteHealth.php:237
 msgid "Not configured yet. Push notifications are unavailable (optional)."
 msgstr "Belum dikonfigurasi. Notifikasi push tidak tersedia (opsional)."
@@ -7911,7 +7885,7 @@ msgstr "Tidak ditemukan — tidak dapat diperiksa."
 msgid "not granted"
 msgstr "tidak diberikan"
 
-#: src/Admin/SetupPage.php:964
+#: src/Admin/SetupPage.php:965
 #: src/Modules/Installer/InstallerModule.php:320
 #: src/Modules/Installer/InstallerModule.php:332
 #: src/Modules/Installer/InstallerModule.php:433
@@ -7919,7 +7893,7 @@ msgstr "tidak diberikan"
 msgid "Not installed"
 msgstr "Belum terpasang"
 
-#: src/Admin/SetupPage.php:333
+#: src/Admin/SetupPage.php:334
 msgid "Not installed. Install it from the project’s GitHub release, or upload the release .zip file below."
 msgstr "Tidak terinstal. Instal dari rilis GitHub proyek, atau unggah file .zip rilis di bawah ini."
 
@@ -7982,11 +7956,11 @@ msgstr "Tidak ada yang disimpan."
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:154
+#: templates/admin/modules/contact-form.php:170
 msgid "Notification email template"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:940
+#: src/Modules/Push/PushModule.php:936
 msgid "Notification permission was denied. Enable it from the lock icon in the address bar if you change your mind."
 msgstr "Izin notifikasi ditolak. Aktifkan lewat ikon gembok di address bar bila Anda berubah pikiran."
 
@@ -7994,19 +7968,19 @@ msgstr "Izin notifikasi ditolak. Aktifkan lewat ikon gembok di address bar bila 
 msgid "Notifications"
 msgstr "Notifikasi"
 
-#: src/Modules/Pwa/PwaModule.php:938
+#: src/Modules/Push/PushModule.php:934
 msgid "Notifications are already on."
 msgstr "Notifikasi sudah aktif."
 
-#: src/Modules/Pwa/PwaModule.php:941
+#: src/Modules/Push/PushModule.php:937
 msgid "Notifications are on. You will receive the latest updates."
 msgstr "Notifikasi aktif. Anda akan menerima pembaruan terbaru."
 
-#: src/Modules/Pwa/PwaModule.php:441
+#: src/Modules/Push/PushModule.php:433
 msgid "Notifications are sent manually from the Message tab only — never automatically when a post is published."
 msgstr "Notifikasi hanya dikirim manual dari tab Pesan — tidak pernah otomatis saat artikel diterbitkan."
 
-#: src/Modules/Pwa/PwaModule.php:942
+#: src/Modules/Push/PushModule.php:938
 msgid "Notifications On"
 msgstr "Notifikasi Aktif"
 
@@ -8119,7 +8093,7 @@ msgstr "hanya di seluler"
 msgid "On this page"
 msgstr "Di halaman ini"
 
-#: src/Modules/Pwa/PwaModule.php:576
+#: src/Modules/Push/PushModule.php:568
 msgid "One device (test)"
 msgstr "Satu perangkat (tes)"
 
@@ -8148,13 +8122,9 @@ msgstr "Satu jalur per baris, diawali garis miring — misalnya /embed/ untuk ha
 msgid "One place for all market data."
 msgstr "Satu tempat untuk semua data pasar."
 
-#: src/Modules/Pwa/PwaModule.php:226
+#: src/Modules/Pwa/PwaModule.php:160
 msgid "One service worker now serves both install and push."
 msgstr "Satu service worker kini melayani instal dan push."
-
-#: src/Modules/Pwa/PwaModule.php:197
-msgid "One service worker serves both install and push."
-msgstr "Satu service worker melayani instal dan push."
 
 #: src/Modules/Share/ShareModule.php:277
 msgid "One share row on single posts, styled after padangkita.com: small white buttons with dark navy icons, no brand colours, and no share counts."
@@ -8176,7 +8146,7 @@ msgstr ""
 msgid "Ongoing"
 msgstr "Sedang berlangsung"
 
-#: src/Admin/SetupPage.php:675
+#: src/Admin/SetupPage.php:676
 msgid "Only .zip files can be uploaded."
 msgstr "Hanya file .zip yang dapat diunggah."
 
@@ -8302,17 +8272,13 @@ msgstr "Buka"
 msgid "Open %s settings"
 msgstr "Buka pengaturan %s"
 
-#: src/Admin/SetupPage.php:845
+#: src/Admin/SetupPage.php:846
 msgid "Open Activity Log"
 msgstr "Buka Log Aktivitas"
 
 #: src/Modules/Cache/CacheModule.php:737
 msgid "Open Custom Headers"
 msgstr "Buka Custom Headers"
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:138
-msgid "Open Link"
-msgstr ""
 
 #: src/Modules/Mailer/MailerModule.php:2357
 msgid "Open Mailer settings"
@@ -8326,23 +8292,24 @@ msgstr "Buka Menu"
 msgid "Open modules"
 msgstr "Buka modul"
 
-#: src/Admin/SetupPage.php:853
+#: src/Admin/SetupPage.php:854
 msgid "Open Plugin Suggestions"
 msgstr "Buka Saran Plugin"
 
-#: src/Admin/SetupPage.php:877
+#: src/Admin/SetupPage.php:878
 #: src/Modules/Installer/InstallerModule.php:345
 #: src/Modules/SiteKit/SiteKitModule.php:416
 msgid "Open Plugins"
 msgstr "Buka Plugin"
 
-#: src/Modules/Pwa/PwaModule.php:412
+#: src/Admin/SetupPage.php:870
+#: src/Modules/Pwa/PwaModule.php:291
+msgid "Open Push Notifications"
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:422
 msgid "Open Push Notifications (plugin)"
 msgstr "Buka Notifikasi Push (plugin)"
-
-#: src/Admin/SetupPage.php:869
-msgid "Open PWA & Push"
-msgstr "Buka PWA & Push"
 
 #: templates/admin/modules/fonts.php:161
 msgid "Open Sans"
@@ -8363,7 +8330,7 @@ msgstr "Buka Site Kit"
 msgid "Open the Cloudflare Turnstile dashboard"
 msgstr "Buka dasbor Cloudflare Turnstile"
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:541
+#: src/Modules/Recaptcha/RecaptchaModule.php:544
 msgid "Open the Google reCAPTCHA admin console"
 msgstr "Buka konsol admin Google reCAPTCHA"
 
@@ -8387,14 +8354,6 @@ msgstr "Membuka tautan ini mengatur cookie lewati 24 jam lalu menghapus token da
 #: src/Modules/Share/ShareModule.php:311
 msgid "Opens the visitor’s mail client with the post title as the subject."
 msgstr "Membuka klien surel pengunjung dengan judul posting sebagai subjek."
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1126
-msgid "OpenSSL Library can not signing private key"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1059
-msgid "OpenSSL Library has not found"
-msgstr ""
 
 #: src/Modules/DbTools/DbToolsModule.php:270
 #: templates/admin/modules/db-tools.php:130
@@ -8463,7 +8422,7 @@ msgstr "Warna hex opsional, contoh #1d4ed8."
 msgid "Optional instant indexing."
 msgstr "Pengindeksan instan opsional."
 
-#: templates/admin/modules/contact-form.php:168
+#: templates/admin/modules/contact-form.php:181
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8488,7 +8447,7 @@ msgstr ""
 msgid "or"
 msgstr "atau"
 
-#: src/Admin/SetupPage.php:908
+#: src/Admin/SetupPage.php:909
 msgid "Or upload the release .zip file"
 msgstr "Atau unggah file .zip rilis"
 
@@ -8743,7 +8702,7 @@ msgstr "Kata sandi"
 msgid "Past"
 msgstr "Lampau"
 
-#: src/Modules/Pwa/PwaModule.php:495
+#: src/Modules/Push/PushModule.php:487
 msgid "Paste a new JSON only when rotating the key. The private key is never shown here."
 msgstr "Tempel JSON baru hanya saat merotasi kunci. Private key tidak pernah ditampilkan di sini."
 
@@ -8759,7 +8718,7 @@ msgstr ""
 msgid "Paste the ad code here, for example an AdSense unit."
 msgstr "Tempel kode iklan di sini, misalnya unit AdSense."
 
-#: src/Modules/Pwa/PwaModule.php:443
+#: src/Modules/Push/PushModule.php:435
 msgid "Paste the Firebase config once, save it, and the settings lock. Subscribers register from the [traydigita_push_subscribe] button on the site."
 msgstr "Tempel konfigurasi Firebase sekali, simpan, dan pengaturan terkunci. Pelanggan mendaftar dari tombol [traydigita_push_subscribe] di situs."
 
@@ -8810,8 +8769,8 @@ msgstr "Berkas PDF disimpan di bawah wp-content/traydigita-epaper/ (tidak pernah
 msgid "PDF only, up to %d MB."
 msgstr "Hanya PDF, hingga %d MB."
 
-#: src/Admin/SetupPage.php:151
-#: src/Admin/SetupPage.php:710
+#: src/Admin/SetupPage.php:152
+#: src/Admin/SetupPage.php:711
 #: templates/admin/modules/email.php:240
 msgid "Pending"
 msgstr "Menunggu"
@@ -8840,7 +8799,7 @@ msgstr "Mode akses per peran; administrator tidak pernah terpengaruh."
 msgid "Per-role enforcement and rate limiting."
 msgstr "Penegakan per peran dan pembatasan laju."
 
-#: src/Admin/ModuleRegistry.php:1006
+#: src/Admin/ModuleRegistry.php:1016
 msgid "Performance"
 msgstr "Performa"
 
@@ -8852,7 +8811,7 @@ msgstr "Panjang periode (hari)"
 msgid "Permalink rules are in place."
 msgstr "Rule permalink sudah diterapkan."
 
-#: src/Admin/SetupPage.php:275
+#: src/Admin/SetupPage.php:276
 msgid "Permalinks"
 msgstr "Permalink"
 
@@ -9104,7 +9063,7 @@ msgstr "Plugin"
 msgid "Plugins are installed only from the wordpress.org plugin directory — never from any other source — and installing never activates anything."
 msgstr "Plugin hanya dipasang dari direktori plugin wordpress.org — tidak pernah dari sumber lain — dan pemasangan tidak pernah mengaktifkan apa pun."
 
-#: src/Admin/SetupPage.php:383
+#: src/Admin/SetupPage.php:384
 msgid "Plugins this news site benefits from — Google Site Kit first. All are optional; install only the ones you need."
 msgstr "Plugin yang bermanfaat untuk situs berita ini — Google Site Kit pertama. Semuanya opsional; instal hanya yang Anda butuhkan."
 
@@ -9378,7 +9337,7 @@ msgstr ""
 msgid "Printing is the browser’s own print dialog — there is no server-side PDF generation and no extra request. The source line under the article shows where the print came from."
 msgstr "Pencetakan menggunakan dialog cetak browser sendiri — tidak ada pembuatan PDF di server dan tidak ada permintaan tambahan. Baris sumber di bawah artikel menunjukkan asal cetakan tersebut."
 
-#: src/Modules/Pwa/PwaModule.php:428
+#: src/Modules/Pwa/PwaModule.php:280
 msgid "Prints a theme-color meta tag in the page head, using the brand primary colour from the Customizer."
 msgstr "Mencetak meta tag theme-color di head halaman, menggunakan warna utama merek dari Customizer."
 
@@ -9407,12 +9366,12 @@ msgstr "URL Kebijakan Privasi"
 msgid "Privacy-focused SEO plugin with automated meta tags and no ads or upsells. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr "Plugin SEO yang berfokus pada privasi, dengan meta tag otomatis dan tanpa iklan atau upsell. Saat plugin ini aktif, modul SEO bawaan tema akan menepi dan tidak mengeluarkan meta tag duplikat."
 
-#: src/Admin/SetupPage.php:474
+#: src/Admin/SetupPage.php:475
 #: src/Admin/SiteHealth.php:338
 msgid "Production manifest found (dist/manifest.json)."
 msgstr "Manifest produksi ditemukan (dist/manifest.json)."
 
-#: src/Admin/SetupPage.php:475
+#: src/Admin/SetupPage.php:476
 #: src/Admin/SiteHealth.php:339
 msgid "Production manifest missing. Run the asset build to regenerate it."
 msgstr "Manifest produksi hilang. Jalankan build aset untuk membuatnya kembali."
@@ -9522,60 +9481,84 @@ msgstr "Purge-everything menghapus seluruh cache Cloudflare untuk zona ini."
 msgid "Purged the page cache through %s."
 msgstr "Page cache di-purge melalui %s."
 
-#: src/Modules/Pwa/PwaModule.php:692
+#: src/Modules/Push/PushModule.php:684
 msgid "Push config could not be saved. Check the fields below."
 msgstr "Konfigurasi push tidak dapat disimpan. Periksa kolom di bawah."
 
-#: src/Modules/Pwa/PushAjax.php:234
+#: src/Modules/Push/PushAjax.php:234
 msgid "Push config deleted. Subscriber tokens were kept."
 msgstr "Konfigurasi push dihapus. Token pelanggan tetap disimpan."
 
-#: src/Modules/Pwa/PwaModule.php:657
+#: src/Modules/Push/PushModule.php:649
 msgid "Push config is locked. Unlock it first to change the config."
 msgstr "Konfigurasi push terkunci. Buka kuncinya terlebih dahulu untuk mengubah konfigurasi."
 
-#: src/Modules/Pwa/PwaModule.php:710
+#: src/Modules/Push/PushModule.php:702
 msgid "Push config saved and locked. Test it with the Test config button, then send from the Message tab."
 msgstr "Konfigurasi push disimpan dan dikunci. Uji dengan tombol Uji konfigurasi, lalu kirim dari tab Pesan."
 
-#: src/Modules/Pwa/PushAjax.php:138
-#: src/Modules/Pwa/PushAjax.php:177
+#: src/Modules/Push/PushModule.php:410
+msgid "Push is disabled. No push service worker or subscribe button is served. Enable the module in the module grid first."
+msgstr ""
+
+#: src/Modules/Push/PushAjax.php:138
+#: src/Modules/Push/PushAjax.php:177
 msgid "Push is not configured yet. Save a valid config on the Settings tab first."
 msgstr "Push belum dikonfigurasi. Simpan konfigurasi yang valid di tab Pengaturan terlebih dahulu."
 
-#: src/Modules/Pwa/PwaModule.php:546
+#: src/Modules/Push/PushModule.php:538
 msgid "Push is not configured yet. Save a valid Firebase config on the Settings tab first — this form unlocks once the config is saved."
 msgstr "Push belum dikonfigurasi. Simpan konfigurasi Firebase yang valid di tab Pengaturan terlebih dahulu — formulir ini terbuka setelah konfigurasi disimpan."
 
-#: src/Admin/SetupPage.php:494
+#: src/Admin/SetupPage.php:495
 #: src/Admin/SiteHealth.php:108
 #: src/Admin/SiteHealth.php:239
 msgid "Push notifications"
 msgstr "Notifikasi push"
 
-#: src/Modules/Pwa/PwaModule.php:437
+#: src/Modules/Push/PushModule.php:152
+msgid "Push Notifications"
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:429
 msgid "Push notifications (Firebase Cloud Messaging)"
 msgstr "Notifikasi push (Firebase Cloud Messaging)"
 
-#: src/Modules/Pwa/PwaModule.php:224
+#: src/Modules/Pwa/PwaModule.php:288
+msgid "Push notifications live in the Push module."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:158
 msgid "Push notifications merged in: manual Firebase Cloud Messaging sends to subscribers."
 msgstr "Notifikasi push digabungkan: pengiriman Firebase Cloud Messaging manual ke pelanggan."
+
+#: src/Modules/Pwa/PwaModule.php:166
+msgid "Push notifications split out into their own Push module; this module is PWA-only again."
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:223
+msgid "Push notifications split out of the PWA module into their own module (settings, tokens, and sending unchanged)."
+msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1126
 msgid "Put the editor shortcode on this page. The page becomes the member dashboard (Overview, Posts, My Contributions, Write, Bookmarks, Profile, Change Email) for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
 msgstr "Tempatkan shortcode editor di halaman ini. Halaman tersebut menjadi dasbor anggota (Ringkasan, Posting, Kontribusi Saya, Tulis, Markah, Profil, Ubah Email) untuk setiap pengguna yang masuk: tamu dialihkan ke halaman masuk, dan bagian di dalamnya hanya ditampilkan bila pengguna memiliki kemampuan dan fiturnya tersedia. Bila tidak ada halaman yang dipilih, beranda digunakan dan tidak ada templat dasbor yang diterapkan."
 
-#: src/Modules/Pwa/PwaModule.php:609
+#: src/Modules/Push/PushModule.php:601
 msgid "Put the subscribe button on the site with the shortcode [traydigita_push_subscribe]."
 msgstr "Pasang tombol langganan di situs dengan shortcode [traydigita_push_subscribe]."
 
-#: src/Modules/Pwa/PwaModule.php:400
-msgid "PWA & Push is disabled. The site is not installable and no push service worker or subscribe button is served. Enable the module in the module grid first."
-msgstr "PWA & Push dinonaktifkan. Situs tidak dapat diinstal dan tidak ada push service worker atau tombol langganan yang disajikan. Aktifkan modul di grid modul terlebih dahulu."
+#: src/Modules/Pwa/PwaModule.php:77
+msgid "PWA"
+msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:144
-msgid "PWA & Push Notifications"
-msgstr "PWA & Notifikasi Push"
+#: src/Modules/Pwa/PwaModule.php:312
+msgid "PWA has no settings to save."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:266
+msgid "PWA is disabled. The site is not installable: no manifest link, theme-color meta tag, install sheet, or \"Install App\" buttons are served. Enable the module in the module grid first."
+msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2340
 msgid "QR codes are generated locally — no external service is involved."
@@ -9629,7 +9612,7 @@ msgstr "Pembatasan laju berlaku untuk verifikasi kode dan upaya passkey, per pen
 msgid "Re-check now"
 msgstr "Periksa ulang sekarang"
 
-#: src/Admin/SetupPage.php:196
+#: src/Admin/SetupPage.php:197
 msgid "Re-check statuses"
 msgstr "Periksa ulang status"
 
@@ -9702,19 +9685,19 @@ msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 26 API transaksional, 10 A
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:188
+#: templates/admin/modules/contact-form.php:201
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:203
+#: templates/admin/modules/contact-form.php:216
 msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
 msgstr "Kunci reCAPTCHA belum diatur. Formulir kontak yang memakai proteksi reCAPTCHA tidak akan memiliki proteksi spam hingga kunci disimpan."
 
-#: templates/admin/modules/contact-form.php:201
+#: templates/admin/modules/contact-form.php:214
 msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
 msgstr "Kunci reCAPTCHA sudah diatur di modul Google reCAPTCHA."
 
-#: templates/admin/modules/contact-form.php:186
+#: templates/admin/modules/contact-form.php:199
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
@@ -9722,7 +9705,7 @@ msgstr ""
 msgid "reCAPTCHA score is too low."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:646
+#: src/Modules/Recaptcha/RecaptchaModule.php:657
 msgid "reCAPTCHA settings saved."
 msgstr "Pengaturan reCAPTCHA disimpan."
 
@@ -9734,7 +9717,7 @@ msgstr ""
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:571
+#: src/Modules/Recaptcha/RecaptchaModule.php:582
 msgid "reCAPTCHA v3 score threshold"
 msgstr ""
 
@@ -9752,7 +9735,7 @@ msgstr ""
 msgid "Recent failed attempts"
 msgstr "Upaya gagal terbaru"
 
-#: src/Modules/Pwa/PwaModule.php:591
+#: src/Modules/Push/PushModule.php:583
 msgid "Recent sends"
 msgstr "Pengiriman terakhir"
 
@@ -9760,11 +9743,11 @@ msgstr "Pengiriman terakhir"
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:132
+#: templates/admin/modules/contact-form.php:136
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1647
+#: src/Admin/ModuleRegistry.php:1658
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr "Disarankan"
@@ -9774,7 +9757,7 @@ msgstr "Disarankan"
 msgid "Recommended fix"
 msgstr "Perbaikan yang disarankan"
 
-#: src/Admin/SetupPage.php:382
+#: src/Admin/SetupPage.php:383
 msgid "Recommended plugins"
 msgstr "Plugin yang disarankan"
 
@@ -9866,7 +9849,7 @@ msgstr "Buat ulang rahasia lewati saat menyimpan"
 msgid "Regenerating invalidates the current bypass link and every bypass cookie immediately."
 msgstr "Membuat ulang akan langsung membatalkan tautan lewati saat ini dan semua cookie lewati."
 
-#: src/Modules/Pwa/PwaModule.php:449
+#: src/Modules/Push/PushModule.php:441
 #. translators: %d is the number of registered subscriber devices.
 msgid "Registered devices: %d."
 msgstr "Perangkat terdaftar: %d."
@@ -9880,7 +9863,7 @@ msgstr "Ukuran gambar terdaftar"
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1903
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2011
 msgid "Rejected"
-msgstr "Ditolak"
+msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1502
 msgid "Rejected <span class=\"count\">(%s)</span>"
@@ -10117,10 +10100,6 @@ msgstr "Reset OPcache"
 msgid "Reset to defaults"
 msgstr "Atur ulang ke bawaan"
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:120
-msgid "Response"
-msgstr ""
-
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2156
 msgid "Restore"
 msgstr "Pulihkan"
@@ -10156,11 +10135,11 @@ msgstr "Antrian review"
 msgid "Revision note for the author"
 msgstr "Catatan revisi untuk penulis"
 
-#: src/Admin/SetupPage.php:260
+#: src/Admin/SetupPage.php:261
 msgid "Rewrite flag is not set."
 msgstr "Flag rewrite belum diatur."
 
-#: src/Admin/SetupPage.php:259
+#: src/Admin/SetupPage.php:260
 msgid "Rewrite flag is set."
 msgstr "Flag rewrite sudah diatur."
 
@@ -10286,7 +10265,6 @@ msgstr "Simpan"
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:341
-#: src/Modules/Recaptcha/RecaptchaModule.php:588
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
@@ -10306,7 +10284,7 @@ msgstr "Simpan"
 msgid "Save changes"
 msgstr "Simpan perubahan"
 
-#: src/Modules/Pwa/PwaModule.php:517
+#: src/Modules/Push/PushModule.php:509
 msgid "Save config"
 msgstr "Simpan konfigurasi"
 
@@ -10358,7 +10336,7 @@ msgstr "Tersimpan"
 msgid "Saved on %s"
 msgstr "Disimpan pada %s"
 
-#: src/Modules/Pwa/PwaModule.php:485
+#: src/Modules/Push/PushModule.php:477
 #. translators: %1$s is the Firebase project id, %2$s is the service account email.
 msgid "Saved — project: %1$s, email: %2$s"
 msgstr "Tersimpan — proyek: %1$s, email: %2$s"
@@ -10373,7 +10351,7 @@ msgstr "Menyimpan di sini hanya mengonfirmasi bahwa tidak ada yang perlu disimpa
 
 #: src/Modules/Ads/AdsModule.php:819
 #: src/Modules/Avatar/AvatarModule.php:309
-#: src/Modules/Pwa/PwaModule.php:393
+#: src/Modules/Push/PushModule.php:403
 #: templates/admin/modules/epaper.php:47
 #: templates/admin/shell.php:105
 msgid "Saving…"
@@ -10502,7 +10480,7 @@ msgstr "Cari seri"
 msgid "Seconds"
 msgstr "Detik"
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:557
+#: src/Modules/Recaptcha/RecaptchaModule.php:570
 #: src/Modules/Turnstile/TurnstileModule.php:1038
 #: src/Modules/Turnstile/TurnstileModule.php:1181
 msgid "Secret key"
@@ -10520,7 +10498,7 @@ msgstr "Urutan bagian"
 msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1002
+#: src/Admin/ModuleRegistry.php:1012
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr "Keamanan"
@@ -10573,7 +10551,7 @@ msgstr "Security Monitor tidak memiliki pengaturan untuk disimpan. Gunakan tombo
 msgid "Security Monitor keeps no settings of its own — checks run on demand with the Re-check button above."
 msgstr "Security Monitor tidak menyimpan pengaturannya sendiri — pemeriksaan berjalan sesuai permintaan dengan tombol Periksa ulang di atas."
 
-#: src/Admin/SetupPage.php:861
+#: src/Admin/SetupPage.php:862
 #: src/Admin/SiteHealth.php:298
 #: src/Modules/Cache/CacheModule.php:752
 msgid "See the recommended cache plugins"
@@ -10633,11 +10611,15 @@ msgstr "Tugas pengiriman tidak ditemukan atau kedaluwarsa."
 msgid "Send log"
 msgstr "Log pengiriman"
 
+#: src/Modules/Push/PushModule.php:162
+msgid "Send manual push notifications to subscribers with Firebase Cloud Messaging. Subscribers register from the [traydigita_push_subscribe] button; sending is manual only, never automatic on publish."
+msgstr ""
+
 #: templates/admin/modules/email.php:195
 msgid "Send newsletter"
 msgstr "Kirim buletin"
 
-#: src/Modules/Pwa/PwaModule.php:584
+#: src/Modules/Push/PushModule.php:576
 msgid "Send notification"
 msgstr "Kirim notifikasi"
 
@@ -10649,7 +10631,7 @@ msgstr "Kirim email tes"
 msgid "Send test email to"
 msgstr "Kirim email tes ke"
 
-#: templates/admin/modules/contact-form.php:140
+#: templates/admin/modules/contact-form.php:144
 msgid "Send to email"
 msgstr ""
 
@@ -10663,10 +10645,6 @@ msgstr ""
 
 #: templates/admin/modules/email.php:151
 msgid "Sender email for newsletter mail. Leave empty to use the Mailer From email. Gmail always sends from the connected account, whatever is entered here."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:117
-msgid "Sender Id"
 msgstr ""
 
 #: templates/admin/modules/email.php:142
@@ -10718,7 +10696,7 @@ msgstr ""
 msgid "Sending mail through Gmail as %s."
 msgstr "Mengirim email melalui Gmail sebagai %s."
 
-#: src/Modules/Pwa/PwaModule.php:395
+#: src/Modules/Push/PushModule.php:405
 msgid "Sending…"
 msgstr "Mengirim…"
 
@@ -10758,7 +10736,7 @@ msgstr "Mengirim header keamanan HTTP defensif, termasuk Content-Security-Policy
 msgid "Sends defensive HTTP security headers."
 msgstr "Mengirim header keamanan HTTP defensif."
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: templates/admin/modules/email.php:277
 #: templates/admin/modules/mailer.php:474
 msgid "Sent"
@@ -10876,7 +10854,7 @@ msgstr ""
 msgid "Sent through ZeptoMail."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:809
+#: src/Modules/Push/PushSender.php:772
 #. translators: %1$d sent, %2$d failed, %3$d pruned.
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr "Terkirim ke %1$d perangkat, gagal %2$d, token mati yang dihapus: %3$d."
@@ -10892,7 +10870,7 @@ msgstr "Dikirim melalui Core Mailer."
 msgid "SEO"
 msgstr "SEO"
 
-#: src/Admin/ModuleRegistry.php:1010
+#: src/Admin/ModuleRegistry.php:1020
 msgid "SEO & Discovery"
 msgstr "SEO & Penemuan"
 
@@ -10905,7 +10883,7 @@ msgstr "Pengaturan SEO disimpan."
 #: src/Modules/PostSeries/PostSeriesModule.php:392
 #: src/Modules/PostSeries/PostSeriesModule.php:717
 msgid "Series"
-msgstr "Seri"
+msgstr ""
 
 #: src/Modules/PostSeries/PostSeriesModule.php:940
 #. translators: %s is the series name.
@@ -10933,46 +10911,42 @@ msgstr "Server"
 msgid "Server snippets"
 msgstr "Cuplikan server"
 
-#: src/Modules/Pwa/PwaModule.php:430
-msgid "Serves one root-scope service worker (/firebase-messaging-sw.js) that receives Firebase push messages in the background and also acts as the PWA worker, so installing the app and receiving push never conflict."
-msgstr "Menyajikan satu service worker root-scope (/firebase-messaging-sw.js) yang menerima pesan push Firebase di latar belakang dan juga berperan sebagai worker PWA, sehingga menginstal aplikasi dan menerima push tidak pernah berbenturan."
-
 #: src/Modules/Seo/SeoModule.php:839
 #. translators: %s is the service-account client email, e.g. "name@project.iam.gserviceaccount.com".
 msgid "Service account configured: %s"
 msgstr "Akun layanan dikonfigurasi: %s"
 
-#: src/Modules/Pwa/PushSender.php:600
+#: src/Modules/Push/PushSender.php:580
 msgid "Service Account has not been saved yet."
 msgstr "Service Account belum disimpan."
 
-#: src/Modules/Pwa/PwaModule.php:479
+#: src/Modules/Push/PushModule.php:471
 msgid "Service Account JSON"
 msgstr "JSON Service Account"
 
-#: src/Modules/Pwa/PushSender.php:246
-#: src/Modules/Pwa/PwaModule.php:390
+#: src/Libs/GoogleServiceAccount.php:120
+#: src/Modules/Push/PushModule.php:400
 msgid "Service Account JSON is missing a valid client_email."
 msgstr "JSON Service Account tidak memiliki client_email yang valid."
 
-#: src/Modules/Pwa/PushSender.php:252
-#: src/Modules/Pwa/PwaModule.php:391
+#: src/Libs/GoogleServiceAccount.php:126
+#: src/Modules/Push/PushModule.php:401
 msgid "Service Account JSON is missing a valid private_key."
 msgstr "JSON Service Account tidak memiliki private_key yang valid."
 
-#: src/Modules/Pwa/PushSender.php:237
-#: src/Modules/Pwa/PwaModule.php:388
+#: src/Libs/GoogleServiceAccount.php:111
+#: src/Modules/Push/PushModule.php:398
 msgid "Service Account JSON is not valid JSON."
 msgstr "JSON Service Account bukan JSON yang valid."
 
-#: src/Modules/Pwa/PushSender.php:233
-#: src/Modules/Pwa/PwaModule.php:387
-#: src/Modules/Pwa/PwaModule.php:687
+#: src/Libs/GoogleServiceAccount.php:107
+#: src/Modules/Push/PushModule.php:397
+#: src/Modules/Push/PushModule.php:679
 msgid "Service Account JSON is required."
 msgstr "JSON Service Account wajib diisi."
 
-#: src/Modules/Pwa/PushSender.php:240
-#: src/Modules/Pwa/PwaModule.php:389
+#: src/Libs/GoogleServiceAccount.php:114
+#: src/Modules/Push/PushModule.php:399
 msgid "Service Account JSON must have \"type\": \"service_account\"."
 msgstr "JSON Service Account harus memiliki \"type\": \"service_account\"."
 
@@ -11033,7 +11007,7 @@ msgstr "Mengatur avatar sendiri dinonaktifkan oleh administrator situs."
 #: src/Modules/DbTools/DbToolsModule.php:271
 #: src/Modules/EPaper/EPaperModule.php:233
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:275
-#: src/Modules/Pwa/PwaModule.php:264
+#: src/Modules/Push/PushModule.php:261
 #: src/Modules/Redirects/RedirectsModule.php:402
 #: templates/admin/modules/epaper.php:91
 #: templates/admin/modules/image-optimizer.php:133
@@ -11110,6 +11084,10 @@ msgstr "Dibagikan ke semua aturan pada satu halaman. Atur ke 0 untuk tidak menam
 #: templates/admin/modules/cookie-consent.php:56
 msgid "Shared with the Customizer"
 msgstr "Dibagikan dengan Customizer"
+
+#: src/Modules/Push/PushModule.php:203
+msgid "Shares one service worker with the PWA, so install and push never conflict."
+msgstr ""
 
 #: templates/admin/modules/contact-form.php:60
 #: templates/admin/modules/form-builder.php:56
@@ -11264,7 +11242,7 @@ msgstr "Hanya ditampilkan di sini, untuk membedakan aturan."
 msgid "Shows a dismissible cookie consent banner and remembers the visitor’s choice."
 msgstr "Menampilkan spanduk persetujuan cookie yang dapat ditutup dan mengingat pilihan pengunjung."
 
-#: src/Modules/Pwa/PwaModule.php:429
+#: src/Modules/Pwa/PwaModule.php:281
 msgid "Shows a store-style install sheet (Play Store variant, App Store variant on macOS and iOS) with an Install button and install instructions."
 msgstr "Menampilkan lembar pemasangan bergaya toko (varian Play Store, varian App Store di macOS dan iOS) dengan tombol Pasang dan petunjuk pemasangan."
 
@@ -11388,7 +11366,7 @@ msgstr "Info situs untuk %s"
 msgid "Site Info has no settings to save."
 msgstr "Info Situs tidak memiliki pengaturan untuk disimpan."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:551
+#: src/Modules/Recaptcha/RecaptchaModule.php:559
 #: src/Modules/Turnstile/TurnstileModule.php:1032
 #: src/Modules/Turnstile/TurnstileModule.php:1167
 msgid "Site key"
@@ -11557,8 +11535,8 @@ msgstr "Paywall terukur yang lembut: artikel gratis per periode, lalu perintah b
 msgid "Some plugins rely on the frontend heartbeat; switch it back on if a frontend feature stops refreshing."
 msgstr "Beberapa plugin bergantung pada heartbeat frontend; aktifkan kembali jika ada fitur frontend yang berhenti menyegarkan."
 
-#: src/Admin/SetupPage.php:152
-#: src/Admin/SetupPage.php:952
+#: src/Admin/SetupPage.php:153
+#: src/Admin/SetupPage.php:953
 #: src/Modules/Installer/InstallerModule.php:337
 #: src/Modules/TwoFactor/TwoFactorModule.php:2110
 #: templates/admin/modules/activity-log.php:64
@@ -11624,12 +11602,12 @@ msgid "Spam detected."
 msgstr ""
 
 #: src/Modules/ContactForm/ContactFormModule.php:321
-#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/contact-form.php:157
 #: templates/admin/modules/contact-form.php:59
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:178
+#: templates/admin/modules/contact-form.php:191
 msgid "Spam protection & retention"
 msgstr ""
 
@@ -11702,7 +11680,6 @@ msgstr "Statistik belum tersedia: belum ada kunjungan yang tercatat untuk artike
 #: src/Modules/Cache/CacheModule.php:811
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2092
 #: src/Modules/Redirects/RedirectsModule.php:373
-#: src/Stack/Libs/Messaging/WordPressTableView.php:119
 #: templates/admin/contact-submissions.php:148
 #: templates/admin/contact-submissions.php:182
 #: templates/admin/contact-submissions.php:94
@@ -11768,6 +11745,10 @@ msgstr "Mencegah peramban menebak jenis file."
 msgid "Store only"
 msgstr ""
 
+#: src/Modules/Pwa/PwaModule.php:131
+msgid "Store-style install sheet (Play Store variant, App Store variant on macOS and iOS)."
+msgstr ""
+
 #: src/Modules/UserManager/UserManagerModule.php:376
 msgid "Stored as a timestamp in user meta and shown in the site timezone."
 msgstr "Disimpan sebagai stempel waktu di meta pengguna dan ditampilkan dalam zona waktu situs."
@@ -11798,11 +11779,11 @@ msgstr "Gaya"
 msgid "Subject"
 msgstr "Subjek"
 
-#: templates/admin/modules/contact-form.php:213
+#: templates/admin/modules/contact-form.php:226
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:573
+#: src/Modules/Recaptcha/RecaptchaModule.php:584
 msgid "Submissions scoring below this (0.0–1.0) are rejected."
 msgstr "Pengiriman dengan skor di bawah nilai ini (0,0–1,0) ditolak."
 
@@ -11849,6 +11830,10 @@ msgstr "Pelanggan dihapus."
 msgid "Subscribers"
 msgstr "Pelanggan"
 
+#: src/Modules/Push/PushModule.php:201
+msgid "Subscribers register from the [traydigita_push_subscribe] button on the site."
+msgstr ""
+
 #: src/Modules/Email/EmailAjax.php:386
 msgid "Subscription confirmed"
 msgstr "Langganan dikonfirmasi"
@@ -11870,10 +11855,6 @@ msgstr "Subteks"
 #: templates/admin/modules/mailer.php:142
 msgid "Succeeded"
 msgstr "Berhasil"
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:135
-msgid "Success"
-msgstr ""
 
 #: src/Modules/Seo/SeoModule.php:976
 msgid "Suggested meta"
@@ -12004,7 +11985,7 @@ msgstr "Buat situs offline bagi pengunjung dengan halaman 503 bermerek, hitung m
 msgid "Tap the bookmark button on any article to save it here."
 msgstr "Ketuk tombol markah di artikel mana pun untuk menyimpannya di sini."
 
-#: src/Modules/Pwa/PwaModule.php:573
+#: src/Modules/Push/PushModule.php:565
 #: src/Modules/Redirects/RedirectsModule.php:327
 #: src/Modules/Redirects/RedirectsModule.php:372
 msgid "Target"
@@ -12013,10 +11994,6 @@ msgstr "Target"
 #: templates/admin/modules/image-optimizer.php:138
 msgid "Target format"
 msgstr "Format target"
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:118
-msgid "Target URL"
-msgstr ""
 
 #: src/Modules/Share/ShareModule.php:302
 msgid "Telegram"
@@ -12072,15 +12049,15 @@ msgstr "Templat"
 msgid "Test & Log"
 msgstr "Uji & Log"
 
-#: src/Modules/Pwa/PwaModule.php:520
+#: src/Modules/Push/PushModule.php:512
 msgid "Test config"
 msgstr "Uji konfigurasi"
 
-#: src/Modules/Pwa/PwaModule.php:532
+#: src/Modules/Push/PushModule.php:524
 msgid "Test config checks the saved credentials without sending anything."
 msgstr "Uji konfigurasi memeriksa kredensial tersimpan tanpa mengirim apa pun."
 
-#: src/Modules/Pwa/PwaModule.php:534
+#: src/Modules/Push/PushModule.php:526
 msgid "Test config fetches an FCM access token from Google with the saved Service Account — proof the config works. It sends no notification."
 msgstr "Uji konfigurasi mengambil access token FCM dari Google dengan Service Account yang tersimpan — bukti konfigurasi berfungsi. Tidak ada notifikasi yang dikirim."
 
@@ -12101,7 +12078,11 @@ msgstr "Alat uji email dan log pengiriman 50 pengiriman terakhir."
 msgid "Test keys"
 msgstr "Uji kunci"
 
-#: src/Modules/Pwa/PwaModule.php:394
+#: src/Modules/Push/PushModule.php:202
+msgid "Test the saved config without sending anything."
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:404
 msgid "Testing config…"
 msgstr "Menguji konfigurasi…"
 
@@ -12206,7 +12187,7 @@ msgstr "Font tersebut tidak ditemukan."
 msgid "That image URL is not allowed."
 msgstr "URL gambar tersebut tidak diizinkan."
 
-#: src/Modules/Seo/SeoIndexing.php:414
+#: src/Modules/Seo/SeoIndexing.php:403
 msgid "That is not valid JSON. Paste the service-account JSON file exactly as Google provides it."
 msgstr "Itu bukan JSON yang valid. Tempel berkas JSON akun layanan persis seperti yang diberikan Google."
 
@@ -12214,7 +12195,7 @@ msgstr "Itu bukan JSON yang valid. Tempel berkas JSON akun layanan persis sepert
 msgid "That is the whole tour. You can replay it any time from the Settings hub."
 msgstr "Itulah seluruh tur. Anda dapat memutarnya kembali kapan saja dari Pusat Pengaturan."
 
-#: src/Modules/Seo/SeoIndexing.php:426
+#: src/Modules/Seo/SeoIndexing.php:410
 msgid "That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri."
 msgstr "JSON tersebut bukan kunci akun layanan Google: JSON harus berisi client_email, private_key, dan token_uri."
 
@@ -12270,7 +12251,7 @@ msgstr "Tag itu sudah tidak ada."
 msgid "The active theme is %s, not TrayDigita Theme."
 msgstr "Tema aktif adalah %s, bukan TrayDigita Theme."
 
-#: src/Admin/SetupPage.php:531
+#: src/Admin/SetupPage.php:532
 msgid "The Activity Log module is disabled. Enable it in the module list to start recording."
 msgstr "Modul Log Aktivitas nonaktif. Aktifkan di daftar modul untuk mulai merekam."
 
@@ -12304,11 +12285,11 @@ msgstr "Widget AdSense mencakup sidebar; penyisip ini mencakup iklan dalam artik
 msgid "The AdSense widget is for sidebars; this inserter is for in-article ads — after a paragraph, at a percentage of the article, or at a seeded-random spot that stays the same for each post."
 msgstr "Widget AdSense untuk sidebar; penyisip ini untuk iklan dalam artikel — setelah paragraf, pada persentase artikel, atau di titik acak berbibit yang tetap sama untuk setiap posting."
 
-#: src/Admin/SetupPage.php:276
+#: src/Admin/SetupPage.php:277
 msgid "The Agenda (/agenda/) and E-Paper (/epaper/) URLs work through rewrite rules. Flushing the rules once registers them."
 msgstr "URL Agenda (/agenda/) dan E-Paper (/epaper/) bekerja melalui rewrite rule. Mem-flush rule sekali akan mendaftarkannya."
 
-#: src/Admin/SetupPage.php:268
+#: src/Admin/SetupPage.php:269
 msgid "The Agenda module is disabled, so its rules cannot be registered."
 msgstr "Modul Agenda dinonaktifkan, sehingga rule-nya tidak dapat didaftarkan."
 
@@ -12572,7 +12553,7 @@ msgstr "Direktori E-Paper tidak dapat dibuat."
 msgid "The E-Paper library is full (%d issues). Delete an old issue before adding a new one."
 msgstr "Pustaka E-Paper penuh (%d edisi). Hapus edisi lama sebelum menambahkan yang baru."
 
-#: src/Admin/SetupPage.php:271
+#: src/Admin/SetupPage.php:272
 msgid "The E-Paper module is disabled, so its rules cannot be registered."
 msgstr "Modul E-Paper dinonaktifkan, sehingga rule-nya tidak dapat didaftarkan."
 
@@ -12648,7 +12629,7 @@ msgstr "Nama keluarga di Google Fonts, misalnya “Inter” atau “Open Sans”
 msgid "The file contents are verified before it is stored; anything else is rejected."
 msgstr "Isi berkas diverifikasi sebelum disimpan; yang lainnya ditolak."
 
-#: src/Admin/SetupPage.php:673
+#: src/Admin/SetupPage.php:674
 msgid "The file upload failed. Please try again."
 msgstr "Unggahan file gagal. Silakan coba lagi."
 
@@ -12793,7 +12774,7 @@ msgstr "Berkas impor tidak dapat dibaca. Ekspor berkas baru dan coba lagi."
 msgid "The index build could not run. Please try again."
 msgstr "Pembuatan indeks tidak dapat dijalankan. Coba lagi."
 
-#: src/Admin/SetupPage.php:443
+#: src/Admin/SetupPage.php:444
 msgid "The Indonesian translation of the theme interface. It is generated from the translation files when the theme is built."
 msgstr "Terjemahan bahasa Indonesia untuk antarmuka tema. Terjemahan ini dibuat dari file terjemahan saat tema di-build."
 
@@ -12806,7 +12787,7 @@ msgstr "Pemasang melaporkan berhasil, tetapi plugin masih belum terpasang. Harap
 msgid "The JSON is stored on this site only and is used solely to notify the Google Indexing API."
 msgstr "JSON hanya disimpan di situs ini dan hanya digunakan untuk memberi tahu Google Indexing API."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:530
+#: src/Modules/Recaptcha/RecaptchaModule.php:533
 msgid "The keys are saved. Contact forms using reCAPTCHA protection will show the challenge."
 msgstr "Kunci sudah disimpan. Formulir kontak yang memakai proteksi reCAPTCHA akan menampilkan tantangan."
 
@@ -12826,9 +12807,9 @@ msgstr "Kunci tidak dapat diverifikasi. Periksa kunci lalu coba lagi."
 msgid "The keys look valid. Cloudflare accepted the secret key and rejected only the dummy test token, as expected."
 msgstr "Kunci tampak valid. Cloudflare menerima kunci rahasia dan hanya menolak token uji tiruan, seperti yang diharapkan."
 
-#: src/Modules/Pwa/PwaModule.php:407
-msgid "The koperasi-kita-push plugin is active and owns push notifications right now: it serves the service worker and the token endpoint. The theme module defers to it — test and send are disabled here until the plugin is deactivated. The PWA half below is unaffected."
-msgstr "Plugin koperasi-kita-push aktif dan memiliki notifikasi push saat ini: plugin menyajikan service worker dan endpoint token. Modul tema menyerahkan kendali kepadanya — uji dan kirim dinonaktifkan di sini sampai plugin dinonaktifkan. Bagian PWA di bawah tidak terpengaruh."
+#: src/Modules/Push/PushModule.php:417
+msgid "The koperasi-kita-push plugin is active and owns push notifications right now: it serves the service worker and the token endpoint. The Push module defers to it — test and send are disabled here until the plugin is deactivated."
+msgstr ""
 
 #: src/Admin/SetupAjax.php:600
 msgid "The latest TrayDigita Stack release has no .zip file to install."
@@ -12871,7 +12852,7 @@ msgstr "Tabel log tidak dapat dibuat. Silakan coba lagi."
 msgid "The log table does not exist yet, so nothing is being recorded. Create it below — events are stored from then on, and a missing table heals itself the next time an event is logged."
 msgstr "Tabel log belum ada, jadi belum ada yang direkam. Buat di bawah — peristiwa disimpan mulai saat itu, dan tabel yang hilang akan pulih sendiri saat peristiwa berikutnya dicatat."
 
-#: src/Admin/SetupPage.php:541
+#: src/Admin/SetupPage.php:542
 msgid "The log table does not exist yet, so nothing is being recorded. Create it now — a missing table also heals itself the next time an event is logged."
 msgstr "Tabel log belum ada, jadi belum ada yang direkam. Buat sekarang — tabel yang hilang juga akan pulih sendiri saat peristiwa berikutnya dicatat."
 
@@ -12879,7 +12860,7 @@ msgstr "Tabel log belum ada, jadi belum ada yang direkam. Buat sekarang — tabe
 msgid "The log table is already being created. Please wait a moment and try again."
 msgstr "Tabel log sedang dibuat. Harap tunggu sebentar lalu coba lagi."
 
-#: src/Admin/SetupPage.php:553
+#: src/Admin/SetupPage.php:554
 #. translators: %d is the number of log entries.
 msgid "The log table is ready — %d entry logged."
 msgid_plural "The log table is ready — %d entries logged."
@@ -13023,7 +13004,7 @@ msgstr "Plugin tidak dapat diaktifkan."
 msgid "The plugin could not be found on wordpress.org."
 msgstr "Plugin tidak dapat ditemukan di wordpress.org."
 
-#: src/Admin/SetupPage.php:681
+#: src/Admin/SetupPage.php:682
 msgid "The plugin could not be installed from the uploaded file."
 msgstr "Plugin tidak dapat diinstal dari file yang diunggah."
 
@@ -13077,7 +13058,7 @@ msgstr "Tautan kebijakan privasi dan durasi berlaku setelah disimpan."
 msgid "The private API key (or a domain sending key) from Account Settings → API Keys in Mailgun. Leave empty to keep the saved key."
 msgstr ""
 
-#: src/Admin/SetupPage.php:468
+#: src/Admin/SetupPage.php:469
 msgid "The production asset manifest, built from the theme sources. Without it the theme cannot load its compiled styles and scripts."
 msgstr "Manifest aset produksi, dibuat dari sumber tema. Tanpanya tema tidak dapat memuat style dan skrip hasil kompilasi."
 
@@ -13093,15 +13074,15 @@ msgstr ""
 msgid "The public key from your Cloudflare Turnstile widget."
 msgstr "Kunci publik dari widget Cloudflare Turnstile Anda."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:553
+#: src/Modules/Recaptcha/RecaptchaModule.php:561
 msgid "The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair)."
 msgstr "Kunci publik dari situs Google reCAPTCHA Anda (v2 kotak centang dan v3 memakai satu pasangan kunci yang sama)."
 
-#: src/Modules/Pwa/PushAjax.php:133
+#: src/Modules/Push/PushAjax.php:133
 msgid "The push plugin is active and owns push notifications. Deactivate it to test the theme module config."
 msgstr "Plugin push aktif dan memiliki notifikasi push. Nonaktifkan untuk menguji konfigurasi modul tema."
 
-#: src/Modules/Pwa/PushAjax.php:172
+#: src/Modules/Push/PushAjax.php:172
 msgid "The push plugin is active and owns push notifications. Send from the plugin instead."
 msgstr "Plugin push aktif dan memiliki notifikasi push. Kirim dari plugin saja."
 
@@ -13134,9 +13115,9 @@ msgstr "Permintaan mengembalikan respons kosong."
 msgid "The request returned status %d with no readable headers."
 msgstr "Permintaan mengembalikan status %d tanpa header yang dapat dibaca."
 
-#: src/Admin/SetupPage.php:303
-#: src/Admin/SetupPage.php:316
-#: src/Admin/SetupPage.php:328
+#: src/Admin/SetupPage.php:304
+#: src/Admin/SetupPage.php:317
+#: src/Admin/SetupPage.php:329
 msgid "The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses."
 msgstr "Plugin pendamping yang wajib ada. Tema tidak dapat berjalan tanpanya: plugin ini menyediakan helper gambar, popular-posts, dan messaging yang dipakai tema."
 
@@ -13152,7 +13133,7 @@ msgstr "Aturan yang Anda coba edit sudah tidak ada."
 msgid "The same headers, as server configuration."
 msgstr "Header yang sama, sebagai konfigurasi server."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:567
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "The secret key is never shown, never logged, and never returned by any endpoint."
 msgstr "Kunci rahasia tidak pernah ditampilkan, tidak pernah dicatat, dan tidak pernah dikembalikan oleh endpoint apa pun."
@@ -13319,18 +13300,6 @@ msgstr "Waktunya adalah jumlah kata dibagi laju ini, dibulatkan ke atas, dengan 
 msgid "The toggles below only take effect when no SEO plugin is active."
 msgstr "Sakelar di bawah ini hanya berlaku bila tidak ada plugin SEO yang aktif."
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:674
-msgid "The topic are empty"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:683
-msgid "The topic length are mismatched"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:666
-msgid "The topics are invalid"
-msgstr ""
-
 #: src/Admin/AdminMenu.php:788
 msgid "The TrayDigita admin shell template is missing."
 msgstr "Templat shell admin TrayDigita tidak ditemukan."
@@ -13396,7 +13365,7 @@ msgstr "Berkas yang diunggah bukan gambar asli."
 msgid "The uploaded file is not a valid font file."
 msgstr "Berkas yang diunggah bukan berkas font yang valid."
 
-#: src/Admin/SetupPage.php:677
+#: src/Admin/SetupPage.php:678
 msgid "The uploaded file is too large. The limit is 20 MB."
 msgstr "File yang diunggah terlalu besar. Batasnya 20 MB."
 
@@ -13481,7 +13450,7 @@ msgstr "Tema dan widget dapat mencetaknya dengan EmailModule::subscribeFormHtml(
 msgid "There are no audio files to generate and no network requests: the visitor's own browser does the reading. Browsers without speech synthesis never see the button."
 msgstr "Tidak ada file audio yang perlu dibuat dan tidak ada permintaan jaringan: peramban pengunjung sendiri yang membacakan. Peramban tanpa sintesis suara tidak akan pernah melihat tombol itu."
 
-#: src/Modules/Pwa/PushSender.php:758
+#: src/Modules/Push/PushSender.php:721
 msgid "There are no subscribers to send to."
 msgstr "Tidak ada pelanggan untuk dikirimi."
 
@@ -13528,7 +13497,7 @@ msgstr "Iklan ini belum dikonfigurasi."
 msgid "This article cannot be edited."
 msgstr "Artikel ini tidak dapat diubah."
 
-#: src/Modules/Pwa/PwaModule.php:937
+#: src/Modules/Push/PushModule.php:933
 msgid "This browser does not support notifications."
 msgstr "Browser ini tidak mendukung notifikasi."
 
@@ -13684,7 +13653,7 @@ msgstr "Centang bagian untuk menyembunyikannya dari dasbor."
 msgid "Tick only the categories you want, type the confirmation word, then delete. The counts refresh after every clean."
 msgstr "Centang hanya kategori yang diinginkan, ketik kata konfirmasi, lalu hapus. Jumlah diperbarui setelah setiap pembersihan."
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/TwoFactor/TwoFactorModule.php:2439
 #: templates/admin/modules/activity-log.php:137
 #: templates/admin/modules/mailer.php:453
@@ -13693,11 +13662,10 @@ msgstr "Waktu"
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2091
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2310
-#: src/Modules/Pwa/PwaModule.php:555
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:547
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:1000
 #: src/Modules/Seo/SeoModule.php:978
-#: src/Stack/Libs/Messaging/WordPressTableView.php:115
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
@@ -13720,7 +13688,7 @@ msgid "Title and description templates"
 msgstr "Template judul dan deskripsi"
 
 #: src/Modules/Agenda/AgendaTable.php:432
-#: src/Modules/Pwa/PushAjax.php:188
+#: src/Modules/Push/PushAjax.php:188
 msgid "Title is required."
 msgstr "Judul wajib diisi."
 
@@ -13744,11 +13712,11 @@ msgstr "Judul:"
 msgid "To"
 msgstr "Kepada"
 
-#: src/Modules/Pwa/PwaModule.php:795
+#: src/Modules/Push/PushModule.php:787
 msgid "Token is not valid."
 msgstr "Token tidak valid."
 
-#: src/Modules/Pwa/PwaModule.php:609
+#: src/Modules/Push/PushModule.php:601
 msgid "Tokens that stop working (for example the app was removed) are removed from the list automatically."
 msgstr "Token yang berhenti berfungsi (misalnya aplikasi dihapus) akan dihapus dari daftar secara otomatis."
 
@@ -13770,10 +13738,6 @@ msgstr "Terlalu banyak upaya gagal. Silakan coba lagi nanti."
 #: src/Modules/Email/EmailAjax.php:411
 msgid "Too many requests. Please try again later."
 msgstr "Terlalu banyak permintaan. Silakan coba lagi nanti."
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:689
-msgid "Too many topics"
-msgstr ""
 
 #: templates/admin/modules/cookie-consent.php:153
 msgid "Top"
@@ -13818,13 +13782,13 @@ msgstr "Transient"
 msgid "Translation file"
 msgstr "File Terjemahan"
 
-#: src/Admin/SetupPage.php:430
+#: src/Admin/SetupPage.php:431
 #: src/Admin/SiteHealth.php:383
 #. translators: %s is the site locale, e.g. id_ID.
 msgid "Translation file found for %s."
 msgstr "File terjemahan ditemukan untuk %s."
 
-#: src/Admin/SetupPage.php:442
+#: src/Admin/SetupPage.php:443
 msgid "Translations"
 msgstr "Terjemahan"
 
@@ -13875,14 +13839,14 @@ msgstr "TrayDigita Light"
 msgid "TrayDigita sections"
 msgstr "Bagian TrayDigita"
 
-#: src/Admin/SetupPage.php:302
-#: src/Admin/SetupPage.php:315
-#: src/Admin/SetupPage.php:327
+#: src/Admin/SetupPage.php:303
+#: src/Admin/SetupPage.php:316
+#: src/Admin/SetupPage.php:328
 msgid "TrayDigita Stack"
 msgstr "TrayDigita Stack"
 
 #: src/Admin/SetupAjax.php:163
-#: src/Admin/SetupPage.php:669
+#: src/Admin/SetupPage.php:670
 msgid "TrayDigita Stack is already installed."
 msgstr "TrayDigita Stack sudah terinstal."
 
@@ -13900,7 +13864,7 @@ msgid "TrayDigita Stack plugin"
 msgstr "Plugin TrayDigita Stack"
 
 #: src/Admin/SetupAjax.php:512
-#: src/Admin/SetupPage.php:667
+#: src/Admin/SetupPage.php:668
 msgid "TrayDigita Stack was installed. Activate it when you are ready — nothing is activated automatically."
 msgstr "TrayDigita Stack sudah terinstal. Aktifkan saat Anda siap — tidak ada yang diaktifkan otomatis."
 
@@ -13957,11 +13921,11 @@ msgstr "Mematikan modul akan menyembunyikan strip pasar dan menghapus widget Ema
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/contact-form.php:194
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:183
+#: templates/admin/modules/contact-form.php:196
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14275,7 +14239,7 @@ msgstr "versi tidak dikenal"
 msgid "Unknown view."
 msgstr "Tampilan tidak dikenal."
 
-#: src/Modules/Pwa/PwaModule.php:523
+#: src/Modules/Push/PushModule.php:515
 msgid "Unlock to edit"
 msgstr "Buka kunci untuk mengedit"
 
@@ -14309,7 +14273,7 @@ msgstr "Blok yang tidak dicentang hilang dari editor, dan blok semacam itu dalam
 msgid "Until both are saved, the purge button stays disabled and nothing is sent to Cloudflare."
 msgstr "Sampai keduanya disimpan, tombol purge tetap nonaktif dan tidak ada yang dikirim ke Cloudflare."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:538
+#: src/Modules/Recaptcha/RecaptchaModule.php:541
 msgid "Until both keys are saved, contact forms fall back to no spam protection for their reCAPTCHA modes."
 msgstr "Hingga kedua kunci disimpan, formulir kontak kembali tanpa proteksi spam untuk mode reCAPTCHA-nya."
 
@@ -14368,7 +14332,7 @@ msgstr "Unggah edisi baru"
 msgid "Upload an avatar"
 msgstr "Unggah avatar"
 
-#: src/Admin/SetupPage.php:912
+#: src/Admin/SetupPage.php:913
 msgid "Upload and install"
 msgstr "Unggah dan instal"
 
@@ -14500,7 +14464,7 @@ msgstr "Gunakan tombol salin untuk menempelkan seluruh laporan ke permintaan duk
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:222
+#: templates/admin/modules/contact-form.php:235
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14597,25 +14561,21 @@ msgstr "Menggunakan modul Custom Avatar saat diaktifkan, jika tidak avatar stand
 msgid "Usually 587 for TLS, 465 for SSL, or 25 without encryption."
 msgstr "Biasanya 587 untuk TLS, 465 untuk SSL, atau 25 tanpa enkripsi."
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:114
-msgid "UUID"
-msgstr ""
-
 #: templates/admin/modules/headers.php:51
 msgid "Value"
 msgstr "Nilai"
 
-#: src/Modules/Pwa/PwaModule.php:470
+#: src/Modules/Push/PushModule.php:462
 msgid "VAPID Key (Web Push)"
 msgstr "Kunci VAPID (Web Push)"
 
-#: src/Modules/Pwa/PushSender.php:218
-#: src/Modules/Pwa/PwaModule.php:386
+#: src/Modules/Push/PushModule.php:396
+#: src/Modules/Push/PushSender.php:228
 msgid "VAPID key does not look like a Firebase Web Push key. Copy it from Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 msgstr "Kunci VAPID tidak terlihat seperti kunci Web Push Firebase. Salin dari Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 
-#: src/Modules/Pwa/PushSender.php:215
-#: src/Modules/Pwa/PwaModule.php:385
+#: src/Modules/Push/PushModule.php:395
+#: src/Modules/Push/PushSender.php:225
 msgid "VAPID key is required."
 msgstr "Kunci VAPID wajib diisi."
 
@@ -14688,11 +14648,11 @@ msgstr "kunjungan"
 msgid "Views in the last 30 days"
 msgstr "Kunjungan 30 hari terakhir"
 
-#: src/Modules/Pwa/PwaModule.php:424
-msgid "Visitors can install the site as an app, and push notifications share one service worker."
-msgstr "Pengunjung dapat menginstal situs sebagai aplikasi, dan notifikasi push berbagi satu service worker."
+#: src/Modules/Pwa/PwaModule.php:277
+msgid "Visitors can install the site as an app."
+msgstr ""
 
-#: src/Admin/SetupPage.php:467
+#: src/Admin/SetupPage.php:468
 #: src/Admin/SiteHealth.php:120
 #: src/Admin/SiteHealth.php:341
 msgid "Vite manifest"
@@ -14761,7 +14721,7 @@ msgstr "Apa yang berubah"
 msgid "What it means"
 msgstr "Artinya"
 
-#: src/Modules/Pwa/PwaModule.php:423
+#: src/Modules/Pwa/PwaModule.php:276
 msgid "What the PWA does"
 msgstr "Fungsi PWA"
 
@@ -14829,7 +14789,7 @@ msgstr "Saat nonaktif, berkas asli dihapus — tetapi hanya setelah berkas hasil
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr "Saat aktif (dan indeks terpasang), pencarian frontend menggunakan MATCH … AGAINST dalam mode boolean, termasuk kecocokan pada nama kategori dan tag."
 
-#: templates/admin/modules/contact-form.php:142
+#: templates/admin/modules/contact-form.php:146
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
@@ -14979,7 +14939,7 @@ msgid "WordPress %s."
 msgstr "WordPress %s."
 
 #: src/Admin/SetupAjax.php:450
-#: src/Admin/SetupPage.php:679
+#: src/Admin/SetupPage.php:680
 #: src/Modules/Installer/InstallerAjax.php:355
 msgid "WordPress cannot write plugin files directly on this site (direct filesystem access is unavailable). Check the file ownership and permissions, or install the plugin from the Plugins screen, and try again."
 msgstr "WordPress tidak dapat menulis berkas plugin secara langsung di situs ini (akses sistem berkas langsung tidak tersedia). Periksa kepemilikan dan izin berkas, atau pasang plugin dari layar Plugin, lalu coba lagi."
@@ -15041,7 +15001,7 @@ msgstr "Pengungkapan versi WordPress"
 msgid "Words per minute"
 msgstr "Kata per menit"
 
-#: src/Admin/SetupPage.php:155
+#: src/Admin/SetupPage.php:156
 msgid "Work through this list once after installing the theme. Every status below is checked live — reload the page to re-check after installing or activating something."
 msgstr "Kerjakan daftar ini sekali setelah menginstal tema. Setiap status di bawah diperiksa secara live — muat ulang halaman untuk memeriksa ulang setelah menginstal atau mengaktifkan sesuatu."
 
@@ -15311,9 +15271,9 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Seri Artikel."
 msgid "You are not allowed to change Print Article settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Cetak Artikel."
 
-#: src/Modules/Pwa/PwaModule.php:640
-msgid "You are not allowed to change PWA settings."
-msgstr "Anda tidak diizinkan mengubah pengaturan PWA."
+#: src/Modules/Push/PushModule.php:632
+msgid "You are not allowed to change Push settings."
+msgstr ""
 
 #: src/Modules/ReadAloud/ReadAloudModule.php:328
 msgid "You are not allowed to change Read Aloud settings."
@@ -15323,7 +15283,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Baca dengan Suara."
 msgid "You are not allowed to change Reading Progress settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Reading Progress."
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:616
+#: src/Modules/Recaptcha/RecaptchaModule.php:627
 msgid "You are not allowed to change reCAPTCHA settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan reCAPTCHA."
 
@@ -15420,8 +15380,8 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Mailer/MailerModule.php:1746
 #: src/Modules/Mailer/MailerModule.php:2323
 #: src/Modules/PostSeries/PostSeriesModule.php:916
-#: src/Modules/Pwa/PushAjax.php:84
-#: src/Modules/Recaptcha/RecaptchaModule.php:512
+#: src/Modules/Push/PushAjax.php:84
+#: src/Modules/Recaptcha/RecaptchaModule.php:515
 #: src/Modules/Redirects/RedirectsAjax.php:307
 #: src/Modules/Security/SecurityAjax.php:68
 #: src/Modules/Security/SecurityModule.php:288
@@ -15630,11 +15590,11 @@ msgstr "— Tanpa seri —"
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:156
+#: templates/admin/modules/contact-form.php:163
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:121
+#: templates/admin/modules/contact-form.php:119
 msgid "— Select a form —"
 msgstr ""
 
@@ -15644,7 +15604,7 @@ msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:951
 #: src/Modules/Comments/CommentsModule.php:618
-#: src/Modules/Recaptcha/RecaptchaModule.php:565
+#: src/Modules/Recaptcha/RecaptchaModule.php:576
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 #: templates/admin/modules/mailer.php:239
 #: templates/admin/modules/mailer.php:289

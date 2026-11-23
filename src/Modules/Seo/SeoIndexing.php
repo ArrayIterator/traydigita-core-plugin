@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Seo;
 
+use TrayDigita\WP\Plugin\Core\Libs\GoogleServiceAccount;
 use function add_action;
 use function add_filter;
 use function add_query_arg;
 use function add_rewrite_rule;
-use function base64_encode;
 use function bin2hex;
 use function delete_option;
 use function get_option;
@@ -18,25 +18,18 @@ use function home_url;
 use function in_array;
 use function is_array;
 use function is_string;
+use function is_wp_error;
 use function json_decode;
-use function json_encode;
 use function nocache_headers;
-use function openssl_pkey_get_private;
-use function openssl_sign;
 use function random_bytes;
-use function rtrim;
 use function status_header;
-use function str_contains;
-use function str_replace;
 use function time;
 use function update_option;
 use function wp_json_encode;
 use function wp_parse_url;
 use function wp_remote_get;
 use function wp_remote_post;
-use function wp_remote_retrieve_body;
 use function wp_remote_retrieve_response_code;
-use const OPENSSL_ALGO_SHA256;
 
 /**
  * Instant indexing: IndexNow and the Google Indexing API.
@@ -62,10 +55,11 @@ use const OPENSSL_ALGO_SHA256;
  * autoload `no`), validated on save (must decode and carry
  * client_email, private_key, and token_uri), and is NEVER printed,
  * logged, or returned in any AJAX response. It is used only to
- * sign a short-lived RS256 JWT (pure PHP, openssl_sign) for the
- * Google OAuth token endpoint, and the access token is used only
- * for the Indexing API endpoint. If no JSON is provided the
- * feature reports as unconfigured, never faked.
+ * fetch a short-lived access token through the shared
+ * GoogleServiceAccount client (RS256 JWT, pure PHP), and the
+ * access token is used only for the Indexing API endpoint. If
+ * no JSON is provided the feature reports as unconfigured,
+ * never faked.
  *
  * Logs (last ping / last notification only, no secrets, no
  * tokens): `traydigita_seo_indexnow_log` and
@@ -115,11 +109,6 @@ final class SeoIndexing
         'www.bing.com',
         'yandex.com',
     ];
-
-    /**
-     * Google OAuth token endpoint (allowlisted).
-     */
-    public const string GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 
     /**
      * Google Indexing API notification endpoint (allowlisted).
@@ -414,13 +403,8 @@ final class SeoIndexing
                 'message' => __('That is not valid JSON. Paste the service-account JSON file exactly as Google provides it.', 'traydigita-core'),
             ];
         }
-        $email = $decoded['client_email'] ?? '';
-        $key = $decoded['private_key'] ?? '';
-        $tokenUri = $decoded['token_uri'] ?? '';
-        if (!is_string($email) || $email === ''
-            || !is_string($key) || !str_contains($key, 'BEGIN PRIVATE KEY')
-            || !is_string($tokenUri) || $tokenUri === ''
-        ) {
+        $account = GoogleServiceAccount::parse($raw);
+        if ($account === null || $account['token_uri'] === '') {
             return [
                 'success' => false,
                 'message' => __('That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri.', 'traydigita-core'),
@@ -519,34 +503,23 @@ final class SeoIndexing
         if (!is_string($raw) || $raw === '') {
             return null;
         }
-        $decoded = json_decode($raw, true);
-        if (!is_array($decoded)) {
-            return null;
-        }
-        $email = $decoded['client_email'] ?? '';
-        $key = $decoded['private_key'] ?? '';
-        $tokenUri = $decoded['token_uri'] ?? '';
-        if (!is_string($email) || $email === ''
-            || !is_string($key) || !str_contains($key, 'BEGIN PRIVATE KEY')
-            || !is_string($tokenUri) || $tokenUri === ''
-        ) {
+        $account = GoogleServiceAccount::parse($raw);
+        if ($account === null || $account['token_uri'] === '') {
             return null;
         }
         return [
-            'client_email' => $email,
-            'private_key' => $key,
-            'token_uri' => $tokenUri,
+            'client_email' => $account['client_email'],
+            'private_key' => $account['private_key'],
+            'token_uri' => $account['token_uri'],
         ];
     }
 
     /**
-     * Fetch a short-lived Google OAuth access token with a signed JWT.
+     * Fetch a short-lived Google OAuth access token.
      *
-     * Builds a JWT (RS256, pure PHP via openssl_sign) for the
-     * stored service account and exchanges it at the account's own
-     * token_uri. The token endpoint host is allowlisted: only
-     * oauth2.googleapis.com is accepted. Returns null on any
-     * failure; the JWT and the token are never logged.
+     * Delegates to the shared GoogleServiceAccount client with
+     * the Indexing API scope. Returns null on any failure; the
+     * JWT and the token are never logged.
      *
      * @return string|null Access token, or null when it could not be fetched.
      */
@@ -556,84 +529,10 @@ final class SeoIndexing
         if ($account === null) {
             return null;
         }
-        $tokenHost = (string) wp_parse_url($account['token_uri'], PHP_URL_HOST);
-        if ($tokenHost !== 'oauth2.googleapis.com') {
+        $token = GoogleServiceAccount::getAccessToken($account, self::GOOGLE_SCOPE);
+        if (is_wp_error($token)) {
             return null;
         }
-        $jwt = self::buildServiceAccountJwt($account);
-        if ($jwt === null) {
-            return null;
-        }
-        $response = wp_remote_post(
-            $account['token_uri'],
-            [
-                'timeout' => 15,
-                'body' => [
-                    'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                    'assertion' => $jwt,
-                ],
-            ]
-        );
-        if (!is_array($response)) {
-            return null;
-        }
-        if ((int) wp_remote_retrieve_response_code($response) !== 200) {
-            return null;
-        }
-        $body = json_decode(wp_remote_retrieve_body($response), true);
-        if (!is_array($body) || !isset($body['access_token']) || !is_string($body['access_token'])) {
-            return null;
-        }
-        return $body['access_token'];
-    }
-
-    /**
-     * Build a signed JWT for the service account (Google OAuth2 service-account flow).
-     *
-     * Header {alg: RS256, typ: JWT}; claims iss and sub are the
-     * client email, aud is the token URI, scope is the Indexing
-     * API scope, exp is now + 3600 seconds. Signed with the
-     * account's private key via openssl_sign (SHA256). Returns
-     * null when the key cannot be loaded or the signature fails.
-     *
-     * @param array{client_email: string, private_key: string, token_uri: string} $account Validated service account.
-     * @return string|null Signed JWT, or null on failure.
-     */
-    private static function buildServiceAccountJwt(array $account): ?string
-    {
-        $now = time();
-        $header = ['alg' => 'RS256', 'typ' => 'JWT'];
-        $claims = [
-            'iss' => $account['client_email'],
-            'sub' => $account['client_email'],
-            'aud' => $account['token_uri'],
-            'scope' => self::GOOGLE_SCOPE,
-            'iat' => $now,
-            'exp' => $now + 3600,
-        ];
-        $headerEncoded = self::base64UrlEncode((string) json_encode($header));
-        $claimsEncoded = self::base64UrlEncode((string) json_encode($claims));
-        $signingInput = $headerEncoded . '.' . $claimsEncoded;
-        $privateKey = openssl_pkey_get_private($account['private_key']);
-        if ($privateKey === false) {
-            return null;
-        }
-        $signature = '';
-        $signed = openssl_sign($signingInput, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        if (!$signed) {
-            return null;
-        }
-        return $signingInput . '.' . self::base64UrlEncode($signature);
-    }
-
-    /**
-     * URL-safe base64 encoding without padding (JWT encoding).
-     *
-     * @param string $data Raw bytes.
-     * @return string
-     */
-    private static function base64UrlEncode(string $data): string
-    {
-        return rtrim(str_replace(['+', '/'], ['-', '_'], base64_encode($data)), '=');
+        return $token;
     }
 }

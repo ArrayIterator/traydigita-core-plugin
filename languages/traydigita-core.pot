@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-23 22:28+0700\n"
-"PO-Revision-Date: 2026-11-23 22:28+0700\n"
+"POT-Creation-Date: 2026-11-23 23:35+0700\n"
+"PO-Revision-Date: 2026-11-23 23:35+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 
-#: src/Admin/SetupPage.php:164
+#: src/Admin/SetupPage.php:165
 #. translators: %d is the number of checklist items that are done.
 msgid "%d done"
 msgid_plural "%d done"
@@ -97,7 +97,7 @@ msgid "%d font family installed."
 msgid_plural "%d font families installed."
 msgstr[0] ""
 
-#: src/Admin/SetupPage.php:188
+#: src/Admin/SetupPage.php:189
 #. translators: %d is the number of informational checklist items.
 msgid "%d info"
 msgid_plural "%d info"
@@ -120,7 +120,7 @@ msgid "%d minute read"
 msgid_plural "%d minutes read"
 msgstr[0] ""
 
-#: src/Admin/SetupPage.php:176
+#: src/Admin/SetupPage.php:177
 #. translators: %d is the number of checklist items still pending.
 msgid "%d pending"
 msgid_plural "%d pending"
@@ -165,7 +165,7 @@ msgstr ""
 msgid "%s API request failed."
 msgstr ""
 
-#: src/Admin/SetupPage.php:595
+#: src/Admin/SetupPage.php:596
 #. translators: %s is a comma-separated list of active cache plugin names.
 msgid "%s are active."
 msgstr ""
@@ -211,7 +211,7 @@ msgstr ""
 msgid "%s is active, so breadcrumb structured data is handled by %s. The visible trail below is still rendered by this module."
 msgstr ""
 
-#: src/Admin/SetupPage.php:590
+#: src/Admin/SetupPage.php:591
 #. translators: %s is the name of the active cache plugin.
 msgid "%s is active."
 msgstr ""
@@ -308,7 +308,7 @@ msgstr ""
 msgid ".htaccess (server rules)"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:573
+#: src/Modules/Recaptcha/RecaptchaModule.php:585
 msgid "0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score."
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr ""
 msgid "A lightweight central log of module activity — toggles, settings saves, push and mail sends, sign-ins, plugin installs — with filters, retention, and auto-prune."
 msgstr ""
 
-#: src/Admin/SetupPage.php:521
+#: src/Admin/SetupPage.php:522
 msgid "A lightweight log of what happens across the theme — module toggles, settings saves, push and mail sends, logins — stored in its own table with automatic pruning."
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 msgid "A media-library image used as the cover."
 msgstr ""
 
-#: src/Admin/SetupPage.php:577
+#: src/Admin/SetupPage.php:578
 msgid "A page-cache plugin serves repeat visits from cache instead of rebuilding every page. Which plugin fits best depends on the web server this site runs on."
 msgstr ""
 
@@ -538,7 +538,7 @@ msgstr ""
 msgid "A site path starting with /. End with /* to match everything below it, e.g. /old-category/*."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:581
+#: src/Modules/Recaptcha/RecaptchaModule.php:595
 #: src/Modules/Turnstile/TurnstileModule.php:1104
 msgid "A site that enforces a Content-Security-Policy must allow that host in script-src and frame-src, or the widget will not load."
 msgstr ""
@@ -559,7 +559,7 @@ msgstr ""
 msgid "A static single API key (Settings → API → API keys). Only used when the client ID and secret above are empty."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:194
+#: src/Modules/Push/PushAjax.php:194
 msgid "A test token is required for a single-device send."
 msgstr ""
 
@@ -697,24 +697,24 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: src/Admin/SetupPage.php:1000
-#: src/Admin/SetupPage.php:147
-#: src/Admin/SetupPage.php:821
-#: src/Admin/SetupPage.php:949
+#: src/Admin/SetupPage.php:1001
+#: src/Admin/SetupPage.php:148
+#: src/Admin/SetupPage.php:822
+#: src/Admin/SetupPage.php:950
 #: src/Modules/Installer/InstallerModule.php:329
 #: src/Modules/Installer/InstallerModule.php:500
 msgid "Activate"
 msgstr ""
 
-#: src/Admin/SetupPage.php:144
-#: src/Admin/SetupPage.php:948
+#: src/Admin/SetupPage.php:145
+#: src/Admin/SetupPage.php:949
 #: src/Modules/Installer/InstallerModule.php:327
 msgid "Activating…"
 msgstr ""
 
-#: src/Admin/SetupPage.php:149
-#: src/Admin/SetupPage.php:951
-#: src/Admin/SetupPage.php:961
+#: src/Admin/SetupPage.php:150
+#: src/Admin/SetupPage.php:952
+#: src/Admin/SetupPage.php:962
 #: src/Modules/Cache/CacheModule.php:767
 #: src/Modules/Installer/InstallerModule.php:318
 #: src/Modules/Installer/InstallerModule.php:331
@@ -740,9 +740,9 @@ msgstr ""
 msgid "Active-section highlighting."
 msgstr ""
 
-#: src/Admin/SetupPage.php:528
-#: src/Admin/SetupPage.php:538
-#: src/Admin/SetupPage.php:548
+#: src/Admin/SetupPage.php:529
+#: src/Admin/SetupPage.php:539
+#: src/Admin/SetupPage.php:549
 #: src/Modules/ActivityLog/ActivityLogModule.php:200
 msgid "Activity Log"
 msgstr ""
@@ -854,7 +854,7 @@ msgstr ""
 msgid "Admin UI to create and order series."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1026
+#: src/Admin/ModuleRegistry.php:1036
 msgid "Administration"
 msgstr ""
 
@@ -942,11 +942,11 @@ msgstr ""
 msgid "Agenda data could not be deleted."
 msgstr ""
 
-#: src/Admin/SetupPage.php:263
+#: src/Admin/SetupPage.php:264
 msgid "Agenda rules are missing."
 msgstr ""
 
-#: src/Admin/SetupPage.php:262
+#: src/Admin/SetupPage.php:263
 msgid "Agenda rules are present."
 msgstr ""
 
@@ -976,7 +976,6 @@ msgstr ""
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2006
 #: src/Modules/Installer/InstallerModule.php:317
 #: src/Modules/Integrations/IntegrationsModule.php:395
-#: src/Stack/Libs/Messaging/WordPressTableView.php:137
 #: templates/admin/contact-submissions.php:150
 #: templates/admin/modules/agenda.php:178
 #: templates/admin/shell.php:121
@@ -1038,7 +1037,7 @@ msgstr ""
 msgid "All sets"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:575
+#: src/Modules/Push/PushModule.php:567
 msgid "All subscribers"
 msgstr ""
 
@@ -1236,7 +1235,7 @@ msgstr ""
 msgid "As a last resort, with server file access, define the constant below in wp-config.php (or set the filter) to switch two-factor authentication off site-wide until it can be re-enabled:"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:939
+#: src/Modules/Push/PushModule.php:935
 msgid "Asking for notification permission…"
 msgstr ""
 
@@ -1933,8 +1932,8 @@ msgstr ""
 msgid "Cache lifetime (minutes)"
 msgstr ""
 
-#: src/Admin/SetupPage.php:600
-#: src/Admin/SetupPage.php:611
+#: src/Admin/SetupPage.php:601
+#: src/Admin/SetupPage.php:612
 #: src/Admin/SiteHealth.php:112
 #: src/Admin/SiteHealth.php:278
 #: src/Admin/SiteHealth.php:291
@@ -2576,7 +2575,7 @@ msgstr ""
 msgid "Comments marked as spam, including their commentmeta."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1018
+#: src/Admin/ModuleRegistry.php:1028
 msgid "Communication"
 msgstr ""
 
@@ -2599,16 +2598,16 @@ msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:397
 #: src/Modules/Integrations/IntegrationsModule.php:897
-#: src/Modules/Recaptcha/RecaptchaModule.php:529
+#: src/Modules/Recaptcha/RecaptchaModule.php:532
 #: src/Modules/Turnstile/TurnstileModule.php:986
 #: templates/admin/modules/mailer.php:112
 #: templates/admin/shell.php:449
 msgid "Configured"
 msgstr ""
 
-#: src/Admin/SetupPage.php:501
+#: src/Admin/SetupPage.php:502
 #: src/Admin/SiteHealth.php:236
-msgid "Configured in the PWA & Push module."
+msgid "Configured in the Push module."
 msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2160
@@ -2643,12 +2642,12 @@ msgstr ""
 msgid "Connection"
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:150
+#: src/Modules/Push/PushAjax.php:150
 #. translators: %s is the Firebase project id.
 msgid "Connection OK — Google returned an access token for project %s. No notification was sent."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:153
+#: src/Modules/Push/PushAjax.php:153
 msgid "Connection OK — Google returned an access token. No notification was sent."
 msgstr ""
 
@@ -2718,7 +2717,7 @@ msgstr ""
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:994
+#: src/Admin/ModuleRegistry.php:1004
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
 msgid "Content"
 msgstr ""
@@ -2728,7 +2727,7 @@ msgstr ""
 msgid "Content-Security-Policy (report-only)"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:579
+#: src/Modules/Recaptcha/RecaptchaModule.php:593
 msgid "Content-Security-Policy note: reCAPTCHA loads its script and challenge iframe from https://www.google.com/recaptcha/."
 msgstr ""
 
@@ -2893,9 +2892,9 @@ msgstr ""
 msgid "Core"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1610
-#: src/Admin/ModuleRegistry.php:1647
-#: src/Admin/ModuleRegistry.php:943
+#: src/Admin/ModuleRegistry.php:1621
+#: src/Admin/ModuleRegistry.php:1658
+#: src/Admin/ModuleRegistry.php:953
 #: templates/admin/hub-page.php:78
 #: templates/admin/shell.php:433
 msgid "Core module"
@@ -2950,7 +2949,7 @@ msgstr ""
 msgid "Could not delete the redirect."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:943
+#: src/Modules/Push/PushModule.php:939
 msgid "Could not enable notifications. Make sure the site uses HTTPS and the service worker loads without a redirect."
 msgstr ""
 
@@ -2962,7 +2961,7 @@ msgstr ""
 msgid "Could not generate a bypass secret. Please try again."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:745
+#: src/Modules/Push/PushSender.php:708
 #. translators: %s is the token error.
 msgid "Could not get an access token: %s"
 msgstr ""
@@ -3020,15 +3019,15 @@ msgstr ""
 msgid "Could not save the settings."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:197
+#: src/Modules/Push/PushAjax.php:197
 msgid "Could not send the notification."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:733
+#: src/Modules/Push/PushSender.php:696
 msgid "Could not send: Service Account has not been saved yet. Save it on the Settings tab first."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:614
+#: src/Modules/Push/PushSender.php:586
 msgid "Could not sign the Service Account JWT. Check the private_key."
 msgstr ""
 
@@ -3117,7 +3116,7 @@ msgstr ""
 msgid "Create a private app in HubSpot (Settings → Integrations → Private Apps) with the transactional email scope. Leave empty to keep the saved token."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:536
+#: src/Modules/Recaptcha/RecaptchaModule.php:539
 msgid "Create a reCAPTCHA site in the Google reCAPTCHA admin console and paste its site key and secret key below."
 msgstr ""
 
@@ -3253,7 +3252,7 @@ msgstr ""
 msgid "Create template"
 msgstr ""
 
-#: src/Admin/SetupPage.php:837
+#: src/Admin/SetupPage.php:838
 #: templates/admin/modules/activity-log.php:78
 msgid "Create the log table"
 msgstr ""
@@ -3262,15 +3261,11 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:121
-msgid "Created At"
-msgstr ""
-
 #: templates/admin/modules/activity-log.php:61
 msgid "Creating the log table…"
 msgstr ""
 
-#: src/Admin/SetupPage.php:145
+#: src/Admin/SetupPage.php:146
 msgid "Creating…"
 msgstr ""
 
@@ -3519,7 +3514,7 @@ msgstr ""
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:220
+#: templates/admin/modules/contact-form.php:233
 msgid "Default recipient email"
 msgstr ""
 
@@ -3555,7 +3550,6 @@ msgstr ""
 #: src/Modules/Avatar/AvatarModule.php:424
 #: src/Modules/Redirects/RedirectsModule.php:271
 #: src/Modules/Redirects/RedirectsModule.php:393
-#: src/Stack/Libs/Messaging/WordPressTableView.php:139
 #: templates/admin/contact-submissions.php:133
 #: templates/admin/contact-submissions.php:207
 #: templates/admin/modules/activity-log.php:157
@@ -3582,7 +3576,7 @@ msgstr ""
 msgid "Delete all log entries? This cannot be undone."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:526
+#: src/Modules/Push/PushModule.php:518
 msgid "Delete config"
 msgstr ""
 
@@ -3607,7 +3601,7 @@ msgstr ""
 msgid "Delete the custom avatar (fall back to Gravatar)"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:392
+#: src/Modules/Push/PushModule.php:402
 msgid "Delete the saved push config? Subscriber tokens are kept."
 msgstr ""
 
@@ -3698,7 +3692,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:998
+#: src/Admin/ModuleRegistry.php:1008
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3720,7 +3714,7 @@ msgstr ""
 msgid "Desktop only"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:565
+#: src/Modules/Push/PushModule.php:557
 msgid "Destination link"
 msgstr ""
 
@@ -3758,8 +3752,8 @@ msgstr ""
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1626
-#: src/Admin/ModuleRegistry.php:952
+#: src/Admin/ModuleRegistry.php:1637
+#: src/Admin/ModuleRegistry.php:962
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3784,12 +3778,12 @@ msgstr ""
 msgid "Disabled — this rule shows nothing until it is enabled."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:198
+#: src/Modules/Pwa/PwaModule.php:132
 msgid "Disabling removes every trace."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:432
-msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, the \"Install App\" buttons, the service worker, and the subscribe button entirely."
+#: src/Modules/Pwa/PwaModule.php:283
+msgid "Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the \"Install App\" buttons entirely."
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:643
@@ -3869,8 +3863,8 @@ msgstr ""
 msgid "Divider"
 msgstr ""
 
-#: src/Admin/SetupPage.php:150
-#: src/Admin/SetupPage.php:708
+#: src/Admin/SetupPage.php:151
+#: src/Admin/SetupPage.php:709
 #: src/MenuIcons/MenuIcons.php:692
 #: src/Modules/TwoFactor/TwoFactorModule.php:2171
 #: templates/admin/shell.php:115
@@ -3951,11 +3945,11 @@ msgstr ""
 msgid "E-Paper pages"
 msgstr ""
 
-#: src/Admin/SetupPage.php:266
+#: src/Admin/SetupPage.php:267
 msgid "E-Paper rules are missing."
 msgstr ""
 
-#: src/Admin/SetupPage.php:265
+#: src/Admin/SetupPage.php:266
 msgid "E-Paper rules are present."
 msgstr ""
 
@@ -4120,7 +4114,7 @@ msgstr ""
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:166
+#: templates/admin/modules/contact-form.php:179
 msgid "Email subject prefix"
 msgstr ""
 
@@ -4183,7 +4177,7 @@ msgstr ""
 msgid "Enable maintenance mode"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:945
+#: src/Modules/Push/PushModule.php:941
 msgid "Enable notifications"
 msgstr ""
 
@@ -4208,8 +4202,8 @@ msgstr ""
 msgid "Enable the recommended security headers."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1622
-#: src/Admin/ModuleRegistry.php:949
+#: src/Admin/ModuleRegistry.php:1633
+#: src/Admin/ModuleRegistry.php:959
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
@@ -4321,7 +4315,7 @@ msgstr ""
 msgid "Enter at least one valid weight, for example 400, 700."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:565
+#: src/Modules/Recaptcha/RecaptchaModule.php:576
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 msgid "Enter secret key"
 msgstr ""
@@ -4701,10 +4695,9 @@ msgstr ""
 msgid "Fail open for comment and newsletter forms when Cloudflare is unreachable"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:871
 #: src/Modules/Turnstile/TurnstileModule.php:1021
-#: src/Stack/Libs/Messaging/WordPressTableView.php:136
 #: templates/admin/modules/email.php:278
 #: templates/admin/modules/fast-search.php:60
 #: templates/admin/modules/mailer.php:144
@@ -4746,11 +4739,7 @@ msgstr ""
 msgid "Fast Search settings saved."
 msgstr ""
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:520
-msgid "FCM credentials not ready"
-msgstr ""
-
-#: src/Modules/Pwa/PwaModule.php:578
+#: src/Modules/Push/PushModule.php:570
 msgid "FCM token of the test device"
 msgstr ""
 
@@ -4850,39 +4839,39 @@ msgstr ""
 msgid "Finished: %1$d optimized, %2$d skipped, %3$d failed."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:473
+#: src/Modules/Push/PushModule.php:465
 msgid "Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:504
+#: src/Modules/Push/PushModule.php:496
 msgid "Firebase Console > Project Settings > Service accounts > Generate new private key. Required for sending (FCM HTTP v1)."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:464
+#: src/Modules/Push/PushModule.php:456
 msgid "Firebase Console > Project Settings > Your apps (Web) > firebaseConfig. Paste the whole JSON object."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:944
+#: src/Modules/Push/PushModule.php:940
 msgid "Firebase has not loaded yet."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:461
+#: src/Modules/Push/PushModule.php:453
 msgid "Firebase Web Config (JSON)"
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:194
-#: src/Modules/Pwa/PwaModule.php:384
+#: src/Modules/Push/PushModule.php:394
+#: src/Modules/Push/PushSender.php:204
 #. translators: %s is the missing Firebase web config key.
 msgid "Firebase web config is missing the required key: %s."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:187
-#: src/Modules/Pwa/PwaModule.php:383
+#: src/Modules/Push/PushModule.php:393
+#: src/Modules/Push/PushSender.php:197
 msgid "Firebase web config is not valid JSON."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:183
-#: src/Modules/Pwa/PwaModule.php:382
+#: src/Modules/Push/PushModule.php:392
+#: src/Modules/Push/PushSender.php:193
 msgid "Firebase web config is required."
 msgstr ""
 
@@ -4915,7 +4904,7 @@ msgstr ""
 msgid "Flush object cache"
 msgstr ""
 
-#: src/Admin/SetupPage.php:829
+#: src/Admin/SetupPage.php:830
 msgid "Flush permalink rules"
 msgstr ""
 
@@ -4927,7 +4916,7 @@ msgstr ""
 msgid "Flushing it still clears anything cached so far in this request."
 msgstr ""
 
-#: src/Admin/SetupPage.php:146
+#: src/Admin/SetupPage.php:147
 msgid "Flushing…"
 msgstr ""
 
@@ -5006,7 +4995,7 @@ msgstr ""
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:126
 #: templates/admin/modules/contact-form.php:56
 msgid "Form Builder form"
 msgstr ""
@@ -5298,11 +5287,11 @@ msgstr ""
 msgid "GoldAPI.io API key"
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:640
+#: src/Modules/Push/PushSender.php:601
 msgid "Google did not return an access token. Check the Service Account JSON."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:637
+#: src/Modules/Push/PushSender.php:598
 #. translators: %s is Google's error description.
 msgid "Google did not return an access token: %s"
 msgstr ""
@@ -5317,11 +5306,6 @@ msgstr ""
 
 #: src/Modules/Mailer/GmailOAuth.php:164
 msgid "Google did not return usable tokens. Check the client ID and secret, then try connecting again."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1066
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1074
-msgid "Google FCM credentials data has invalid"
 msgstr ""
 
 #: templates/admin/modules/fonts.php:45
@@ -5385,11 +5369,11 @@ msgstr ""
 msgid "Google refused to refresh the Gmail access token. Reconnect Gmail from the Mailer settings."
 msgstr ""
 
-#: src/Modules/Seo/SeoIndexing.php:407
+#: src/Modules/Seo/SeoIndexing.php:396
 msgid "Google service account removed."
 msgstr ""
 
-#: src/Modules/Seo/SeoIndexing.php:432
+#: src/Modules/Seo/SeoIndexing.php:416
 msgid "Google service account saved."
 msgstr ""
 
@@ -5737,7 +5721,6 @@ msgstr ""
 msgid "ICS export for events."
 msgstr ""
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:113
 #: templates/admin/modules/form-builder.php:113
 #: templates/admin/modules/form-builder.php:186
 #: templates/admin/modules/form-builder.php:54
@@ -5763,7 +5746,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:569
+#: src/Modules/Push/PushModule.php:561
 msgid "Image (optional)"
 msgstr ""
 
@@ -5930,11 +5913,11 @@ msgstr ""
 msgid "Indonesian stock prices"
 msgstr ""
 
-#: src/Admin/SetupPage.php:711
+#: src/Admin/SetupPage.php:712
 msgid "Info"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:908
+#: src/Admin/ModuleRegistry.php:918
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -6004,13 +5987,13 @@ msgstr ""
 msgid "Inspect database tables."
 msgstr ""
 
-#: src/Admin/SetupPage.php:994
+#: src/Admin/SetupPage.php:995
 #: src/Modules/Installer/InstallerModule.php:328
 #: src/Modules/Installer/InstallerModule.php:491
 msgid "Install"
 msgstr ""
 
-#: src/Admin/SetupPage.php:813
+#: src/Admin/SetupPage.php:814
 msgid "Install from GitHub release"
 msgstr ""
 
@@ -6022,17 +6005,17 @@ msgstr ""
 msgid "Install the plugin before activating it."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:218
+#: src/Modules/Pwa/PwaModule.php:152
 msgid "Installable web app with manifest and service worker."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:195
+#: src/Modules/Pwa/PwaModule.php:130
 msgid "Installable web app: manifest, theme colour, store-style install sheet."
 msgstr ""
 
-#: src/Admin/SetupPage.php:148
-#: src/Admin/SetupPage.php:950
-#: src/Admin/SetupPage.php:963
+#: src/Admin/SetupPage.php:149
+#: src/Admin/SetupPage.php:951
+#: src/Admin/SetupPage.php:964
 #: src/Modules/Installer/InstallerModule.php:319
 #: src/Modules/Installer/InstallerModule.php:330
 #: src/Modules/Installer/InstallerModule.php:432
@@ -6041,12 +6024,12 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
-#: src/Admin/SetupPage.php:308
+#: src/Admin/SetupPage.php:309
 #: src/Admin/SiteHealth.php:217
 msgid "Installed and active."
 msgstr ""
 
-#: src/Admin/SetupPage.php:321
+#: src/Admin/SetupPage.php:322
 msgid "Installed but not active. Activate it so the theme can boot."
 msgstr ""
 
@@ -6055,7 +6038,7 @@ msgstr ""
 msgid "Installed fonts"
 msgstr ""
 
-#: src/Admin/SetupPage.php:390
+#: src/Admin/SetupPage.php:391
 #. translators: 1: installed count, 2: total recommended plugins, 3: active count.
 msgid "Installed: %1$d of %2$d recommended plugins; active: %3$d."
 msgstr ""
@@ -6064,8 +6047,8 @@ msgstr ""
 msgid "Installing never activates anything — activation takes a separate click."
 msgstr ""
 
-#: src/Admin/SetupPage.php:143
-#: src/Admin/SetupPage.php:947
+#: src/Admin/SetupPage.php:144
+#: src/Admin/SetupPage.php:948
 #: src/Modules/Installer/InstallerModule.php:326
 msgid "Installing…"
 msgstr ""
@@ -6086,7 +6069,7 @@ msgstr ""
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1022
+#: src/Admin/ModuleRegistry.php:1032
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr ""
@@ -6099,16 +6082,8 @@ msgstr ""
 msgid "Intro text (optional)"
 msgstr ""
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1160
-msgid "Invalid access token response"
-msgstr ""
-
 #: src/Modules/Recaptcha/Verifier.php:75
 msgid "Invalid response from the reCAPTCHA verification service."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:532
-msgid "Invalid token, token is empty"
 msgstr ""
 
 #: templates/admin/contact-submissions.php:102
@@ -6171,7 +6146,7 @@ msgstr ""
 msgid "It is never shown again after saving."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:553
+#: src/Modules/Recaptcha/RecaptchaModule.php:562
 #: src/Modules/Turnstile/TurnstileModule.php:1034
 msgid "It is shown in the page markup by design — only the secret key must stay private."
 msgstr ""
@@ -6225,12 +6200,16 @@ msgstr ""
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:211
+#: templates/admin/modules/contact-form.php:224
 msgid "Keep submissions (days)"
 msgstr ""
 
 #: templates/admin/modules/image-optimizer.php:157
 msgid "Keep the original file"
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
+msgid "Keys"
 msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:469
@@ -6345,7 +6324,7 @@ msgstr ""
 msgid "Leave empty to generate the slug from the name."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:494
+#: src/Modules/Push/PushModule.php:486
 msgid "Leave empty to keep the saved key."
 msgstr ""
 
@@ -6353,7 +6332,7 @@ msgstr ""
 msgid "Leave empty to keep the saved password. The password is never shown."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:567
+#: src/Modules/Recaptcha/RecaptchaModule.php:572
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "Leave empty to keep the saved secret key."
 msgstr ""
@@ -6378,7 +6357,7 @@ msgstr ""
 msgid "Leave empty to use the default banner text colour."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:134
+#: templates/admin/modules/contact-form.php:138
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6414,8 +6393,8 @@ msgstr ""
 msgid "Let users set their own avatar from their profile page"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:154
-msgid "Let visitors install the site as an app (web manifest, theme colour, store-style install sheet) and send manual push notifications to subscribers with Firebase Cloud Messaging. One service worker serves both. Disable to remove every trace of it."
+#: src/Modules/Pwa/PwaModule.php:87
+msgid "Let visitors install the site as an app (web manifest, theme colour, store-style install sheet). Push notifications live in the Push module. Disable to remove every trace of it."
 msgstr ""
 
 #: src/Modules/Toc/TocModule.php:353
@@ -6496,7 +6475,7 @@ msgstr ""
 msgid "Links shown below the page content."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:427
+#: src/Modules/Pwa/PwaModule.php:279
 msgid "Links the web manifest (manifest.webmanifest) from every page head, so browsers know the app name, theme colour, icons, start URL, and scope."
 msgstr ""
 
@@ -6893,7 +6872,7 @@ msgstr ""
 msgid "Manage module categories"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:205
+#: templates/admin/modules/contact-form.php:218
 msgid "Manage reCAPTCHA keys"
 msgstr ""
 
@@ -6916,20 +6895,20 @@ msgstr ""
 msgid "Manual price snapshot (one per line):"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:196
+#: src/Modules/Push/PushModule.php:200
 msgid "Manual push notifications to subscribers via Firebase Cloud Messaging."
 msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:629
-msgid "Manual push notifications to subscribers — save a Firebase config in the PWA & Push module."
+msgid "Manual push notifications to subscribers — save a Firebase config in the Push module."
 msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:625
-msgid "Manual push notifications to subscribers, configured in the PWA & Push module."
+msgid "Manual push notifications to subscribers, configured in the Push module."
 msgstr ""
 
-#: src/Admin/SetupPage.php:495
-msgid "Manual push notifications to subscribers, from the PWA & Push module (Firebase Cloud Messaging). Optional: the site works fully without it."
+#: src/Admin/SetupPage.php:496
+msgid "Manual push notifications to subscribers, from the Push module (Firebase Cloud Messaging). Optional: the site works fully without it."
 msgstr ""
 
 #: src/Modules/Markets/MarketsModule.php:1042
@@ -7052,16 +7031,15 @@ msgstr ""
 msgid "Menu icons are picked per menu item on the Menus screen. The settings below control the default behaviour for every icon on the frontend."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:267
-#: src/Modules/Pwa/PwaModule.php:560
-#: src/Stack/Libs/Messaging/WordPressTableView.php:116
+#: src/Modules/Push/PushModule.php:264
+#: src/Modules/Push/PushModule.php:552
 #: templates/admin/modules/activity-log.php:141
 #: templates/admin/modules/mailer.php:430
 #: templates/admin/modules/maintenance.php:105
 msgid "Message"
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:191
+#: src/Modules/Push/PushAjax.php:191
 msgid "Message is required."
 msgstr ""
 
@@ -7201,7 +7179,7 @@ msgstr ""
 msgid "Modules: enable what you need"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1014
+#: src/Admin/ModuleRegistry.php:1024
 msgid "Monetization"
 msgstr ""
 
@@ -7303,9 +7281,9 @@ msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 
-#: src/Admin/ModuleRegistry.php:1618
-#: src/Admin/ModuleRegistry.php:946
-#: src/Modules/Recaptcha/RecaptchaModule.php:532
+#: src/Admin/ModuleRegistry.php:1629
+#: src/Admin/ModuleRegistry.php:956
+#: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
 msgid "Needs setup"
@@ -7334,7 +7312,7 @@ msgstr ""
 msgid "never"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:506
+#: src/Modules/Push/PushModule.php:498
 msgid "Never share this with anyone."
 msgstr ""
 
@@ -7626,7 +7604,7 @@ msgstr ""
 msgid "No failed attempts recorded yet."
 msgstr ""
 
-#: src/Admin/SetupPage.php:671
+#: src/Admin/SetupPage.php:672
 msgid "No file was uploaded. Choose the TrayDigita Stack .zip file and try again."
 msgstr ""
 
@@ -7696,7 +7674,7 @@ msgstr ""
 msgid "No newsletters sent yet."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:593
+#: src/Modules/Push/PushModule.php:585
 msgid "No notifications sent yet."
 msgstr ""
 
@@ -7810,7 +7788,7 @@ msgstr ""
 msgid "No third-party scripts."
 msgstr ""
 
-#: src/Admin/SetupPage.php:436
+#: src/Admin/SetupPage.php:437
 #: src/Admin/SiteHealth.php:387
 #. translators: %s is the site locale, e.g. id_ID.
 msgid "No translation file for %s. English strings are used as fallback."
@@ -7831,10 +7809,6 @@ msgstr ""
 
 #: src/Modules/Security/Checks.php:348
 msgid "No user named \"admin\" exists, so automated attacks cannot rely on that username."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:544
-msgid "No valid topics provided"
 msgstr ""
 
 #: src/Modules/Seo/SeoAi.php:159
@@ -7870,8 +7844,8 @@ msgstr ""
 msgid "Not applicable"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1606
-#: src/Admin/ModuleRegistry.php:940
+#: src/Admin/ModuleRegistry.php:1617
+#: src/Admin/ModuleRegistry.php:950
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr ""
@@ -7888,7 +7862,7 @@ msgstr ""
 msgid "Not configured"
 msgstr ""
 
-#: src/Admin/SetupPage.php:502
+#: src/Admin/SetupPage.php:503
 #: src/Admin/SiteHealth.php:237
 msgid "Not configured yet. Push notifications are unavailable (optional)."
 msgstr ""
@@ -7909,7 +7883,7 @@ msgstr ""
 msgid "not granted"
 msgstr ""
 
-#: src/Admin/SetupPage.php:964
+#: src/Admin/SetupPage.php:965
 #: src/Modules/Installer/InstallerModule.php:320
 #: src/Modules/Installer/InstallerModule.php:332
 #: src/Modules/Installer/InstallerModule.php:433
@@ -7917,7 +7891,7 @@ msgstr ""
 msgid "Not installed"
 msgstr ""
 
-#: src/Admin/SetupPage.php:333
+#: src/Admin/SetupPage.php:334
 msgid "Not installed. Install it from the project’s GitHub release, or upload the release .zip file below."
 msgstr ""
 
@@ -7980,11 +7954,11 @@ msgstr ""
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:154
+#: templates/admin/modules/contact-form.php:170
 msgid "Notification email template"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:940
+#: src/Modules/Push/PushModule.php:936
 msgid "Notification permission was denied. Enable it from the lock icon in the address bar if you change your mind."
 msgstr ""
 
@@ -7992,19 +7966,19 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:938
+#: src/Modules/Push/PushModule.php:934
 msgid "Notifications are already on."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:941
+#: src/Modules/Push/PushModule.php:937
 msgid "Notifications are on. You will receive the latest updates."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:441
+#: src/Modules/Push/PushModule.php:433
 msgid "Notifications are sent manually from the Message tab only — never automatically when a post is published."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:942
+#: src/Modules/Push/PushModule.php:938
 msgid "Notifications On"
 msgstr ""
 
@@ -8117,7 +8091,7 @@ msgstr ""
 msgid "On this page"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:576
+#: src/Modules/Push/PushModule.php:568
 msgid "One device (test)"
 msgstr ""
 
@@ -8146,12 +8120,8 @@ msgstr ""
 msgid "One place for all market data."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:226
+#: src/Modules/Pwa/PwaModule.php:160
 msgid "One service worker now serves both install and push."
-msgstr ""
-
-#: src/Modules/Pwa/PwaModule.php:197
-msgid "One service worker serves both install and push."
 msgstr ""
 
 #: src/Modules/Share/ShareModule.php:277
@@ -8174,7 +8144,7 @@ msgstr ""
 msgid "Ongoing"
 msgstr ""
 
-#: src/Admin/SetupPage.php:675
+#: src/Admin/SetupPage.php:676
 msgid "Only .zip files can be uploaded."
 msgstr ""
 
@@ -8300,16 +8270,12 @@ msgstr ""
 msgid "Open %s settings"
 msgstr ""
 
-#: src/Admin/SetupPage.php:845
+#: src/Admin/SetupPage.php:846
 msgid "Open Activity Log"
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:737
 msgid "Open Custom Headers"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:138
-msgid "Open Link"
 msgstr ""
 
 #: src/Modules/Mailer/MailerModule.php:2357
@@ -8324,22 +8290,23 @@ msgstr ""
 msgid "Open modules"
 msgstr ""
 
-#: src/Admin/SetupPage.php:853
+#: src/Admin/SetupPage.php:854
 msgid "Open Plugin Suggestions"
 msgstr ""
 
-#: src/Admin/SetupPage.php:877
+#: src/Admin/SetupPage.php:878
 #: src/Modules/Installer/InstallerModule.php:345
 #: src/Modules/SiteKit/SiteKitModule.php:416
 msgid "Open Plugins"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:412
-msgid "Open Push Notifications (plugin)"
+#: src/Admin/SetupPage.php:870
+#: src/Modules/Pwa/PwaModule.php:291
+msgid "Open Push Notifications"
 msgstr ""
 
-#: src/Admin/SetupPage.php:869
-msgid "Open PWA & Push"
+#: src/Modules/Push/PushModule.php:422
+msgid "Open Push Notifications (plugin)"
 msgstr ""
 
 #: templates/admin/modules/fonts.php:161
@@ -8361,7 +8328,7 @@ msgstr ""
 msgid "Open the Cloudflare Turnstile dashboard"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:541
+#: src/Modules/Recaptcha/RecaptchaModule.php:544
 msgid "Open the Google reCAPTCHA admin console"
 msgstr ""
 
@@ -8384,14 +8351,6 @@ msgstr ""
 
 #: src/Modules/Share/ShareModule.php:311
 msgid "Opens the visitor’s mail client with the post title as the subject."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1126
-msgid "OpenSSL Library can not signing private key"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:1059
-msgid "OpenSSL Library has not found"
 msgstr ""
 
 #: src/Modules/DbTools/DbToolsModule.php:270
@@ -8461,7 +8420,7 @@ msgstr ""
 msgid "Optional instant indexing."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:168
+#: templates/admin/modules/contact-form.php:181
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8486,7 +8445,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: src/Admin/SetupPage.php:908
+#: src/Admin/SetupPage.php:909
 msgid "Or upload the release .zip file"
 msgstr ""
 
@@ -8741,7 +8700,7 @@ msgstr ""
 msgid "Past"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:495
+#: src/Modules/Push/PushModule.php:487
 msgid "Paste a new JSON only when rotating the key. The private key is never shown here."
 msgstr ""
 
@@ -8757,7 +8716,7 @@ msgstr ""
 msgid "Paste the ad code here, for example an AdSense unit."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:443
+#: src/Modules/Push/PushModule.php:435
 msgid "Paste the Firebase config once, save it, and the settings lock. Subscribers register from the [traydigita_push_subscribe] button on the site."
 msgstr ""
 
@@ -8808,8 +8767,8 @@ msgstr ""
 msgid "PDF only, up to %d MB."
 msgstr ""
 
-#: src/Admin/SetupPage.php:151
-#: src/Admin/SetupPage.php:710
+#: src/Admin/SetupPage.php:152
+#: src/Admin/SetupPage.php:711
 #: templates/admin/modules/email.php:240
 msgid "Pending"
 msgstr ""
@@ -8838,7 +8797,7 @@ msgstr ""
 msgid "Per-role enforcement and rate limiting."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1006
+#: src/Admin/ModuleRegistry.php:1016
 msgid "Performance"
 msgstr ""
 
@@ -8850,7 +8809,7 @@ msgstr ""
 msgid "Permalink rules are in place."
 msgstr ""
 
-#: src/Admin/SetupPage.php:275
+#: src/Admin/SetupPage.php:276
 msgid "Permalinks"
 msgstr ""
 
@@ -9102,7 +9061,7 @@ msgstr ""
 msgid "Plugins are installed only from the wordpress.org plugin directory — never from any other source — and installing never activates anything."
 msgstr ""
 
-#: src/Admin/SetupPage.php:383
+#: src/Admin/SetupPage.php:384
 msgid "Plugins this news site benefits from — Google Site Kit first. All are optional; install only the ones you need."
 msgstr ""
 
@@ -9376,7 +9335,7 @@ msgstr ""
 msgid "Printing is the browser’s own print dialog — there is no server-side PDF generation and no extra request. The source line under the article shows where the print came from."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:428
+#: src/Modules/Pwa/PwaModule.php:280
 msgid "Prints a theme-color meta tag in the page head, using the brand primary colour from the Customizer."
 msgstr ""
 
@@ -9405,12 +9364,12 @@ msgstr ""
 msgid "Privacy-focused SEO plugin with automated meta tags and no ads or upsells. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr ""
 
-#: src/Admin/SetupPage.php:474
+#: src/Admin/SetupPage.php:475
 #: src/Admin/SiteHealth.php:338
 msgid "Production manifest found (dist/manifest.json)."
 msgstr ""
 
-#: src/Admin/SetupPage.php:475
+#: src/Admin/SetupPage.php:476
 #: src/Admin/SiteHealth.php:339
 msgid "Production manifest missing. Run the asset build to regenerate it."
 msgstr ""
@@ -9520,59 +9479,83 @@ msgstr ""
 msgid "Purged the page cache through %s."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:692
+#: src/Modules/Push/PushModule.php:684
 msgid "Push config could not be saved. Check the fields below."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:234
+#: src/Modules/Push/PushAjax.php:234
 msgid "Push config deleted. Subscriber tokens were kept."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:657
+#: src/Modules/Push/PushModule.php:649
 msgid "Push config is locked. Unlock it first to change the config."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:710
+#: src/Modules/Push/PushModule.php:702
 msgid "Push config saved and locked. Test it with the Test config button, then send from the Message tab."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:138
-#: src/Modules/Pwa/PushAjax.php:177
+#: src/Modules/Push/PushModule.php:410
+msgid "Push is disabled. No push service worker or subscribe button is served. Enable the module in the module grid first."
+msgstr ""
+
+#: src/Modules/Push/PushAjax.php:138
+#: src/Modules/Push/PushAjax.php:177
 msgid "Push is not configured yet. Save a valid config on the Settings tab first."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:546
+#: src/Modules/Push/PushModule.php:538
 msgid "Push is not configured yet. Save a valid Firebase config on the Settings tab first — this form unlocks once the config is saved."
 msgstr ""
 
-#: src/Admin/SetupPage.php:494
+#: src/Admin/SetupPage.php:495
 #: src/Admin/SiteHealth.php:108
 #: src/Admin/SiteHealth.php:239
 msgid "Push notifications"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:437
+#: src/Modules/Push/PushModule.php:152
+msgid "Push Notifications"
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:429
 msgid "Push notifications (Firebase Cloud Messaging)"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:224
+#: src/Modules/Pwa/PwaModule.php:288
+msgid "Push notifications live in the Push module."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:158
 msgid "Push notifications merged in: manual Firebase Cloud Messaging sends to subscribers."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:166
+msgid "Push notifications split out into their own Push module; this module is PWA-only again."
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:223
+msgid "Push notifications split out of the PWA module into their own module (settings, tokens, and sending unchanged)."
 msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1126
 msgid "Put the editor shortcode on this page. The page becomes the member dashboard (Overview, Posts, My Contributions, Write, Bookmarks, Profile, Change Email) for every logged-in user: guests go to the login page, and sections inside are shown only when the user has the capability and the feature is available. When no page is picked, the homepage is used and no dashboard template is applied."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:609
+#: src/Modules/Push/PushModule.php:601
 msgid "Put the subscribe button on the site with the shortcode [traydigita_push_subscribe]."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:400
-msgid "PWA & Push is disabled. The site is not installable and no push service worker or subscribe button is served. Enable the module in the module grid first."
+#: src/Modules/Pwa/PwaModule.php:77
+msgid "PWA"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:144
-msgid "PWA & Push Notifications"
+#: src/Modules/Pwa/PwaModule.php:312
+msgid "PWA has no settings to save."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:266
+msgid "PWA is disabled. The site is not installable: no manifest link, theme-color meta tag, install sheet, or \"Install App\" buttons are served. Enable the module in the module grid first."
 msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2340
@@ -9627,7 +9610,7 @@ msgstr ""
 msgid "Re-check now"
 msgstr ""
 
-#: src/Admin/SetupPage.php:196
+#: src/Admin/SetupPage.php:197
 msgid "Re-check statuses"
 msgstr ""
 
@@ -9700,19 +9683,19 @@ msgstr ""
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:188
+#: templates/admin/modules/contact-form.php:201
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:203
+#: templates/admin/modules/contact-form.php:216
 msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:201
+#: templates/admin/modules/contact-form.php:214
 msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:186
+#: templates/admin/modules/contact-form.php:199
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
@@ -9720,7 +9703,7 @@ msgstr ""
 msgid "reCAPTCHA score is too low."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:646
+#: src/Modules/Recaptcha/RecaptchaModule.php:657
 msgid "reCAPTCHA settings saved."
 msgstr ""
 
@@ -9732,7 +9715,7 @@ msgstr ""
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:571
+#: src/Modules/Recaptcha/RecaptchaModule.php:582
 msgid "reCAPTCHA v3 score threshold"
 msgstr ""
 
@@ -9750,7 +9733,7 @@ msgstr ""
 msgid "Recent failed attempts"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:591
+#: src/Modules/Push/PushModule.php:583
 msgid "Recent sends"
 msgstr ""
 
@@ -9758,11 +9741,11 @@ msgstr ""
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:132
+#: templates/admin/modules/contact-form.php:136
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1647
+#: src/Admin/ModuleRegistry.php:1658
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr ""
@@ -9772,7 +9755,7 @@ msgstr ""
 msgid "Recommended fix"
 msgstr ""
 
-#: src/Admin/SetupPage.php:382
+#: src/Admin/SetupPage.php:383
 msgid "Recommended plugins"
 msgstr ""
 
@@ -9864,7 +9847,7 @@ msgstr ""
 msgid "Regenerating invalidates the current bypass link and every bypass cookie immediately."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:449
+#: src/Modules/Push/PushModule.php:441
 #. translators: %d is the number of registered subscriber devices.
 msgid "Registered devices: %d."
 msgstr ""
@@ -10115,10 +10098,6 @@ msgstr ""
 msgid "Reset to defaults"
 msgstr ""
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:120
-msgid "Response"
-msgstr ""
-
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2156
 msgid "Restore"
 msgstr ""
@@ -10154,11 +10133,11 @@ msgstr ""
 msgid "Revision note for the author"
 msgstr ""
 
-#: src/Admin/SetupPage.php:260
+#: src/Admin/SetupPage.php:261
 msgid "Rewrite flag is not set."
 msgstr ""
 
-#: src/Admin/SetupPage.php:259
+#: src/Admin/SetupPage.php:260
 msgid "Rewrite flag is set."
 msgstr ""
 
@@ -10284,7 +10263,6 @@ msgstr ""
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:341
-#: src/Modules/Recaptcha/RecaptchaModule.php:588
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
@@ -10304,7 +10282,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:517
+#: src/Modules/Push/PushModule.php:509
 msgid "Save config"
 msgstr ""
 
@@ -10356,7 +10334,7 @@ msgstr ""
 msgid "Saved on %s"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:485
+#: src/Modules/Push/PushModule.php:477
 #. translators: %1$s is the Firebase project id, %2$s is the service account email.
 msgid "Saved — project: %1$s, email: %2$s"
 msgstr ""
@@ -10371,7 +10349,7 @@ msgstr ""
 
 #: src/Modules/Ads/AdsModule.php:819
 #: src/Modules/Avatar/AvatarModule.php:309
-#: src/Modules/Pwa/PwaModule.php:393
+#: src/Modules/Push/PushModule.php:403
 #: templates/admin/modules/epaper.php:47
 #: templates/admin/shell.php:105
 msgid "Saving…"
@@ -10500,7 +10478,7 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:557
+#: src/Modules/Recaptcha/RecaptchaModule.php:570
 #: src/Modules/Turnstile/TurnstileModule.php:1038
 #: src/Modules/Turnstile/TurnstileModule.php:1181
 msgid "Secret key"
@@ -10518,7 +10496,7 @@ msgstr ""
 msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1002
+#: src/Admin/ModuleRegistry.php:1012
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr ""
@@ -10571,7 +10549,7 @@ msgstr ""
 msgid "Security Monitor keeps no settings of its own — checks run on demand with the Re-check button above."
 msgstr ""
 
-#: src/Admin/SetupPage.php:861
+#: src/Admin/SetupPage.php:862
 #: src/Admin/SiteHealth.php:298
 #: src/Modules/Cache/CacheModule.php:752
 msgid "See the recommended cache plugins"
@@ -10631,11 +10609,15 @@ msgstr ""
 msgid "Send log"
 msgstr ""
 
+#: src/Modules/Push/PushModule.php:162
+msgid "Send manual push notifications to subscribers with Firebase Cloud Messaging. Subscribers register from the [traydigita_push_subscribe] button; sending is manual only, never automatic on publish."
+msgstr ""
+
 #: templates/admin/modules/email.php:195
 msgid "Send newsletter"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:584
+#: src/Modules/Push/PushModule.php:576
 msgid "Send notification"
 msgstr ""
 
@@ -10647,7 +10629,7 @@ msgstr ""
 msgid "Send test email to"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:140
+#: templates/admin/modules/contact-form.php:144
 msgid "Send to email"
 msgstr ""
 
@@ -10661,10 +10643,6 @@ msgstr ""
 
 #: templates/admin/modules/email.php:151
 msgid "Sender email for newsletter mail. Leave empty to use the Mailer From email. Gmail always sends from the connected account, whatever is entered here."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:117
-msgid "Sender Id"
 msgstr ""
 
 #: templates/admin/modules/email.php:142
@@ -10716,7 +10694,7 @@ msgstr ""
 msgid "Sending mail through Gmail as %s."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:395
+#: src/Modules/Push/PushModule.php:405
 msgid "Sending…"
 msgstr ""
 
@@ -10756,7 +10734,7 @@ msgstr ""
 msgid "Sends defensive HTTP security headers."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: templates/admin/modules/email.php:277
 #: templates/admin/modules/mailer.php:474
 msgid "Sent"
@@ -10874,7 +10852,7 @@ msgstr ""
 msgid "Sent through ZeptoMail."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:809
+#: src/Modules/Push/PushSender.php:772
 #. translators: %1$d sent, %2$d failed, %3$d pruned.
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr ""
@@ -10890,7 +10868,7 @@ msgstr ""
 msgid "SEO"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1010
+#: src/Admin/ModuleRegistry.php:1020
 msgid "SEO & Discovery"
 msgstr ""
 
@@ -10931,46 +10909,42 @@ msgstr ""
 msgid "Server snippets"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:430
-msgid "Serves one root-scope service worker (/firebase-messaging-sw.js) that receives Firebase push messages in the background and also acts as the PWA worker, so installing the app and receiving push never conflict."
-msgstr ""
-
 #: src/Modules/Seo/SeoModule.php:839
 #. translators: %s is the service-account client email, e.g. "name@project.iam.gserviceaccount.com".
 msgid "Service account configured: %s"
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:600
+#: src/Modules/Push/PushSender.php:580
 msgid "Service Account has not been saved yet."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:479
+#: src/Modules/Push/PushModule.php:471
 msgid "Service Account JSON"
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:246
-#: src/Modules/Pwa/PwaModule.php:390
+#: src/Libs/GoogleServiceAccount.php:120
+#: src/Modules/Push/PushModule.php:400
 msgid "Service Account JSON is missing a valid client_email."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:252
-#: src/Modules/Pwa/PwaModule.php:391
+#: src/Libs/GoogleServiceAccount.php:126
+#: src/Modules/Push/PushModule.php:401
 msgid "Service Account JSON is missing a valid private_key."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:237
-#: src/Modules/Pwa/PwaModule.php:388
+#: src/Libs/GoogleServiceAccount.php:111
+#: src/Modules/Push/PushModule.php:398
 msgid "Service Account JSON is not valid JSON."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:233
-#: src/Modules/Pwa/PwaModule.php:387
-#: src/Modules/Pwa/PwaModule.php:687
+#: src/Libs/GoogleServiceAccount.php:107
+#: src/Modules/Push/PushModule.php:397
+#: src/Modules/Push/PushModule.php:679
 msgid "Service Account JSON is required."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:240
-#: src/Modules/Pwa/PwaModule.php:389
+#: src/Libs/GoogleServiceAccount.php:114
+#: src/Modules/Push/PushModule.php:399
 msgid "Service Account JSON must have \"type\": \"service_account\"."
 msgstr ""
 
@@ -11031,7 +11005,7 @@ msgstr ""
 #: src/Modules/DbTools/DbToolsModule.php:271
 #: src/Modules/EPaper/EPaperModule.php:233
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:275
-#: src/Modules/Pwa/PwaModule.php:264
+#: src/Modules/Push/PushModule.php:261
 #: src/Modules/Redirects/RedirectsModule.php:402
 #: templates/admin/modules/epaper.php:91
 #: templates/admin/modules/image-optimizer.php:133
@@ -11107,6 +11081,10 @@ msgstr ""
 
 #: templates/admin/modules/cookie-consent.php:56
 msgid "Shared with the Customizer"
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:203
+msgid "Shares one service worker with the PWA, so install and push never conflict."
 msgstr ""
 
 #: templates/admin/modules/contact-form.php:60
@@ -11262,7 +11240,7 @@ msgstr ""
 msgid "Shows a dismissible cookie consent banner and remembers the visitor’s choice."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:429
+#: src/Modules/Pwa/PwaModule.php:281
 msgid "Shows a store-style install sheet (Play Store variant, App Store variant on macOS and iOS) with an Install button and install instructions."
 msgstr ""
 
@@ -11386,7 +11364,7 @@ msgstr ""
 msgid "Site Info has no settings to save."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:551
+#: src/Modules/Recaptcha/RecaptchaModule.php:559
 #: src/Modules/Turnstile/TurnstileModule.php:1032
 #: src/Modules/Turnstile/TurnstileModule.php:1167
 msgid "Site key"
@@ -11555,8 +11533,8 @@ msgstr ""
 msgid "Some plugins rely on the frontend heartbeat; switch it back on if a frontend feature stops refreshing."
 msgstr ""
 
-#: src/Admin/SetupPage.php:152
-#: src/Admin/SetupPage.php:952
+#: src/Admin/SetupPage.php:153
+#: src/Admin/SetupPage.php:953
 #: src/Modules/Installer/InstallerModule.php:337
 #: src/Modules/TwoFactor/TwoFactorModule.php:2110
 #: templates/admin/modules/activity-log.php:64
@@ -11622,12 +11600,12 @@ msgid "Spam detected."
 msgstr ""
 
 #: src/Modules/ContactForm/ContactFormModule.php:321
-#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/contact-form.php:157
 #: templates/admin/modules/contact-form.php:59
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:178
+#: templates/admin/modules/contact-form.php:191
 msgid "Spam protection & retention"
 msgstr ""
 
@@ -11700,7 +11678,6 @@ msgstr ""
 #: src/Modules/Cache/CacheModule.php:811
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2092
 #: src/Modules/Redirects/RedirectsModule.php:373
-#: src/Stack/Libs/Messaging/WordPressTableView.php:119
 #: templates/admin/contact-submissions.php:148
 #: templates/admin/contact-submissions.php:182
 #: templates/admin/contact-submissions.php:94
@@ -11766,6 +11743,10 @@ msgstr ""
 msgid "Store only"
 msgstr ""
 
+#: src/Modules/Pwa/PwaModule.php:131
+msgid "Store-style install sheet (Play Store variant, App Store variant on macOS and iOS)."
+msgstr ""
+
 #: src/Modules/UserManager/UserManagerModule.php:376
 msgid "Stored as a timestamp in user meta and shown in the site timezone."
 msgstr ""
@@ -11796,11 +11777,11 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:213
+#: templates/admin/modules/contact-form.php:226
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:573
+#: src/Modules/Recaptcha/RecaptchaModule.php:584
 msgid "Submissions scoring below this (0.0–1.0) are rejected."
 msgstr ""
 
@@ -11847,6 +11828,10 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
+#: src/Modules/Push/PushModule.php:201
+msgid "Subscribers register from the [traydigita_push_subscribe] button on the site."
+msgstr ""
+
 #: src/Modules/Email/EmailAjax.php:386
 msgid "Subscription confirmed"
 msgstr ""
@@ -11867,10 +11852,6 @@ msgstr ""
 #: src/Modules/Turnstile/TurnstileModule.php:1019
 #: templates/admin/modules/mailer.php:142
 msgid "Succeeded"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:135
-msgid "Success"
 msgstr ""
 
 #: src/Modules/Seo/SeoModule.php:976
@@ -12002,7 +11983,7 @@ msgstr ""
 msgid "Tap the bookmark button on any article to save it here."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:573
+#: src/Modules/Push/PushModule.php:565
 #: src/Modules/Redirects/RedirectsModule.php:327
 #: src/Modules/Redirects/RedirectsModule.php:372
 msgid "Target"
@@ -12010,10 +11991,6 @@ msgstr ""
 
 #: templates/admin/modules/image-optimizer.php:138
 msgid "Target format"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/WordPressTableView.php:118
-msgid "Target URL"
 msgstr ""
 
 #: src/Modules/Share/ShareModule.php:302
@@ -12070,15 +12047,15 @@ msgstr ""
 msgid "Test & Log"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:520
+#: src/Modules/Push/PushModule.php:512
 msgid "Test config"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:532
+#: src/Modules/Push/PushModule.php:524
 msgid "Test config checks the saved credentials without sending anything."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:534
+#: src/Modules/Push/PushModule.php:526
 msgid "Test config fetches an FCM access token from Google with the saved Service Account — proof the config works. It sends no notification."
 msgstr ""
 
@@ -12099,7 +12076,11 @@ msgstr ""
 msgid "Test keys"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:394
+#: src/Modules/Push/PushModule.php:202
+msgid "Test the saved config without sending anything."
+msgstr ""
+
+#: src/Modules/Push/PushModule.php:404
 msgid "Testing config…"
 msgstr ""
 
@@ -12204,7 +12185,7 @@ msgstr ""
 msgid "That image URL is not allowed."
 msgstr ""
 
-#: src/Modules/Seo/SeoIndexing.php:414
+#: src/Modules/Seo/SeoIndexing.php:403
 msgid "That is not valid JSON. Paste the service-account JSON file exactly as Google provides it."
 msgstr ""
 
@@ -12212,7 +12193,7 @@ msgstr ""
 msgid "That is the whole tour. You can replay it any time from the Settings hub."
 msgstr ""
 
-#: src/Modules/Seo/SeoIndexing.php:426
+#: src/Modules/Seo/SeoIndexing.php:410
 msgid "That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri."
 msgstr ""
 
@@ -12268,7 +12249,7 @@ msgstr ""
 msgid "The active theme is %s, not TrayDigita Theme."
 msgstr ""
 
-#: src/Admin/SetupPage.php:531
+#: src/Admin/SetupPage.php:532
 msgid "The Activity Log module is disabled. Enable it in the module list to start recording."
 msgstr ""
 
@@ -12302,11 +12283,11 @@ msgstr ""
 msgid "The AdSense widget is for sidebars; this inserter is for in-article ads — after a paragraph, at a percentage of the article, or at a seeded-random spot that stays the same for each post."
 msgstr ""
 
-#: src/Admin/SetupPage.php:276
+#: src/Admin/SetupPage.php:277
 msgid "The Agenda (/agenda/) and E-Paper (/epaper/) URLs work through rewrite rules. Flushing the rules once registers them."
 msgstr ""
 
-#: src/Admin/SetupPage.php:268
+#: src/Admin/SetupPage.php:269
 msgid "The Agenda module is disabled, so its rules cannot be registered."
 msgstr ""
 
@@ -12570,7 +12551,7 @@ msgstr ""
 msgid "The E-Paper library is full (%d issues). Delete an old issue before adding a new one."
 msgstr ""
 
-#: src/Admin/SetupPage.php:271
+#: src/Admin/SetupPage.php:272
 msgid "The E-Paper module is disabled, so its rules cannot be registered."
 msgstr ""
 
@@ -12646,7 +12627,7 @@ msgstr ""
 msgid "The file contents are verified before it is stored; anything else is rejected."
 msgstr ""
 
-#: src/Admin/SetupPage.php:673
+#: src/Admin/SetupPage.php:674
 msgid "The file upload failed. Please try again."
 msgstr ""
 
@@ -12791,7 +12772,7 @@ msgstr ""
 msgid "The index build could not run. Please try again."
 msgstr ""
 
-#: src/Admin/SetupPage.php:443
+#: src/Admin/SetupPage.php:444
 msgid "The Indonesian translation of the theme interface. It is generated from the translation files when the theme is built."
 msgstr ""
 
@@ -12804,7 +12785,7 @@ msgstr ""
 msgid "The JSON is stored on this site only and is used solely to notify the Google Indexing API."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:530
+#: src/Modules/Recaptcha/RecaptchaModule.php:533
 msgid "The keys are saved. Contact forms using reCAPTCHA protection will show the challenge."
 msgstr ""
 
@@ -12824,8 +12805,8 @@ msgstr ""
 msgid "The keys look valid. Cloudflare accepted the secret key and rejected only the dummy test token, as expected."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:407
-msgid "The koperasi-kita-push plugin is active and owns push notifications right now: it serves the service worker and the token endpoint. The theme module defers to it — test and send are disabled here until the plugin is deactivated. The PWA half below is unaffected."
+#: src/Modules/Push/PushModule.php:417
+msgid "The koperasi-kita-push plugin is active and owns push notifications right now: it serves the service worker and the token endpoint. The Push module defers to it — test and send are disabled here until the plugin is deactivated."
 msgstr ""
 
 #: src/Admin/SetupAjax.php:600
@@ -12869,7 +12850,7 @@ msgstr ""
 msgid "The log table does not exist yet, so nothing is being recorded. Create it below — events are stored from then on, and a missing table heals itself the next time an event is logged."
 msgstr ""
 
-#: src/Admin/SetupPage.php:541
+#: src/Admin/SetupPage.php:542
 msgid "The log table does not exist yet, so nothing is being recorded. Create it now — a missing table also heals itself the next time an event is logged."
 msgstr ""
 
@@ -12877,7 +12858,7 @@ msgstr ""
 msgid "The log table is already being created. Please wait a moment and try again."
 msgstr ""
 
-#: src/Admin/SetupPage.php:553
+#: src/Admin/SetupPage.php:554
 #. translators: %d is the number of log entries.
 msgid "The log table is ready — %d entry logged."
 msgid_plural "The log table is ready — %d entries logged."
@@ -13021,7 +13002,7 @@ msgstr ""
 msgid "The plugin could not be found on wordpress.org."
 msgstr ""
 
-#: src/Admin/SetupPage.php:681
+#: src/Admin/SetupPage.php:682
 msgid "The plugin could not be installed from the uploaded file."
 msgstr ""
 
@@ -13075,7 +13056,7 @@ msgstr ""
 msgid "The private API key (or a domain sending key) from Account Settings → API Keys in Mailgun. Leave empty to keep the saved key."
 msgstr ""
 
-#: src/Admin/SetupPage.php:468
+#: src/Admin/SetupPage.php:469
 msgid "The production asset manifest, built from the theme sources. Without it the theme cannot load its compiled styles and scripts."
 msgstr ""
 
@@ -13091,15 +13072,15 @@ msgstr ""
 msgid "The public key from your Cloudflare Turnstile widget."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:553
+#: src/Modules/Recaptcha/RecaptchaModule.php:561
 msgid "The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair)."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:133
+#: src/Modules/Push/PushAjax.php:133
 msgid "The push plugin is active and owns push notifications. Deactivate it to test the theme module config."
 msgstr ""
 
-#: src/Modules/Pwa/PushAjax.php:172
+#: src/Modules/Push/PushAjax.php:172
 msgid "The push plugin is active and owns push notifications. Send from the plugin instead."
 msgstr ""
 
@@ -13132,9 +13113,9 @@ msgstr ""
 msgid "The request returned status %d with no readable headers."
 msgstr ""
 
-#: src/Admin/SetupPage.php:303
-#: src/Admin/SetupPage.php:316
-#: src/Admin/SetupPage.php:328
+#: src/Admin/SetupPage.php:304
+#: src/Admin/SetupPage.php:317
+#: src/Admin/SetupPage.php:329
 msgid "The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses."
 msgstr ""
 
@@ -13150,7 +13131,7 @@ msgstr ""
 msgid "The same headers, as server configuration."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:567
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "The secret key is never shown, never logged, and never returned by any endpoint."
 msgstr ""
@@ -13317,18 +13298,6 @@ msgstr ""
 msgid "The toggles below only take effect when no SEO plugin is active."
 msgstr ""
 
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:674
-msgid "The topic are empty"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:683
-msgid "The topic length are mismatched"
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:666
-msgid "The topics are invalid"
-msgstr ""
-
 #: src/Admin/AdminMenu.php:788
 msgid "The TrayDigita admin shell template is missing."
 msgstr ""
@@ -13394,7 +13363,7 @@ msgstr ""
 msgid "The uploaded file is not a valid font file."
 msgstr ""
 
-#: src/Admin/SetupPage.php:677
+#: src/Admin/SetupPage.php:678
 msgid "The uploaded file is too large. The limit is 20 MB."
 msgstr ""
 
@@ -13479,7 +13448,7 @@ msgstr ""
 msgid "There are no audio files to generate and no network requests: the visitor's own browser does the reading. Browsers without speech synthesis never see the button."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:758
+#: src/Modules/Push/PushSender.php:721
 msgid "There are no subscribers to send to."
 msgstr ""
 
@@ -13526,7 +13495,7 @@ msgstr ""
 msgid "This article cannot be edited."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:937
+#: src/Modules/Push/PushModule.php:933
 msgid "This browser does not support notifications."
 msgstr ""
 
@@ -13682,7 +13651,7 @@ msgstr ""
 msgid "Tick only the categories you want, type the confirmation word, then delete. The counts refresh after every clean."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/TwoFactor/TwoFactorModule.php:2439
 #: templates/admin/modules/activity-log.php:137
 #: templates/admin/modules/mailer.php:453
@@ -13691,11 +13660,10 @@ msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2091
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2310
-#: src/Modules/Pwa/PwaModule.php:555
-#: src/Modules/Pwa/PwaModule.php:596
+#: src/Modules/Push/PushModule.php:547
+#: src/Modules/Push/PushModule.php:588
 #: src/Modules/Seo/SeoModule.php:1000
 #: src/Modules/Seo/SeoModule.php:978
-#: src/Stack/Libs/Messaging/WordPressTableView.php:115
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
@@ -13718,7 +13686,7 @@ msgid "Title and description templates"
 msgstr ""
 
 #: src/Modules/Agenda/AgendaTable.php:432
-#: src/Modules/Pwa/PushAjax.php:188
+#: src/Modules/Push/PushAjax.php:188
 msgid "Title is required."
 msgstr ""
 
@@ -13742,11 +13710,11 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:795
+#: src/Modules/Push/PushModule.php:787
 msgid "Token is not valid."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:609
+#: src/Modules/Push/PushModule.php:601
 msgid "Tokens that stop working (for example the app was removed) are removed from the list automatically."
 msgstr ""
 
@@ -13767,10 +13735,6 @@ msgstr ""
 #: src/Modules/Email/EmailAjax.php:381
 #: src/Modules/Email/EmailAjax.php:411
 msgid "Too many requests. Please try again later."
-msgstr ""
-
-#: src/Stack/Libs/Messaging/FirebaseMessagingEasy.php:689
-msgid "Too many topics"
 msgstr ""
 
 #: templates/admin/modules/cookie-consent.php:153
@@ -13816,13 +13780,13 @@ msgstr ""
 msgid "Translation file"
 msgstr ""
 
-#: src/Admin/SetupPage.php:430
+#: src/Admin/SetupPage.php:431
 #: src/Admin/SiteHealth.php:383
 #. translators: %s is the site locale, e.g. id_ID.
 msgid "Translation file found for %s."
 msgstr ""
 
-#: src/Admin/SetupPage.php:442
+#: src/Admin/SetupPage.php:443
 msgid "Translations"
 msgstr ""
 
@@ -13873,14 +13837,14 @@ msgstr ""
 msgid "TrayDigita sections"
 msgstr ""
 
-#: src/Admin/SetupPage.php:302
-#: src/Admin/SetupPage.php:315
-#: src/Admin/SetupPage.php:327
+#: src/Admin/SetupPage.php:303
+#: src/Admin/SetupPage.php:316
+#: src/Admin/SetupPage.php:328
 msgid "TrayDigita Stack"
 msgstr ""
 
 #: src/Admin/SetupAjax.php:163
-#: src/Admin/SetupPage.php:669
+#: src/Admin/SetupPage.php:670
 msgid "TrayDigita Stack is already installed."
 msgstr ""
 
@@ -13898,7 +13862,7 @@ msgid "TrayDigita Stack plugin"
 msgstr ""
 
 #: src/Admin/SetupAjax.php:512
-#: src/Admin/SetupPage.php:667
+#: src/Admin/SetupPage.php:668
 msgid "TrayDigita Stack was installed. Activate it when you are ready — nothing is activated automatically."
 msgstr ""
 
@@ -13955,11 +13919,11 @@ msgstr ""
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/contact-form.php:194
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:183
+#: templates/admin/modules/contact-form.php:196
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14273,7 +14237,7 @@ msgstr ""
 msgid "Unknown view."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:523
+#: src/Modules/Push/PushModule.php:515
 msgid "Unlock to edit"
 msgstr ""
 
@@ -14307,7 +14271,7 @@ msgstr ""
 msgid "Until both are saved, the purge button stays disabled and nothing is sent to Cloudflare."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:538
+#: src/Modules/Recaptcha/RecaptchaModule.php:541
 msgid "Until both keys are saved, contact forms fall back to no spam protection for their reCAPTCHA modes."
 msgstr ""
 
@@ -14366,7 +14330,7 @@ msgstr ""
 msgid "Upload an avatar"
 msgstr ""
 
-#: src/Admin/SetupPage.php:912
+#: src/Admin/SetupPage.php:913
 msgid "Upload and install"
 msgstr ""
 
@@ -14498,7 +14462,7 @@ msgstr ""
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:222
+#: templates/admin/modules/contact-form.php:235
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14595,25 +14559,21 @@ msgstr ""
 msgid "Usually 587 for TLS, 465 for SSL, or 25 without encryption."
 msgstr ""
 
-#: src/Stack/Libs/Messaging/WordPressTableView.php:114
-msgid "UUID"
-msgstr ""
-
 #: templates/admin/modules/headers.php:51
 msgid "Value"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:470
+#: src/Modules/Push/PushModule.php:462
 msgid "VAPID Key (Web Push)"
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:218
-#: src/Modules/Pwa/PwaModule.php:386
+#: src/Modules/Push/PushModule.php:396
+#: src/Modules/Push/PushSender.php:228
 msgid "VAPID key does not look like a Firebase Web Push key. Copy it from Firebase Console > Project Settings > Cloud Messaging > Web Push certificates."
 msgstr ""
 
-#: src/Modules/Pwa/PushSender.php:215
-#: src/Modules/Pwa/PwaModule.php:385
+#: src/Modules/Push/PushModule.php:395
+#: src/Modules/Push/PushSender.php:225
 msgid "VAPID key is required."
 msgstr ""
 
@@ -14686,11 +14646,11 @@ msgstr ""
 msgid "Views in the last 30 days"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:424
-msgid "Visitors can install the site as an app, and push notifications share one service worker."
+#: src/Modules/Pwa/PwaModule.php:277
+msgid "Visitors can install the site as an app."
 msgstr ""
 
-#: src/Admin/SetupPage.php:467
+#: src/Admin/SetupPage.php:468
 #: src/Admin/SiteHealth.php:120
 #: src/Admin/SiteHealth.php:341
 msgid "Vite manifest"
@@ -14759,7 +14719,7 @@ msgstr ""
 msgid "What it means"
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:423
+#: src/Modules/Pwa/PwaModule.php:276
 msgid "What the PWA does"
 msgstr ""
 
@@ -14827,7 +14787,7 @@ msgstr ""
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:142
+#: templates/admin/modules/contact-form.php:146
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
@@ -14977,7 +14937,7 @@ msgid "WordPress %s."
 msgstr ""
 
 #: src/Admin/SetupAjax.php:450
-#: src/Admin/SetupPage.php:679
+#: src/Admin/SetupPage.php:680
 #: src/Modules/Installer/InstallerAjax.php:355
 msgid "WordPress cannot write plugin files directly on this site (direct filesystem access is unavailable). Check the file ownership and permissions, or install the plugin from the Plugins screen, and try again."
 msgstr ""
@@ -15039,7 +14999,7 @@ msgstr ""
 msgid "Words per minute"
 msgstr ""
 
-#: src/Admin/SetupPage.php:155
+#: src/Admin/SetupPage.php:156
 msgid "Work through this list once after installing the theme. Every status below is checked live — reload the page to re-check after installing or activating something."
 msgstr ""
 
@@ -15309,8 +15269,8 @@ msgstr ""
 msgid "You are not allowed to change Print Article settings."
 msgstr ""
 
-#: src/Modules/Pwa/PwaModule.php:640
-msgid "You are not allowed to change PWA settings."
+#: src/Modules/Push/PushModule.php:632
+msgid "You are not allowed to change Push settings."
 msgstr ""
 
 #: src/Modules/ReadAloud/ReadAloudModule.php:328
@@ -15321,7 +15281,7 @@ msgstr ""
 msgid "You are not allowed to change Reading Progress settings."
 msgstr ""
 
-#: src/Modules/Recaptcha/RecaptchaModule.php:616
+#: src/Modules/Recaptcha/RecaptchaModule.php:627
 msgid "You are not allowed to change reCAPTCHA settings."
 msgstr ""
 
@@ -15418,8 +15378,8 @@ msgstr ""
 #: src/Modules/Mailer/MailerModule.php:1746
 #: src/Modules/Mailer/MailerModule.php:2323
 #: src/Modules/PostSeries/PostSeriesModule.php:916
-#: src/Modules/Pwa/PushAjax.php:84
-#: src/Modules/Recaptcha/RecaptchaModule.php:512
+#: src/Modules/Push/PushAjax.php:84
+#: src/Modules/Recaptcha/RecaptchaModule.php:515
 #: src/Modules/Redirects/RedirectsAjax.php:307
 #: src/Modules/Security/SecurityAjax.php:68
 #: src/Modules/Security/SecurityModule.php:288
@@ -15628,11 +15588,11 @@ msgstr ""
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:156
+#: templates/admin/modules/contact-form.php:163
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:121
+#: templates/admin/modules/contact-form.php:119
 msgid "— Select a form —"
 msgstr ""
 
@@ -15642,7 +15602,7 @@ msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:951
 #: src/Modules/Comments/CommentsModule.php:618
-#: src/Modules/Recaptcha/RecaptchaModule.php:565
+#: src/Modules/Recaptcha/RecaptchaModule.php:576
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 #: templates/admin/modules/mailer.php:239
 #: templates/admin/modules/mailer.php:289
