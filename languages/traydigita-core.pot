@@ -15591,6 +15591,10 @@ msgstr ""
 msgid "…"
 msgstr ""
 
+#: templates/admin/shell.php:123
+msgctxt "built-in module badge"
+msgid "Core"
+msgstr ""
 #: templates/admin/modules/db-tools.php:65
 msgctxt "db-tools table row count, plural form for JavaScript"
 msgid "%d rows"

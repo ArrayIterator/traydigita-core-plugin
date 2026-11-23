@@ -375,7 +375,8 @@
      * Open the module info popup for one module.
      *
      * Tabbed layout: a compact identity strip (icon, name,
-     * version badge, author) sits above an underline tab bar
+     * version badge, Core badge for built-in modules, author)
+     * sits above an underline tab bar
      * that reuses the settings shell's tab pattern
      * (.traydigita-admin-tabs / .traydigita-admin-tab), and
      * only the active panel is shown — (1) Features, (2)
@@ -422,6 +423,21 @@
                         'span',
                         'traydigita-modal-info-version',
                         String(info.version || '')
+                    ));
+                }
+                // Built-in modules carry a "Core" badge in the same
+                // pill style as the version badge (same class, so
+                // the two can never drift apart). The label comes
+                // from data-msg-core-badge on the shell: "Core" is
+                // a proper name, so it is translated with its own
+                // context and stays "Core" in every locale.
+                // Third-party modules (info.built_in false) get no
+                // badge. The extra class is only a semantic hook.
+                if (info.built_in) {
+                    nameNode.appendChild(el(
+                        'span',
+                        'traydigita-modal-info-version traydigita-modal-info-core',
+                        msg('core-badge', 'Core')
                     ));
                 }
                 titles.appendChild(nameNode);

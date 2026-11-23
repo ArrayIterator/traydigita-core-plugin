@@ -120,6 +120,7 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     data-msg-search="<?php echo esc_attr(__('Search modules', 'traydigita-core')); ?>"
     data-msg-all="<?php echo esc_attr(__('All', 'traydigita-core')); ?>"
     data-msg-core="<?php echo esc_attr(__('Core', 'traydigita-core')); ?>"
+    data-msg-core-badge="<?php echo esc_attr(_x('Core', 'built-in module badge', 'traydigita-core')); ?>"
     data-msg-needs-setup="<?php echo esc_attr(__('Needs setup', 'traydigita-core')); ?>"
     data-msg-not-available="<?php echo esc_attr(__('Not available', 'traydigita-core')); ?>"
     data-msg-open="<?php echo esc_attr(__('Open', 'traydigita-core')); ?>"

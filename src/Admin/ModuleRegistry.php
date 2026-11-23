@@ -535,6 +535,30 @@ final class ModuleRegistry
     }
 
     /**
+     * Whether a module class ships with Core (is built-in).
+     *
+     * Built-in means the class is listed in DEFAULT_CLASSES —
+     * it ships in src/Modules/ under the
+     * TrayDigita\WP\Plugin\Core\Modules\ namespace. This is
+     * NOT the same as isCore(): isCore() marks the few modules
+     * that are always enabled and cannot be deactivated, while
+     * every shipped module — optional or not — is built-in.
+     * A module registered through the public
+     * `traydigita:core:modules` filter is never built-in, even
+     * when it extends a shipped class, because membership is
+     * checked against the exact class. This is the single
+     * source of truth for the "Core" badge on module cards and
+     * in the module info popup.
+     *
+     * @param class-string<ModuleInterface> $moduleClass Module class.
+     * @return bool
+     */
+    public static function isBuiltIn(string $moduleClass): bool
+    {
+        return in_array($moduleClass, self::DEFAULT_CLASSES, true);
+    }
+
+    /**
      * Enable or disable one module and persist the list.
      *
      * Unknown ids are rejected (false). A core
@@ -942,6 +966,7 @@ final class ModuleRegistry
             'enabled' => $enabled,
             'available' => $available,
             'core' => $isCore,
+            'built_in' => self::isBuiltIn($moduleClass),
             'configured' => $configured,
             'settings_url' => self::moduleUrl($moduleClass),
             'features' => self::features($moduleClass),
@@ -1616,6 +1641,7 @@ final class ModuleRegistry
                 'enabled' => $enabled,
                 'available' => $available,
                 'core' => $isCore,
+                'built_in' => self::isBuiltIn($moduleClass),
                 'recommended' => $isRecommended,
                 'push' => false,
                 'note' => $isCore ? __('Core module', 'traydigita-core') : ($isRecommended ? __('Recommended', 'traydigita-core') : ''),
