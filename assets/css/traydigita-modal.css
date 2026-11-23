@@ -579,20 +579,30 @@
 /* Picker grid view                                                    */
 /* ------------------------------------------------------------------ */
 
-/* Grid view turns the list into compact icon tiles: logo +
-   name only, the description hidden (it stays on the tile as a
-   hover tooltip). Search filtering still hides the <li>, so it
-   applies identically in both views. */
+/* Grid view turns the list into uniform square icon tiles:
+   logo + name only, the description hidden (it stays on the
+   tile as a hover tooltip). Every tile is the same square:
+   a fixed column count (4 desktop, 3 on a narrow phone)
+   gives every tile the same width, and aspect-ratio: 1 / 1
+   makes the height match it, so a long label can never
+   stretch one tile taller than the rest. The name is a
+   single line with an ellipsis, so label length can never
+   change the tile height either. The selected checkmark is
+   absolutely positioned, so it never shifts tile content.
+   Search filtering still hides the <li>, so it applies
+   identically in both views. */
 .traydigita-modal-picker-list.is-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.5rem;
 }
 
 .traydigita-modal-picker-list.is-grid .traydigita-modal-picker-item {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    aspect-ratio: 1 / 1;
     margin-bottom: 0;
     padding: 0.75rem 0.5rem;
     text-align: center;
@@ -607,10 +617,16 @@
     flex: none;
     width: 100%;
     min-width: 0;
+    overflow: hidden;
 }
 
+/* One fixed-height line: the full name stays available via
+   the tile's title tooltip (see traydigita-modal.js). */
 .traydigita-modal-picker-list.is-grid .traydigita-modal-picker-name {
-    overflow-wrap: break-word;
+    overflow: hidden;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .traydigita-modal-picker-list.is-grid .traydigita-modal-picker-description {
@@ -704,8 +720,8 @@
         padding: 0.75rem 1rem;
     }
 
-    /* Grid view keeps two columns on a narrow phone. */
+    /* Grid view keeps three square columns on a narrow phone. */
     .traydigita-modal-picker-list.is-grid {
-        grid-template-columns: repeat(auto-fill, minmax(6.75rem, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }

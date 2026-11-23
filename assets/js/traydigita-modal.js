@@ -856,14 +856,19 @@
                     logo.setAttribute('aria-hidden', 'true');
                     logo.loading = 'lazy';
                     var text = el('span', 'traydigita-modal-picker-text');
-                    text.appendChild(el('span', 'traydigita-modal-picker-name', String(item.label || item.id)));
+                    var label = String(item.label || item.id);
+                    text.appendChild(el('span', 'traydigita-modal-picker-name', label));
                     var meta = String(item.meta || item.description || '');
                     if (meta !== '') {
                         text.appendChild(el('span', 'traydigita-modal-picker-description', meta));
-                        /* Grid view hides the description, so it
-                           stays reachable as a hover tooltip. */
-                        button.title = meta;
                     }
+                    /* The tile tooltip always starts with the full
+                       name: grid view clamps the name to one line
+                       with an ellipsis, so a long name (e.g.
+                       "Mailchimp Transactional (Mandrill)") stays
+                       readable on hover, and the description
+                       follows it when there is one. */
+                    button.title = meta !== '' ? label + ' — ' + meta : label;
                     var check = el('span', 'material-icons traydigita-modal-picker-check');
                     check.setAttribute('aria-hidden', 'true');
                     check.textContent = 'check';
