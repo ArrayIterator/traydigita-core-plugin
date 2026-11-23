@@ -440,11 +440,9 @@ def main():
         "</linearGradient>"
         "</defs>"
         '<rect width="1544" height="500" fill="url(#bbg)"/>'
-        '<g transform="translate(52,52)"><rect width="396" height="396" rx="88" '
-        'fill="#3e557f"/>'
-        '<g transform="translate(76,78) scale(0.72)">'
+        '<g transform="translate(71,71) scale(0.7)">'
         + mark_svg()
-        + "</g></g>"
+        + "</g>"
         '<text x="520" y="215" font-family="Arial, Helvetica, sans-serif" '
         'font-size="104" font-weight="800" fill="#ffffff">TrayDigita</text>'
         '<text x="522" y="305" font-family="Arial, Helvetica, sans-serif" '
