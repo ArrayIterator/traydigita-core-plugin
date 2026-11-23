@@ -5,8 +5,9 @@
  * Two parts: the contact forms (each one points at a Form
  * Builder form, a recipient, a send-to-email toggle, a spam
  * mode and an optional Email Builder template) and the
- * module-level spam/retention settings (reCAPTCHA keys, v3
- * score threshold, retention days, default recipient).
+ * module-level settings (retention days, default recipient).
+ * reCAPTCHA keys live in the Recaptcha module — this page
+ * only links to its settings.
  *
  * Variables passed in:
  * @var array<string, mixed> $settings
@@ -16,6 +17,7 @@
  * @var array<string, mixed>|null $editingForm
  * @var bool $turnstileActive
  * @var bool $recaptchaConfigured
+ * @var string $recaptchaSettingsUrl
  * @var string $adminNonce
  * @var array<int, string> $spamModes
  *
@@ -191,33 +193,18 @@ $traydigita_spam_labels = [
             <input type="hidden" name="module" value="contact-form">
             <input type="hidden" name="contact_action" value="save_settings">
             <?php
-            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::input([
-                'id' => 'contact-form-recaptcha-site-key',
-                'name' => 'recaptcha_site_key',
-                'label' => __('reCAPTCHA site key', 'traydigita-core'),
-                'value' => (string) $settings['recaptcha_site_key'],
-                'help' => __('Public site key from the Google reCAPTCHA console (v2 checkbox and v3 share one key pair).', 'traydigita-core'),
-                'attrs' => ['autocomplete' => 'off', 'spellcheck' => 'false'],
-            ]);
-            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::input([
-                'type' => 'password',
-                'id' => 'contact-form-recaptcha-secret-key',
-                'name' => 'recaptcha_secret_key',
-                'label' => __('reCAPTCHA secret key', 'traydigita-core'),
-                'value' => '',
-                'help' => $recaptchaConfigured
-                    ? __('Secret key saved. Leave empty to keep it, or enter a new one to replace it.', 'traydigita-core')
-                    : __('Secret key from the Google reCAPTCHA console. Never share it.', 'traydigita-core'),
-                'attrs' => ['autocomplete' => 'new-password', 'spellcheck' => 'false', 'placeholder' => $recaptchaConfigured ? '••••••••' : ''],
-            ]);
-            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::number([
-                'id' => 'contact-form-recaptcha-threshold',
-                'name' => 'recaptcha_v3_threshold',
-                'label' => __('reCAPTCHA v3 score threshold', 'traydigita-core'),
-                'value' => (float) $settings['recaptcha_v3_threshold'],
-                'help' => __('Submissions scoring below this (0.0–1.0) are rejected. 0.5 is Google\u2019s recommended default.', 'traydigita-core'),
-                'attrs' => ['min' => '0', 'max' => '1', 'step' => '0.1'],
-            ]);
+            // reCAPTCHA keys live in the Recaptcha module; this page
+            // only links to its settings.
+            ?>
+            <p>
+                <?php if ($recaptchaConfigured) : ?>
+                    <?php esc_html_e('reCAPTCHA keys are set in the Google reCAPTCHA module.', 'traydigita-core'); ?>
+                <?php else : ?>
+                    <?php esc_html_e('reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved.', 'traydigita-core'); ?>
+                <?php endif; ?>
+                <a href="<?php echo esc_url($recaptchaSettingsUrl); ?>"><?php esc_html_e('Manage reCAPTCHA keys', 'traydigita-core'); ?></a>
+            </p>
+            <?php
             \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::number([
                 'id' => 'contact-form-retention',
                 'name' => 'retention_days',

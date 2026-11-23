@@ -39,6 +39,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
 use TrayDigita\WP\Plugin\Core\Modules\PrintArticle\PrintArticleModule;
 use TrayDigita\WP\Plugin\Core\Modules\ReadAloud\ReadAloudModule;
 use TrayDigita\WP\Plugin\Core\Modules\ReadingProgress\ReadingProgressModule;
+use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\RecaptchaModule;
 use TrayDigita\WP\Plugin\Core\Modules\Redirects\RedirectsModule;
 use TrayDigita\WP\Plugin\Core\Modules\RelatedPosts\RelatedPostsModule;
 use TrayDigita\WP\Plugin\Core\Modules\RoleEditor\RoleEditorModule;
@@ -335,6 +336,7 @@ final class ModuleRegistry
         SiteInfoModule::class,
         SecurityModule::class,
         TurnstileModule::class,
+        RecaptchaModule::class,
         TwoFactorModule::class,
         FontsModule::class,
         AvatarModule::class,
@@ -1070,6 +1072,7 @@ final class ModuleRegistry
             'security-headers' => 'security',
             'security-monitor' => 'security',
             'turnstile' => 'security',
+            'recaptcha' => 'security',
             'two-factor' => 'security',
             'cache' => 'performance',
             'fast-search' => 'performance',

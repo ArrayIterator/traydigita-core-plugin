@@ -55,9 +55,9 @@ use function wp_nonce_field;
  * stored definition edited by hand in the database is still safe.
  *
  * Spam protection is NOT part of a definition: the calling module
- * (Contact Form) adds Turnstile / reCAPTCHA around the rendered
- * form and verifies the token before calling
- * validateSubmission().
+ * (Contact Form) adds Turnstile / reCAPTCHA — each from its own
+ * module — around the rendered form and verifies the token
+ * before calling validateSubmission().
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\FormBuilder
  */
@@ -313,7 +313,7 @@ final class FormBuilder
             $html .= self::renderField($field);
         }
         // $beforeSubmit is trusted markup from the calling module
-        // (a Turnstile / reCAPTCHA widget); it is never user input.
+        // (a Turnstile / reCAPTCHA widget from its own module); it is never user input.
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $beforeSubmit is module-generated widget markup, not user input.
         $html .= $beforeSubmit;
         $html .= '<p class="traydigita-form-actions"><button type="submit" class="traydigita-form-submit">' . esc_html($submitLabel) . '</button></p>';

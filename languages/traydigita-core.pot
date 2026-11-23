@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-23 20:04+0700\n"
-"PO-Revision-Date: 2026-11-23 20:04+0700\n"
+"POT-Creation-Date: 2026-11-23 22:28+0700\n"
+"PO-Revision-Date: 2026-11-23 22:28+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -232,11 +232,11 @@ msgstr ""
 msgid "%s is too long."
 msgstr ""
 
-#: templates/admin/shell.php:160
+#: templates/admin/shell.php:161
 msgid "%s modules"
 msgstr ""
 
-#: templates/admin/shell.php:157
+#: templates/admin/shell.php:158
 msgid "%s modules will return to their default categories."
 msgstr ""
 
@@ -308,11 +308,15 @@ msgstr ""
 msgid ".htaccess (server rules)"
 msgstr ""
 
-#: templates/admin/shell.php:159
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
+msgid "0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score."
+msgstr ""
+
+#: templates/admin/shell.php:160
 msgid "1 module"
 msgstr ""
 
-#: templates/admin/shell.php:156
+#: templates/admin/shell.php:157
 msgid "1 module will return to its default category."
 msgstr ""
 
@@ -534,6 +538,7 @@ msgstr ""
 msgid "A site path starting with /. End with /* to match everything below it, e.g. /old-category/*."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:581
 #: src/Modules/Turnstile/TurnstileModule.php:1104
 msgid "A site that enforces a Content-Security-Policy must allow that host in script-src and frame-src, or the widget will not load."
 msgstr ""
@@ -681,7 +686,7 @@ msgstr ""
 #: templates/admin/contact-submissions.php:184
 #: templates/admin/modules/activity-log.php:142
 #: templates/admin/modules/agenda.php:211
-#: templates/admin/modules/contact-form.php:59
+#: templates/admin/modules/contact-form.php:61
 #: templates/admin/modules/db-tools.php:104
 #: templates/admin/modules/dynamic-sidebars.php:303
 #: templates/admin/modules/epaper.php:174
@@ -849,7 +854,7 @@ msgstr ""
 msgid "Admin UI to create and order series."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1001
+#: src/Admin/ModuleRegistry.php:1026
 msgid "Administration"
 msgstr ""
 
@@ -983,7 +988,7 @@ msgstr ""
 msgid "All agenda data has been deleted."
 msgstr ""
 
-#: templates/admin/shell.php:132
+#: templates/admin/shell.php:133
 msgid "All categories"
 msgstr ""
 
@@ -1235,11 +1240,11 @@ msgstr ""
 msgid "Asking for notification permission…"
 msgstr ""
 
-#: templates/admin/shell.php:149
+#: templates/admin/shell.php:150
 msgid "Assign"
 msgstr ""
 
-#: templates/admin/shell.php:144
+#: templates/admin/shell.php:145
 msgid "Assign a module"
 msgstr ""
 
@@ -1310,7 +1315,7 @@ msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2093
 #: templates/admin/modules/dynamic-sidebars.php:233
-#: templates/admin/shell.php:172
+#: templates/admin/shell.php:173
 msgid "Author"
 msgstr ""
 
@@ -1355,7 +1360,7 @@ msgstr ""
 msgid "Auto-Submitted + Precedence: bulk (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:33
+#: templates/admin/modules/contact-form.php:35
 msgid "Automatic (Turnstile first, then reCAPTCHA v3)"
 msgstr ""
 
@@ -1488,7 +1493,7 @@ msgstr ""
 
 #: src/Admin/AdminMenu.php:784
 #: src/Modules/Ads/AdsModule.php:874
-#: templates/admin/shell.php:376
+#: templates/admin/shell.php:381
 msgid "Back to Modules"
 msgstr ""
 
@@ -1735,7 +1740,7 @@ msgid "Branded email templates."
 msgstr ""
 
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:156
-#: templates/admin/shell.php:261
+#: templates/admin/shell.php:266
 #: templates/agenda/single.php:41
 #: templates/sections/breadcrumb.php:39
 msgid "Breadcrumb"
@@ -1887,8 +1892,8 @@ msgid "Buyback: %s"
 msgstr ""
 
 #: templates/admin/hub-page.php:170
-#: templates/admin/shell.php:126
-#: templates/admin/shell.php:400
+#: templates/admin/shell.php:127
+#: templates/admin/shell.php:405
 #. translators: %s is the module author name.
 msgid "By %s"
 msgstr ""
@@ -2018,7 +2023,7 @@ msgstr ""
 #: templates/admin/modules/agenda.php:169
 #: templates/admin/modules/dynamic-sidebars.php:282
 #: templates/admin/modules/image-optimizer.php:204
-#: templates/admin/shell.php:143
+#: templates/admin/shell.php:144
 msgid "Cancel"
 msgstr ""
 
@@ -2051,10 +2056,11 @@ msgid "Capabilities saved for %s."
 msgstr ""
 
 #: templates/admin/modules-page.php:74
+#: templates/admin/shell.php:178
 msgid "Card view"
 msgstr ""
 
-#: templates/admin/shell.php:131
+#: templates/admin/shell.php:132
 msgid "Categories"
 msgstr ""
 
@@ -2063,8 +2069,8 @@ msgstr ""
 #: templates/admin/modules/agenda.php:144
 #: templates/admin/modules/agenda.php:209
 #: templates/admin/modules/dynamic-sidebars.php:203
-#: templates/admin/shell.php:146
-#: templates/admin/shell.php:173
+#: templates/admin/shell.php:147
+#: templates/admin/shell.php:174
 msgid "Category"
 msgstr ""
 
@@ -2073,12 +2079,12 @@ msgid "Category (optional, exact match):"
 msgstr ""
 
 #: src/Admin/AdminAjax.php:369
-#: templates/admin/shell.php:151
+#: templates/admin/shell.php:152
 msgid "Category created."
 msgstr ""
 
 #: src/Admin/AdminAjax.php:484
-#: templates/admin/shell.php:153
+#: templates/admin/shell.php:154
 msgid "Category deleted."
 msgstr ""
 
@@ -2091,12 +2097,12 @@ msgstr ""
 msgid "Category label is required."
 msgstr ""
 
-#: templates/admin/shell.php:137
+#: templates/admin/shell.php:138
 msgid "Category name"
 msgstr ""
 
 #: src/Admin/AdminAjax.php:435
-#: templates/admin/shell.php:152
+#: templates/admin/shell.php:153
 msgid "Category renamed."
 msgstr ""
 
@@ -2176,7 +2182,7 @@ msgstr ""
 msgid "Changed the role of %1$d user(s); %2$d refused."
 msgstr ""
 
-#: templates/admin/shell.php:167
+#: templates/admin/shell.php:168
 msgid "Changelog"
 msgstr ""
 
@@ -2237,7 +2243,7 @@ msgstr ""
 msgid "Choice of crypto price providers."
 msgstr ""
 
-#: templates/admin/shell.php:148
+#: templates/admin/shell.php:149
 msgid "Choose a category…"
 msgstr ""
 
@@ -2257,11 +2263,11 @@ msgstr ""
 msgid "Choose a mail provider"
 msgstr ""
 
-#: templates/admin/shell.php:163
+#: templates/admin/shell.php:164
 msgid "Choose a module and a category first."
 msgstr ""
 
-#: templates/admin/shell.php:147
+#: templates/admin/shell.php:148
 msgid "Choose a module…"
 msgstr ""
 
@@ -2407,7 +2413,7 @@ msgid "Cloned from %1$s; manage_options %2$s."
 msgstr ""
 
 #: src/MenuIcons/MenuIcons.php:691
-#: templates/admin/shell.php:170
+#: templates/admin/shell.php:171
 msgid "Close"
 msgstr ""
 
@@ -2570,7 +2576,7 @@ msgstr ""
 msgid "Comments marked as spam, including their commentmeta."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:993
+#: src/Admin/ModuleRegistry.php:1018
 msgid "Communication"
 msgstr ""
 
@@ -2593,9 +2599,10 @@ msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:397
 #: src/Modules/Integrations/IntegrationsModule.php:897
+#: src/Modules/Recaptcha/RecaptchaModule.php:529
 #: src/Modules/Turnstile/TurnstileModule.php:986
 #: templates/admin/modules/mailer.php:112
-#: templates/admin/shell.php:444
+#: templates/admin/shell.php:449
 msgid "Configured"
 msgstr ""
 
@@ -2673,45 +2680,45 @@ msgstr ""
 msgid "Constant Contact — trial only, no free plan. Campaign provider: a mail is sent as an email campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for small businesses already running email marketing on Constant Contact."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:154
+#: src/Modules/ContactForm/ContactFormModule.php:147
 msgid "Contact Form"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:716
+#: src/Modules/ContactForm/ContactFormModule.php:668
 msgid "Contact form created."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:795
+#: src/Modules/ContactForm/ContactFormModule.php:747
 msgid "Contact form deleted. Its submissions are kept."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:771
+#: src/Modules/ContactForm/ContactFormModule.php:723
 msgid "Contact form saved."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:681
+#: src/Modules/ContactForm/ContactFormModule.php:633
 msgid "Contact Form settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:42
+#: templates/admin/modules/contact-form.php:44
 msgid "Contact forms"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:199
+#: src/Modules/ContactForm/ContactFormModule.php:192
 msgid "Contact forms built with the Form Builder."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:164
+#: src/Modules/ContactForm/ContactFormModule.php:157
 msgid "Contact forms built with the Form Builder: submissions are stored in their own table, sent via the Core Mailer, and protected by Turnstile or reCAPTCHA."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:367
-#: src/Modules/ContactForm/ContactFormModule.php:368
+#: src/Modules/ContactForm/ContactFormModule.php:360
+#: src/Modules/ContactForm/ContactFormModule.php:361
 #: templates/admin/contact-submissions.php:53
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:969
+#: src/Admin/ModuleRegistry.php:994
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
 msgid "Content"
 msgstr ""
@@ -2719,6 +2726,10 @@ msgstr ""
 #: templates/admin/modules/headers.php:155
 #: templates/admin/modules/security-headers.php:79
 msgid "Content-Security-Policy (report-only)"
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:579
+msgid "Content-Security-Policy note: reCAPTCHA loads its script and challenge iframe from https://www.google.com/recaptcha/."
 msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:1102
@@ -2882,11 +2893,11 @@ msgstr ""
 msgid "Core"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1585
-#: src/Admin/ModuleRegistry.php:1621
-#: src/Admin/ModuleRegistry.php:919
+#: src/Admin/ModuleRegistry.php:1610
+#: src/Admin/ModuleRegistry.php:1647
+#: src/Admin/ModuleRegistry.php:943
 #: templates/admin/hub-page.php:78
-#: templates/admin/shell.php:428
+#: templates/admin/shell.php:433
 msgid "Core module"
 msgstr ""
 
@@ -2902,7 +2913,7 @@ msgstr ""
 msgid "Cosmetic-only styles for the WordPress admin: brand presets and an accent colour. CSS only — it never changes menus, capabilities, behaviour, or the login page."
 msgstr ""
 
-#: templates/admin/shell.php:162
+#: templates/admin/shell.php:163
 msgid "Could not assign the module. Please try again."
 msgstr ""
 
@@ -2977,7 +2988,7 @@ msgstr ""
 msgid "Could not reach GitHub to look up the latest TrayDigita Stack release."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:66
+#: src/Modules/Recaptcha/Verifier.php:66
 msgid "Could not reach the reCAPTCHA verification service."
 msgstr ""
 
@@ -2997,7 +3008,7 @@ msgstr ""
 msgid "Could not save the category."
 msgstr ""
 
-#: templates/admin/shell.php:161
+#: templates/admin/shell.php:162
 msgid "Could not save the category. Please try again."
 msgstr ""
 
@@ -3074,7 +3085,7 @@ msgstr ""
 msgid "Covers the login form, comments, and the newsletter subscribe form."
 msgstr ""
 
-#: templates/admin/shell.php:139
+#: templates/admin/shell.php:140
 msgid "Create"
 msgstr ""
 
@@ -3104,6 +3115,10 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/HubSpotProvider.php:55
 msgid "Create a private app in HubSpot (Settings → Integrations → Private Apps) with the transactional email scope. Leave empty to keep the saved token."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:536
+msgid "Create a reCAPTCHA site in the Google reCAPTCHA admin console and paste its site key and secret key below."
 msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:429
@@ -3198,11 +3213,11 @@ msgstr ""
 msgid "Create an API key with Transmissions: Read/Write permission in the SparkPost (Bird) dashboard. The From address must use a verified domain."
 msgstr ""
 
-#: templates/admin/shell.php:136
+#: templates/admin/shell.php:137
 msgid "Create category"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:95
+#: templates/admin/modules/contact-form.php:97
 msgid "Create contact form"
 msgstr ""
 
@@ -3352,7 +3367,7 @@ msgstr ""
 msgid "Custom avatar by verified image URL or upload."
 msgstr ""
 
-#: templates/admin/shell.php:135
+#: templates/admin/shell.php:136
 msgid "Custom categories"
 msgstr ""
 
@@ -3504,7 +3519,7 @@ msgstr ""
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:233
+#: templates/admin/modules/contact-form.php:220
 msgid "Default recipient email"
 msgstr ""
 
@@ -3545,7 +3560,7 @@ msgstr ""
 #: templates/admin/contact-submissions.php:207
 #: templates/admin/modules/activity-log.php:157
 #: templates/admin/modules/agenda.php:231
-#: templates/admin/modules/contact-form.php:79
+#: templates/admin/modules/contact-form.php:81
 #: templates/admin/modules/dynamic-sidebars.php:327
 #: templates/admin/modules/email.php:79
 #: templates/admin/modules/epaper.php:197
@@ -3555,7 +3570,7 @@ msgstr ""
 #: templates/admin/modules/form-builder.php:246
 #: templates/admin/modules/form-builder.php:75
 #: templates/admin/modules/role-editor.php:103
-#: templates/admin/shell.php:141
+#: templates/admin/shell.php:142
 msgid "Delete"
 msgstr ""
 
@@ -3683,7 +3698,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:973
+#: src/Admin/ModuleRegistry.php:998
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3709,7 +3724,7 @@ msgstr ""
 msgid "Destination link"
 msgstr ""
 
-#: templates/admin/shell.php:168
+#: templates/admin/shell.php:169
 msgid "Details"
 msgstr ""
 
@@ -3743,12 +3758,12 @@ msgstr ""
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1601
-#: src/Admin/ModuleRegistry.php:928
+#: src/Admin/ModuleRegistry.php:1626
+#: src/Admin/ModuleRegistry.php:952
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
-#: templates/admin/shell.php:432
+#: templates/admin/shell.php:437
 msgid "Disabled"
 msgstr ""
 
@@ -3760,6 +3775,7 @@ msgstr ""
 msgid "Disabled by default."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:216
 #: src/Modules/Turnstile/TurnstileModule.php:293
 msgid "Disabled until the site key and secret key are entered."
 msgstr ""
@@ -3963,7 +3979,7 @@ msgstr ""
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:44
+#: templates/admin/modules/contact-form.php:46
 msgid "Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on)."
 msgstr ""
 
@@ -3992,7 +4008,7 @@ msgstr ""
 #: src/Modules/Redirects/RedirectsModule.php:270
 #: src/Modules/Redirects/RedirectsModule.php:390
 #: templates/admin/modules/agenda.php:230
-#: templates/admin/modules/contact-form.php:72
+#: templates/admin/modules/contact-form.php:74
 #: templates/admin/modules/dynamic-sidebars.php:324
 #: templates/admin/modules/email.php:68
 #: templates/admin/modules/epaper.php:196
@@ -4007,7 +4023,7 @@ msgstr ""
 msgid "Edit capabilities: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:101
+#: templates/admin/modules/contact-form.php:103
 msgid "Edit contact form"
 msgstr ""
 
@@ -4104,7 +4120,7 @@ msgstr ""
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:164
+#: templates/admin/modules/contact-form.php:166
 msgid "Email subject prefix"
 msgstr ""
 
@@ -4180,7 +4196,7 @@ msgstr ""
 msgid "Enable the Ads Inserter module from the Modules grid to use the live preview."
 msgstr ""
 
-#: templates/admin/shell.php:285
+#: templates/admin/shell.php:290
 msgid "Enable the features your site needs. Disabled modules register no hooks and load nothing."
 msgstr ""
 
@@ -4192,11 +4208,11 @@ msgstr ""
 msgid "Enable the recommended security headers."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1597
-#: src/Admin/ModuleRegistry.php:925
+#: src/Admin/ModuleRegistry.php:1622
+#: src/Admin/ModuleRegistry.php:949
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
-#: templates/admin/shell.php:430
+#: templates/admin/shell.php:435
 msgid "Enabled"
 msgstr ""
 
@@ -4238,7 +4254,7 @@ msgstr ""
 msgid "Enhance the Users screen with avatar and last-login columns and quick role changes, with administrators protected from being demoted by anyone except themselves."
 msgstr ""
 
-#: templates/admin/shell.php:158
+#: templates/admin/shell.php:159
 msgid "Enter a category name."
 msgstr ""
 
@@ -4267,7 +4283,7 @@ msgstr ""
 msgid "Enter a title for the issue."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:697
+#: src/Modules/ContactForm/ContactFormModule.php:649
 msgid "Enter a title for the new contact form."
 msgstr ""
 
@@ -4305,6 +4321,7 @@ msgstr ""
 msgid "Enter at least one valid weight, for example 400, 700."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:565
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 msgid "Enter secret key"
 msgstr ""
@@ -4742,7 +4759,7 @@ msgstr ""
 msgid "Featured image"
 msgstr ""
 
-#: templates/admin/shell.php:166
+#: templates/admin/shell.php:167
 msgid "Features"
 msgstr ""
 
@@ -4989,8 +5006,8 @@ msgstr ""
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:117
-#: templates/admin/modules/contact-form.php:54
+#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:56
 msgid "Form Builder form"
 msgstr ""
 
@@ -5027,7 +5044,7 @@ msgstr ""
 msgid "Format: Label|price|change|change_percent|buyback. Used when no API provider is configured."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:327
+#: src/Modules/ContactForm/ContactFormModule.php:320
 #: src/Modules/FormBuilder/FormBuilderModule.php:259
 #: templates/admin/modules/form-builder.php:43
 msgid "Forms"
@@ -5346,6 +5363,18 @@ msgstr ""
 
 #: src/Modules/Mailer/MailerModule.php:720
 msgid "Google OAuth client secret"
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:169
+msgid "Google reCAPTCHA"
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:179
+msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score) for the Contact Form. Disabled until the site key and secret key are saved."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:214
+msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score)."
 msgstr ""
 
 #: src/Modules/Mailer/MailerModule.php:2327
@@ -5680,7 +5709,7 @@ msgstr ""
 msgid "HubSpot — free 2,000 emails/month (needs the Transactional Email add-on or Marketing Hub Enterprise). Template-based single send: the content comes from a HubSpot email template. Best for sites already running HubSpot CRM and marketing."
 msgstr ""
 
-#: templates/admin/shell.php:138
+#: templates/admin/shell.php:139
 msgid "Icon"
 msgstr ""
 
@@ -5905,7 +5934,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:884
+#: src/Admin/ModuleRegistry.php:908
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -5915,7 +5944,7 @@ msgstr ""
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:223
 #: src/Modules/Cache/CacheModule.php:228
 #: src/Modules/Comments/CommentsModule.php:211
-#: src/Modules/ContactForm/ContactFormModule.php:222
+#: src/Modules/ContactForm/ContactFormModule.php:215
 #: src/Modules/CookieConsent/CookieConsentModule.php:202
 #: src/Modules/Core/MenuIconsModule.php:150
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:206
@@ -5939,6 +5968,7 @@ msgstr ""
 #: src/Modules/PrintArticle/PrintArticleModule.php:182
 #: src/Modules/ReadAloud/ReadAloudModule.php:194
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:217
+#: src/Modules/Recaptcha/RecaptchaModule.php:236
 #: src/Modules/Redirects/RedirectsModule.php:177
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:266
 #: src/Modules/RoleEditor/RoleEditorModule.php:228
@@ -6056,7 +6086,7 @@ msgstr ""
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:997
+#: src/Admin/ModuleRegistry.php:1022
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr ""
@@ -6073,7 +6103,7 @@ msgstr ""
 msgid "Invalid access token response"
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:75
+#: src/Modules/Recaptcha/Verifier.php:75
 msgid "Invalid response from the reCAPTCHA verification service."
 msgstr ""
 
@@ -6141,6 +6171,7 @@ msgstr ""
 msgid "It is never shown again after saving."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
 #: src/Modules/Turnstile/TurnstileModule.php:1034
 msgid "It is shown in the page markup by design — only the secret key must stay private."
 msgstr ""
@@ -6194,7 +6225,7 @@ msgstr ""
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:224
+#: templates/admin/modules/contact-form.php:211
 msgid "Keep submissions (days)"
 msgstr ""
 
@@ -6322,6 +6353,7 @@ msgstr ""
 msgid "Leave empty to keep the saved password. The password is never shown."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:567
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "Leave empty to keep the saved secret key."
 msgstr ""
@@ -6346,7 +6378,7 @@ msgstr ""
 msgid "Leave empty to use the default banner text colour."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:132
+#: templates/admin/modules/contact-form.php:134
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6485,6 +6517,7 @@ msgid "List every post of the series in order inside the navigation box, with th
 msgstr ""
 
 #: templates/admin/modules-page.php:75
+#: templates/admin/shell.php:179
 msgid "List view"
 msgstr ""
 
@@ -6606,7 +6639,7 @@ msgid "Log In"
 msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1652
-#: templates/admin/shell.php:240
+#: templates/admin/shell.php:245
 msgid "Log out"
 msgstr ""
 
@@ -6848,7 +6881,7 @@ msgstr ""
 msgid "Manage avatars"
 msgstr ""
 
-#: templates/admin/shell.php:133
+#: templates/admin/shell.php:134
 msgid "Manage categories"
 msgstr ""
 
@@ -6856,8 +6889,12 @@ msgstr ""
 msgid "Manage events in their own table — with archive and single views, an upcoming-events widget and shortcode, and a per-event iCal download — without touching the post workflow."
 msgstr ""
 
-#: templates/admin/shell.php:134
+#: templates/admin/shell.php:135
 msgid "Manage module categories"
+msgstr ""
+
+#: templates/admin/modules/contact-form.php:205
+msgid "Manage reCAPTCHA keys"
 msgstr ""
 
 #: src/Modules/PostSeries/PostSeriesModule.php:1115
@@ -7076,7 +7113,7 @@ msgstr ""
 msgid "Missing path"
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:49
+#: src/Modules/Recaptcha/Verifier.php:49
 msgid "Missing reCAPTCHA token or secret key."
 msgstr ""
 
@@ -7112,11 +7149,11 @@ msgstr ""
 
 #: templates/admin/modules/activity-log.php:139
 #: templates/admin/modules/activity-log.php:87
-#: templates/admin/shell.php:145
+#: templates/admin/shell.php:146
 msgid "Module"
 msgstr ""
 
-#: templates/admin/shell.php:154
+#: templates/admin/shell.php:155
 msgid "Module assigned to %s."
 msgstr ""
 
@@ -7136,12 +7173,12 @@ msgstr ""
 msgid "Module enabled"
 msgstr ""
 
-#: templates/admin/shell.php:164
+#: templates/admin/shell.php:165
 msgid "Module info"
 msgstr ""
 
 #: src/Admin/Settings/SettingsPage.php:165
-#: templates/admin/shell.php:325
+#: templates/admin/shell.php:330
 msgid "Module settings"
 msgstr ""
 
@@ -7156,7 +7193,7 @@ msgstr ""
 msgid "Modules"
 msgstr ""
 
-#: templates/admin/shell.php:155
+#: templates/admin/shell.php:156
 msgid "Modules in this category will return to their default categories."
 msgstr ""
 
@@ -7164,7 +7201,7 @@ msgstr ""
 msgid "Modules: enable what you need"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:989
+#: src/Admin/ModuleRegistry.php:1014
 msgid "Monetization"
 msgstr ""
 
@@ -7185,8 +7222,8 @@ msgstr ""
 msgid "Moosend — 30-day trial, then paid. Campaign provider: a mail is sent as a campaign to a whole mailing list, not to the mail’s To addresses — a test email goes to the whole list. Best for email marketing and automation on Moosend."
 msgstr ""
 
-#: templates/admin/shell.php:165
-#: templates/admin/shell.php:421
+#: templates/admin/shell.php:166
+#: templates/admin/shell.php:426
 msgid "More"
 msgstr ""
 
@@ -7247,7 +7284,7 @@ msgstr ""
 msgid "Native WordPress comments, stored in this site’s database. Threaded replies, moderation, and the comment form all work exactly as WordPress provides them."
 msgstr ""
 
-#: templates/admin/shell.php:188
+#: templates/admin/shell.php:193
 msgid "Navigation"
 msgstr ""
 
@@ -7266,10 +7303,11 @@ msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 
-#: src/Admin/ModuleRegistry.php:1593
-#: src/Admin/ModuleRegistry.php:922
+#: src/Admin/ModuleRegistry.php:1618
+#: src/Admin/ModuleRegistry.php:946
+#: src/Modules/Recaptcha/RecaptchaModule.php:532
 #: src/Modules/Turnstile/TurnstileModule.php:989
-#: templates/admin/shell.php:123
+#: templates/admin/shell.php:124
 msgid "Needs setup"
 msgstr ""
 
@@ -7304,12 +7342,12 @@ msgstr ""
 msgid "New backup codes generated. The old codes no longer work."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:204
+#: src/Modules/ContactForm/ContactFormAjax.php:206
 #. translators: %s: contact form title.
 msgid "New contact form submission: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:92
+#: templates/admin/modules/contact-form.php:94
 msgid "New contact form title"
 msgstr ""
 
@@ -7385,7 +7423,7 @@ msgstr ""
 #: src/Admin/AdminPointerTour.php:309
 #: templates/admin/contact-submissions.php:228
 #: templates/admin/modules/activity-log.php:176
-#: templates/admin/shell.php:129
+#: templates/admin/shell.php:130
 #: templates/widgets/weather.php:71
 msgid "Next"
 msgstr ""
@@ -7526,7 +7564,7 @@ msgstr ""
 msgid "No capability changes for this role."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:48
+#: templates/admin/modules/contact-form.php:50
 msgid "No contact forms yet. Create the first one below."
 msgstr ""
 
@@ -7542,7 +7580,7 @@ msgstr ""
 msgid "No custom avatar set — Gravatar (or the site default) is used."
 msgstr ""
 
-#: templates/admin/shell.php:150
+#: templates/admin/shell.php:151
 msgid "No custom categories yet."
 msgstr ""
 
@@ -7804,7 +7842,7 @@ msgid "No WordPress AI provider is available: WordPress ships the AI Client API 
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:743
-#: templates/admin/modules/contact-form.php:37
+#: templates/admin/modules/contact-form.php:39
 #: templates/admin/modules/db-tools.php:118
 #: templates/admin/modules/db-tools.php:63
 #: templates/admin/modules/mailer.php:215
@@ -7832,9 +7870,9 @@ msgstr ""
 msgid "Not applicable"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1581
-#: src/Admin/ModuleRegistry.php:916
-#: templates/admin/shell.php:124
+#: src/Admin/ModuleRegistry.php:1606
+#: src/Admin/ModuleRegistry.php:940
+#: templates/admin/shell.php:125
 msgid "Not available"
 msgstr ""
 
@@ -7846,7 +7884,7 @@ msgstr ""
 #: src/Modules/Integrations/IntegrationsModule.php:398
 #: src/Modules/Integrations/IntegrationsModule.php:899
 #: templates/admin/modules/mailer.php:132
-#: templates/admin/shell.php:446
+#: templates/admin/shell.php:451
 msgid "Not configured"
 msgstr ""
 
@@ -7942,7 +7980,7 @@ msgstr ""
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:152
+#: templates/admin/modules/contact-form.php:154
 msgid "Notification email template"
 msgstr ""
 
@@ -8253,7 +8291,7 @@ msgid "OPcache status, object-cache and transient flushing."
 msgstr ""
 
 #: templates/admin/hub-page.php:190
-#: templates/admin/shell.php:125
+#: templates/admin/shell.php:126
 msgid "Open"
 msgstr ""
 
@@ -8309,7 +8347,7 @@ msgid "Open Sans"
 msgstr ""
 
 #: src/Modules/Integrations/IntegrationsModule.php:469
-#: templates/admin/shell.php:169
+#: templates/admin/shell.php:170
 msgid "Open settings"
 msgstr ""
 
@@ -8321,6 +8359,10 @@ msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:998
 msgid "Open the Cloudflare Turnstile dashboard"
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:541
+msgid "Open the Google reCAPTCHA admin console"
 msgstr ""
 
 #: templates/admin/modules/maintenance.php:354
@@ -8419,7 +8461,7 @@ msgstr ""
 msgid "Optional instant indexing."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:166
+#: templates/admin/modules/contact-form.php:168
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8527,7 +8569,7 @@ msgstr ""
 msgid "Page %d"
 msgstr ""
 
-#: templates/admin/shell.php:127
+#: templates/admin/shell.php:128
 msgid "Page %s of %s"
 msgstr ""
 
@@ -8796,7 +8838,7 @@ msgstr ""
 msgid "Per-role enforcement and rate limiting."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:981
+#: src/Admin/ModuleRegistry.php:1006
 msgid "Performance"
 msgstr ""
 
@@ -8950,7 +8992,7 @@ msgstr ""
 msgid "Please check the following fields: %s."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:88
+#: src/Modules/ContactForm/ContactFormAjax.php:90
 #: src/Modules/FormBuilder/FormBuilderModule.php:741
 msgid "Please check the form and try again."
 msgstr ""
@@ -9243,7 +9285,7 @@ msgstr ""
 
 #: templates/admin/contact-submissions.php:217
 #: templates/admin/modules/activity-log.php:173
-#: templates/admin/shell.php:128
+#: templates/admin/shell.php:129
 #: templates/widgets/weather.php:67
 msgid "Previous"
 msgstr ""
@@ -9375,7 +9417,7 @@ msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2482
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:714
-#: templates/admin/shell.php:230
+#: templates/admin/shell.php:235
 msgid "Profile"
 msgstr ""
 
@@ -9399,7 +9441,7 @@ msgstr ""
 msgid "Protect the newsletter subscribe form"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:202
+#: src/Modules/ContactForm/ContactFormModule.php:195
 msgid "Protected by Turnstile or reCAPTCHA."
 msgstr ""
 
@@ -9414,6 +9456,10 @@ msgstr ""
 #: templates/admin/modules/headers.php:119
 #: templates/admin/modules/security-headers.php:52
 msgid "Protects against clickjacking. Turn it off if another site must embed this one."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:215
+msgid "Protects the Contact Form module."
 msgstr ""
 
 #: src/Modules/Comments/CommentsModule.php:468
@@ -9432,10 +9478,6 @@ msgstr ""
 
 #: src/Modules/Markets/BinanceCryptoProvider.php:95
 msgid "Public market data, no API key. Prices are USDT pairs, so the display currency is always USDT — never USD or IDR. There is no Pro tier for public market data."
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:199
-msgid "Public site key from the Google reCAPTCHA console (v2 checkbox and v3 share one key pair)."
 msgstr ""
 
 #: templates/admin/modules/email.php:260
@@ -9654,48 +9696,52 @@ msgstr ""
 msgid "Rebuilt as the multi-provider Mailer: 26 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:116
+#: src/Modules/Recaptcha/Verifier.php:116
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:186
+#: templates/admin/modules/contact-form.php:188
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:184
+#: templates/admin/modules/contact-form.php:203
+msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
+msgstr ""
+
+#: templates/admin/modules/contact-form.php:201
+msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
+msgstr ""
+
+#: templates/admin/modules/contact-form.php:186
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:107
+#: src/Modules/Recaptcha/Verifier.php:107
 msgid "reCAPTCHA score is too low."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:206
-msgid "reCAPTCHA secret key"
+#: src/Modules/Recaptcha/RecaptchaModule.php:646
+msgid "reCAPTCHA settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:197
-msgid "reCAPTCHA site key"
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:35
+#: templates/admin/modules/contact-form.php:37
 msgid "reCAPTCHA v2 (checkbox)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:36
+#: templates/admin/modules/contact-form.php:38
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:216
+#: src/Modules/Recaptcha/RecaptchaModule.php:571
 msgid "reCAPTCHA v3 score threshold"
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:93
+#: src/Modules/Recaptcha/Verifier.php:93
 #. translators: %s: reCAPTCHA error code.
 msgid "reCAPTCHA verification failed (%s)."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:96
+#: src/Modules/Recaptcha/Verifier.php:96
 msgid "reCAPTCHA verification failed."
 msgstr ""
 
@@ -9708,15 +9754,15 @@ msgstr ""
 msgid "Recent sends"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:55
+#: templates/admin/modules/contact-form.php:57
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:130
+#: templates/admin/modules/contact-form.php:132
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1621
+#: src/Admin/ModuleRegistry.php:1647
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr ""
@@ -9978,7 +10024,7 @@ msgstr ""
 msgid "Removing manage_options from this role: the save will be refused if no other user keeps it."
 msgstr ""
 
-#: templates/admin/shell.php:140
+#: templates/admin/shell.php:141
 msgid "Rename"
 msgstr ""
 
@@ -10217,7 +10263,7 @@ msgstr ""
 msgid "Safety rules: only capability names WordPress itself knows are accepted — anything else is rejected and nothing is saved."
 msgstr ""
 
-#: templates/admin/shell.php:142
+#: templates/admin/shell.php:143
 msgid "Save"
 msgstr ""
 
@@ -10238,6 +10284,7 @@ msgstr ""
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:341
+#: src/Modules/Recaptcha/RecaptchaModule.php:588
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
@@ -10453,6 +10500,7 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:557
 #: src/Modules/Turnstile/TurnstileModule.php:1038
 #: src/Modules/Turnstile/TurnstileModule.php:1181
 msgid "Secret key"
@@ -10460,14 +10508,6 @@ msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2151
 msgid "Secret key (manual entry):"
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:210
-msgid "Secret key from the Google reCAPTCHA console. Never share it."
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:209
-msgid "Secret key saved. Leave empty to keep it, or enter a new one to replace it."
 msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1269
@@ -10478,7 +10518,7 @@ msgstr ""
 msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:977
+#: src/Admin/ModuleRegistry.php:1002
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr ""
@@ -10487,7 +10527,7 @@ msgstr ""
 msgid "Security check failed"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:64
+#: src/Modules/ContactForm/ContactFormAjax.php:66
 #: src/Modules/FormBuilder/FormBuilderModule.php:728
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
@@ -10578,7 +10618,7 @@ msgstr ""
 msgid "Send confirmation email"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:56
+#: templates/admin/modules/contact-form.php:58
 msgid "Send email"
 msgstr ""
 
@@ -10607,7 +10647,7 @@ msgstr ""
 msgid "Send test email to"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:138
+#: templates/admin/modules/contact-form.php:140
 msgid "Send to email"
 msgstr ""
 
@@ -10839,7 +10879,7 @@ msgstr ""
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:201
+#: src/Modules/ContactForm/ContactFormModule.php:194
 msgid "Sent via the Core Mailer."
 msgstr ""
 
@@ -10850,7 +10890,7 @@ msgstr ""
 msgid "SEO"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:985
+#: src/Admin/ModuleRegistry.php:1010
 msgid "SEO & Discovery"
 msgstr ""
 
@@ -10995,11 +11035,12 @@ msgstr ""
 #: src/Modules/Redirects/RedirectsModule.php:402
 #: templates/admin/modules/epaper.php:91
 #: templates/admin/modules/image-optimizer.php:133
-#: templates/admin/shell.php:268
+#: templates/admin/shell.php:176
+#: templates/admin/shell.php:273
 msgid "Settings"
 msgstr ""
 
-#: templates/admin/shell.php:292
+#: templates/admin/shell.php:297
 msgid "Settings for the modules that are currently active. Inactive modules are listed on the Modules page."
 msgstr ""
 
@@ -11020,7 +11061,7 @@ msgstr ""
 #: src/Admin/AdminMenu.php:347
 #: src/Admin/AdminMenu.php:502
 #: src/Admin/AdminMenu.php:637
-#: templates/admin/shell.php:441
+#: templates/admin/shell.php:446
 msgid "Setup"
 msgstr ""
 
@@ -11068,7 +11109,7 @@ msgstr ""
 msgid "Shared with the Customizer"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:58
+#: templates/admin/modules/contact-form.php:60
 #: templates/admin/modules/form-builder.php:56
 msgid "Shortcode"
 msgstr ""
@@ -11345,6 +11386,7 @@ msgstr ""
 msgid "Site Info has no settings to save."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:551
 #: src/Modules/Turnstile/TurnstileModule.php:1032
 #: src/Modules/Turnstile/TurnstileModule.php:1167
 msgid "Site key"
@@ -11579,18 +11621,18 @@ msgstr ""
 msgid "Spam detected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:328
-#: templates/admin/modules/contact-form.php:144
-#: templates/admin/modules/contact-form.php:57
+#: src/Modules/ContactForm/ContactFormModule.php:321
+#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/contact-form.php:59
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:176
+#: templates/admin/modules/contact-form.php:178
 msgid "Spam protection & retention"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:152
-#: src/Modules/ContactForm/ContactFormAjax.php:168
+#: src/Modules/ContactForm/ContactFormAjax.php:154
+#: src/Modules/ContactForm/ContactFormAjax.php:170
 msgid "Spam protection failed. Please try again."
 msgstr ""
 
@@ -11666,8 +11708,8 @@ msgstr ""
 #: templates/admin/modules/email.php:226
 #: templates/admin/modules/fast-search.php:101
 #: templates/admin/modules/headers.php:50
-#: templates/admin/shell.php:174
-#: templates/admin/shell.php:425
+#: templates/admin/shell.php:175
+#: templates/admin/shell.php:430
 msgid "Status"
 msgstr ""
 
@@ -11720,7 +11762,7 @@ msgstr ""
 msgid "Stops browsers from guessing a file’s type."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/contact-form.php:70
 msgid "Store only"
 msgstr ""
 
@@ -11754,15 +11796,15 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:226
+#: templates/admin/modules/contact-form.php:213
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:218
-msgid "Submissions scoring below this (0.0–1.0) are rejected. 0.5 is Google\\u2019s recommended default."
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
+msgid "Submissions scoring below this (0.0–1.0) are rejected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:200
+#: src/Modules/ContactForm/ContactFormModule.php:193
 msgid "Submissions stored in their own table."
 msgstr ""
 
@@ -12098,11 +12140,11 @@ msgstr ""
 msgid "Thank you! Please check your email to confirm the subscription."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:131
+#: src/Modules/ContactForm/ContactFormAjax.php:133
 msgid "Thank you. Your message has been sent."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:126
+#: src/Modules/ContactForm/ContactFormAjax.php:128
 msgid "Thank you. Your message was saved, but the notification email could not be sent — the site administrator has been notified through the submissions list."
 msgstr ""
 
@@ -12443,7 +12485,7 @@ msgstr ""
 msgid "The confirmation word must be 3–20 letters or digits."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:609
+#: src/Modules/ContactForm/ContactFormModule.php:574
 msgid "The Contact Form settings template is missing."
 msgstr ""
 
@@ -12669,7 +12711,7 @@ msgstr ""
 msgid "The form has no valid fields."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:741
+#: src/Modules/ContactForm/ContactFormModule.php:693
 #: src/Modules/FormBuilder/FormBuilderModule.php:502
 msgid "The form title must not be empty."
 msgstr ""
@@ -12760,6 +12802,10 @@ msgstr ""
 
 #: src/Modules/Seo/SeoModule.php:885
 msgid "The JSON is stored on this site only and is used solely to notify the Google Indexing API."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:530
+msgid "The keys are saved. Contact forms using reCAPTCHA protection will show the challenge."
 msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:987
@@ -13045,6 +13091,10 @@ msgstr ""
 msgid "The public key from your Cloudflare Turnstile widget."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
+msgid "The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair)."
+msgstr ""
+
 #: src/Modules/Pwa/PushAjax.php:133
 msgid "The push plugin is active and owns push notifications. Deactivate it to test the theme module config."
 msgstr ""
@@ -13100,6 +13150,7 @@ msgstr ""
 msgid "The same headers, as server configuration."
 msgstr ""
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:567
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "The secret key is never shown, never logged, and never returned by any endpoint."
 msgstr ""
@@ -13217,7 +13268,7 @@ msgstr ""
 msgid "The strip under the ticker shows the first gold price and up to four stocks."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:859
+#: src/Modules/ContactForm/ContactFormModule.php:811
 msgid "The submissions template is missing."
 msgstr ""
 
@@ -13509,7 +13560,7 @@ msgstr ""
 msgid "This flush deletes every transient, including live ones — not just expired ones."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:73
+#: src/Modules/ContactForm/ContactFormAjax.php:75
 msgid "This form is not configured yet."
 msgstr ""
 
@@ -13551,7 +13602,7 @@ msgstr ""
 msgid "This looks like a development site, so no server-specific recommendation can be made — page caching is not needed while developing. Install a cache plugin when the site goes live."
 msgstr ""
 
-#: templates/admin/shell.php:372
+#: templates/admin/shell.php:377
 msgid "This module is not available."
 msgstr ""
 
@@ -13648,8 +13699,8 @@ msgstr ""
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
-#: templates/admin/modules/contact-form.php:111
-#: templates/admin/modules/contact-form.php:53
+#: templates/admin/modules/contact-form.php:113
+#: templates/admin/modules/contact-form.php:55
 #: templates/admin/modules/epaper.php:119
 #: templates/admin/modules/epaper.php:171
 #: templates/admin/modules/epaper.php:205
@@ -13795,9 +13846,9 @@ msgstr ""
 #: src/Admin/AdminMenu.php:308
 #: src/Admin/AdminMenu.php:309
 #: src/Admin/SiteHealth.php:415
-#: templates/admin/shell.php:264
-#: templates/admin/shell.php:274
+#: templates/admin/shell.php:269
 #: templates/admin/shell.php:279
+#: templates/admin/shell.php:284
 #: templates/admin/shell.php:60
 msgid "TrayDigita"
 msgstr ""
@@ -13818,7 +13869,7 @@ msgstr ""
 msgid "TrayDigita Light"
 msgstr ""
 
-#: templates/admin/shell.php:192
+#: templates/admin/shell.php:197
 msgid "TrayDigita sections"
 msgstr ""
 
@@ -13900,15 +13951,15 @@ msgstr ""
 msgid "Turning the module off hides the market strip and removes the Gold, Stock, and Crypto widgets. No price is ever invented: a provider with no data contributes nothing."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:34
+#: templates/admin/modules/contact-form.php:36
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:179
+#: templates/admin/modules/contact-form.php:181
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/contact-form.php:183
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14129,17 +14180,17 @@ msgstr ""
 msgid "Unknown category."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:644
+#: src/Modules/ContactForm/ContactFormModule.php:609
 msgid "Unknown Contact Form action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:69
-#: src/Modules/ContactForm/ContactFormModule.php:734
-#: src/Modules/ContactForm/ContactFormModule.php:788
+#: src/Modules/ContactForm/ContactFormAjax.php:71
+#: src/Modules/ContactForm/ContactFormModule.php:686
+#: src/Modules/ContactForm/ContactFormModule.php:740
 msgid "Unknown contact form."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:755
+#: src/Modules/ContactForm/ContactFormModule.php:707
 #: src/Modules/FormBuilder/FormBuilderModule.php:588
 #: src/Modules/FormBuilder/FormBuilderModule.php:627
 msgid "Unknown email template."
@@ -14149,7 +14200,7 @@ msgstr ""
 msgid "Unknown Form Builder action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:748
+#: src/Modules/ContactForm/ContactFormModule.php:700
 msgid "Unknown Form Builder form."
 msgstr ""
 
@@ -14254,6 +14305,10 @@ msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:933
 msgid "Until both are saved, the purge button stays disabled and nothing is sent to Cloudflare."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:538
+msgid "Until both keys are saved, contact forms fall back to no spam protection for their reCAPTCHA modes."
 msgstr ""
 
 #: src/Modules/Turnstile/TurnstileModule.php:995
@@ -14443,7 +14498,7 @@ msgstr ""
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:235
+#: templates/admin/modules/contact-form.php:222
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14574,12 +14629,12 @@ msgstr ""
 msgid "Verify and log in"
 msgstr ""
 
-#: templates/admin/shell.php:171
-#: templates/admin/shell.php:437
+#: templates/admin/shell.php:172
+#: templates/admin/shell.php:442
 msgid "Version"
 msgstr ""
 
-#: templates/admin/shell.php:130
+#: templates/admin/shell.php:131
 msgid "Version %s"
 msgstr ""
 
@@ -14590,6 +14645,7 @@ msgstr ""
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2183
 #: templates/admin/contact-submissions.php:198
 #: templates/admin/modules/agenda.php:220
+#: templates/admin/shell.php:177
 msgid "View"
 msgstr ""
 
@@ -14609,7 +14665,7 @@ msgstr ""
 msgid "View Site Kit in the plugin installer"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:45
+#: templates/admin/modules/contact-form.php:47
 msgid "View submissions"
 msgstr ""
 
@@ -14771,7 +14827,7 @@ msgstr ""
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:140
+#: templates/admin/modules/contact-form.php:142
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
@@ -14939,8 +14995,8 @@ msgstr ""
 msgid "WordPress could not send the test email."
 msgstr ""
 
-#: templates/admin/shell.php:208
-#: templates/admin/shell.php:235
+#: templates/admin/shell.php:213
+#: templates/admin/shell.php:240
 msgid "WordPress Dashboard"
 msgstr ""
 
@@ -15108,7 +15164,7 @@ msgstr ""
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
 #: templates/admin/contact-submissions.php:196
 #: templates/admin/contact-submissions.php:99
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/contact-form.php:70
 msgid "Yes"
 msgstr ""
 
@@ -15173,7 +15229,7 @@ msgstr ""
 msgid "You are not allowed to change comment settings."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:633
+#: src/Modules/ContactForm/ContactFormModule.php:598
 msgid "You are not allowed to change Contact Form settings."
 msgstr ""
 
@@ -15263,6 +15319,10 @@ msgstr ""
 
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:367
 msgid "You are not allowed to change Reading Progress settings."
+msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:616
+msgid "You are not allowed to change reCAPTCHA settings."
 msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:523
@@ -15359,6 +15419,7 @@ msgstr ""
 #: src/Modules/Mailer/MailerModule.php:2323
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Pwa/PushAjax.php:84
+#: src/Modules/Recaptcha/RecaptchaModule.php:512
 #: src/Modules/Redirects/RedirectsAjax.php:307
 #: src/Modules/Security/SecurityAjax.php:68
 #: src/Modules/Security/SecurityModule.php:288
@@ -15397,7 +15458,7 @@ msgstr ""
 msgid "You are not allowed to manage E-Paper issues."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:835
+#: src/Modules/ContactForm/ContactFormModule.php:787
 msgid "You are not allowed to view contact submissions."
 msgstr ""
 
@@ -15487,7 +15548,7 @@ msgstr ""
 msgid "Your email address"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:109
+#: src/Modules/ContactForm/ContactFormAjax.php:111
 msgid "Your message could not be saved. Please try again later."
 msgstr ""
 
@@ -15563,15 +15624,15 @@ msgstr ""
 msgid "— No series —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:66
+#: templates/admin/modules/contact-form.php:68
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:154
+#: templates/admin/modules/contact-form.php:156
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:121
 msgid "— Select a form —"
 msgstr ""
 
@@ -15581,6 +15642,7 @@ msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:951
 #: src/Modules/Comments/CommentsModule.php:618
+#: src/Modules/Recaptcha/RecaptchaModule.php:565
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 #: templates/admin/modules/mailer.php:239
 #: templates/admin/modules/mailer.php:289
@@ -15595,6 +15657,7 @@ msgstr ""
 msgctxt "built-in module badge"
 msgid "Core"
 msgstr ""
+
 #: templates/admin/modules/db-tools.php:65
 msgctxt "db-tools table row count, plural form for JavaScript"
 msgid "%d rows"

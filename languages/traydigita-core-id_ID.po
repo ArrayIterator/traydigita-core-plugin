@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-23 20:04+0700\n"
-"PO-Revision-Date: 2026-11-23 20:04+0700\n"
+"POT-Creation-Date: 2026-11-23 22:28+0700\n"
+"PO-Revision-Date: 2026-11-23 22:28+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -234,11 +234,11 @@ msgstr ""
 msgid "%s is too long."
 msgstr ""
 
-#: templates/admin/shell.php:160
+#: templates/admin/shell.php:161
 msgid "%s modules"
 msgstr "%s modul"
 
-#: templates/admin/shell.php:157
+#: templates/admin/shell.php:158
 msgid "%s modules will return to their default categories."
 msgstr "%s modul akan kembali ke kategori bawaannya."
 
@@ -310,11 +310,15 @@ msgstr ".htaccess (Apache / OpenLiteSpeed)"
 msgid ".htaccess (server rules)"
 msgstr ".htaccess (aturan server)"
 
-#: templates/admin/shell.php:159
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
+msgid "0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score."
+msgstr "0,5 adalah bawaan yang disarankan Google. Hanya berlaku untuk mode v3 (skor); kotak centang v2 tidak memiliki skor."
+
+#: templates/admin/shell.php:160
 msgid "1 module"
 msgstr "1 modul"
 
-#: templates/admin/shell.php:156
+#: templates/admin/shell.php:157
 msgid "1 module will return to its default category."
 msgstr "1 modul akan kembali ke kategori bawaannya."
 
@@ -536,6 +540,7 @@ msgstr "Jalur situs yang diawali /, atau URL lengkap seperti https://example.com
 msgid "A site path starting with /. End with /* to match everything below it, e.g. /old-category/*."
 msgstr "Jalur situs yang diawali /. Akhiri dengan /* untuk mencocokkan semua di bawahnya, contoh /old-category/*."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:581
 #: src/Modules/Turnstile/TurnstileModule.php:1104
 msgid "A site that enforces a Content-Security-Policy must allow that host in script-src and frame-src, or the widget will not load."
 msgstr "Situs yang menerapkan Content-Security-Policy harus mengizinkan host tersebut di script-src dan frame-src, atau widget tidak akan dimuat."
@@ -683,7 +688,7 @@ msgstr "Tindakan"
 #: templates/admin/contact-submissions.php:184
 #: templates/admin/modules/activity-log.php:142
 #: templates/admin/modules/agenda.php:211
-#: templates/admin/modules/contact-form.php:59
+#: templates/admin/modules/contact-form.php:61
 #: templates/admin/modules/db-tools.php:104
 #: templates/admin/modules/dynamic-sidebars.php:303
 #: templates/admin/modules/epaper.php:174
@@ -851,7 +856,7 @@ msgstr "Palet admin"
 msgid "Admin UI to create and order series."
 msgstr "Antarmuka admin untuk membuat dan mengurutkan seri."
 
-#: src/Admin/ModuleRegistry.php:1001
+#: src/Admin/ModuleRegistry.php:1026
 msgid "Administration"
 msgstr "Administrasi"
 
@@ -985,7 +990,7 @@ msgstr "Semua"
 msgid "All agenda data has been deleted."
 msgstr "Semua data agenda telah dihapus."
 
-#: templates/admin/shell.php:132
+#: templates/admin/shell.php:133
 msgid "All categories"
 msgstr "Semua kategori"
 
@@ -1237,11 +1242,11 @@ msgstr "Sebagai upaya terakhir, dengan akses berkas server, definisikan konstant
 msgid "Asking for notification permission…"
 msgstr "Meminta izin notifikasi…"
 
-#: templates/admin/shell.php:149
+#: templates/admin/shell.php:150
 msgid "Assign"
 msgstr "Tetapkan"
 
-#: templates/admin/shell.php:144
+#: templates/admin/shell.php:145
 msgid "Assign a module"
 msgstr "Tetapkan modul"
 
@@ -1312,7 +1317,7 @@ msgstr "Kode aplikasi autentikator (TOTP)."
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2093
 #: templates/admin/modules/dynamic-sidebars.php:233
-#: templates/admin/shell.php:172
+#: templates/admin/shell.php:173
 msgid "Author"
 msgstr "Penulis"
 
@@ -1357,7 +1362,7 @@ msgstr "Membuat daftar isi secara otomatis dari judul artikel, dengan id jangkar
 msgid "Auto-Submitted + Precedence: bulk (bulk mail only)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:33
+#: templates/admin/modules/contact-form.php:35
 msgid "Automatic (Turnstile first, then reCAPTCHA v3)"
 msgstr ""
 
@@ -1490,7 +1495,7 @@ msgstr "Kembali ke login"
 
 #: src/Admin/AdminMenu.php:784
 #: src/Modules/Ads/AdsModule.php:874
-#: templates/admin/shell.php:376
+#: templates/admin/shell.php:381
 msgid "Back to Modules"
 msgstr "Kembali ke Modul"
 
@@ -1737,7 +1742,7 @@ msgid "Branded email templates."
 msgstr "Templat email bermerek."
 
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:156
-#: templates/admin/shell.php:261
+#: templates/admin/shell.php:266
 #: templates/agenda/single.php:41
 #: templates/sections/breadcrumb.php:39
 msgid "Breadcrumb"
@@ -1889,8 +1894,8 @@ msgid "Buyback: %s"
 msgstr "Buyback: %s"
 
 #: templates/admin/hub-page.php:170
-#: templates/admin/shell.php:126
-#: templates/admin/shell.php:400
+#: templates/admin/shell.php:127
+#: templates/admin/shell.php:405
 #. translators: %s is the module author name.
 msgid "By %s"
 msgstr "Oleh %s"
@@ -2020,7 +2025,7 @@ msgstr "Dapat dinonaktifkan sepenuhnya."
 #: templates/admin/modules/agenda.php:169
 #: templates/admin/modules/dynamic-sidebars.php:282
 #: templates/admin/modules/image-optimizer.php:204
-#: templates/admin/shell.php:143
+#: templates/admin/shell.php:144
 msgid "Cancel"
 msgstr "Batal"
 
@@ -2053,10 +2058,11 @@ msgid "Capabilities saved for %s."
 msgstr "Kapabilitas disimpan untuk %s."
 
 #: templates/admin/modules-page.php:74
+#: templates/admin/shell.php:178
 msgid "Card view"
 msgstr "Tampilan kartu"
 
-#: templates/admin/shell.php:131
+#: templates/admin/shell.php:132
 msgid "Categories"
 msgstr "Kategori"
 
@@ -2065,8 +2071,8 @@ msgstr "Kategori"
 #: templates/admin/modules/agenda.php:144
 #: templates/admin/modules/agenda.php:209
 #: templates/admin/modules/dynamic-sidebars.php:203
-#: templates/admin/shell.php:146
-#: templates/admin/shell.php:173
+#: templates/admin/shell.php:147
+#: templates/admin/shell.php:174
 msgid "Category"
 msgstr "Kategori"
 
@@ -2075,12 +2081,12 @@ msgid "Category (optional, exact match):"
 msgstr "Kategori (opsional, kecocokan persis):"
 
 #: src/Admin/AdminAjax.php:369
-#: templates/admin/shell.php:151
+#: templates/admin/shell.php:152
 msgid "Category created."
 msgstr "Kategori dibuat."
 
 #: src/Admin/AdminAjax.php:484
-#: templates/admin/shell.php:153
+#: templates/admin/shell.php:154
 msgid "Category deleted."
 msgstr "Kategori dihapus."
 
@@ -2093,12 +2099,12 @@ msgstr "Kategori terlalu panjang."
 msgid "Category label is required."
 msgstr "Label kategori wajib diisi."
 
-#: templates/admin/shell.php:137
+#: templates/admin/shell.php:138
 msgid "Category name"
 msgstr "Nama kategori"
 
 #: src/Admin/AdminAjax.php:435
-#: templates/admin/shell.php:152
+#: templates/admin/shell.php:153
 msgid "Category renamed."
 msgstr "Kategori diganti namanya."
 
@@ -2178,7 +2184,7 @@ msgstr "Diubah"
 msgid "Changed the role of %1$d user(s); %2$d refused."
 msgstr "Peran %1$d pengguna diubah; %2$d ditolak."
 
-#: templates/admin/shell.php:167
+#: templates/admin/shell.php:168
 msgid "Changelog"
 msgstr "Catatan perubahan"
 
@@ -2239,7 +2245,7 @@ msgstr "Memeriksa situs untuk kesalahan keamanan umum — pengeditan berkas, izi
 msgid "Choice of crypto price providers."
 msgstr "Pilihan penyedia harga kripto."
 
-#: templates/admin/shell.php:148
+#: templates/admin/shell.php:149
 msgid "Choose a category…"
 msgstr "Pilih kategori…"
 
@@ -2259,11 +2265,11 @@ msgstr "Pilih font yang akan dihapus."
 msgid "Choose a mail provider"
 msgstr "Pilih penyedia email"
 
-#: templates/admin/shell.php:163
+#: templates/admin/shell.php:164
 msgid "Choose a module and a category first."
 msgstr "Pilih modul dan kategori terlebih dahulu."
 
-#: templates/admin/shell.php:147
+#: templates/admin/shell.php:148
 msgid "Choose a module…"
 msgstr "Pilih modul…"
 
@@ -2409,7 +2415,7 @@ msgid "Cloned from %1$s; manage_options %2$s."
 msgstr "Digandakan dari %1$s; manage_options %2$s."
 
 #: src/MenuIcons/MenuIcons.php:691
-#: templates/admin/shell.php:170
+#: templates/admin/shell.php:171
 msgid "Close"
 msgstr "Tutup"
 
@@ -2572,7 +2578,7 @@ msgstr "Komentar di Sampah, termasuk commentmeta-nya."
 msgid "Comments marked as spam, including their commentmeta."
 msgstr "Komentar yang ditandai sebagai spam, termasuk commentmeta-nya."
 
-#: src/Admin/ModuleRegistry.php:993
+#: src/Admin/ModuleRegistry.php:1018
 msgid "Communication"
 msgstr "Komunikasi"
 
@@ -2595,9 +2601,10 @@ msgstr "Konfigurasikan setiap header hanya di satu tempat — di sini atau di ti
 
 #: src/Modules/Integrations/IntegrationsModule.php:397
 #: src/Modules/Integrations/IntegrationsModule.php:897
+#: src/Modules/Recaptcha/RecaptchaModule.php:529
 #: src/Modules/Turnstile/TurnstileModule.php:986
 #: templates/admin/modules/mailer.php:112
-#: templates/admin/shell.php:444
+#: templates/admin/shell.php:449
 msgid "Configured"
 msgstr "Dikonfigurasi"
 
@@ -2675,45 +2682,45 @@ msgstr ""
 msgid "Constant Contact — trial only, no free plan. Campaign provider: a mail is sent as an email campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for small businesses already running email marketing on Constant Contact."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:154
+#: src/Modules/ContactForm/ContactFormModule.php:147
 msgid "Contact Form"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:716
+#: src/Modules/ContactForm/ContactFormModule.php:668
 msgid "Contact form created."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:795
+#: src/Modules/ContactForm/ContactFormModule.php:747
 msgid "Contact form deleted. Its submissions are kept."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:771
+#: src/Modules/ContactForm/ContactFormModule.php:723
 msgid "Contact form saved."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:681
+#: src/Modules/ContactForm/ContactFormModule.php:633
 msgid "Contact Form settings saved."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:42
+#: templates/admin/modules/contact-form.php:44
 msgid "Contact forms"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:199
+#: src/Modules/ContactForm/ContactFormModule.php:192
 msgid "Contact forms built with the Form Builder."
 msgstr "Formulir kontak yang dibuat dengan Form Builder."
 
-#: src/Modules/ContactForm/ContactFormModule.php:164
+#: src/Modules/ContactForm/ContactFormModule.php:157
 msgid "Contact forms built with the Form Builder: submissions are stored in their own table, sent via the Core Mailer, and protected by Turnstile or reCAPTCHA."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:367
-#: src/Modules/ContactForm/ContactFormModule.php:368
+#: src/Modules/ContactForm/ContactFormModule.php:360
+#: src/Modules/ContactForm/ContactFormModule.php:361
 #: templates/admin/contact-submissions.php:53
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:969
+#: src/Admin/ModuleRegistry.php:994
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2323
 msgid "Content"
 msgstr "Konten"
@@ -2722,6 +2729,10 @@ msgstr "Konten"
 #: templates/admin/modules/security-headers.php:79
 msgid "Content-Security-Policy (report-only)"
 msgstr "Content-Security-Policy (hanya-laporan)"
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:579
+msgid "Content-Security-Policy note: reCAPTCHA loads its script and challenge iframe from https://www.google.com/recaptcha/."
+msgstr "Catatan Content-Security-Policy: reCAPTCHA memuat skrip dan iframe tantangannya dari https://www.google.com/recaptcha/."
 
 #: src/Modules/Turnstile/TurnstileModule.php:1102
 msgid "Content-Security-Policy note: Turnstile loads its script and challenge iframe from https://challenges.cloudflare.com."
@@ -2884,11 +2895,11 @@ msgstr "Cuplikan server siap salin-tempel."
 msgid "Core"
 msgstr "Inti"
 
-#: src/Admin/ModuleRegistry.php:1585
-#: src/Admin/ModuleRegistry.php:1621
-#: src/Admin/ModuleRegistry.php:919
+#: src/Admin/ModuleRegistry.php:1610
+#: src/Admin/ModuleRegistry.php:1647
+#: src/Admin/ModuleRegistry.php:943
 #: templates/admin/hub-page.php:78
-#: templates/admin/shell.php:428
+#: templates/admin/shell.php:433
 msgid "Core module"
 msgstr "Modul inti"
 
@@ -2904,7 +2915,7 @@ msgstr "Radius sudut (px)"
 msgid "Cosmetic-only styles for the WordPress admin: brand presets and an accent colour. CSS only — it never changes menus, capabilities, behaviour, or the login page."
 msgstr "Gaya kosmetik untuk admin WordPress: preset merek dan warna aksen. Hanya CSS — tidak pernah mengubah menu, kapabilitas, perilaku, atau halaman login."
 
-#: templates/admin/shell.php:162
+#: templates/admin/shell.php:163
 msgid "Could not assign the module. Please try again."
 msgstr "Modul tidak dapat ditetapkan. Silakan coba lagi."
 
@@ -2979,7 +2990,7 @@ msgstr "Tabel %s tidak dapat dioptimasi."
 msgid "Could not reach GitHub to look up the latest TrayDigita Stack release."
 msgstr "Tidak dapat menjangkau GitHub untuk mencari rilis TrayDigita Stack terbaru."
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:66
+#: src/Modules/Recaptcha/Verifier.php:66
 msgid "Could not reach the reCAPTCHA verification service."
 msgstr ""
 
@@ -2999,7 +3010,7 @@ msgstr "Tidak dapat menyimpan pengaturan iklan. Silakan coba lagi."
 msgid "Could not save the category."
 msgstr "Kategori tidak dapat disimpan."
 
-#: templates/admin/shell.php:161
+#: templates/admin/shell.php:162
 msgid "Could not save the category. Please try again."
 msgstr "Kategori tidak dapat disimpan. Silakan coba lagi."
 
@@ -3076,7 +3087,7 @@ msgstr "Gambar sampul harus berupa berkas media yang diunggah."
 msgid "Covers the login form, comments, and the newsletter subscribe form."
 msgstr "Melindungi formulir login, komentar, dan formulir langganan buletin."
 
-#: templates/admin/shell.php:139
+#: templates/admin/shell.php:140
 msgid "Create"
 msgstr "Buat"
 
@@ -3107,6 +3118,10 @@ msgstr ""
 #: src/Modules/Mailer/Providers/HubSpotProvider.php:55
 msgid "Create a private app in HubSpot (Settings → Integrations → Private Apps) with the transactional email scope. Leave empty to keep the saved token."
 msgstr ""
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:536
+msgid "Create a reCAPTCHA site in the Google reCAPTCHA admin console and paste its site key and secret key below."
+msgstr "Buat situs reCAPTCHA di konsol admin Google reCAPTCHA lalu tempel site key dan secret key-nya di bawah ini."
 
 #: src/Modules/Redirects/RedirectsModule.php:429
 msgid "Create a redirect for one to send its traffic (and its search ranking) to the right page."
@@ -3200,11 +3215,11 @@ msgstr ""
 msgid "Create an API key with Transmissions: Read/Write permission in the SparkPost (Bird) dashboard. The From address must use a verified domain."
 msgstr ""
 
-#: templates/admin/shell.php:136
+#: templates/admin/shell.php:137
 msgid "Create category"
 msgstr "Buat kategori"
 
-#: templates/admin/modules/contact-form.php:95
+#: templates/admin/modules/contact-form.php:97
 msgid "Create contact form"
 msgstr ""
 
@@ -3354,7 +3369,7 @@ msgstr "Avatar Kustom"
 msgid "Custom avatar by verified image URL or upload."
 msgstr "Avatar kustom melalui URL gambar terverifikasi atau unggahan."
 
-#: templates/admin/shell.php:135
+#: templates/admin/shell.php:136
 msgid "Custom categories"
 msgstr "Kategori kustom"
 
@@ -3506,7 +3521,7 @@ msgstr "Nama pengguna admin bawaan"
 msgid "Default icon behaviour"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:233
+#: templates/admin/modules/contact-form.php:220
 msgid "Default recipient email"
 msgstr ""
 
@@ -3547,7 +3562,7 @@ msgstr "Mengalah pada Yoast, Rank Math, All in One SEO, atau SEOPress jika salah
 #: templates/admin/contact-submissions.php:207
 #: templates/admin/modules/activity-log.php:157
 #: templates/admin/modules/agenda.php:231
-#: templates/admin/modules/contact-form.php:79
+#: templates/admin/modules/contact-form.php:81
 #: templates/admin/modules/dynamic-sidebars.php:327
 #: templates/admin/modules/email.php:79
 #: templates/admin/modules/epaper.php:197
@@ -3557,7 +3572,7 @@ msgstr "Mengalah pada Yoast, Rank Math, All in One SEO, atau SEOPress jika salah
 #: templates/admin/modules/form-builder.php:246
 #: templates/admin/modules/form-builder.php:75
 #: templates/admin/modules/role-editor.php:103
-#: templates/admin/shell.php:141
+#: templates/admin/shell.php:142
 msgid "Delete"
 msgstr "Hapus"
 
@@ -3685,7 +3700,7 @@ msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgid "Description"
 msgstr "Deskripsi"
 
-#: src/Admin/ModuleRegistry.php:973
+#: src/Admin/ModuleRegistry.php:998
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3711,7 +3726,7 @@ msgstr "Hanya desktop"
 msgid "Destination link"
 msgstr "Tautan tujuan"
 
-#: templates/admin/shell.php:168
+#: templates/admin/shell.php:169
 msgid "Details"
 msgstr "Detail"
 
@@ -3745,12 +3760,12 @@ msgstr "Perangkat yang Anda percayai melewati faktor kedua selama %d hari. Hapus
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr "Nonaktifkan modul Security Headers jika modul ini yang mengirim header yang tumpang tindih itu sendiri."
 
-#: src/Admin/ModuleRegistry.php:1601
-#: src/Admin/ModuleRegistry.php:928
+#: src/Admin/ModuleRegistry.php:1626
+#: src/Admin/ModuleRegistry.php:952
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
-#: templates/admin/shell.php:432
+#: templates/admin/shell.php:437
 msgid "Disabled"
 msgstr "Dinonaktifkan"
 
@@ -3762,6 +3777,7 @@ msgstr "Dinonaktifkan (DISABLE_WP_CRON didefinisikan)"
 msgid "Disabled by default."
 msgstr "Dinonaktifkan secara default."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:216
 #: src/Modules/Turnstile/TurnstileModule.php:293
 msgid "Disabled until the site key and secret key are entered."
 msgstr "Dinonaktifkan sampai site key dan secret key dimasukkan."
@@ -3965,7 +3981,7 @@ msgstr "Setiap pemeriksaan di bawah menunjukkan statusnya, artinya dalam bahasa 
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr "Setiap kode hanya berlaku sekali, jika Anda kehilangan akses ke aplikasi autentikator. Simpan di tempat yang aman — kode tersebut hanya ditampilkan sekali."
 
-#: templates/admin/modules/contact-form.php:44
+#: templates/admin/modules/contact-form.php:46
 msgid "Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on)."
 msgstr ""
 
@@ -3994,7 +4010,7 @@ msgstr "Pilihan setiap pengunjung diingat di browser mereka sendiri."
 #: src/Modules/Redirects/RedirectsModule.php:270
 #: src/Modules/Redirects/RedirectsModule.php:390
 #: templates/admin/modules/agenda.php:230
-#: templates/admin/modules/contact-form.php:72
+#: templates/admin/modules/contact-form.php:74
 #: templates/admin/modules/dynamic-sidebars.php:324
 #: templates/admin/modules/email.php:68
 #: templates/admin/modules/epaper.php:196
@@ -4009,7 +4025,7 @@ msgstr "Edit"
 msgid "Edit capabilities: %s"
 msgstr "Edit kapabilitas: %s"
 
-#: templates/admin/modules/contact-form.php:101
+#: templates/admin/modules/contact-form.php:103
 msgid "Edit contact form"
 msgstr ""
 
@@ -4106,7 +4122,7 @@ msgstr "Pengaturan email tidak tersedia."
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:164
+#: templates/admin/modules/contact-form.php:166
 msgid "Email subject prefix"
 msgstr ""
 
@@ -4182,7 +4198,7 @@ msgstr "Aktifkan login passkey"
 msgid "Enable the Ads Inserter module from the Modules grid to use the live preview."
 msgstr "Aktifkan modul Penyisip Iklan dari grid Modul untuk menggunakan pratinjau langsung."
 
-#: templates/admin/shell.php:285
+#: templates/admin/shell.php:290
 msgid "Enable the features your site needs. Disabled modules register no hooks and load nothing."
 msgstr "Aktifkan fitur yang dibutuhkan situs Anda. Modul yang dinonaktifkan tidak mendaftarkan hook dan tidak memuat apa pun."
 
@@ -4194,11 +4210,11 @@ msgstr "Aktifkan header keamanan yang direkomendasikan, periksa header tersebut 
 msgid "Enable the recommended security headers."
 msgstr "Aktifkan header keamanan yang direkomendasikan."
 
-#: src/Admin/ModuleRegistry.php:1597
-#: src/Admin/ModuleRegistry.php:925
+#: src/Admin/ModuleRegistry.php:1622
+#: src/Admin/ModuleRegistry.php:949
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
-#: templates/admin/shell.php:430
+#: templates/admin/shell.php:435
 msgid "Enabled"
 msgstr "Diaktifkan"
 
@@ -4240,7 +4256,7 @@ msgstr "Mesin"
 msgid "Enhance the Users screen with avatar and last-login columns and quick role changes, with administrators protected from being demoted by anyone except themselves."
 msgstr "Tingkatkan layar Pengguna dengan kolom avatar dan login terakhir serta perubahan peran cepat, dengan administrator dilindungi agar tidak diturunkan perannya oleh siapa pun kecuali dirinya sendiri."
 
-#: templates/admin/shell.php:158
+#: templates/admin/shell.php:159
 msgid "Enter a category name."
 msgstr "Masukkan nama kategori."
 
@@ -4269,7 +4285,7 @@ msgstr "Masukkan ID posting atau halaman terlebih dahulu."
 msgid "Enter a title for the issue."
 msgstr "Masukkan judul edisi."
 
-#: src/Modules/ContactForm/ContactFormModule.php:697
+#: src/Modules/ContactForm/ContactFormModule.php:649
 msgid "Enter a title for the new contact form."
 msgstr ""
 
@@ -4307,6 +4323,7 @@ msgstr "Masukkan ID Aplikasi"
 msgid "Enter at least one valid weight, for example 400, 700."
 msgstr "Masukkan setidaknya satu bobot yang valid, misalnya 400, 700."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:565
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 msgid "Enter secret key"
 msgstr "Masukkan kunci rahasia"
@@ -4744,7 +4761,7 @@ msgstr "Token FCM perangkat tes"
 msgid "Featured image"
 msgstr "Gambar unggulan"
 
-#: templates/admin/shell.php:166
+#: templates/admin/shell.php:167
 msgid "Features"
 msgstr "Fitur"
 
@@ -4991,8 +5008,8 @@ msgstr "Warna latar formulir"
 msgid "Form Builder"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:117
-#: templates/admin/modules/contact-form.php:54
+#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:56
 msgid "Form Builder form"
 msgstr ""
 
@@ -5029,7 +5046,7 @@ msgstr "Dukungan format"
 msgid "Format: Label|price|change|change_percent|buyback. Used when no API provider is configured."
 msgstr "Format: Label|price|change|change_percent|buyback. Digunakan saat tidak ada penyedia API yang dikonfigurasi."
 
-#: src/Modules/ContactForm/ContactFormModule.php:327
+#: src/Modules/ContactForm/ContactFormModule.php:320
 #: src/Modules/FormBuilder/FormBuilderModule.php:259
 #: templates/admin/modules/form-builder.php:43
 msgid "Forms"
@@ -5349,6 +5366,18 @@ msgstr "Client ID Google OAuth"
 #: src/Modules/Mailer/MailerModule.php:720
 msgid "Google OAuth client secret"
 msgstr "Client secret Google OAuth"
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:169
+msgid "Google reCAPTCHA"
+msgstr "Google reCAPTCHA"
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:179
+msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score) for the Contact Form. Disabled until the site key and secret key are saved."
+msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3) untuk Contact Form. Nonaktif hingga site key dan secret key disimpan."
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:214
+msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score)."
+msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3)."
 
 #: src/Modules/Mailer/MailerModule.php:2327
 msgid "Google refused the authorization code. Check the client ID and secret, then try connecting again."
@@ -5682,7 +5711,7 @@ msgstr ""
 msgid "HubSpot — free 2,000 emails/month (needs the Transactional Email add-on or Marketing Hub Enterprise). Template-based single send: the content comes from a HubSpot email template. Best for sites already running HubSpot CRM and marketing."
 msgstr ""
 
-#: templates/admin/shell.php:138
+#: templates/admin/shell.php:139
 msgid "Icon"
 msgstr "Ikon"
 
@@ -5907,7 +5936,7 @@ msgstr "Harga saham Indonesia"
 msgid "Info"
 msgstr "Info"
 
-#: src/Admin/ModuleRegistry.php:884
+#: src/Admin/ModuleRegistry.php:908
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -5917,7 +5946,7 @@ msgstr "Info"
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:223
 #: src/Modules/Cache/CacheModule.php:228
 #: src/Modules/Comments/CommentsModule.php:211
-#: src/Modules/ContactForm/ContactFormModule.php:222
+#: src/Modules/ContactForm/ContactFormModule.php:215
 #: src/Modules/CookieConsent/CookieConsentModule.php:202
 #: src/Modules/Core/MenuIconsModule.php:150
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:206
@@ -5941,6 +5970,7 @@ msgstr "Info"
 #: src/Modules/PrintArticle/PrintArticleModule.php:182
 #: src/Modules/ReadAloud/ReadAloudModule.php:194
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:217
+#: src/Modules/Recaptcha/RecaptchaModule.php:236
 #: src/Modules/Redirects/RedirectsModule.php:177
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:266
 #: src/Modules/RoleEditor/RoleEditorModule.php:228
@@ -6058,7 +6088,7 @@ msgstr "Pengindeksan instan: Google Indexing API"
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr "Pengindeksan instan: IndexNow (Bing, Yandex)"
 
-#: src/Admin/ModuleRegistry.php:997
+#: src/Admin/ModuleRegistry.php:1022
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr "Integrasi"
@@ -6075,7 +6105,7 @@ msgstr "Teks pengantar (opsional)"
 msgid "Invalid access token response"
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:75
+#: src/Modules/Recaptcha/Verifier.php:75
 msgid "Invalid response from the reCAPTCHA verification service."
 msgstr ""
 
@@ -6143,6 +6173,7 @@ msgstr "Tombol ini tidak menambah pilihan cookie."
 msgid "It is never shown again after saving."
 msgstr "JSON tidak pernah ditampilkan lagi setelah disimpan."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
 #: src/Modules/Turnstile/TurnstileModule.php:1034
 msgid "It is shown in the page markup by design — only the secret key must stay private."
 msgstr "Kunci ini ditampilkan dalam markup halaman sesuai desain — hanya kunci rahasia yang harus tetap privat."
@@ -6196,7 +6227,7 @@ msgstr "Simpan entri selama (hari)"
 msgid "Keep old URLs working after migrations and slug changes: redirect rules with wildcard support, a 404 monitor that shows which missing URLs visitors actually hit, and JSON import/export of the rules."
 msgstr "Jaga URL lama tetap berfungsi setelah migrasi dan perubahan slug: aturan pengalihan dengan dukungan wildcard, pemantau 404 yang menunjukkan URL hilang yang benar-benar dikunjungi pengunjung, serta impor/ekspor aturan dalam format JSON."
 
-#: templates/admin/modules/contact-form.php:224
+#: templates/admin/modules/contact-form.php:211
 msgid "Keep submissions (days)"
 msgstr ""
 
@@ -6324,6 +6355,7 @@ msgstr "Kosongkan untuk mempertahankan kunci yang tersimpan."
 msgid "Leave empty to keep the saved password. The password is never shown."
 msgstr "Kosongkan untuk mempertahankan kata sandi yang tersimpan. Kata sandi tidak pernah ditampilkan."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:567
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "Leave empty to keep the saved secret key."
 msgstr "Biarkan kosong untuk mempertahankan kunci rahasia yang tersimpan."
@@ -6348,7 +6380,7 @@ msgstr "Biarkan kosong untuk menggunakan latar spanduk bawaan."
 msgid "Leave empty to use the default banner text colour."
 msgstr "Biarkan kosong untuk menggunakan warna teks spanduk bawaan."
 
-#: templates/admin/modules/contact-form.php:132
+#: templates/admin/modules/contact-form.php:134
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
@@ -6487,6 +6519,7 @@ msgid "List every post of the series in order inside the navigation box, with th
 msgstr "Cantumkan setiap artikel seri secara berurutan di dalam kotak navigasi, dengan artikel saat ini disorot."
 
 #: templates/admin/modules-page.php:75
+#: templates/admin/shell.php:179
 msgid "List view"
 msgstr "Tampilan daftar"
 
@@ -6608,7 +6641,7 @@ msgid "Log In"
 msgstr "Masuk"
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1652
-#: templates/admin/shell.php:240
+#: templates/admin/shell.php:245
 msgid "Log out"
 msgstr "Keluar"
 
@@ -6850,7 +6883,7 @@ msgstr "Bagian pengaturan perawatan"
 msgid "Manage avatars"
 msgstr "Kelola avatar"
 
-#: templates/admin/shell.php:133
+#: templates/admin/shell.php:134
 msgid "Manage categories"
 msgstr "Kelola kategori"
 
@@ -6858,9 +6891,13 @@ msgstr "Kelola kategori"
 msgid "Manage events in their own table — with archive and single views, an upcoming-events widget and shortcode, and a per-event iCal download — without touching the post workflow."
 msgstr "Kelola acara dalam tabelnya sendiri — dengan tampilan arsip dan tunggal, widget dan shortcode acara mendatang, serta unduhan iCal per acara — tanpa menyentuh alur kerja artikel."
 
-#: templates/admin/shell.php:134
+#: templates/admin/shell.php:135
 msgid "Manage module categories"
 msgstr "Kelola kategori modul"
+
+#: templates/admin/modules/contact-form.php:205
+msgid "Manage reCAPTCHA keys"
+msgstr "Kelola kunci reCAPTCHA"
 
 #: src/Modules/PostSeries/PostSeriesModule.php:1115
 msgid "Manage series"
@@ -7078,7 +7115,7 @@ msgstr "Tugas pembangunan tidak ditemukan."
 msgid "Missing path"
 msgstr "Jalur tidak ada"
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:49
+#: src/Modules/Recaptcha/Verifier.php:49
 msgid "Missing reCAPTCHA token or secret key."
 msgstr ""
 
@@ -7114,11 +7151,11 @@ msgstr ""
 
 #: templates/admin/modules/activity-log.php:139
 #: templates/admin/modules/activity-log.php:87
-#: templates/admin/shell.php:145
+#: templates/admin/shell.php:146
 msgid "Module"
 msgstr "Modul"
 
-#: templates/admin/shell.php:154
+#: templates/admin/shell.php:155
 msgid "Module assigned to %s."
 msgstr "Modul ditetapkan ke %s."
 
@@ -7138,12 +7175,12 @@ msgstr "Modul dinonaktifkan"
 msgid "Module enabled"
 msgstr "Modul diaktifkan"
 
-#: templates/admin/shell.php:164
+#: templates/admin/shell.php:165
 msgid "Module info"
 msgstr "Info modul"
 
 #: src/Admin/Settings/SettingsPage.php:165
-#: templates/admin/shell.php:325
+#: templates/admin/shell.php:330
 msgid "Module settings"
 msgstr "Pengaturan modul"
 
@@ -7158,7 +7195,7 @@ msgstr "Pengaturan modul berada di Pusat Pengaturan, bukan di menu yang panjang.
 msgid "Modules"
 msgstr "Modul"
 
-#: templates/admin/shell.php:155
+#: templates/admin/shell.php:156
 msgid "Modules in this category will return to their default categories."
 msgstr "Modul dalam kategori ini akan kembali ke kategori bawaannya."
 
@@ -7166,7 +7203,7 @@ msgstr "Modul dalam kategori ini akan kembali ke kategori bawaannya."
 msgid "Modules: enable what you need"
 msgstr "Modul: aktifkan yang Anda butuhkan"
 
-#: src/Admin/ModuleRegistry.php:989
+#: src/Admin/ModuleRegistry.php:1014
 msgid "Monetization"
 msgstr "Monetisasi"
 
@@ -7187,8 +7224,8 @@ msgstr ""
 msgid "Moosend — 30-day trial, then paid. Campaign provider: a mail is sent as a campaign to a whole mailing list, not to the mail’s To addresses — a test email goes to the whole list. Best for email marketing and automation on Moosend."
 msgstr ""
 
-#: templates/admin/shell.php:165
-#: templates/admin/shell.php:421
+#: templates/admin/shell.php:166
+#: templates/admin/shell.php:426
 msgid "More"
 msgstr "Selengkapnya"
 
@@ -7249,7 +7286,7 @@ msgstr "Komentar bawaan WordPress aktif."
 msgid "Native WordPress comments, stored in this site’s database. Threaded replies, moderation, and the comment form all work exactly as WordPress provides them."
 msgstr "Komentar asli WordPress, disimpan di database situs ini. Balasan berutas, moderasi, dan formulir komentar bekerja persis seperti yang disediakan WordPress."
 
-#: templates/admin/shell.php:188
+#: templates/admin/shell.php:193
 msgid "Navigation"
 msgstr "Navigasi"
 
@@ -7268,10 +7305,11 @@ msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] "Perlu Revisi <span class=\"count\">(%s)</span>"
 
-#: src/Admin/ModuleRegistry.php:1593
-#: src/Admin/ModuleRegistry.php:922
+#: src/Admin/ModuleRegistry.php:1618
+#: src/Admin/ModuleRegistry.php:946
+#: src/Modules/Recaptcha/RecaptchaModule.php:532
 #: src/Modules/Turnstile/TurnstileModule.php:989
-#: templates/admin/shell.php:123
+#: templates/admin/shell.php:124
 msgid "Needs setup"
 msgstr "Perlu penyiapan"
 
@@ -7306,12 +7344,12 @@ msgstr "Jangan bagikan ini kepada siapa pun."
 msgid "New backup codes generated. The old codes no longer work."
 msgstr "Kode cadangan baru telah dibuat. Kode lama tidak lagi berfungsi."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:204
+#: src/Modules/ContactForm/ContactFormAjax.php:206
 #. translators: %s: contact form title.
 msgid "New contact form submission: %s"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:92
+#: templates/admin/modules/contact-form.php:94
 msgid "New contact form title"
 msgstr ""
 
@@ -7387,7 +7425,7 @@ msgstr ""
 #: src/Admin/AdminPointerTour.php:309
 #: templates/admin/contact-submissions.php:228
 #: templates/admin/modules/activity-log.php:176
-#: templates/admin/shell.php:129
+#: templates/admin/shell.php:130
 #: templates/widgets/weather.php:71
 msgid "Next"
 msgstr "Berikutnya"
@@ -7528,7 +7566,7 @@ msgstr "Tidak ada plugin cache yang aktif. %s"
 msgid "No capability changes for this role."
 msgstr "Tidak ada perubahan kapabilitas untuk peran ini."
 
-#: templates/admin/modules/contact-form.php:48
+#: templates/admin/modules/contact-form.php:50
 msgid "No contact forms yet. Create the first one below."
 msgstr ""
 
@@ -7544,7 +7582,7 @@ msgstr "Tidak ada penyedia kripto yang tersedia."
 msgid "No custom avatar set — Gravatar (or the site default) is used."
 msgstr "Tidak ada avatar kustom yang diatur — Gravatar (atau bawaan situs) digunakan."
 
-#: templates/admin/shell.php:150
+#: templates/admin/shell.php:151
 msgid "No custom categories yet."
 msgstr "Belum ada kategori kustom."
 
@@ -7806,7 +7844,7 @@ msgid "No WordPress AI provider is available: WordPress ships the AI Client API 
 msgstr "Tidak ada penyedia AI WordPress yang tersedia: WordPress menyertakan AI Client API tetapi tidak menyertakan penyedia AI sendiri. Pasang dan hubungkan plugin penyedia AI (misalnya plugin penyedia Anthropic, Google, atau OpenAI) untuk mengaktifkan saran meta AI. Tidak ada yang dibuat sampai saat itu."
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:743
-#: templates/admin/modules/contact-form.php:37
+#: templates/admin/modules/contact-form.php:39
 #: templates/admin/modules/db-tools.php:118
 #: templates/admin/modules/db-tools.php:63
 #: templates/admin/modules/mailer.php:215
@@ -7834,9 +7872,9 @@ msgstr "Tidak aktif. Tema membutuhkan plugin TrayDigita Stack."
 msgid "Not applicable"
 msgstr "Tidak berlaku"
 
-#: src/Admin/ModuleRegistry.php:1581
-#: src/Admin/ModuleRegistry.php:916
-#: templates/admin/shell.php:124
+#: src/Admin/ModuleRegistry.php:1606
+#: src/Admin/ModuleRegistry.php:940
+#: templates/admin/shell.php:125
 msgid "Not available"
 msgstr "Tidak tersedia"
 
@@ -7848,7 +7886,7 @@ msgstr "Tidak tersedia dari wordpress.org — pasang dari rilis proyek itu sendi
 #: src/Modules/Integrations/IntegrationsModule.php:398
 #: src/Modules/Integrations/IntegrationsModule.php:899
 #: templates/admin/modules/mailer.php:132
-#: templates/admin/shell.php:446
+#: templates/admin/shell.php:451
 msgid "Not configured"
 msgstr "Belum dikonfigurasi"
 
@@ -7944,7 +7982,7 @@ msgstr "Tidak ada yang disimpan."
 msgid "Notification email sent"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:152
+#: templates/admin/modules/contact-form.php:154
 msgid "Notification email template"
 msgstr ""
 
@@ -8255,7 +8293,7 @@ msgid "OPcache status, object-cache and transient flushing."
 msgstr "Status OPcache, pengosongan object cache dan transient."
 
 #: templates/admin/hub-page.php:190
-#: templates/admin/shell.php:125
+#: templates/admin/shell.php:126
 msgid "Open"
 msgstr "Buka"
 
@@ -8311,7 +8349,7 @@ msgid "Open Sans"
 msgstr "Open Sans"
 
 #: src/Modules/Integrations/IntegrationsModule.php:469
-#: templates/admin/shell.php:169
+#: templates/admin/shell.php:170
 msgid "Open settings"
 msgstr "Buka pengaturan"
 
@@ -8324,6 +8362,10 @@ msgstr "Buka Site Kit"
 #: src/Modules/Turnstile/TurnstileModule.php:998
 msgid "Open the Cloudflare Turnstile dashboard"
 msgstr "Buka dasbor Cloudflare Turnstile"
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:541
+msgid "Open the Google reCAPTCHA admin console"
+msgstr "Buka konsol admin Google reCAPTCHA"
 
 #: templates/admin/modules/maintenance.php:354
 msgid "Open the maintenance page exactly as visitors see it."
@@ -8421,7 +8463,7 @@ msgstr "Warna hex opsional, contoh #1d4ed8."
 msgid "Optional instant indexing."
 msgstr "Pengindeksan instan opsional."
 
-#: templates/admin/modules/contact-form.php:166
+#: templates/admin/modules/contact-form.php:168
 msgid "Optional prefix for the notification email subject, e.g. [Website]."
 msgstr ""
 
@@ -8529,7 +8571,7 @@ msgstr "Halaman %1$d dari %2$d (%3$d entri)"
 msgid "Page %d"
 msgstr "Halaman %d"
 
-#: templates/admin/shell.php:127
+#: templates/admin/shell.php:128
 msgid "Page %s of %s"
 msgstr "Halaman %s dari %s"
 
@@ -8798,7 +8840,7 @@ msgstr "Mode akses per peran; administrator tidak pernah terpengaruh."
 msgid "Per-role enforcement and rate limiting."
 msgstr "Penegakan per peran dan pembatasan laju."
 
-#: src/Admin/ModuleRegistry.php:981
+#: src/Admin/ModuleRegistry.php:1006
 msgid "Performance"
 msgstr "Performa"
 
@@ -8952,7 +8994,7 @@ msgstr "Silakan <a href=\"%s\">masuk</a> untuk menggunakan area anggota."
 msgid "Please check the following fields: %s."
 msgstr "Silakan periksa kolom berikut: %s."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:88
+#: src/Modules/ContactForm/ContactFormAjax.php:90
 #: src/Modules/FormBuilder/FormBuilderModule.php:741
 msgid "Please check the form and try again."
 msgstr ""
@@ -9245,7 +9287,7 @@ msgstr "Pratinjau dengan aturan saat ini"
 
 #: templates/admin/contact-submissions.php:217
 #: templates/admin/modules/activity-log.php:173
-#: templates/admin/shell.php:128
+#: templates/admin/shell.php:129
 #: templates/widgets/weather.php:67
 msgid "Previous"
 msgstr "Sebelumnya"
@@ -9377,7 +9419,7 @@ msgstr "Manifest produksi hilang. Jalankan build aset untuk membuatnya kembali."
 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2482
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:714
-#: templates/admin/shell.php:230
+#: templates/admin/shell.php:235
 msgid "Profile"
 msgstr "Profil"
 
@@ -9401,7 +9443,7 @@ msgstr "Lindungi formulir login"
 msgid "Protect the newsletter subscribe form"
 msgstr "Lindungi formulir berlangganan buletin"
 
-#: src/Modules/ContactForm/ContactFormModule.php:202
+#: src/Modules/ContactForm/ContactFormModule.php:195
 msgid "Protected by Turnstile or reCAPTCHA."
 msgstr "Dilindungi oleh Turnstile atau reCAPTCHA."
 
@@ -9417,6 +9459,10 @@ msgstr "Dilindungi — hanya pengguna ini yang dapat mengubah perannya sendiri."
 #: templates/admin/modules/security-headers.php:52
 msgid "Protects against clickjacking. Turn it off if another site must embed this one."
 msgstr "Melindungi dari clickjacking. Matikan jika situs lain harus menyematkan situs ini."
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:215
+msgid "Protects the Contact Form module."
+msgstr "Melindungi modul Contact Form."
 
 #: src/Modules/Comments/CommentsModule.php:468
 #: src/Modules/Mailer/MailerModule.php:1562
@@ -9435,10 +9481,6 @@ msgstr "Penyedia"
 #: src/Modules/Markets/BinanceCryptoProvider.php:95
 msgid "Public market data, no API key. Prices are USDT pairs, so the display currency is always USDT — never USD or IDR. There is no Pro tier for public market data."
 msgstr "Data pasar publik, tanpa kunci API. Harganya adalah pasangan USDT, jadi mata uang tampilan selalu USDT — bukan USD atau IDR. Tidak ada tingkat Pro untuk data pasar publik."
-
-#: templates/admin/modules/contact-form.php:199
-msgid "Public site key from the Google reCAPTCHA console (v2 checkbox and v3 share one key pair)."
-msgstr ""
 
 #: templates/admin/modules/email.php:260
 msgid "Public subscribe form: visitors confirm via a double opt-in email."
@@ -9656,48 +9698,52 @@ msgstr "Alasan"
 msgid "Rebuilt as the multi-provider Mailer: 26 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 26 API transaksional, 10 API pemasaran, Gmail OAuth, dan email PHP lokal."
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:116
+#: src/Modules/Recaptcha/Verifier.php:116
 msgid "reCAPTCHA action mismatch."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:186
+#: templates/admin/modules/contact-form.php:188
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:184
+#: templates/admin/modules/contact-form.php:203
+msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
+msgstr "Kunci reCAPTCHA belum diatur. Formulir kontak yang memakai proteksi reCAPTCHA tidak akan memiliki proteksi spam hingga kunci disimpan."
+
+#: templates/admin/modules/contact-form.php:201
+msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
+msgstr "Kunci reCAPTCHA sudah diatur di modul Google reCAPTCHA."
+
+#: templates/admin/modules/contact-form.php:186
 msgid "reCAPTCHA keys are set."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:107
+#: src/Modules/Recaptcha/Verifier.php:107
 msgid "reCAPTCHA score is too low."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:206
-msgid "reCAPTCHA secret key"
-msgstr ""
+#: src/Modules/Recaptcha/RecaptchaModule.php:646
+msgid "reCAPTCHA settings saved."
+msgstr "Pengaturan reCAPTCHA disimpan."
 
-#: templates/admin/modules/contact-form.php:197
-msgid "reCAPTCHA site key"
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:35
+#: templates/admin/modules/contact-form.php:37
 msgid "reCAPTCHA v2 (checkbox)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:36
+#: templates/admin/modules/contact-form.php:38
 msgid "reCAPTCHA v3 (score)"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:216
+#: src/Modules/Recaptcha/RecaptchaModule.php:571
 msgid "reCAPTCHA v3 score threshold"
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:93
+#: src/Modules/Recaptcha/Verifier.php:93
 #. translators: %s: reCAPTCHA error code.
 msgid "reCAPTCHA verification failed (%s)."
 msgstr ""
 
-#: src/Modules/ContactForm/RecaptchaVerifier.php:96
+#: src/Modules/Recaptcha/Verifier.php:96
 msgid "reCAPTCHA verification failed."
 msgstr ""
 
@@ -9710,15 +9756,15 @@ msgstr "Upaya gagal terbaru"
 msgid "Recent sends"
 msgstr "Pengiriman terakhir"
 
-#: templates/admin/modules/contact-form.php:55
+#: templates/admin/modules/contact-form.php:57
 msgid "Recipient"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:130
+#: templates/admin/modules/contact-form.php:132
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1621
+#: src/Admin/ModuleRegistry.php:1647
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr "Disarankan"
@@ -9980,7 +10026,7 @@ msgstr "Menghapus manage_options dari peran ini: penyimpanan akan ditolak jika t
 msgid "Removing manage_options from this role: the save will be refused if no other user keeps it."
 msgstr "Menghapus manage_options dari peran ini: penyimpanan akan ditolak jika tidak ada pengguna lain yang mempertahankannya."
 
-#: templates/admin/shell.php:140
+#: templates/admin/shell.php:141
 msgid "Rename"
 msgstr "Ganti nama"
 
@@ -10219,7 +10265,7 @@ msgstr "Aturan keamanan: administrator dilindungi."
 msgid "Safety rules: only capability names WordPress itself knows are accepted — anything else is rejected and nothing is saved."
 msgstr "Aturan keamanan: hanya nama kapabilitas yang dikenal WordPress sendiri yang diterima — yang lain ditolak dan tidak ada yang disimpan."
 
-#: templates/admin/shell.php:142
+#: templates/admin/shell.php:143
 msgid "Save"
 msgstr "Simpan"
 
@@ -10240,6 +10286,7 @@ msgstr "Simpan"
 #: src/Modules/PrintArticle/PrintArticleModule.php:305
 #: src/Modules/ReadAloud/ReadAloudModule.php:304
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:341
+#: src/Modules/Recaptcha/RecaptchaModule.php:588
 #: src/Modules/Redirects/RedirectsModule.php:273
 #: src/Modules/Redirects/RedirectsModule.php:419
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:372
@@ -10455,6 +10502,7 @@ msgstr "Cari seri"
 msgid "Seconds"
 msgstr "Detik"
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:557
 #: src/Modules/Turnstile/TurnstileModule.php:1038
 #: src/Modules/Turnstile/TurnstileModule.php:1181
 msgid "Secret key"
@@ -10464,14 +10512,6 @@ msgstr "Kunci rahasia"
 msgid "Secret key (manual entry):"
 msgstr "Kunci rahasia (entri manual):"
 
-#: templates/admin/modules/contact-form.php:210
-msgid "Secret key from the Google reCAPTCHA console. Never share it."
-msgstr ""
-
-#: templates/admin/modules/contact-form.php:209
-msgid "Secret key saved. Leave empty to keep it, or enter a new one to replace it."
-msgstr ""
-
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1269
 msgid "Section order"
 msgstr "Urutan bagian"
@@ -10480,7 +10520,7 @@ msgstr "Urutan bagian"
 msgid "Sections are registered through the traydigita:core:member/sections filter and managed here: tick a section to hide it from the dashboard, and list section ids in order to reorder them. A hidden section is never reachable by URL either — the dashboard redirects to Overview. Change Email only appears when the toggle below is on; users who can access wp-admin can always change their email from profile.php instead."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:977
+#: src/Admin/ModuleRegistry.php:1002
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr "Keamanan"
@@ -10489,7 +10529,7 @@ msgstr "Keamanan"
 msgid "Security check failed"
 msgstr "Pemeriksaan keamanan gagal"
 
-#: src/Modules/ContactForm/ContactFormAjax.php:64
+#: src/Modules/ContactForm/ContactFormAjax.php:66
 #: src/Modules/FormBuilder/FormBuilderModule.php:728
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
@@ -10580,7 +10620,7 @@ msgstr "Ikon terpilih"
 msgid "Send confirmation email"
 msgstr "Kirim email konfirmasi"
 
-#: templates/admin/modules/contact-form.php:56
+#: templates/admin/modules/contact-form.php:58
 msgid "Send email"
 msgstr ""
 
@@ -10609,7 +10649,7 @@ msgstr "Kirim email tes"
 msgid "Send test email to"
 msgstr "Kirim email tes ke"
 
-#: templates/admin/modules/contact-form.php:138
+#: templates/admin/modules/contact-form.php:140
 msgid "Send to email"
 msgstr ""
 
@@ -10841,7 +10881,7 @@ msgstr ""
 msgid "Sent to %1$d devices, failed %2$d, dead tokens removed: %3$d."
 msgstr "Terkirim ke %1$d perangkat, gagal %2$d, token mati yang dihapus: %3$d."
 
-#: src/Modules/ContactForm/ContactFormModule.php:201
+#: src/Modules/ContactForm/ContactFormModule.php:194
 msgid "Sent via the Core Mailer."
 msgstr "Dikirim melalui Core Mailer."
 
@@ -10852,7 +10892,7 @@ msgstr "Dikirim melalui Core Mailer."
 msgid "SEO"
 msgstr "SEO"
 
-#: src/Admin/ModuleRegistry.php:985
+#: src/Admin/ModuleRegistry.php:1010
 msgid "SEO & Discovery"
 msgstr "SEO & Penemuan"
 
@@ -10997,11 +11037,12 @@ msgstr "Mengatur avatar sendiri dinonaktifkan oleh administrator situs."
 #: src/Modules/Redirects/RedirectsModule.php:402
 #: templates/admin/modules/epaper.php:91
 #: templates/admin/modules/image-optimizer.php:133
-#: templates/admin/shell.php:268
+#: templates/admin/shell.php:176
+#: templates/admin/shell.php:273
 msgid "Settings"
 msgstr "Pengaturan"
 
-#: templates/admin/shell.php:292
+#: templates/admin/shell.php:297
 msgid "Settings for the modules that are currently active. Inactive modules are listed on the Modules page."
 msgstr "Pengaturan untuk modul yang sedang aktif. Modul yang tidak aktif tercantum di halaman Modul."
 
@@ -11022,7 +11063,7 @@ msgstr "Pengaturan disimpan."
 #: src/Admin/AdminMenu.php:347
 #: src/Admin/AdminMenu.php:502
 #: src/Admin/AdminMenu.php:637
-#: templates/admin/shell.php:441
+#: templates/admin/shell.php:446
 msgid "Setup"
 msgstr "Persiapan"
 
@@ -11070,7 +11111,7 @@ msgstr "Dibagikan ke semua aturan pada satu halaman. Atur ke 0 untuk tidak menam
 msgid "Shared with the Customizer"
 msgstr "Dibagikan dengan Customizer"
 
-#: templates/admin/modules/contact-form.php:58
+#: templates/admin/modules/contact-form.php:60
 #: templates/admin/modules/form-builder.php:56
 msgid "Shortcode"
 msgstr ""
@@ -11347,6 +11388,7 @@ msgstr "Info situs untuk %s"
 msgid "Site Info has no settings to save."
 msgstr "Info Situs tidak memiliki pengaturan untuk disimpan."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:551
 #: src/Modules/Turnstile/TurnstileModule.php:1032
 #: src/Modules/Turnstile/TurnstileModule.php:1167
 msgid "Site key"
@@ -11581,18 +11623,18 @@ msgstr "Komentar spam"
 msgid "Spam detected."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:328
-#: templates/admin/modules/contact-form.php:144
-#: templates/admin/modules/contact-form.php:57
+#: src/Modules/ContactForm/ContactFormModule.php:321
+#: templates/admin/modules/contact-form.php:146
+#: templates/admin/modules/contact-form.php:59
 msgid "Spam protection"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:176
+#: templates/admin/modules/contact-form.php:178
 msgid "Spam protection & retention"
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:152
-#: src/Modules/ContactForm/ContactFormAjax.php:168
+#: src/Modules/ContactForm/ContactFormAjax.php:154
+#: src/Modules/ContactForm/ContactFormAjax.php:170
 msgid "Spam protection failed. Please try again."
 msgstr ""
 
@@ -11668,8 +11710,8 @@ msgstr "Statistik belum tersedia: belum ada kunjungan yang tercatat untuk artike
 #: templates/admin/modules/email.php:226
 #: templates/admin/modules/fast-search.php:101
 #: templates/admin/modules/headers.php:50
-#: templates/admin/shell.php:174
-#: templates/admin/shell.php:425
+#: templates/admin/shell.php:175
+#: templates/admin/shell.php:430
 msgid "Status"
 msgstr "Status"
 
@@ -11722,7 +11764,7 @@ msgstr "Berhenti mendengarkan"
 msgid "Stops browsers from guessing a file’s type."
 msgstr "Mencegah peramban menebak jenis file."
 
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/contact-form.php:70
 msgid "Store only"
 msgstr ""
 
@@ -11756,15 +11798,15 @@ msgstr "Gaya"
 msgid "Subject"
 msgstr "Subjek"
 
-#: templates/admin/modules/contact-form.php:226
+#: templates/admin/modules/contact-form.php:213
 msgid "Submissions older than this are deleted automatically (daily prune). 0 keeps submissions forever."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:218
-msgid "Submissions scoring below this (0.0–1.0) are rejected. 0.5 is Google\\u2019s recommended default."
-msgstr ""
+#: src/Modules/Recaptcha/RecaptchaModule.php:573
+msgid "Submissions scoring below this (0.0–1.0) are rejected."
+msgstr "Pengiriman dengan skor di bawah nilai ini (0,0–1,0) ditolak."
 
-#: src/Modules/ContactForm/ContactFormModule.php:200
+#: src/Modules/ContactForm/ContactFormModule.php:193
 msgid "Submissions stored in their own table."
 msgstr "Pengiriman disimpan di tabel sendiri."
 
@@ -12100,11 +12142,11 @@ msgstr "Terima kasih atas kesabaran Anda. Silakan periksa kembali nanti."
 msgid "Thank you! Please check your email to confirm the subscription."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:131
+#: src/Modules/ContactForm/ContactFormAjax.php:133
 msgid "Thank you. Your message has been sent."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:126
+#: src/Modules/ContactForm/ContactFormAjax.php:128
 msgid "Thank you. Your message was saved, but the notification email could not be sent — the site administrator has been notified through the submissions list."
 msgstr ""
 
@@ -12445,7 +12487,7 @@ msgstr "Modul Komentar dinonaktifkan — aktifkan di Modul untuk menggunakan pen
 msgid "The confirmation word must be 3–20 letters or digits."
 msgstr "Kata konfirmasi harus terdiri dari 3–20 huruf atau angka."
 
-#: src/Modules/ContactForm/ContactFormModule.php:609
+#: src/Modules/ContactForm/ContactFormModule.php:574
 msgid "The Contact Form settings template is missing."
 msgstr ""
 
@@ -12671,7 +12713,7 @@ msgstr ""
 msgid "The form has no valid fields."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:741
+#: src/Modules/ContactForm/ContactFormModule.php:693
 #: src/Modules/FormBuilder/FormBuilderModule.php:502
 msgid "The form title must not be empty."
 msgstr ""
@@ -12763,6 +12805,10 @@ msgstr "Pemasang melaporkan berhasil, tetapi plugin masih belum terpasang. Harap
 #: src/Modules/Seo/SeoModule.php:885
 msgid "The JSON is stored on this site only and is used solely to notify the Google Indexing API."
 msgstr "JSON hanya disimpan di situs ini dan hanya digunakan untuk memberi tahu Google Indexing API."
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:530
+msgid "The keys are saved. Contact forms using reCAPTCHA protection will show the challenge."
+msgstr "Kunci sudah disimpan. Formulir kontak yang memakai proteksi reCAPTCHA akan menampilkan tantangan."
 
 #: src/Modules/Turnstile/TurnstileModule.php:987
 msgid "The keys are saved. Each protection below only takes effect while its toggle is on."
@@ -13047,6 +13093,10 @@ msgstr ""
 msgid "The public key from your Cloudflare Turnstile widget."
 msgstr "Kunci publik dari widget Cloudflare Turnstile Anda."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:553
+msgid "The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair)."
+msgstr "Kunci publik dari situs Google reCAPTCHA Anda (v2 kotak centang dan v3 memakai satu pasangan kunci yang sama)."
+
 #: src/Modules/Pwa/PushAjax.php:133
 msgid "The push plugin is active and owns push notifications. Deactivate it to test the theme module config."
 msgstr "Plugin push aktif dan memiliki notifikasi push. Nonaktifkan untuk menguji konfigurasi modul tema."
@@ -13102,6 +13152,7 @@ msgstr "Aturan yang Anda coba edit sudah tidak ada."
 msgid "The same headers, as server configuration."
 msgstr "Header yang sama, sebagai konfigurasi server."
 
+#: src/Modules/Recaptcha/RecaptchaModule.php:567
 #: src/Modules/Turnstile/TurnstileModule.php:1048
 msgid "The secret key is never shown, never logged, and never returned by any endpoint."
 msgstr "Kunci rahasia tidak pernah ditampilkan, tidak pernah dicatat, dan tidak pernah dikembalikan oleh endpoint apa pun."
@@ -13219,7 +13270,7 @@ msgstr "Plugin SEO standar untuk situs berita. Saat plugin ini aktif, modul SEO 
 msgid "The strip under the ticker shows the first gold price and up to four stocks."
 msgstr "Strip di bawah ticker menampilkan harga emas pertama dan hingga empat saham."
 
-#: src/Modules/ContactForm/ContactFormModule.php:859
+#: src/Modules/ContactForm/ContactFormModule.php:811
 msgid "The submissions template is missing."
 msgstr ""
 
@@ -13511,7 +13562,7 @@ msgstr "Jenis berkas ini tidak diizinkan. Silakan unggah gambar."
 msgid "This flush deletes every transient, including live ones — not just expired ones."
 msgstr "Flush ini menghapus semua transient, termasuk yang masih aktif — bukan hanya yang kedaluwarsa."
 
-#: src/Modules/ContactForm/ContactFormAjax.php:73
+#: src/Modules/ContactForm/ContactFormAjax.php:75
 msgid "This form is not configured yet."
 msgstr ""
 
@@ -13553,7 +13604,7 @@ msgstr "Ini adalah nama mesin peran dan tidak dapat diubah nanti."
 msgid "This looks like a development site, so no server-specific recommendation can be made — page caching is not needed while developing. Install a cache plugin when the site goes live."
 msgstr "Ini tampaknya situs pengembangan, sehingga tidak ada rekomendasi khusus server yang dapat diberikan — page caching tidak diperlukan selama pengembangan. Instal plugin cache saat situs sudah live."
 
-#: templates/admin/shell.php:372
+#: templates/admin/shell.php:377
 msgid "This module is not available."
 msgstr "Modul ini tidak tersedia."
 
@@ -13650,8 +13701,8 @@ msgstr "Waktu"
 #: src/Widgets/WidgetBase.php:287
 #: templates/admin/modules/agenda.php:123
 #: templates/admin/modules/agenda.php:206
-#: templates/admin/modules/contact-form.php:111
-#: templates/admin/modules/contact-form.php:53
+#: templates/admin/modules/contact-form.php:113
+#: templates/admin/modules/contact-form.php:55
 #: templates/admin/modules/epaper.php:119
 #: templates/admin/modules/epaper.php:171
 #: templates/admin/modules/epaper.php:205
@@ -13797,9 +13848,9 @@ msgstr "Tray Digita: Acara Mendatang"
 #: src/Admin/AdminMenu.php:308
 #: src/Admin/AdminMenu.php:309
 #: src/Admin/SiteHealth.php:415
-#: templates/admin/shell.php:264
-#: templates/admin/shell.php:274
+#: templates/admin/shell.php:269
 #: templates/admin/shell.php:279
+#: templates/admin/shell.php:284
 #: templates/admin/shell.php:60
 msgid "TrayDigita"
 msgstr "TrayDigita"
@@ -13820,7 +13871,7 @@ msgstr "TrayDigita Dark"
 msgid "TrayDigita Light"
 msgstr "TrayDigita Light"
 
-#: templates/admin/shell.php:192
+#: templates/admin/shell.php:197
 msgid "TrayDigita sections"
 msgstr "Bagian TrayDigita"
 
@@ -13902,15 +13953,15 @@ msgstr "Aktifkan setidaknya satu header di atas."
 msgid "Turning the module off hides the market strip and removes the Gold, Stock, and Crypto widgets. No price is ever invented: a provider with no data contributes nothing."
 msgstr "Mematikan modul akan menyembunyikan strip pasar dan menghapus widget Emas, Saham, dan Kripto. Tidak ada harga yang dikarang: penyedia tanpa data tidak menampilkan apa pun."
 
-#: templates/admin/modules/contact-form.php:34
+#: templates/admin/modules/contact-form.php:36
 msgid "Turnstile"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:179
+#: templates/admin/modules/contact-form.php:181
 msgid "Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:181
+#: templates/admin/modules/contact-form.php:183
 msgid "Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings."
 msgstr ""
 
@@ -14131,17 +14182,17 @@ msgstr "Kapabilitas tidak dikenal: %s. Tidak ada yang disimpan."
 msgid "Unknown category."
 msgstr "Kategori tidak dikenal."
 
-#: src/Modules/ContactForm/ContactFormModule.php:644
+#: src/Modules/ContactForm/ContactFormModule.php:609
 msgid "Unknown Contact Form action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormAjax.php:69
-#: src/Modules/ContactForm/ContactFormModule.php:734
-#: src/Modules/ContactForm/ContactFormModule.php:788
+#: src/Modules/ContactForm/ContactFormAjax.php:71
+#: src/Modules/ContactForm/ContactFormModule.php:686
+#: src/Modules/ContactForm/ContactFormModule.php:740
 msgid "Unknown contact form."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:755
+#: src/Modules/ContactForm/ContactFormModule.php:707
 #: src/Modules/FormBuilder/FormBuilderModule.php:588
 #: src/Modules/FormBuilder/FormBuilderModule.php:627
 msgid "Unknown email template."
@@ -14151,7 +14202,7 @@ msgstr ""
 msgid "Unknown Form Builder action."
 msgstr ""
 
-#: src/Modules/ContactForm/ContactFormModule.php:748
+#: src/Modules/ContactForm/ContactFormModule.php:700
 msgid "Unknown Form Builder form."
 msgstr ""
 
@@ -14257,6 +14308,10 @@ msgstr "Blok yang tidak dicentang hilang dari editor, dan blok semacam itu dalam
 #: src/Modules/Cache/CacheModule.php:933
 msgid "Until both are saved, the purge button stays disabled and nothing is sent to Cloudflare."
 msgstr "Sampai keduanya disimpan, tombol purge tetap nonaktif dan tidak ada yang dikirim ke Cloudflare."
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:538
+msgid "Until both keys are saved, contact forms fall back to no spam protection for their reCAPTCHA modes."
+msgstr "Hingga kedua kunci disimpan, formulir kontak kembali tanpa proteksi spam untuk mode reCAPTCHA-nya."
 
 #: src/Modules/Turnstile/TurnstileModule.php:995
 msgid "Until both keys are saved, no challenge is shown and logins work exactly as before."
@@ -14445,7 +14500,7 @@ msgstr "Gunakan tombol salin untuk menempelkan seluruh laporan ke permintaan duk
 msgid "Use your browser\\u2019s Print to save this submission as a document."
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:235
+#: templates/admin/modules/contact-form.php:222
 msgid "Used by forms without their own recipient. Leave empty to use the site admin email."
 msgstr ""
 
@@ -14576,12 +14631,12 @@ msgstr "Varian"
 msgid "Verify and log in"
 msgstr "Verifikasi dan masuk"
 
-#: templates/admin/shell.php:171
-#: templates/admin/shell.php:437
+#: templates/admin/shell.php:172
+#: templates/admin/shell.php:442
 msgid "Version"
 msgstr "Versi"
 
-#: templates/admin/shell.php:130
+#: templates/admin/shell.php:131
 msgid "Version %s"
 msgstr "Versi %s"
 
@@ -14592,6 +14647,7 @@ msgstr "Versi tidak diketahui"
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2183
 #: templates/admin/contact-submissions.php:198
 #: templates/admin/modules/agenda.php:220
+#: templates/admin/shell.php:177
 msgid "View"
 msgstr "Lihat"
 
@@ -14611,7 +14667,7 @@ msgstr "Lihat situs"
 msgid "View Site Kit in the plugin installer"
 msgstr "Lihat Site Kit di pemasang plugin"
 
-#: templates/admin/modules/contact-form.php:45
+#: templates/admin/modules/contact-form.php:47
 msgid "View submissions"
 msgstr ""
 
@@ -14773,7 +14829,7 @@ msgstr "Saat nonaktif, berkas asli dihapus — tetapi hanya setelah berkas hasil
 msgid "When on (and the indexes are installed), frontend search uses MATCH … AGAINST in boolean mode, including matches on category and tag names."
 msgstr "Saat aktif (dan indeks terpasang), pencarian frontend menggunakan MATCH … AGAINST dalam mode boolean, termasuk kecocokan pada nama kategori dan tag."
 
-#: templates/admin/modules/contact-form.php:140
+#: templates/admin/modules/contact-form.php:142
 msgid "When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form."
 msgstr ""
 
@@ -14941,8 +14997,8 @@ msgstr "WordPress tidak dapat mengakses sistem berkas untuk memasang plugin. Per
 msgid "WordPress could not send the test email."
 msgstr "WordPress tidak dapat mengirim email tes."
 
-#: templates/admin/shell.php:208
-#: templates/admin/shell.php:235
+#: templates/admin/shell.php:213
+#: templates/admin/shell.php:240
 msgid "WordPress Dashboard"
 msgstr "Dasbor WordPress"
 
@@ -15110,7 +15166,7 @@ msgstr "Yahoo Finance adalah endpoint tidak resmi dan dapat rusak atau membatasi
 #: src/Modules/SiteInfo/SiteInfoModule.php:773
 #: templates/admin/contact-submissions.php:196
 #: templates/admin/contact-submissions.php:99
-#: templates/admin/modules/contact-form.php:68
+#: templates/admin/modules/contact-form.php:70
 msgid "Yes"
 msgstr "Ya"
 
@@ -15175,7 +15231,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Cache."
 msgid "You are not allowed to change comment settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan komentar."
 
-#: src/Modules/ContactForm/ContactFormModule.php:633
+#: src/Modules/ContactForm/ContactFormModule.php:598
 msgid "You are not allowed to change Contact Form settings."
 msgstr ""
 
@@ -15266,6 +15322,10 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Baca dengan Suara."
 #: src/Modules/ReadingProgress/ReadingProgressModule.php:367
 msgid "You are not allowed to change Reading Progress settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Reading Progress."
+
+#: src/Modules/Recaptcha/RecaptchaModule.php:616
+msgid "You are not allowed to change reCAPTCHA settings."
+msgstr "Anda tidak diizinkan mengubah pengaturan reCAPTCHA."
 
 #: src/Modules/Redirects/RedirectsModule.php:523
 msgid "You are not allowed to change redirect settings."
@@ -15361,6 +15421,7 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Mailer/MailerModule.php:2323
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Pwa/PushAjax.php:84
+#: src/Modules/Recaptcha/RecaptchaModule.php:512
 #: src/Modules/Redirects/RedirectsAjax.php:307
 #: src/Modules/Security/SecurityAjax.php:68
 #: src/Modules/Security/SecurityModule.php:288
@@ -15399,7 +15460,7 @@ msgstr "Anda tidak diizinkan memasang plugin."
 msgid "You are not allowed to manage E-Paper issues."
 msgstr "Anda tidak diizinkan mengelola edisi E-Paper."
 
-#: src/Modules/ContactForm/ContactFormModule.php:835
+#: src/Modules/ContactForm/ContactFormModule.php:787
 msgid "You are not allowed to view contact submissions."
 msgstr ""
 
@@ -15489,7 +15550,7 @@ msgstr "Alamat email Anda saat ini:"
 msgid "Your email address"
 msgstr "Alamat email Anda"
 
-#: src/Modules/ContactForm/ContactFormAjax.php:109
+#: src/Modules/ContactForm/ContactFormAjax.php:111
 msgid "Your message could not be saved. Please try again later."
 msgstr ""
 
@@ -15565,15 +15626,15 @@ msgstr "ID zona"
 msgid "— No series —"
 msgstr "— Tanpa seri —"
 
-#: templates/admin/modules/contact-form.php:66
+#: templates/admin/modules/contact-form.php:68
 msgid "— not set —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:154
+#: templates/admin/modules/contact-form.php:156
 msgid "— Plain list of values —"
 msgstr ""
 
-#: templates/admin/modules/contact-form.php:119
+#: templates/admin/modules/contact-form.php:121
 msgid "— Select a form —"
 msgstr ""
 
@@ -15583,6 +15644,7 @@ msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:951
 #: src/Modules/Comments/CommentsModule.php:618
+#: src/Modules/Recaptcha/RecaptchaModule.php:565
 #: src/Modules/Turnstile/TurnstileModule.php:1046
 #: templates/admin/modules/mailer.php:239
 #: templates/admin/modules/mailer.php:289
@@ -15597,6 +15659,7 @@ msgstr "…"
 msgctxt "built-in module badge"
 msgid "Core"
 msgstr "Core"
+
 #: templates/admin/modules/db-tools.php:65
 msgctxt "db-tools table row count, plural form for JavaScript"
 msgid "%d rows"

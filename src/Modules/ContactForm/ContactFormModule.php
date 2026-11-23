@@ -8,6 +8,7 @@ use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
 use TrayDigita\WP\Plugin\Core\Core;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
+use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\RecaptchaModule;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\TurnstileModule;
 use function __;
 use function absint;
@@ -18,24 +19,19 @@ use function admin_url;
 use function array_keys;
 use function array_merge;
 use function current_user_can;
-use function esc_attr;
 use function esc_html__;
-use function esc_js;
 use function file_exists;
 use function get_option;
 use function in_array;
 use function is_array;
 use function is_string;
-use function rawurlencode;
 use function sanitize_email;
 use function sanitize_key;
 use function sanitize_text_field;
 use function time;
 use function update_option;
-use function wp_add_inline_script;
 use function wp_create_nonce;
 use function wp_die;
-use function wp_enqueue_script;
 use function wp_next_scheduled;
 use function wp_schedule_event;
 use function wp_unslash;
@@ -51,8 +47,10 @@ use function wp_unslash;
  * toggle: when off, submissions are stored only (send is
  * caught and prevented). Spam protection is Turnstile (when
  * that module is active and configured) and reCAPTCHA v2/v3
- * (site + secret keys in the settings, score threshold for
- * v3), chosen per form.
+ * (keys in the Recaptcha module's settings, score threshold
+ * for v3), chosen per form. This module never embeds a
+ * verifier or a key: it links to the Turnstile and Recaptcha
+ * modules, which own their widgets and verification.
  *
  * Admin: the module's own page in the TrayDigita submenu is
  * the submissions list (it appears only while the module is
@@ -105,11 +103,6 @@ final class ContactFormModule implements ModuleInterface
      * reCAPTCHA v3 action name sent to Google.
      */
     public const string RECAPTCHA_V3_ACTION = 'traydigita_contact_form';
-
-    /**
-     * reCAPTCHA JavaScript API URL (v3, render mode).
-     */
-    public const string RECAPTCHA_SCRIPT_URL = 'https://www.google.com/recaptcha/api.js';
 
     /**
      * Spam protection choices per form.
@@ -392,9 +385,6 @@ final class ContactFormModule implements ModuleInterface
     public static function defaults(): array
     {
         return [
-            'recaptcha_site_key' => '',
-            'recaptcha_secret_key' => '',
-            'recaptcha_v3_threshold' => 0.5,
             'retention_days' => 90,
             'default_recipient' => '',
         ];
@@ -412,14 +402,7 @@ final class ContactFormModule implements ModuleInterface
             $stored = [];
         }
         $settings = array_merge(self::defaults(), $stored);
-        $settings['recaptcha_v3_threshold'] = max(0.0, min(1.0, (float) $settings['recaptcha_v3_threshold']));
         $settings['retention_days'] = max(0, (int) $settings['retention_days']);
-        if (!is_string($settings['recaptcha_site_key'])) {
-            $settings['recaptcha_site_key'] = '';
-        }
-        if (!is_string($settings['recaptcha_secret_key'])) {
-            $settings['recaptcha_secret_key'] = '';
-        }
         if (!is_string($settings['default_recipient'])) {
             $settings['default_recipient'] = '';
         }
@@ -500,9 +483,8 @@ final class ContactFormModule implements ModuleInterface
     public static function resolveSpamMode(array $form): string
     {
         $mode = (string) ($form['spam'] ?? 'auto');
-        $settings = self::getSettings();
         $turnstileReady = ModuleRegistry::isEnabled('turnstile') && TurnstileModule::isConfigured();
-        $recaptchaReady = RecaptchaVerifier::isConfigured($settings);
+        $recaptchaReady = ModuleRegistry::isEnabled('recaptcha') && RecaptchaModule::isConfigured();
         if ($mode === 'turnstile') {
             if ($turnstileReady) {
                 return 'turnstile';
@@ -548,29 +530,11 @@ final class ContactFormModule implements ModuleInterface
             TurnstileModule::enqueueLoginScript();
             $beforeSubmit = TurnstileModule::widgetHtml('contact-form');
         } elseif ($mode === 'recaptcha-v2') {
-            $settings = self::getSettings();
-            wp_enqueue_script(
-                'traydigita-recaptcha',
-                self::RECAPTCHA_SCRIPT_URL,
-                [],
-                null,
-                true
-            );
-            $beforeSubmit = '<div class="g-recaptcha" data-sitekey="' . esc_attr($settings['recaptcha_site_key']) . '"></div>';
+            RecaptchaModule::enqueueScript('v2');
+            $beforeSubmit = RecaptchaModule::widgetHtml('v2');
         } elseif ($mode === 'recaptcha-v3') {
-            $settings = self::getSettings();
-            wp_enqueue_script(
-                'traydigita-recaptcha',
-                self::RECAPTCHA_SCRIPT_URL . '?render=' . rawurlencode($settings['recaptcha_site_key']),
-                [],
-                null,
-                true
-            );
-            wp_add_inline_script(
-                'traydigita-recaptcha',
-                'document.addEventListener("submit",function(e){var f=e.target;if(!f.classList.contains("traydigita-form"))return;e.preventDefault();grecaptcha.ready(function(){grecaptcha.execute("' . esc_js($settings['recaptcha_site_key']) . '",{action:"' . esc_js(self::RECAPTCHA_V3_ACTION) . '"}).then(function(t){var i=f.querySelector("[name=g-recaptcha-response]");if(i)i.value=t;f.submit();});});});'
-            );
-            $beforeSubmit = '<input type="hidden" name="g-recaptcha-response" value="">';
+            RecaptchaModule::enqueueScript('v3', self::RECAPTCHA_V3_ACTION);
+            $beforeSubmit = RecaptchaModule::widgetHtml('v3');
         }
         $submitLabel = isset($atts['submit']) && is_string($atts['submit']) && $atts['submit'] !== '' ? sanitize_text_field($atts['submit']) : '';
         return FormBuilder::renderForm(
@@ -592,15 +556,16 @@ final class ContactFormModule implements ModuleInterface
      */
     public static function renderSettingsPage(): void
     {
-        $settings = self::getSettings();
         $forms = self::getForms();
         // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable -- Variables are consumed by the required template partial below, in the same scope.
+        $settings = self::getSettings();
         $builderForms = FormBuilderModule::getForms();
         $emailTemplates = FormBuilderModule::getEmailTemplates();
         $editingFormId = isset($_GET['form']) ? sanitize_key((string) wp_unslash($_GET['form'])) : '';
         $editingForm = $editingFormId !== '' ? ($forms[$editingFormId] ?? null) : null;
         $turnstileActive = ModuleRegistry::isEnabled('turnstile') && TurnstileModule::isConfigured();
-        $recaptchaConfigured = RecaptchaVerifier::isConfigured($settings);
+        $recaptchaConfigured = ModuleRegistry::isEnabled('recaptcha') && RecaptchaModule::isConfigured();
+        $recaptchaSettingsUrl = admin_url('admin.php?page=' . RecaptchaModule::settingsPageSlug());
         $adminNonce = wp_create_nonce(self::NONCE_ACTION);
         $spamModes = self::SPAM_MODES;
         // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
@@ -617,8 +582,8 @@ final class ContactFormModule implements ModuleInterface
      *
      * Expected keys in `$data`:
      * - `contact_action`: save_settings | create_form | save_form | delete_form
-     * - settings keys: recaptcha_site_key, recaptcha_secret_key,
-     *   recaptcha_v3_threshold, retention_days, default_recipient
+     * - settings keys: retention_days, default_recipient
+     *   (reCAPTCHA keys live in the Recaptcha module)
      * - form keys: form_id, title, form_builder_id, recipient,
      *   send_email, spam, email_template_id, subject_prefix
      *
@@ -647,11 +612,8 @@ final class ContactFormModule implements ModuleInterface
     }
 
     /**
-     * Save the module-level settings (reCAPTCHA keys, retention,
-     * default recipient).
-     *
-     * Secrets are only overwritten when a non-empty value is
-     * posted, so a masked field never wipes the stored key.
+     * Save the module-level settings (retention, default
+     * recipient).
      *
      * @param array<string, mixed> $data Posted data.
      * @return array{success: bool, message: string}
@@ -659,16 +621,6 @@ final class ContactFormModule implements ModuleInterface
     private static function saveModuleSettings(array $data): array
     {
         $settings = self::getSettings();
-        if (isset($data['recaptcha_site_key']) && is_string($data['recaptcha_site_key'])) {
-            $settings['recaptcha_site_key'] = sanitize_text_field($data['recaptcha_site_key']);
-        }
-        if (isset($data['recaptcha_secret_key']) && is_string($data['recaptcha_secret_key']) && $data['recaptcha_secret_key'] !== '') {
-            $settings['recaptcha_secret_key'] = sanitize_text_field($data['recaptcha_secret_key']);
-        }
-        if (isset($data['recaptcha_v3_threshold'])) {
-            $threshold = (float) $data['recaptcha_v3_threshold'];
-            $settings['recaptcha_v3_threshold'] = max(0.0, min(1.0, $threshold));
-        }
         if (isset($data['retention_days'])) {
             $settings['retention_days'] = max(0, (int) $data['retention_days']);
         }

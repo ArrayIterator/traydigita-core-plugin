@@ -7,6 +7,8 @@ use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\EmailBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\MailerModule;
+use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\RecaptchaModule;
+use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\Verifier as RecaptchaVerifier;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\TurnstileModule;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\Verifier as TurnstileVerifier;
 use function __;
@@ -154,14 +156,14 @@ final class ContactFormAjax
             return '';
         }
         if ($mode === 'recaptcha-v2' || $mode === 'recaptcha-v3') {
-            $settings = ContactFormModule::getSettings();
-            $token = isset($_POST['g-recaptcha-response']) ? sanitize_text_field((string) wp_unslash($_POST['g-recaptcha-response'])) : '';
+            $settings = RecaptchaModule::getSettings();
+            $token = isset($_POST[RecaptchaModule::TOKEN_FIELD]) ? sanitize_text_field((string) wp_unslash($_POST[RecaptchaModule::TOKEN_FIELD])) : '';
             $version = $mode === 'recaptcha-v3' ? 'v3' : 'v2';
             $result = RecaptchaVerifier::verify(
                 $token,
-                $settings['recaptcha_secret_key'],
+                $settings['secret_key'],
                 $version,
-                (float) $settings['recaptcha_v3_threshold'],
+                (float) $settings['v3_threshold'],
                 $version === 'v3' ? ContactFormModule::RECAPTCHA_V3_ACTION : ''
             );
             if (!$result['success']) {
