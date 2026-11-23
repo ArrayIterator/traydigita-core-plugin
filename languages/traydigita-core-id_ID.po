@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 04:09+0700\n"
-"PO-Revision-Date: 2026-11-24 04:09+0700\n"
+"POT-Creation-Date: 2026-11-24 05:04+0700\n"
+"PO-Revision-Date: 2026-11-24 05:04+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -330,7 +330,7 @@ msgstr "1 modul akan kembali ke kategori bawaannya."
 msgid "1–100. 82 is a good balance between file size and visible quality."
 msgstr "1–100. Nilai 82 merupakan keseimbangan yang baik antara ukuran berkas dan kualitas visual."
 
-#: src/Modules/Mailer/MailerModule.php:978
+#: src/Modules/Mailer/MailerModule.php:911
 msgid "25 transactional APIs plus 10 marketing APIs."
 msgstr "25 API transaksional plus 10 API pemasaran."
 
@@ -490,7 +490,9 @@ msgstr "Gambar dari pustaka media yang digunakan sebagai sampul."
 msgid "A page-cache plugin serves repeat visits from cache instead of rebuilding every page. Which plugin fits best depends on the web server this site runs on."
 msgstr "Plugin page-cache menyajikan kunjungan berulang dari cache, bukan membangun ulang setiap halaman. Plugin yang paling cocok tergantung pada server web yang dipakai situs ini."
 
-#: src/Modules/Cache/CacheModule.php:870
+#: src/Modules/Passkeys/PasskeysModule.php:1023
+msgid "A passkey enrolled here only works on this origin."
+msgstr "Passkey yang didaftarkan di sini hanya berfungsi pada origin ini."#: src/Modules/Cache/CacheModule.php:870
 msgid "A persistent object cache is in use (for example Redis or Memcached)."
 msgstr "Object cache persisten sedang digunakan (misalnya Redis atau Memcached)."
 
@@ -773,7 +775,7 @@ msgstr "Tambah blok"
 msgid "Add a note"
 msgstr "Tambah catatan"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2219
+#: src/Modules/Passkeys/PasskeysModule.php:886
 msgid "Add a passkey"
 msgstr "Tambah passkey"
 
@@ -846,7 +848,7 @@ msgstr "Tambahkan URL ini sebagai URI pengalihan resmi di klien OAuth Google Clo
 msgid "Add to calendar (.ics)"
 msgstr "Tambah ke kalender (.ics)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2210
+#: src/Modules/Passkeys/PasskeysModule.php:877
 #. translators: %s is the date the passkey was created.
 msgid "Added %s"
 msgstr "Ditambahkan %s"
@@ -864,7 +866,7 @@ msgstr "Palet admin"
 msgid "Admin UI to create and order series."
 msgstr "Antarmuka admin untuk membuat dan mengurutkan seri."
 
-#: src/Admin/ModuleRegistry.php:1046
+#: src/Admin/ModuleRegistry.php:1049
 msgid "Administration"
 msgstr "Administrasi"
 
@@ -935,7 +937,7 @@ msgstr "Setelah sekian hari hitungan diatur ulang dan pengunjung mendapat artike
 msgid "After this much of the content (%)"
 msgstr "Setelah sekian persen konten (%)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2384
+#: src/Modules/TwoFactor/TwoFactorModule.php:2198
 msgid "After verifying once, a trusted device skips the second factor for this many days (0 disables trusted devices)."
 msgstr "Setelah verifikasi sekali, perangkat tepercaya melewati faktor kedua selama jumlah hari ini (0 menonaktifkan perangkat tepercaya)."
 
@@ -1056,7 +1058,7 @@ msgstr "Semua pelanggan"
 msgid "All suggested plugins are already active."
 msgstr "Semua plugin yang disarankan sudah aktif."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:558
+#: src/Modules/TwoFactor/TwoFactorAjax.php:347
 msgid "All trusted devices removed."
 msgstr "Semua perangkat tepercaya telah dihapus."
 
@@ -1076,15 +1078,15 @@ msgstr "Izinkan akses dasbor"
 msgid "Allow email change in the dashboard"
 msgstr "Izinkan perubahan email di dasbor"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:502
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
 msgid "Allow links in article text"
 msgstr "Izinkan tautan dalam teks artikel"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:534
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:545
 msgid "Allowed blocks"
 msgstr "Blok yang diizinkan"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:574
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:585
 msgid "Allowed image types"
 msgstr "Jenis gambar yang diizinkan"
 
@@ -1120,7 +1122,7 @@ msgstr "Kunci API diperlukan (tidak ada tier tanpa kunci). Harga spot emas per g
 msgid "An API key is required, even for the free Basic plan (free and paid tiers share the same endpoint). Without a key this provider returns no prices."
 msgstr "Kunci API diperlukan, bahkan untuk paket gratis Basic (tier gratis dan berbayar memakai endpoint yang sama). Tanpa kunci, penyedia ini tidak mengembalikan harga."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:266
+#: src/Modules/TwoFactor/TwoFactorAjax.php:183
 msgid "An authenticator app is already set up for this account."
 msgstr "Aplikasi autentikator sudah disiapkan untuk akun ini."
 
@@ -1242,7 +1244,7 @@ msgstr "Hanya artikel"
 msgid "Articles you saved for later. Bookmarks live in this browser only — they do not sync to other devices."
 msgstr "Artikel yang Anda simpan untuk nanti. Markah hanya tersimpan di peramban ini — tidak tersinkron ke perangkat lain."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2419
+#: src/Modules/TwoFactor/TwoFactorModule.php:2233
 msgid "As a last resort, with server file access, define the constant below in wp-config.php (or set the filter) to switch two-factor authentication off site-wide until it can be re-enabled:"
 msgstr "Sebagai upaya terakhir, dengan akses berkas server, definisikan konstanta di bawah ini di wp-config.php (atau atur filter) untuk mematikan autentikasi dua faktor di seluruh situs sampai dapat diaktifkan kembali:"
 
@@ -1281,12 +1283,7 @@ msgstr "Paling banyak 200 pengguna dicantumkan di sini; gunakan layar Pengguna u
 msgid "Attachment %s is too large (10 MB limit)."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:164
-#. translators: %s is the attachment file name.
-msgid "Attachment %s is too large for SendGrid (10 MB limit)."
-msgstr "Lampiran %s terlalu besar untuk SendGrid (batas 10 MB)."
-
-#: src/Modules/TwoFactor/TwoFactorModule.php:1884
+#: src/Modules/TwoFactor/TwoFactorModule.php:1769
 msgid "Authentication code"
 msgstr "Kode autentikasi"
 
@@ -1294,32 +1291,30 @@ msgstr "Kode autentikasi"
 msgid "authenticator app (TOTP)"
 msgstr "aplikasi autentikator (TOTP)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2136
+#: src/Modules/TwoFactor/TwoFactorModule.php:2009
 msgid "Authenticator app (TOTP)"
 msgstr "Aplikasi autentikator (TOTP)"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:100
+#: src/Modules/TwoFactor/TwoFactorCli.php:101
 msgid "Authenticator app (TOTP): %s"
 msgstr "Aplikasi autentikator (TOTP): %s"
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:336
+#: src/Modules/TwoFactor/TwoFactorAjax.php:253
 msgid "Authenticator app enabled. Save your backup codes — they are shown only once."
 msgstr "Aplikasi autentikator diaktifkan. Simpan kode cadangan Anda — kode tersebut hanya ditampilkan sekali."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:355
+#: src/Modules/TwoFactor/TwoFactorAjax.php:272
 msgid "Authenticator app removed."
 msgstr "Aplikasi autentikator telah dihapus."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:263
-#: src/Modules/TwoFactor/TwoFactorAjax.php:305
+#: src/Modules/TwoFactor/TwoFactorAjax.php:180
+#: src/Modules/TwoFactor/TwoFactorAjax.php:222
 msgid "Authenticator app setup is disabled on this site."
 msgstr "Penyiapan aplikasi autentikator dinonaktifkan di situs ini."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:405
-msgid "Authenticator-app codes (TOTP), passkey login with fingerprint or Face ID, and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Disabled by default."
-msgstr "Kode aplikasi autentikator (TOTP), login passkey dengan sidik jari atau Face ID, dan perangkat tepercaya — dengan penegakan per peran, pembatasan laju, dan jalur pemulihan yang aman. Dinonaktifkan secara default."
-
-#: src/Modules/TwoFactor/TwoFactorModule.php:440
+#: src/Modules/TwoFactor/TwoFactorModule.php:410
+msgid "Authenticator-app codes (TOTP) and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Passkeys are a separate module. Disabled by default."
+msgstr "Kode aplikasi autentikator (TOTP) dan perangkat tepercaya — dengan penegakan per peran, pembatasan laju, dan jalur pemulihan yang aman. Passkey adalah modul terpisah. Dinonaktifkan secara default."#: src/Modules/TwoFactor/TwoFactorModule.php:445
 msgid "Authenticator-app codes (TOTP)."
 msgstr "Kode aplikasi autentikator (TOTP)."
 
@@ -1442,7 +1437,7 @@ msgstr "Avatar, bio, tautan sosial, dan jumlah artikel."
 msgid "Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default."
 msgstr "Avatar berasal dari modul Custom Avatar saat diaktifkan, jika tidak dari Gravatar atau bawaan situs."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:590
 #: templates/admin/modules/image-optimizer.php:83
 msgid "AVIF"
 msgstr "AVIF"
@@ -1455,11 +1450,11 @@ msgstr "AVIF mengompres lebih kecil tetapi memerlukan editor gambar yang lebih b
 msgid "AVIF images are not supported on this server."
 msgstr "Gambar AVIF tidak didukung di server ini."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:586
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:597
 msgid "AVIF uploads are accepted when ticked, because this server’s image editor can handle AVIF."
 msgstr "Unggahan AVIF diterima saat dicentang, karena editor gambar server ini dapat menangani AVIF."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:598
 msgid "AVIF uploads are refused even when ticked, because this server’s image editor cannot handle AVIF. Enable AVIF support in GD or Imagick to offer it."
 msgstr "Unggahan AVIF ditolak meskipun dicentang, karena editor gambar server ini tidak dapat menangani AVIF. Aktifkan dukungan AVIF di GD atau Imagick untuk menyediakannya."
 
@@ -1503,9 +1498,9 @@ msgstr "Kembali"
 msgid "Back to all submissions"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1845
-#: src/Modules/TwoFactor/TwoFactorModule.php:1879
-#: src/Modules/TwoFactor/TwoFactorModule.php:1928
+#: src/Modules/TwoFactor/TwoFactorModule.php:1730
+#: src/Modules/TwoFactor/TwoFactorModule.php:1764
+#: src/Modules/TwoFactor/TwoFactorModule.php:1813
 msgid "Back to log in"
 msgstr "Kembali ke login"
 
@@ -1550,7 +1545,7 @@ msgstr "Warna latar tombol Terima. Kosongkan untuk memakai warna biru bawaan."
 msgid "Background image"
 msgstr "Gambar latar"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:520
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:531
 msgid "Background of the editor canvas."
 msgstr "Latar kanvas editor."
 
@@ -1562,12 +1557,12 @@ msgstr "Jenis latar"
 msgid "backup code"
 msgstr "kode cadangan"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:106
+#: src/Modules/TwoFactor/TwoFactorCli.php:107
 #. translators: %d is the number of unused backup codes.
 msgid "Backup codes left: %d"
 msgstr "Kode cadangan tersisa: %d"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2166
+#: src/Modules/TwoFactor/TwoFactorModule.php:2039
 msgid "Backup codes — save these now."
 msgstr "Kode cadangan — simpan sekarang."
 
@@ -1650,7 +1645,7 @@ msgstr "Di bawah header menempatkannya tepat di bawah header entri (judul, meta,
 msgid "Below the threshold the content is left untouched."
 msgstr "Di bawah ambang batas, konten dibiarkan apa adanya."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:559
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:570
 msgid "Between 1 and 10 MB. Larger files are refused with a clear error before anything is stored."
 msgstr "Antara 1 dan 10 MB. Berkas yang lebih besar ditolak dengan pesan kesalahan yang jelas sebelum ada yang disimpan."
 
@@ -1658,7 +1653,7 @@ msgstr "Antara 1 dan 10 MB. Berkas yang lebih besar ditolak dengan pesan kesalah
 msgid "Between 30 and 365 days. After this period the banner is shown again."
 msgstr "Antara 30 dan 365 hari. Setelah periode ini spanduk ditampilkan lagi."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:568
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
 msgid "Between 600 and 4000 px. Images wider or taller than this are refused with a clear error; they are never silently downscaled."
 msgstr "Antara 600 dan 4000 px. Gambar yang lebih lebar atau lebih tinggi dari ini ditolak dengan pesan kesalahan yang jelas; gambar tidak pernah diperkecil diam-diam."
 
@@ -1670,7 +1665,7 @@ msgstr "Binance"
 msgid "Biography"
 msgstr "Biografi"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2202
+#: src/Modules/Passkeys/PasskeysModule.php:869
 msgid "Biometric"
 msgstr "Biometrik"
 
@@ -1686,7 +1681,7 @@ msgstr ""
 msgid "Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:507
 msgid "Block editor behaviour for the frontend dashboard."
 msgstr "Perilaku editor blok untuk dasbor frontend."
 
@@ -1710,7 +1705,7 @@ msgstr ""
 msgid "Blocks"
 msgstr "Blok"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:542
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:553
 msgid "Blocks the frontend editor offers."
 msgstr "Blok yang ditawarkan editor frontend."
 
@@ -1917,7 +1912,7 @@ msgstr "Posisi tombol"
 msgid "Buttons"
 msgstr "Tombol"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:512
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:523
 msgid "Buttons and the active state in the frontend editor."
 msgstr "Tombol dan status aktif di editor frontend."
 
@@ -2054,7 +2049,7 @@ msgstr "Dapat dinonaktifkan sepenuhnya."
 #: src/Bookmarks.php:160
 #: src/Modules/Redirects/RedirectsModule.php:274
 #: src/Modules/Redirects/RedirectsModule.php:362
-#: src/Modules/TwoFactor/TwoFactorModule.php:2161
+#: src/Modules/TwoFactor/TwoFactorModule.php:2034
 #: templates/admin/modules/agenda.php:169
 #: templates/admin/modules/dynamic-sidebars.php:282
 #: templates/admin/modules/image-optimizer.php:204
@@ -2520,7 +2515,7 @@ msgstr ""
 msgid "Cloudflare Turnstile is enabled but not configured yet. Logins are unprotected until the site key and secret key are saved."
 msgstr "Cloudflare Turnstile diaktifkan tetapi belum dikonfigurasi. Login tidak terlindungi hingga kunci situs dan kunci rahasia disimpan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2156
+#: src/Modules/TwoFactor/TwoFactorModule.php:2029
 msgid "Code from the app"
 msgstr "Kode dari aplikasi"
 
@@ -2619,7 +2614,7 @@ msgstr "Komentar di Sampah, termasuk commentmeta-nya."
 msgid "Comments marked as spam, including their commentmeta."
 msgstr "Komentar yang ditandai sebagai spam, termasuk commentmeta-nya."
 
-#: src/Admin/ModuleRegistry.php:1038
+#: src/Admin/ModuleRegistry.php:1041
 msgid "Communication"
 msgstr "Komunikasi"
 
@@ -2658,7 +2653,7 @@ msgstr "Dikonfigurasi"
 msgid "Configured in the Push module."
 msgstr "Dikonfigurasi di modul Push."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2160
+#: src/Modules/TwoFactor/TwoFactorModule.php:2033
 msgid "Confirm and enable"
 msgstr "Konfirmasi dan aktifkan"
 
@@ -2684,7 +2679,7 @@ msgstr "Hubungkan Gmail"
 msgid "Connected as %s."
 msgstr "Terhubung sebagai %s."
 
-#: src/Modules/Mailer/MailerModule.php:1720
+#: src/Modules/Mailer/MailerModule.php:1653
 #: templates/admin/modules/mailer.php:191
 #: templates/admin/modules/mailer.php:192
 msgid "Connection"
@@ -2758,7 +2753,7 @@ msgstr ""
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1014
+#: src/Admin/ModuleRegistry.php:1017
 #: src/Modules/FrontendEditor/FrontendEditor.php:920
 msgid "Content"
 msgstr "Konten"
@@ -2781,7 +2776,7 @@ msgstr "Catatan Content-Security-Policy: Turnstile memuat skrip dan iframe tanta
 msgid "Contrast"
 msgstr "Kontras"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:504
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:515
 msgid "Contributors can add links to their article text."
 msgstr "Kontributor dapat menambahkan tautan ke teks artikel mereka."
 
@@ -2789,7 +2784,7 @@ msgstr "Kontributor dapat menambahkan tautan ke teks artikel mereka."
 msgid "Contributors cannot set editorial statuses."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:551
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:562
 msgid "Contributors upload through a dedicated endpoint, not the Media Library: they never gain the upload_files capability and cannot open the Media Library. Replacing an image deletes the previous one only when it was uploaded through this endpoint; an image an editor set is detached, never deleted."
 msgstr "Kontributor mengunggah melalui endpoint khusus, bukan Pustaka Media: mereka tidak pernah mendapatkan kemampuan upload_files dan tidak dapat membuka Pustaka Media. Mengganti gambar hanya menghapus gambar sebelumnya bila diunggah melalui endpoint ini; gambar yang dipasang editor hanya dilepas, tidak pernah dihapus."
 
@@ -2871,14 +2866,14 @@ msgstr "Disalin"
 msgid "Copied to clipboard."
 msgstr "Disalin ke papan klip."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2111
+#: src/Modules/TwoFactor/TwoFactorModule.php:1986
 #: templates/admin/modules/headers.php:47
 msgid "Copied."
 msgstr "Disalin."
 
 #: src/Admin/Settings/SettingsControls.php:449
 #: src/Admin/Settings/SettingsControls.php:451
-#: src/Modules/TwoFactor/TwoFactorModule.php:2153
+#: src/Modules/TwoFactor/TwoFactorModule.php:2026
 #: templates/admin/modules/security.php:134
 #: templates/admin/modules/security.php:45
 #: templates/admin/shell.php:112
@@ -2889,7 +2884,7 @@ msgstr "Salin"
 msgid "Copy .htaccess snippet"
 msgstr "Salin cuplikan .htaccess"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2170
+#: src/Modules/TwoFactor/TwoFactorModule.php:2043
 msgid "Copy backup codes"
 msgstr "Salin kode cadangan"
 
@@ -2929,9 +2924,9 @@ msgstr "Cuplikan server siap salin-tempel."
 msgid "Core"
 msgstr "Inti"
 
-#: src/Admin/ModuleRegistry.php:1636
-#: src/Admin/ModuleRegistry.php:1673
-#: src/Admin/ModuleRegistry.php:963
+#: src/Admin/ModuleRegistry.php:1640
+#: src/Admin/ModuleRegistry.php:1677
+#: src/Admin/ModuleRegistry.php:966
 #: templates/admin/hub-page.php:81
 #: templates/admin/shell.php:433
 msgid "Core module"
@@ -3096,6 +3091,10 @@ msgstr "Hitung mundur ke (opsional)"
 msgid "Countdown to the date set in the General settings."
 msgstr ""
 
+#: src/Modules/Passkeys/PasskeysModule.php:259
+msgid "Counter-based clone detection on every sign-in."
+msgstr ""
+
 #: src/Modules/Mailer/Providers/CourierProvider.php:52
 msgid "Courier API key"
 msgstr ""
@@ -3141,7 +3140,7 @@ msgstr ""
 msgid "Create a key under Settings → SMTP & API → API keys in Brevo (keys start with xkeysib-). The From address must be a verified sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:682
+#: src/Modules/Mailer/Providers/SendGridProvider.php:56
 msgid "Create a key with Mail Send permission in the SendGrid dashboard. Leave empty to keep the saved key. The key is never shown."
 msgstr ""
 
@@ -3277,7 +3276,7 @@ msgstr "Buat area widget kustom."
 msgid "Create form"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:708
+#: src/Modules/Mailer/Providers/GmailProvider.php:49
 msgid "Create OAuth credentials (Web application) in the Google Cloud console and add this site’s callback URL as an authorized redirect URI."
 msgstr ""
 
@@ -3579,15 +3578,15 @@ msgstr "Templat bawaan dihapus."
 msgid "Default template updated."
 msgstr "Templat bawaan diperbarui."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:540
 msgid "Defaults to slate #1e293b. It only affects the contributor dashboard editor, never the site theme."
 msgstr "Bawaan: slate #1e293b. Hanya memengaruhi editor dasbor kontributor, bukan tema situs."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:524
 msgid "Defaults to the Elegant Blue accent #2563eb. The colour only affects the contributor dashboard editor, never the site theme."
 msgstr "Bawaan: aksen Elegant Blue #2563eb. Warna ini hanya memengaruhi editor dasbor kontributor, bukan tema situs."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:532
 msgid "Defaults to white. Dark mode on the reader’s device switches the dashboard to its dark palette instead; this colour is the light-mode canvas."
 msgstr "Bawaan: putih. Mode gelap di perangkat pembaca mengalihkan dasbor ke palet gelapnya; warna ini adalah kanvas mode terang."
 
@@ -3719,7 +3718,7 @@ msgstr "Menghapus peran ini akan membuat tidak ada pengguna yang dapat mengelola
 msgid "Deleting…"
 msgstr "Menghapus…"
 
-#: src/Modules/Mailer/MailerModule.php:1722
+#: src/Modules/Mailer/MailerModule.php:1655
 #: templates/admin/modules/mailer.php:390
 msgid "Deliverability"
 msgstr ""
@@ -3728,11 +3727,11 @@ msgstr ""
 msgid "Deliverability headers"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1010
+#: src/Modules/Mailer/MailerModule.php:943
 msgid "Deliverability headers, test email tool, and send log added."
 msgstr "Header keterkiriman, alat uji email, dan log pengiriman ditambahkan."
 
-#: src/Modules/Mailer/MailerModule.php:980
+#: src/Modules/Mailer/MailerModule.php:913
 msgid "Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 
@@ -3743,7 +3742,7 @@ msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgid "Description"
 msgstr "Deskripsi"
 
-#: src/Admin/ModuleRegistry.php:1018
+#: src/Admin/ModuleRegistry.php:1021
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3786,15 +3785,15 @@ msgstr "Server pengembangan"
 msgid "Device"
 msgstr "Perangkat"
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:541
+#: src/Modules/TwoFactor/TwoFactorAjax.php:330
 msgid "Device removed."
 msgstr "Perangkat telah dihapus."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2385
+#: src/Modules/TwoFactor/TwoFactorModule.php:2199
 msgid "Devices are stored as HMAC-signed cookies and can be revoked from the user profile."
 msgstr "Perangkat disimpan sebagai cookie yang ditandatangani HMAC dan dapat dicabut dari profil pengguna."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2232
+#: src/Modules/TwoFactor/TwoFactorModule.php:2066
 #. translators: %d is the number of days a device stays trusted.
 msgid "Devices you trust skip the second factor for %d days. Remove a device any time to ask for a code again."
 msgstr "Perangkat yang Anda percayai melewati faktor kedua selama %d hari. Hapus perangkat kapan saja untuk meminta kode lagi."
@@ -3803,8 +3802,8 @@ msgstr "Perangkat yang Anda percayai melewati faktor kedua selama %d hari. Hapus
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr "Nonaktifkan modul Security Headers jika modul ini yang mengirim header yang tumpang tindih itu sendiri."
 
-#: src/Admin/ModuleRegistry.php:1652
-#: src/Admin/ModuleRegistry.php:972
+#: src/Admin/ModuleRegistry.php:1656
+#: src/Admin/ModuleRegistry.php:975
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3925,7 +3924,7 @@ msgstr ""
 #: src/Admin/SetupPage.php:151
 #: src/Admin/SetupPage.php:709
 #: src/MenuIcons/MenuIcons.php:692
-#: src/Modules/TwoFactor/TwoFactorModule.php:2171
+#: src/Modules/TwoFactor/TwoFactorModule.php:2044
 #: templates/admin/shell.php:115
 msgid "Done"
 msgstr "Selesai"
@@ -4029,7 +4028,7 @@ msgstr "Setiap kategori menunjukkan berapa baris yang akan dihapus sebelum ada y
 msgid "Each check below shows its status, what it means in plain language, and how to fix it by hand."
 msgstr "Setiap pemeriksaan di bawah menunjukkan statusnya, artinya dalam bahasa sederhana, dan cara memperbaikinya secara manual."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2167
+#: src/Modules/TwoFactor/TwoFactorModule.php:2040
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr "Setiap kode hanya berlaku sekali, jika Anda kehilangan akses ke aplikasi autentikator. Simpan di tempat yang aman — kode tersebut hanya ditampilkan sekali."
 
@@ -4109,19 +4108,19 @@ msgstr "Sunting seri"
 msgid "Edit sidebar"
 msgstr "Edit sidebar"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:506
 msgid "Editor"
 msgstr "Editor"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:510
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
 msgid "Editor accent colour"
 msgstr "Warna aksen editor"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:518
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
 msgid "Editor paper colour"
 msgstr "Warna kertas editor"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:526
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
 msgid "Editor text colour"
 msgstr "Warna teks editor"
 
@@ -4228,8 +4227,8 @@ msgstr "Templat email dan buletin: buat templat bermerek, bungkus email notifika
 msgid "Emergency escape hatch: if Cloudflare is unreachable and logins are blocked, define TRAYDIGITA_TURNSTILE_FAIL_OPEN as true in wp-config.php to let logins through."
 msgstr "Jalan keluar darurat: jika Cloudflare tidak dapat dijangkau dan login diblokir, definisikan TRAYDIGITA_TURNSTILE_FAIL_OPEN sebagai true di wp-config.php untuk membiarkan login masuk."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2283
-#: src/Modules/TwoFactor/TwoFactorModule.php:2413
+#: src/Modules/TwoFactor/TwoFactorModule.php:2117
+#: src/Modules/TwoFactor/TwoFactorModule.php:2227
 msgid "Emergency recovery"
 msgstr "Pemulihan darurat"
 
@@ -4241,7 +4240,7 @@ msgstr "Kolom kosong tidak menampilkan tautan."
 msgid "Enable a module that connects to a service and it will appear here."
 msgstr "Aktifkan modul yang terhubung ke layanan dan modul itu akan muncul di sini."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2337
+#: src/Modules/TwoFactor/TwoFactorModule.php:2170
 msgid "Enable authenticator app (TOTP)"
 msgstr "Aktifkan aplikasi autentikator (TOTP)"
 
@@ -4261,12 +4260,9 @@ msgstr "Aktifkan mode perawatan"
 msgid "Enable notifications"
 msgstr "Aktifkan notifikasi"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2346
-#: src/Modules/TwoFactor/TwoFactorModule.php:2355
-msgid "Enable passkey login"
-msgstr "Aktifkan login passkey"
-
-#: src/Modules/Ads/AdsModule.php:870
+#: src/Modules/Passkeys/PasskeysModule.php:1000
+msgid "Enable passkey sign-in"
+msgstr "Aktifkan login passkey"#: src/Modules/Ads/AdsModule.php:870
 msgid "Enable the Ads Inserter module from the Modules grid to use the live preview."
 msgstr "Aktifkan modul Penyisip Iklan dari grid Modul untuk menggunakan pratinjau langsung."
 
@@ -4282,15 +4278,15 @@ msgstr "Aktifkan header keamanan yang direkomendasikan, periksa header tersebut 
 msgid "Enable the recommended security headers."
 msgstr "Aktifkan header keamanan yang direkomendasikan."
 
-#: src/Admin/ModuleRegistry.php:1648
-#: src/Admin/ModuleRegistry.php:969
+#: src/Admin/ModuleRegistry.php:1652
+#: src/Admin/ModuleRegistry.php:972
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
 msgid "Enabled"
 msgstr "Diaktifkan"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:101
+#: src/Modules/TwoFactor/TwoFactorCli.php:102
 msgid "enabled"
 msgstr "diaktifkan"
 
@@ -4298,12 +4294,12 @@ msgstr "diaktifkan"
 msgid "Enabled (runs when the site gets visits)"
 msgstr "Diaktifkan (berjalan saat situs dikunjungi)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2141
+#: src/Modules/TwoFactor/TwoFactorModule.php:2014
 #. translators: %d is the number of unused backup codes.
 msgid "Enabled. %d backup codes left."
 msgstr "Diaktifkan. Tersisa %d kode cadangan."
 
-#: src/Modules/Mailer/MailerModule.php:1610
+#: src/Modules/Mailer/MailerModule.php:1543
 #: templates/admin/modules/mailer.php:214
 msgid "Encryption"
 msgstr "Enkripsi"
@@ -4407,7 +4403,7 @@ msgstr "Masukkan shortname"
 msgid "Enter SMTP password"
 msgstr "Masukkan kata sandi SMTP"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1889
+#: src/Modules/TwoFactor/TwoFactorModule.php:1774
 msgid "Enter the 6-digit code from your authenticator app, or one of your 8-digit backup codes."
 msgstr "Masukkan kode 6 digit dari aplikasi autentikator Anda, atau salah satu kode cadangan 8 digit Anda."
 
@@ -4455,7 +4451,7 @@ msgstr ""
 msgid "Enter the GetResponse API key, campaign ID, and from-field ID in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2326
+#: src/Modules/Mailer/MailerModule.php:2259
 msgid "Enter the Google OAuth client ID and client secret first, then connect."
 msgstr "Masukkan client ID dan client secret Google OAuth terlebih dahulu, lalu hubungkan."
 
@@ -4531,7 +4527,7 @@ msgstr ""
 msgid "Enter the Sender.net API token in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:875
+#: src/Modules/Mailer/Providers/SendGridProvider.php:80
 msgid "Enter the SendGrid API key in the Mailer settings first."
 msgstr ""
 
@@ -4704,6 +4700,10 @@ msgstr "Kecualikan kategori"
 msgid "Exclude tags"
 msgstr "Kecualikan tag"
 
+#: src/Modules/Passkeys/PasskeysModule.php:1017
+msgid "Expected origin:"
+msgstr ""
+
 #: src/Modules/DbTools/Cleaner.php:79
 msgid "Expired transient values and their timeout rows, plus timeout rows whose value row is already gone."
 msgstr "Nilai transient yang kedaluwarsa beserta baris timeout-nya, ditambah baris timeout yang baris nilainya sudah hilang."
@@ -4787,8 +4787,8 @@ msgstr "Izinkan formulir komentar dan buletin saat Cloudflare tidak dapat dijang
 msgid "Failed"
 msgstr "Gagal"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2282
-#: src/Modules/TwoFactor/TwoFactorModule.php:2389
+#: src/Modules/TwoFactor/TwoFactorModule.php:2116
+#: src/Modules/TwoFactor/TwoFactorModule.php:2203
 msgid "Failed attempts"
 msgstr "Upaya gagal"
 
@@ -4823,7 +4823,7 @@ msgid "FCM token of the test device"
 msgstr "Token FCM perangkat tes"
 
 #: src/Modules/FrontendEditor/FrontendEditor.php:977
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:560
 msgid "Featured image"
 msgstr "Gambar unggulan"
 
@@ -4905,7 +4905,9 @@ msgstr "Cari kapabilitas"
 msgid "Find the ID in Posts → All Posts by hovering a title and reading the post= number in the link."
 msgstr "Temukan ID di Posting → Semua Posting dengan mengarahkan kursor ke judul dan membaca angka post= pada tautan."
 
-#: src/Admin/AdminPointerTour.php:312
+#: src/Modules/Passkeys/PasskeysModule.php:220
+msgid "Fingerprint or Face ID sign-in (WebAuthn passkeys): usernameless login on the login page and a second factor on the two-factor challenge screen. Password login always stays available. Enabled by default."
+msgstr "Login sidik jari atau Face ID (passkey WebAuthn): login tanpa nama pengguna di halaman login dan faktor kedua di layar tantangan dua faktor. Login kata sandi selalu tersedia. Diaktifkan secara default."#: src/Admin/AdminPointerTour.php:312
 msgid "Finish"
 msgstr "Selesai"
 
@@ -5151,7 +5153,7 @@ msgstr "Endpoint publik gratis, tanpa kunci API. Dengan kunci API Pro, endpoint 
 msgid "Free public tier, no API key needed. Paid plans exist, but the theme uses the keyless tier only."
 msgstr "Tingkat publik gratis, tanpa kunci API. Paket berbayar tersedia, tetapi tema hanya memakai tingkat tanpa kunci."
 
-#: src/Modules/Mailer/MailerModule.php:1721
+#: src/Modules/Mailer/MailerModule.php:1654
 #: templates/admin/contact-submissions.php:157
 #: templates/admin/modules/activity-log.php:114
 #: templates/admin/modules/mailer.php:367
@@ -5171,7 +5173,7 @@ msgstr ""
 msgid "From Account Settings → REST API → API Key Management in Mailjet. The From address must be a validated, active sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1644
+#: src/Modules/Mailer/MailerModule.php:1577
 #: templates/admin/modules/mailer.php:382
 msgid "From email"
 msgstr "Email pengirim"
@@ -5204,11 +5206,11 @@ msgstr ""
 msgid "Frontend dashboard for every logged-in user: Overview, Posts and My Contributions in one shell, plus sections other modules plug in (Write, Bookmarks, Profile, Change Email). The configured member page becomes the dashboard; sections are manageable from the settings."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:189
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:200
 msgid "Frontend Editor"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:673
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:684
 msgid "Frontend editor settings saved."
 msgstr ""
 
@@ -5250,6 +5252,8 @@ msgstr "Pencarian FULLTEXT aktif pada kueri pencarian frontend."
 
 #: src/Modules/Ads/AdsModule.php:840
 #: src/Modules/Maintenance/MaintenanceModule.php:329
+#: src/Modules/Passkeys/PasskeysModule.php:949
+#: src/Modules/Passkeys/PasskeysModule.php:995
 #: src/Modules/RoleEditor/RoleEditorModule.php:409
 #: templates/admin/modules/maintenance.php:70
 #: templates/admin/modules/maintenance.php:84
@@ -5306,37 +5310,37 @@ msgstr "Beri pengguna avatar kustom melalui URL gambar terverifikasi atau unggah
 msgid "Gives the new role full control of the site."
 msgstr "Memberikan peran baru kendali penuh atas situs."
 
-#: src/Modules/Mailer/GmailOAuth.php:392
+#: src/Modules/Mailer/Providers/GmailOAuth.php:393
 #. translators: %1$d is the HTTP status code, %2$s is the HTTP status text.
 msgid "Gmail API error %1$d: %2$s"
 msgstr "Error API Gmail %1$d: %2$s"
 
-#: src/Modules/Mailer/GmailOAuth.php:399
+#: src/Modules/Mailer/Providers/GmailOAuth.php:400
 #. translators: %d is the HTTP status code returned by the Gmail API.
 msgid "Gmail API error %d."
 msgstr "Error API Gmail %d."
 
-#: src/Modules/Mailer/MailerModule.php:2330
+#: src/Modules/Mailer/MailerModule.php:2263
 msgid "Gmail could not be connected. Please try again."
 msgstr "Gmail tidak dapat dihubungkan. Silakan coba lagi."
 
-#: src/Modules/Mailer/MailerModule.php:2316
+#: src/Modules/Mailer/MailerModule.php:2249
 msgid "Gmail is connected. Mail will now be sent through the Gmail API."
 msgstr "Gmail terhubung. Email kini akan dikirim melalui Gmail API."
 
-#: src/Modules/Mailer/MailerModule.php:2319
+#: src/Modules/Mailer/MailerModule.php:2252
 msgid "Gmail is disconnected. Mail falls back to the configured provider settings."
 msgstr "Gmail terputus. Email kembali menggunakan pengaturan penyedia yang dikonfigurasi."
 
-#: src/Modules/Mailer/GmailOAuth.php:290
+#: src/Modules/Mailer/Providers/GmailOAuth.php:291
 msgid "Gmail is not connected."
 msgstr "Gmail belum terhubung."
 
-#: src/Modules/Mailer/MailerModule.php:979
+#: src/Modules/Mailer/MailerModule.php:912
 msgid "Gmail OAuth sign-in."
 msgstr "Login Gmail OAuth."
 
-#: src/Modules/Mailer/MailerModule.php:696
+#: src/Modules/Mailer/Providers/GmailProvider.php:37
 msgid "Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail."
 msgstr ""
 
@@ -5386,15 +5390,15 @@ msgstr "Google tidak mengembalikan access token. Periksa Service Account JSON."
 msgid "Google did not return an access token: %s"
 msgstr "Google tidak mengembalikan access token: %s"
 
-#: src/Modules/Mailer/MailerModule.php:2328
+#: src/Modules/Mailer/MailerModule.php:2261
 msgid "Google did not return an authorization code. Please try connecting again."
 msgstr "Google tidak mengembalikan kode otorisasi. Silakan coba hubungkan lagi."
 
-#: src/Modules/Mailer/GmailOAuth.php:349
+#: src/Modules/Mailer/Providers/GmailOAuth.php:350
 msgid "Google did not return the Gmail account address."
 msgstr "Google tidak mengembalikan alamat akun Gmail."
 
-#: src/Modules/Mailer/GmailOAuth.php:164
+#: src/Modules/Mailer/Providers/GmailOAuth.php:165
 msgid "Google did not return usable tokens. Check the client ID and secret, then try connecting again."
 msgstr "Google tidak mengembalikan token yang dapat digunakan. Periksa client ID dan secret, lalu coba hubungkan lagi."
 
@@ -5431,11 +5435,11 @@ msgstr "Google Indexing API"
 msgid "Google News sitemap (news-sitemap.xml)"
 msgstr "Peta situs Google News (news-sitemap.xml)"
 
-#: src/Modules/Mailer/MailerModule.php:706
+#: src/Modules/Mailer/Providers/GmailProvider.php:47
 msgid "Google OAuth client ID"
 msgstr "Client ID Google OAuth"
 
-#: src/Modules/Mailer/MailerModule.php:717
+#: src/Modules/Mailer/Providers/GmailProvider.php:58
 msgid "Google OAuth client secret"
 msgstr "Client secret Google OAuth"
 
@@ -5451,11 +5455,11 @@ msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3) untuk Conta
 msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score)."
 msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3)."
 
-#: src/Modules/Mailer/MailerModule.php:2329
+#: src/Modules/Mailer/MailerModule.php:2262
 msgid "Google refused the authorization code. Check the client ID and secret, then try connecting again."
 msgstr "Google menolak kode otorisasi. Periksa client ID dan secret, lalu coba hubungkan lagi."
 
-#: src/Modules/Mailer/GmailOAuth.php:318
+#: src/Modules/Mailer/Providers/GmailOAuth.php:319
 msgid "Google refused to refresh the Gmail access token. Reconnect Gmail from the Mailer settings."
 msgstr "Google menolak memperbarui access token Gmail. Hubungkan kembali Gmail dari pengaturan Mailer."
 
@@ -5577,7 +5581,7 @@ msgstr "Header yang akan dikirim"
 msgid "Headers this module will send"
 msgstr "Header yang akan dikirim modul ini"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:548
 #: src/Modules/Maintenance/MaintenanceDesigner.php:227
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:363
 #: src/Modules/Share/ShareModule.php:346
@@ -5708,7 +5712,7 @@ msgstr "URL Beranda"
 msgid "Homepage"
 msgstr "Beranda"
 
-#: src/Modules/Mailer/MailerModule.php:1587
+#: src/Modules/Mailer/MailerModule.php:1520
 msgid "Host"
 msgstr "Host"
 
@@ -5741,7 +5745,7 @@ msgstr "Berapa lama hitungan artikel gratis berlaku."
 msgid "How long the header checker waits for the site to answer, from 3 to 30 seconds."
 msgstr "Berapa lama pemeriksa header menunggu situs menjawab, dari 3 hingga 30 detik."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2406
+#: src/Modules/TwoFactor/TwoFactorModule.php:2220
 msgid "How long the lockout lasts."
 msgstr "Lama penguncian berlangsung."
 
@@ -5753,7 +5757,7 @@ msgstr "Berapa banyak komentar yang ditampilkan plugin pada awalnya."
 msgid "How many different articles a visitor may read for free before the subscribe prompt appears. 1 to 20."
 msgstr "Berapa banyak artikel berbeda yang boleh dibaca pengunjung secara gratis sebelum perintah berlangganan muncul. 1 hingga 20."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2397
+#: src/Modules/TwoFactor/TwoFactorModule.php:2211
 msgid "How many failed verifications trigger a lockout."
 msgstr "Jumlah verifikasi gagal yang memicu penguncian."
 
@@ -5833,7 +5837,7 @@ msgstr "Ekspor ICS untuk acara."
 msgid "ID"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2415
+#: src/Modules/TwoFactor/TwoFactorModule.php:2229
 msgid "If a user is locked out of their account, an administrator can disable two-factor authentication for that user from the command line:"
 msgstr "Jika pengguna terkunci dari akunnya, administrator dapat menonaktifkan autentikasi dua faktor untuk pengguna tersebut dari baris perintah:"
 
@@ -6028,7 +6032,7 @@ msgstr "Harga saham Indonesia"
 msgid "Info"
 msgstr "Info"
 
-#: src/Admin/ModuleRegistry.php:928
+#: src/Admin/ModuleRegistry.php:931
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -6072,7 +6076,7 @@ msgstr "Info"
 #: src/Modules/SiteKit/SiteKitModule.php:162
 #: src/Modules/Toc/TocModule.php:241
 #: src/Modules/Turnstile/TurnstileModule.php:313
-#: src/Modules/TwoFactor/TwoFactorModule.php:463
+#: src/Modules/TwoFactor/TwoFactorModule.php:467
 #: src/Modules/UserManager/UserManagerModule.php:223
 msgid "Initial release in TrayDigita Core."
 msgstr "Rilis awal di TrayDigita Core."
@@ -6179,7 +6183,7 @@ msgstr "Pengindeksan instan: Google Indexing API"
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr "Pengindeksan instan: IndexNow (Bing, Yandex)"
 
-#: src/Admin/ModuleRegistry.php:1042
+#: src/Admin/ModuleRegistry.php:1045
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr "Integrasi"
@@ -6244,7 +6248,7 @@ msgstr "Edisi per halaman arsip"
 msgid "It adds one stylesheet on admin screens: no JavaScript, no menu changes, no capability changes, and nothing is hidden. The login page is never touched."
 msgstr "Module ini menambahkan satu stylesheet di layar admin: tanpa JavaScript, tanpa perubahan menu, tanpa perubahan kapabilitas, dan tidak ada yang disembunyikan. Halaman login tidak pernah disentuh."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2426
+#: src/Modules/TwoFactor/TwoFactorModule.php:2240
 msgid "It disables the check for everyone — including administrators — so it must be removed again after the recovery."
 msgstr "Ini menonaktifkan pemeriksaan untuk semua orang — termasuk administrator — jadi harus dihapus lagi setelah pemulihan."
 
@@ -6286,7 +6290,7 @@ msgstr "Tombol-tombolnya tidak berfungsi di sini kecuali Sesuaikan, yang membuka
 msgid "Its FULLTEXT indexes (%s) were carried over by InnoDB."
 msgstr "Indeks FULLTEXT-nya (%s) ikut dibawa oleh InnoDB."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
 msgid "JPEG"
 msgstr "JPEG"
 
@@ -6358,7 +6362,7 @@ msgstr "Bahasa"
 msgid "Large tables can take a while per index; the page stays responsive and shows progress. WP-CLI (`wp td-search install`) is the faster route on very large sites."
 msgstr "Tabel besar dapat memakan waktu cukup lama per indeks; halaman tetap responsif dan menampilkan kemajuan. WP-CLI (`wp td-search install`) adalah jalur yang lebih cepat di situs yang sangat besar."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:558
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:569
 msgid "Largest featured image a contributor may upload."
 msgstr "Gambar unggulan terbesar yang boleh diunggah kontributor."
 
@@ -6396,7 +6400,7 @@ msgstr "Terakhir terlihat"
 msgid "Last test: %s"
 msgstr "Tes terakhir: %s"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2246
+#: src/Modules/TwoFactor/TwoFactorModule.php:2080
 #. translators: 1: date the device was last used, 2: date the trust expires.
 msgid "Last used %1$s — expires %2$s"
 msgstr "Terakhir digunakan %1$s — kedaluwarsa %2$s"
@@ -6451,7 +6455,7 @@ msgstr "Biarkan kosong untuk mempertahankan kunci rahasia yang tersimpan."
 msgid "Leave empty to keep the saved secret key. The key is never shown."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:719
+#: src/Modules/Mailer/Providers/GmailProvider.php:60
 msgid "Leave empty to keep the saved secret. The secret is never shown."
 msgstr ""
 
@@ -6593,7 +6597,7 @@ msgstr "Menaut ke arsip penulis beserta jumlah artikel yang diterbitkan."
 msgid "Links to your own subscription page."
 msgstr "Tautan ke halaman langganan Anda sendiri."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:538
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
 msgid "List"
 msgstr "Daftar"
 
@@ -6664,19 +6668,19 @@ msgstr "Memuat cuaca…"
 msgid "Loading your bookmarks…"
 msgstr "Memuat markah Anda…"
 
-#: src/Modules/Mailer/MailerModule.php:656
+#: src/Modules/Mailer/MailerModule.php:661
 msgid "Local / PHP mail"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:657
+#: src/Modules/Mailer/MailerModule.php:662
 msgid "Local / PHP mail — no provider, no credentials: WordPress sends through the server’s own mail setup (wp_mail default). Worst deliverability of all providers (no authentication, no reputation), but it works with no account at all. Best for local development only."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:662
+#: src/Modules/Mailer/MailerModule.php:667
 msgid "Local development only"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:977
+#: src/Modules/Mailer/MailerModule.php:910
 msgid "Local PHP mail for development."
 msgstr "Email PHP lokal untuk pengembangan."
 
@@ -6689,19 +6693,19 @@ msgstr "Lokasi"
 msgid "Location is too long."
 msgstr "Lokasi terlalu panjang."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2394
+#: src/Modules/TwoFactor/TwoFactorModule.php:2208
 msgid "Lock out after failed attempts"
 msgstr "Kunci setelah upaya gagal"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:130
+#: src/Modules/TwoFactor/TwoFactorCli.php:131
 msgid "Locked out: %s"
 msgstr "Terkunci: %s"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:219
+#: src/Modules/TwoFactor/TwoFactorCli.php:220
 msgid "Lockout cleared for %s."
 msgstr "Penguncian untuk %s telah dibersihkan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2403
+#: src/Modules/TwoFactor/TwoFactorModule.php:2217
 msgid "Lockout duration in minutes"
 msgstr "Durasi penguncian dalam menit"
 
@@ -6792,7 +6796,7 @@ msgstr ""
 msgid "Long-running SEO plugin with titles, sitemaps and schema for a news site. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr "Plugin SEO yang sudah lama berjalan, dengan judul, sitemap, dan schema untuk situs berita. Saat plugin ini aktif, modul SEO bawaan tema akan menepi dan tidak mengeluarkan meta tag duplikat."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
 msgid "Longest side, in pixels, of an uploaded featured image."
 msgstr "Sisi terpanjang, dalam piksel, dari gambar unggulan yang diunggah."
 
@@ -6844,11 +6848,11 @@ msgstr ""
 msgid "Mailchimp — free 500 contacts / 1,000 emails per month. Campaign provider: a mail is sent as a campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for marketing campaigns and audiences already managed in Mailchimp."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:931
+#: src/Modules/Mailer/MailerModule.php:864
 msgid "Mailer"
 msgstr "Mailer"
 
-#: src/Modules/Mailer/MailerModule.php:2354
+#: src/Modules/Mailer/MailerModule.php:2287
 msgid "Mailer is not configured yet. Outgoing mail will use the WordPress default mailer."
 msgstr "Mailer belum dikonfigurasi. Email keluar akan menggunakan mailer bawaan WordPress."
 
@@ -6856,7 +6860,7 @@ msgstr "Mailer belum dikonfigurasi. Email keluar akan menggunakan mailer bawaan 
 msgid "Mailer is not configured yet. Save the provider settings first."
 msgstr "Mailer belum dikonfigurasi. Simpan pengaturan penyedia terlebih dahulu."
 
-#: src/Modules/Mailer/MailerModule.php:1707
+#: src/Modules/Mailer/MailerModule.php:1640
 msgid "Mailer settings saved."
 msgstr "Pengaturan Mailer disimpan."
 
@@ -7074,7 +7078,7 @@ msgstr "Ukuran unggahan maks."
 msgid "Maximum ads per page"
 msgstr "Iklan maksimum per halaman"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:565
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
 msgid "Maximum dimension (px)"
 msgstr "Dimensi maksimum (px)"
 
@@ -7082,7 +7086,7 @@ msgstr "Dimensi maksimum (px)"
 msgid "Maximum entries kept"
 msgstr "Jumlah entri maksimum yang disimpan"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:556
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
 msgid "Maximum file size (MB)"
 msgstr "Ukuran berkas maksimum (MB)"
 
@@ -7183,12 +7187,12 @@ msgstr "Paywall Bermeter"
 msgid "Metered Paywall settings saved."
 msgstr "Pengaturan Paywall Bermeter disimpan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2441
+#: src/Modules/TwoFactor/TwoFactorModule.php:2255
 msgid "Method"
 msgstr "Metode"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2279
-#: src/Modules/TwoFactor/TwoFactorModule.php:2332
+#: src/Modules/TwoFactor/TwoFactorModule.php:2113
+#: src/Modules/TwoFactor/TwoFactorModule.php:2165
 msgid "Methods"
 msgstr "Metode"
 
@@ -7316,7 +7320,7 @@ msgstr "Modul dalam kategori ini akan kembali ke kategori bawaannya."
 msgid "Modules: enable what you need"
 msgstr "Modul: aktifkan yang Anda butuhkan"
 
-#: src/Admin/ModuleRegistry.php:1034
+#: src/Admin/ModuleRegistry.php:1037
 msgid "Monetization"
 msgstr "Monetisasi"
 
@@ -7351,7 +7355,9 @@ msgstr "Informasi selengkapnya"
 msgid "Most-hit 404s"
 msgstr "404 yang paling sering diakses"
 
-#: src/Modules/SiteInfo/SiteInfoModule.php:412
+#: src/Modules/Passkeys/PasskeysModule.php:1024
+msgid "Moving the site to a different domain or from HTTP to HTTPS invalidates enrolled passkeys — users enroll again on the new address."
+msgstr "Memindahkan situs ke domain lain atau dari HTTP ke HTTPS membatalkan passkey yang terdaftar — pengguna mendaftar lagi di alamat baru."#: src/Modules/SiteInfo/SiteInfoModule.php:412
 msgid "Multisite"
 msgstr "Multisite"
 
@@ -7418,8 +7424,8 @@ msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] "Perlu Revisi <span class=\"count\">(%s)</span>"
 
-#: src/Admin/ModuleRegistry.php:1644
-#: src/Admin/ModuleRegistry.php:966
+#: src/Admin/ModuleRegistry.php:1648
+#: src/Admin/ModuleRegistry.php:969
 #: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
@@ -7453,7 +7459,7 @@ msgstr "tidak pernah"
 msgid "Never share this with anyone."
 msgstr "Jangan bagikan ini kepada siapa pun."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:388
+#: src/Modules/TwoFactor/TwoFactorAjax.php:305
 msgid "New backup codes generated. The old codes no longer work."
 msgstr "Kode cadangan baru telah dibuat. Kode lama tidak lagi berfungsi."
 
@@ -7583,7 +7589,7 @@ msgstr "Nginx"
 msgid "No"
 msgstr "Tidak"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:131
+#: src/Modules/TwoFactor/TwoFactorCli.php:132
 #: templates/admin/modules/db-tools.php:82
 msgid "no"
 msgstr "tidak"
@@ -7737,7 +7743,7 @@ msgstr "Tidak ada layanan eksternal yang dihubungi."
 msgid "No extra settings page — everything happens on the Menus screen."
 msgstr "Tanpa halaman pengaturan tambahan — semuanya terjadi di layar Menu."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2434
+#: src/Modules/TwoFactor/TwoFactorModule.php:2248
 msgid "No failed attempts recorded yet."
 msgstr "Belum ada upaya gagal yang tercatat."
 
@@ -7823,8 +7829,9 @@ msgstr "Belum ada notifikasi. Perubahan status artikel Anda akan muncul di sini.
 msgid "No page selected"
 msgstr "Tidak ada halaman yang dipilih"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2119
-#: src/Modules/TwoFactor/TwoFactorModule.php:2195
+#: src/Modules/Passkeys/PasskeysModule.php:862
+#: src/Modules/Passkeys/PasskeysModule.php:926
+#: src/Modules/TwoFactor/TwoFactorModule.php:1994
 msgid "No passkeys yet."
 msgstr "Belum ada passkey."
 
@@ -7939,8 +7946,8 @@ msgstr "Tidak ada file terjemahan untuk %s. String bahasa Inggris dipakai sebaga
 msgid "No trending topics yet."
 msgstr "Belum ada topik tren."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2120
-#: src/Modules/TwoFactor/TwoFactorModule.php:2236
+#: src/Modules/TwoFactor/TwoFactorModule.php:1995
+#: src/Modules/TwoFactor/TwoFactorModule.php:2070
 msgid "No trusted devices."
 msgstr "Tidak ada perangkat tepercaya."
 
@@ -7985,8 +7992,8 @@ msgstr "Tidak aktif. Tema membutuhkan plugin TrayDigita Stack."
 msgid "Not applicable"
 msgstr "Tidak berlaku"
 
-#: src/Admin/ModuleRegistry.php:1632
-#: src/Admin/ModuleRegistry.php:960
+#: src/Admin/ModuleRegistry.php:1636
+#: src/Admin/ModuleRegistry.php:963
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr "Tidak tersedia"
@@ -8040,11 +8047,11 @@ msgstr "Tidak terinstal. Instal dari rilis GitHub proyek, atau unggah file .zip 
 msgid "Not on home, archive, or search pages."
 msgstr "Tidak di halaman beranda, arsip, atau pencarian."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:101
+#: src/Modules/TwoFactor/TwoFactorCli.php:102
 msgid "not set up"
 msgstr "belum disiapkan"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2144
+#: src/Modules/TwoFactor/TwoFactorModule.php:2017
 msgid "Not set up yet."
 msgstr "Belum disiapkan."
 
@@ -8309,7 +8316,7 @@ msgstr "Hanya ditampilkan bila tidak ada plugin SEO yang menyediakan breadcrumb.
 msgid "Only emitted when no SEO plugin — and not the theme’s own SEO module — already provides breadcrumb structured data."
 msgstr "Hanya dikeluarkan saat tidak ada plugin SEO — dan bukan modul SEO tema sendiri — yang sudah menyediakan data terstruktur breadcrumb."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2459
+#: src/Modules/TwoFactor/TwoFactorModule.php:2273
 msgid "Only failed attempts are recorded (up to 200 entries, oldest first removed)."
 msgstr "Hanya upaya gagal yang dicatat (hingga 200 entri, yang terlama dihapus terlebih dahulu)."
 
@@ -8419,7 +8426,7 @@ msgstr "Buka Log Aktivitas"
 msgid "Open Custom Headers"
 msgstr "Buka Custom Headers"
 
-#: src/Modules/Mailer/MailerModule.php:2359
+#: src/Modules/Mailer/MailerModule.php:2292
 msgid "Open Mailer settings"
 msgstr "Buka pengaturan Mailer"
 
@@ -8581,8 +8588,8 @@ msgstr "Opsional. Simpan token API Cloudflare dan ID zona di bawah untuk mengakt
 msgid "Options (one per box, choice fields only)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1638
-#: src/Modules/TwoFactor/TwoFactorModule.php:1915
+#: src/Modules/Passkeys/PasskeysModule.php:731
+#: src/Modules/TwoFactor/TwoFactorModule.php:1800
 msgid "or"
 msgstr "atau"
 
@@ -8707,7 +8714,7 @@ msgstr "Hanya halaman"
 msgid "Pages use their ancestor chain: Home / Parent page / Current page."
 msgstr "Halaman menggunakan rantai leluhurnya: Beranda / Halaman induk / Halaman saat ini."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:536
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:547
 msgid "Paragraph"
 msgstr "Paragraf"
 
@@ -8737,37 +8744,39 @@ msgstr "Lolos"
 msgid "passkey"
 msgstr "kunci sandi"
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:477
+#: src/Modules/Passkeys/PasskeysAjax.php:335
 #. translators: %d is the passkey number for this account.
 msgid "Passkey %d"
 msgstr "Passkey %d"
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:493
+#: src/Modules/Passkeys/PasskeysAjax.php:351
 msgid "Passkey added. You can now sign in with your fingerprint or Face ID."
 msgstr "Passkey ditambahkan. Anda kini dapat masuk dengan sidik jari atau Face ID."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:441
-msgid "Passkey login with fingerprint or Face ID."
-msgstr "Login passkey dengan sidik jari atau Face ID."
-
-#: src/Modules/ActivityLog/ActivityLogModule.php:1008
+#: src/Modules/Passkeys/PasskeysModule.php:256
+msgid "Passkey as a second factor on the two-factor challenge screen."
+msgstr "Passkey sebagai faktor kedua di layar tantangan dua faktor."#: src/Modules/Passkeys/PasskeysModule.php:257
+msgid "Passkey enrolment from the user profile page."
+msgstr "Pendaftaran passkey dari halaman profil pengguna."#: src/Modules/ActivityLog/ActivityLogModule.php:1008
 msgid "Passkey registered for two-factor authentication."
 msgstr "Kunci sandi didaftarkan untuk autentikasi dua faktor."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:467
-#: src/Modules/TwoFactor/TwoFactorModule.php:2114
+#: src/Modules/Passkeys/PasskeysAjax.php:325
+#: src/Modules/Passkeys/PasskeysModule.php:924
+#: src/Modules/TwoFactor/TwoFactorModule.php:1989
 msgid "Passkey registration failed. Please try again."
 msgstr "Pendaftaran passkey gagal. Silakan coba lagi."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:415
+#: src/Modules/Passkeys/PasskeysAjax.php:273
 msgid "Passkey registration is disabled on this site."
 msgstr "Pendaftaran passkey dinonaktifkan di situs ini."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:458
+#: src/Modules/Passkeys/PasskeysAjax.php:316
 msgid "Passkey registration is not available on this site."
 msgstr "Pendaftaran passkey tidak tersedia di situs ini."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2113
+#: src/Modules/Passkeys/PasskeysModule.php:923
+#: src/Modules/TwoFactor/TwoFactorModule.php:1988
 msgid "Passkey registration was cancelled."
 msgstr "Pendaftaran passkey dibatalkan."
 
@@ -8775,63 +8784,72 @@ msgstr "Pendaftaran passkey dibatalkan."
 msgid "Passkey removed from two-factor authentication."
 msgstr "Kunci sandi dihapus dari autentikasi dua faktor."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:517
+#: src/Modules/Passkeys/PasskeysAjax.php:375
 msgid "Passkey removed."
 msgstr "Passkey telah dihapus."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1642
+#: src/Modules/Passkeys/PasskeysModule.php:1064
+msgid "Passkey settings saved."
+msgstr "Pengaturan passkey disimpan."#: src/Modules/Passkeys/PasskeysModule.php:735
 msgid "Passkey sign-in failed. Please log in with your password."
 msgstr "Login passkey gagal. Silakan masuk dengan kata sandi Anda."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:629
-#: src/Modules/TwoFactor/TwoFactorAjax.php:655
-#: src/Modules/TwoFactor/TwoFactorAjax.php:703
-#: src/Modules/TwoFactor/TwoFactorAjax.php:709
-#: src/Modules/TwoFactor/TwoFactorAjax.php:747
+#: src/Modules/Passkeys/PasskeysAjax.php:445
+#: src/Modules/Passkeys/PasskeysAjax.php:471
+#: src/Modules/Passkeys/PasskeysAjax.php:519
+#: src/Modules/Passkeys/PasskeysAjax.php:525
+#: src/Modules/Passkeys/PasskeysAjax.php:563
 msgid "Passkey sign-in failed. Please try again."
 msgstr "Login passkey gagal. Silakan coba lagi."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:588
+#: src/Modules/Passkeys/PasskeysAjax.php:404
 msgid "Passkey sign-in is not available on this site."
 msgstr "Login passkey tidak tersedia di situs ini."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1641
+#: src/Modules/Passkeys/PasskeysModule.php:734
 msgid "Passkey sign-in was cancelled. Please log in with your password."
 msgstr "Login passkey dibatalkan. Silakan masuk dengan kata sandi Anda."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:235
+#: src/Modules/Passkeys/PasskeysModule.php:981
+msgid "Passkey sign-in: fingerprint or Face ID instead of a password."
+msgstr "Login passkey: sidik jari atau Face ID sebagai pengganti kata sandi."#: src/Modules/Passkeys/PasskeysAjax.php:245
 msgid "Passkey verification failed. Please try again."
 msgstr "Verifikasi passkey gagal. Silakan coba lagi."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1921
+#: src/Modules/TwoFactor/TwoFactorModule.php:1806
 msgid "Passkey verification failed. Please use your authenticator code."
 msgstr "Verifikasi passkey gagal. Silakan gunakan kode autentikator Anda."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1920
+#: src/Modules/TwoFactor/TwoFactorModule.php:1805
 msgid "Passkey verification was cancelled."
 msgstr "Verifikasi passkey dibatalkan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2187
+#: src/Modules/Passkeys/PasskeysModule.php:210
+#: src/Modules/Passkeys/PasskeysModule.php:919
+msgid "Passkeys"
+msgstr "Passkey"#: src/Modules/Passkeys/PasskeysModule.php:854
 msgid "Passkeys (fingerprint / Face ID)"
 msgstr "Passkey (sidik jari / Face ID)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2349
-msgid "Passkeys are an alternative — password login always stays available."
-msgstr "Passkey adalah alternatif — login kata sandi selalu tetap tersedia."
-
-#: src/Modules/TwoFactor/TwoFactorModule.php:2357
-msgid "Passkeys need a secure connection (HTTPS)."
-msgstr "Passkey memerlukan koneksi aman (HTTPS)."
-
-#: src/Modules/TwoFactor/TwoFactorModule.php:2190
+#: src/Modules/Passkeys/PasskeysModule.php:1003
+msgid "Passkeys are an alternative — password login always stays available, and disabling passkeys never deletes enrolled passkeys: re-enabling restores them."
+msgstr "Passkey adalah alternatif — login kata sandi selalu tersedia, dan menonaktifkan passkey tidak pernah menghapus passkey yang terdaftar: mengaktifkan kembali akan memulihkannya."#: src/Modules/Passkeys/PasskeysModule.php:1010
+msgid "Passkeys are bound to this site. The relying-party id and origin are derived from the site address — there is nothing to configure."
+msgstr "Passkey terikat pada situs ini. ID relying-party dan origin diturunkan dari alamat situs — tidak ada yang perlu dikonfigurasi."#: src/Modules/Passkeys/PasskeysModule.php:930
+msgid "Passkeys let you sign in with your fingerprint or Face ID instead of typing your password. Your passkey never leaves this device."
+msgstr "Passkey memungkinkan Anda login dengan sidik jari atau Face ID tanpa mengetik kata sandi. Passkey Anda tidak pernah meninggalkan perangkat ini."#: src/Modules/Passkeys/PasskeysModule.php:987
+msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkey registration is currently disabled — the toggle takes effect once the site is on HTTPS (localhost is excepted)."
+msgstr "Passkey membutuhkan koneksi aman (HTTPS). Situs ini disajikan melalui HTTP biasa, jadi pendaftaran passkey saat ini dinonaktifkan — toggle berlaku setelah situs menggunakan HTTPS (localhost dikecualikan)."#: src/Modules/Passkeys/PasskeysModule.php:857
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkeys are disabled here — everything else still works. If the site is behind a proxy, check that WordPress knows it is on HTTPS."
 msgstr "Passkey memerlukan koneksi aman (HTTPS). Situs ini disajikan melalui HTTP biasa, jadi passkey dinonaktifkan di sini — yang lainnya tetap berfungsi. Jika situs berada di balik proxy, periksa apakah WordPress mengetahui bahwa situs memakai HTTPS."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:418
+#: src/Modules/Passkeys/PasskeysAjax.php:276
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP."
 msgstr "Passkey memerlukan koneksi aman (HTTPS). Situs ini disajikan melalui HTTP biasa."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:113
+#: src/Modules/Passkeys/PasskeysModule.php:274
+msgid "Passkeys split out of the Two-Factor module into a module of their own, with the same WebAuthn server, the same credential store, and the same AJAX actions."
+msgstr "Passkey dipisahkan dari modul Two-Factor menjadi modul sendiri, dengan server WebAuthn yang sama, penyimpanan kredensial yang sama, dan aksi AJAX yang sama."#: src/Modules/TwoFactor/TwoFactorCli.php:114
 #. translators: %d is the number of registered passkeys.
 msgid "Passkeys: %d"
 msgstr "Passkey: %d"
@@ -8942,11 +8960,11 @@ msgstr ""
 msgid "Per-role access modes: dashboard or frontend-only."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:443
+#: src/Modules/TwoFactor/TwoFactorModule.php:447
 msgid "Per-role enforcement and rate limiting."
 msgstr "Penegakan per peran dan pembatasan laju."
 
-#: src/Admin/ModuleRegistry.php:1026
+#: src/Admin/ModuleRegistry.php:1029
 msgid "Performance"
 msgstr "Performa"
 
@@ -9094,7 +9112,7 @@ msgstr "Putar gulir otomatis"
 msgid "Please <a href=\"%s\">log in</a> to use the member area."
 msgstr "Silakan <a href=\"%s\">masuk</a> untuk menggunakan area anggota."
 
-#: src/Modules/Mailer/MailerModule.php:1700
+#: src/Modules/Mailer/MailerModule.php:1633
 #: src/Modules/Turnstile/TurnstileModule.php:1206
 #. translators: %s is a comma-separated list of invalid field names.
 msgid "Please check the following fields: %s."
@@ -9222,7 +9240,7 @@ msgstr ""
 msgid "Plunk — free 1,000 emails/month, then $0.001 per email. Best for simple transactional mail with a generous pay-as-you-go price after the free tier."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:577
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:588
 msgid "PNG"
 msgstr "PNG"
 
@@ -9236,7 +9254,7 @@ msgstr "Popular Posts kembali ke analitik lokal dan posting terbaru saat Site Ki
 msgid "Popular Posts reads Analytics data through the traydigita-stack collector (Stack::getPopularPosts()) while Site Kit is connected."
 msgstr "Popular Posts membaca data Analytics melalui kolektor traydigita-stack (Stack::getPopularPosts()) saat Site Kit terhubung."
 
-#: src/Modules/Mailer/MailerModule.php:1600
+#: src/Modules/Mailer/MailerModule.php:1533
 #: templates/admin/modules/mailer.php:206
 msgid "Port"
 msgstr "Port"
@@ -9577,8 +9595,8 @@ msgid "Protects the Contact Form module."
 msgstr "Melindungi modul Contact Form."
 
 #: src/Modules/Comments/CommentsModule.php:468
-#: src/Modules/Mailer/MailerModule.php:1559
-#: src/Modules/Mailer/MailerModule.php:1719
+#: src/Modules/Mailer/MailerModule.php:1492
+#: src/Modules/Mailer/MailerModule.php:1652
 #: templates/admin/modules/mailer.php:155
 #: templates/admin/modules/mailer.php:156
 #: templates/admin/modules/mailer.php:510
@@ -9713,7 +9731,7 @@ msgstr ""
 msgid "PWA is disabled. The site is not installable: no manifest link, theme-color meta tag, install sheet, or \"Install App\" buttons are served. Enable the module in the module grid first."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2340
+#: src/Modules/TwoFactor/TwoFactorModule.php:2173
 msgid "QR codes are generated locally — no external service is involved."
 msgstr "Kode QR dibuat secara lokal — tidak ada layanan eksternal yang terlibat."
 
@@ -9733,7 +9751,7 @@ msgstr "Peran Cepat"
 msgid "Quick role changes."
 msgstr "Perubahan peran cepat."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
 msgid "Quote"
 msgstr "Kutipan"
 
@@ -9757,7 +9775,7 @@ msgstr "Raih peringkat baik tanpa bertentangan dengan plugin SEO Anda: tema meng
 msgid "Ranked by shared tags, categories, and author."
 msgstr "Diperingkat berdasarkan tag, kategori, dan penulis yang sama."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2398
+#: src/Modules/TwoFactor/TwoFactorModule.php:2212
 msgid "Rate limiting applies to code verification and passkey attempts, per user."
 msgstr "Pembatasan laju berlaku untuk verifikasi kode dan upaya passkey, per pengguna."
 
@@ -9834,11 +9852,11 @@ msgstr "Pengaturan Reading Progress disimpan."
 msgid "Reading speed used for the estimate."
 msgstr "Kecepatan baca yang digunakan untuk perkiraan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2442
+#: src/Modules/TwoFactor/TwoFactorModule.php:2256
 msgid "Reason"
 msgstr "Alasan"
 
-#: src/Modules/Mailer/MailerModule.php:1008
+#: src/Modules/Mailer/MailerModule.php:941
 msgid "Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 25 API transaksional, 10 API pemasaran, Gmail OAuth, dan email PHP lokal."
 
@@ -9891,8 +9909,8 @@ msgstr ""
 msgid "reCAPTCHA verification failed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2284
-#: src/Modules/TwoFactor/TwoFactorModule.php:2432
+#: src/Modules/TwoFactor/TwoFactorModule.php:2118
+#: src/Modules/TwoFactor/TwoFactorModule.php:2246
 msgid "Recent failed attempts"
 msgstr "Upaya gagal terbaru"
 
@@ -9908,7 +9926,7 @@ msgstr ""
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1673
+#: src/Admin/ModuleRegistry.php:1677
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr "Disarankan"
@@ -10002,7 +10020,7 @@ msgstr "Menyegarkan…"
 msgid "Refused"
 msgstr "Ditolak"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2178
+#: src/Modules/TwoFactor/TwoFactorModule.php:2051
 msgid "Regenerate backup codes"
 msgstr "Buat ulang kode cadangan"
 
@@ -10047,7 +10065,16 @@ msgstr "Pengaturan Artikel Terkait disimpan."
 msgid "Relaxed"
 msgstr "Longgar"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2381
+#: src/Modules/Passkeys/PasskeysModule.php:1008
+#: src/Modules/Passkeys/PasskeysModule.php:950
+msgid "Relying party"
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:1013
+msgid "Relying-party id:"
+msgstr ""
+
+#: src/Modules/TwoFactor/TwoFactorModule.php:2195
 msgid "Remember devices"
 msgstr "Ingat perangkat"
 
@@ -10055,7 +10082,7 @@ msgstr "Ingat perangkat"
 msgid "Remember the choice for (days)"
 msgstr "Ingat pilihan selama (hari)"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1902
+#: src/Modules/TwoFactor/TwoFactorModule.php:1787
 #. translators: %d is the number of days the device is remembered.
 msgid "Remember this device for %d days"
 msgstr "Ingat perangkat ini selama %d hari"
@@ -10069,9 +10096,10 @@ msgid "Remote URLs are always verified as real images before they are saved."
 msgstr "URL jarak jauh selalu diverifikasi sebagai gambar asli sebelum disimpan."
 
 #: src/Bookmarks.php:161
-#: src/Modules/TwoFactor/TwoFactorModule.php:2121
-#: src/Modules/TwoFactor/TwoFactorModule.php:2213
-#: src/Modules/TwoFactor/TwoFactorModule.php:2252
+#: src/Modules/Passkeys/PasskeysModule.php:880
+#: src/Modules/Passkeys/PasskeysModule.php:927
+#: src/Modules/TwoFactor/TwoFactorModule.php:1996
+#: src/Modules/TwoFactor/TwoFactorModule.php:2086
 #: templates/admin/modules/email.php:246
 #: templates/admin/modules/headers.php:231
 #: templates/admin/modules/headers.php:248
@@ -10083,19 +10111,19 @@ msgstr "Hapus"
 msgid "Remove %s block"
 msgstr "Hapus blok %s"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2257
+#: src/Modules/TwoFactor/TwoFactorModule.php:2091
 msgid "Remove all trusted devices"
 msgstr "Hapus semua perangkat tepercaya"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2117
+#: src/Modules/TwoFactor/TwoFactorModule.php:1992
 msgid "Remove all trusted devices for this account?"
 msgstr "Hapus semua perangkat tepercaya untuk akun ini?"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:173
+#: src/Modules/TwoFactor/TwoFactorCli.php:174
 msgid "Remove all two-factor methods for %s? They will be able to log in with their password only."
 msgstr "Hapus semua metode dua faktor untuk %s? Mereka hanya dapat masuk dengan kata sandinya."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2179
+#: src/Modules/TwoFactor/TwoFactorModule.php:2052
 msgid "Remove authenticator app"
 msgstr "Hapus aplikasi autentikator"
 
@@ -10135,7 +10163,7 @@ msgstr "Hapus override"
 msgid "Remove rule"
 msgstr "Hapus aturan"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2115
+#: src/Modules/TwoFactor/TwoFactorModule.php:1990
 msgid "Remove the authenticator app from this account? You will no longer be asked for a code at login."
 msgstr "Hapus aplikasi autentikator dari akun ini? Anda tidak lagi diminta kode saat login."
 
@@ -10143,7 +10171,8 @@ msgstr "Hapus aplikasi autentikator dari akun ini? Anda tidak lagi diminta kode 
 msgid "Remove the featured image?"
 msgstr "Hapus gambar unggulan?"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2118
+#: src/Modules/Passkeys/PasskeysModule.php:925
+#: src/Modules/TwoFactor/TwoFactorModule.php:1993
 msgid "Remove this passkey? You will no longer be able to sign in with it."
 msgstr "Hapus passkey ini? Anda tidak lagi dapat masuk dengannya."
 
@@ -10157,7 +10186,7 @@ msgstr "Hapus pengecualian jalur ini"
 msgid "Remove this rule? Its ad code will be lost when you save."
 msgstr "Hapus aturan ini? Kode iklannya akan hilang saat Anda menyimpan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2116
+#: src/Modules/TwoFactor/TwoFactorModule.php:1991
 msgid "Remove this trusted device? You will be asked for a code again on it."
 msgstr "Hapus perangkat tepercaya ini? Anda akan diminta kode lagi di perangkat itu."
 
@@ -10217,9 +10246,9 @@ msgstr "Hanya mode hanya-laporan: peramban melaporkan apa yang akan diblokir keb
 msgid "Report-only policy"
 msgstr "Kebijakan hanya-laporan"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2280
-#: src/Modules/TwoFactor/TwoFactorModule.php:2363
-#: src/Modules/TwoFactor/TwoFactorModule.php:2368
+#: src/Modules/TwoFactor/TwoFactorModule.php:2114
+#: src/Modules/TwoFactor/TwoFactorModule.php:2177
+#: src/Modules/TwoFactor/TwoFactorModule.php:2182
 msgid "Require for roles"
 msgstr "Wajib untuk peran"
 
@@ -10444,7 +10473,7 @@ msgstr ""
 #: src/Modules/Comments/CommentsModule.php:531
 #: src/Modules/Core/MenuIconsModule.php:293
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:329
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:605
 #: src/Modules/Heartbeat/HeartbeatModule.php:338
 #: src/Modules/Installer/InstallerModule.php:559
 #: src/Modules/MemberArea/MemberAreaModule.php:711
@@ -10554,7 +10583,7 @@ msgstr "Menyimpan di sini hanya mengonfirmasi bahwa tidak ada yang perlu disimpa
 msgid "Saving…"
 msgstr "Menyimpan…"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2148
+#: src/Modules/TwoFactor/TwoFactorModule.php:2021
 msgid "Scan this code with your authenticator app (Google Authenticator, Authy, 1Password, or any TOTP app), then enter the 6-digit code it shows to confirm."
 msgstr "Pindai kode ini dengan aplikasi autentikator Anda (Google Authenticator, Authy, 1Password, atau aplikasi TOTP apa pun), lalu masukkan kode 6 digit yang ditampilkan untuk mengonfirmasi."
 
@@ -10567,11 +10596,11 @@ msgstr "Terjadwal"
 msgid "Scheduled events"
 msgstr "Acara terjadwal"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:237
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:248
 msgid "Scoped featured-image upload."
 msgstr "Unggahan gambar unggulan yang dibatasi."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:561
 msgid "Scoped upload limits for the one featured image per article."
 msgstr "Batas unggahan khusus untuk satu gambar unggulan per artikel."
 
@@ -10683,7 +10712,7 @@ msgstr "Detik"
 msgid "Secret key"
 msgstr "Kunci rahasia"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2151
+#: src/Modules/TwoFactor/TwoFactorModule.php:2024
 msgid "Secret key (manual entry):"
 msgstr "Kunci rahasia (entri manual):"
 
@@ -10699,7 +10728,11 @@ msgstr ""
 msgid "Sections other modules plug in through a filter."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1022
+#: src/Modules/Passkeys/PasskeysModule.php:258
+msgid "Secure-context only (HTTPS, or localhost for development)."
+msgstr ""
+
+#: src/Admin/ModuleRegistry.php:1025
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr "Keamanan"
@@ -10840,7 +10873,7 @@ msgstr "Kirim email tes ke"
 msgid "Send to email"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:941
+#: src/Modules/Mailer/MailerModule.php:874
 msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
 msgstr ""
 
@@ -10868,21 +10901,11 @@ msgstr ""
 msgid "Sender.net — free 15,000 emails/month (up to 2,500 contacts). Best for newsletters and transactional mail on a generous free allowance."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:221
-#. translators: %1$d is the HTTP status code, %2$s is the HTTP status text.
-msgid "SendGrid API error %1$d: %2$s"
-msgstr "Error API SendGrid %1$d: %2$s"
-
-#: src/Modules/Mailer/SendGridSender.php:228
-#. translators: %d is the HTTP status code returned by the SendGrid API.
-msgid "SendGrid API error %d."
-msgstr "Error API SendGrid %d."
-
-#: src/Modules/Mailer/MailerModule.php:680
+#: src/Modules/Mailer/Providers/SendGridProvider.php:54
 msgid "SendGrid API key"
 msgstr "API key SendGrid"
 
-#: src/Modules/Mailer/MailerModule.php:670
+#: src/Modules/Mailer/Providers/SendGridProvider.php:44
 msgid "SendGrid — 60-day free trial (100/day), then paid. Best for teams already on Twilio with high-volume transactional and marketing mail."
 msgstr ""
 
@@ -10971,7 +10994,7 @@ msgstr ""
 msgid "Sent through Elastic Email."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:276
+#: src/Modules/Mailer/Providers/GmailOAuth.php:277
 msgid "Sent through Gmail."
 msgstr "Dikirim melalui Gmail."
 
@@ -11023,7 +11046,7 @@ msgstr ""
 msgid "Sent through Sender.net."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:132
+#: src/Modules/Mailer/Providers/SendGridProvider.php:126
 msgid "Sent through SendGrid."
 msgstr "Dikirim melalui SendGrid."
 
@@ -11067,7 +11090,7 @@ msgstr "Terkirim ke %1$d perangkat, gagal %2$d, token mati yang dihapus: %3$d."
 msgid "SEO"
 msgstr "SEO"
 
-#: src/Admin/ModuleRegistry.php:1030
+#: src/Admin/ModuleRegistry.php:1033
 msgid "SEO & Discovery"
 msgstr "SEO & Penemuan"
 
@@ -11160,7 +11183,6 @@ msgid "SES secret access key"
 msgstr ""
 
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:437
-#: src/Modules/Mailer/SendGridSender.php:75
 msgid "Set a From email address in the Mailer settings first."
 msgstr "Atur alamat email From di pengaturan Mailer terlebih dahulu."
 
@@ -11180,11 +11202,11 @@ msgstr "Atur Avatar dari URL"
 msgid "Set how often the WordPress Heartbeat pulses on the dashboard, in the post editor, and on the frontend — and switch the frontend heartbeat off. The editor heartbeat can never be disabled, so autosave and post locking always keep working."
 msgstr "Atur seberapa sering Heartbeat WordPress berdenyut di dasbor, editor artikel, dan frontend — dan matikan heartbeat frontend. Heartbeat editor tidak pernah dapat dinonaktifkan, sehingga penyimpanan otomatis dan penguncian artikel selalu berfungsi."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:376
+#: src/Modules/TwoFactor/TwoFactorAjax.php:293
 msgid "Set up an authenticator app first."
 msgstr "Siapkan aplikasi autentikator terlebih dahulu."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2175
+#: src/Modules/TwoFactor/TwoFactorModule.php:2048
 msgid "Set up authenticator app"
 msgstr "Siapkan aplikasi autentikator"
 
@@ -11221,7 +11243,7 @@ msgstr "Pengaturan untuk modul yang sedang aktif. Modul yang tidak aktif tercant
 msgid "Settings hub"
 msgstr "Pusat Pengaturan"
 
-#: src/Modules/Mailer/MailerModule.php:1011
+#: src/Modules/Mailer/MailerModule.php:944
 msgid "Settings migrated from the old traydigita_smtp option; the old option is kept as a fallback."
 msgstr "Pengaturan dimigrasikan dari opsi traydigita_smtp lama; opsi lama tetap disimpan sebagai cadangan."
 
@@ -11519,11 +11541,11 @@ msgstr "Sidebar disimpan."
 msgid "Sidebars"
 msgstr "Sidebar"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1643
+#: src/Modules/Passkeys/PasskeysModule.php:736
 msgid "Sign in with fingerprint or Face ID"
 msgstr "Masuk dengan sidik jari atau Face ID"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2193
+#: src/Modules/Passkeys/PasskeysModule.php:860
 msgid "Sign in with your fingerprint or Face ID instead of typing a code. Your passkey never leaves this device."
 msgstr "Masuk dengan sidik jari atau Face ID Anda, bukan mengetik kode. Passkey Anda tidak pernah meninggalkan perangkat ini."
 
@@ -11531,7 +11553,7 @@ msgstr "Masuk dengan sidik jari atau Face ID Anda, bukan mengetik kode. Passkey 
 msgid "sign-in"
 msgstr "masuk"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1874
+#: src/Modules/TwoFactor/TwoFactorModule.php:1759
 #. translators: %s is the account login name.
 msgid "Signing in as %s. Enter the code from your authenticator app to continue."
 msgstr "Masuk sebagai %s. Masukkan kode dari aplikasi autentikator Anda untuk melanjutkan."
@@ -11540,15 +11562,15 @@ msgstr "Masuk sebagai %s. Masukkan kode dari aplikasi autentikator Anda untuk me
 msgid "Simple .htaccess-based page cache — the easiest to set up, serving static HTML files straight from disk."
 msgstr "Page cache berbasis .htaccess yang sederhana — paling mudah disiapkan, menyajikan file HTML statis langsung dari disk."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:484
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
 msgid "Simple block editor for contributors on the frontend."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:199
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:210
 msgid "Simple block editor for contributors on the frontend: paragraph, heading, list and quote blocks only, enforced server-side on save, with a scoped featured-image upload that never opens the Media Library."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:236
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:247
 msgid "Simple block editor for writing articles."
 msgstr "Editor blok sederhana untuk menulis artikel."
 
@@ -11662,7 +11684,7 @@ msgstr "Judul kecil berwarna abu-abu di atas tombol. Kosongkan untuk kembali ke 
 msgid "Smaller, default, larger and largest text. Applied as a font-size step on the whole page."
 msgstr "Teks lebih kecil, bawaan, lebih besar, dan paling besar. Diterapkan sebagai langkah ukuran font pada seluruh halaman."
 
-#: src/Modules/Mailer/MailerModule.php:643
+#: src/Modules/Mailer/MailerModule.php:648
 msgid "SMTP"
 msgstr "SMTP"
 
@@ -11670,20 +11692,20 @@ msgstr "SMTP"
 msgid "SMTP host"
 msgstr "Host SMTP"
 
-#: src/Modules/Mailer/MailerModule.php:1002
+#: src/Modules/Mailer/MailerModule.php:935
 msgid "SMTP mailer with presets for the major mailbox providers."
 msgstr "Mailer SMTP dengan preset untuk penyedia mailbox utama."
 
-#: src/Modules/Mailer/MailerModule.php:1568
+#: src/Modules/Mailer/MailerModule.php:1501
 #: templates/admin/modules/mailer.php:180
 msgid "SMTP preset"
 msgstr "Preset SMTP"
 
-#: src/Modules/Mailer/MailerModule.php:976
+#: src/Modules/Mailer/MailerModule.php:909
 msgid "SMTP with 30 one-click presets for major mailbox providers."
 msgstr "SMTP dengan 30 preset sekali klik untuk penyedia mailbox utama."
 
-#: src/Modules/Mailer/MailerModule.php:644
+#: src/Modules/Mailer/MailerModule.php:649
 msgid "SMTP — your own mail server, with one-click presets for the major mailbox providers and the SMTP relays of the API providers."
 msgstr ""
 
@@ -11743,7 +11765,8 @@ msgstr "Beberapa plugin bergantung pada heartbeat frontend; aktifkan kembali jik
 #: src/Admin/SetupPage.php:153
 #: src/Admin/SetupPage.php:953
 #: src/Modules/Installer/InstallerModule.php:337
-#: src/Modules/TwoFactor/TwoFactorModule.php:2110
+#: src/Modules/Passkeys/PasskeysModule.php:921
+#: src/Modules/TwoFactor/TwoFactorModule.php:1985
 #: templates/admin/modules/activity-log.php:64
 #: templates/admin/modules/db-tools.php:58
 #: templates/admin/modules/epaper.php:53
@@ -11837,7 +11860,7 @@ msgid "Speed up frontend search with FULLTEXT and composite database indexes, wi
 msgstr "Percepat pencarian frontend dengan indeks FULLTEXT dan indeks gabungan basis data, dengan fallback yang aman ke pencarian standar WordPress saat indeks belum ada."
 
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:202
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:254
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:265
 #: src/Modules/MemberArea/MemberAreaModule.php:251
 #: src/Modules/MemberProfile/MemberProfileModule.php:170
 #: src/Modules/RoleAccess/RoleAccessModule.php:209
@@ -12106,7 +12129,7 @@ msgstr "Matikan heartbeat frontend."
 msgid "Symbol"
 msgstr "Simbol"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2205
+#: src/Modules/Passkeys/PasskeysModule.php:872
 msgid "Synced"
 msgstr "Tersinkron"
 
@@ -12255,7 +12278,7 @@ msgstr "Judul dan deskripsi meta berbasis template, URL kanonis, tag Open Graph 
 msgid "Templates"
 msgstr "Templat"
 
-#: src/Modules/Mailer/MailerModule.php:1723
+#: src/Modules/Mailer/MailerModule.php:1656
 #: templates/admin/modules/mailer.php:449
 #: templates/admin/modules/mailer.php:450
 msgid "Test & Log"
@@ -12282,7 +12305,7 @@ msgstr "Email tes dari %s"
 msgid "Test email sent. Please check the inbox of the recipient address."
 msgstr "Email tes terkirim. Silakan periksa kotak masuk alamat penerima."
 
-#: src/Modules/Mailer/MailerModule.php:981
+#: src/Modules/Mailer/MailerModule.php:914
 msgid "Test email tool and a send log of the last 50 sends."
 msgstr "Alat uji email dan log pengiriman 50 pengiriman terakhir."
 
@@ -12305,7 +12328,7 @@ msgstr "Menguji konfigurasi…"
 msgid "Text"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:528
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
 msgid "Text colour inside the editor canvas."
 msgstr "Warna teks di dalam kanvas editor."
 
@@ -12366,15 +12389,15 @@ msgstr "Kategori itu sudah ada."
 msgid "That category no longer exists."
 msgstr "Kategori itu sudah tidak ada."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:322
+#: src/Modules/TwoFactor/TwoFactorAjax.php:239
 msgid "That code did not match. Check the time on your device and try again."
 msgstr "Kode itu tidak cocok. Periksa waktu di perangkat Anda dan coba lagi."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1808
+#: src/Modules/TwoFactor/TwoFactorModule.php:1693
 msgid "That code did not match. Please try again."
 msgstr "Kode itu tidak cocok. Silakan coba lagi."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:539
+#: src/Modules/TwoFactor/TwoFactorAjax.php:328
 msgid "That device was not found."
 msgstr "Perangkat itu tidak ditemukan."
 
@@ -12410,7 +12433,7 @@ msgstr "Itulah seluruh tur. Anda dapat memutarnya kembali kapan saja dari Pusat 
 msgid "That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri."
 msgstr "JSON tersebut bukan kunci akun layanan Google: JSON harus berisi client_email, private_key, dan token_uri."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:514
+#: src/Modules/Passkeys/PasskeysAjax.php:372
 msgid "That passkey was not found."
 msgstr "Passkey itu tidak ditemukan."
 
@@ -12560,10 +12583,6 @@ msgstr "Artikel dipulihkan."
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:390
 msgid "The attachments are too large (25 MB total limit)."
 msgstr ""
-
-#: src/Modules/Mailer/SendGridSender.php:173
-msgid "The attachments are too large for SendGrid (25 MB total limit)."
-msgstr "Lampiran terlalu besar untuk SendGrid (batas total 25 MB)."
 
 #: src/Modules/Mailer/Providers/MailchimpProvider.php:73
 msgid "The audience ID the campaign is sent to (Audience → Settings → Audience name and defaults). Every mail goes to the whole audience."
@@ -12780,14 +12799,13 @@ msgstr "Editor meminta revisi:"
 msgid "The editor heartbeat can never be disabled, so autosave and post locking keep working."
 msgstr "Heartbeat editor tidak pernah dapat dinonaktifkan, sehingga autosave dan penguncian artikel tetap berfungsi."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:485
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:497
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:508
 msgid "The editor only offers paragraph, heading, list and quote blocks. Anything else a contributor pastes in is stripped when the article is saved, so the allowlist is enforced on the server, never trusted from the browser."
 msgstr "Editor hanya menawarkan blok paragraf, judul, daftar, dan kutipan. Apa pun yang ditempel kontributor akan dihapus saat artikel disimpan, jadi daftar izin ditegakkan di server, tidak pernah dipercaya dari peramban."
 
-#: src/Modules/Mailer/GmailOAuth.php:258
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:434
-#: src/Modules/Mailer/SendGridSender.php:72
+#: src/Modules/Mailer/Providers/GmailOAuth.php:259
 msgid "The email has no recipients."
 msgstr "Email tidak memiliki penerima."
 
@@ -12902,11 +12920,11 @@ msgstr ""
 msgid "The Google Fonts request was refused: unexpected host."
 msgstr "Permintaan Google Fonts ditolak: host tidak terduga."
 
-#: src/Modules/Mailer/GmailOAuth.php:297
+#: src/Modules/Mailer/Providers/GmailOAuth.php:298
 msgid "The Google OAuth client ID and secret are missing. Reconnect Gmail from the Mailer settings."
 msgstr "Client ID dan secret Google OAuth tidak ada. Hubungkan kembali Gmail dari pengaturan Mailer."
 
-#: src/Modules/Mailer/MailerModule.php:2327
+#: src/Modules/Mailer/MailerModule.php:2260
 msgid "The Google sign-in reply could not be verified. Please try connecting again."
 msgstr "Balasan sign-in Google tidak dapat diverifikasi. Silakan coba hubungkan lagi."
 
@@ -13035,7 +13053,7 @@ msgstr ""
 msgid "The list the campaign is sent to (Contacts → Lists → your list; the ID is in the URL). Every mail goes to the whole list."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2407
+#: src/Modules/TwoFactor/TwoFactorModule.php:2221
 msgid "The lockout is a temporary delay, not a permanent block."
 msgstr "Penguncian adalah penundaan sementara, bukan pemblokiran permanen."
 
@@ -13267,11 +13285,11 @@ msgstr ""
 msgid "The production asset manifest, built from the theme sources. Without it the theme cannot load its compiled styles and scripts."
 msgstr "Manifest aset produksi, dibuat dari sumber tema. Tanpanya tema tidak dapat memuat style dan skrip hasil kompilasi."
 
-#: src/Modules/Mailer/MailerModule.php:891
+#: src/Modules/Mailer/MailerModule.php:824
 msgid "The provider did not return a send result."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:896
+#: src/Modules/Mailer/MailerModule.php:829
 msgid "The provider has no send method."
 msgstr ""
 
@@ -13307,7 +13325,7 @@ msgstr "Redirect melewati request sistem dan editor."
 msgid "The redirect URI must use https on a public site — Google only accepts plain http on localhost. If the URI above shows http on a live site, switch the site to https first (or serve the admin over https) before registering it in Google Cloud, or Google will reject the callback."
 msgstr "URI pengalihan harus menggunakan https di situs publik — Google hanya menerima http biasa di localhost. Jika URI di atas menampilkan http di situs live, alihkan situs ke https terlebih dahulu (atau sajikan admin melalui https) sebelum mendaftarkannya di Google Cloud, atau Google akan menolak callback."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:463
+#: src/Modules/Passkeys/PasskeysAjax.php:321
 msgid "The registration session expired. Please start again."
 msgstr "Sesi pendaftaran telah kedaluwarsa. Silakan mulai lagi."
 
@@ -13423,7 +13441,7 @@ msgstr ""
 msgid "The setting only changes this page — it never installs, activates, or hides a plugin itself."
 msgstr "Pengaturan ini hanya mengubah halaman ini — pengaturan ini tidak pernah memasang, mengaktifkan, atau menyembunyikan plugin itu sendiri."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:317
+#: src/Modules/TwoFactor/TwoFactorAjax.php:234
 msgid "The setup session expired. Please start again."
 msgstr "Sesi penyiapan telah kedaluwarsa. Silakan mulai lagi."
 
@@ -13521,11 +13539,11 @@ msgstr "Modul Turnstile dinonaktifkan — aktifkan di Modul untuk menggunakan pr
 msgid "The two do not overlap or conflict."
 msgstr "Keduanya tidak tumpang tindih atau bertentangan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2325
+#: src/Modules/TwoFactor/TwoFactorModule.php:2158
 msgid "The two-factor login script is not registered yet. Passkey buttons will not appear on the login page until the theme entry \"two-factor\" is wired into the Vite manifest (see the module notes in the integration report). Password and TOTP login are unaffected."
 msgstr "Skrip login dua faktor belum terdaftar. Tombol passkey tidak akan muncul di halaman login sampai entri tema \"two-factor\" dihubungkan ke manifes Vite (lihat catatan modul dalam laporan integrasi). Login kata sandi dan TOTP tidak terpengaruh."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2130
+#: src/Modules/TwoFactor/TwoFactorModule.php:2003
 msgid "The two-factor scripts are not loaded yet (the theme entry is missing). The settings below will work after the theme is rebuilt."
 msgstr "Skrip dua faktor belum dimuat (entri tema tidak ada). Pengaturan di bawah ini akan berfungsi setelah tema dibangun ulang."
 
@@ -13684,15 +13702,15 @@ msgstr "Bilah tipis yang tetap di bagian atas artikel tunggal."
 msgid "Thin progress bar at the top of single articles."
 msgstr "Bilah progres tipis di atas artikel tunggal."
 
-#: src/Modules/Mailer/MailerModule.php:982
+#: src/Modules/Mailer/MailerModule.php:915
 msgid "Third-party providers can register through a filter."
 msgstr "Penyedia pihak ketiga dapat mendaftar melalui filter."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:609
+#: src/Modules/Passkeys/PasskeysAjax.php:425
 msgid "This account has no passkeys."
 msgstr "Akun ini tidak memiliki passkey."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1893
+#: src/Modules/TwoFactor/TwoFactorModule.php:1778
 msgid "This account has no second-factor method set up. Please contact an administrator."
 msgstr "Akun ini belum menyiapkan metode faktor kedua. Silakan hubungi administrator."
 
@@ -13710,7 +13728,8 @@ msgstr "Artikel ini tidak dapat diubah."
 msgid "This browser does not support notifications."
 msgstr "Browser ini tidak mendukung notifikasi."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2112
+#: src/Modules/Passkeys/PasskeysModule.php:922
+#: src/Modules/TwoFactor/TwoFactorModule.php:1987
 msgid "This browser does not support passkeys."
 msgstr "Peramban ini tidak mendukung passkey."
 
@@ -13752,7 +13771,7 @@ msgstr "Format ini tidak didukung oleh editor gambar di server ini. Pilih format
 msgid "This image type is not allowed."
 msgstr "Jenis gambar ini tidak diizinkan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2461
+#: src/Modules/TwoFactor/TwoFactorModule.php:2275
 msgid "This is a lightweight security log, not a full activity log."
 msgstr "Ini adalah log keamanan yang ringan, bukan log aktivitas lengkap."
 
@@ -13769,7 +13788,7 @@ msgstr "Ini sudah alamat email Anda."
 msgid "This is display only — the theme never writes server files. Paste a snippet into your server configuration only after reviewing it, and only if the headers are not already sent from PHP."
 msgstr "Ini hanya tampilan — tema tidak pernah menulis berkas server. Tempel cuplikan ke konfigurasi server hanya setelah meninjaunya, dan hanya jika header belum dikirim dari PHP."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2425
+#: src/Modules/TwoFactor/TwoFactorModule.php:2239
 msgid "This is not a backdoor: it requires editing a file on the server."
 msgstr "Ini bukan backdoor: diperlukan pengeditan berkas di server."
 
@@ -13811,10 +13830,6 @@ msgstr "Modul ini sendiri tidak menerima pembayaran — hubungkan tautan berlang
 msgid "This provider needs an API key to return prices. Enter it below."
 msgstr "Penyedia ini memerlukan kunci API untuk mengembalikan harga. Masukkan di bawah ini."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2358
-msgid "This site is served over plain HTTP, so passkey registration is currently disabled — the checkbox takes effect once the site is on HTTPS (localhost is excepted)."
-msgstr "Situs ini disajikan melalui HTTP biasa, jadi pendaftaran passkey saat ini dinonaktifkan — kotak centang akan berlaku setelah situs memakai HTTPS (localhost dikecualikan)."
-
 #: src/Modules/Cache/CacheModule.php:492
 #. translators: 1: server label, e.g. LiteSpeed. 2: recommended cache plugin name.
 msgid "This site runs on %1$s, so %2$s is the recommended cache plugin — it is built for this server."
@@ -13833,11 +13848,11 @@ msgstr "Tema ini tidak pernah menjalankan page cache sendiri."
 msgid "This unsubscribe link is invalid or has expired."
 msgstr "Tautan berhenti berlangganan ini tidak valid atau telah kedaluwarsa."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:597
-#: src/Modules/TwoFactor/TwoFactorAjax.php:665
-#: src/Modules/TwoFactor/TwoFactorAjax.php:671
-#: src/Modules/TwoFactor/TwoFactorModule.php:1776
-#: src/Modules/TwoFactor/TwoFactorModule.php:1842
+#: src/Modules/Passkeys/PasskeysAjax.php:413
+#: src/Modules/Passkeys/PasskeysAjax.php:481
+#: src/Modules/Passkeys/PasskeysAjax.php:487
+#: src/Modules/TwoFactor/TwoFactorModule.php:1661
+#: src/Modules/TwoFactor/TwoFactorModule.php:1727
 msgid "This verification link has expired. Please log in again."
 msgstr "Tautan verifikasi ini telah kedaluwarsa. Silakan masuk lagi."
 
@@ -13871,7 +13886,7 @@ msgid "Tick only the categories you want, type the confirmation word, then delet
 msgstr "Centang hanya kategori yang diinginkan, ketik kata konfirmasi, lalu hapus. Jumlah diperbarui setelah setiap pembersihan."
 
 #: src/Modules/Push/PushModule.php:588
-#: src/Modules/TwoFactor/TwoFactorModule.php:2439
+#: src/Modules/TwoFactor/TwoFactorModule.php:2253
 #: templates/admin/modules/activity-log.php:137
 #: templates/admin/modules/mailer.php:507
 msgid "Time"
@@ -13937,16 +13952,16 @@ msgstr "Token tidak valid."
 msgid "Tokens that stop working (for example the app was removed) are removed from the list automatically."
 msgstr "Token yang berhenti berfungsi (misalnya aplikasi dihapus) akan dihapus dari daftar secara otomatis."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:310
-#: src/Modules/TwoFactor/TwoFactorModule.php:1783
-#: src/Modules/TwoFactor/TwoFactorModule.php:1859
+#: src/Modules/TwoFactor/TwoFactorAjax.php:227
+#: src/Modules/TwoFactor/TwoFactorModule.php:1668
+#: src/Modules/TwoFactor/TwoFactorModule.php:1744
 #. translators: %d is the number of minutes until the lockout ends.
 msgid "Too many failed attempts. Please try again in %d minutes."
 msgstr "Terlalu banyak upaya gagal. Silakan coba lagi dalam %d menit."
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:602
-#: src/Modules/TwoFactor/TwoFactorAjax.php:675
-#: src/Modules/TwoFactor/TwoFactorAjax.php:740
+#: src/Modules/Passkeys/PasskeysAjax.php:418
+#: src/Modules/Passkeys/PasskeysAjax.php:491
+#: src/Modules/Passkeys/PasskeysAjax.php:556
 msgid "Too many failed attempts. Please try again later."
 msgstr "Terlalu banyak upaya gagal. Silakan coba lagi nanti."
 
@@ -14101,17 +14116,17 @@ msgstr "TrayDigita — Header Kustom. Tempel ke blok server atau location, lalu 
 msgid "traydigita-stack version"
 msgstr "versi traydigita-stack"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2228
-#: src/Modules/TwoFactor/TwoFactorModule.php:2281
-#: src/Modules/TwoFactor/TwoFactorModule.php:2376
+#: src/Modules/TwoFactor/TwoFactorModule.php:2062
+#: src/Modules/TwoFactor/TwoFactorModule.php:2115
+#: src/Modules/TwoFactor/TwoFactorModule.php:2190
 msgid "Trusted devices"
 msgstr "Perangkat tepercaya"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:442
+#: src/Modules/TwoFactor/TwoFactorModule.php:446
 msgid "Trusted devices."
 msgstr "Perangkat tepercaya."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:126
+#: src/Modules/TwoFactor/TwoFactorCli.php:127
 #. translators: %d is the number of trusted devices.
 msgid "Trusted devices: %d"
 msgstr "Perangkat tepercaya: %d"
@@ -14158,21 +14173,21 @@ msgstr "Pengaturan Turnstile tersimpan."
 msgid "two-factor authentication"
 msgstr "autentikasi dua faktor"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:395
+#: src/Modules/TwoFactor/TwoFactorModule.php:400
 msgid "Two-Factor Authentication"
 msgstr "Autentikasi Dua Faktor"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1841
-#: src/Modules/TwoFactor/TwoFactorModule.php:1865
-#: src/Modules/TwoFactor/TwoFactorModule.php:2108
+#: src/Modules/TwoFactor/TwoFactorModule.php:1726
+#: src/Modules/TwoFactor/TwoFactorModule.php:1750
+#: src/Modules/TwoFactor/TwoFactorModule.php:1983
 msgid "Two-factor authentication"
 msgstr "Autentikasi dua faktor"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2126
+#: src/Modules/TwoFactor/TwoFactorModule.php:1999
 msgid "Two-factor authentication asks for a second proof of identity at login — a code from an authenticator app, a fingerprint or Face ID, or a one-time backup code. Your password still works as before."
 msgstr "Autentikasi dua faktor meminta bukti identitas kedua saat login — kode dari aplikasi autentikator, sidik jari atau Face ID, atau kode cadangan sekali pakai. Kata sandi Anda tetap berfungsi seperti sebelumnya."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:184
+#: src/Modules/TwoFactor/TwoFactorCli.php:185
 msgid "Two-factor authentication disabled for %s."
 msgstr "Autentikasi dua faktor dinonaktifkan untuk %s."
 
@@ -14188,13 +14203,13 @@ msgstr "Aplikasi autentikator dua faktor (TOTP) didaftarkan."
 msgid "Two-factor backup codes regenerated."
 msgstr "Kode cadangan dua faktor dibuat ulang."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2527
+#: src/Modules/TwoFactor/TwoFactorModule.php:2352
 msgid "Two-factor settings saved."
 msgstr "Pengaturan dua faktor disimpan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2320
-msgid "Two-factor sign-in: authenticator codes, passkeys, and trusted devices."
-msgstr "Masuk dua faktor: kode autentikator, kunci sandi, dan perangkat tepercaya."
+#: src/Modules/TwoFactor/TwoFactorModule.php:2153
+msgid "Two-factor sign-in: authenticator codes and trusted devices."
+msgstr ""
 
 #: src/Modules/ActivityLog/ActivityLogModule.php:1021
 #. translators: %s is the two-factor method, e.g. "authenticator app (TOTP)".
@@ -14406,7 +14421,7 @@ msgstr "Edisi tidak dikenal."
 msgid "Unknown log entry."
 msgstr "Entri log tidak dikenal."
 
-#: src/Modules/Mailer/MailerModule.php:866
+#: src/Modules/Mailer/MailerModule.php:809
 msgid "Unknown mail provider."
 msgstr ""
 
@@ -14481,7 +14496,7 @@ msgstr ""
 msgid "Unsubscribed"
 msgstr "Berhenti berlangganan"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:543
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:554
 msgid "Unticked blocks disappear from the editor, and any such block in a submitted article is stripped on save. At least the paragraph block is always kept, so the editor never ends up empty."
 msgstr "Blok yang tidak dicentang hilang dari editor, dan blok semacam itu dalam artikel yang dikirim akan dihapus saat disimpan. Setidaknya blok paragraf selalu dipertahankan, sehingga editor tidak pernah kosong."
 
@@ -14660,7 +14675,7 @@ msgstr "Gunakan sebagai sampul"
 msgid "Use default colour"
 msgstr "Gunakan warna bawaan"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1922
+#: src/Modules/TwoFactor/TwoFactorModule.php:1807
 msgid "Use fingerprint or Face ID instead"
 msgstr "Gunakan sidik jari atau Face ID"
 
@@ -14699,7 +14714,7 @@ msgstr "Berguna saat menguji embed atau alat yang membutuhkan framing."
 #: src/Modules/Avatar/AvatarModule.php:328
 #: src/Modules/Avatar/AvatarModule.php:361
 #: src/Modules/Avatar/AvatarModule.php:398
-#: src/Modules/TwoFactor/TwoFactorModule.php:2440
+#: src/Modules/TwoFactor/TwoFactorModule.php:2254
 #: templates/admin/modules/activity-log.php:105
 #: templates/admin/modules/activity-log.php:138
 msgid "User"
@@ -14721,13 +14736,13 @@ msgstr "User Manager meningkatkan layar Pengguna inti — modul ini tidak mengga
 msgid "User Manager settings saved."
 msgstr "Pengaturan User Manager disimpan."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:167
-#: src/Modules/TwoFactor/TwoFactorCli.php:214
-#: src/Modules/TwoFactor/TwoFactorCli.php:94
+#: src/Modules/TwoFactor/TwoFactorCli.php:168
+#: src/Modules/TwoFactor/TwoFactorCli.php:215
+#: src/Modules/TwoFactor/TwoFactorCli.php:95
 msgid "User not found."
 msgstr "Pengguna tidak ditemukan."
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:98
+#: src/Modules/TwoFactor/TwoFactorCli.php:99
 msgid "User: %s (#%d)"
 msgstr "Pengguna: %s (#%d)"
 
@@ -14739,29 +14754,31 @@ msgstr "Nama pengguna"
 msgid "Username or Email Address"
 msgstr "Nama Pengguna atau Alamat Email"
 
-#: src/Modules/RoleEditor/RoleEditorModule.php:414
+#: src/Modules/Passkeys/PasskeysModule.php:255
+msgid "Usernameless sign-in with fingerprint or Face ID."
+msgstr "Login tanpa nama pengguna dengan sidik jari atau Face ID."#: src/Modules/RoleEditor/RoleEditorModule.php:414
 #: src/Modules/UserManager/UserManagerModule.php:402
 #: templates/admin/modules/role-editor.php:72
 msgid "Users"
 msgstr "Pengguna"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2348
+#: src/Modules/Passkeys/PasskeysModule.php:1002
 msgid "Users can register a passkey on their profile and sign in with a fingerprint or Face ID."
 msgstr "Pengguna dapat mendaftarkan passkey di profil mereka dan masuk dengan sidik jari atau Face ID."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2339
+#: src/Modules/TwoFactor/TwoFactorModule.php:2172
 msgid "Users enroll a 6-digit code from any authenticator app."
 msgstr "Pengguna mendaftarkan kode 6 digit dari aplikasi autentikator apa pun."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2371
+#: src/Modules/Passkeys/PasskeysModule.php:982
+msgid "Users enroll a passkey on their profile and sign in with it — on the login page without a username, or as the second factor on the two-factor challenge screen."
+msgstr "Pengguna mendaftarkan passkey di profil mereka dan login dengannya — di halaman login tanpa nama pengguna, atau sebagai faktor kedua di layar tantangan dua faktor."#: src/Modules/TwoFactor/TwoFactorModule.php:2185
 msgid "Users in these roles must set up two-factor authentication before they can use the admin area."
 msgstr "Pengguna dalam peran ini harus menyiapkan autentikasi dua faktor sebelum dapat menggunakan area admin."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2321
-msgid "Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below."
-msgstr "Pengguna memverifikasi faktor kedua setelah kata sandi mereka. Pilih metode yang ditawarkan, peran yang wajib menggunakannya, dan cara pembatasan upaya gagal di bawah ini."
-
-#: src/Modules/UserManager/UserManagerModule.php:377
+#: src/Modules/TwoFactor/TwoFactorModule.php:2154
+msgid "Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below. Passkeys are managed on the Passkeys module page."
+msgstr "Pengguna memverifikasi faktor kedua setelah kata sandi mereka. Pilih metode yang ditawarkan, peran mana yang wajib menggunakannya, dan bagaimana percobaan gagal dibatasi di bawah. Passkey dikelola di halaman modul Passkey."#: src/Modules/UserManager/UserManagerModule.php:377
 msgid "Users who have never signed in since this was switched on show “Never”."
 msgstr "Pengguna yang belum pernah masuk sejak fitur ini diaktifkan menampilkan “Tidak Pernah”."
 
@@ -14769,7 +14786,7 @@ msgstr "Pengguna yang belum pernah masuk sejak fitur ini diaktifkan menampilkan 
 msgid "Users with a custom avatar"
 msgstr "Pengguna dengan avatar kustom"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2372
+#: src/Modules/TwoFactor/TwoFactorModule.php:2186
 msgid "Users without any method are redirected to their profile page."
 msgstr "Pengguna tanpa metode apa pun dialihkan ke halaman profil mereka."
 
@@ -14807,7 +14824,7 @@ msgstr "Variabel: %title% %site% %sitetagline% %sep% %excerpt% %category% %tag% 
 msgid "Variants"
 msgstr "Varian"
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1911
+#: src/Modules/TwoFactor/TwoFactorModule.php:1796
 msgid "Verify and log in"
 msgstr "Verifikasi dan masuk"
 
@@ -14907,7 +14924,7 @@ msgstr "Cuaca per kota"
 msgid "Web server"
 msgstr "Server web"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:589
 #: templates/admin/modules/image-optimizer.php:75
 msgid "WebP"
 msgstr "WebP"
@@ -14997,7 +15014,7 @@ msgstr "Saat nonaktif, atau saat indeks belum ada, pencarian standar WordPress d
 msgid "When off, the area shows whenever the provider and scope allow it."
 msgstr "Saat nonaktif, area tampil kapan pun penyedia dan cakupan mengizinkannya."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:505
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:516
 msgid "When off, the link button disappears from the editor and any link in a submitted article is stripped on save, keeping only the link text."
 msgstr "Saat mati, tombol tautan hilang dari editor dan tautan apa pun dalam artikel yang dikirim akan dihapus saat disimpan, hanya menyisakan teks tautannya."
 
@@ -15234,7 +15251,7 @@ msgstr "Kerjakan daftar ini sekali setelah menginstal tema. Setiap status di baw
 msgid "Working…"
 msgstr "Memproses…"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:239
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:250
 msgid "Works on its own when the member area is disabled."
 msgstr ""
 
@@ -15284,7 +15301,7 @@ msgid "Wraps WordPress notification emails."
 msgstr "Membungkus email notifikasi WordPress."
 
 #: src/Modules/FrontendEditor/FrontendEditor.php:899
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:733
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:744
 msgid "Write"
 msgstr "Tulis"
 
@@ -15299,7 +15316,7 @@ msgstr "Tulis catatan tentang artikel ini…"
 msgid "Write New"
 msgstr "Tulis Baru"
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:238
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:249
 msgid "Write section in the member dashboard."
 msgstr ""
 
@@ -15370,7 +15387,7 @@ msgstr "Yahoo Finance adalah endpoint tidak resmi dan dapat rusak atau membatasi
 msgid "Yes"
 msgstr "Ya"
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:131
+#: src/Modules/TwoFactor/TwoFactorCli.php:132
 #: templates/admin/modules/db-tools.php:82
 msgid "yes"
 msgstr "ya"
@@ -15382,10 +15399,11 @@ msgstr "Ya — OPcache penuh dan sedang mengeluarkan skrip. Pertimbangkan untuk 
 #: src/Admin/AdminMenu.php:810
 #: src/Modules/Bookmarks/BookmarksModule.php:213
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:272
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:476
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:487
 #: src/Modules/Login/LoginModule.php:267
 #: src/Modules/MemberArea/MemberAreaModule.php:636
 #: src/Modules/MemberProfile/MemberProfileModule.php:272
+#: src/Modules/Passkeys/PasskeysModule.php:973
 #: src/Modules/RoleAccess/RoleAccessModule.php:427
 msgid "You are not allowed to access this page."
 msgstr "Anda tidak diizinkan mengakses halaman ini."
@@ -15476,7 +15494,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan fon."
 msgid "You are not allowed to change Form Builder settings."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:617
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:628
 msgid "You are not allowed to change frontend editor settings."
 msgstr ""
 
@@ -15492,7 +15510,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Image Optimizer."
 msgid "You are not allowed to change installer settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan installer."
 
-#: src/Modules/Mailer/MailerModule.php:1549
+#: src/Modules/Mailer/MailerModule.php:1482
 msgid "You are not allowed to change Mailer settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Mailer."
 
@@ -15642,8 +15660,11 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Integrations/IntegrationsModule.php:378
 #: src/Modules/Login/LoginModule.php:301
 #: src/Modules/Mailer/MailerAjax.php:98
-#: src/Modules/Mailer/MailerModule.php:1743
-#: src/Modules/Mailer/MailerModule.php:2325
+#: src/Modules/Mailer/MailerModule.php:1676
+#: src/Modules/Mailer/MailerModule.php:2258
+#: src/Modules/Passkeys/PasskeysAjax.php:270
+#: src/Modules/Passkeys/PasskeysAjax.php:313
+#: src/Modules/Passkeys/PasskeysAjax.php:368
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Push/PushAjax.php:84
 #: src/Modules/Recaptcha/RecaptchaModule.php:515
@@ -15657,15 +15678,12 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Seo/SeoModule.php:401
 #: src/Modules/Turnstile/TurnstileAjax.php:101
 #: src/Modules/Turnstile/TurnstileModule.php:961
-#: src/Modules/TwoFactor/TwoFactorAjax.php:259
-#: src/Modules/TwoFactor/TwoFactorAjax.php:302
-#: src/Modules/TwoFactor/TwoFactorAjax.php:351
-#: src/Modules/TwoFactor/TwoFactorAjax.php:373
-#: src/Modules/TwoFactor/TwoFactorAjax.php:412
-#: src/Modules/TwoFactor/TwoFactorAjax.php:455
-#: src/Modules/TwoFactor/TwoFactorAjax.php:510
-#: src/Modules/TwoFactor/TwoFactorAjax.php:535
-#: src/Modules/TwoFactor/TwoFactorAjax.php:555
+#: src/Modules/TwoFactor/TwoFactorAjax.php:176
+#: src/Modules/TwoFactor/TwoFactorAjax.php:219
+#: src/Modules/TwoFactor/TwoFactorAjax.php:268
+#: src/Modules/TwoFactor/TwoFactorAjax.php:290
+#: src/Modules/TwoFactor/TwoFactorAjax.php:324
+#: src/Modules/TwoFactor/TwoFactorAjax.php:344
 msgid "You are not allowed to do that."
 msgstr "Anda tidak diizinkan melakukan hal itu."
 
@@ -15709,7 +15727,9 @@ msgstr "Anda dapat membiarkan halaman ini tetap terbuka dan memantau kemajuan di
 msgid "You do not have access to the WordPress dashboard. Use this page to write and submit articles."
 msgstr "Anda tidak memiliki akses ke dasbor WordPress. Gunakan halaman ini untuk menulis dan mengirim artikel."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2490
+#: src/Modules/Passkeys/PasskeysModule.php:1054
+msgid "You do not have permission to change passkey settings."
+msgstr "Anda tidak memiliki izin untuk mengubah pengaturan passkey."#: src/Modules/TwoFactor/TwoFactorModule.php:2304
 msgid "You do not have permission to change these settings."
 msgstr "Anda tidak memiliki izin untuk mengubah pengaturan ini."
 
@@ -15760,11 +15780,11 @@ msgstr ""
 msgid "Your browser cannot display the PDF inline."
 msgstr "Peramban Anda tidak dapat menampilkan PDF secara inline."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1640
+#: src/Modules/Passkeys/PasskeysModule.php:733
 msgid "Your browser does not support passkeys. Please log in with your password."
 msgstr "Peramban Anda tidak mendukung passkey. Silakan masuk dengan kata sandi Anda."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1919
+#: src/Modules/TwoFactor/TwoFactorModule.php:1804
 msgid "Your browser does not support passkeys. Please use your authenticator code."
 msgstr "Peramban Anda tidak mendukung passkey. Silakan gunakan kode autentikator Anda."
 
@@ -15788,7 +15808,7 @@ msgstr "Nama Anda (opsional)"
 msgid "Your note"
 msgstr "Catatan Anda"
 
-#: src/Modules/Mailer/MailerModule.php:649
+#: src/Modules/Mailer/MailerModule.php:654
 msgid "Your own mail server"
 msgstr ""
 
@@ -15820,15 +15840,15 @@ msgstr "Artikel Anda \"%s\" telah dikirim untuk ditinjau."
 msgid "Your profile was saved."
 msgstr "Profil Anda tersimpan."
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2044
+#: src/Modules/TwoFactor/TwoFactorModule.php:1929
 msgid "Your role requires two-factor authentication. Set it up below to keep using the admin area."
 msgstr "Peran Anda memerlukan autentikasi dua faktor. Siapkan di bawah ini untuk terus menggunakan area admin."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:584
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:595
 msgid "Your server does not support AVIF images."
 msgstr "Server Anda tidak mendukung gambar AVIF."
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:583
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
 msgid "Your server supports AVIF images."
 msgstr "Server Anda mendukung gambar AVIF."
 

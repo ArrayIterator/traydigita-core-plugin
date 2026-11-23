@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\TwoFactor;
 
+use TrayDigita\WP\Plugin\Core\Modules\Passkeys\PasskeysModule;
 use WP_User;
 use function __;
 use function count;
@@ -107,7 +108,7 @@ final class TwoFactorCli
                 TwoFactorModule::remainingBackupCodes($userId)
             ));
         }
-        $passkeys = TwoFactorModule::getPasskeys($userId);
+        $passkeys = PasskeysModule::getPasskeys($userId);
         \WP_CLI::log(sprintf(
             /* translators: %d is the number of registered passkeys. */
             __('Passkeys: %d', 'traydigita-core'),
@@ -175,7 +176,7 @@ final class TwoFactorCli
             ));
         }
         TwoFactorModule::removeTotp($userId);
-        TwoFactorModule::setPasskeys($userId, []);
+        PasskeysModule::setPasskeys($userId, []);
         TwoFactorModule::revokeAllDevices($userId);
         TwoFactorModule::clearAttempts($userId);
         delete_user_meta($userId, TwoFactorModule::META_ENROLLED_AT);

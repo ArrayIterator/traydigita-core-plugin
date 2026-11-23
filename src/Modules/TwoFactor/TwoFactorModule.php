@@ -7,6 +7,7 @@ use TrayDigita\WP\Plugin\Core\Admin\AdminNotice;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
 use TrayDigita\WP\Plugin\Core\Core;
+use TrayDigita\WP\Plugin\Core\Modules\Passkeys\PasskeysModule;
 use Throwable;
 use WP_Error;
 use WP_User;
@@ -53,7 +54,6 @@ use function get_user_meta;
 use function hash;
 use function hash_equals;
 use function hash_hmac;
-use function home_url;
 use function in_array;
 use function is_array;
 use function is_ssl;
@@ -63,7 +63,6 @@ use function login_footer;
 use function login_header;
 use function openssl_decrypt;
 use function openssl_encrypt;
-use function parse_url;
 use function preg_match;
 use function random_bytes;
 use function sanitize_key;
@@ -79,13 +78,11 @@ use function translate_user_role;
 use function trim;
 use function update_option;
 use function update_user_meta;
-use function wp_create_nonce;
 use function wp_doing_ajax;
 use function wp_enqueue_script_module;
 use function wp_enqueue_style;
 use function wp_get_current_user;
 use function wp_check_password;
-use function wp_json_encode;
 use function wp_login_url;
 use function wp_nonce_field;
 use function wp_safe_redirect;
@@ -103,7 +100,7 @@ use const MINUTE_IN_SECONDS;
 use const OPENSSL_RAW_DATA;
 
 /**
- * Two-Factor Authentication module (TOTP + passkeys + trusted devices).
+ * Two-Factor Authentication module (TOTP + trusted devices).
  *
  * What it does:
  * - TOTP (RFC 6238, SHA-1, 30-second step, ±1 window) via Totp.php,
@@ -114,16 +111,16 @@ use const OPENSSL_RAW_DATA;
  *   wp_hash_password(), are generated BEFORE the authenticator is
  *   activated — a user can never be locked out by enabling 2FA
  *   without a recovery path.
- * - Passkeys (WebAuthn, WebAuthn.php): fingerprint / Face ID /
- *   security-key login on wp-login.php (discoverable credentials,
- *   usernameless) and as a second factor on the 2FA challenge
- *   screen. Password login is never replaced — it stays the
- *   fallback, and TOTP stays available alongside passkeys. The
- *   implementation is a deliberate, scope-limited, fully tested
- *   minimal server (ES256 + RS256; EdDSA is rejected because PHP's
- *   openssl_verify() cannot verify Ed25519 signatures) instead of
- *   the 31-package web-auth/webauthn-lib tree; the trade-off is
- *   documented on WebAuthn.php.
+ * - Passkeys are NOT owned here: they live in the Passkeys module
+ *   (PasskeysModule), which owns the WebAuthn server, the
+ *   credential store, the enrolment UI, and the login-form button.
+ *   This module only offers an enrolled passkey as a second
+ *   factor on its challenge screen, through the Passkeys
+ *   module's public API — see hasAnyMethod() and
+ *   renderChallengeForm(). The passkey setting
+ *   (`passkey_enabled` in getSettings()) reads through to the
+ *   Passkeys module, and the deprecated passkey helpers below
+ *   delegate to it.
  * - Trusted devices: "remember this device for 30 days" via an
  *   HMAC-signed cookie (wp_salt), revocable per device from the
  *   user profile. A revoked device invalidates the cookie on the
@@ -234,13 +231,19 @@ final class TwoFactorModule implements ModuleInterface
 
     /**
      * DOM id of the JSON config block printed on the login page.
+     *
+     * @deprecated Moved to PasskeysModule::LOGIN_CONFIG_ELEMENT_ID.
+     *   The login config block is printed by the Passkeys module now.
      */
-    public const string LOGIN_CONFIG_ELEMENT_ID = 'traydigita-two-factor-config';
+    public const string LOGIN_CONFIG_ELEMENT_ID = PasskeysModule::LOGIN_CONFIG_ELEMENT_ID;
 
     /**
      * DOM id of the JSON config block printed on the profile page.
+     *
+     * @deprecated Moved to PasskeysModule::PROFILE_CONFIG_ELEMENT_ID.
+     *   The profile config block is printed by the Passkeys module now.
      */
-    public const string PROFILE_CONFIG_ELEMENT_ID = 'traydigita-two-factor-profile-config';
+    public const string PROFILE_CONFIG_ELEMENT_ID = PasskeysModule::PROFILE_CONFIG_ELEMENT_ID;
 
     /**
      * wp-login.php action for the 2FA challenge screen.
@@ -291,9 +294,9 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * User meta key holding the registered passkeys.
      *
-     * A list of credential records as returned by
-     * WebAuthn::verifyRegistration(), plus `label`, `created`, and
-     * `last_used` timestamps.
+     * @deprecated Moved to PasskeysModule::META_PASSKEYS. The value
+     *   is byte-identical (`traydigita_2fa_passkeys`), so enrolled
+     *   passkeys keep working.
      */
     public const string META_PASSKEYS = 'traydigita_2fa_passkeys';
 
@@ -327,6 +330,8 @@ final class TwoFactorModule implements ModuleInterface
 
     /**
      * Passkey challenge lifetime in minutes.
+     *
+     * @deprecated Moved to PasskeysModule::PASSKEY_CHALLENGE_MINUTES.
      */
     public const int PASSKEY_CHALLENGE_MINUTES = 5;
 
@@ -402,7 +407,7 @@ final class TwoFactorModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Authenticator-app codes (TOTP), passkey login with fingerprint or Face ID, and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Disabled by default.', 'traydigita-core');
+        return __('Authenticator-app codes (TOTP) and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Passkeys are a separate module. Disabled by default.', 'traydigita-core');
     }
 
     /**
@@ -438,7 +443,6 @@ final class TwoFactorModule implements ModuleInterface
     {
         return [
             __('Authenticator-app codes (TOTP).', 'traydigita-core'),
-            __('Passkey login with fingerprint or Face ID.', 'traydigita-core'),
             __('Trusted devices.', 'traydigita-core'),
             __('Per-role enforcement and rate limiting.', 'traydigita-core'),
         ];
@@ -480,10 +484,10 @@ final class TwoFactorModule implements ModuleInterface
      * Whether the module can run (no hard dependencies).
      *
      * Needs the hash and OpenSSL extensions (TOTP HMAC, secret
-     * encryption, WebAuthn signatures) and random_bytes(). All are
-     * present in any standard PHP 8.3 build; a minimal build
-     * without OpenSSL reports the module unavailable instead of
-     * failing at the first login.
+     * encryption) and random_bytes(). All are present in any
+     * standard PHP 8.3 build; a minimal build without OpenSSL
+     * reports the module unavailable instead of failing at the
+     * first login.
      *
      * @return bool
      */
@@ -499,8 +503,8 @@ final class TwoFactorModule implements ModuleInterface
      * Whether the module is configured enough to do its job.
      *
      * No site-wide setup is needed: the defaults produce working
-     * TOTP and passkeys, and enrolment is per user. The card
-     * therefore never shows "needs setup" for this module.
+     * TOTP, and enrolment is per user. The card therefore never
+     * shows "needs setup" for this module.
      *
      * @return bool Always true.
      */
@@ -544,64 +548,50 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Whether passkeys can be offered on this site right now.
      *
-     * WebAuthn requires a secure context: HTTPS, or localhost
-     * (WordPress-style exception for local development). On plain
-     * HTTP the passkey UI is disabled with an honest notice, never
-     * a cryptic error — and registration is refused server-side
-     * too, so a forged request cannot enroll a passkey over HTTP.
+     * @deprecated Moved to PasskeysModule::isPasskeyAvailable().
      *
      * @return bool
      */
     public static function isPasskeyAvailable(): bool
     {
-        if (is_ssl()) {
-            return true;
-        }
-        $host = parse_url(home_url(), PHP_URL_HOST);
-        return in_array($host, ['localhost', '127.0.0.1', '[::1]'], true);
+        return PasskeysModule::isPasskeyAvailable();
     }
 
     /**
      * Relying-party id for WebAuthn (the site host).
      *
+     * @deprecated Moved to PasskeysModule::rpId().
+     *
      * @return string
      */
     public static function rpId(): string
     {
-        $host = parse_url(home_url(), PHP_URL_HOST);
-        return is_string($host) && $host !== '' ? $host : 'localhost';
+        return PasskeysModule::rpId();
     }
 
     /**
      * Expected WebAuthn origin (scheme + host + port, no path).
      *
-     * Built from home_url() without its path, so a WordPress
-     * install in a subdirectory still produces the bare origin
-     * the browser reports.
+     * @deprecated Moved to PasskeysModule::expectedOrigin().
      *
      * @return string
      */
     public static function expectedOrigin(): string
     {
-        $parts = parse_url(home_url());
-        if (!is_array($parts) || !isset($parts['scheme'], $parts['host'])) {
-            return 'https://localhost';
-        }
-        $origin = $parts['scheme'] . '://' . $parts['host'];
-        if (isset($parts['port'])) {
-            $origin .= ':' . (int) $parts['port'];
-        }
-        return $origin;
+        return PasskeysModule::expectedOrigin();
     }
 
     /**
      * Register the module hooks. Called only when the module is enabled.
      *
      * Login hooks are registered unconditionally here (the login
-     * page must offer passkeys and enforce 2FA whenever the module
-     * is on); each handler re-checks the site toggles and the
-     * per-user enrolment, so a toggle switched off registers
-     * nothing observable for that method.
+     * page must enforce 2FA whenever the module is on); each
+     * handler re-checks the site toggles and the per-user
+     * enrolment, so a toggle switched off registers nothing
+     * observable for that method. The passkey login button and
+     * the login config block are owned by the Passkeys module
+     * now (it hooks `login_form` / `login_footer` itself), so
+     * they are not registered here.
      *
      * @return void
      */
@@ -619,8 +609,6 @@ final class TwoFactorModule implements ModuleInterface
             return;
         }
         add_action('login_enqueue_scripts', [self::class, 'enqueueLoginAssets']);
-        add_action('login_form', [self::class, 'renderLoginButton']);
-        add_action('login_footer', [self::class, 'printLoginConfig']);
         add_filter('authenticate', [self::class, 'verifyLogin'], 50, 3);
         add_action('login_init', [self::class, 'handleChallengePost']);
         add_action('login_form_' . self::CHALLENGE_ACTION, [self::class, 'renderChallengeForm']);
@@ -635,9 +623,11 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Default settings.
      *
-     * TOTP and passkeys are both allowed, administrators are
-     * enforced, trusted devices last 30 days, and verification
-     * locks out after 5 failures for 15 minutes.
+     * TOTP is allowed, administrators are enforced, trusted
+     * devices last 30 days, and verification locks out after 5
+     * failures for 15 minutes. The `passkey_enabled` default is
+     * kept for shape, but getSettings() reads the effective
+     * value through from the Passkeys module.
      *
      * @return array{totp_enabled: bool, passkey_enabled: bool, enforced_roles: array<int, string>, trusted_device_days: int, max_attempts: int, lockout_minutes: int}
      */
@@ -655,6 +645,17 @@ final class TwoFactorModule implements ModuleInterface
 
     /**
      * Read the stored settings, merged over the defaults and normalized.
+     *
+     * The `passkey_enabled` value reads through to the Passkeys
+     * module (PasskeysModule::isPasskeysEnabled()): passkeys are
+     * owned there now, and this module must report the effective
+     * value — false when the Passkeys module is disabled or its
+     * setting is off — so the challenge screen and the
+     * enforcement redirect never offer a method that cannot
+     * actually be used. The stored legacy value in this
+     * module's own option is only a fallback source for the
+     * Passkeys module (see PasskeysModule::getSettings()) and is
+     * never read here.
      *
      * @return array{totp_enabled: bool, passkey_enabled: bool, enforced_roles: array<int, string>, trusted_device_days: int, max_attempts: int, lockout_minutes: int}
      */
@@ -693,7 +694,7 @@ final class TwoFactorModule implements ModuleInterface
         }
         return [
             'totp_enabled' => (bool) ($settings['totp_enabled'] ?? true),
-            'passkey_enabled' => (bool) ($settings['passkey_enabled'] ?? true),
+            'passkey_enabled' => PasskeysModule::isPasskeysEnabled(),
             'enforced_roles' => $roles,
             'trusted_device_days' => $trustedDays,
             'max_attempts' => $maxAttempts,
@@ -722,7 +723,7 @@ final class TwoFactorModule implements ModuleInterface
         if ($settings['totp_enabled'] && self::hasTotp($userId)) {
             return true;
         }
-        return $settings['passkey_enabled'] && self::getPasskeys($userId) !== [];
+        return $settings['passkey_enabled'] && PasskeysModule::getPasskeys($userId) !== [];
     }
 
     /**
@@ -850,27 +851,20 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Read the user's registered passkeys.
      *
+     * @deprecated Moved to PasskeysModule::getPasskeys().
+     *
      * @param int $userId User id.
      * @return array<int, array<string, mixed>> Credential records.
      */
     public static function getPasskeys(int $userId): array
     {
-        $stored = get_user_meta($userId, self::META_PASSKEYS, true);
-        if (!is_array($stored)) {
-            return [];
-        }
-        $keys = [];
-        foreach ($stored as $record) {
-            if (!is_array($record) || !isset($record['id'], $record['public_key'])) {
-                continue;
-            }
-            $keys[] = $record;
-        }
-        return $keys;
+        return PasskeysModule::getPasskeys($userId);
     }
 
     /**
      * Store the user's passkeys (replaces the whole list).
+     *
+     * @deprecated Moved to PasskeysModule::setPasskeys().
      *
      * @param int $userId User id.
      * @param array<int, array<string, mixed>> $passkeys Credential records.
@@ -878,15 +872,13 @@ final class TwoFactorModule implements ModuleInterface
      */
     public static function setPasskeys(int $userId, array $passkeys): void
     {
-        update_user_meta($userId, self::META_PASSKEYS, array_values($passkeys));
+        PasskeysModule::setPasskeys($userId, $passkeys);
     }
 
     /**
      * Add one passkey to the user's list.
      *
-     * A credential id that already exists replaces the old record
-     * (re-registration of the same authenticator updates its key
-     * and counter instead of duplicating it).
+     * @deprecated Moved to PasskeysModule::addPasskey().
      *
      * @param int $userId User id.
      * @param array<string, mixed> $record Credential record.
@@ -894,27 +886,13 @@ final class TwoFactorModule implements ModuleInterface
      */
     public static function addPasskey(int $userId, array $record): void
     {
-        $hadMethod = self::hasAnyMethod($userId);
-        $passkeys = self::getPasskeys($userId);
-        $found = false;
-        foreach ($passkeys as $index => $existing) {
-            if (($existing['id'] ?? null) === ($record['id'] ?? null)) {
-                $passkeys[$index] = array_merge($existing, $record);
-                $found = true;
-                break;
-            }
-        }
-        if (!$found) {
-            $passkeys[] = $record;
-        }
-        self::setPasskeys($userId, $passkeys);
-        if (!$hadMethod) {
-            update_user_meta($userId, self::META_ENROLLED_AT, time());
-        }
+        PasskeysModule::addPasskey($userId, $record);
     }
 
     /**
      * Remove one passkey by credential id.
+     *
+     * @deprecated Moved to PasskeysModule::removePasskey().
      *
      * @param int $userId User id.
      * @param string $credentialId Base64url credential id.
@@ -922,28 +900,13 @@ final class TwoFactorModule implements ModuleInterface
      */
     public static function removePasskey(int $userId, string $credentialId): bool
     {
-        $passkeys = self::getPasskeys($userId);
-        $kept = [];
-        $removed = false;
-        foreach ($passkeys as $record) {
-            if (($record['id'] ?? null) === $credentialId) {
-                $removed = true;
-                continue;
-            }
-            $kept[] = $record;
-        }
-        if ($removed) {
-            self::setPasskeys($userId, $kept);
-            self::maybeClearEnrolledAt($userId);
-        }
-        return $removed;
+        return PasskeysModule::removePasskey($userId, $credentialId);
     }
 
     /**
      * Update the stored counter (and last-used time) of one passkey.
      *
-     * Called after a successful assertion, so clone detection has a
-     * current value to compare against.
+     * @deprecated Moved to PasskeysModule::updatePasskeyCounter().
      *
      * @param int $userId User id.
      * @param string $credentialId Base64url credential id.
@@ -952,15 +915,7 @@ final class TwoFactorModule implements ModuleInterface
      */
     public static function updatePasskeyCounter(int $userId, string $credentialId, int $counter): void
     {
-        $passkeys = self::getPasskeys($userId);
-        foreach ($passkeys as $index => $record) {
-            if (($record['id'] ?? null) === $credentialId) {
-                $passkeys[$index]['counter'] = $counter;
-                $passkeys[$index]['last_used'] = time();
-                break;
-            }
-        }
-        self::setPasskeys($userId, $passkeys);
+        PasskeysModule::updatePasskeyCounter($userId, $credentialId, $counter);
     }
 
     /**
@@ -1417,15 +1372,14 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Transient name for a passkey challenge.
      *
-     * The $key is a pending-login token (second factor) or a random
-     * challenge token (usernameless login).
+     * @deprecated Moved to PasskeysModule::passkeyChallengeTransient().
      *
      * @param string $key Challenge key.
      * @return string
      */
     public static function passkeyChallengeTransient(string $key): string
     {
-        return 'traydigita_2fa_pk_' . $key;
+        return PasskeysModule::passkeyChallengeTransient($key);
     }
 
     /**
@@ -1442,12 +1396,14 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Transient name for a pending passkey registration challenge.
      *
+     * @deprecated Moved to PasskeysModule::passkeyRegChallengeTransient().
+     *
      * @param int $userId User id.
      * @return string
      */
     public static function passkeyRegChallengeTransient(int $userId): string
     {
-        return 'traydigita_2fa_pk_reg_' . $userId;
+        return PasskeysModule::passkeyRegChallengeTransient($userId);
     }
 
     /**
@@ -1543,7 +1499,7 @@ final class TwoFactorModule implements ModuleInterface
     {
         $userId = (int) $pending['user_id'];
         delete_transient(self::pendingTransient($token));
-        delete_transient(self::passkeyChallengeTransient($token));
+        delete_transient(PasskeysModule::passkeyChallengeTransient($token));
         self::clearAttempts($userId);
         if ($rememberDevice) {
             self::issueTrustedDevice($userId);
@@ -1589,8 +1545,7 @@ final class TwoFactorModule implements ModuleInterface
      *
      * Runs on `admin_enqueue_scripts`, only on profile.php and
      * user-edit.php. The same `two-factor` entry drives the
-     * profile setup UI (TOTP wizard, passkey registration, device
-     * revocation).
+     * profile setup UI (TOTP wizard, device revocation).
      *
      * @param mixed $hookSuffix Admin page hook suffix.
      * @return void
@@ -1610,76 +1565,6 @@ final class TwoFactorModule implements ModuleInterface
         if (wp_style_is(self::STYLE_HANDLE, 'registered')) {
             wp_enqueue_style(self::STYLE_HANDLE);
         }
-    }
-
-    /**
-     * Print the passkey button on the login form.
-     *
-     * Runs on the `login_form` action, below the password field.
-     * The button is an alternative, never a replacement: the
-     * password form stays exactly as it is. The frontend script
-     * hides the button when the browser has no WebAuthn support.
-     * On plain HTTP the button is not rendered at all (passkeys
-     * need a secure context); the profile page explains why.
-     *
-     * @return void
-     */
-    public static function renderLoginButton(): void
-    {
-        if (self::isDisabled()) {
-            return;
-        }
-        $settings = self::getSettings();
-        if (!$settings['passkey_enabled'] || !self::isPasskeyAvailable() || !self::isLoginScriptRenderable()) {
-            return;
-        }
-        ?>
-        <div class="traydigita-two-factor-login" data-traydigita-passkey-login>
-            <div class="traydigita-two-factor-divider" data-traydigita-passkey-divider aria-hidden="true"><span><?php esc_html_e('or', 'traydigita-core'); ?></span></div>
-            <button type="button" class="button button-secondary traydigita-two-factor-passkey-button" data-traydigita-passkey-login-button
-                data-msg-no-webauthn="<?php echo esc_attr__('Your browser does not support passkeys. Please log in with your password.', 'traydigita-core'); ?>"
-                data-msg-cancelled="<?php echo esc_attr__('Passkey sign-in was cancelled. Please log in with your password.', 'traydigita-core'); ?>"
-                data-msg-failed="<?php echo esc_attr__('Passkey sign-in failed. Please log in with your password.', 'traydigita-core'); ?>">
-                <?php esc_html_e('Sign in with fingerprint or Face ID', 'traydigita-core'); ?>
-            </button>
-            <p class="traydigita-two-factor-passkey-note" data-traydigita-passkey-login-note aria-live="polite"></p>
-        </div>
-        <?php
-    }
-
-    /**
-     * Print the login-page JSON config block.
-     *
-     * Runs on `login_footer`, so it is present on both the normal
-     * login form and the challenge screen. It carries the AJAX URL,
-     * the login nonce, and the pending-login token (challenge
-     * screen only). No secret is ever printed here.
-     *
-     * @return void
-     */
-    public static function printLoginConfig(): void
-    {
-        if (self::isDisabled()) {
-            return;
-        }
-        $settings = self::getSettings();
-        if (!$settings['passkey_enabled'] || !self::isPasskeyAvailable()) {
-            return;
-        }
-        $config = wp_json_encode([
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce(self::LOGIN_NONCE_ACTION),
-            'optionsAction' => TwoFactorAjax::PASSKEY_OPTIONS_ACTION,
-            'verifyAction' => TwoFactorAjax::PASSKEY_VERIFY_ACTION,
-            'isChallenge' => self::isChallengePage(),
-            'token' => self::postedToken(),
-        ]);
-        if (!is_string($config)) {
-            return;
-        }
-        echo '<script type="application/json" id="' . esc_attr(self::LOGIN_CONFIG_ELEMENT_ID) . '">'
-            . $config
-            . '</script>';
     }
 
     /**
@@ -1850,8 +1735,8 @@ final class TwoFactorModule implements ModuleInterface
         $user = get_user_by('id', $userId);
         $settings = self::getSettings();
         $hasTotp = $settings['totp_enabled'] && self::hasTotp($userId);
-        $passkeys = $settings['passkey_enabled'] ? self::getPasskeys($userId) : [];
-        $showPasskey = $passkeys !== [] && self::isPasskeyAvailable() && self::isLoginScriptRenderable();
+        $passkeys = PasskeysModule::isPasskeysEnabled() ? PasskeysModule::getPasskeys($userId) : [];
+        $showPasskey = $passkeys !== [] && PasskeysModule::isPasskeyAvailable() && self::isLoginScriptRenderable();
         $lockedOut = self::isLockedOut($userId);
         $error = self::$challengeError;
         if ($lockedOut && $error === '') {
@@ -2074,10 +1959,14 @@ final class TwoFactorModule implements ModuleInterface
      * management by another admin requires the `edit_users`
      * capability — the AJAX layer enforces that, not the markup.
      *
-     * The JSON config block carries the AJAX URL, the user nonce,
-     * the target user id, and the feature flags — never a secret.
-     * On plain HTTP the passkey block shows the honest HTTPS
-     * notice instead of the add-passkey button.
+     * The JSON config block is printed by
+     * PasskeysModule::printProfileConfig() (shared with the
+     * Passkeys module's own profile section, printed at most
+     * once per request). The passkey block itself is rendered
+     * by PasskeysModule::renderPasskeyBlock() in place, between
+     * the TOTP and trusted-device blocks — it must stay inside
+     * this container, because the theme script only queries the
+     * first `data-traydigita-two-factor-profile` element.
      *
      * @param WP_User $user The user being edited.
      * @return void
@@ -2086,24 +1975,10 @@ final class TwoFactorModule implements ModuleInterface
     {
         $userId = (int) $user->ID;
         $settings = self::getSettings();
-        $isOwn = get_current_user_id() === $userId;
         $hasTotp = $settings['totp_enabled'] && self::hasTotp($userId);
         $backupCount = self::remainingBackupCodes($userId);
-        $passkeys = $settings['passkey_enabled'] ? self::getPasskeys($userId) : [];
         $devices = $settings['trusted_device_days'] > 0 ? self::getDevices($userId) : [];
-        $passkeyAvailable = self::isPasskeyAvailable();
         $scriptReady = self::isLoginScriptRenderable();
-        $config = wp_json_encode([
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce(self::NONCE_ACTION),
-            'userId' => $userId,
-            'isOwn' => $isOwn,
-            'totpEnabled' => (bool) $settings['totp_enabled'],
-            'passkeyEnabled' => (bool) $settings['passkey_enabled'],
-            'passkeyAvailable' => $passkeyAvailable,
-            'trustedDeviceDays' => (int) $settings['trusted_device_days'],
-            'scriptReady' => $scriptReady,
-        ]);
         ?>
         <h2><?php esc_html_e('Two-factor authentication', 'traydigita-core'); ?></h2>
         <div class="traydigita-two-factor-profile" data-traydigita-two-factor-profile
@@ -2119,9 +1994,7 @@ final class TwoFactorModule implements ModuleInterface
             data-msg-no-passkeys="<?php echo esc_attr__('No passkeys yet.', 'traydigita-core'); ?>"
             data-msg-no-devices="<?php echo esc_attr__('No trusted devices.', 'traydigita-core'); ?>"
             data-msg-remove="<?php echo esc_attr__('Remove', 'traydigita-core'); ?>">
-            <?php if (is_string($config)) : ?>
-                <script type="application/json" id="<?php echo esc_attr(self::PROFILE_CONFIG_ELEMENT_ID); ?>"><?php echo $config; ?></script>
-            <?php endif; ?>
+            <?php PasskeysModule::printProfileConfig($user); ?>
             <p class="description">
                 <?php esc_html_e('Two-factor authentication asks for a second proof of identity at login — a code from an authenticator app, a fingerprint or Face ID, or a one-time backup code. Your password still works as before.', 'traydigita-core'); ?>
             </p>
@@ -2182,46 +2055,7 @@ final class TwoFactorModule implements ModuleInterface
             </div>
             <?php endif; ?>
 
-            <?php if ($settings['passkey_enabled']) : ?>
-            <div class="traydigita-two-factor-block" data-traydigita-passkey-block>
-                <h3><?php esc_html_e('Passkeys (fingerprint / Face ID)', 'traydigita-core'); ?></h3>
-                <?php if (!$passkeyAvailable) : ?>
-                    <p class="description">
-                        <?php esc_html_e('Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkeys are disabled here — everything else still works. If the site is behind a proxy, check that WordPress knows it is on HTTPS.', 'traydigita-core'); ?>
-                    </p>
-                <?php else : ?>
-                    <p class="description"><?php esc_html_e('Sign in with your fingerprint or Face ID instead of typing a code. Your passkey never leaves this device.', 'traydigita-core'); ?></p>
-                    <?php if ($passkeys === []) : ?>
-                        <p class="traydigita-two-factor-status"><?php esc_html_e('No passkeys yet.', 'traydigita-core'); ?></p>
-                    <?php else : ?>
-                        <ul class="traydigita-two-factor-passkeys" data-traydigita-passkey-list>
-                            <?php foreach ($passkeys as $passkey) : ?>
-                                <li>
-                                    <span class="traydigita-two-factor-passkey-label"><?php echo esc_html((string) ($passkey['label'] ?? '')); ?></span>
-                                    <?php if (!empty($passkey['user_verified'])) : ?>
-                                        <span class="traydigita-two-factor-badge"><?php esc_html_e('Biometric', 'traydigita-core'); ?></span>
-                                    <?php endif; ?>
-                                    <?php if (!empty($passkey['backup_eligible'])) : ?>
-                                        <span class="traydigita-two-factor-badge"><?php esc_html_e('Synced', 'traydigita-core'); ?></span>
-                                    <?php endif; ?>
-                                    <span class="traydigita-two-factor-meta">
-                                        <?php
-                                        /* translators: %s is the date the passkey was created. */
-                                        echo esc_html(sprintf(__('Added %s', 'traydigita-core'), date_i18n(get_option('date_format', 'F j, Y'), (int) ($passkey['created'] ?? 0))));
-                                        ?>
-                                    </span>
-                                    <button type="button" class="button button-small" data-traydigita-passkey-remove data-credential-id="<?php echo esc_attr((string) ($passkey['id'] ?? '')); ?>"><?php esc_html_e('Remove', 'traydigita-core'); ?></button>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
-                    <p>
-                        <button type="button" class="button" data-traydigita-passkey-add><?php esc_html_e('Add a passkey', 'traydigita-core'); ?></button>
-                    </p>
-                    <p class="traydigita-two-factor-note" data-traydigita-passkey-note aria-live="polite"></p>
-                <?php endif; ?>
-            </div>
-            <?php endif; ?>
+            <?php PasskeysModule::renderPasskeyBlock($user); ?>
 
             <?php if ($settings['trusted_device_days'] > 0) : ?>
             <div class="traydigita-two-factor-block" data-traydigita-device-block>
@@ -2307,7 +2141,6 @@ final class TwoFactorModule implements ModuleInterface
         $settings = self::getSettings();
         $log = self::getLog();
         $scriptReady = self::isLoginScriptRenderable();
-        $passkeyAvailable = self::isPasskeyAvailable();
         $roles = get_editable_roles();
         $roleOptions = [];
         foreach ($roles as $slug => $role) {
@@ -2317,8 +2150,8 @@ final class TwoFactorModule implements ModuleInterface
         <div class="traydigita-module-settings two-factor-settings">
             <?php
             SettingsControls::intro(
-                __('Two-factor sign-in: authenticator codes, passkeys, and trusted devices.', 'traydigita-core'),
-                __('Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below.', 'traydigita-core')
+                __('Two-factor sign-in: authenticator codes and trusted devices.', 'traydigita-core'),
+                __('Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below. Passkeys are managed on the Passkeys module page.', 'traydigita-core')
             );
             ?>
             <?php if (!$scriptReady) : ?>
@@ -2339,25 +2172,6 @@ final class TwoFactorModule implements ModuleInterface
                     'help' => __('Users enroll a 6-digit code from any authenticator app.', 'traydigita-core'),
                     'help_long' => __('QR codes are generated locally — no external service is involved.', 'traydigita-core'),
                 ]);
-                if ($passkeyAvailable) {
-                    SettingsControls::toggle([
-                        'id' => 'two-factor-passkey-enabled',
-                        'name' => 'passkey_enabled',
-                        'label' => __('Enable passkey login', 'traydigita-core'),
-                        'checked' => $settings['passkey_enabled'],
-                        'help' => __('Users can register a passkey on their profile and sign in with a fingerprint or Face ID.', 'traydigita-core'),
-                        'help_long' => __('Passkeys are an alternative — password login always stays available.', 'traydigita-core'),
-                    ]);
-                } else {
-                    SettingsControls::toggle([
-                        'id' => 'two-factor-passkey-enabled',
-                        'name' => 'passkey_enabled',
-                        'label' => __('Enable passkey login', 'traydigita-core'),
-                        'checked' => $settings['passkey_enabled'],
-                        'help' => __('Passkeys need a secure connection (HTTPS).', 'traydigita-core'),
-                        'help_long' => __('This site is served over plain HTTP, so passkey registration is currently disabled — the checkbox takes effect once the site is on HTTPS (localhost is excepted).', 'traydigita-core'),
-                    ]);
-                }
                 SettingsControls::sectionClose(); ?>
 
                 <?php SettingsControls::sectionOpen('enforcement', __('Require for roles', 'traydigita-core')); ?>
@@ -2495,9 +2309,20 @@ final class TwoFactorModule implements ModuleInterface
         $settings['totp_enabled'] = isset($data['totp_enabled'])
             ? filter_var($data['totp_enabled'], FILTER_VALIDATE_BOOLEAN)
             : false;
-        $settings['passkey_enabled'] = isset($data['passkey_enabled'])
-            ? filter_var($data['passkey_enabled'], FILTER_VALIDATE_BOOLEAN)
-            : false;
+        // The passkey toggle lives on the Passkeys module page now
+        // and is never written here: the stored legacy
+        // `passkey_enabled` value is the fallback source for
+        // PasskeysModule::getSettings() on installs that never
+        // saved the Passkeys page, so overwriting it with the
+        // (absent) form field would silently turn passkeys off.
+        // Preserve whatever is stored, or leave the key out when
+        // nothing was ever stored.
+        $rawStored = get_option(self::OPTION, []);
+        if (is_array($rawStored) && array_key_exists('passkey_enabled', $rawStored)) {
+            $settings['passkey_enabled'] = (bool) $rawStored['passkey_enabled'];
+        } else {
+            unset($settings['passkey_enabled']);
+        }
         $roles = [];
         if (isset($data['enforced_roles']) && is_array($data['enforced_roles'])) {
             $validRoles = array_keys(get_editable_roles());

@@ -38,6 +38,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Login\LoginModule;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\MailerModule;
 use TrayDigita\WP\Plugin\Core\Modules\Maintenance\MaintenanceModule;
 use TrayDigita\WP\Plugin\Core\Modules\Markets\MarketsModule;
+use TrayDigita\WP\Plugin\Core\Modules\Passkeys\PasskeysModule;
 use TrayDigita\WP\Plugin\Core\Modules\Paywall\PaywallModule;
 use TrayDigita\WP\Plugin\Core\Modules\PostSeries\PostSeriesModule;
 use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
@@ -353,6 +354,7 @@ final class ModuleRegistry
         TurnstileModule::class,
         RecaptchaModule::class,
         TwoFactorModule::class,
+        PasskeysModule::class,
         FontsModule::class,
         AvatarModule::class,
         InstallerModule::class,
@@ -408,6 +410,7 @@ final class ModuleRegistry
         'user-manager',
         'redirects',
         'bookmarks',
+        'passkeys',
     ];
 
     /**
@@ -1097,6 +1100,7 @@ final class ModuleRegistry
             'turnstile' => 'security',
             'recaptcha' => 'security',
             'two-factor' => 'security',
+            'passkeys' => 'security',
             'cache' => 'performance',
             'fast-search' => 'performance',
             'heartbeat' => 'performance',

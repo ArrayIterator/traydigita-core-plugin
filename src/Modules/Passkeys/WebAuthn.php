@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\TwoFactor;
+namespace TrayDigita\WP\Plugin\Core\Modules\Passkeys;
 
 use function array_key_exists;
 use function base64_decode;
@@ -42,7 +42,7 @@ use const OPENSSL_ALGO_SHA256;
  * zero runtime Composer dependencies, so this is a deliberate,
  * scope-limited implementation instead of the 31-package
  * web-auth/webauthn-lib tree — see the class docblock of
- * TwoFactorModule for the trade-off.
+ * PasskeysModule for the trade-off.
  *
  * Scope (documented, not accidental):
  * - Algorithms: ES256 (P-256) and RS256 (RSA with SHA-256) — the

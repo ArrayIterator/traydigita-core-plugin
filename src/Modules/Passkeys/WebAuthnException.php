@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\TwoFactor;
+namespace TrayDigita\WP\Plugin\Core\Modules\Passkeys;
 
 /**
  * Exception raised when a WebAuthn ceremony fails.

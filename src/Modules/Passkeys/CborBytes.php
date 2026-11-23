@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\TwoFactor;
+namespace TrayDigita\WP\Plugin\Core\Modules\Passkeys;
 
 /**
  * Wrapper marking a string as CBOR byte-string data.

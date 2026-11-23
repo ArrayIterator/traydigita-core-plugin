@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 04:09+0700\n"
-"PO-Revision-Date: 2026-11-24 04:09+0700\n"
+"POT-Creation-Date: 2026-11-24 05:04+0700\n"
+"PO-Revision-Date: 2026-11-24 05:04+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -328,7 +328,7 @@ msgstr ""
 msgid "1–100. 82 is a good balance between file size and visible quality."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:978
+#: src/Modules/Mailer/MailerModule.php:911
 msgid "25 transactional APIs plus 10 marketing APIs."
 msgstr ""
 
@@ -486,6 +486,10 @@ msgstr ""
 
 #: src/Admin/SetupPage.php:578
 msgid "A page-cache plugin serves repeat visits from cache instead of rebuilding every page. Which plugin fits best depends on the web server this site runs on."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:1023
+msgid "A passkey enrolled here only works on this origin."
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:870
@@ -771,7 +775,7 @@ msgstr ""
 msgid "Add a note"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2219
+#: src/Modules/Passkeys/PasskeysModule.php:886
 msgid "Add a passkey"
 msgstr ""
 
@@ -844,7 +848,7 @@ msgstr ""
 msgid "Add to calendar (.ics)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2210
+#: src/Modules/Passkeys/PasskeysModule.php:877
 #. translators: %s is the date the passkey was created.
 msgid "Added %s"
 msgstr ""
@@ -862,7 +866,7 @@ msgstr ""
 msgid "Admin UI to create and order series."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1046
+#: src/Admin/ModuleRegistry.php:1049
 msgid "Administration"
 msgstr ""
 
@@ -933,7 +937,7 @@ msgstr ""
 msgid "After this much of the content (%)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2384
+#: src/Modules/TwoFactor/TwoFactorModule.php:2198
 msgid "After verifying once, a trusted device skips the second factor for this many days (0 disables trusted devices)."
 msgstr ""
 
@@ -1054,7 +1058,7 @@ msgstr ""
 msgid "All suggested plugins are already active."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:558
+#: src/Modules/TwoFactor/TwoFactorAjax.php:347
 msgid "All trusted devices removed."
 msgstr ""
 
@@ -1074,15 +1078,15 @@ msgstr ""
 msgid "Allow email change in the dashboard"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:502
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
 msgid "Allow links in article text"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:534
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:545
 msgid "Allowed blocks"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:574
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:585
 msgid "Allowed image types"
 msgstr ""
 
@@ -1118,7 +1122,7 @@ msgstr ""
 msgid "An API key is required, even for the free Basic plan (free and paid tiers share the same endpoint). Without a key this provider returns no prices."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:266
+#: src/Modules/TwoFactor/TwoFactorAjax.php:183
 msgid "An authenticator app is already set up for this account."
 msgstr ""
 
@@ -1240,7 +1244,7 @@ msgstr ""
 msgid "Articles you saved for later. Bookmarks live in this browser only — they do not sync to other devices."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2419
+#: src/Modules/TwoFactor/TwoFactorModule.php:2233
 msgid "As a last resort, with server file access, define the constant below in wp-config.php (or set the filter) to switch two-factor authentication off site-wide until it can be re-enabled:"
 msgstr ""
 
@@ -1279,12 +1283,7 @@ msgstr ""
 msgid "Attachment %s is too large (10 MB limit)."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:164
-#. translators: %s is the attachment file name.
-msgid "Attachment %s is too large for SendGrid (10 MB limit)."
-msgstr ""
-
-#: src/Modules/TwoFactor/TwoFactorModule.php:1884
+#: src/Modules/TwoFactor/TwoFactorModule.php:1769
 msgid "Authentication code"
 msgstr ""
 
@@ -1292,32 +1291,32 @@ msgstr ""
 msgid "authenticator app (TOTP)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2136
+#: src/Modules/TwoFactor/TwoFactorModule.php:2009
 msgid "Authenticator app (TOTP)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:100
+#: src/Modules/TwoFactor/TwoFactorCli.php:101
 msgid "Authenticator app (TOTP): %s"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:336
+#: src/Modules/TwoFactor/TwoFactorAjax.php:253
 msgid "Authenticator app enabled. Save your backup codes — they are shown only once."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:355
+#: src/Modules/TwoFactor/TwoFactorAjax.php:272
 msgid "Authenticator app removed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:263
-#: src/Modules/TwoFactor/TwoFactorAjax.php:305
+#: src/Modules/TwoFactor/TwoFactorAjax.php:180
+#: src/Modules/TwoFactor/TwoFactorAjax.php:222
 msgid "Authenticator app setup is disabled on this site."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:405
-msgid "Authenticator-app codes (TOTP), passkey login with fingerprint or Face ID, and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Disabled by default."
+#: src/Modules/TwoFactor/TwoFactorModule.php:410
+msgid "Authenticator-app codes (TOTP) and trusted devices — with per-role enforcement, rate limiting, and a safe recovery path. Passkeys are a separate module. Disabled by default."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:440
+#: src/Modules/TwoFactor/TwoFactorModule.php:445
 msgid "Authenticator-app codes (TOTP)."
 msgstr ""
 
@@ -1440,7 +1439,7 @@ msgstr ""
 msgid "Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:590
 #: templates/admin/modules/image-optimizer.php:83
 msgid "AVIF"
 msgstr ""
@@ -1453,11 +1452,11 @@ msgstr ""
 msgid "AVIF images are not supported on this server."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:586
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:597
 msgid "AVIF uploads are accepted when ticked, because this server’s image editor can handle AVIF."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:598
 msgid "AVIF uploads are refused even when ticked, because this server’s image editor cannot handle AVIF. Enable AVIF support in GD or Imagick to offer it."
 msgstr ""
 
@@ -1501,9 +1500,9 @@ msgstr ""
 msgid "Back to all submissions"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1845
-#: src/Modules/TwoFactor/TwoFactorModule.php:1879
-#: src/Modules/TwoFactor/TwoFactorModule.php:1928
+#: src/Modules/TwoFactor/TwoFactorModule.php:1730
+#: src/Modules/TwoFactor/TwoFactorModule.php:1764
+#: src/Modules/TwoFactor/TwoFactorModule.php:1813
 msgid "Back to log in"
 msgstr ""
 
@@ -1548,7 +1547,7 @@ msgstr ""
 msgid "Background image"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:520
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:531
 msgid "Background of the editor canvas."
 msgstr ""
 
@@ -1560,12 +1559,12 @@ msgstr ""
 msgid "backup code"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:106
+#: src/Modules/TwoFactor/TwoFactorCli.php:107
 #. translators: %d is the number of unused backup codes.
 msgid "Backup codes left: %d"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2166
+#: src/Modules/TwoFactor/TwoFactorModule.php:2039
 msgid "Backup codes — save these now."
 msgstr ""
 
@@ -1648,7 +1647,7 @@ msgstr ""
 msgid "Below the threshold the content is left untouched."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:559
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:570
 msgid "Between 1 and 10 MB. Larger files are refused with a clear error before anything is stored."
 msgstr ""
 
@@ -1656,7 +1655,7 @@ msgstr ""
 msgid "Between 30 and 365 days. After this period the banner is shown again."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:568
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:579
 msgid "Between 600 and 4000 px. Images wider or taller than this are refused with a clear error; they are never silently downscaled."
 msgstr ""
 
@@ -1668,7 +1667,7 @@ msgstr ""
 msgid "Biography"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2202
+#: src/Modules/Passkeys/PasskeysModule.php:869
 msgid "Biometric"
 msgstr ""
 
@@ -1684,7 +1683,7 @@ msgstr ""
 msgid "Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:507
 msgid "Block editor behaviour for the frontend dashboard."
 msgstr ""
 
@@ -1708,7 +1707,7 @@ msgstr ""
 msgid "Blocks"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:542
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:553
 msgid "Blocks the frontend editor offers."
 msgstr ""
 
@@ -1915,7 +1914,7 @@ msgstr ""
 msgid "Buttons"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:512
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:523
 msgid "Buttons and the active state in the frontend editor."
 msgstr ""
 
@@ -2052,7 +2051,7 @@ msgstr ""
 #: src/Bookmarks.php:160
 #: src/Modules/Redirects/RedirectsModule.php:274
 #: src/Modules/Redirects/RedirectsModule.php:362
-#: src/Modules/TwoFactor/TwoFactorModule.php:2161
+#: src/Modules/TwoFactor/TwoFactorModule.php:2034
 #: templates/admin/modules/agenda.php:169
 #: templates/admin/modules/dynamic-sidebars.php:282
 #: templates/admin/modules/image-optimizer.php:204
@@ -2518,7 +2517,7 @@ msgstr ""
 msgid "Cloudflare Turnstile is enabled but not configured yet. Logins are unprotected until the site key and secret key are saved."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2156
+#: src/Modules/TwoFactor/TwoFactorModule.php:2029
 msgid "Code from the app"
 msgstr ""
 
@@ -2617,7 +2616,7 @@ msgstr ""
 msgid "Comments marked as spam, including their commentmeta."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1038
+#: src/Admin/ModuleRegistry.php:1041
 msgid "Communication"
 msgstr ""
 
@@ -2656,7 +2655,7 @@ msgstr ""
 msgid "Configured in the Push module."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2160
+#: src/Modules/TwoFactor/TwoFactorModule.php:2033
 msgid "Confirm and enable"
 msgstr ""
 
@@ -2682,7 +2681,7 @@ msgstr ""
 msgid "Connected as %s."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1720
+#: src/Modules/Mailer/MailerModule.php:1653
 #: templates/admin/modules/mailer.php:191
 #: templates/admin/modules/mailer.php:192
 msgid "Connection"
@@ -2756,7 +2755,7 @@ msgstr ""
 msgid "Contact Submissions"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1014
+#: src/Admin/ModuleRegistry.php:1017
 #: src/Modules/FrontendEditor/FrontendEditor.php:920
 msgid "Content"
 msgstr ""
@@ -2779,7 +2778,7 @@ msgstr ""
 msgid "Contrast"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:504
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:515
 msgid "Contributors can add links to their article text."
 msgstr ""
 
@@ -2787,7 +2786,7 @@ msgstr ""
 msgid "Contributors cannot set editorial statuses."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:551
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:562
 msgid "Contributors upload through a dedicated endpoint, not the Media Library: they never gain the upload_files capability and cannot open the Media Library. Replacing an image deletes the previous one only when it was uploaded through this endpoint; an image an editor set is detached, never deleted."
 msgstr ""
 
@@ -2869,14 +2868,14 @@ msgstr ""
 msgid "Copied to clipboard."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2111
+#: src/Modules/TwoFactor/TwoFactorModule.php:1986
 #: templates/admin/modules/headers.php:47
 msgid "Copied."
 msgstr ""
 
 #: src/Admin/Settings/SettingsControls.php:449
 #: src/Admin/Settings/SettingsControls.php:451
-#: src/Modules/TwoFactor/TwoFactorModule.php:2153
+#: src/Modules/TwoFactor/TwoFactorModule.php:2026
 #: templates/admin/modules/security.php:134
 #: templates/admin/modules/security.php:45
 #: templates/admin/shell.php:112
@@ -2887,7 +2886,7 @@ msgstr ""
 msgid "Copy .htaccess snippet"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2170
+#: src/Modules/TwoFactor/TwoFactorModule.php:2043
 msgid "Copy backup codes"
 msgstr ""
 
@@ -2927,9 +2926,9 @@ msgstr ""
 msgid "Core"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1636
-#: src/Admin/ModuleRegistry.php:1673
-#: src/Admin/ModuleRegistry.php:963
+#: src/Admin/ModuleRegistry.php:1640
+#: src/Admin/ModuleRegistry.php:1677
+#: src/Admin/ModuleRegistry.php:966
 #: templates/admin/hub-page.php:81
 #: templates/admin/shell.php:433
 msgid "Core module"
@@ -3094,6 +3093,10 @@ msgstr ""
 msgid "Countdown to the date set in the General settings."
 msgstr ""
 
+#: src/Modules/Passkeys/PasskeysModule.php:259
+msgid "Counter-based clone detection on every sign-in."
+msgstr ""
+
 #: src/Modules/Mailer/Providers/CourierProvider.php:52
 msgid "Courier API key"
 msgstr ""
@@ -3139,7 +3142,7 @@ msgstr ""
 msgid "Create a key under Settings → SMTP & API → API keys in Brevo (keys start with xkeysib-). The From address must be a verified sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:682
+#: src/Modules/Mailer/Providers/SendGridProvider.php:56
 msgid "Create a key with Mail Send permission in the SendGrid dashboard. Leave empty to keep the saved key. The key is never shown."
 msgstr ""
 
@@ -3275,7 +3278,7 @@ msgstr ""
 msgid "Create form"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:708
+#: src/Modules/Mailer/Providers/GmailProvider.php:49
 msgid "Create OAuth credentials (Web application) in the Google Cloud console and add this site’s callback URL as an authorized redirect URI."
 msgstr ""
 
@@ -3577,15 +3580,15 @@ msgstr ""
 msgid "Default template updated."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:540
 msgid "Defaults to slate #1e293b. It only affects the contributor dashboard editor, never the site theme."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:513
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:524
 msgid "Defaults to the Elegant Blue accent #2563eb. The colour only affects the contributor dashboard editor, never the site theme."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:532
 msgid "Defaults to white. Dark mode on the reader’s device switches the dashboard to its dark palette instead; this colour is the light-mode canvas."
 msgstr ""
 
@@ -3717,7 +3720,7 @@ msgstr ""
 msgid "Deleting…"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1722
+#: src/Modules/Mailer/MailerModule.php:1655
 #: templates/admin/modules/mailer.php:390
 msgid "Deliverability"
 msgstr ""
@@ -3726,11 +3729,11 @@ msgstr ""
 msgid "Deliverability headers"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1010
+#: src/Modules/Mailer/MailerModule.php:943
 msgid "Deliverability headers, test email tool, and send log added."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:980
+#: src/Modules/Mailer/MailerModule.php:913
 msgid "Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgstr ""
 
@@ -3741,7 +3744,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1018
+#: src/Admin/ModuleRegistry.php:1021
 #: src/Modules/Maintenance/MaintenanceModule.php:330
 #: templates/admin/modules/maintenance.php:73
 msgid "Design"
@@ -3784,15 +3787,15 @@ msgstr ""
 msgid "Device"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:541
+#: src/Modules/TwoFactor/TwoFactorAjax.php:330
 msgid "Device removed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2385
+#: src/Modules/TwoFactor/TwoFactorModule.php:2199
 msgid "Devices are stored as HMAC-signed cookies and can be revoked from the user profile."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2232
+#: src/Modules/TwoFactor/TwoFactorModule.php:2066
 #. translators: %d is the number of days a device stays trusted.
 msgid "Devices you trust skip the second factor for %d days. Remove a device any time to ask for a code again."
 msgstr ""
@@ -3801,8 +3804,8 @@ msgstr ""
 msgid "Disable the Security Headers module if you want this module to send the overlapping headers itself."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1652
-#: src/Admin/ModuleRegistry.php:972
+#: src/Admin/ModuleRegistry.php:1656
+#: src/Admin/ModuleRegistry.php:975
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/modules/headers.php:127
 #: templates/admin/modules/security-headers.php:60
@@ -3923,7 +3926,7 @@ msgstr ""
 #: src/Admin/SetupPage.php:151
 #: src/Admin/SetupPage.php:709
 #: src/MenuIcons/MenuIcons.php:692
-#: src/Modules/TwoFactor/TwoFactorModule.php:2171
+#: src/Modules/TwoFactor/TwoFactorModule.php:2044
 #: templates/admin/shell.php:115
 msgid "Done"
 msgstr ""
@@ -4027,7 +4030,7 @@ msgstr ""
 msgid "Each check below shows its status, what it means in plain language, and how to fix it by hand."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2167
+#: src/Modules/TwoFactor/TwoFactorModule.php:2040
 msgid "Each code works once, if you lose access to your authenticator app. Store them somewhere safe — they are shown only once."
 msgstr ""
 
@@ -4107,19 +4110,19 @@ msgstr ""
 msgid "Edit sidebar"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:506
 msgid "Editor"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:510
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:521
 msgid "Editor accent colour"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:518
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:529
 msgid "Editor paper colour"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:526
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
 msgid "Editor text colour"
 msgstr ""
 
@@ -4226,8 +4229,8 @@ msgstr ""
 msgid "Emergency escape hatch: if Cloudflare is unreachable and logins are blocked, define TRAYDIGITA_TURNSTILE_FAIL_OPEN as true in wp-config.php to let logins through."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2283
-#: src/Modules/TwoFactor/TwoFactorModule.php:2413
+#: src/Modules/TwoFactor/TwoFactorModule.php:2117
+#: src/Modules/TwoFactor/TwoFactorModule.php:2227
 msgid "Emergency recovery"
 msgstr ""
 
@@ -4239,7 +4242,7 @@ msgstr ""
 msgid "Enable a module that connects to a service and it will appear here."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2337
+#: src/Modules/TwoFactor/TwoFactorModule.php:2170
 msgid "Enable authenticator app (TOTP)"
 msgstr ""
 
@@ -4259,9 +4262,8 @@ msgstr ""
 msgid "Enable notifications"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2346
-#: src/Modules/TwoFactor/TwoFactorModule.php:2355
-msgid "Enable passkey login"
+#: src/Modules/Passkeys/PasskeysModule.php:1000
+msgid "Enable passkey sign-in"
 msgstr ""
 
 #: src/Modules/Ads/AdsModule.php:870
@@ -4280,15 +4282,15 @@ msgstr ""
 msgid "Enable the recommended security headers."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1648
-#: src/Admin/ModuleRegistry.php:969
+#: src/Admin/ModuleRegistry.php:1652
+#: src/Admin/ModuleRegistry.php:972
 #: src/Modules/Ads/AdsModule.php:1205
 #: src/Modules/Cache/CacheModule.php:812
 #: templates/admin/shell.php:435
 msgid "Enabled"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:101
+#: src/Modules/TwoFactor/TwoFactorCli.php:102
 msgid "enabled"
 msgstr ""
 
@@ -4296,12 +4298,12 @@ msgstr ""
 msgid "Enabled (runs when the site gets visits)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2141
+#: src/Modules/TwoFactor/TwoFactorModule.php:2014
 #. translators: %d is the number of unused backup codes.
 msgid "Enabled. %d backup codes left."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1610
+#: src/Modules/Mailer/MailerModule.php:1543
 #: templates/admin/modules/mailer.php:214
 msgid "Encryption"
 msgstr ""
@@ -4405,7 +4407,7 @@ msgstr ""
 msgid "Enter SMTP password"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1889
+#: src/Modules/TwoFactor/TwoFactorModule.php:1774
 msgid "Enter the 6-digit code from your authenticator app, or one of your 8-digit backup codes."
 msgstr ""
 
@@ -4453,7 +4455,7 @@ msgstr ""
 msgid "Enter the GetResponse API key, campaign ID, and from-field ID in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2326
+#: src/Modules/Mailer/MailerModule.php:2259
 msgid "Enter the Google OAuth client ID and client secret first, then connect."
 msgstr ""
 
@@ -4529,7 +4531,7 @@ msgstr ""
 msgid "Enter the Sender.net API token in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:875
+#: src/Modules/Mailer/Providers/SendGridProvider.php:80
 msgid "Enter the SendGrid API key in the Mailer settings first."
 msgstr ""
 
@@ -4702,6 +4704,10 @@ msgstr ""
 msgid "Exclude tags"
 msgstr ""
 
+#: src/Modules/Passkeys/PasskeysModule.php:1017
+msgid "Expected origin:"
+msgstr ""
+
 #: src/Modules/DbTools/Cleaner.php:79
 msgid "Expired transient values and their timeout rows, plus timeout rows whose value row is already gone."
 msgstr ""
@@ -4785,8 +4791,8 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2282
-#: src/Modules/TwoFactor/TwoFactorModule.php:2389
+#: src/Modules/TwoFactor/TwoFactorModule.php:2116
+#: src/Modules/TwoFactor/TwoFactorModule.php:2203
 msgid "Failed attempts"
 msgstr ""
 
@@ -4821,7 +4827,7 @@ msgid "FCM token of the test device"
 msgstr ""
 
 #: src/Modules/FrontendEditor/FrontendEditor.php:977
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:560
 msgid "Featured image"
 msgstr ""
 
@@ -4901,6 +4907,10 @@ msgstr ""
 
 #: templates/admin/modules/dynamic-sidebars.php:256
 msgid "Find the ID in Posts → All Posts by hovering a title and reading the post= number in the link."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:220
+msgid "Fingerprint or Face ID sign-in (WebAuthn passkeys): usernameless login on the login page and a second factor on the two-factor challenge screen. Password login always stays available. Enabled by default."
 msgstr ""
 
 #: src/Admin/AdminPointerTour.php:312
@@ -5149,7 +5159,7 @@ msgstr ""
 msgid "Free public tier, no API key needed. Paid plans exist, but the theme uses the keyless tier only."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1721
+#: src/Modules/Mailer/MailerModule.php:1654
 #: templates/admin/contact-submissions.php:157
 #: templates/admin/modules/activity-log.php:114
 #: templates/admin/modules/mailer.php:367
@@ -5169,7 +5179,7 @@ msgstr ""
 msgid "From Account Settings → REST API → API Key Management in Mailjet. The From address must be a validated, active sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1644
+#: src/Modules/Mailer/MailerModule.php:1577
 #: templates/admin/modules/mailer.php:382
 msgid "From email"
 msgstr ""
@@ -5202,11 +5212,11 @@ msgstr ""
 msgid "Frontend dashboard for every logged-in user: Overview, Posts and My Contributions in one shell, plus sections other modules plug in (Write, Bookmarks, Profile, Change Email). The configured member page becomes the dashboard; sections are manageable from the settings."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:189
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:200
 msgid "Frontend Editor"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:673
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:684
 msgid "Frontend editor settings saved."
 msgstr ""
 
@@ -5248,6 +5258,8 @@ msgstr ""
 
 #: src/Modules/Ads/AdsModule.php:840
 #: src/Modules/Maintenance/MaintenanceModule.php:329
+#: src/Modules/Passkeys/PasskeysModule.php:949
+#: src/Modules/Passkeys/PasskeysModule.php:995
 #: src/Modules/RoleEditor/RoleEditorModule.php:409
 #: templates/admin/modules/maintenance.php:70
 #: templates/admin/modules/maintenance.php:84
@@ -5304,37 +5316,37 @@ msgstr ""
 msgid "Gives the new role full control of the site."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:392
+#: src/Modules/Mailer/Providers/GmailOAuth.php:393
 #. translators: %1$d is the HTTP status code, %2$s is the HTTP status text.
 msgid "Gmail API error %1$d: %2$s"
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:399
+#: src/Modules/Mailer/Providers/GmailOAuth.php:400
 #. translators: %d is the HTTP status code returned by the Gmail API.
 msgid "Gmail API error %d."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2330
+#: src/Modules/Mailer/MailerModule.php:2263
 msgid "Gmail could not be connected. Please try again."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2316
+#: src/Modules/Mailer/MailerModule.php:2249
 msgid "Gmail is connected. Mail will now be sent through the Gmail API."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2319
+#: src/Modules/Mailer/MailerModule.php:2252
 msgid "Gmail is disconnected. Mail falls back to the configured provider settings."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:290
+#: src/Modules/Mailer/Providers/GmailOAuth.php:291
 msgid "Gmail is not connected."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:979
+#: src/Modules/Mailer/MailerModule.php:912
 msgid "Gmail OAuth sign-in."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:696
+#: src/Modules/Mailer/Providers/GmailProvider.php:37
 msgid "Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail."
 msgstr ""
 
@@ -5384,15 +5396,15 @@ msgstr ""
 msgid "Google did not return an access token: %s"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2328
+#: src/Modules/Mailer/MailerModule.php:2261
 msgid "Google did not return an authorization code. Please try connecting again."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:349
+#: src/Modules/Mailer/Providers/GmailOAuth.php:350
 msgid "Google did not return the Gmail account address."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:164
+#: src/Modules/Mailer/Providers/GmailOAuth.php:165
 msgid "Google did not return usable tokens. Check the client ID and secret, then try connecting again."
 msgstr ""
 
@@ -5429,11 +5441,11 @@ msgstr ""
 msgid "Google News sitemap (news-sitemap.xml)"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:706
+#: src/Modules/Mailer/Providers/GmailProvider.php:47
 msgid "Google OAuth client ID"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:717
+#: src/Modules/Mailer/Providers/GmailProvider.php:58
 msgid "Google OAuth client secret"
 msgstr ""
 
@@ -5449,11 +5461,11 @@ msgstr ""
 msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score)."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2329
+#: src/Modules/Mailer/MailerModule.php:2262
 msgid "Google refused the authorization code. Check the client ID and secret, then try connecting again."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:318
+#: src/Modules/Mailer/Providers/GmailOAuth.php:319
 msgid "Google refused to refresh the Gmail access token. Reconnect Gmail from the Mailer settings."
 msgstr ""
 
@@ -5575,7 +5587,7 @@ msgstr ""
 msgid "Headers this module will send"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:537
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:548
 #: src/Modules/Maintenance/MaintenanceDesigner.php:227
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:363
 #: src/Modules/Share/ShareModule.php:346
@@ -5706,7 +5718,7 @@ msgstr ""
 msgid "Homepage"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1587
+#: src/Modules/Mailer/MailerModule.php:1520
 msgid "Host"
 msgstr ""
 
@@ -5739,7 +5751,7 @@ msgstr ""
 msgid "How long the header checker waits for the site to answer, from 3 to 30 seconds."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2406
+#: src/Modules/TwoFactor/TwoFactorModule.php:2220
 msgid "How long the lockout lasts."
 msgstr ""
 
@@ -5751,7 +5763,7 @@ msgstr ""
 msgid "How many different articles a visitor may read for free before the subscribe prompt appears. 1 to 20."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2397
+#: src/Modules/TwoFactor/TwoFactorModule.php:2211
 msgid "How many failed verifications trigger a lockout."
 msgstr ""
 
@@ -5831,7 +5843,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2415
+#: src/Modules/TwoFactor/TwoFactorModule.php:2229
 msgid "If a user is locked out of their account, an administrator can disable two-factor authentication for that user from the command line:"
 msgstr ""
 
@@ -6026,7 +6038,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:928
+#: src/Admin/ModuleRegistry.php:931
 #: src/Modules/Accessibility/AccessibilityToolbarModule.php:165
 #: src/Modules/ActivityLog/ActivityLogModule.php:268
 #: src/Modules/Ads/AdsModule.php:299
@@ -6070,7 +6082,7 @@ msgstr ""
 #: src/Modules/SiteKit/SiteKitModule.php:162
 #: src/Modules/Toc/TocModule.php:241
 #: src/Modules/Turnstile/TurnstileModule.php:313
-#: src/Modules/TwoFactor/TwoFactorModule.php:463
+#: src/Modules/TwoFactor/TwoFactorModule.php:467
 #: src/Modules/UserManager/UserManagerModule.php:223
 msgid "Initial release in TrayDigita Core."
 msgstr ""
@@ -6177,7 +6189,7 @@ msgstr ""
 msgid "Instant indexing: IndexNow (Bing, Yandex)"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1042
+#: src/Admin/ModuleRegistry.php:1045
 #: src/Modules/Integrations/IntegrationsModule.php:197
 msgid "Integrations"
 msgstr ""
@@ -6242,7 +6254,7 @@ msgstr ""
 msgid "It adds one stylesheet on admin screens: no JavaScript, no menu changes, no capability changes, and nothing is hidden. The login page is never touched."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2426
+#: src/Modules/TwoFactor/TwoFactorModule.php:2240
 msgid "It disables the check for everyone — including administrators — so it must be removed again after the recovery."
 msgstr ""
 
@@ -6284,7 +6296,7 @@ msgstr ""
 msgid "Its FULLTEXT indexes (%s) were carried over by InnoDB."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:587
 msgid "JPEG"
 msgstr ""
 
@@ -6356,7 +6368,7 @@ msgstr ""
 msgid "Large tables can take a while per index; the page stays responsive and shows progress. WP-CLI (`wp td-search install`) is the faster route on very large sites."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:558
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:569
 msgid "Largest featured image a contributor may upload."
 msgstr ""
 
@@ -6394,7 +6406,7 @@ msgstr ""
 msgid "Last test: %s"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2246
+#: src/Modules/TwoFactor/TwoFactorModule.php:2080
 #. translators: 1: date the device was last used, 2: date the trust expires.
 msgid "Last used %1$s — expires %2$s"
 msgstr ""
@@ -6449,7 +6461,7 @@ msgstr ""
 msgid "Leave empty to keep the saved secret key. The key is never shown."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:719
+#: src/Modules/Mailer/Providers/GmailProvider.php:60
 msgid "Leave empty to keep the saved secret. The secret is never shown."
 msgstr ""
 
@@ -6591,7 +6603,7 @@ msgstr ""
 msgid "Links to your own subscription page."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:538
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:549
 msgid "List"
 msgstr ""
 
@@ -6662,19 +6674,19 @@ msgstr ""
 msgid "Loading your bookmarks…"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:656
+#: src/Modules/Mailer/MailerModule.php:661
 msgid "Local / PHP mail"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:657
+#: src/Modules/Mailer/MailerModule.php:662
 msgid "Local / PHP mail — no provider, no credentials: WordPress sends through the server’s own mail setup (wp_mail default). Worst deliverability of all providers (no authentication, no reputation), but it works with no account at all. Best for local development only."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:662
+#: src/Modules/Mailer/MailerModule.php:667
 msgid "Local development only"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:977
+#: src/Modules/Mailer/MailerModule.php:910
 msgid "Local PHP mail for development."
 msgstr ""
 
@@ -6687,19 +6699,19 @@ msgstr ""
 msgid "Location is too long."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2394
+#: src/Modules/TwoFactor/TwoFactorModule.php:2208
 msgid "Lock out after failed attempts"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:130
+#: src/Modules/TwoFactor/TwoFactorCli.php:131
 msgid "Locked out: %s"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:219
+#: src/Modules/TwoFactor/TwoFactorCli.php:220
 msgid "Lockout cleared for %s."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2403
+#: src/Modules/TwoFactor/TwoFactorModule.php:2217
 msgid "Lockout duration in minutes"
 msgstr ""
 
@@ -6790,7 +6802,7 @@ msgstr ""
 msgid "Long-running SEO plugin with titles, sitemaps and schema for a news site. When it is active, the theme’s own SEO module steps aside and outputs no duplicate meta tags."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
 msgid "Longest side, in pixels, of an uploaded featured image."
 msgstr ""
 
@@ -6842,11 +6854,11 @@ msgstr ""
 msgid "Mailchimp — free 500 contacts / 1,000 emails per month. Campaign provider: a mail is sent as a campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for marketing campaigns and audiences already managed in Mailchimp."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:931
+#: src/Modules/Mailer/MailerModule.php:864
 msgid "Mailer"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2354
+#: src/Modules/Mailer/MailerModule.php:2287
 msgid "Mailer is not configured yet. Outgoing mail will use the WordPress default mailer."
 msgstr ""
 
@@ -6854,7 +6866,7 @@ msgstr ""
 msgid "Mailer is not configured yet. Save the provider settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1707
+#: src/Modules/Mailer/MailerModule.php:1640
 msgid "Mailer settings saved."
 msgstr ""
 
@@ -7072,7 +7084,7 @@ msgstr ""
 msgid "Maximum ads per page"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:565
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:576
 msgid "Maximum dimension (px)"
 msgstr ""
 
@@ -7080,7 +7092,7 @@ msgstr ""
 msgid "Maximum entries kept"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:556
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:567
 msgid "Maximum file size (MB)"
 msgstr ""
 
@@ -7181,12 +7193,12 @@ msgstr ""
 msgid "Metered Paywall settings saved."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2441
+#: src/Modules/TwoFactor/TwoFactorModule.php:2255
 msgid "Method"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2279
-#: src/Modules/TwoFactor/TwoFactorModule.php:2332
+#: src/Modules/TwoFactor/TwoFactorModule.php:2113
+#: src/Modules/TwoFactor/TwoFactorModule.php:2165
 msgid "Methods"
 msgstr ""
 
@@ -7314,7 +7326,7 @@ msgstr ""
 msgid "Modules: enable what you need"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1034
+#: src/Admin/ModuleRegistry.php:1037
 msgid "Monetization"
 msgstr ""
 
@@ -7347,6 +7359,10 @@ msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:424
 msgid "Most-hit 404s"
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:1024
+msgid "Moving the site to a different domain or from HTTP to HTTPS invalidates enrolled passkeys — users enroll again on the new address."
 msgstr ""
 
 #: src/Modules/SiteInfo/SiteInfoModule.php:412
@@ -7416,8 +7432,8 @@ msgid "Needs Revision <span class=\"count\">(%s)</span>"
 msgid_plural "Needs Revision <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 
-#: src/Admin/ModuleRegistry.php:1644
-#: src/Admin/ModuleRegistry.php:966
+#: src/Admin/ModuleRegistry.php:1648
+#: src/Admin/ModuleRegistry.php:969
 #: src/Modules/Recaptcha/RecaptchaModule.php:535
 #: src/Modules/Turnstile/TurnstileModule.php:989
 #: templates/admin/shell.php:124
@@ -7451,7 +7467,7 @@ msgstr ""
 msgid "Never share this with anyone."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:388
+#: src/Modules/TwoFactor/TwoFactorAjax.php:305
 msgid "New backup codes generated. The old codes no longer work."
 msgstr ""
 
@@ -7581,7 +7597,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:131
+#: src/Modules/TwoFactor/TwoFactorCli.php:132
 #: templates/admin/modules/db-tools.php:82
 msgid "no"
 msgstr ""
@@ -7735,7 +7751,7 @@ msgstr ""
 msgid "No extra settings page — everything happens on the Menus screen."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2434
+#: src/Modules/TwoFactor/TwoFactorModule.php:2248
 msgid "No failed attempts recorded yet."
 msgstr ""
 
@@ -7821,8 +7837,9 @@ msgstr ""
 msgid "No page selected"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2119
-#: src/Modules/TwoFactor/TwoFactorModule.php:2195
+#: src/Modules/Passkeys/PasskeysModule.php:862
+#: src/Modules/Passkeys/PasskeysModule.php:926
+#: src/Modules/TwoFactor/TwoFactorModule.php:1994
 msgid "No passkeys yet."
 msgstr ""
 
@@ -7937,8 +7954,8 @@ msgstr ""
 msgid "No trending topics yet."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2120
-#: src/Modules/TwoFactor/TwoFactorModule.php:2236
+#: src/Modules/TwoFactor/TwoFactorModule.php:1995
+#: src/Modules/TwoFactor/TwoFactorModule.php:2070
 msgid "No trusted devices."
 msgstr ""
 
@@ -7983,8 +8000,8 @@ msgstr ""
 msgid "Not applicable"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1632
-#: src/Admin/ModuleRegistry.php:960
+#: src/Admin/ModuleRegistry.php:1636
+#: src/Admin/ModuleRegistry.php:963
 #: templates/admin/shell.php:125
 msgid "Not available"
 msgstr ""
@@ -8038,11 +8055,11 @@ msgstr ""
 msgid "Not on home, archive, or search pages."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:101
+#: src/Modules/TwoFactor/TwoFactorCli.php:102
 msgid "not set up"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2144
+#: src/Modules/TwoFactor/TwoFactorModule.php:2017
 msgid "Not set up yet."
 msgstr ""
 
@@ -8307,7 +8324,7 @@ msgstr ""
 msgid "Only emitted when no SEO plugin — and not the theme’s own SEO module — already provides breadcrumb structured data."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2459
+#: src/Modules/TwoFactor/TwoFactorModule.php:2273
 msgid "Only failed attempts are recorded (up to 200 entries, oldest first removed)."
 msgstr ""
 
@@ -8417,7 +8434,7 @@ msgstr ""
 msgid "Open Custom Headers"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2359
+#: src/Modules/Mailer/MailerModule.php:2292
 msgid "Open Mailer settings"
 msgstr ""
 
@@ -8579,8 +8596,8 @@ msgstr ""
 msgid "Options (one per box, choice fields only)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1638
-#: src/Modules/TwoFactor/TwoFactorModule.php:1915
+#: src/Modules/Passkeys/PasskeysModule.php:731
+#: src/Modules/TwoFactor/TwoFactorModule.php:1800
 msgid "or"
 msgstr ""
 
@@ -8705,7 +8722,7 @@ msgstr ""
 msgid "Pages use their ancestor chain: Home / Parent page / Current page."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:536
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:547
 msgid "Paragraph"
 msgstr ""
 
@@ -8735,37 +8752,43 @@ msgstr ""
 msgid "passkey"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:477
+#: src/Modules/Passkeys/PasskeysAjax.php:335
 #. translators: %d is the passkey number for this account.
 msgid "Passkey %d"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:493
+#: src/Modules/Passkeys/PasskeysAjax.php:351
 msgid "Passkey added. You can now sign in with your fingerprint or Face ID."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:441
-msgid "Passkey login with fingerprint or Face ID."
+#: src/Modules/Passkeys/PasskeysModule.php:256
+msgid "Passkey as a second factor on the two-factor challenge screen."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:257
+msgid "Passkey enrolment from the user profile page."
 msgstr ""
 
 #: src/Modules/ActivityLog/ActivityLogModule.php:1008
 msgid "Passkey registered for two-factor authentication."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:467
-#: src/Modules/TwoFactor/TwoFactorModule.php:2114
+#: src/Modules/Passkeys/PasskeysAjax.php:325
+#: src/Modules/Passkeys/PasskeysModule.php:924
+#: src/Modules/TwoFactor/TwoFactorModule.php:1989
 msgid "Passkey registration failed. Please try again."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:415
+#: src/Modules/Passkeys/PasskeysAjax.php:273
 msgid "Passkey registration is disabled on this site."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:458
+#: src/Modules/Passkeys/PasskeysAjax.php:316
 msgid "Passkey registration is not available on this site."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2113
+#: src/Modules/Passkeys/PasskeysModule.php:923
+#: src/Modules/TwoFactor/TwoFactorModule.php:1988
 msgid "Passkey registration was cancelled."
 msgstr ""
 
@@ -8773,63 +8796,88 @@ msgstr ""
 msgid "Passkey removed from two-factor authentication."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:517
+#: src/Modules/Passkeys/PasskeysAjax.php:375
 msgid "Passkey removed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1642
+#: src/Modules/Passkeys/PasskeysModule.php:1064
+msgid "Passkey settings saved."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:735
 msgid "Passkey sign-in failed. Please log in with your password."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:629
-#: src/Modules/TwoFactor/TwoFactorAjax.php:655
-#: src/Modules/TwoFactor/TwoFactorAjax.php:703
-#: src/Modules/TwoFactor/TwoFactorAjax.php:709
-#: src/Modules/TwoFactor/TwoFactorAjax.php:747
+#: src/Modules/Passkeys/PasskeysAjax.php:445
+#: src/Modules/Passkeys/PasskeysAjax.php:471
+#: src/Modules/Passkeys/PasskeysAjax.php:519
+#: src/Modules/Passkeys/PasskeysAjax.php:525
+#: src/Modules/Passkeys/PasskeysAjax.php:563
 msgid "Passkey sign-in failed. Please try again."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:588
+#: src/Modules/Passkeys/PasskeysAjax.php:404
 msgid "Passkey sign-in is not available on this site."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1641
+#: src/Modules/Passkeys/PasskeysModule.php:734
 msgid "Passkey sign-in was cancelled. Please log in with your password."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:235
+#: src/Modules/Passkeys/PasskeysModule.php:981
+msgid "Passkey sign-in: fingerprint or Face ID instead of a password."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysAjax.php:245
 msgid "Passkey verification failed. Please try again."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1921
+#: src/Modules/TwoFactor/TwoFactorModule.php:1806
 msgid "Passkey verification failed. Please use your authenticator code."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1920
+#: src/Modules/TwoFactor/TwoFactorModule.php:1805
 msgid "Passkey verification was cancelled."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2187
+#: src/Modules/Passkeys/PasskeysModule.php:210
+#: src/Modules/Passkeys/PasskeysModule.php:919
+msgid "Passkeys"
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:854
 msgid "Passkeys (fingerprint / Face ID)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2349
-msgid "Passkeys are an alternative — password login always stays available."
+#: src/Modules/Passkeys/PasskeysModule.php:1003
+msgid "Passkeys are an alternative — password login always stays available, and disabling passkeys never deletes enrolled passkeys: re-enabling restores them."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2357
-msgid "Passkeys need a secure connection (HTTPS)."
+#: src/Modules/Passkeys/PasskeysModule.php:1010
+msgid "Passkeys are bound to this site. The relying-party id and origin are derived from the site address — there is nothing to configure."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2190
+#: src/Modules/Passkeys/PasskeysModule.php:930
+msgid "Passkeys let you sign in with your fingerprint or Face ID instead of typing your password. Your passkey never leaves this device."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:987
+msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkey registration is currently disabled — the toggle takes effect once the site is on HTTPS (localhost is excepted)."
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:857
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkeys are disabled here — everything else still works. If the site is behind a proxy, check that WordPress knows it is on HTTPS."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:418
+#: src/Modules/Passkeys/PasskeysAjax.php:276
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:113
+#: src/Modules/Passkeys/PasskeysModule.php:274
+msgid "Passkeys split out of the Two-Factor module into a module of their own, with the same WebAuthn server, the same credential store, and the same AJAX actions."
+msgstr ""
+
+#: src/Modules/TwoFactor/TwoFactorCli.php:114
 #. translators: %d is the number of registered passkeys.
 msgid "Passkeys: %d"
 msgstr ""
@@ -8940,11 +8988,11 @@ msgstr ""
 msgid "Per-role access modes: dashboard or frontend-only."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:443
+#: src/Modules/TwoFactor/TwoFactorModule.php:447
 msgid "Per-role enforcement and rate limiting."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1026
+#: src/Admin/ModuleRegistry.php:1029
 msgid "Performance"
 msgstr ""
 
@@ -9092,7 +9140,7 @@ msgstr ""
 msgid "Please <a href=\"%s\">log in</a> to use the member area."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1700
+#: src/Modules/Mailer/MailerModule.php:1633
 #: src/Modules/Turnstile/TurnstileModule.php:1206
 #. translators: %s is a comma-separated list of invalid field names.
 msgid "Please check the following fields: %s."
@@ -9220,7 +9268,7 @@ msgstr ""
 msgid "Plunk — free 1,000 emails/month, then $0.001 per email. Best for simple transactional mail with a generous pay-as-you-go price after the free tier."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:577
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:588
 msgid "PNG"
 msgstr ""
 
@@ -9234,7 +9282,7 @@ msgstr ""
 msgid "Popular Posts reads Analytics data through the traydigita-stack collector (Stack::getPopularPosts()) while Site Kit is connected."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1600
+#: src/Modules/Mailer/MailerModule.php:1533
 #: templates/admin/modules/mailer.php:206
 msgid "Port"
 msgstr ""
@@ -9575,8 +9623,8 @@ msgid "Protects the Contact Form module."
 msgstr ""
 
 #: src/Modules/Comments/CommentsModule.php:468
-#: src/Modules/Mailer/MailerModule.php:1559
-#: src/Modules/Mailer/MailerModule.php:1719
+#: src/Modules/Mailer/MailerModule.php:1492
+#: src/Modules/Mailer/MailerModule.php:1652
 #: templates/admin/modules/mailer.php:155
 #: templates/admin/modules/mailer.php:156
 #: templates/admin/modules/mailer.php:510
@@ -9711,7 +9759,7 @@ msgstr ""
 msgid "PWA is disabled. The site is not installable: no manifest link, theme-color meta tag, install sheet, or \"Install App\" buttons are served. Enable the module in the module grid first."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2340
+#: src/Modules/TwoFactor/TwoFactorModule.php:2173
 msgid "QR codes are generated locally — no external service is involved."
 msgstr ""
 
@@ -9731,7 +9779,7 @@ msgstr ""
 msgid "Quick role changes."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
 msgid "Quote"
 msgstr ""
 
@@ -9755,7 +9803,7 @@ msgstr ""
 msgid "Ranked by shared tags, categories, and author."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2398
+#: src/Modules/TwoFactor/TwoFactorModule.php:2212
 msgid "Rate limiting applies to code verification and passkey attempts, per user."
 msgstr ""
 
@@ -9832,11 +9880,11 @@ msgstr ""
 msgid "Reading speed used for the estimate."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2442
+#: src/Modules/TwoFactor/TwoFactorModule.php:2256
 msgid "Reason"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1008
+#: src/Modules/Mailer/MailerModule.php:941
 msgid "Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr ""
 
@@ -9889,8 +9937,8 @@ msgstr ""
 msgid "reCAPTCHA verification failed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2284
-#: src/Modules/TwoFactor/TwoFactorModule.php:2432
+#: src/Modules/TwoFactor/TwoFactorModule.php:2118
+#: src/Modules/TwoFactor/TwoFactorModule.php:2246
 msgid "Recent failed attempts"
 msgstr ""
 
@@ -9906,7 +9954,7 @@ msgstr ""
 msgid "Recipient email"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1673
+#: src/Admin/ModuleRegistry.php:1677
 #: src/Modules/Installer/InstallerModule.php:457
 msgid "Recommended"
 msgstr ""
@@ -10000,7 +10048,7 @@ msgstr ""
 msgid "Refused"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2178
+#: src/Modules/TwoFactor/TwoFactorModule.php:2051
 msgid "Regenerate backup codes"
 msgstr ""
 
@@ -10045,7 +10093,16 @@ msgstr ""
 msgid "Relaxed"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2381
+#: src/Modules/Passkeys/PasskeysModule.php:1008
+#: src/Modules/Passkeys/PasskeysModule.php:950
+msgid "Relying party"
+msgstr ""
+
+#: src/Modules/Passkeys/PasskeysModule.php:1013
+msgid "Relying-party id:"
+msgstr ""
+
+#: src/Modules/TwoFactor/TwoFactorModule.php:2195
 msgid "Remember devices"
 msgstr ""
 
@@ -10053,7 +10110,7 @@ msgstr ""
 msgid "Remember the choice for (days)"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1902
+#: src/Modules/TwoFactor/TwoFactorModule.php:1787
 #. translators: %d is the number of days the device is remembered.
 msgid "Remember this device for %d days"
 msgstr ""
@@ -10067,9 +10124,10 @@ msgid "Remote URLs are always verified as real images before they are saved."
 msgstr ""
 
 #: src/Bookmarks.php:161
-#: src/Modules/TwoFactor/TwoFactorModule.php:2121
-#: src/Modules/TwoFactor/TwoFactorModule.php:2213
-#: src/Modules/TwoFactor/TwoFactorModule.php:2252
+#: src/Modules/Passkeys/PasskeysModule.php:880
+#: src/Modules/Passkeys/PasskeysModule.php:927
+#: src/Modules/TwoFactor/TwoFactorModule.php:1996
+#: src/Modules/TwoFactor/TwoFactorModule.php:2086
 #: templates/admin/modules/email.php:246
 #: templates/admin/modules/headers.php:231
 #: templates/admin/modules/headers.php:248
@@ -10081,19 +10139,19 @@ msgstr ""
 msgid "Remove %s block"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2257
+#: src/Modules/TwoFactor/TwoFactorModule.php:2091
 msgid "Remove all trusted devices"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2117
+#: src/Modules/TwoFactor/TwoFactorModule.php:1992
 msgid "Remove all trusted devices for this account?"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:173
+#: src/Modules/TwoFactor/TwoFactorCli.php:174
 msgid "Remove all two-factor methods for %s? They will be able to log in with their password only."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2179
+#: src/Modules/TwoFactor/TwoFactorModule.php:2052
 msgid "Remove authenticator app"
 msgstr ""
 
@@ -10133,7 +10191,7 @@ msgstr ""
 msgid "Remove rule"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2115
+#: src/Modules/TwoFactor/TwoFactorModule.php:1990
 msgid "Remove the authenticator app from this account? You will no longer be asked for a code at login."
 msgstr ""
 
@@ -10141,7 +10199,8 @@ msgstr ""
 msgid "Remove the featured image?"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2118
+#: src/Modules/Passkeys/PasskeysModule.php:925
+#: src/Modules/TwoFactor/TwoFactorModule.php:1993
 msgid "Remove this passkey? You will no longer be able to sign in with it."
 msgstr ""
 
@@ -10155,7 +10214,7 @@ msgstr ""
 msgid "Remove this rule? Its ad code will be lost when you save."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2116
+#: src/Modules/TwoFactor/TwoFactorModule.php:1991
 msgid "Remove this trusted device? You will be asked for a code again on it."
 msgstr ""
 
@@ -10215,9 +10274,9 @@ msgstr ""
 msgid "Report-only policy"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2280
-#: src/Modules/TwoFactor/TwoFactorModule.php:2363
-#: src/Modules/TwoFactor/TwoFactorModule.php:2368
+#: src/Modules/TwoFactor/TwoFactorModule.php:2114
+#: src/Modules/TwoFactor/TwoFactorModule.php:2177
+#: src/Modules/TwoFactor/TwoFactorModule.php:2182
 msgid "Require for roles"
 msgstr ""
 
@@ -10442,7 +10501,7 @@ msgstr ""
 #: src/Modules/Comments/CommentsModule.php:531
 #: src/Modules/Core/MenuIconsModule.php:293
 #: src/Modules/DashboardDesigner/DashboardDesignerModule.php:329
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:605
 #: src/Modules/Heartbeat/HeartbeatModule.php:338
 #: src/Modules/Installer/InstallerModule.php:559
 #: src/Modules/MemberArea/MemberAreaModule.php:711
@@ -10552,7 +10611,7 @@ msgstr ""
 msgid "Saving…"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2148
+#: src/Modules/TwoFactor/TwoFactorModule.php:2021
 msgid "Scan this code with your authenticator app (Google Authenticator, Authy, 1Password, or any TOTP app), then enter the 6-digit code it shows to confirm."
 msgstr ""
 
@@ -10565,11 +10624,11 @@ msgstr ""
 msgid "Scheduled events"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:237
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:248
 msgid "Scoped featured-image upload."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:550
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:561
 msgid "Scoped upload limits for the one featured image per article."
 msgstr ""
 
@@ -10681,7 +10740,7 @@ msgstr ""
 msgid "Secret key"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2151
+#: src/Modules/TwoFactor/TwoFactorModule.php:2024
 msgid "Secret key (manual entry):"
 msgstr ""
 
@@ -10697,7 +10756,11 @@ msgstr ""
 msgid "Sections other modules plug in through a filter."
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1022
+#: src/Modules/Passkeys/PasskeysModule.php:258
+msgid "Secure-context only (HTTPS, or localhost for development)."
+msgstr ""
+
+#: src/Admin/ModuleRegistry.php:1025
 #: src/Modules/Installer/InstallerModule.php:637
 msgid "Security"
 msgstr ""
@@ -10838,7 +10901,7 @@ msgstr ""
 msgid "Send to email"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:941
+#: src/Modules/Mailer/MailerModule.php:874
 msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
 msgstr ""
 
@@ -10866,21 +10929,11 @@ msgstr ""
 msgid "Sender.net — free 15,000 emails/month (up to 2,500 contacts). Best for newsletters and transactional mail on a generous free allowance."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:221
-#. translators: %1$d is the HTTP status code, %2$s is the HTTP status text.
-msgid "SendGrid API error %1$d: %2$s"
-msgstr ""
-
-#: src/Modules/Mailer/SendGridSender.php:228
-#. translators: %d is the HTTP status code returned by the SendGrid API.
-msgid "SendGrid API error %d."
-msgstr ""
-
-#: src/Modules/Mailer/MailerModule.php:680
+#: src/Modules/Mailer/Providers/SendGridProvider.php:54
 msgid "SendGrid API key"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:670
+#: src/Modules/Mailer/Providers/SendGridProvider.php:44
 msgid "SendGrid — 60-day free trial (100/day), then paid. Best for teams already on Twilio with high-volume transactional and marketing mail."
 msgstr ""
 
@@ -10969,7 +11022,7 @@ msgstr ""
 msgid "Sent through Elastic Email."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:276
+#: src/Modules/Mailer/Providers/GmailOAuth.php:277
 msgid "Sent through Gmail."
 msgstr ""
 
@@ -11021,7 +11074,7 @@ msgstr ""
 msgid "Sent through Sender.net."
 msgstr ""
 
-#: src/Modules/Mailer/SendGridSender.php:132
+#: src/Modules/Mailer/Providers/SendGridProvider.php:126
 msgid "Sent through SendGrid."
 msgstr ""
 
@@ -11065,7 +11118,7 @@ msgstr ""
 msgid "SEO"
 msgstr ""
 
-#: src/Admin/ModuleRegistry.php:1030
+#: src/Admin/ModuleRegistry.php:1033
 msgid "SEO & Discovery"
 msgstr ""
 
@@ -11158,7 +11211,6 @@ msgid "SES secret access key"
 msgstr ""
 
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:437
-#: src/Modules/Mailer/SendGridSender.php:75
 msgid "Set a From email address in the Mailer settings first."
 msgstr ""
 
@@ -11178,11 +11230,11 @@ msgstr ""
 msgid "Set how often the WordPress Heartbeat pulses on the dashboard, in the post editor, and on the frontend — and switch the frontend heartbeat off. The editor heartbeat can never be disabled, so autosave and post locking always keep working."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:376
+#: src/Modules/TwoFactor/TwoFactorAjax.php:293
 msgid "Set up an authenticator app first."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2175
+#: src/Modules/TwoFactor/TwoFactorModule.php:2048
 msgid "Set up authenticator app"
 msgstr ""
 
@@ -11219,7 +11271,7 @@ msgstr ""
 msgid "Settings hub"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1011
+#: src/Modules/Mailer/MailerModule.php:944
 msgid "Settings migrated from the old traydigita_smtp option; the old option is kept as a fallback."
 msgstr ""
 
@@ -11517,11 +11569,11 @@ msgstr ""
 msgid "Sidebars"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1643
+#: src/Modules/Passkeys/PasskeysModule.php:736
 msgid "Sign in with fingerprint or Face ID"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2193
+#: src/Modules/Passkeys/PasskeysModule.php:860
 msgid "Sign in with your fingerprint or Face ID instead of typing a code. Your passkey never leaves this device."
 msgstr ""
 
@@ -11529,7 +11581,7 @@ msgstr ""
 msgid "sign-in"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1874
+#: src/Modules/TwoFactor/TwoFactorModule.php:1759
 #. translators: %s is the account login name.
 msgid "Signing in as %s. Enter the code from your authenticator app to continue."
 msgstr ""
@@ -11538,15 +11590,15 @@ msgstr ""
 msgid "Simple .htaccess-based page cache — the easiest to set up, serving static HTML files straight from disk."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:484
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:495
 msgid "Simple block editor for contributors on the frontend."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:199
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:210
 msgid "Simple block editor for contributors on the frontend: paragraph, heading, list and quote blocks only, enforced server-side on save, with a scoped featured-image upload that never opens the Media Library."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:236
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:247
 msgid "Simple block editor for writing articles."
 msgstr ""
 
@@ -11660,7 +11712,7 @@ msgstr ""
 msgid "Smaller, default, larger and largest text. Applied as a font-size step on the whole page."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:643
+#: src/Modules/Mailer/MailerModule.php:648
 msgid "SMTP"
 msgstr ""
 
@@ -11668,20 +11720,20 @@ msgstr ""
 msgid "SMTP host"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1002
+#: src/Modules/Mailer/MailerModule.php:935
 msgid "SMTP mailer with presets for the major mailbox providers."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1568
+#: src/Modules/Mailer/MailerModule.php:1501
 #: templates/admin/modules/mailer.php:180
 msgid "SMTP preset"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:976
+#: src/Modules/Mailer/MailerModule.php:909
 msgid "SMTP with 30 one-click presets for major mailbox providers."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:644
+#: src/Modules/Mailer/MailerModule.php:649
 msgid "SMTP — your own mail server, with one-click presets for the major mailbox providers and the SMTP relays of the API providers."
 msgstr ""
 
@@ -11741,7 +11793,8 @@ msgstr ""
 #: src/Admin/SetupPage.php:153
 #: src/Admin/SetupPage.php:953
 #: src/Modules/Installer/InstallerModule.php:337
-#: src/Modules/TwoFactor/TwoFactorModule.php:2110
+#: src/Modules/Passkeys/PasskeysModule.php:921
+#: src/Modules/TwoFactor/TwoFactorModule.php:1985
 #: templates/admin/modules/activity-log.php:64
 #: templates/admin/modules/db-tools.php:58
 #: templates/admin/modules/epaper.php:53
@@ -11835,7 +11888,7 @@ msgid "Speed up frontend search with FULLTEXT and composite database indexes, wi
 msgstr ""
 
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:202
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:254
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:265
 #: src/Modules/MemberArea/MemberAreaModule.php:251
 #: src/Modules/MemberProfile/MemberProfileModule.php:170
 #: src/Modules/RoleAccess/RoleAccessModule.php:209
@@ -12104,7 +12157,7 @@ msgstr ""
 msgid "Symbol"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2205
+#: src/Modules/Passkeys/PasskeysModule.php:872
 msgid "Synced"
 msgstr ""
 
@@ -12253,7 +12306,7 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1723
+#: src/Modules/Mailer/MailerModule.php:1656
 #: templates/admin/modules/mailer.php:449
 #: templates/admin/modules/mailer.php:450
 msgid "Test & Log"
@@ -12280,7 +12333,7 @@ msgstr ""
 msgid "Test email sent. Please check the inbox of the recipient address."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:981
+#: src/Modules/Mailer/MailerModule.php:914
 msgid "Test email tool and a send log of the last 50 sends."
 msgstr ""
 
@@ -12303,7 +12356,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:528
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:539
 msgid "Text colour inside the editor canvas."
 msgstr ""
 
@@ -12364,15 +12417,15 @@ msgstr ""
 msgid "That category no longer exists."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:322
+#: src/Modules/TwoFactor/TwoFactorAjax.php:239
 msgid "That code did not match. Check the time on your device and try again."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1808
+#: src/Modules/TwoFactor/TwoFactorModule.php:1693
 msgid "That code did not match. Please try again."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:539
+#: src/Modules/TwoFactor/TwoFactorAjax.php:328
 msgid "That device was not found."
 msgstr ""
 
@@ -12408,7 +12461,7 @@ msgstr ""
 msgid "That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:514
+#: src/Modules/Passkeys/PasskeysAjax.php:372
 msgid "That passkey was not found."
 msgstr ""
 
@@ -12557,10 +12610,6 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:390
 msgid "The attachments are too large (25 MB total limit)."
-msgstr ""
-
-#: src/Modules/Mailer/SendGridSender.php:173
-msgid "The attachments are too large for SendGrid (25 MB total limit)."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/MailchimpProvider.php:73
@@ -12778,14 +12827,13 @@ msgstr ""
 msgid "The editor heartbeat can never be disabled, so autosave and post locking keep working."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:485
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:497
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:496
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:508
 msgid "The editor only offers paragraph, heading, list and quote blocks. Anything else a contributor pastes in is stripped when the article is saved, so the allowlist is enforced on the server, never trusted from the browser."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:258
 #: src/Modules/Mailer/Providers/AbstractApiProvider.php:434
-#: src/Modules/Mailer/SendGridSender.php:72
+#: src/Modules/Mailer/Providers/GmailOAuth.php:259
 msgid "The email has no recipients."
 msgstr ""
 
@@ -12900,11 +12948,11 @@ msgstr ""
 msgid "The Google Fonts request was refused: unexpected host."
 msgstr ""
 
-#: src/Modules/Mailer/GmailOAuth.php:297
+#: src/Modules/Mailer/Providers/GmailOAuth.php:298
 msgid "The Google OAuth client ID and secret are missing. Reconnect Gmail from the Mailer settings."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2327
+#: src/Modules/Mailer/MailerModule.php:2260
 msgid "The Google sign-in reply could not be verified. Please try connecting again."
 msgstr ""
 
@@ -13033,7 +13081,7 @@ msgstr ""
 msgid "The list the campaign is sent to (Contacts → Lists → your list; the ID is in the URL). Every mail goes to the whole list."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2407
+#: src/Modules/TwoFactor/TwoFactorModule.php:2221
 msgid "The lockout is a temporary delay, not a permanent block."
 msgstr ""
 
@@ -13265,11 +13313,11 @@ msgstr ""
 msgid "The production asset manifest, built from the theme sources. Without it the theme cannot load its compiled styles and scripts."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:891
+#: src/Modules/Mailer/MailerModule.php:824
 msgid "The provider did not return a send result."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:896
+#: src/Modules/Mailer/MailerModule.php:829
 msgid "The provider has no send method."
 msgstr ""
 
@@ -13305,7 +13353,7 @@ msgstr ""
 msgid "The redirect URI must use https on a public site — Google only accepts plain http on localhost. If the URI above shows http on a live site, switch the site to https first (or serve the admin over https) before registering it in Google Cloud, or Google will reject the callback."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:463
+#: src/Modules/Passkeys/PasskeysAjax.php:321
 msgid "The registration session expired. Please start again."
 msgstr ""
 
@@ -13421,7 +13469,7 @@ msgstr ""
 msgid "The setting only changes this page — it never installs, activates, or hides a plugin itself."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:317
+#: src/Modules/TwoFactor/TwoFactorAjax.php:234
 msgid "The setup session expired. Please start again."
 msgstr ""
 
@@ -13519,11 +13567,11 @@ msgstr ""
 msgid "The two do not overlap or conflict."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2325
+#: src/Modules/TwoFactor/TwoFactorModule.php:2158
 msgid "The two-factor login script is not registered yet. Passkey buttons will not appear on the login page until the theme entry \"two-factor\" is wired into the Vite manifest (see the module notes in the integration report). Password and TOTP login are unaffected."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2130
+#: src/Modules/TwoFactor/TwoFactorModule.php:2003
 msgid "The two-factor scripts are not loaded yet (the theme entry is missing). The settings below will work after the theme is rebuilt."
 msgstr ""
 
@@ -13682,15 +13730,15 @@ msgstr ""
 msgid "Thin progress bar at the top of single articles."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:982
+#: src/Modules/Mailer/MailerModule.php:915
 msgid "Third-party providers can register through a filter."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:609
+#: src/Modules/Passkeys/PasskeysAjax.php:425
 msgid "This account has no passkeys."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1893
+#: src/Modules/TwoFactor/TwoFactorModule.php:1778
 msgid "This account has no second-factor method set up. Please contact an administrator."
 msgstr ""
 
@@ -13708,7 +13756,8 @@ msgstr ""
 msgid "This browser does not support notifications."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2112
+#: src/Modules/Passkeys/PasskeysModule.php:922
+#: src/Modules/TwoFactor/TwoFactorModule.php:1987
 msgid "This browser does not support passkeys."
 msgstr ""
 
@@ -13750,7 +13799,7 @@ msgstr ""
 msgid "This image type is not allowed."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2461
+#: src/Modules/TwoFactor/TwoFactorModule.php:2275
 msgid "This is a lightweight security log, not a full activity log."
 msgstr ""
 
@@ -13767,7 +13816,7 @@ msgstr ""
 msgid "This is display only — the theme never writes server files. Paste a snippet into your server configuration only after reviewing it, and only if the headers are not already sent from PHP."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2425
+#: src/Modules/TwoFactor/TwoFactorModule.php:2239
 msgid "This is not a backdoor: it requires editing a file on the server."
 msgstr ""
 
@@ -13809,10 +13858,6 @@ msgstr ""
 msgid "This provider needs an API key to return prices. Enter it below."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2358
-msgid "This site is served over plain HTTP, so passkey registration is currently disabled — the checkbox takes effect once the site is on HTTPS (localhost is excepted)."
-msgstr ""
-
 #: src/Modules/Cache/CacheModule.php:492
 #. translators: 1: server label, e.g. LiteSpeed. 2: recommended cache plugin name.
 msgid "This site runs on %1$s, so %2$s is the recommended cache plugin — it is built for this server."
@@ -13831,11 +13876,11 @@ msgstr ""
 msgid "This unsubscribe link is invalid or has expired."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:597
-#: src/Modules/TwoFactor/TwoFactorAjax.php:665
-#: src/Modules/TwoFactor/TwoFactorAjax.php:671
-#: src/Modules/TwoFactor/TwoFactorModule.php:1776
-#: src/Modules/TwoFactor/TwoFactorModule.php:1842
+#: src/Modules/Passkeys/PasskeysAjax.php:413
+#: src/Modules/Passkeys/PasskeysAjax.php:481
+#: src/Modules/Passkeys/PasskeysAjax.php:487
+#: src/Modules/TwoFactor/TwoFactorModule.php:1661
+#: src/Modules/TwoFactor/TwoFactorModule.php:1727
 msgid "This verification link has expired. Please log in again."
 msgstr ""
 
@@ -13869,7 +13914,7 @@ msgid "Tick only the categories you want, type the confirmation word, then delet
 msgstr ""
 
 #: src/Modules/Push/PushModule.php:588
-#: src/Modules/TwoFactor/TwoFactorModule.php:2439
+#: src/Modules/TwoFactor/TwoFactorModule.php:2253
 #: templates/admin/modules/activity-log.php:137
 #: templates/admin/modules/mailer.php:507
 msgid "Time"
@@ -13935,16 +13980,16 @@ msgstr ""
 msgid "Tokens that stop working (for example the app was removed) are removed from the list automatically."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:310
-#: src/Modules/TwoFactor/TwoFactorModule.php:1783
-#: src/Modules/TwoFactor/TwoFactorModule.php:1859
+#: src/Modules/TwoFactor/TwoFactorAjax.php:227
+#: src/Modules/TwoFactor/TwoFactorModule.php:1668
+#: src/Modules/TwoFactor/TwoFactorModule.php:1744
 #. translators: %d is the number of minutes until the lockout ends.
 msgid "Too many failed attempts. Please try again in %d minutes."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorAjax.php:602
-#: src/Modules/TwoFactor/TwoFactorAjax.php:675
-#: src/Modules/TwoFactor/TwoFactorAjax.php:740
+#: src/Modules/Passkeys/PasskeysAjax.php:418
+#: src/Modules/Passkeys/PasskeysAjax.php:491
+#: src/Modules/Passkeys/PasskeysAjax.php:556
 msgid "Too many failed attempts. Please try again later."
 msgstr ""
 
@@ -14099,17 +14144,17 @@ msgstr ""
 msgid "traydigita-stack version"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2228
-#: src/Modules/TwoFactor/TwoFactorModule.php:2281
-#: src/Modules/TwoFactor/TwoFactorModule.php:2376
+#: src/Modules/TwoFactor/TwoFactorModule.php:2062
+#: src/Modules/TwoFactor/TwoFactorModule.php:2115
+#: src/Modules/TwoFactor/TwoFactorModule.php:2190
 msgid "Trusted devices"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:442
+#: src/Modules/TwoFactor/TwoFactorModule.php:446
 msgid "Trusted devices."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:126
+#: src/Modules/TwoFactor/TwoFactorCli.php:127
 #. translators: %d is the number of trusted devices.
 msgid "Trusted devices: %d"
 msgstr ""
@@ -14156,21 +14201,21 @@ msgstr ""
 msgid "two-factor authentication"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:395
+#: src/Modules/TwoFactor/TwoFactorModule.php:400
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1841
-#: src/Modules/TwoFactor/TwoFactorModule.php:1865
-#: src/Modules/TwoFactor/TwoFactorModule.php:2108
+#: src/Modules/TwoFactor/TwoFactorModule.php:1726
+#: src/Modules/TwoFactor/TwoFactorModule.php:1750
+#: src/Modules/TwoFactor/TwoFactorModule.php:1983
 msgid "Two-factor authentication"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2126
+#: src/Modules/TwoFactor/TwoFactorModule.php:1999
 msgid "Two-factor authentication asks for a second proof of identity at login — a code from an authenticator app, a fingerprint or Face ID, or a one-time backup code. Your password still works as before."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:184
+#: src/Modules/TwoFactor/TwoFactorCli.php:185
 msgid "Two-factor authentication disabled for %s."
 msgstr ""
 
@@ -14186,12 +14231,12 @@ msgstr ""
 msgid "Two-factor backup codes regenerated."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2527
+#: src/Modules/TwoFactor/TwoFactorModule.php:2352
 msgid "Two-factor settings saved."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2320
-msgid "Two-factor sign-in: authenticator codes, passkeys, and trusted devices."
+#: src/Modules/TwoFactor/TwoFactorModule.php:2153
+msgid "Two-factor sign-in: authenticator codes and trusted devices."
 msgstr ""
 
 #: src/Modules/ActivityLog/ActivityLogModule.php:1021
@@ -14404,7 +14449,7 @@ msgstr ""
 msgid "Unknown log entry."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:866
+#: src/Modules/Mailer/MailerModule.php:809
 msgid "Unknown mail provider."
 msgstr ""
 
@@ -14479,7 +14524,7 @@ msgstr ""
 msgid "Unsubscribed"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:543
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:554
 msgid "Unticked blocks disappear from the editor, and any such block in a submitted article is stripped on save. At least the paragraph block is always kept, so the editor never ends up empty."
 msgstr ""
 
@@ -14658,7 +14703,7 @@ msgstr ""
 msgid "Use default colour"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1922
+#: src/Modules/TwoFactor/TwoFactorModule.php:1807
 msgid "Use fingerprint or Face ID instead"
 msgstr ""
 
@@ -14697,7 +14742,7 @@ msgstr ""
 #: src/Modules/Avatar/AvatarModule.php:328
 #: src/Modules/Avatar/AvatarModule.php:361
 #: src/Modules/Avatar/AvatarModule.php:398
-#: src/Modules/TwoFactor/TwoFactorModule.php:2440
+#: src/Modules/TwoFactor/TwoFactorModule.php:2254
 #: templates/admin/modules/activity-log.php:105
 #: templates/admin/modules/activity-log.php:138
 msgid "User"
@@ -14719,13 +14764,13 @@ msgstr ""
 msgid "User Manager settings saved."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:167
-#: src/Modules/TwoFactor/TwoFactorCli.php:214
-#: src/Modules/TwoFactor/TwoFactorCli.php:94
+#: src/Modules/TwoFactor/TwoFactorCli.php:168
+#: src/Modules/TwoFactor/TwoFactorCli.php:215
+#: src/Modules/TwoFactor/TwoFactorCli.php:95
 msgid "User not found."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:98
+#: src/Modules/TwoFactor/TwoFactorCli.php:99
 msgid "User: %s (#%d)"
 msgstr ""
 
@@ -14737,26 +14782,34 @@ msgstr ""
 msgid "Username or Email Address"
 msgstr ""
 
+#: src/Modules/Passkeys/PasskeysModule.php:255
+msgid "Usernameless sign-in with fingerprint or Face ID."
+msgstr ""
+
 #: src/Modules/RoleEditor/RoleEditorModule.php:414
 #: src/Modules/UserManager/UserManagerModule.php:402
 #: templates/admin/modules/role-editor.php:72
 msgid "Users"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2348
+#: src/Modules/Passkeys/PasskeysModule.php:1002
 msgid "Users can register a passkey on their profile and sign in with a fingerprint or Face ID."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2339
+#: src/Modules/TwoFactor/TwoFactorModule.php:2172
 msgid "Users enroll a 6-digit code from any authenticator app."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2371
+#: src/Modules/Passkeys/PasskeysModule.php:982
+msgid "Users enroll a passkey on their profile and sign in with it — on the login page without a username, or as the second factor on the two-factor challenge screen."
+msgstr ""
+
+#: src/Modules/TwoFactor/TwoFactorModule.php:2185
 msgid "Users in these roles must set up two-factor authentication before they can use the admin area."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2321
-msgid "Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below."
+#: src/Modules/TwoFactor/TwoFactorModule.php:2154
+msgid "Users verify a second factor after their password. Choose which methods are offered, which roles must use them, and how failed attempts are limited below. Passkeys are managed on the Passkeys module page."
 msgstr ""
 
 #: src/Modules/UserManager/UserManagerModule.php:377
@@ -14767,7 +14820,7 @@ msgstr ""
 msgid "Users with a custom avatar"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2372
+#: src/Modules/TwoFactor/TwoFactorModule.php:2186
 msgid "Users without any method are redirected to their profile page."
 msgstr ""
 
@@ -14805,7 +14858,7 @@ msgstr ""
 msgid "Variants"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1911
+#: src/Modules/TwoFactor/TwoFactorModule.php:1796
 msgid "Verify and log in"
 msgstr ""
 
@@ -14905,7 +14958,7 @@ msgstr ""
 msgid "Web server"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:578
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:589
 #: templates/admin/modules/image-optimizer.php:75
 msgid "WebP"
 msgstr ""
@@ -14995,7 +15048,7 @@ msgstr ""
 msgid "When off, the area shows whenever the provider and scope allow it."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:505
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:516
 msgid "When off, the link button disappears from the editor and any link in a submitted article is stripped on save, keeping only the link text."
 msgstr ""
 
@@ -15232,7 +15285,7 @@ msgstr ""
 msgid "Working…"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:239
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:250
 msgid "Works on its own when the member area is disabled."
 msgstr ""
 
@@ -15282,7 +15335,7 @@ msgid "Wraps WordPress notification emails."
 msgstr ""
 
 #: src/Modules/FrontendEditor/FrontendEditor.php:899
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:733
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:744
 msgid "Write"
 msgstr ""
 
@@ -15297,7 +15350,7 @@ msgstr ""
 msgid "Write New"
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:238
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:249
 msgid "Write section in the member dashboard."
 msgstr ""
 
@@ -15368,7 +15421,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorCli.php:131
+#: src/Modules/TwoFactor/TwoFactorCli.php:132
 #: templates/admin/modules/db-tools.php:82
 msgid "yes"
 msgstr ""
@@ -15380,10 +15433,11 @@ msgstr ""
 #: src/Admin/AdminMenu.php:810
 #: src/Modules/Bookmarks/BookmarksModule.php:213
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:272
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:476
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:487
 #: src/Modules/Login/LoginModule.php:267
 #: src/Modules/MemberArea/MemberAreaModule.php:636
 #: src/Modules/MemberProfile/MemberProfileModule.php:272
+#: src/Modules/Passkeys/PasskeysModule.php:973
 #: src/Modules/RoleAccess/RoleAccessModule.php:427
 msgid "You are not allowed to access this page."
 msgstr ""
@@ -15474,7 +15528,7 @@ msgstr ""
 msgid "You are not allowed to change Form Builder settings."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:617
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:628
 msgid "You are not allowed to change frontend editor settings."
 msgstr ""
 
@@ -15490,7 +15544,7 @@ msgstr ""
 msgid "You are not allowed to change installer settings."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1549
+#: src/Modules/Mailer/MailerModule.php:1482
 msgid "You are not allowed to change Mailer settings."
 msgstr ""
 
@@ -15640,8 +15694,11 @@ msgstr ""
 #: src/Modules/Integrations/IntegrationsModule.php:378
 #: src/Modules/Login/LoginModule.php:301
 #: src/Modules/Mailer/MailerAjax.php:98
-#: src/Modules/Mailer/MailerModule.php:1743
-#: src/Modules/Mailer/MailerModule.php:2325
+#: src/Modules/Mailer/MailerModule.php:1676
+#: src/Modules/Mailer/MailerModule.php:2258
+#: src/Modules/Passkeys/PasskeysAjax.php:270
+#: src/Modules/Passkeys/PasskeysAjax.php:313
+#: src/Modules/Passkeys/PasskeysAjax.php:368
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Push/PushAjax.php:84
 #: src/Modules/Recaptcha/RecaptchaModule.php:515
@@ -15655,15 +15712,12 @@ msgstr ""
 #: src/Modules/Seo/SeoModule.php:401
 #: src/Modules/Turnstile/TurnstileAjax.php:101
 #: src/Modules/Turnstile/TurnstileModule.php:961
-#: src/Modules/TwoFactor/TwoFactorAjax.php:259
-#: src/Modules/TwoFactor/TwoFactorAjax.php:302
-#: src/Modules/TwoFactor/TwoFactorAjax.php:351
-#: src/Modules/TwoFactor/TwoFactorAjax.php:373
-#: src/Modules/TwoFactor/TwoFactorAjax.php:412
-#: src/Modules/TwoFactor/TwoFactorAjax.php:455
-#: src/Modules/TwoFactor/TwoFactorAjax.php:510
-#: src/Modules/TwoFactor/TwoFactorAjax.php:535
-#: src/Modules/TwoFactor/TwoFactorAjax.php:555
+#: src/Modules/TwoFactor/TwoFactorAjax.php:176
+#: src/Modules/TwoFactor/TwoFactorAjax.php:219
+#: src/Modules/TwoFactor/TwoFactorAjax.php:268
+#: src/Modules/TwoFactor/TwoFactorAjax.php:290
+#: src/Modules/TwoFactor/TwoFactorAjax.php:324
+#: src/Modules/TwoFactor/TwoFactorAjax.php:344
 msgid "You are not allowed to do that."
 msgstr ""
 
@@ -15707,7 +15761,11 @@ msgstr ""
 msgid "You do not have access to the WordPress dashboard. Use this page to write and submit articles."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2490
+#: src/Modules/Passkeys/PasskeysModule.php:1054
+msgid "You do not have permission to change passkey settings."
+msgstr ""
+
+#: src/Modules/TwoFactor/TwoFactorModule.php:2304
 msgid "You do not have permission to change these settings."
 msgstr ""
 
@@ -15758,11 +15816,11 @@ msgstr ""
 msgid "Your browser cannot display the PDF inline."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1640
+#: src/Modules/Passkeys/PasskeysModule.php:733
 msgid "Your browser does not support passkeys. Please log in with your password."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:1919
+#: src/Modules/TwoFactor/TwoFactorModule.php:1804
 msgid "Your browser does not support passkeys. Please use your authenticator code."
 msgstr ""
 
@@ -15786,7 +15844,7 @@ msgstr ""
 msgid "Your note"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:649
+#: src/Modules/Mailer/MailerModule.php:654
 msgid "Your own mail server"
 msgstr ""
 
@@ -15818,15 +15876,15 @@ msgstr ""
 msgid "Your profile was saved."
 msgstr ""
 
-#: src/Modules/TwoFactor/TwoFactorModule.php:2044
+#: src/Modules/TwoFactor/TwoFactorModule.php:1929
 msgid "Your role requires two-factor authentication. Set it up below to keep using the admin area."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:584
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:595
 msgid "Your server does not support AVIF images."
 msgstr ""
 
-#: src/Modules/FrontendEditor/FrontendEditorModule.php:583
+#: src/Modules/FrontendEditor/FrontendEditorModule.php:594
 msgid "Your server supports AVIF images."
 msgstr ""
 
