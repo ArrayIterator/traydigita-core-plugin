@@ -324,10 +324,6 @@ msgstr ""
 msgid "1–100. 82 is a good balance between file size and visible quality."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:981
-msgid "26 transactional APIs plus 10 marketing APIs."
-msgstr ""
-
 #: src/Modules/Redirects/RedirectsModule.php:342
 msgid "301 — Permanent (moved for good)"
 msgstr ""
@@ -3188,10 +3184,6 @@ msgstr ""
 msgid "Create an API key in the Loops dashboard (Settings → API). Leave empty to keep the saved key."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/PepipostProvider.php:49
-msgid "Create an API key in the Netcore / Pepipost dashboard (Settings → API Keys). Leave empty to keep the saved key."
-msgstr ""
-
 #: src/Modules/Mailer/Providers/SendLayerProvider.php:49
 msgid "Create an API key in the SendLayer dashboard (Settings → API Keys). Leave empty to keep the saved key."
 msgstr ""
@@ -4426,10 +4418,6 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/OneSignalProvider.php:84
 msgid "Enter the OneSignal app ID and REST API key in the Mailer settings first."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/PepipostProvider.php:73
-msgid "Enter the Pepipost API key in the Mailer settings first."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/PlunkProvider.php:83
@@ -8773,14 +8761,6 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/Modules/Mailer/Providers/PepipostProvider.php:37
-msgid "Pepipost (Netcore) — free trial available (free-tier limits not verified — check Netcore pricing). Best for transactional mail on Netcore infrastructure with AI-based deliverability."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/PepipostProvider.php:47
-msgid "Pepipost API key"
-msgstr ""
-
 #: src/Modules/Markets/MarketsModule.php:1063
 msgid "Per-brand prices always stay manual snapshots — a spot price is never presented as a brand price. When the live provider returns nothing, the manual snapshot below is used instead."
 msgstr ""
@@ -9673,10 +9653,6 @@ msgstr ""
 
 #: src/Modules/TwoFactor/TwoFactorModule.php:2442
 msgid "Reason"
-msgstr ""
-
-#: src/Modules/Mailer/MailerModule.php:1011
-msgid "Rebuilt as the multi-provider Mailer: 26 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr ""
 
 #: src/Modules/Recaptcha/Verifier.php:116
@@ -10633,10 +10609,6 @@ msgstr ""
 msgid "Send to email"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:944
-msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 26 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Pepipost, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
-msgstr ""
-
 #: templates/admin/modules/email.php:149
 msgid "Sender email"
 msgstr ""
@@ -10794,10 +10766,6 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/OneSignalProvider.php:120
 msgid "Sent through OneSignal Email."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/PepipostProvider.php:106
-msgid "Sent through Pepipost."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/PlunkProvider.php:101
@@ -15648,4 +15616,16 @@ msgstr ""
 #: src/Modules/PostSeries/PostSeriesModule.php:383
 msgctxt "taxonomy singular name"
 msgid "Series"
+msgstr ""
+
+#: src/Modules/Mailer/MailerModule.php:941
+msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
+msgstr ""
+
+#: src/Modules/Mailer/MailerModule.php:978
+msgid "25 transactional APIs plus 10 marketing APIs."
+msgstr ""
+
+#: src/Modules/Mailer/MailerModule.php:1008
+msgid "Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
 msgstr ""

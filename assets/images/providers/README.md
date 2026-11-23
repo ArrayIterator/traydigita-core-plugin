@@ -1,10 +1,9 @@
 # Mailer provider logos
 
 Flat SVG marks used by the Mailer provider and SMTP preset picker
-popups. 66 files. 63 are real brand marks; 3 are not: 2 intentional
+popups. 65 files. 63 are real brand marks; 2 are not: the 2 intentional
 generic envelope fallbacks (`email-smtp.svg`, `email-sendmail.svg`,
-see "Generic envelope fallbacks" below) and 1 kept two-initial
-lettermark (`email-pepipost.svg`, see "Kept lettermark" below). No
+see "Generic envelope fallbacks" below). No
 external fetches: every mark is vendored in this directory and
 rendered with plain `<img>` tags.
 
@@ -22,13 +21,13 @@ fallbacks are kept deliberately.
 Every file was verified by rendering at 32px (the picker list-row
 size) and at 96px on light and dark backgrounds. Every file parses
 as valid XML, is under 100 KB, keeps its original filename, and
-contains no `<text>` element except the one kept lettermark.
+contains no `<text>` element.
 
 ## Allowlist coverage
 
 `MailerModule::PROVIDER_LOGOS` (38 entries) and `::PRESET_LOGOS`
-(30 entries) share 66 distinct stems (`smtp`, `gmail` in both lists).
-All 66 stems have a file here, and every file here is referenced by
+(30 entries) share 65 distinct stems (`smtp`, `gmail` in both lists).
+All 65 stems have a file here, and every file here is referenced by
 one of the two maps: 0 missing, 0 unreferenced. Verified 2026-11-23
 by script against `src/Modules/Mailer/MailerModule.php`.
 
@@ -331,17 +330,6 @@ generic fallbacks as real marks.)
   brand to depict. `providerLogoUrl()` / `presetLogoUrl()` also
   fall back to `email-smtp.svg` for unknown ids (see "Wiring"
   below).
-
-## Kept lettermark
-
-- `email-pepipost.svg` (330 B) — two-initial lettermark, unchanged.
-  Pepipost merged with parent company Netcore's transactional
-  email arm (announced Feb 2018) and was rebranded as Netcore
-  Email API (publicised 2020; netcorecloud.com/email-api/ now
-  301s to netcore.ai/email-api/, verified 2026-11-23); no Pepipost
-  mark is published anymore, and using Netcore's "N" would
-  mislabel the provider id `pepipost`. Keeping the lettermark is
-  honest until the provider id itself is renamed or retired.
 
 ## Notes
 

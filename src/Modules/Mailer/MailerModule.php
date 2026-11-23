@@ -28,7 +28,6 @@ use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\MandrillProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\MoosendProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\OmnisendProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\OneSignalProvider;
-use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\PepipostProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\PlunkProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\PostmarkProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\ResendProvider;
@@ -273,7 +272,6 @@ final class MailerModule implements ModuleInterface
         'mandrill' => MandrillProvider::class,
         'sendlayer' => SendLayerProvider::class,
         'socketlabs' => SocketLabsProvider::class,
-        'pepipost' => PepipostProvider::class,
         'courier' => CourierProvider::class,
         'smtpcom' => SmtpComProvider::class,
         'unisender' => UnisenderProvider::class,
@@ -293,7 +291,7 @@ final class MailerModule implements ModuleInterface
 
     /**
      * Allowed SMTP presets: the mailbox providers from the
-     * final provider catalog (38 providers in the dropdown,
+     * final provider catalog (37 providers in the dropdown,
      * 30 SMTP presets inside the SMTP provider).
      *
      * @var array<int, string>
@@ -458,7 +456,6 @@ final class MailerModule implements ModuleInterface
         'mandrill' => 'email-mandrill',
         'sendlayer' => 'email-sendlayer',
         'socketlabs' => 'email-socketlabs',
-        'pepipost' => 'email-pepipost',
         'courier' => 'email-courier',
         'smtpcom' => 'email-smtp-com',
         'unisender' => 'email-unisender',
@@ -941,7 +938,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 26 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Pepipost, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
@@ -978,7 +975,7 @@ final class MailerModule implements ModuleInterface
         return [
             __('SMTP with 30 one-click presets for major mailbox providers.', 'traydigita-core'),
             __('Local PHP mail for development.', 'traydigita-core'),
-            __('26 transactional APIs plus 10 marketing APIs.', 'traydigita-core'),
+            __('25 transactional APIs plus 10 marketing APIs.', 'traydigita-core'),
             __('Gmail OAuth sign-in.', 'traydigita-core'),
             __('Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer.', 'traydigita-core'),
             __('Test email tool and a send log of the last 50 sends.', 'traydigita-core'),
@@ -1008,7 +1005,7 @@ final class MailerModule implements ModuleInterface
             [
                 'version' => '2.0.0',
                 'changes' => [
-                    __('Rebuilt as the multi-provider Mailer: 26 transactional APIs, 10 marketing '
+                    __('Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing '
                         . 'APIs, Gmail OAuth, and local PHP mail.', 'traydigita-core'),
                     __('Deliverability headers, test email tool, and send log added.', 'traydigita-core'),
                     __('Settings migrated from the old traydigita_smtp option; the old '

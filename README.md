@@ -2,7 +2,7 @@
 
 ![TrayDigita Core](assets/brand/traydigita-core-logo.gif)
 
-> **Where Modules Connect.** The engine behind the TrayDigita theme: 49 admin modules, a 38-provider mailer with 30 one-click SMTP presets, forms, push notifications, and the vendored Stack libraries — in one self-contained WordPress plugin. The theme keeps presentation only (templates, styles, layouts) and depends on Core for everything else.
+> **Where Modules Connect.** The engine behind the TrayDigita theme: 49 admin modules, a 37-provider mailer with 30 one-click SMTP presets, forms, push notifications, and the vendored Stack libraries — in one self-contained WordPress plugin. The theme keeps presentation only (templates, styles, layouts) and depends on Core for everything else.
 
 ![Banner](assets/brand/banner-1544x500.png)
 
@@ -41,7 +41,7 @@ The release zip is self-contained: it ships `vendor/` (the Composer autoloader p
 | --- | --- | --- |
 | Contact Form | `contact-form` | Forms via the Form Builder; submissions stored, never lost (see below). Default off. |
 | Email (Newsletter) | `email` | Subscribers, double opt-in, templates, sends via the Core Mailer. |
-| Mailer | `smtp` | 38 providers + 30 SMTP presets, deliverability headers, send log (see below). |
+| Mailer | `smtp` | 37 providers + 30 SMTP presets, deliverability headers, send log (see below). |
 
 ### Content
 
@@ -120,17 +120,17 @@ The release zip is self-contained: it ships `vendor/` (the Composer autoloader p
 
 Four theme modules were deliberately **not** ported — they are presentation, not engine: Customizer, Styles, Theme Support, and Widgets (widget areas). They stay in the theme.
 
-## Mailer — 38 providers and 30 SMTP presets, all built in
+## Mailer — 37 providers and 30 SMTP presets, all built in
 
 The Mailer is the single sending path for the whole plugin: WordPress notification mail, the Newsletter module, and the Contact Form all send through it, and every send is recorded in the send log. No third-party plugin is required for any provider; the provider hook stays available for plugins that want to add their own (see [HOOKS.md](HOOKS.md)).
 
-Counting: the provider dropdown lists **38 providers** — SMTP, Local / PHP mail, Gmail (OAuth), SendGrid, and 34 API providers (`API_PROVIDER_CLASSES`). The SMTP provider itself offers **30 one-click presets**, so the Mailer presents **68 selectable choices in total (38 + 30)**. An earlier draft said "66 providers"; that figure added the 30 presets to the 34 API providers plus SendGrid and Local (30 + 34 + 1 + 1 = 66) while leaving Gmail out — presets are choices inside one provider, not providers.
+Counting: the provider dropdown lists **37 providers** — SMTP, Local / PHP mail, Gmail (OAuth), SendGrid, and 33 API providers (`API_PROVIDER_CLASSES`). The SMTP provider itself offers **30 one-click presets**, so the Mailer presents **67 selectable choices in total (37 + 30)**. An earlier draft said "66 providers"; that figure added the 30 presets to the 33 API providers plus SendGrid and Local (30 + 33 + 1 + 1 = 65) while leaving Gmail out — presets are choices inside one provider, not providers.
 
 ### SMTP presets (30)
 
 Custom, Gmail, Yahoo, Outlook / Microsoft 365, Zoho Mail, Zoho Mail EU, Proton Mail (via Proton Bridge), Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap Private Email, DreamHost, MXroute. Each preset ships with the correct host, port, and encryption plus a one-line description (including app-password / authorisation-code notes where the provider requires one).
 
-### Transactional APIs (25)
+### Transactional APIs (24)
 
 | Provider | Free tier |
 | --- | --- |
@@ -153,7 +153,6 @@ Custom, Gmail, Yahoo, Outlook / Microsoft 365, Zoho Mail, Zoho Mail EU, Proton M
 | Mailchimp Transactional (Mandrill) | Paid, no free tier |
 | SendLayer | Trial only (~200), no free plan |
 | SocketLabs | No free plan (1st month free: 40,000, then $39.95/month) |
-| Pepipost / Netcore | Trial (free tier not verified) |
 | Courier | Free tier exists, amount not verified |
 | SMTP.com | Paid from $25 per 50,000 |
 | Unisender | Free plan exists, limits not verified |
