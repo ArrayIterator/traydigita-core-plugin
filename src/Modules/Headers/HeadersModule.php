@@ -5,6 +5,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Headers;
 
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
+use TrayDigita\WP\Plugin\Core\Modules\SecurityHeaders\SecurityHeaderSet;
 use TrayDigita\WP\Plugin\Core\Modules\SecurityHeaders\SecurityHeadersModule;
 use function __;
 use function absint;
@@ -23,8 +24,6 @@ use function esc_html__;
 use function file_exists;
 use function get_editable_roles;
 use function get_option;
-use function header;
-use function headers_sent;
 use function home_url;
 use function in_array;
 use function is_admin;
@@ -35,12 +34,9 @@ use function is_user_logged_in;
 use function mb_strlen;
 use function mb_substr;
 use function parse_url;
-use function preg_match;
 use function sanitize_key;
 use function sanitize_text_field;
-use function sprintf;
 use function str_starts_with;
-use function strip_tags;
 use function trim;
 use function update_option;
 use function wp_get_current_user;
@@ -50,23 +46,22 @@ use function wp_unslash;
 /**
  * Custom Headers module.
  *
- * Lets the site owner enable the recommended security headers and
- * apply them from PHP on the `send_headers` action, with advanced
- * rules (per-path exceptions, logged-in bypass, per-role
- * exceptions), a header checker for the site's own URL, and
- * copy-paste .htaccess / Nginx snippets for moving the headers to
- * the server level.
+ * The audit tool for HTTP security headers: per-path exceptions,
+ * logged-in / per-role bypass, a header checker for the site's
+ * own URL, and copy-paste .htaccess / Nginx snippets for moving
+ * the headers to the server level. It also owns the one header
+ * the Security Headers module never sends,
+ * Strict-Transport-Security.
  *
- * Precedence with the Security Headers module: that module already
- * sends X-Content-Type-Options, X-Frame-Options, Referrer-Policy,
- * Permissions-Policy, and a report-only CSP. When it is enabled,
- * this module DEFERS to it for every overlapping header — it sends
- * none of them itself — so the same header is never sent twice.
- * This module still owns Strict-Transport-Security, which the
- * Security Headers module never sends. When the Security Headers
- * module is disabled, this module may send the overlapping headers
- * itself. The settings page lists exactly which headers are
- * deferred and why.
+ * This module never sends a header itself. Sending is owned by
+ * the Security Headers module: SecurityHeadersModule::sendHeaders()
+ * is the only `send_headers` callback in the plugin, and it
+ * emits this module's headers (from this module's settings, with
+ * this module's advanced rules applied) whenever this module is
+ * enabled. When the Security Headers module is enabled it sends
+ * the overlapping headers itself and this module defers to it,
+ * so the same header is never sent twice. The settings page
+ * lists exactly which headers are deferred and why.
  *
  * HSTS is only ever sent when the site runs over HTTPS: sending
  * it over plain HTTP is meaningless and browsers ignore it. The
@@ -92,8 +87,11 @@ final class HeadersModule implements ModuleInterface
     /**
      * Fixed Permissions-Policy value: no camera, microphone, or
      * geolocation for the page or any embedded frame.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const string PERMISSIONS_POLICY_VALUE = 'camera=(), microphone=(), geolocation=()';
+    public const string PERMISSIONS_POLICY_VALUE = SecurityHeaderSet::PERMISSIONS_POLICY_VALUE;
 
     /**
      * Strict-Transport-Security value: HTTPS only, one year,
@@ -109,13 +107,19 @@ final class HeadersModule implements ModuleInterface
      * Same conservative default as the Security Headers module:
      * everything from the site itself, except Google Fonts and the
      * Open-Meteo / CoinGecko hosts the theme widgets talk to.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const string DEFAULT_CSP_POLICY = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://api.open-meteo.com https://geocoding-api.open-meteo.com; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com https://api.coingecko.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'";
+    public const string DEFAULT_CSP_POLICY = SecurityHeaderSet::DEFAULT_CSP_POLICY;
 
     /**
      * Maximum Content-Security-Policy length in characters.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const int MAX_POLICY_LENGTH = 2000;
+    public const int MAX_POLICY_LENGTH = SecurityHeaderSet::MAX_POLICY_LENGTH;
 
     /**
      * Header-check timeout bounds in seconds.
@@ -138,14 +142,12 @@ final class HeadersModule implements ModuleInterface
      * Allowlisted Referrer-Policy values. An empty string means
      * the header is disabled.
      *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
+     *
      * @var array<int, string>
      */
-    public const array REFERRER_POLICIES = [
-        'no-referrer',
-        'same-origin',
-        'strict-origin',
-        'strict-origin-when-cross-origin',
-    ];
+    public const array REFERRER_POLICIES = SecurityHeaderSet::REFERRER_POLICIES;
 
     /**
      * Setting keys that are simple on/off toggles.
@@ -391,32 +393,12 @@ final class HeadersModule implements ModuleInterface
         }
         $incoming = self::unslashArray($data);
 
-        if (!empty($incoming['csp_report_only'])) {
-            $rawPolicy = isset($incoming['csp_policy']) && is_string($incoming['csp_policy'])
-                ? trim($incoming['csp_policy'])
-                : '';
-            if ($rawPolicy === '') {
-                return [
-                    'success' => false,
-                    'message' => __('Enter a Content-Security-Policy before enabling report-only mode.', 'traydigita-core'),
-                ];
-            }
-            if (mb_strlen($rawPolicy) > self::MAX_POLICY_LENGTH) {
-                return [
-                    'success' => false,
-                    'message' => sprintf(
-                        /* translators: %d is the maximum policy length in characters. */
-                        __('The policy must be at most %d characters.', 'traydigita-core'),
-                        self::MAX_POLICY_LENGTH
-                    ),
-                ];
-            }
-            if (preg_match('/[\x00-\x1F\x7F]/', $rawPolicy) === 1) {
-                return [
-                    'success' => false,
-                    'message' => __('The policy must not contain line breaks or control characters.', 'traydigita-core'),
-                ];
-            }
+        $cspError = SecurityHeaderSet::validateCspForSave($incoming);
+        if ($cspError !== null) {
+            return [
+                'success' => false,
+                'message' => $cspError,
+            ];
         }
 
         $stored = self::getSettings();
@@ -429,10 +411,17 @@ final class HeadersModule implements ModuleInterface
     }
 
     /**
-     * Register the header hook and the checker AJAX actions.
+     * Register the checker AJAX actions and, when the Security
+     * Headers module is disabled, the canonical header sender.
      *
-     * Called only when the module is enabled. Headers are sent on
-     * frontend responses only — skipped in wp-admin, during AJAX
+     * Called only when the module is enabled. This module never
+     * sends a header itself: SecurityHeadersModule::sendHeaders()
+     * is the only `send_headers` callback. When the Security
+     * Headers module is enabled its boot() already registers
+     * that callback, so this boot registers it only as the
+     * fallback that keeps this module's headers going out while
+     * Security Headers is disabled. Headers are sent on frontend
+     * responses only — skipped in wp-admin, during AJAX
      * requests, for REST requests, and on wp-login.php.
      *
      * @return void
@@ -446,29 +435,8 @@ final class HeadersModule implements ModuleInterface
         if (is_admin() || self::isAjaxRequest() || self::isRestRequest() || self::isLoginPage()) {
             return;
         }
-        add_action('send_headers', [self::class, 'sendHeaders'], 10);
-    }
-
-    /**
-     * Emit the effective headers on `send_headers`.
-     *
-     * Only the headers this module owns after precedence are
-     * sent (see getEffectiveHeaders()). Advanced rules can skip
-     * the whole set for a request (see shouldSkipRequest()).
-     * header() replaces any same-name header already set by PHP,
-     * so the module never duplicates its own headers. Server-level
-     * headers are applied after PHP and may still duplicate or
-     * override these — configure each header in exactly one place.
-     *
-     * @return void
-     */
-    public static function sendHeaders(): void
-    {
-        if (headers_sent() || self::shouldSkipRequest()) {
-            return;
-        }
-        foreach (self::getEffectiveHeaders() as $name => $value) {
-            header($name . ': ' . $value);
+        if (!self::isSecurityHeadersActive()) {
+            add_action('send_headers', [SecurityHeadersModule::class, 'sendHeaders'], 10);
         }
     }
 
@@ -515,46 +483,30 @@ final class HeadersModule implements ModuleInterface
     /**
      * Headers this module wants to send, before precedence.
      *
-     * Only enabled headers are included. HSTS is included only
-     * when its toggle is on AND the site runs over HTTPS; the
-     * report-only CSP only when its toggle is on and the policy
-     * is non-empty. An enforcing `Content-Security-Policy` header
-     * is never returned.
+     * The shared headers come from the canonical
+     * SecurityHeaderSet builder; Strict-Transport-Security is
+     * added here because only this module owns it. HSTS is
+     * included only when its toggle is on AND the site runs over
+     * HTTPS; the report-only CSP only when its toggle is on and
+     * the policy is non-empty. An enforcing
+     * `Content-Security-Policy` header is never returned.
+     * Sending itself is owned by SecurityHeadersModule.
      *
      * @return array<string, string>
      */
     public static function getHeaders(): array
     {
         $settings = self::getSettings();
-        $headers = [];
-        if (!empty($settings['x_content_type_options'])) {
-            $headers['X-Content-Type-Options'] = 'nosniff';
-        }
-        if (!empty($settings['x_frame_options'])) {
-            $headers['X-Frame-Options'] = 'SAMEORIGIN';
-        }
-        if (isset($settings['referrer_policy']) && is_string($settings['referrer_policy'])
-            && $settings['referrer_policy'] !== ''
-        ) {
-            $headers['Referrer-Policy'] = $settings['referrer_policy'];
-        }
-        if (!empty($settings['permissions_policy'])) {
-            $headers['Permissions-Policy'] = self::PERMISSIONS_POLICY_VALUE;
-        }
+        $headers = SecurityHeaderSet::build($settings);
         if (!empty($settings['hsts']) && is_ssl()) {
             $headers['Strict-Transport-Security'] = self::HSTS_VALUE;
-        }
-        if (!empty($settings['csp_report_only'])
-            && isset($settings['csp_policy']) && is_string($settings['csp_policy'])
-            && $settings['csp_policy'] !== ''
-        ) {
-            $headers['Content-Security-Policy-Report-Only'] = $settings['csp_policy'];
         }
         return $headers;
     }
 
     /**
-     * Headers this module actually sends, after precedence.
+     * Headers the canonical sender emits for this module,
+     * after precedence.
      *
      * Every header the Security Headers module is currently
      * sending is removed, so the same header is never sent twice.
@@ -677,10 +629,7 @@ final class HeadersModule implements ModuleInterface
         if (!array_key_exists('referrer_policy', $data)) {
             $clean['referrer_policy'] = $defaults['referrer_policy'];
         } else {
-            $value = is_string($data['referrer_policy'])
-                ? trim($data['referrer_policy'])
-                : '';
-            $clean['referrer_policy'] = in_array($value, self::REFERRER_POLICIES, true) ? $value : '';
+            $clean['referrer_policy'] = SecurityHeaderSet::sanitizeReferrerPolicy($data['referrer_policy']);
         }
 
         if (!empty($clean['hsts']) && !is_ssl()) {
@@ -688,7 +637,7 @@ final class HeadersModule implements ModuleInterface
         }
 
         $policy = isset($data['csp_policy']) && is_string($data['csp_policy'])
-            ? self::cleanCspPolicy($data['csp_policy'])
+            ? SecurityHeaderSet::cleanCspPolicy($data['csp_policy'])
             : '';
         $clean['csp_policy'] = $policy !== '' ? $policy : self::DEFAULT_CSP_POLICY;
 
@@ -774,29 +723,6 @@ final class HeadersModule implements ModuleInterface
             }
         }
         return array_values(array_unique($clean));
-    }
-
-    /**
-     * Clean a CSP string defensively for storage.
-     *
-     * Tags are stripped, control characters are replaced with a
-     * space, runs of whitespace are collapsed, and the result is
-     * capped at 2000 characters. This is the read-path safety net;
-     * the save path rejects invalid policies outright instead.
-     *
-     * @param string $policy Raw policy string.
-     * @return string
-     */
-    private static function cleanCspPolicy(string $policy): string
-    {
-        $policy = strip_tags($policy);
-        $policy = (string) preg_replace('/[\x00-\x1F\x7F]+/', ' ', $policy);
-        $policy = (string) preg_replace('/\s+/', ' ', $policy);
-        $policy = trim($policy);
-        if (mb_strlen($policy) > self::MAX_POLICY_LENGTH) {
-            $policy = mb_substr($policy, 0, self::MAX_POLICY_LENGTH);
-        }
-        return $policy;
     }
 
     /**

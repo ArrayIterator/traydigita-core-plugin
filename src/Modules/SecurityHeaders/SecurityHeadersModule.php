@@ -3,27 +3,22 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\SecurityHeaders;
 
+use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
+use TrayDigita\WP\Plugin\Core\Modules\Headers\HeadersModule;
 use function __;
 use function add_action;
 use function array_key_exists;
 use function array_merge;
+use function class_exists;
 use function current_user_can;
 use function esc_html__;
 use function file_exists;
 use function get_option;
 use function header;
 use function headers_sent;
-use function in_array;
 use function is_admin;
 use function is_array;
 use function is_string;
-use function mb_strlen;
-use function mb_substr;
-use function preg_match;
-use function preg_replace;
-use function sprintf;
-use function strip_tags;
-use function trim;
 use function update_option;
 use function wp_doing_ajax;
 use function wp_unslash;
@@ -64,6 +59,17 @@ use function wp_unslash;
  * responses only. They are skipped in wp-admin, during AJAX
  * requests, for REST requests, and on wp-login.php.
  *
+ * This module owns sending: sendHeaders() is the only
+ * `send_headers` callback in the plugin. It emits this module's
+ * own headers plus, when the Custom Headers module is enabled,
+ * that module's headers too (its Strict-Transport-Security and
+ * any overlapping header it owns while this module is disabled)
+ * — the overlapping values are never sent twice, this module's
+ * value wins, and the Custom Headers advanced rules (path
+ * exceptions, logged-in / role bypass) still apply to its own
+ * headers only. The shared values and builders live in
+ * SecurityHeaderSet; the Custom Headers module never sends.
+ *
  * isConfigured() returns true once the settings option exists and
  * at least one header is enabled.
  */
@@ -76,14 +82,20 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
 
     /**
      * Maximum Content-Security-Policy length in characters.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const int MAX_POLICY_LENGTH = 2000;
+    public const int MAX_POLICY_LENGTH = SecurityHeaderSet::MAX_POLICY_LENGTH;
 
     /**
      * Fixed Permissions-Policy value: no camera, microphone, or
      * geolocation for the page or any embedded frame.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const string PERMISSIONS_POLICY_VALUE = 'camera=(), microphone=(), geolocation=()';
+    public const string PERMISSIONS_POLICY_VALUE = SecurityHeaderSet::PERMISSIONS_POLICY_VALUE;
 
     /**
      * Default report-only policy.
@@ -92,21 +104,22 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
      * except Google Fonts (stylesheets + font files) and the
      * Open-Meteo / CoinGecko hosts the theme's weather and market
      * widgets talk to. Frames may only embed the site itself.
+     *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
      */
-    public const string DEFAULT_CSP_POLICY = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://api.open-meteo.com https://geocoding-api.open-meteo.com; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com https://api.coingecko.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'";
+    public const string DEFAULT_CSP_POLICY = SecurityHeaderSet::DEFAULT_CSP_POLICY;
 
     /**
      * Allowlisted Referrer-Policy values. An empty string means
      * the header is disabled.
      *
+     * Canonical value lives in SecurityHeaderSet; this is a
+     * compatibility alias.
+     *
      * @var array<int, string>
      */
-    public const array REFERRER_POLICIES = [
-        'no-referrer',
-        'same-origin',
-        'strict-origin',
-        'strict-origin-when-cross-origin',
-    ];
+    public const array REFERRER_POLICIES = SecurityHeaderSet::REFERRER_POLICIES;
 
     /**
      * Setting keys that are simple on/off toggles.
@@ -345,32 +358,12 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
         }
         $incoming = self::unslashArray($data);
 
-        if (!empty($incoming['csp_report_only'])) {
-            $rawPolicy = isset($incoming['csp_policy']) && is_string($incoming['csp_policy'])
-                ? trim($incoming['csp_policy'])
-                : '';
-            if ($rawPolicy === '') {
-                return [
-                    'success' => false,
-                    'message' => __('Enter a Content-Security-Policy before enabling report-only mode.', 'traydigita-core'),
-                ];
-            }
-            if (mb_strlen($rawPolicy) > self::MAX_POLICY_LENGTH) {
-                return [
-                    'success' => false,
-                    'message' => sprintf(
-                        /* translators: %d is the maximum policy length in characters. */
-                        __('The policy must be at most %d characters.', 'traydigita-core'),
-                        self::MAX_POLICY_LENGTH
-                    ),
-                ];
-            }
-            if (preg_match('/[\x00-\x1F\x7F]/', $rawPolicy) === 1) {
-                return [
-                    'success' => false,
-                    'message' => __('The policy must not contain line breaks or control characters.', 'traydigita-core'),
-                ];
-            }
+        $cspError = SecurityHeaderSet::validateCspForSave($incoming);
+        if ($cspError !== null) {
+            return [
+                'success' => false,
+                'message' => $cspError,
+            ];
         }
 
         $stored = self::getSettings();
@@ -386,7 +379,11 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
      * Register the header hook. Called only when enabled.
      *
      * Headers are skipped in wp-admin, during AJAX requests, for
-     * REST requests, and on wp-login.php.
+     * REST requests, and on wp-login.php. This is the only place
+     * the canonical sender is registered while this module is
+     * enabled; when it is disabled, the Custom Headers module
+     * registers the same callback instead so its own headers
+     * still go out (see HeadersModule::boot()).
      *
      * @return void
      */
@@ -401,6 +398,17 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
     /**
      * Emit the enabled headers on `send_headers`.
      *
+     * The canonical sender for the whole plugin: this module's
+     * own headers, plus the Custom Headers module's headers when
+     * that module is enabled. Each module's set is read only
+     * when that module is enabled, so disabling one module never
+     * silences or resurrects the other's headers. For an
+     * overlapping header this module's value wins (the Custom
+     * Headers value is skipped), so no header is ever sent
+     * twice. The Custom Headers advanced rules still apply to
+     * its own headers only — they never suppress this module's
+     * headers.
+     *
      * header() replaces any same-name header already set by PHP,
      * so the module never duplicates its own headers. Server-level
      * headers are applied after PHP and may still duplicate or
@@ -413,7 +421,19 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
         if (headers_sent()) {
             return;
         }
-        foreach (self::getHeaders() as $name => $value) {
+        $headers = [];
+        if (ModuleRegistry::isEnabled(self::id())) {
+            $headers = self::getHeaders();
+        }
+        if (class_exists(HeadersModule::class) && ModuleRegistry::isEnabled(HeadersModule::id())) {
+            $customHeaders = HeadersModule::shouldSkipRequest() ? [] : HeadersModule::getHeaders();
+            foreach ($customHeaders as $name => $value) {
+                if (!array_key_exists($name, $headers)) {
+                    $headers[$name] = $value;
+                }
+            }
+        }
+        foreach ($headers as $name => $value) {
             header($name . ': ' . $value);
         }
     }
@@ -456,35 +476,15 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
      * Only enabled headers are included, and the report-only CSP
      * is included only when its toggle is on and the policy is
      * non-empty. An enforcing `Content-Security-Policy` header is
-     * never returned.
+     * never returned. Built by the canonical SecurityHeaderSet;
+     * this is this module's own set only, not the union sent on
+     * the frontend (see sendHeaders()).
      *
      * @return array<string, string>
      */
     public static function getHeaders(): array
     {
-        $settings = self::getSettings();
-        $headers = [];
-        if (!empty($settings['x_content_type_options'])) {
-            $headers['X-Content-Type-Options'] = 'nosniff';
-        }
-        if (!empty($settings['x_frame_options'])) {
-            $headers['X-Frame-Options'] = 'SAMEORIGIN';
-        }
-        if (isset($settings['referrer_policy']) && is_string($settings['referrer_policy'])
-            && $settings['referrer_policy'] !== ''
-        ) {
-            $headers['Referrer-Policy'] = $settings['referrer_policy'];
-        }
-        if (!empty($settings['permissions_policy'])) {
-            $headers['Permissions-Policy'] = self::PERMISSIONS_POLICY_VALUE;
-        }
-        if (!empty($settings['csp_report_only'])
-            && isset($settings['csp_policy']) && is_string($settings['csp_policy'])
-            && $settings['csp_policy'] !== ''
-        ) {
-            $headers['Content-Security-Policy-Report-Only'] = $settings['csp_policy'];
-        }
-        return $headers;
+        return SecurityHeaderSet::build(self::getSettings());
     }
 
     /**
@@ -518,41 +518,15 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
         if (!array_key_exists('referrer_policy', $data)) {
             $clean['referrer_policy'] = self::defaults()['referrer_policy'];
         } else {
-            $value = is_string($data['referrer_policy'])
-                ? trim($data['referrer_policy'])
-                : '';
-            $clean['referrer_policy'] = in_array($value, self::REFERRER_POLICIES, true) ? $value : '';
+            $clean['referrer_policy'] = SecurityHeaderSet::sanitizeReferrerPolicy($data['referrer_policy']);
         }
 
         $policy = isset($data['csp_policy']) && is_string($data['csp_policy'])
-            ? self::cleanCspPolicy($data['csp_policy'])
+            ? SecurityHeaderSet::cleanCspPolicy($data['csp_policy'])
             : '';
         $clean['csp_policy'] = $policy !== '' ? $policy : self::DEFAULT_CSP_POLICY;
 
         return $clean;
-    }
-
-    /**
-     * Clean a CSP string defensively for storage.
-     *
-     * Tags are stripped, control characters are replaced with a
-     * space, runs of whitespace are collapsed, and the result is
-     * capped at 2000 characters. This is the read-path safety net;
-     * the save path rejects invalid policies outright instead.
-     *
-     * @param string $policy Raw policy string.
-     * @return string
-     */
-    private static function cleanCspPolicy(string $policy): string
-    {
-        $policy = strip_tags($policy);
-        $policy = (string) preg_replace('/[\x00-\x1F\x7F]+/', ' ', $policy);
-        $policy = (string) preg_replace('/\s+/', ' ', $policy);
-        $policy = trim($policy);
-        if (mb_strlen($policy) > self::MAX_POLICY_LENGTH) {
-            $policy = mb_substr($policy, 0, self::MAX_POLICY_LENGTH);
-        }
-        return $policy;
     }
 
     /**
