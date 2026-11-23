@@ -15,6 +15,8 @@ use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\ConstantContactProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\CourierProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\ElasticEmailProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\GetResponseProvider;
+use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\GmailOAuth;
+use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\GmailProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\HubSpotProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\KlaviyoProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\LoopsProvider;
@@ -32,6 +34,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\PlunkProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\PostmarkProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\ResendProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\SenderProvider;
+use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\SendGridProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\SendLayerProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\SendPulseProvider;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers\SesProvider;
@@ -170,7 +173,7 @@ use function wp_verify_nonce;
  * always render secret fields empty; a stored secret is only
  * overwritten when a non-empty value is submitted. The Gmail
  * OAuth tokens live in their own option
- * (`traydigita_mailer_gmail`, see GmailOAuth) and are redacted
+ * (`traydigita_mailer_gmail`, see Providers\GmailOAuth) and are redacted
  * from every error message by redact().
  *
  * The send log (last 50 sends: time, recipient, subject,
@@ -224,7 +227,7 @@ final class MailerModule implements ModuleInterface
      *
      * Shape: `['access_token' => string, 'refresh_token' =>
      * string, 'expires_at' => int, 'email' => string]`. Owned by
-     * GmailOAuth; this class only reads it through that class.
+     * Providers\GmailOAuth; this class only reads it through that class.
      */
     public const string GMAIL_TOKENS_OPTION = 'traydigita_mailer_gmail';
 
@@ -244,16 +247,19 @@ final class MailerModule implements ModuleInterface
     /**
      * Built-in API provider classes, keyed by provider id.
      *
-     * `smtp` and `gmail` are handled separately (SMTP goes
-     * through PHPMailer, Gmail through GmailOAuth); SendGrid
-     * keeps its existing sender class. The hookable registry
-     * (see providerDefinitions()) merges these with any
-     * third-party providers registered through the
-     * `traydigita:core:mailer/providers` filter.
+     * `smtp` goes through PHPMailer and `local` through the
+     * wp_mail default transport, so neither is listed here;
+     * every other built-in provider — SendGrid and Gmail
+     * included — is a class in this list, in dropdown order.
+     * The hookable registry (see providerDefinitions())
+     * merges these with any third-party providers registered
+     * through the `traydigita:core:mailer/providers` filter.
      *
      * @var array<string, class-string<AbstractApiProvider>>
      */
     public const array API_PROVIDER_CLASSES = [
+        'sendgrid' => SendGridProvider::class,
+        'gmail' => GmailProvider::class,
         'sender' => SenderProvider::class,
         'sendpulse' => SendPulseProvider::class,
         'brevo' => BrevoProvider::class,
@@ -610,10 +616,9 @@ final class MailerModule implements ModuleInterface
      * All provider definitions: built-ins plus third-party extras.
      *
      * Built-ins: `smtp` (WordPress core PHPMailer), `local`
-     * (the wp_mail default transport, no credentials),
-     * `gmail` (OAuth, GmailOAuth), `sendgrid`
-     * (SendGridSender), and every class in
-     * API_PROVIDER_CLASSES. Each definition
+     * (the wp_mail default transport, no credentials), and
+     * every class in API_PROVIDER_CLASSES (SendGrid and Gmail
+     * included). Each definition
      * carries: `id`, `label`, `description` (free tier + best
      * for), `free_tier`, `best_for`, `link` (empty in v1.0.0 —
      * a slot reserved for a future affiliate link, never an
@@ -664,69 +669,14 @@ final class MailerModule implements ModuleInterface
                 'fields' => [],
                 'type' => 'local',
             ],
-            'sendgrid' => [
-                'id' => 'sendgrid',
-                'label' => 'SendGrid',
-                'description' => __(
-                    'SendGrid — 60-day free trial (100/day), then paid. Best for teams already on Twilio with high-volume transactional and marketing mail.',
-                    'traydigita-core'
-                ),
-                'free_tier' => '60-day trial',
-                'best_for' => 'Teams already on Twilio, high volume',
-                'link' => '',
-                'fields' => [
-                    [
-                        'key' => 'sendgrid_api_key',
-                        'label' => __('SendGrid API key', 'traydigita-core'),
-                        'type' => 'password',
-                        'hint' => __(
-                            'Create a key with Mail Send permission in the SendGrid dashboard. Leave empty to keep the saved key. The key is never shown.',
-                            'traydigita-core'
-                        ),
-                        'secret' => true,
-                        'required' => true,
-                    ],
-                ],
-                'type' => 'api',
-                'class' => SendGridSender::class,
-            ],
-            'gmail' => [
-                'id' => 'gmail',
-                'label' => 'Gmail',
-                'description' => __(
-                    'Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail.',
-                    'traydigita-core'
-                ),
-                'free_tier' => '',
-                'best_for' => 'Small sites on Gmail / Google Workspace',
-                'link' => '',
-                'fields' => [
-                    [
-                        'key' => 'gmail_client_id',
-                        'label' => __('Google OAuth client ID', 'traydigita-core'),
-                        'type' => 'text',
-                        'hint' => __(
-                            'Create OAuth credentials (Web application) in the Google Cloud console and add this site’s callback URL as an authorized redirect URI.',
-                            'traydigita-core'
-                        ),
-                        'secret' => false,
-                        'required' => false,
-                    ],
-                    [
-                        'key' => 'gmail_client_secret',
-                        'label' => __('Google OAuth client secret', 'traydigita-core'),
-                        'type' => 'password',
-                        'hint' => __('Leave empty to keep the saved secret. The secret is never shown.', 'traydigita-core'),
-                        'secret' => true,
-                        'required' => false,
-                    ],
-                ],
-                'type' => 'oauth',
-            ],
         ];
         foreach (self::API_PROVIDER_CLASSES as $id => $class) {
             $definition = $class::definition();
-            $definition['type'] = 'api';
+            // A provider may declare its own type (Gmail is
+            // 'oauth', not 'api'); default to 'api' otherwise.
+            if (!isset($definition['type']) || !is_string($definition['type'])) {
+                $definition['type'] = 'api';
+            }
             $definition['class'] = $class;
             $definitions[$id] = $definition;
         }
@@ -749,10 +699,10 @@ final class MailerModule implements ModuleInterface
             }
             $hasClass = isset($definition['class']) && is_string($definition['class']) && class_exists($definition['class']);
             $hasSend = isset($definition['send']) && is_callable($definition['send']);
-            if ($id === 'smtp' || $id === 'gmail' || $id === 'local') {
-                // These three have their own send paths (SMTP via
-                // PHPMailer, Gmail via GmailOAuth, local via the
-                // wp_mail default transport).
+            if ($id === 'smtp' || $id === 'local') {
+                // These two have their own send paths (SMTP via
+                // PHPMailer, local via the wp_mail default
+                // transport).
                 $hasClass = true;
             }
             if (!$hasClass && !$hasSend) {
@@ -796,11 +746,10 @@ final class MailerModule implements ModuleInterface
      * Whether a provider definition is configured.
      *
      * Local: always (no credentials). SMTP: a host plus a
-     * username when authentication is on. Gmail: connected
-     * OAuth tokens. SendGrid: an API key. API providers: their
-     * class's isConfigured(), or every `required` field filled
-     * in for third-party providers (or their own
-     * `is_configured` callable when given).
+     * username when authentication is on. API providers:
+     * their class's isConfigured(), or every `required`
+     * field filled in for third-party providers (or their
+     * own `is_configured` callable when given).
      *
      * @param array<string, mixed> $definition Provider definition.
      * @param array<string, mixed> $settings Mailer settings.
@@ -819,18 +768,12 @@ final class MailerModule implements ModuleInterface
             }
             return empty($settings['auth']) || ($settings['username'] ?? '') !== '';
         }
-        if ($id === 'gmail') {
-            return GmailOAuth::isConnected();
-        }
         if (isset($definition['is_configured']) && is_callable($definition['is_configured'])) {
             return (bool) ($definition['is_configured'])($settings);
         }
         $class = $definition['class'] ?? null;
         if (is_string($class) && class_exists($class) && is_subclass_of($class, AbstractApiProvider::class)) {
             return $class::isConfigured($settings);
-        }
-        if ($id === 'sendgrid') {
-            return ($settings['sendgrid_api_key'] ?? '') !== '';
         }
         foreach ($definition['fields'] as $field) {
             if (!is_array($field) || empty($field['required'])) {
@@ -847,9 +790,9 @@ final class MailerModule implements ModuleInterface
     /**
      * Send one normalized mail through a provider.
      *
-     * Built-in API classes, SendGrid, and Gmail use their own
-     * send methods; third-party providers use the `send`
-     * callable from their definition (or a `class` with a static
+     * Built-in provider classes use their static send()
+     * method; third-party providers use the `send` callable
+     * from their definition (or a `class` with a static
      * `send(array $mail, array $settings)` method). A provider
      * that throws is caught here and reported as a failure
      * instead of fataling the mail send.
@@ -866,16 +809,6 @@ final class MailerModule implements ModuleInterface
             return ['success' => false, 'message' => __('Unknown mail provider.', 'traydigita-core')];
         }
         try {
-            if ($id === 'gmail') {
-                return GmailOAuth::send($mail);
-            }
-            if ($id === 'sendgrid') {
-                $key = isset($settings['sendgrid_api_key']) && is_string($settings['sendgrid_api_key']) ? $settings['sendgrid_api_key'] : '';
-                if ($key === '') {
-                    return ['success' => false, 'message' => __('Enter the SendGrid API key in the Mailer settings first.', 'traydigita-core')];
-                }
-                return SendGridSender::send($mail, $key);
-            }
             $class = $definition['class'] ?? null;
             if (is_string($class) && class_exists($class) && is_subclass_of($class, AbstractApiProvider::class)) {
                 return $class::send($mail, $settings);
@@ -2460,7 +2393,7 @@ final class MailerModule implements ModuleInterface
         }
         // The Gmail API only accepts mail from the connected
         // account itself; the account address replaces the From
-        // header there (see GmailOAuth::send()).
+        // header there (see Providers\GmailOAuth::send()).
         $toText = implode(', ', array_map(static fn (array $address): string => $address['email'], $to));
         return [
             'to' => $to,

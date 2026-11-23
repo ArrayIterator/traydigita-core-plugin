@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\Mailer;
+namespace TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers;
 
+use TrayDigita\WP\Plugin\Core\Modules\Mailer\MailerModule;
 use WP_Error;
 use function __;
 use function add_query_arg;
