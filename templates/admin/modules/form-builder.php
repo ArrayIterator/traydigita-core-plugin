@@ -16,9 +16,9 @@
  *
  * Variables passed in:
  * @var array<string, array{id: string, title: string, definition: array<string, mixed>}> $forms
- * @var array<string, array{id: string, title: string, template: array<string, mixed>}> $templates
+ * @var array<string, array<string, mixed>> $templates Shared templates (id, name, blocks, created_at).
  * @var array{id: string, title: string, definition: array<string, mixed>}|null $editingForm
- * @var array{id: string, title: string, template: array<string, mixed>}|null $editingTemplate
+ * @var array<string, mixed>|null $editingTemplate Shared template being edited.
  * @var string $adminNonce
  * @var array<string, string> $fieldLabels
  * @var array<string, string> $blockLabels
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\EmailBuilder;
+use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
 
 $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
@@ -174,7 +174,7 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
     <div class="traydigita-admin-section">
         <h2><?php esc_html_e('Email templates', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
-            <?php esc_html_e('Block-based email templates used by the Contact Form notification mail. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Use one text block per paragraph.', 'traydigita-core'); ?>
+            <?php esc_html_e('Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph.', 'traydigita-core'); ?>
         </p>
         <?php if ($templates === []) : ?>
             <p><?php esc_html_e('No email templates yet. Create the first one below.', 'traydigita-core'); ?></p>
@@ -191,9 +191,9 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                 <tbody>
                     <?php foreach ($templates as $traydigita_template) : ?>
                         <tr>
-                            <td><?php echo esc_html($traydigita_template['title']); ?></td>
-                            <td><code><?php echo esc_html($traydigita_template['id']); ?></code></td>
-                            <td><?php echo esc_html((string) count($traydigita_template['template']['blocks'])); ?></td>
+                            <td><?php echo esc_html((string) ($traydigita_template['name'] ?? '')); ?></td>
+                            <td><code><?php echo esc_html((string) ($traydigita_template['id'] ?? '')); ?></code></td>
+                            <td><?php echo esc_html((string) count((array) ($traydigita_template['blocks'] ?? []))); ?></td>
                             <td>
                                 <a href="<?php echo esc_url(add_query_arg('template', $traydigita_template['id'], $traydigita_settings_url)); ?>"><?php esc_html_e('Edit', 'traydigita-core'); ?></a>
                                 |
@@ -224,7 +224,7 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
 
     <?php if ($editingTemplate !== null) : ?>
         <div class="traydigita-admin-section">
-            <h2><?php esc_html_e('Edit email template', 'traydigita-core'); ?> — <?php echo esc_html($editingTemplate['title']); ?></h2>
+            <h2><?php esc_html_e('Edit email template', 'traydigita-core'); ?> — <?php echo esc_html((string) ($editingTemplate['name'] ?? '')); ?></h2>
             <form method="post" data-action="traydigita_admin_save" data-module="form-builder">
                 <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($adminNonce); ?>">
                 <input type="hidden" name="module" value="form-builder">
@@ -233,53 +233,74 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                 <p>
                     <label>
                         <?php esc_html_e('Title', 'traydigita-core'); ?>
-                        <input type="text" name="title" value="<?php echo esc_attr($editingTemplate['title']); ?>" required autocomplete="off">
+                        <input type="text" name="title" value="<?php echo esc_attr((string) ($editingTemplate['name'] ?? '')); ?>" required autocomplete="off">
                     </label>
                 </p>
-                <table class="widefat striped">
+                <table class="widefat striped traydigita-template-editor-table">
                     <thead>
                         <tr>
                             <th scope="col"><?php esc_html_e('Type', 'traydigita-core'); ?></th>
                             <th scope="col"><?php esc_html_e('Text', 'traydigita-core'); ?></th>
                             <th scope="col"><?php esc_html_e('Button label', 'traydigita-core'); ?></th>
                             <th scope="col"><?php esc_html_e('Button URL', 'traydigita-core'); ?></th>
+                            <th scope="col"><?php esc_html_e('Image URL', 'traydigita-core'); ?></th>
                             <th scope="col"><?php esc_html_e('Delete', 'traydigita-core'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $traydigita_blocks = $editingTemplate['template']['blocks'];
-                        $traydigita_blocks[] = ['type' => 'text', 'settings' => ['text' => '', 'label' => '', 'url' => '']];
+                        $traydigita_blocks = is_array($editingTemplate['blocks'] ?? null) ? $editingTemplate['blocks'] : [];
+                        $traydigita_blocks[] = ['type' => 'text', 'text' => '', 'label' => '', 'url' => '', 'image_url' => ''];
                         foreach ($traydigita_blocks as $traydigita_index => $traydigita_block) :
                             $traydigita_prefix = 'blocks[' . $traydigita_index . ']';
-                            $traydigita_settings = is_array($traydigita_block['settings'] ?? null) ? $traydigita_block['settings'] : [];
+                            $traydigita_type = (string) ($traydigita_block['type'] ?? 'text');
+                            // Text column: heading/text/footer text, or the image alt text.
+                            $traydigita_text = $traydigita_type === 'image'
+                                ? (string) ($traydigita_block['alt'] ?? '')
+                                : (string) ($traydigita_block['text'] ?? $traydigita_block['content'] ?? '');
+                            // Button URL column: button link, or the image click-through link.
+                            $traydigita_url = $traydigita_type === 'image'
+                                ? (string) ($traydigita_block['link'] ?? '')
+                                : (string) ($traydigita_block['url'] ?? '');
+                            $traydigita_image_url = $traydigita_type === 'image'
+                                ? (string) ($traydigita_block['url'] ?? '')
+                                : '';
                             ?>
                             <tr>
                                 <td>
                                     <select name="<?php echo esc_attr($traydigita_prefix); ?>[type]">
-                                        <?php foreach ($blockTypes as $traydigita_type) : ?>
-                                            <option value="<?php echo esc_attr($traydigita_type); ?>"<?php selected($traydigita_block['type'], $traydigita_type); ?>><?php echo esc_html($blockLabels[$traydigita_type] ?? $traydigita_type); ?></option>
+                                        <?php foreach ($blockTypes as $traydigita_option_type) : ?>
+                                            <option value="<?php echo esc_attr($traydigita_option_type); ?>"<?php selected($traydigita_type, $traydigita_option_type); ?>><?php echo esc_html($blockLabels[$traydigita_option_type] ?? $traydigita_option_type); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </td>
-                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[settings][text]" value="<?php echo esc_attr((string) ($traydigita_settings['text'] ?? '')); ?>" autocomplete="off"></td>
-                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[settings][label]" value="<?php echo esc_attr((string) ($traydigita_settings['label'] ?? '')); ?>" autocomplete="off"></td>
-                                <td><input type="url" name="<?php echo esc_attr($traydigita_prefix); ?>[settings][url]" value="<?php echo esc_attr((string) ($traydigita_settings['url'] ?? '')); ?>" autocomplete="off" spellcheck="false"></td>
+                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[text]"
+                                    value="<?php echo esc_attr($traydigita_text); ?>"
+                                    autocomplete="off"></td>
+                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[label]"
+                                    value="<?php echo esc_attr((string) ($traydigita_block['label'] ?? '')); ?>"
+                                    autocomplete="off"></td>
+                                <td><input type="url" name="<?php echo esc_attr($traydigita_prefix); ?>[url]"
+                                    value="<?php echo esc_attr($traydigita_url); ?>"
+                                    autocomplete="off" spellcheck="false"></td>
+                                <td><input type="url" name="<?php echo esc_attr($traydigita_prefix); ?>[image_url]"
+                                    value="<?php echo esc_attr($traydigita_image_url); ?>"
+                                    autocomplete="off" spellcheck="false"></td>
                                 <td><input type="checkbox" name="<?php echo esc_attr($traydigita_prefix); ?>[delete]" value="1"></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
                 <p class="traydigita-admin-description">
-                    <?php esc_html_e('Button blocks need both a label and a URL. Leave the last empty row blank to ignore it.', 'traydigita-core'); ?>
+                    <?php esc_html_e('Button blocks need both a label and a URL. Image blocks need an image URL. Leave the last empty row blank to ignore it.', 'traydigita-core'); ?>
                 </p>
                 <?php \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::saveBar(); ?>
             </form>
             <h3><?php esc_html_e('Preview', 'traydigita-core'); ?></h3>
             <div class="traydigita-admin-preview">
                 <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- EmailBuilder::renderEmail() escapes every value it prints.
-                echo EmailBuilder::renderEmail($editingTemplate['template'], ['name' => 'Jane Doe', 'email' => 'jane@example.com', 'message' => 'Hello, this is a sample message.']);
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TemplateBuilder::renderEmail() escapes every value it prints.
+                echo TemplateBuilder::renderEmail($editingTemplate, ['name' => 'Jane Doe', 'email' => 'jane@example.com', 'message' => 'Hello, this is a sample message.']);
                 ?>
             </div>
         </div>

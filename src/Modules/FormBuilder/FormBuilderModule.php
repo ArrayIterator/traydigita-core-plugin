@@ -5,6 +5,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\FormBuilder;
 
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Core;
+use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
 use function __;
 use function add_action;
 use function add_shortcode;
@@ -20,6 +21,7 @@ use function is_array;
 use function is_string;
 use function sanitize_key;
 use function sanitize_text_field;
+use function time;
 use function update_option;
 use function wp_create_nonce;
 use function wp_send_json_error;
@@ -28,16 +30,23 @@ use function wp_unslash;
 use function wp_verify_nonce;
 
 /**
- * Form Builder / Email Builder module.
+ * Form Builder module.
  *
- * A reusable builder for forms and email templates, used by the
- * Contact Form module, the Newsletter (Email module) and any
- * other module that needs a form or a mail. The builder itself
- * stores named forms (field definitions) and named email
- * templates (blocks); rendering and validation live in
- * FormBuilder and EmailBuilder, so the same definition is used
+ * A reusable builder for forms, used by the Contact Form module
+ * and any other module that needs a form. The builder itself
+ * stores named forms (field definitions); rendering and
+ * validation live in FormBuilder, so the same definition is used
  * everywhere and can never drift between the editor, the
  * preview and the frontend.
+ *
+ * Email templates are NOT stored here: they live in the one
+ * shared store owned by the Email module's TemplateBuilder
+ * (option 'traydigita_email_templates'), listed and edited from
+ * this module's Email templates section and picked by the
+ * Contact Form module for its notification mail. A template
+ * made here works in the Newsletter, and vice versa. The old
+ * FormBuilder-only store is migrated into the shared store once
+ * by TemplateBuilder::migrateLegacyTemplates().
  *
  * Status: recommended, default inactive. A form does nothing
  * until a module uses it, so the module ships off and the
@@ -60,14 +69,6 @@ final class FormBuilderModule implements ModuleInterface
      * 'definition' => ['fields' => [...]]]].
      */
     public const string OPTION_FORMS = 'traydigita_form_builder_forms';
-
-    /**
-     * Option holding the named email templates.
-     *
-     * Shape: [templateId => ['id' => string, 'title' => string,
-     * 'template' => ['blocks' => [...]]]].
-     */
-    public const string OPTION_TEMPLATES = 'traydigita_form_builder_email_templates';
 
     /**
      * AJAX action for generic shortcode form submissions.
@@ -323,47 +324,29 @@ final class FormBuilderModule implements ModuleInterface
     }
 
     /**
-     * Read all named email templates.
+     * Read all email templates from the shared store.
      *
-     * @return array<string, array{id: string, title: string, template: array<string, mixed>}>
+     * Delegates to TemplateBuilder (Email module): the shape is
+     * the shared one, [id => ['id', 'name', 'blocks',
+     * 'created_at']], so templates made in the Newsletter
+     * builder show up here and vice versa.
+     *
+     * @return array<string, array<string, mixed>>
      */
     public static function getEmailTemplates(): array
     {
-        $stored = get_option(self::OPTION_TEMPLATES, []);
-        if (!is_array($stored)) {
-            return [];
-        }
-        $templates = [];
-        foreach ($stored as $id => $template) {
-            if (!is_string($id) || !is_array($template)) {
-                continue;
-            }
-            if (($template['id'] ?? '') !== $id || !isset($template['title']) || !is_string($template['title'])) {
-                continue;
-            }
-            $blocks = $template['template'] ?? null;
-            if (!is_array($blocks) || !EmailBuilder::validateTemplate($blocks)) {
-                continue;
-            }
-            $templates[$id] = [
-                'id' => $id,
-                'title' => $template['title'],
-                'template' => $blocks,
-            ];
-        }
-        return $templates;
+        return TemplateBuilder::getTemplates();
     }
 
     /**
-     * Read one named email template by id, or null.
+     * Read one email template by id from the shared store, or null.
      *
      * @param string $id Template id.
-     * @return array{id: string, title: string, template: array<string, mixed>}|null
+     * @return array<string, mixed>|null
      */
     public static function getEmailTemplate(string $id): ?array
     {
-        $templates = self::getEmailTemplates();
-        return $templates[$id] ?? null;
+        return TemplateBuilder::getTemplate($id);
     }
 
     /**
@@ -388,9 +371,9 @@ final class FormBuilderModule implements ModuleInterface
         $editingTemplate = $editingTemplateId !== '' ? ($templates[$editingTemplateId] ?? null) : null;
         $adminNonce = wp_create_nonce(self::NONCE_ACTION);
         $fieldLabels = FormBuilder::fieldLabels();
-        $blockLabels = EmailBuilder::blockLabels();
+        $blockLabels = TemplateBuilder::blockLabels();
         $fieldTypes = FormBuilder::FIELD_TYPES;
-        $blockTypes = EmailBuilder::BLOCK_TYPES;
+        $blockTypes = TemplateBuilder::BLOCK_TYPES;
         // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
         $partial = Core::pluginDir() . '/templates/admin/modules/form-builder.php';
         if (!file_exists($partial)) {
@@ -543,7 +526,10 @@ final class FormBuilderModule implements ModuleInterface
     }
 
     /**
-     * Create a new named email template from the default.
+     * Create a new email template in the shared store.
+     *
+     * The template starts from the shared default blocks (empty
+     * header/text/footer rows for the editor to fill in).
      *
      * @param array<string, mixed> $data Posted data.
      * @return array{success: bool, message: string, data?: array<string, mixed>}
@@ -559,12 +545,12 @@ final class FormBuilderModule implements ModuleInterface
         }
         $templates = self::getEmailTemplates();
         $id = self::uniqueId($title, array_keys($templates));
-        $templates[$id] = [
+        TemplateBuilder::saveTemplate([
             'id' => $id,
-            'title' => $title,
-            'template' => EmailBuilder::defaultTemplate(),
-        ];
-        update_option(self::OPTION_TEMPLATES, $templates, false);
+            'name' => $title,
+            'blocks' => TemplateBuilder::defaultBlocks(),
+            'created_at' => time(),
+        ]);
         return [
             'success' => true,
             'message' => __('Email template created.', 'traydigita-core'),
@@ -574,6 +560,10 @@ final class FormBuilderModule implements ModuleInterface
 
     /**
      * Save the blocks of an existing email template.
+     *
+     * The editor posts one flat row per block (type, text, label,
+     * url, image_url); the rows are mapped to the shared
+     * flat-block shape and sanitized by TemplateBuilder.
      *
      * @param array<string, mixed> $data Posted data.
      * @return array{success: bool, message: string}
@@ -595,16 +585,18 @@ final class FormBuilderModule implements ModuleInterface
                 'message' => __('The template title must not be empty.', 'traydigita-core'),
             ];
         }
-        $result = EmailBuilder::sanitizeTemplate(['blocks' => self::dropDeletedRows($data['blocks'] ?? null)]);
-        if ($result['template'] === null) {
+        $template = TemplateBuilder::sanitizeTemplate([
+            'id' => $id,
+            'name' => $title,
+            'blocks' => self::editorRowsToBlocks(self::dropDeletedRows($data['blocks'] ?? null)),
+        ]);
+        if ($template === null) {
             return [
                 'success' => false,
-                'message' => $result['error'] ?? __('The email template is invalid.', 'traydigita-core'),
+                'message' => __('The email template is invalid.', 'traydigita-core'),
             ];
         }
-        $templates[$id]['title'] = $title;
-        $templates[$id]['template'] = $result['template'];
-        update_option(self::OPTION_TEMPLATES, $templates, false);
+        TemplateBuilder::saveTemplate($template);
         return [
             'success' => true,
             'message' => __('Email template saved.', 'traydigita-core'),
@@ -612,7 +604,47 @@ final class FormBuilderModule implements ModuleInterface
     }
 
     /**
-     * Delete a named email template.
+     * Map posted editor rows to shared flat blocks.
+     *
+     * One posted row carries type, text (header/text/footer text
+     * or image alt text), label and url (button link or image
+     * click-through link) and image_url (image source). Empty
+     * rows are kept here; TemplateBuilder::sanitizeTemplate()
+     * drops them.
+     *
+     * @param array<int, mixed>|null $rows Posted block rows.
+     * @return list<array<string, mixed>>
+     */
+    private static function editorRowsToBlocks(?array $rows): array
+    {
+        if ($rows === null) {
+            return [];
+        }
+        $blocks = [];
+        foreach ($rows as $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $type = sanitize_key((string) ($row['type'] ?? ''));
+            $text = isset($row['text']) && is_string($row['text']) ? $row['text'] : '';
+            $label = isset($row['label']) && is_string($row['label']) ? $row['label'] : '';
+            $url = isset($row['url']) && is_string($row['url']) ? $row['url'] : '';
+            $imageUrl = isset($row['image_url']) && is_string($row['image_url']) ? $row['image_url'] : '';
+            $blocks[] = match ($type) {
+                'header' => ['type' => 'header', 'text' => $text],
+                'text' => ['type' => 'text', 'content' => $text],
+                'button' => ['type' => 'button', 'label' => $label, 'url' => $url],
+                'image' => ['type' => 'image', 'url' => $imageUrl, 'alt' => $text, 'link' => $url],
+                'divider' => ['type' => 'divider'],
+                'footer' => ['type' => 'footer', 'text' => $text],
+                default => ['type' => $type, 'text' => $text],
+            };
+        }
+        return $blocks;
+    }
+
+    /**
+     * Delete an email template from the shared store.
      *
      * @param array<string, mixed> $data Posted data.
      * @return array{success: bool, message: string}
@@ -620,15 +652,12 @@ final class FormBuilderModule implements ModuleInterface
     private static function deleteEmailTemplate(array $data): array
     {
         $id = isset($data['template_id']) && is_string($data['template_id']) ? sanitize_key($data['template_id']) : '';
-        $templates = self::getEmailTemplates();
-        if ($id === '' || !isset($templates[$id])) {
+        if ($id === '' || !TemplateBuilder::deleteTemplate($id)) {
             return [
                 'success' => false,
                 'message' => __('Unknown email template.', 'traydigita-core'),
             ];
         }
-        unset($templates[$id]);
-        update_option(self::OPTION_TEMPLATES, $templates, false);
         return [
             'success' => true,
             'message' => __('Email template deleted.', 'traydigita-core'),

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Email;
 
+use function __;
 use function absint;
 use function array_values;
+use function count;
 use function esc_attr;
 use function esc_html;
 use function esc_url;
@@ -14,14 +16,17 @@ use function function_exists;
 use function get_bloginfo;
 use function get_option;
 use function home_url;
+use function implode;
 use function in_array;
 use function is_array;
+use function is_numeric;
 use function is_string;
 use function ob_get_clean;
 use function ob_start;
 use function sanitize_hex_color;
 use function sanitize_key;
 use function sanitize_text_field;
+use function str_replace;
 use function time;
 use function uniqid;
 use function update_option;
@@ -50,6 +55,15 @@ use function wp_kses;
  * All templates live in the single option 'traydigita_email_templates'
  * (autoload 'no') as ['templates' => [id => template], 'default_id' => string].
  *
+ * This is the ONE shared builder and store for every email template
+ * in the plugin: the Newsletter (Email module) and the Contact Form
+ * notification mail (via the FormBuilder module) both read and write
+ * here, so a template made in either place works in the other. The
+ * old FormBuilder store ('traydigita_form_builder_email_templates')
+ * is migrated into this store once, on first read, by
+ * migrateLegacyTemplates(); the old option is kept afterwards as a
+ * read-only backup and is never written again.
+ *
  * The rendered HTML always starts with the marker comment
  * <!-- traydigita-email-template --> so the wp_mail wrapper can detect
  * mail that is already templated and leave it untouched.
@@ -60,6 +74,30 @@ final class TemplateBuilder
      * Option name holding every template plus the default template id.
      */
     public const string OPTION_TEMPLATES = 'traydigita_email_templates';
+
+    /**
+     * Legacy FormBuilder templates option (pre-unification store).
+     *
+     * Read once by migrateLegacyTemplates() and never written again
+     * afterwards. The option is deliberately NOT deleted: it stays
+     * as the rollback source for the migration.
+     */
+    public const string LEGACY_OPTION_TEMPLATES = 'traydigita_form_builder_email_templates';
+
+    /**
+     * Option flag marking the legacy migration as done ('1').
+     *
+     * Set by migrateLegacyTemplates() even when there was nothing
+     * to migrate, so the legacy option is read at most once.
+     */
+    public const string MIGRATION_FLAG_OPTION = 'traydigita_email_templates_migrated';
+
+    /**
+     * Whether the legacy migration has already run in this request.
+     *
+     * @var bool
+     */
+    private static bool $migrationAttempted = false;
 
     /**
      * Marker comment included in every rendered template.
@@ -109,10 +147,15 @@ final class TemplateBuilder
     /**
      * Read the raw templates option.
      *
+     * Runs the one-time legacy migration first, so any caller
+     * that reads templates also triggers the import of the old
+     * FormBuilder store (see migrateLegacyTemplates()).
+     *
      * @return array{templates: array<string, array<string, mixed>>, default_id: string}
      */
     public static function getStored(): array
     {
+        self::migrateLegacyTemplates();
         $stored = get_option(self::OPTION_TEMPLATES, []);
         if (!is_array($stored)) {
             return ['templates' => [], 'default_id' => ''];
@@ -400,6 +443,221 @@ final class TemplateBuilder
     }
 
     /**
+     * Translatable display labels for the block types.
+     *
+     * @return array<string, string> Block type => label.
+     */
+    public static function blockLabels(): array
+    {
+        return [
+            'header' => __('Header', 'traydigita-core'),
+            'text' => __('Text', 'traydigita-core'),
+            'button' => __('Button', 'traydigita-core'),
+            'image' => __('Image', 'traydigita-core'),
+            'divider' => __('Divider', 'traydigita-core'),
+            'footer' => __('Footer', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Default blocks for a brand-new template: header, one text
+     * block, footer — all empty, for the editor to fill in.
+     *
+     * The blocks are intentionally unsanitized empties: they are
+     * editor placeholder rows, dropped by sanitizeTemplate() on
+     * the first real save, so a fresh template must gain at
+     * least one filled block before it can be saved.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function defaultBlocks(): array
+    {
+        return [
+            ['type' => 'header', 'text' => '', 'subtitle' => '', 'align' => 'left', 'background' => ''],
+            ['type' => 'text', 'content' => '', 'align' => 'left'],
+            ['type' => 'footer', 'text' => '', 'align' => 'left'],
+        ];
+    }
+
+    /**
+     * Migrate the legacy FormBuilder templates into the shared store.
+     *
+     * Runs once: guarded by the persisted flag option (set even
+     * when there was nothing to migrate) and by an in-request
+     * guard, so repeated calls are cheap no-ops. Called lazily
+     * from getStored(), so any template read triggers it.
+     *
+     * Legacy entries live in 'traydigita_form_builder_email_templates'
+     * as [id => ['id', 'title', 'template' => ['blocks' => [...]]]]
+     * with nested-settings blocks (['type', 'settings' => [...]]).
+     * Each entry is converted to the shared flat-block shape and
+     * re-sanitized through sanitizeTemplate(); entries that end
+     * up with no usable block are skipped (they rendered an empty
+     * mail under the old builder too). A legacy id that already
+     * exists in the shared store is imported under a suffixed id
+     * ('<id>-migrated', then '<id>-migrated-2', ...) and every
+     * Contact Form pointing at the old id is remapped to the new
+     * one, so no form loses its template.
+     *
+     * The legacy option is NEVER deleted and never written again:
+     * it stays as the rollback source for the migration.
+     *
+     * @return array{already_migrated: bool, imported: int, skipped: int, remapped: array<string, string>}
+     */
+    public static function migrateLegacyTemplates(): array
+    {
+        if (self::$migrationAttempted) {
+            return ['already_migrated' => true, 'imported' => 0, 'skipped' => 0, 'remapped' => []];
+        }
+        self::$migrationAttempted = true;
+        if (get_option(self::MIGRATION_FLAG_OPTION, '') === '1') {
+            return ['already_migrated' => true, 'imported' => 0, 'skipped' => 0, 'remapped' => []];
+        }
+        $legacy = get_option(self::LEGACY_OPTION_TEMPLATES, []);
+        if (!is_array($legacy) || $legacy === []) {
+            update_option(self::MIGRATION_FLAG_OPTION, '1', false);
+            return ['already_migrated' => false, 'imported' => 0, 'skipped' => 0, 'remapped' => []];
+        }
+        // Read the shared store directly (not via getStored(),
+        // which calls back into this method).
+        $stored = get_option(self::OPTION_TEMPLATES, []);
+        $templates = is_array($stored) ? ($stored['templates'] ?? []) : [];
+        if (!is_array($templates)) {
+            $templates = [];
+        }
+        $defaultId = is_array($stored) ? ($stored['default_id'] ?? '') : '';
+        $defaultId = is_string($defaultId) ? sanitize_key($defaultId) : '';
+        $imported = 0;
+        $skipped = 0;
+        $remapped = [];
+        foreach ($legacy as $legacyId => $entry) {
+            if (!is_string($legacyId) || !is_array($entry)) {
+                $skipped++;
+                continue;
+            }
+            $title = $entry['title'] ?? '';
+            $rawBlocks = $entry['template']['blocks'] ?? null;
+            if (!is_string($title) || $title === '' || !is_array($rawBlocks)) {
+                $skipped++;
+                continue;
+            }
+            $blocks = [];
+            foreach ($rawBlocks as $rawBlock) {
+                if (!is_array($rawBlock)) {
+                    continue;
+                }
+                $block = self::convertLegacyBlock($rawBlock);
+                if ($block !== null) {
+                    $blocks[] = $block;
+                }
+            }
+            $candidate = self::sanitizeTemplate([
+                'id' => sanitize_key($legacyId),
+                'name' => $title,
+                'blocks' => $blocks,
+            ]);
+            if ($candidate === null) {
+                $skipped++;
+                continue;
+            }
+            $id = (string) $candidate['id'];
+            if (isset($templates[$id])) {
+                $suffixed = $id . '-migrated';
+                $suffix = 2;
+                while (isset($templates[$suffixed])) {
+                    $suffixed = $id . '-migrated-' . $suffix;
+                    $suffix++;
+                }
+                $remapped[$id] = $suffixed;
+                $candidate['id'] = $suffixed;
+                $id = $suffixed;
+            }
+            $templates[$id] = $candidate;
+            $imported++;
+        }
+        self::saveStored($templates, $defaultId);
+        if ($remapped !== []) {
+            // ContactFormModule::OPTION_FORMS ('traydigita_contact_forms'):
+            // remap forms that pointed at a renamed legacy template.
+            // This is migration-only repair, not a runtime dependency.
+            $forms = get_option('traydigita_contact_forms', []);
+            if (is_array($forms)) {
+                $changed = false;
+                foreach ($forms as $formId => $form) {
+                    if (!is_array($form)) {
+                        continue;
+                    }
+                    $templateId = $form['email_template_id'] ?? '';
+                    if (is_string($templateId) && isset($remapped[$templateId])) {
+                        $forms[$formId]['email_template_id'] = $remapped[$templateId];
+                        $changed = true;
+                    }
+                }
+                if ($changed) {
+                    update_option('traydigita_contact_forms', $forms, false);
+                }
+            }
+        }
+        update_option(self::MIGRATION_FLAG_OPTION, '1', false);
+        return [
+            'already_migrated' => false,
+            'imported' => $imported,
+            'skipped' => $skipped,
+            'remapped' => $remapped,
+        ];
+    }
+
+    /**
+     * Convert one legacy nested-settings block to the flat shape.
+     *
+     * Legacy blocks look like ['type' => 'text', 'settings' =>
+     * ['text' => '...']]; the shared shape carries the fields
+     * flat on the block. Line breaks in legacy text become <br>
+     * (the old renderer applied nl2br at render time). Returns
+     * null for unknown types or blocks sanitizeBlock() drops.
+     *
+     * @param array<string, mixed> $block Legacy block.
+     * @return array<string, mixed>|null
+     */
+    private static function convertLegacyBlock(array $block): ?array
+    {
+        $type = sanitize_key((string) ($block['type'] ?? ''));
+        $settings = $block['settings'] ?? [];
+        if (!is_array($settings)) {
+            $settings = [];
+        }
+        $text = (string) ($settings['text'] ?? '');
+        $flat = match ($type) {
+            'header' => [
+                'type' => 'header',
+                'text' => $text,
+                'subtitle' => '',
+                'align' => 'left',
+                'background' => '',
+            ],
+            'text' => [
+                'type' => 'text',
+                'content' => str_replace(["\r\n", "\n"], '<br>', $text),
+                'align' => 'left',
+            ],
+            'button' => [
+                'type' => 'button',
+                'label' => (string) ($settings['label'] ?? ''),
+                'url' => (string) ($settings['url'] ?? ''),
+                'align' => 'left',
+                'background' => '',
+            ],
+            'divider' => ['type' => 'divider', 'style' => 'solid', 'color' => ''],
+            'footer' => ['type' => 'footer', 'text' => $text, 'align' => 'left'],
+            default => null,
+        };
+        if ($flat === null) {
+            return null;
+        }
+        return self::sanitizeBlock($flat);
+    }
+
+    /**
      * Resolve the display URL of an image block.
      *
      * Prefers the attachment URL when an attachment id is set.
@@ -594,6 +852,83 @@ final class TemplateBuilder
             . 'style="max-width:600px;width:100%;background-color:#ffffff;border-radius:8px;overflow:hidden;">'
             . $innerHtml
             . '</table></td></tr></table></body></html>';
+    }
+
+    /**
+     * Render a template as an HTML email body with placeholders.
+     *
+     * Used by the Contact Form notification mail: `{{field_id}}`
+     * placeholders in block text are replaced with the matching
+     * submitted values from $data (arrays are joined with ", ").
+     * Values are escaped, so a submitted value can never inject
+     * markup into the mail. Empty blocks (kept only as editor
+     * placeholder rows) are dropped before rendering, so they
+     * never produce empty header bars or rows in the sent mail.
+     *
+     * @param array<string, mixed> $template Sanitized template.
+     * @param array<string, mixed> $data Placeholder values keyed by field id.
+     * @return string Rendered HTML email (empty when the template is invalid).
+     */
+    public static function renderEmail(array $template, array $data = []): string
+    {
+        $blocks = $template['blocks'] ?? [];
+        if (!is_array($blocks) || $blocks === []) {
+            return '';
+        }
+        $clean = [];
+        foreach ($blocks as $block) {
+            $sanitized = is_array($block) ? self::sanitizeBlock($block) : null;
+            if ($sanitized !== null) {
+                $clean[] = $sanitized;
+            }
+        }
+        if ($clean === []) {
+            return '';
+        }
+        $template['blocks'] = $clean;
+        return self::replacePlaceholders(self::renderTemplate($template), $data);
+    }
+
+    /**
+     * Replace {{field}} placeholders with escaped-safe values.
+     *
+     * Substitution runs on the already-rendered HTML: the
+     * `{{key}}` tokens survive esc_html()/wp_kses() untouched,
+     * and the inserted values are escaped here, so a value can
+     * never break out of text content or an attribute. Unknown
+     * placeholders are left in place.
+     *
+     * @param string $html Rendered template HTML.
+     * @param array<string, mixed> $data Placeholder values.
+     * @return string HTML with placeholders replaced.
+     */
+    private static function replacePlaceholders(string $html, array $data): string
+    {
+        if ($html === '' || $data === []) {
+            return $html;
+        }
+        $replacements = [];
+        foreach ($data as $key => $value) {
+            if (!is_string($key) || $key === '') {
+                continue;
+            }
+            if (is_array($value)) {
+                $parts = [];
+                foreach ($value as $part) {
+                    if (is_string($part)) {
+                        $parts[] = $part;
+                    }
+                }
+                $value = implode(', ', $parts);
+            } elseif (!is_string($value) && !is_numeric($value)) {
+                continue;
+            }
+            $replacements['{{' . $key . '}}'] = esc_html((string) $value);
+        }
+        if ($replacements === []) {
+            return $html;
+        }
+        return str_replace(array_keys($replacements), array_values($replacements), $html);
     }
 
     /**

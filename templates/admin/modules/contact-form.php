@@ -162,7 +162,7 @@ $traydigita_spam_labels = [
                 <?php
                 $traydigita_template_options = ['' => __('— Plain list of values —', 'traydigita-core')];
                 foreach ($emailTemplates as $traydigita_template) {
-                    $traydigita_template_options[(string) $traydigita_template['id']] = (string) $traydigita_template['title'];
+                    $traydigita_template_options[(string) $traydigita_template['id']] = (string) $traydigita_template['name'];
                 }
                 \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::select([
                     'id' => 'contact-form-email-template',

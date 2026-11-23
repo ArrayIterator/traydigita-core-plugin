@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-23 23:35+0700\n"
-"PO-Revision-Date: 2026-11-23 23:35+0700\n"
+"POT-Creation-Date: 2026-11-24 00:46+0700\n"
+"PO-Revision-Date: 2026-11-24 00:46+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -325,6 +325,10 @@ msgstr "1 modul akan kembali ke kategori bawaannya."
 #: templates/admin/modules/image-optimizer.php:150
 msgid "1–100. 82 is a good balance between file size and visible quality."
 msgstr "1–100. Nilai 82 merupakan keseimbangan yang baik antara ukuran berkas dan kualitas visual."
+
+#: src/Modules/Mailer/MailerModule.php:978
+msgid "25 transactional APIs plus 10 marketing APIs."
+msgstr "25 API transaksional plus 10 API pemasaran."
 
 #: src/Modules/Redirects/RedirectsModule.php:342
 msgid "301 — Permanent (moved for good)"
@@ -829,6 +833,10 @@ msgstr "Tambahkan cuplikan di bawah ini ke functions.php tema anak atau plugin c
 msgid "Add these two lines to wp-config.php, above the line that says \"That's all, stop editing!\". The theme never edits wp-config.php for you: a single typo there can white-screen the whole site, so this change must be made by hand and checked afterwards."
 msgstr "Tambahkan dua baris ini ke wp-config.php, di atas baris yang bertuliskan \"That's all, stop editing!\". Tema tidak pernah mengedit wp-config.php untuk Anda: satu kesalahan ketik di sana dapat membuat seluruh situs menampilkan layar putih, jadi perubahan ini harus dilakukan secara manual dan diperiksa setelahnya."
 
+#: templates/admin/modules/mailer.php:317
+msgid "Add this URL as an authorized redirect URI in the Google Cloud OAuth client."
+msgstr "Tambahkan URL ini sebagai URI pengalihan resmi di klien OAuth Google Cloud."
+
 #: src/Modules/Agenda/AgendaRenderer.php:415
 #: templates/agenda/single.php:82
 msgid "Add to calendar (.ics)"
@@ -885,7 +893,7 @@ msgstr "Pengaturan iklan disimpan."
 msgid "Advanced"
 msgstr "Lanjutan"
 
-#: src/Modules/Headers/HeadersModule.php:335
+#: src/Modules/Headers/HeadersModule.php:337
 msgid "Advanced rules"
 msgstr "Aturan lanjutan"
 
@@ -1353,7 +1361,7 @@ msgstr "Membuat daftar isi otomatis dari judul artikel."
 msgid "Auto-generates a table of contents from the post headings, with stable anchor ids, smooth scrolling, and active-section highlighting. Headings inside quotes or code blocks are skipped."
 msgstr "Membuat daftar isi secara otomatis dari judul artikel, dengan id jangkar yang stabil, pengguliran halus, dan penyorotan bagian aktif. Judul di dalam kutipan atau blok kode dilewati."
 
-#: templates/admin/modules/mailer.php:374
+#: templates/admin/modules/mailer.php:428
 msgid "Auto-Submitted + Precedence: bulk (bulk mail only)"
 msgstr ""
 
@@ -1653,6 +1661,18 @@ msgstr "Biografi"
 msgid "Biometric"
 msgstr "Biometrik"
 
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:58
+msgid "Bird Email API key"
+msgstr ""
+
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:146
+msgid "Bird Email did not accept the message."
+msgstr ""
+
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:48
+msgid "Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
+msgstr ""
+
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1144
 msgid "Block editor behaviour for the frontend dashboard."
 msgstr "Perilaku editor blok untuk dasbor frontend."
@@ -1663,7 +1683,7 @@ msgid "Block settings"
 msgstr "Pengaturan blok"
 
 #: templates/admin/modules/form-builder.php:177
-msgid "Block-based email templates used by the Contact Form notification mail. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Use one text block per paragraph."
+msgid "Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph."
 msgstr ""
 
 #: templates/admin/modules/maintenance.php:126
@@ -1783,7 +1803,7 @@ msgstr "Bangun indeks"
 msgid "Build job not found or expired."
 msgstr "Tugas pembangunan tidak ditemukan atau kedaluwarsa."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:119
+#: src/Modules/FormBuilder/FormBuilderModule.php:120
 msgid "Build reusable forms and email templates (field builder + email template builder) for the Contact Form, Newsletter and other modules."
 msgstr ""
 
@@ -1848,13 +1868,13 @@ msgstr "Perubahan peran massal"
 msgid "Bulk-optimize the existing media library in small chunks."
 msgstr "Optimalkan pustaka media yang ada secara massal dalam potongan kecil."
 
-#: src/Modules/FormBuilder/EmailBuilder.php:85
+#: src/Modules/Email/TemplateBuilder.php:455
 #: src/Modules/Maintenance/MaintenanceDesigner.php:230
 msgid "Button"
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:274
-msgid "Button blocks need both a label and a URL. Leave the last empty row blank to ignore it."
+#: templates/admin/modules/form-builder.php:295
+msgid "Button blocks need both a label and a URL. Image blocks need an image URL. Leave the last empty row blank to ignore it."
 msgstr ""
 
 #: templates/admin/modules/login.php:236
@@ -2195,7 +2215,7 @@ msgstr "Periksa melalui peramban"
 msgid "Check headers now"
 msgstr "Periksa header sekarang"
 
-#: src/Modules/Headers/HeadersModule.php:241
+#: src/Modules/Headers/HeadersModule.php:243
 msgid "Check the headers on your own site."
 msgstr "Periksa header di situs Anda sendiri."
 
@@ -2256,7 +2276,7 @@ msgstr "Pilih berkas fon untuk diunggah."
 msgid "Choose a font to delete."
 msgstr "Pilih font yang akan dihapus."
 
-#: templates/admin/modules/mailer.php:170
+#: templates/admin/modules/mailer.php:171
 msgid "Choose a mail provider"
 msgstr "Pilih penyedia email"
 
@@ -2310,7 +2330,7 @@ msgstr "Pilih ikon untuk setiap item menu navigasi di layar Menu."
 msgid "Choose an image file first."
 msgstr "Pilih berkas gambar terlebih dahulu."
 
-#: templates/admin/modules/mailer.php:181
+#: templates/admin/modules/mailer.php:182
 msgid "Choose an SMTP preset"
 msgstr "Pilih preset SMTP"
 
@@ -2594,11 +2614,15 @@ msgstr "Kondisi hanya berlaku untuk sidebar artikel."
 msgid "Configure each header in one place only — here or at the server level, not both."
 msgstr "Konfigurasikan setiap header hanya di satu tempat — di sini atau di tingkat server, bukan keduanya."
 
+#: templates/admin/modules/mailer.php:333
+msgid "Configure the OAuth consent screen for the project."
+msgstr "Konfigurasikan layar persetujuan OAuth untuk proyek tersebut."
+
 #: src/Modules/Integrations/IntegrationsModule.php:397
 #: src/Modules/Integrations/IntegrationsModule.php:897
 #: src/Modules/Recaptcha/RecaptchaModule.php:532
 #: src/Modules/Turnstile/TurnstileModule.php:986
-#: templates/admin/modules/mailer.php:112
+#: templates/admin/modules/mailer.php:113
 #: templates/admin/shell.php:449
 msgid "Configured"
 msgstr "Dikonfigurasi"
@@ -2625,18 +2649,18 @@ msgstr "Kata konfirmasi"
 msgid "Confirmed"
 msgstr "Dikonfirmasi"
 
-#: templates/admin/modules/mailer.php:307
+#: templates/admin/modules/mailer.php:361
 msgid "Connect Gmail"
 msgstr "Hubungkan Gmail"
 
-#: templates/admin/modules/mailer.php:302
+#: templates/admin/modules/mailer.php:356
 #. translators: %s is the connected Gmail account address.
 msgid "Connected as %s."
 msgstr "Terhubung sebagai %s."
 
-#: src/Modules/Mailer/MailerModule.php:1723
-#: templates/admin/modules/mailer.php:190
+#: src/Modules/Mailer/MailerModule.php:1720
 #: templates/admin/modules/mailer.php:191
+#: templates/admin/modules/mailer.php:192
 msgid "Connection"
 msgstr "Koneksi"
 
@@ -2882,13 +2906,17 @@ msgstr "Salin cuplikan Nginx"
 msgid "Copy site info"
 msgstr "Salin info situs"
 
-#: src/Modules/Headers/HeadersModule.php:242
+#: templates/admin/modules/mailer.php:342
+msgid "Copy the redirect URI above and add it as an authorized redirect URI in the OAuth client."
+msgstr "Salin URI pengalihan di atas dan tambahkan sebagai URI pengalihan resmi di klien OAuth."
+
+#: src/Modules/Headers/HeadersModule.php:244
 msgid "Copy-paste server snippets."
 msgstr "Cuplikan server siap salin-tempel."
 
 #: templates/admin/shell.php:122
 msgid "Core"
-msgstr "Core"
+msgstr "Inti"
 
 #: src/Admin/ModuleRegistry.php:1621
 #: src/Admin/ModuleRegistry.php:1658
@@ -3086,7 +3114,11 @@ msgstr "Melindungi formulir login, komentar, dan formulir langganan buletin."
 msgid "Create"
 msgstr "Buat"
 
-#: src/Modules/Mailer/Providers/MandrillProvider.php:51
+#: templates/admin/modules/mailer.php:324
+msgid "Create a Google Cloud OAuth app, then paste its client ID and secret into the fields above."
+msgstr "Buat aplikasi OAuth Google Cloud, lalu tempel ID klien dan rahasia klien ke kolom di atas."
+
+#: src/Modules/Mailer/Providers/MandrillProvider.php:59
 msgid "Create a key in the Mailchimp Transactional dashboard (Settings → API Keys). Leave empty to keep the saved key."
 msgstr ""
 
@@ -3094,7 +3126,7 @@ msgstr ""
 msgid "Create a key under Settings → SMTP & API → API keys in Brevo (keys start with xkeysib-). The From address must be a verified sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:685
+#: src/Modules/Mailer/MailerModule.php:682
 msgid "Create a key with Mail Send permission in the SendGrid dashboard. Leave empty to keep the saved key. The key is never shown."
 msgstr ""
 
@@ -3113,6 +3145,10 @@ msgstr ""
 #: src/Modules/Mailer/Providers/HubSpotProvider.php:55
 msgid "Create a private app in HubSpot (Settings → Integrations → Private Apps) with the transactional email scope. Leave empty to keep the saved token."
 msgstr ""
+
+#: templates/admin/modules/mailer.php:329
+msgid "Create a project in the Google Cloud console."
+msgstr "Buat proyek di konsol Google Cloud."
 
 #: src/Modules/Recaptcha/RecaptchaModule.php:539
 msgid "Create a reCAPTCHA site in the Google reCAPTCHA admin console and paste its site key and secret key below."
@@ -3202,8 +3238,8 @@ msgstr ""
 msgid "Create an API key under Settings → API in Elastic Email. The From address must use a verified domain."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:52
-msgid "Create an API key with Transmissions: Read/Write permission in the SparkPost (Bird) dashboard. The From address must use a verified domain."
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:60
+msgid "Create an API key with Transmissions: Read/Write permission in the Bird Email dashboard. The From address must use a verified domain."
 msgstr ""
 
 #: templates/admin/shell.php:137
@@ -3226,9 +3262,13 @@ msgstr "Buat area widget kustom."
 msgid "Create form"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:711
+#: src/Modules/Mailer/MailerModule.php:708
 msgid "Create OAuth credentials (Web application) in the Google Cloud console and add this site’s callback URL as an authorized redirect URI."
 msgstr ""
+
+#: templates/admin/modules/mailer.php:337
+msgid "Create OAuth credentials of type \"Web application\"."
+msgstr "Buat kredensial OAuth jenis \"Aplikasi web\"."
 
 #: src/Modules/Redirects/RedirectsModule.php:463
 msgid "Create redirect"
@@ -3371,11 +3411,11 @@ msgstr "CSS Kustom"
 msgid "Custom CSS support."
 msgstr "Dukungan CSS kustom."
 
-#: src/Modules/Headers/HeadersModule.php:427
+#: src/Modules/Headers/HeadersModule.php:409
 msgid "Custom header settings saved."
 msgstr "Pengaturan header kustom tersimpan."
 
-#: src/Modules/Headers/HeadersModule.php:195
+#: src/Modules/Headers/HeadersModule.php:197
 msgid "Custom Headers"
 msgstr "Header Kustom"
 
@@ -3533,7 +3573,7 @@ msgstr "Bawaan: aksen Elegant Blue #2563eb. Warna ini hanya memengaruhi editor d
 msgid "Defaults to white. Dark mode on the reader’s device switches the dashboard to its dark palette instead; this colour is the light-mode canvas."
 msgstr "Bawaan: putih. Mode gelap di perangkat pembaca mengalihkan dasbor ke palet gelapnya; warna ini adalah kanvas mode terang."
 
-#: src/Modules/Headers/HeadersModule.php:243
+#: src/Modules/Headers/HeadersModule.php:245
 msgid "Defers to the Security Headers module for headers it already sends."
 msgstr "Mengalah pada modul Security Headers untuk header yang sudah dikirimnya."
 
@@ -3555,7 +3595,7 @@ msgstr "Mengalah pada Yoast, Rank Math, All in One SEO, atau SEOPress jika salah
 #: templates/admin/modules/fonts.php:140
 #: templates/admin/modules/form-builder.php:119
 #: templates/admin/modules/form-builder.php:205
-#: templates/admin/modules/form-builder.php:246
+#: templates/admin/modules/form-builder.php:247
 #: templates/admin/modules/form-builder.php:75
 #: templates/admin/modules/role-editor.php:103
 #: templates/admin/shell.php:142
@@ -3662,20 +3702,20 @@ msgstr "Menghapus peran ini akan membuat tidak ada pengguna yang dapat mengelola
 msgid "Deleting…"
 msgstr "Menghapus…"
 
-#: src/Modules/Mailer/MailerModule.php:1725
-#: templates/admin/modules/mailer.php:336
+#: src/Modules/Mailer/MailerModule.php:1722
+#: templates/admin/modules/mailer.php:390
 msgid "Deliverability"
 msgstr ""
 
-#: templates/admin/modules/mailer.php:337
+#: templates/admin/modules/mailer.php:391
 msgid "Deliverability headers"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1013
+#: src/Modules/Mailer/MailerModule.php:1010
 msgid "Deliverability headers, test email tool, and send log added."
 msgstr "Header keterkiriman, alat uji email, dan log pengiriman ditambahkan."
 
-#: src/Modules/Mailer/MailerModule.php:983
+#: src/Modules/Mailer/MailerModule.php:980
 msgid "Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 msgstr "Header keterkiriman: Reply-To, List-Unsubscribe, Message-ID, X-Mailer."
 
@@ -3800,7 +3840,7 @@ msgstr "DISALLOW_FILE_MODS"
 msgid "DISALLOW_FILE_MODS is set, but DISALLOW_FILE_EDIT is not."
 msgstr "DISALLOW_FILE_MODS diatur, tetapi DISALLOW_FILE_EDIT tidak."
 
-#: templates/admin/modules/mailer.php:305
+#: templates/admin/modules/mailer.php:359
 msgid "Disconnect Gmail"
 msgstr "Putuskan Gmail"
 
@@ -3853,7 +3893,7 @@ msgstr "Disqus dipilih — simpan shortname Disqus untuk mengaktifkannya."
 msgid "Disqus shortname"
 msgstr "Shortname Disqus"
 
-#: src/Modules/FormBuilder/EmailBuilder.php:86
+#: src/Modules/Email/TemplateBuilder.php:457
 msgid "Divider"
 msgstr ""
 
@@ -4112,23 +4152,23 @@ msgstr ""
 msgid "Email subject prefix"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:155
+#: src/Modules/FormBuilder/FormBuilderModule.php:156
 msgid "Email template builder."
 msgstr "Pembuat templat email."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:570
+#: src/Modules/FormBuilder/FormBuilderModule.php:556
 msgid "Email template created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:634
+#: src/Modules/FormBuilder/FormBuilderModule.php:663
 msgid "Email template deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:610
+#: src/Modules/FormBuilder/FormBuilderModule.php:602
 msgid "Email template saved."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:260
+#: src/Modules/FormBuilder/FormBuilderModule.php:261
 #: templates/admin/modules/email.php:44
 #: templates/admin/modules/form-builder.php:175
 msgid "Email templates"
@@ -4188,11 +4228,11 @@ msgstr "Aktifkan modul Penyisip Iklan dari grid Modul untuk menggunakan pratinja
 msgid "Enable the features your site needs. Disabled modules register no hooks and load nothing."
 msgstr "Aktifkan fitur yang dibutuhkan situs Anda. Modul yang dinonaktifkan tidak mendaftarkan hook dan tidak memuat apa pun."
 
-#: src/Modules/Headers/HeadersModule.php:205
+#: src/Modules/Headers/HeadersModule.php:207
 msgid "Enable the recommended security headers, check them on your own site, and get copy-paste server snippets. Defers to the Security Headers module for any header it already sends."
 msgstr "Aktifkan header keamanan yang direkomendasikan, periksa header tersebut di situs Anda sendiri, dan dapatkan cuplikan server siap salin-tempel. Modul ini mengikuti modul Security Headers untuk header apa pun yang sudah dikirimnya."
 
-#: src/Modules/Headers/HeadersModule.php:240
+#: src/Modules/Headers/HeadersModule.php:242
 msgid "Enable the recommended security headers."
 msgstr "Aktifkan header keamanan yang direkomendasikan."
 
@@ -4217,8 +4257,8 @@ msgstr "Diaktifkan (berjalan saat situs dikunjungi)"
 msgid "Enabled. %d backup codes left."
 msgstr "Diaktifkan. Tersisa %d kode cadangan."
 
-#: src/Modules/Mailer/MailerModule.php:1613
-#: templates/admin/modules/mailer.php:213
+#: src/Modules/Mailer/MailerModule.php:1610
+#: templates/admin/modules/mailer.php:214
 msgid "Encryption"
 msgstr "Enkripsi"
 
@@ -4246,8 +4286,7 @@ msgstr "Tingkatkan layar Pengguna dengan kolom avatar dan login terakhir serta p
 msgid "Enter a category name."
 msgstr "Masukkan nama kategori."
 
-#: src/Modules/Headers/HeadersModule.php:401
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:355
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:167
 msgid "Enter a Content-Security-Policy before enabling report-only mode."
 msgstr "Masukkan Content-Security-Policy sebelum mengaktifkan mode hanya-laporan."
 
@@ -4275,11 +4314,11 @@ msgstr "Masukkan judul edisi."
 msgid "Enter a title for the new contact form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:557
+#: src/Modules/FormBuilder/FormBuilderModule.php:543
 msgid "Enter a title for the new email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:452
+#: src/Modules/FormBuilder/FormBuilderModule.php:435
 msgid "Enter a title for the new form."
 msgstr ""
 
@@ -4318,7 +4357,7 @@ msgstr "Masukkan kunci rahasia"
 msgid "Enter shortname"
 msgstr "Masukkan shortname"
 
-#: templates/admin/modules/mailer.php:239
+#: templates/admin/modules/mailer.php:240
 msgid "Enter SMTP password"
 msgstr "Masukkan kata sandi SMTP"
 
@@ -4336,6 +4375,10 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/AWeberProvider.php:173
 msgid "Enter the AWeber account ID and list ID in the Mailer settings first."
+msgstr ""
+
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:84
+msgid "Enter the Bird Email API key in the Mailer settings first."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/BrevoProvider.php:72
@@ -4366,7 +4409,7 @@ msgstr ""
 msgid "Enter the GetResponse API key, campaign ID, and from-field ID in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:2324
+#: src/Modules/Mailer/MailerModule.php:2326
 msgid "Enter the Google OAuth client ID and client secret first, then connect."
 msgstr "Masukkan client ID dan client secret Google OAuth terlebih dahulu, lalu hubungkan."
 
@@ -4384,6 +4427,10 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/MailchimpProvider.php:98
 msgid "Enter the Mailchimp API key and audience ID in the Mailer settings first."
+msgstr ""
+
+#: src/Modules/Mailer/Providers/MandrillProvider.php:83
+msgid "Enter the Mailchimp Transactional API key in the Mailer settings first."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/MailerLiteProvider.php:98
@@ -4404,10 +4451,6 @@ msgstr ""
 
 #: src/Modules/Mailer/Providers/MailtrapProvider.php:72
 msgid "Enter the Mailtrap API token in the Mailer settings first."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/MandrillProvider.php:75
-msgid "Enter the Mandrill API key in the Mailer settings first."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/MoosendProvider.php:106
@@ -4442,7 +4485,7 @@ msgstr ""
 msgid "Enter the Sender.net API token in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:878
+#: src/Modules/Mailer/MailerModule.php:875
 msgid "Enter the SendGrid API key in the Mailer settings first."
 msgstr ""
 
@@ -4466,19 +4509,15 @@ msgstr ""
 msgid "Enter the SocketLabs server ID and API key in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:76
-msgid "Enter the SparkPost API key in the Mailer settings first."
-msgstr ""
-
 #: src/Modules/Mailer/Providers/UnisenderProvider.php:73
 msgid "Enter the Unisender API key in the Mailer settings first."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:75
-msgid "Enter the ZeptoMail API key in the Mailer settings first."
+#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:81
+msgid "Enter the Zoho CPaaS API key in the Mailer settings first."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:290
+#: templates/admin/modules/mailer.php:291
 msgid "Enter value"
 msgstr ""
 
@@ -4573,7 +4612,7 @@ msgstr "Setiap fitur adalah sebuah modul. Aktifkan hanya yang dibutuhkan situs A
 msgid "Every PHP file is recompiled on its next request at the same time, which can briefly slow the site down or stampede the server. Reset only when you need to (for example after a deployment that did not take effect)."
 msgstr "Setiap berkas PHP dikompilasi ulang pada request berikutnya secara bersamaan, yang dapat memperlambat situs sejenak atau membanjiri server. Reset hanya bila perlu (misalnya setelah deployment yang tidak berdampak)."
 
-#: templates/admin/modules/mailer.php:174
+#: templates/admin/modules/mailer.php:175
 msgid "Every provider is built into Core — no extra plugin is needed. Pick one, then enter its credentials under Connection. Third-party plugins can add more providers through the traydigita:core:mailer/providers filter."
 msgstr ""
 
@@ -4690,8 +4729,8 @@ msgstr "Izinkan formulir komentar dan buletin saat Cloudflare tidak dapat dijang
 #: src/Modules/Turnstile/TurnstileModule.php:1021
 #: templates/admin/modules/email.php:278
 #: templates/admin/modules/fast-search.php:60
-#: templates/admin/modules/mailer.php:144
-#: templates/admin/modules/mailer.php:476
+#: templates/admin/modules/mailer.php:145
+#: templates/admin/modules/mailer.php:530
 #: templates/admin/modules/security.php:35
 #: templates/admin/modules/security.php:49
 #: templates/admin/shell.php:116
@@ -4742,7 +4781,7 @@ msgstr "Gambar unggulan"
 msgid "Features"
 msgstr "Fitur"
 
-#: templates/admin/modules/mailer.php:381
+#: templates/admin/modules/mailer.php:435
 msgid "Feedback-ID (bulk mail only)"
 msgstr ""
 
@@ -4959,7 +4998,7 @@ msgstr "Fon yang digunakan untuk judul, melalui variabel serif tema. Hanya fon y
 msgid "Font used for headings. The same setting is available in the Customizer."
 msgstr "Font yang digunakan untuk judul. Pengaturan yang sama tersedia di Customizer."
 
-#: src/Modules/FormBuilder/EmailBuilder.php:87
+#: src/Modules/Email/TemplateBuilder.php:458
 msgid "Footer"
 msgstr ""
 
@@ -4981,7 +5020,7 @@ msgstr ""
 msgid "Form background colour"
 msgstr "Warna latar formulir"
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:109
+#: src/Modules/FormBuilder/FormBuilderModule.php:110
 msgid "Form Builder"
 msgstr ""
 
@@ -4990,15 +5029,15 @@ msgstr ""
 msgid "Form Builder form"
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:477
+#: src/Modules/FormBuilder/FormBuilderModule.php:460
 msgid "Form created."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:541
+#: src/Modules/FormBuilder/FormBuilderModule.php:524
 msgid "Form deleted."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:517
+#: src/Modules/FormBuilder/FormBuilderModule.php:500
 msgid "Form saved."
 msgstr ""
 
@@ -5024,7 +5063,7 @@ msgid "Format: Label|price|change|change_percent|buyback. Used when no API provi
 msgstr "Format: Label|price|change|change_percent|buyback. Digunakan saat tidak ada penyedia API yang dikonfigurasi."
 
 #: src/Modules/ContactForm/ContactFormModule.php:320
-#: src/Modules/FormBuilder/FormBuilderModule.php:259
+#: src/Modules/FormBuilder/FormBuilderModule.php:260
 #: templates/admin/modules/form-builder.php:43
 msgid "Forms"
 msgstr ""
@@ -5063,11 +5102,11 @@ msgstr "Endpoint publik gratis, tanpa kunci API. Dengan kunci API Pro, endpoint 
 msgid "Free public tier, no API key needed. Paid plans exist, but the theme uses the keyless tier only."
 msgstr "Tingkat publik gratis, tanpa kunci API. Paket berbayar tersedia, tetapi tema hanya memakai tingkat tanpa kunci."
 
-#: src/Modules/Mailer/MailerModule.php:1724
+#: src/Modules/Mailer/MailerModule.php:1721
 #: templates/admin/contact-submissions.php:156
 #: templates/admin/modules/activity-log.php:114
-#: templates/admin/modules/mailer.php:313
-#: templates/admin/modules/mailer.php:314
+#: templates/admin/modules/mailer.php:367
+#: templates/admin/modules/mailer.php:368
 msgid "From"
 msgstr "Dari"
 
@@ -5083,12 +5122,12 @@ msgstr ""
 msgid "From Account Settings → REST API → API Key Management in Mailjet. The From address must be a validated, active sender."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:1647
-#: templates/admin/modules/mailer.php:328
+#: src/Modules/Mailer/MailerModule.php:1644
+#: templates/admin/modules/mailer.php:382
 msgid "From email"
 msgstr "Email pengirim"
 
-#: templates/admin/modules/mailer.php:320
+#: templates/admin/modules/mailer.php:374
 msgid "From name"
 msgstr "Nama pengirim"
 
@@ -5108,8 +5147,8 @@ msgstr ""
 msgid "From the same Mailjet API Key Management page. Leave empty to keep the saved secret."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:51
-msgid "From the ZeptoMail dashboard (Mail Agents → API). The From address must be a verified sender. ZeptoMail is transactional-only."
+#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:57
+msgid "From the Zoho CPaaS dashboard (Mail Agents → API). The From address must be a verified sender. Zoho CPaaS is transactional-only."
 msgstr ""
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:406
@@ -5216,15 +5255,15 @@ msgstr "Error API Gmail %1$d: %2$s"
 msgid "Gmail API error %d."
 msgstr "Error API Gmail %d."
 
-#: src/Modules/Mailer/MailerModule.php:2328
+#: src/Modules/Mailer/MailerModule.php:2330
 msgid "Gmail could not be connected. Please try again."
 msgstr "Gmail tidak dapat dihubungkan. Silakan coba lagi."
 
-#: src/Modules/Mailer/MailerModule.php:2314
+#: src/Modules/Mailer/MailerModule.php:2316
 msgid "Gmail is connected. Mail will now be sent through the Gmail API."
 msgstr "Gmail terhubung. Email kini akan dikirim melalui Gmail API."
 
-#: src/Modules/Mailer/MailerModule.php:2317
+#: src/Modules/Mailer/MailerModule.php:2319
 msgid "Gmail is disconnected. Mail falls back to the configured provider settings."
 msgstr "Gmail terputus. Email kembali menggunakan pengaturan penyedia yang dikonfigurasi."
 
@@ -5232,11 +5271,11 @@ msgstr "Gmail terputus. Email kembali menggunakan pengaturan penyedia yang dikon
 msgid "Gmail is not connected."
 msgstr "Gmail belum terhubung."
 
-#: src/Modules/Mailer/MailerModule.php:982
+#: src/Modules/Mailer/MailerModule.php:979
 msgid "Gmail OAuth sign-in."
 msgstr "Login Gmail OAuth."
 
-#: src/Modules/Mailer/MailerModule.php:699
+#: src/Modules/Mailer/MailerModule.php:696
 msgid "Gmail — send through the Gmail API as the connected Google account. Best for small sites that already live in Google Workspace or Gmail."
 msgstr ""
 
@@ -5286,7 +5325,7 @@ msgstr "Google tidak mengembalikan access token. Periksa Service Account JSON."
 msgid "Google did not return an access token: %s"
 msgstr "Google tidak mengembalikan access token: %s"
 
-#: src/Modules/Mailer/MailerModule.php:2326
+#: src/Modules/Mailer/MailerModule.php:2328
 msgid "Google did not return an authorization code. Please try connecting again."
 msgstr "Google tidak mengembalikan kode otorisasi. Silakan coba hubungkan lagi."
 
@@ -5331,11 +5370,11 @@ msgstr "Google Indexing API"
 msgid "Google News sitemap (news-sitemap.xml)"
 msgstr "Peta situs Google News (news-sitemap.xml)"
 
-#: src/Modules/Mailer/MailerModule.php:709
+#: src/Modules/Mailer/MailerModule.php:706
 msgid "Google OAuth client ID"
 msgstr "Client ID Google OAuth"
 
-#: src/Modules/Mailer/MailerModule.php:720
+#: src/Modules/Mailer/MailerModule.php:717
 msgid "Google OAuth client secret"
 msgstr "Client secret Google OAuth"
 
@@ -5351,7 +5390,7 @@ msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3) untuk Conta
 msgid "Google reCAPTCHA bot protection (v2 checkbox and v3 score)."
 msgstr "Proteksi bot Google reCAPTCHA (kotak centang v2 dan skor v3)."
 
-#: src/Modules/Mailer/MailerModule.php:2327
+#: src/Modules/Mailer/MailerModule.php:2329
 msgid "Google refused the authorization code. Check the client ID and secret, then try connecting again."
 msgstr "Google menolak kode otorisasi. Periksa client ID dan secret, lalu coba hubungkan lagi."
 
@@ -5441,12 +5480,12 @@ msgstr "Kotak centang kapabilitas yang dikelompokkan."
 msgid "Guard against duplicate analytics tracking."
 msgstr "Mencegah pelacakan analitik ganda."
 
-#: src/Modules/FormBuilder/EmailBuilder.php:83
+#: src/Modules/Email/TemplateBuilder.php:453
 #: templates/admin/modules/headers.php:49
 msgid "Header"
 msgstr "Header"
 
-#: src/Modules/Headers/HeadersModule.php:336
+#: src/Modules/Headers/HeadersModule.php:338
 msgid "Header checker"
 msgstr "Pemeriksa header"
 
@@ -5454,8 +5493,8 @@ msgstr "Pemeriksa header"
 msgid "Header-check timeout (seconds)"
 msgstr "Batas waktu pemeriksaan header (detik)"
 
-#: src/Modules/Headers/HeadersModule.php:334
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:298
+#: src/Modules/Headers/HeadersModule.php:336
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:311
 msgid "Headers"
 msgstr "Header"
 
@@ -5464,7 +5503,7 @@ msgstr "Header"
 msgid "Headers are only sent on the frontend — never in wp-admin, for AJAX or REST requests, or on the login page."
 msgstr "Header hanya dikirim di frontend — tidak pernah di wp-admin, untuk permintaan AJAX atau REST, atau di halaman login."
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:299
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:312
 #: templates/admin/modules/security-headers.php:96
 msgid "Headers that will be sent"
 msgstr "Header yang akan dikirim"
@@ -5596,7 +5635,7 @@ msgstr "URL Beranda"
 msgid "Homepage"
 msgstr "Beranda"
 
-#: src/Modules/Mailer/MailerModule.php:1590
+#: src/Modules/Mailer/MailerModule.php:1587
 msgid "Host"
 msgstr "Host"
 
@@ -5608,7 +5647,7 @@ msgstr "Host Google Fonts secara lokal atau unggah berkas fon sendiri, dan pilih
 msgid "Host Google Fonts locally or upload your own font files."
 msgstr "Host Google Fonts secara lokal atau unggah file font Anda sendiri."
 
-#: templates/admin/modules/mailer.php:199
+#: templates/admin/modules/mailer.php:200
 msgid "Hostname or IP address of your SMTP server, for example smtp.example.com. Only used with the SMTP provider. Leave empty to disable SMTP."
 msgstr "Nama host atau alamat IP server SMTP Anda, misalnya smtp.example.com. Hanya digunakan dengan penyedia SMTP. Kosongkan untuk menonaktifkan SMTP."
 
@@ -5656,6 +5695,10 @@ msgstr "Seberapa sering heartbeat berdenyut untuk pengunjung yang masuk di front
 #: src/Modules/Heartbeat/HeartbeatModule.php:303
 msgid "How often the heartbeat pulses on dashboard and other admin screens."
 msgstr "Seberapa sering heartbeat berdenyut di dasbor dan layar admin lainnya."
+
+#: templates/admin/modules/mailer.php:323
+msgid "How to connect Gmail"
+msgstr "Cara menghubungkan Gmail"
 
 #: src/Modules/Headers/HeaderChecker.php:165
 msgid "HSTS only applies to HTTPS sites. Turn on HTTPS first, then this header can be enabled."
@@ -5721,6 +5764,10 @@ msgstr ""
 msgid "If a user is locked out of their account, an administrator can disable two-factor authentication for that user from the command line:"
 msgstr "Jika pengguna terkunci dari akunnya, administrator dapat menonaktifkan autentikasi dua faktor untuk pengguna tersebut dari baris perintah:"
 
+#: templates/admin/modules/mailer.php:346
+msgid "If the connect fails, check that you are still logged in to this site: when the login session expired while authorizing on Google (or you authorized in another browser), the callback arrives logged out and the connect fails — just log in again and reconnect."
+msgstr "Jika koneksi gagal, periksa apakah Anda masih login ke situs ini: bila sesi login kedaluwarsa saat melakukan otorisasi di Google (atau Anda melakukan otorisasi di browser lain), callback tiba dalam keadaan logout dan koneksi gagal — cukup login lagi dan hubungkan ulang."
+
 #: templates/admin/modules/headers.php:196
 #: templates/admin/modules/security-headers.php:114
 msgid "If the server (or Cloudflare) already sends one of these headers, both values may reach the browser."
@@ -5730,6 +5777,7 @@ msgstr "Jika server (atau Cloudflare) sudah mengirim salah satu header ini, kedu
 msgid "If you enable Security Headers later, it takes over the overlapping headers automatically and this module defers to it."
 msgstr "Jika Security Headers diaktifkan nanti, modul tersebut mengambil alih header yang tumpang tindih secara otomatis dan modul ini mengalah."
 
+#: src/Modules/Email/TemplateBuilder.php:456
 #: src/Modules/Installer/InstallerModule.php:638
 #: templates/admin/modules/login.php:190
 #: templates/admin/modules/maintenance.php:146
@@ -5758,6 +5806,7 @@ msgid "Image Optimizer settings saved."
 msgstr "Pengaturan Image Optimizer disimpan."
 
 #: src/Modules/Avatar/AvatarModule.php:339
+#: templates/admin/modules/form-builder.php:246
 msgid "Image URL"
 msgstr "URL gambar"
 
@@ -5837,7 +5886,7 @@ msgstr "Sertakan varian miring"
 msgid "Include tags"
 msgstr "Sertakan tag"
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:200
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:213
 msgid "Includes a report-only Content-Security-Policy."
 msgstr "Mencakup Content-Security-Policy mode report-only."
 
@@ -5927,8 +5976,8 @@ msgstr "Info"
 #: src/Modules/Email/EmailModule.php:163
 #: src/Modules/FastSearch/FastSearchModule.php:165
 #: src/Modules/Fonts/FontsModule.php:224
-#: src/Modules/FormBuilder/FormBuilderModule.php:176
-#: src/Modules/Headers/HeadersModule.php:263
+#: src/Modules/FormBuilder/FormBuilderModule.php:177
+#: src/Modules/Headers/HeadersModule.php:265
 #: src/Modules/Heartbeat/HeartbeatModule.php:210
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:177
 #: src/Modules/Installer/InstallerModule.php:171
@@ -5946,7 +5995,7 @@ msgstr "Info"
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:266
 #: src/Modules/RoleEditor/RoleEditorModule.php:228
 #: src/Modules/Security/SecurityModule.php:170
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:220
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:233
 #: src/Modules/Share/ShareModule.php:202
 #: src/Modules/SiteInfo/SiteInfoModule.php:170
 #: src/Modules/SiteKit/SiteKitModule.php:162
@@ -6271,7 +6320,7 @@ msgstr "Ping terakhir: %1$s — %2$s"
 msgid "Last seen"
 msgstr "Terakhir terlihat"
 
-#: templates/admin/modules/mailer.php:139
+#: templates/admin/modules/mailer.php:140
 #. translators: %s is the date and time of the last test email.
 msgid "Last test: %s"
 msgstr "Tes terakhir: %s"
@@ -6318,7 +6367,7 @@ msgstr "Kosongkan untuk membuat slug dari nama."
 msgid "Leave empty to keep the saved key."
 msgstr "Kosongkan untuk mempertahankan kunci yang tersimpan."
 
-#: templates/admin/modules/mailer.php:236
+#: templates/admin/modules/mailer.php:237
 msgid "Leave empty to keep the saved password. The password is never shown."
 msgstr "Kosongkan untuk mempertahankan kata sandi yang tersimpan. Kata sandi tidak pernah ditampilkan."
 
@@ -6331,7 +6380,7 @@ msgstr "Biarkan kosong untuk mempertahankan kunci rahasia yang tersimpan."
 msgid "Leave empty to keep the saved secret key. The key is never shown."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:722
+#: src/Modules/Mailer/MailerModule.php:719
 msgid "Leave empty to keep the saved secret. The secret is never shown."
 msgstr ""
 
@@ -6351,11 +6400,11 @@ msgstr "Biarkan kosong untuk menggunakan warna teks spanduk bawaan."
 msgid "Leave empty to use the default recipient below."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:432
+#: templates/admin/modules/mailer.php:486
 msgid "Leave empty to use the default test message. Limited to one test email every 30 seconds."
 msgstr "Kosongkan untuk menggunakan pesan tes bawaan. Dibatasi satu email tes setiap 30 detik."
 
-#: templates/admin/modules/mailer.php:421
+#: templates/admin/modules/mailer.php:475
 msgid "Leave empty to use the default test subject."
 msgstr "Kosongkan untuk menggunakan subjek tes bawaan."
 
@@ -6490,7 +6539,7 @@ msgstr "Cantumkan setiap artikel seri secara berurutan di dalam kotak navigasi, 
 msgid "List view"
 msgstr "Tampilan daftar"
 
-#: templates/admin/modules/mailer.php:353
+#: templates/admin/modules/mailer.php:407
 msgid "List-Unsubscribe + one-click unsubscribe"
 msgstr ""
 
@@ -6549,19 +6598,19 @@ msgstr "Memuat cuaca…"
 msgid "Loading your bookmarks…"
 msgstr "Memuat markah Anda…"
 
-#: src/Modules/Mailer/MailerModule.php:659
+#: src/Modules/Mailer/MailerModule.php:656
 msgid "Local / PHP mail"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:660
+#: src/Modules/Mailer/MailerModule.php:657
 msgid "Local / PHP mail — no provider, no credentials: WordPress sends through the server’s own mail setup (wp_mail default). Worst deliverability of all providers (no authentication, no reputation), but it works with no account at all. Best for local development only."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:665
+#: src/Modules/Mailer/MailerModule.php:662
 msgid "Local development only"
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:980
+#: src/Modules/Mailer/MailerModule.php:977
 msgid "Local PHP mail for development."
 msgstr "Email PHP lokal untuk pengembangan."
 
@@ -6705,7 +6754,7 @@ msgstr "Nilai terkecil menang: bila beberapa sidebar menggantikan area yang sama
 msgid "Lowercase letters, digits, or underscores, 2–60 characters."
 msgstr "Huruf kecil, angka, atau garis bawah, 2–60 karakter."
 
-#: templates/admin/modules/mailer.php:168
+#: templates/admin/modules/mailer.php:169
 msgid "Mail provider"
 msgstr "Penyedia email"
 
@@ -6717,19 +6766,23 @@ msgstr ""
 msgid "Mailchimp audience (list) ID"
 msgstr ""
 
-#: src/Modules/Mailer/Providers/MandrillProvider.php:39
-msgid "Mailchimp Transactional (Mandrill) — paid only, no free tier. Best for teams already on Mailchimp who want transactional mail on the same account."
+#: src/Modules/Mailer/Providers/MandrillProvider.php:57
+msgid "Mailchimp Transactional API key"
+msgstr ""
+
+#: src/Modules/Mailer/Providers/MandrillProvider.php:47
+msgid "Mailchimp Transactional — formerly Mandrill. Paid only, no free tier. Best for teams already on Mailchimp who want transactional mail on the same account."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/MailchimpProvider.php:50
 msgid "Mailchimp — free 500 contacts / 1,000 emails per month. Campaign provider: a mail is sent as a campaign to a whole list, not to the mail’s To addresses — a test email goes to the whole list. Best for marketing campaigns and audiences already managed in Mailchimp."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:934
+#: src/Modules/Mailer/MailerModule.php:931
 msgid "Mailer"
 msgstr "Mailer"
 
-#: src/Modules/Mailer/MailerModule.php:2352
+#: src/Modules/Mailer/MailerModule.php:2354
 msgid "Mailer is not configured yet. Outgoing mail will use the WordPress default mailer."
 msgstr "Mailer belum dikonfigurasi. Email keluar akan menggunakan mailer bawaan WordPress."
 
@@ -6737,7 +6790,7 @@ msgstr "Mailer belum dikonfigurasi. Email keluar akan menggunakan mailer bawaan 
 msgid "Mailer is not configured yet. Save the provider settings first."
 msgstr "Mailer belum dikonfigurasi. Simpan pengaturan penyedia terlebih dahulu."
 
-#: src/Modules/Mailer/MailerModule.php:1710
+#: src/Modules/Mailer/MailerModule.php:1707
 msgid "Mailer settings saved."
 msgstr "Pengaturan Mailer disimpan."
 
@@ -6869,10 +6922,6 @@ msgstr "Kelola kunci reCAPTCHA"
 #: src/Modules/PostSeries/PostSeriesModule.php:1115
 msgid "Manage series"
 msgstr "Kelola seri"
-
-#: src/Modules/Mailer/Providers/MandrillProvider.php:49
-msgid "Mandrill API key"
-msgstr ""
 
 #: src/Modules/AuthorBox/AuthorBoxModule.php:325
 #: src/Modules/AuthorBox/AuthorBoxModule.php:726
@@ -7024,7 +7073,7 @@ msgstr ""
 #: src/Modules/Push/PushModule.php:264
 #: src/Modules/Push/PushModule.php:552
 #: templates/admin/modules/activity-log.php:141
-#: templates/admin/modules/mailer.php:430
+#: templates/admin/modules/mailer.php:484
 #: templates/admin/modules/maintenance.php:105
 msgid "Message"
 msgstr "Pesan"
@@ -7208,7 +7257,7 @@ msgstr "404 yang paling sering diakses"
 msgid "Multisite"
 msgstr "Multisite"
 
-#: templates/admin/modules/mailer.php:330
+#: templates/admin/modules/mailer.php:384
 msgid "Must be a valid email address. Leave empty to use the WordPress default sender. Gmail always sends from the connected account, whatever is entered here."
 msgstr "Harus berupa alamat email yang valid. Kosongkan untuk menggunakan pengirim bawaan WordPress. Gmail selalu mengirim dari akun yang terhubung, apa pun yang dimasukkan di sini."
 
@@ -7227,7 +7276,7 @@ msgid "MySQL version"
 msgstr "Versi MySQL"
 
 #: src/Modules/Email/EmailModule.php:389
-#: src/Modules/FormBuilder/FormBuilderModule.php:465
+#: src/Modules/FormBuilder/FormBuilderModule.php:448
 #: templates/admin/contact-submissions.php:179
 #: templates/admin/contact-submissions.php:78
 #: templates/admin/modules/dynamic-sidebars.php:133
@@ -7264,7 +7313,7 @@ msgstr "Membutuhkan JSON akun layanan di bawah. Hanya saat tidak ada plugin SEO 
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1902
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2009
 msgid "Needs Revision"
-msgstr ""
+msgstr "Perlu Revisi"
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1489
 msgid "Needs Revision <span class=\"count\">(%s)</span>"
@@ -7652,7 +7701,7 @@ msgstr "Belum ada edisi. Unggah PDF pertama di atas."
 msgid "No log entries match the current filters."
 msgstr "Tidak ada entri log yang cocok dengan filter saat ini."
 
-#: templates/admin/modules/mailer.php:448
+#: templates/admin/modules/mailer.php:502
 msgid "No mail has been sent through Mailer yet. The last 50 sends appear here with the time, recipient, subject, provider, and result."
 msgstr "Belum ada email yang dikirim melalui Mailer. 50 pengiriman terakhir muncul di sini beserta waktu, penerima, subjek, penyedia, dan hasilnya."
 
@@ -7709,7 +7758,7 @@ msgstr "Tidak ada plugin yang cocok dengan pencarian atau filter Anda."
 msgid "No posts in this series yet. Assign posts from the post screen."
 msgstr "Belum ada artikel dalam seri ini. Tetapkan artikel dari layar artikel."
 
-#: templates/admin/modules/mailer.php:183
+#: templates/admin/modules/mailer.php:184
 msgid "No presets match your search."
 msgstr "Tidak ada preset yang cocok dengan pencarian Anda."
 
@@ -7717,7 +7766,7 @@ msgstr "Tidak ada preset yang cocok dengan pencarian Anda."
 msgid "No price is ever invented."
 msgstr "Tidak ada harga yang pernah dibuat-buat."
 
-#: templates/admin/modules/mailer.php:172
+#: templates/admin/modules/mailer.php:173
 msgid "No providers match your search."
 msgstr "Tidak ada penyedia yang cocok dengan pencarian Anda."
 
@@ -7809,8 +7858,8 @@ msgstr "Tidak ada penyedia AI WordPress yang tersedia: WordPress menyertakan AI 
 #: templates/admin/modules/contact-form.php:39
 #: templates/admin/modules/db-tools.php:118
 #: templates/admin/modules/db-tools.php:63
-#: templates/admin/modules/mailer.php:215
-#: templates/admin/modules/mailer.php:55
+#: templates/admin/modules/mailer.php:216
+#: templates/admin/modules/mailer.php:56
 msgid "None"
 msgstr "Tidak ada"
 
@@ -7847,7 +7896,7 @@ msgstr "Tidak tersedia dari wordpress.org — pasang dari rilis proyek itu sendi
 
 #: src/Modules/Integrations/IntegrationsModule.php:398
 #: src/Modules/Integrations/IntegrationsModule.php:899
-#: templates/admin/modules/mailer.php:132
+#: templates/admin/modules/mailer.php:133
 #: templates/admin/shell.php:451
 msgid "Not configured"
 msgstr "Belum dikonfigurasi"
@@ -8212,12 +8261,12 @@ msgstr "Hanya pengguna itu sendiri yang boleh mengubah perannya sendiri. Hal ini
 msgid "Only used when the frontend heartbeat is enabled below."
 msgstr "Hanya digunakan saat heartbeat frontend diaktifkan di bawah."
 
-#: templates/admin/modules/mailer.php:259
+#: templates/admin/modules/mailer.php:260
 #. translators: %s is the mail provider name.
 msgid "Only used with %s"
 msgstr ""
 
-#: templates/admin/modules/mailer.php:185
+#: templates/admin/modules/mailer.php:186
 msgid "Only used with the SMTP provider. A preset fills in the host, port, and encryption below when you save."
 msgstr ""
 
@@ -8268,7 +8317,7 @@ msgstr "Buka Log Aktivitas"
 msgid "Open Custom Headers"
 msgstr "Buka Custom Headers"
 
-#: src/Modules/Mailer/MailerModule.php:2357
+#: src/Modules/Mailer/MailerModule.php:2359
 msgid "Open Mailer settings"
 msgstr "Buka pengaturan Mailer"
 
@@ -8682,7 +8731,7 @@ msgid "Passkeys: %d"
 msgstr "Passkey: %d"
 
 #: src/Modules/Login/Designer.php:966
-#: templates/admin/modules/mailer.php:234
+#: templates/admin/modules/mailer.php:235
 msgid "Password"
 msgstr "Kata sandi"
 
@@ -8705,6 +8754,10 @@ msgstr ""
 #: src/Modules/Ads/AdsModule.php:1211
 msgid "Paste the ad code here, for example an AdSense unit."
 msgstr "Tempel kode iklan di sini, misalnya unit AdSense."
+
+#: templates/admin/modules/mailer.php:341
+msgid "Paste the client ID into \"Google OAuth client ID\" and the client secret into \"Google OAuth client secret\" above."
+msgstr "Tempel ID klien ke \"Client ID Google OAuth\" dan rahasia klien ke \"Client secret Google OAuth\" di atas."
 
 #: src/Modules/Push/PushModule.php:435
 msgid "Paste the Firebase config once, save it, and the settings lock. Subscribers register from the [traydigita_push_subscribe] button on the site."
@@ -8853,7 +8906,7 @@ msgstr "PHP upload_max_filesize"
 msgid "PHP version"
 msgstr "Versi PHP"
 
-#: templates/admin/modules/mailer.php:133
+#: templates/admin/modules/mailer.php:134
 msgid "Pick a provider and enter its details below. Until then, WordPress keeps sending mail with its default mailer."
 msgstr "Pilih penyedia dan masukkan detailnya di bawah. Sampai saat itu, WordPress tetap mengirim email dengan mailer bawaannya."
 
@@ -8927,14 +8980,14 @@ msgstr "Putar gulir otomatis"
 msgid "Please <a href=\"%s\">log in</a> to use the member area."
 msgstr "Silakan <a href=\"%s\">masuk</a> untuk menggunakan area anggota."
 
-#: src/Modules/Mailer/MailerModule.php:1703
+#: src/Modules/Mailer/MailerModule.php:1700
 #: src/Modules/Turnstile/TurnstileModule.php:1206
 #. translators: %s is a comma-separated list of invalid field names.
 msgid "Please check the following fields: %s."
 msgstr "Silakan periksa kolom berikut: %s."
 
 #: src/Modules/ContactForm/ContactFormAjax.php:90
-#: src/Modules/FormBuilder/FormBuilderModule.php:741
+#: src/Modules/FormBuilder/FormBuilderModule.php:770
 msgid "Please check the form and try again."
 msgstr ""
 
@@ -9069,8 +9122,8 @@ msgstr "Popular Posts kembali ke analitik lokal dan posting terbaru saat Site Ki
 msgid "Popular Posts reads Analytics data through the traydigita-stack collector (Stack::getPopularPosts()) while Site Kit is connected."
 msgstr "Popular Posts membaca data Analytics melalui kolektor traydigita-stack (Stack::getPopularPosts()) saat Site Kit terhubung."
 
-#: src/Modules/Mailer/MailerModule.php:1603
-#: templates/admin/modules/mailer.php:205
+#: src/Modules/Mailer/MailerModule.php:1600
+#: templates/admin/modules/mailer.php:206
 msgid "Port"
 msgstr "Port"
 
@@ -9175,7 +9228,7 @@ msgstr "Artikel yang disimpan otomatis saat diedit tetapi tidak pernah diterbitk
 msgid "Posts without any image show no thumbnail."
 msgstr "Kiriman tanpa gambar tidak menampilkan thumbnail."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:156
+#: src/Modules/FormBuilder/FormBuilderModule.php:157
 msgid "Powers the Contact Form, Newsletter, and other modules."
 msgstr "Menggerakkan Formulir Kontak, Buletin, dan modul lainnya."
 
@@ -9197,7 +9250,7 @@ msgstr "Mencegah file teks biasa diperlakukan sebagai JavaScript, misalnya."
 #: src/Modules/Maintenance/MaintenanceModule.php:332
 #: templates/admin/modules/email.php:110
 #: templates/admin/modules/form-builder.php:164
-#: templates/admin/modules/form-builder.php:278
+#: templates/admin/modules/form-builder.php:299
 #: templates/admin/modules/maintenance.php:349
 #: templates/admin/modules/maintenance.php:350
 #: templates/admin/modules/maintenance.php:79
@@ -9404,11 +9457,11 @@ msgid "Protects the Contact Form module."
 msgstr "Melindungi modul Contact Form."
 
 #: src/Modules/Comments/CommentsModule.php:468
-#: src/Modules/Mailer/MailerModule.php:1562
-#: src/Modules/Mailer/MailerModule.php:1722
-#: templates/admin/modules/mailer.php:154
+#: src/Modules/Mailer/MailerModule.php:1559
+#: src/Modules/Mailer/MailerModule.php:1719
 #: templates/admin/modules/mailer.php:155
-#: templates/admin/modules/mailer.php:456
+#: templates/admin/modules/mailer.php:156
+#: templates/admin/modules/mailer.php:510
 msgid "Provider"
 msgstr "Penyedia"
 
@@ -9657,6 +9710,10 @@ msgstr "Kecepatan baca yang digunakan untuk perkiraan."
 msgid "Reason"
 msgstr "Alasan"
 
+#: src/Modules/Mailer/MailerModule.php:1008
+msgid "Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
+msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 25 API transaksional, 10 API pemasaran, Gmail OAuth, dan email PHP lokal."
+
 #: src/Modules/Recaptcha/Verifier.php:116
 msgid "reCAPTCHA action mismatch."
 msgstr ""
@@ -9775,6 +9832,10 @@ msgstr "Pengalihan disimpan."
 msgid "Redirect settings saved."
 msgstr "Pengaturan pengalihan disimpan."
 
+#: templates/admin/modules/mailer.php:315
+msgid "Redirect URI"
+msgstr "URI Pengalihan"
+
 #: src/Modules/Redirects/RedirectsModule.php:283
 msgid "Redirects never apply to the admin area, AJAX, REST, or the login page, and a redirect that points at the page it came from is ignored instead of looping."
 msgstr "Pengalihan tidak pernah berlaku untuk area admin, AJAX, REST, atau halaman login, dan pengalihan yang menunjuk ke halaman asalnya diabaikan alih-alih berputar."
@@ -9839,7 +9900,7 @@ msgstr "Ukuran gambar terdaftar"
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:1903
 #: src/Modules/ContributorFrontend/ContributorFrontendEditor.php:2011
 msgid "Rejected"
-msgstr ""
+msgstr "Ditolak"
 
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1502
 msgid "Rejected <span class=\"count\">(%s)</span>"
@@ -10010,7 +10071,7 @@ msgstr "Menggantikan Gravatar di mana pun WordPress menampilkan avatar."
 msgid "Replay tour"
 msgstr "Putar ulang tur"
 
-#: templates/admin/modules/mailer.php:346
+#: templates/admin/modules/mailer.php:400
 msgid "Reply-To aligned with From"
 msgstr ""
 
@@ -10080,7 +10141,7 @@ msgstr "Atur ulang ke bawaan"
 msgid "Restore"
 msgstr "Pulihkan"
 
-#: templates/admin/modules/mailer.php:457
+#: templates/admin/modules/mailer.php:511
 msgid "Result"
 msgstr "Hasil"
 
@@ -10099,7 +10160,7 @@ msgstr "Hasil untuk “%s”"
 msgid "Retention"
 msgstr "Retensi"
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:154
+#: src/Modules/FormBuilder/FormBuilderModule.php:155
 msgid "Reusable form builder with fields."
 msgstr "Pembuat formulir yang dapat digunakan kembali dengan kolom-kolom."
 
@@ -10292,13 +10353,17 @@ msgstr "Simpan urutan seri"
 msgid "Save the article as a draft first, then add a featured image."
 msgstr "Simpan artikel sebagai draft terlebih dahulu, lalu tambahkan gambar unggulan."
 
-#: templates/admin/modules/mailer.php:308
+#: templates/admin/modules/mailer.php:362
 msgid "Save the client ID and secret first, then connect. Google asks for permission to send mail only — the token can never read the mailbox."
 msgstr "Simpan client ID dan secret terlebih dahulu, lalu hubungkan. Google hanya meminta izin untuk mengirim email — token tidak pernah dapat membaca kotak surat."
 
-#: templates/admin/modules/mailer.php:399
+#: templates/admin/modules/mailer.php:453
 msgid "Save the provider settings first — the test email can only run once Mailer is configured."
 msgstr "Simpan pengaturan penyedia terlebih dahulu — email uji hanya dapat berjalan setelah Mailer dikonfigurasi."
+
+#: templates/admin/modules/mailer.php:344
+msgid "Save the settings, then click \"Connect Gmail\". Google asks for permission to send mail only — the token can never read the mailbox."
+msgstr "Simpan pengaturan, lalu klik \"Hubungkan Gmail\". Google hanya meminta izin mengirim email — token tidak akan pernah bisa membaca kotak masuk."
 
 #: templates/admin/modules/login.php:57
 msgid "Save to apply the design to the WordPress login page."
@@ -10439,11 +10504,11 @@ msgstr "Cari plugin"
 msgid "Search plugins…"
 msgstr "Cari plugin…"
 
-#: templates/admin/modules/mailer.php:182
+#: templates/admin/modules/mailer.php:183
 msgid "Search presets"
 msgstr "Cari preset"
 
-#: templates/admin/modules/mailer.php:171
+#: templates/admin/modules/mailer.php:172
 msgid "Search providers"
 msgstr "Cari penyedia"
 
@@ -10484,7 +10549,7 @@ msgid "Security check failed"
 msgstr "Pemeriksaan keamanan gagal"
 
 #: src/Modules/ContactForm/ContactFormAjax.php:66
-#: src/Modules/FormBuilder/FormBuilderModule.php:728
+#: src/Modules/FormBuilder/FormBuilderModule.php:757
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
 
@@ -10503,11 +10568,11 @@ msgstr "Pemeriksaan keamanan"
 msgid "Security checks updated."
 msgstr "Pemeriksaan keamanan diperbarui."
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:381
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:374
 msgid "Security header settings saved."
 msgstr "Pengaturan header keamanan disimpan."
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:154
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:167
 msgid "Security Headers"
 msgstr "Header Keamanan"
 
@@ -10583,7 +10648,7 @@ msgid "Send job not found or expired."
 msgstr "Tugas pengiriman tidak ditemukan atau kedaluwarsa."
 
 #: templates/admin/modules/email.php:269
-#: templates/admin/modules/mailer.php:446
+#: templates/admin/modules/mailer.php:500
 msgid "Send log"
 msgstr "Log pengiriman"
 
@@ -10599,16 +10664,20 @@ msgstr "Kirim buletin"
 msgid "Send notification"
 msgstr "Kirim notifikasi"
 
-#: templates/admin/modules/mailer.php:441
+#: templates/admin/modules/mailer.php:495
 msgid "Send test email"
 msgstr "Kirim email tes"
 
-#: templates/admin/modules/mailer.php:407
+#: templates/admin/modules/mailer.php:461
 msgid "Send test email to"
 msgstr "Kirim email tes ke"
 
 #: templates/admin/modules/contact-form.php:144
 msgid "Send to email"
+msgstr ""
+
+#: src/Modules/Mailer/MailerModule.php:941
+msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
 msgstr ""
 
 #: templates/admin/modules/email.php:149
@@ -10645,25 +10714,25 @@ msgstr "Error API SendGrid %1$d: %2$s"
 msgid "SendGrid API error %d."
 msgstr "Error API SendGrid %d."
 
-#: src/Modules/Mailer/MailerModule.php:683
+#: src/Modules/Mailer/MailerModule.php:680
 msgid "SendGrid API key"
 msgstr "API key SendGrid"
 
-#: src/Modules/Mailer/MailerModule.php:673
+#: src/Modules/Mailer/MailerModule.php:670
 msgid "SendGrid — 60-day free trial (100/day), then paid. Best for teams already on Twilio with high-volume transactional and marketing mail."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:122
+#: templates/admin/modules/mailer.php:123
 #. translators: %1$s is the SMTP host, %2$d is the port, %3$s is the encryption label.
 msgid "Sending mail through %1$s:%2$d (%3$s)."
 msgstr "Mengirim email melalui %1$s:%2$d (%3$s)."
 
-#: templates/admin/modules/mailer.php:127
+#: templates/admin/modules/mailer.php:128
 #. translators: %s is the selected mail provider name.
 msgid "Sending mail through %s."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:117
+#: templates/admin/modules/mailer.php:118
 #. translators: %s is the connected Gmail account address.
 msgid "Sending mail through Gmail as %s."
 msgstr "Mengirim email melalui Gmail sebagai %s."
@@ -10700,22 +10769,26 @@ msgstr ""
 msgid "SendPulse — free 12,000 emails/month. Best for transactional mail with strong tracking, automation, and multichannel (SMS/push) on the same account."
 msgstr ""
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:164
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:177
 msgid "Sends defensive HTTP security headers, including a report-only Content-Security-Policy."
 msgstr "Mengirim header keamanan HTTP defensif, termasuk Content-Security-Policy hanya-laporan."
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:199
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:212
 msgid "Sends defensive HTTP security headers."
 msgstr "Mengirim header keamanan HTTP defensif."
 
 #: src/Modules/Push/PushModule.php:588
 #: templates/admin/modules/email.php:277
-#: templates/admin/modules/mailer.php:474
+#: templates/admin/modules/mailer.php:528
 msgid "Sent"
 msgstr "Terkirim"
 
 #: src/Modules/Mailer/Providers/SesProvider.php:184
 msgid "Sent through Amazon SES."
+msgstr ""
+
+#: src/Modules/Mailer/Providers/SparkPostProvider.php:148
+msgid "Sent through Bird Email."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/BrevoProvider.php:115
@@ -10746,8 +10819,8 @@ msgstr ""
 msgid "Sent through Loops."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/MandrillProvider.php:137
-msgid "Sent through Mailchimp Transactional (Mandrill)."
+#: src/Modules/Mailer/Providers/MandrillProvider.php:145
+msgid "Sent through Mailchimp Transactional."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/MailerSendProvider.php:127
@@ -10810,16 +10883,12 @@ msgstr ""
 msgid "Sent through SocketLabs."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:140
-msgid "Sent through SparkPost."
-msgstr ""
-
 #: src/Modules/Mailer/Providers/UnisenderProvider.php:119
 msgid "Sent through Unisender."
 msgstr ""
 
-#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:136
-msgid "Sent through ZeptoMail."
+#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:142
+msgid "Sent through Zoho CPaaS."
 msgstr ""
 
 #: src/Modules/Push/PushSender.php:772
@@ -10851,7 +10920,7 @@ msgstr "Pengaturan SEO disimpan."
 #: src/Modules/PostSeries/PostSeriesModule.php:392
 #: src/Modules/PostSeries/PostSeriesModule.php:717
 msgid "Series"
-msgstr ""
+msgstr "Seri"
 
 #: src/Modules/PostSeries/PostSeriesModule.php:940
 #. translators: %s is the series name.
@@ -10875,7 +10944,7 @@ msgstr "Sajikan gambar melalui Jetpack Photon (i0.wp.com) — aktifkan di Custom
 msgid "Server"
 msgstr "Server"
 
-#: src/Modules/Headers/HeadersModule.php:337
+#: src/Modules/Headers/HeadersModule.php:339
 msgid "Server snippets"
 msgstr "Cuplikan server"
 
@@ -10992,7 +11061,7 @@ msgstr "Pengaturan untuk modul yang sedang aktif. Modul yang tidak aktif tercant
 msgid "Settings hub"
 msgstr "Pusat Pengaturan"
 
-#: src/Modules/Mailer/MailerModule.php:1014
+#: src/Modules/Mailer/MailerModule.php:1011
 msgid "Settings migrated from the old traydigita_smtp option; the old option is kept as a fallback."
 msgstr "Pengaturan dimigrasikan dari opsi traydigita_smtp lama; opsi lama tetap disimpan sebagai cadangan."
 
@@ -11425,28 +11494,28 @@ msgstr "Judul kecil berwarna abu-abu di atas tombol. Kosongkan untuk kembali ke 
 msgid "Smaller, default, larger and largest text. Applied as a font-size step on the whole page."
 msgstr "Teks lebih kecil, bawaan, lebih besar, dan paling besar. Diterapkan sebagai langkah ukuran font pada seluruh halaman."
 
-#: src/Modules/Mailer/MailerModule.php:646
+#: src/Modules/Mailer/MailerModule.php:643
 msgid "SMTP"
 msgstr "SMTP"
 
-#: templates/admin/modules/mailer.php:197
+#: templates/admin/modules/mailer.php:198
 msgid "SMTP host"
 msgstr "Host SMTP"
 
-#: src/Modules/Mailer/MailerModule.php:1005
+#: src/Modules/Mailer/MailerModule.php:1002
 msgid "SMTP mailer with presets for the major mailbox providers."
 msgstr "Mailer SMTP dengan preset untuk penyedia mailbox utama."
 
-#: src/Modules/Mailer/MailerModule.php:1571
-#: templates/admin/modules/mailer.php:179
+#: src/Modules/Mailer/MailerModule.php:1568
+#: templates/admin/modules/mailer.php:180
 msgid "SMTP preset"
 msgstr "Preset SMTP"
 
-#: src/Modules/Mailer/MailerModule.php:979
+#: src/Modules/Mailer/MailerModule.php:976
 msgid "SMTP with 30 one-click presets for major mailbox providers."
 msgstr "SMTP dengan 30 preset sekali klik untuk penyedia mailbox utama."
 
-#: src/Modules/Mailer/MailerModule.php:647
+#: src/Modules/Mailer/MailerModule.php:644
 msgid "SMTP — your own mail server, with one-click presets for the major mailbox providers and the SMTP relays of the API providers."
 msgstr ""
 
@@ -11582,18 +11651,6 @@ msgstr ""
 #: src/Modules/ContactForm/ContactFormAjax.php:154
 #: src/Modules/ContactForm/ContactFormAjax.php:170
 msgid "Spam protection failed. Please try again."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:50
-msgid "SparkPost API key"
-msgstr ""
-
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:138
-msgid "SparkPost did not accept the message."
-msgstr ""
-
-#: src/Modules/Mailer/Providers/SparkPostProvider.php:40
-msgid "SparkPost — free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing)."
 msgstr ""
 
 #: templates/admin/modules/dynamic-sidebars.php:248
@@ -11742,8 +11799,8 @@ msgstr "Gaya"
 #: templates/admin/contact-submissions.php:90
 #: templates/admin/modules/email.php:180
 #: templates/admin/modules/email.php:276
-#: templates/admin/modules/mailer.php:419
-#: templates/admin/modules/mailer.php:455
+#: templates/admin/modules/mailer.php:473
+#: templates/admin/modules/mailer.php:509
 msgid "Subject"
 msgstr "Subjek"
 
@@ -11820,7 +11877,7 @@ msgid "Subtext"
 msgstr "Subteks"
 
 #: src/Modules/Turnstile/TurnstileModule.php:1019
-#: templates/admin/modules/mailer.php:142
+#: templates/admin/modules/mailer.php:143
 msgid "Succeeded"
 msgstr "Berhasil"
 
@@ -12011,9 +12068,9 @@ msgstr "Judul dan deskripsi meta berbasis template, URL kanonis, tag Open Graph 
 msgid "Templates"
 msgstr "Templat"
 
-#: src/Modules/Mailer/MailerModule.php:1726
-#: templates/admin/modules/mailer.php:395
-#: templates/admin/modules/mailer.php:396
+#: src/Modules/Mailer/MailerModule.php:1723
+#: templates/admin/modules/mailer.php:449
+#: templates/admin/modules/mailer.php:450
 msgid "Test & Log"
 msgstr "Uji & Log"
 
@@ -12038,7 +12095,7 @@ msgstr "Email tes dari %s"
 msgid "Test email sent. Please check the inbox of the recipient address."
 msgstr "Email tes terkirim. Silakan periksa kotak masuk alamat penerima."
 
-#: src/Modules/Mailer/MailerModule.php:984
+#: src/Modules/Mailer/MailerModule.php:981
 msgid "Test email tool and a send log of the last 50 sends."
 msgstr "Alat uji email dan log pengiriman 50 pengiriman terakhir."
 
@@ -12054,7 +12111,7 @@ msgstr ""
 msgid "Testing config…"
 msgstr "Menguji konfigurasi…"
 
-#: src/Modules/FormBuilder/EmailBuilder.php:84
+#: src/Modules/Email/TemplateBuilder.php:454
 #: src/Modules/FormBuilder/FormBuilder.php:120
 #: src/Modules/Maintenance/MaintenanceDesigner.php:228
 #: templates/admin/modules/form-builder.php:243
@@ -12099,7 +12156,7 @@ msgstr ""
 msgid "Thank you. Your message was saved, but the notification email could not be sent — the site administrator has been notified through the submissions list."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:754
+#: src/Modules/FormBuilder/FormBuilderModule.php:783
 msgid "Thank you. Your submission was received."
 msgstr ""
 
@@ -12461,7 +12518,7 @@ msgstr "Gambar sampul bukan gambar pustaka media yang valid."
 msgid "The Custom Avatar module supplies the avatar shown in the Users list through its get_avatar filter. Avatars are changed from the user’s profile page."
 msgstr "Modul Custom Avatar menyediakan avatar yang ditampilkan di daftar Pengguna melalui filter get_avatar-nya. Avatar diubah dari halaman profil pengguna."
 
-#: src/Modules/Headers/HeadersModule.php:361
+#: src/Modules/Headers/HeadersModule.php:363
 msgid "The Custom Headers settings template is missing."
 msgstr "Template pengaturan Custom Headers tidak ada."
 
@@ -12551,16 +12608,7 @@ msgstr "Editor hanya menawarkan blok paragraf, judul, daftar, dan kutipan. Apa p
 msgid "The email has no recipients."
 msgstr "Email tidak memiliki penerima."
 
-#: src/Modules/FormBuilder/EmailBuilder.php:128
-msgid "The email template has no blocks."
-msgstr ""
-
-#: src/Modules/FormBuilder/EmailBuilder.php:148
-msgid "The email template has no valid blocks."
-msgstr ""
-
-#: src/Modules/FormBuilder/EmailBuilder.php:121
-#: src/Modules/FormBuilder/FormBuilderModule.php:602
+#: src/Modules/FormBuilder/FormBuilderModule.php:596
 msgid "The email template is invalid."
 msgstr ""
 
@@ -12640,13 +12688,13 @@ msgstr "URL berkas fon ditolak: host atau jenis berkas tidak terduga."
 msgid "The font files could not be saved on this site."
 msgstr "Berkas font tidak dapat disimpan di situs ini."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:397
+#: src/Modules/FormBuilder/FormBuilderModule.php:380
 msgid "The Form Builder settings template is missing."
 msgstr ""
 
 #: src/Modules/FormBuilder/FormBuilder.php:150
 #: src/Modules/FormBuilder/FormBuilder.php:415
-#: src/Modules/FormBuilder/FormBuilderModule.php:509
+#: src/Modules/FormBuilder/FormBuilderModule.php:492
 msgid "The form definition is invalid."
 msgstr ""
 
@@ -12663,7 +12711,7 @@ msgid "The form has no valid fields."
 msgstr ""
 
 #: src/Modules/ContactForm/ContactFormModule.php:693
-#: src/Modules/FormBuilder/FormBuilderModule.php:502
+#: src/Modules/FormBuilder/FormBuilderModule.php:485
 msgid "The form title must not be empty."
 msgstr ""
 
@@ -12675,7 +12723,7 @@ msgstr "Permintaan Google Fonts ditolak: host tidak terduga."
 msgid "The Google OAuth client ID and secret are missing. Reconnect Gmail from the Mailer settings."
 msgstr "Client ID dan secret Google OAuth tidak ada. Hubungkan kembali Gmail dari pengaturan Mailer."
 
-#: src/Modules/Mailer/MailerModule.php:2325
+#: src/Modules/Mailer/MailerModule.php:2327
 msgid "The Google sign-in reply could not be verified. Please try connecting again."
 msgstr "Balasan sign-in Google tidak dapat diverifikasi. Silakan coba hubungkan lagi."
 
@@ -12987,14 +13035,12 @@ msgstr "Plugin tidak dapat dipasang."
 msgid "The plugin is already active."
 msgstr "Plugin sudah aktif."
 
-#: src/Modules/Headers/HeadersModule.php:409
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:363
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:172
 #. translators: %d is the maximum policy length in characters.
 msgid "The policy must be at most %d characters."
 msgstr "Kebijakan maksimal %d karakter."
 
-#: src/Modules/Headers/HeadersModule.php:417
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:371
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:177
 msgid "The policy must not contain line breaks or control characters."
 msgstr "Kebijakan tidak boleh mengandung jeda baris atau karakter kontrol."
 
@@ -13030,11 +13076,11 @@ msgstr ""
 msgid "The production asset manifest, built from the theme sources. Without it the theme cannot load its compiled styles and scripts."
 msgstr "Manifest aset produksi, dibuat dari sumber tema. Tanpanya tema tidak dapat memuat style dan skrip hasil kompilasi."
 
-#: src/Modules/Mailer/MailerModule.php:894
+#: src/Modules/Mailer/MailerModule.php:891
 msgid "The provider did not return a send result."
 msgstr ""
 
-#: src/Modules/Mailer/MailerModule.php:899
+#: src/Modules/Mailer/MailerModule.php:896
 msgid "The provider has no send method."
 msgstr ""
 
@@ -13065,6 +13111,10 @@ msgstr "Pengalihan tidak pernah terjadi untuk admin-ajax.php, admin-post.php (pe
 #: src/Modules/ContributorFrontend/ContributorFrontendModule.php:1134
 msgid "The redirect skips system and editor requests."
 msgstr "Redirect melewati request sistem dan editor."
+
+#: templates/admin/modules/mailer.php:345
+msgid "The redirect URI must use https on a public site — Google only accepts plain http on localhost. If the URI above shows http on a live site, switch the site to https first (or serve the admin over https) before registering it in Google Cloud, or Google will reject the callback."
+msgstr "URI pengalihan harus menggunakan https di situs publik — Google hanya menerima http biasa di localhost. Jika URI di atas menampilkan http di situs live, alihkan situs ke https terlebih dahulu (atau sajikan admin melalui https) sebelum mendaftarkannya di Google Cloud, atau Google akan menolak callback."
 
 #: src/Modules/TwoFactor/TwoFactorAjax.php:463
 msgid "The registration session expired. Please start again."
@@ -13128,7 +13178,7 @@ msgstr "Modul Security Headers aktif, sehingga modul tersebut mengirim header ya
 msgid "The Security Headers module is separate: it sends HTTP response headers, while this module only audits."
 msgstr "Modul Security Headers terpisah: modul tersebut mengirim header respons HTTP, sedangkan modul ini hanya mengaudit."
 
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:316
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:329
 msgid "The Security Headers settings template is missing."
 msgstr "Templat pengaturan Header Keamanan tidak ditemukan."
 
@@ -13235,7 +13285,7 @@ msgstr "Daftar isi dibuat dari judul h2 dan h3 setiap artikel tunggal."
 msgid "The template needs a name and at least one block."
 msgstr "Templat memerlukan nama dan setidaknya satu blok."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:595
+#: src/Modules/FormBuilder/FormBuilderModule.php:585
 msgid "The template title must not be empty."
 msgstr ""
 
@@ -13422,7 +13472,7 @@ msgstr "Tidak ada file audio yang perlu dibuat dan tidak ada permintaan jaringan
 msgid "There are no subscribers to send to."
 msgstr "Tidak ada pelanggan untuk dikirimi."
 
-#: templates/admin/modules/mailer.php:339
+#: templates/admin/modules/mailer.php:393
 msgid "These headers are added to every outgoing WordPress email so it does not land in spam. Each group can be switched off, but leaving them on is recommended."
 msgstr ""
 
@@ -13443,7 +13493,7 @@ msgstr "Bilah tipis yang tetap di bagian atas artikel tunggal."
 msgid "Thin progress bar at the top of single articles."
 msgstr "Bilah progres tipis di atas artikel tunggal."
 
-#: src/Modules/Mailer/MailerModule.php:985
+#: src/Modules/Mailer/MailerModule.php:982
 msgid "Third-party providers can register through a filter."
 msgstr "Penyedia pihak ketiga dapat mendaftar melalui filter."
 
@@ -13624,7 +13674,7 @@ msgstr "Centang hanya kategori yang diinginkan, ketik kata konfirmasi, lalu hapu
 #: src/Modules/Push/PushModule.php:588
 #: src/Modules/TwoFactor/TwoFactorModule.php:2439
 #: templates/admin/modules/activity-log.php:137
-#: templates/admin/modules/mailer.php:453
+#: templates/admin/modules/mailer.php:507
 msgid "Time"
 msgstr "Waktu"
 
@@ -13676,7 +13726,7 @@ msgstr "Judul:"
 
 #: templates/admin/contact-submissions.php:160
 #: templates/admin/modules/activity-log.php:118
-#: templates/admin/modules/mailer.php:454
+#: templates/admin/modules/mailer.php:508
 msgid "To"
 msgstr "Kepada"
 
@@ -14061,7 +14111,7 @@ msgstr "Hapus centang untuk memblokirnya juga. Ini pilihan eksplisit: formulir i
 msgid "Unconfirmed addresses never receive newsletters."
 msgstr "Alamat yang belum terkonfirmasi tidak pernah menerima buletin."
 
-#: templates/admin/modules/mailer.php:360
+#: templates/admin/modules/mailer.php:414
 msgid "Unique Message-ID"
 msgstr ""
 
@@ -14125,12 +14175,12 @@ msgid "Unknown contact form."
 msgstr ""
 
 #: src/Modules/ContactForm/ContactFormModule.php:707
-#: src/Modules/FormBuilder/FormBuilderModule.php:588
-#: src/Modules/FormBuilder/FormBuilderModule.php:627
+#: src/Modules/FormBuilder/FormBuilderModule.php:578
+#: src/Modules/FormBuilder/FormBuilderModule.php:658
 msgid "Unknown email template."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:435
+#: src/Modules/FormBuilder/FormBuilderModule.php:418
 msgid "Unknown Form Builder action."
 msgstr ""
 
@@ -14138,9 +14188,9 @@ msgstr ""
 msgid "Unknown Form Builder form."
 msgstr ""
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:495
-#: src/Modules/FormBuilder/FormBuilderModule.php:534
-#: src/Modules/FormBuilder/FormBuilderModule.php:733
+#: src/Modules/FormBuilder/FormBuilderModule.php:478
+#: src/Modules/FormBuilder/FormBuilderModule.php:517
+#: src/Modules/FormBuilder/FormBuilderModule.php:762
 msgid "Unknown form."
 msgstr ""
 
@@ -14158,7 +14208,7 @@ msgstr "Edisi tidak dikenal."
 msgid "Unknown log entry."
 msgstr "Entri log tidak dikenal."
 
-#: src/Modules/Mailer/MailerModule.php:869
+#: src/Modules/Mailer/MailerModule.php:866
 msgid "Unknown mail provider."
 msgstr ""
 
@@ -14416,7 +14466,7 @@ msgstr "Gunakan sidik jari atau Face ID"
 msgid "Use FULLTEXT search"
 msgstr "Gunakan pencarian FULLTEXT"
 
-#: templates/admin/modules/mailer.php:220
+#: templates/admin/modules/mailer.php:221
 msgid "Use SMTP authentication"
 msgstr "Gunakan autentikasi SMTP"
 
@@ -14479,7 +14529,7 @@ msgstr "Pengguna tidak ditemukan."
 msgid "User: %s (#%d)"
 msgstr "Pengguna: %s (#%d)"
 
-#: templates/admin/modules/mailer.php:226
+#: templates/admin/modules/mailer.php:227
 msgid "Username"
 msgstr "Nama pengguna"
 
@@ -14525,7 +14575,7 @@ msgstr "Pengguna tanpa metode apa pun dialihkan ke halaman profil mereka."
 msgid "Uses the Custom Avatar module when enabled, otherwise the standard avatar."
 msgstr "Menggunakan modul Custom Avatar saat diaktifkan, jika tidak avatar standar."
 
-#: templates/admin/modules/mailer.php:207
+#: templates/admin/modules/mailer.php:208
 msgid "Usually 587 for TLS, 465 for SSL, or 25 without encryption."
 msgstr "Biasanya 587 untuk TLS, 465 untuk SSL, atau 25 tanpa enkripsi."
 
@@ -14830,27 +14880,27 @@ msgstr "Siapa"
 msgid "Why nothing is fixed automatically: wp-config.php is outside WordPress’ control, and one typo there can white-screen the whole site."
 msgstr "Mengapa tidak ada yang diperbaiki secara otomatis: wp-config.php berada di luar kendali WordPress, dan satu kesalahan ketik di sana dapat membuat seluruh situs menampilkan layar putih."
 
-#: templates/admin/modules/mailer.php:376
+#: templates/admin/modules/mailer.php:430
 msgid "Why: Auto-Submitted: auto-generated stops auto-replies and out-of-office replies from looping. Bulk mail such as newsletters also gets Precedence: bulk, which tells receivers it is not a one-to-one message."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:362
+#: templates/admin/modules/mailer.php:416
 msgid "Why: every mail gets a unique, domain-aligned Message-ID, so providers can thread it, deduplicate it, and trace bounces back to this site."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:369
+#: templates/admin/modules/mailer.php:423
 msgid "Why: identifies the sending software (TrayDigita Core Mailer) in the headers, which helps postmasters and support diagnose delivery problems."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:383
+#: templates/admin/modules/mailer.php:437
 msgid "Why: lets the site owner track spam complaints per list in the provider dashboard, so a bad list can be found and fixed instead of hurting the whole domain."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:355
+#: templates/admin/modules/mailer.php:409
 msgid "Why: mailbox providers show an unsubscribe button instead of a spam button, and Gmail requires a one-click unsubscribe header for bulk senders. The link points to the From address by email, plus the site’s unsubscribe page when a module provides one."
 msgstr ""
 
-#: templates/admin/modules/mailer.php:348
+#: templates/admin/modules/mailer.php:402
 msgid "Why: replies go to the site’s From address instead of bouncing from a no-reply address, and a matching Reply-To is a trust signal for spam filters."
 msgstr ""
 
@@ -15053,7 +15103,7 @@ msgstr "X-Content-Type-Options: nosniff"
 msgid "X-Frame-Options: SAMEORIGIN"
 msgstr "X-Frame-Options: SAMEORIGIN"
 
-#: templates/admin/modules/mailer.php:367
+#: templates/admin/modules/mailer.php:421
 msgid "X-Mailer identifier"
 msgstr ""
 
@@ -15191,7 +15241,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Pencarian Cepat."
 msgid "You are not allowed to change font settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan fon."
 
-#: src/Modules/FormBuilder/FormBuilderModule.php:422
+#: src/Modules/FormBuilder/FormBuilderModule.php:405
 msgid "You are not allowed to change Form Builder settings."
 msgstr ""
 
@@ -15207,7 +15257,7 @@ msgstr "Anda tidak diizinkan mengubah pengaturan Image Optimizer."
 msgid "You are not allowed to change installer settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan installer."
 
-#: src/Modules/Mailer/MailerModule.php:1552
+#: src/Modules/Mailer/MailerModule.php:1549
 msgid "You are not allowed to change Mailer settings."
 msgstr "Anda tidak diizinkan mengubah pengaturan Mailer."
 
@@ -15337,7 +15387,7 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Fonts/FontsAjax.php:341
 #: src/Modules/Fonts/FontsModule.php:470
 #: src/Modules/Headers/HeadersAjax.php:173
-#: src/Modules/Headers/HeadersModule.php:389
+#: src/Modules/Headers/HeadersModule.php:391
 #: src/Modules/ImageOptimizer/BulkRunner.php:165
 #: src/Modules/ImageOptimizer/BulkRunner.php:224
 #: src/Modules/ImageOptimizer/BulkRunner.php:299
@@ -15345,15 +15395,15 @@ msgstr "Anda tidak diizinkan mengubah peran pengguna."
 #: src/Modules/Integrations/IntegrationsModule.php:378
 #: src/Modules/Login/LoginModule.php:301
 #: src/Modules/Mailer/MailerAjax.php:98
-#: src/Modules/Mailer/MailerModule.php:1746
-#: src/Modules/Mailer/MailerModule.php:2323
+#: src/Modules/Mailer/MailerModule.php:1743
+#: src/Modules/Mailer/MailerModule.php:2325
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Push/PushAjax.php:84
 #: src/Modules/Recaptcha/RecaptchaModule.php:515
 #: src/Modules/Redirects/RedirectsAjax.php:307
 #: src/Modules/Security/SecurityAjax.php:68
 #: src/Modules/Security/SecurityModule.php:288
-#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:343
+#: src/Modules/SecurityHeaders/SecurityHeadersModule.php:356
 #: src/Modules/Seo/SeoAjax.php:162
 #: src/Modules/Seo/SeoAjax.php:99
 #: src/Modules/Seo/SeoModule.php:1063
@@ -15490,7 +15540,7 @@ msgstr "Nama Anda (opsional)"
 msgid "Your note"
 msgstr "Catatan Anda"
 
-#: src/Modules/Mailer/MailerModule.php:652
+#: src/Modules/Mailer/MailerModule.php:649
 msgid "Your own mail server"
 msgstr ""
 
@@ -15538,12 +15588,12 @@ msgstr "Server Anda mendukung gambar AVIF."
 msgid "Your subscription is confirmed. Thank you!"
 msgstr "Langganan Anda dikonfirmasi. Terima kasih!"
 
-#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:49
-msgid "ZeptoMail API key"
+#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:55
+msgid "Zoho CPaaS API key"
 msgstr ""
 
-#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:39
-msgid "ZeptoMail — first 10,000-email credit free (one-time), then $2.50 per 10,000 emails. Best for low-volume transactional mail and sites already in the Zoho ecosystem."
+#: src/Modules/Mailer/Providers/ZeptoMailProvider.php:45
+msgid "Zoho CPaaS — formerly ZeptoMail. First 10,000-email credit free (one-time), then $2.50 per 10,000 emails. Best for low-volume transactional mail and sites already in the Zoho ecosystem."
 msgstr ""
 
 #: src/Modules/Cache/CacheModule.php:957
@@ -15574,8 +15624,8 @@ msgstr ""
 #: src/Modules/Comments/CommentsModule.php:618
 #: src/Modules/Recaptcha/RecaptchaModule.php:576
 #: src/Modules/Turnstile/TurnstileModule.php:1046
-#: templates/admin/modules/mailer.php:239
-#: templates/admin/modules/mailer.php:289
+#: templates/admin/modules/mailer.php:240
+#: templates/admin/modules/mailer.php:290
 msgid "•••••••• (saved)"
 msgstr "•••••••• (tersimpan)"
 
@@ -15619,15 +15669,3 @@ msgstr ""
 msgctxt "taxonomy singular name"
 msgid "Series"
 msgstr ""
-
-#: src/Modules/Mailer/MailerModule.php:941
-msgid "Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log."
-msgstr ""
-
-#: src/Modules/Mailer/MailerModule.php:978
-msgid "25 transactional APIs plus 10 marketing APIs."
-msgstr "25 API transaksional plus 10 API pemasaran."
-
-#: src/Modules/Mailer/MailerModule.php:1008
-msgid "Rebuilt as the multi-provider Mailer: 25 transactional APIs, 10 marketing APIs, Gmail OAuth, and local PHP mail."
-msgstr "Dibangun ulang sebagai Mailer multi-penyedia: 25 API transaksional, 10 API pemasaran, Gmail OAuth, dan email PHP lokal."

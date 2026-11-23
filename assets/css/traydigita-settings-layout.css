@@ -146,3 +146,41 @@
 .contact-form-module table .traydigita-admin-inline-form {
     display: inline;
 }
+
+/*
+ * Form Builder template editor table: six columns (Type, Text,
+ * Button label, Button URL, Image URL, Delete) whose inputs
+ * make the table wider than the content column, so at 1440px
+ * it ran under the sticky context rail and the Image URL /
+ * Delete columns were hidden behind it. Same block-scroll
+ * treatment as the Contact Form table above, scoped to this
+ * one table only (`.traydigita-template-editor-table`) so the
+ * Forms list, the field editor and the templates list on the
+ * same page are untouched: the table scrolls horizontally
+ * inside its column instead of overflowing under the rail.
+ * The URL columns get a minimum width so their inputs stay
+ * usable when the table is scrolled.
+ */
+.form-builder-module table.traydigita-template-editor-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.form-builder-module table.traydigita-template-editor-table th {
+    white-space: nowrap;
+}
+
+.form-builder-module table.traydigita-template-editor-table td {
+    vertical-align: top;
+}
+
+.form-builder-module table.traydigita-template-editor-table td:last-child {
+    white-space: nowrap;
+}
+
+.form-builder-module table.traydigita-template-editor-table td:nth-child(4),
+.form-builder-module table.traydigita-template-editor-table td:nth-child(5) {
+    min-width: 13rem;
+}

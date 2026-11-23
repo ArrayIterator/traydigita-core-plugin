@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\ContactForm;
 
-use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\EmailBuilder;
+use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\MailerModule;
@@ -177,7 +177,7 @@ final class ContactFormAjax
     /**
      * Send the notification email for one submission.
      *
-     * Uses the form's Email Builder template when one is set
+     * Uses the form's shared email template when one is set
      * (with {{field}} placeholders replaced), otherwise a
      * plain-text list of the submitted values. Sending goes
      * through the Core Mailer, so the mail appears in the
@@ -212,7 +212,7 @@ final class ContactFormAjax
         }
         $headers = ['Content-Type: text/html; charset=UTF-8'];
         if ($template !== null) {
-            $body = EmailBuilder::renderEmail($template['template'], $values);
+            $body = TemplateBuilder::renderEmail($template, $values);
             if ($body === '') {
                 $body = self::plainBody($values);
             }
