@@ -1,0 +1,159 @@
+name: Release Core
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: Pre-flight Validation
+        # Lint every PHP file and confirm the files a release must
+        # contain are present, before anything is installed. Aborts
+        # the release while it is still cheap to do so.
+        run: |
+          set -e
+          find . -path ./vendor -prune -o -path ./.git -prune -o -name '*.php' -print \
+            | xargs -n1 php -l > /dev/null
+          test -f traydigita-core.php
+          test -f LICENSE
+          test -f README.md
+          test -f HOOKS.md
+          test -f languages/traydigita-core-id_ID.mo
+          test -f languages/traydigita-core-id_ID.po
+          test -f languages/traydigita-core.pot
+          test -f assets/brand/traydigita-core-logo.svg
+          test -f assets/brand/traydigita-core-logo.gif
+
+      - name: Check .mo Has No Empty Translations
+        # An untranslated entry must be OMITTED from the .mo so
+        # WordPress falls back to the English msgid; an entry
+        # shipped with an empty msgstr makes the lookup return ''
+        # and the string renders blank. Fails the build if any
+        # non-header entry in the shipped .mo has an empty msgstr.
+        run: |
+          set -e
+          python3 - <<'EOF'
+          import struct
+          import sys
+          path = 'languages/traydigita-core-id_ID.mo'
+          data = open(path, 'rb').read()
+          magic, _rev, n, o, t, _s, _h = struct.unpack('<Iiiiiii', data[:28])
+          assert magic == 0x950412DE, 'bad .mo magic: %08x' % magic
+          empty = []
+          for i in range(n):
+              klen, koff = struct.unpack('<ii', data[o + 8 * i:o + 8 * i + 8])
+              vlen, voff = struct.unpack('<ii', data[t + 8 * i:t + 8 * i + 8])
+              msgid = data[koff:koff + klen].decode('utf-8')
+              msgstr = data[voff:voff + vlen].decode('utf-8')
+              if msgid != '' and msgstr.strip('\x00') == '':
+                  empty.append(msgid)
+          if empty:
+              print('Empty msgstr in %s (%d entries):' % (path, len(empty)))
+              for msgid in empty[:10]:
+                  print('  ' + msgid[:80])
+              sys.exit(1)
+          print('.mo OK: %d entries, no empty translations.' % n)
+          EOF
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run Code Linting
+        run: composer lint
+
+      - name: Install Composer Dependencies (Production)
+        # The release zip ships vendor/ (autoloader + psr/log and
+        # psr/container, the only runtime Composer packages), so
+        # vendor/ must be a production install before packaging:
+        # dev tools (php_codesniffer, slevomat) would otherwise
+        # leak into the zip.
+        run: composer install --prefer-dist --no-dev --no-progress --no-interaction
+
+      - name: Check Release Version Matches Tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        # The plugin header Version must equal the tag (without
+        # the leading v). A mismatch aborts the release so a tag
+        # can never ship the wrong version number.
+        run: |
+          set -e
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          HEADER=$(grep -m1 '^ \* Version:' traydigita-core.php | awk '{print $3}')
+          if [ "$HEADER" != "$VERSION" ]; then
+            echo "Plugin header Version ($HEADER) does not match tag ($VERSION)."
+            exit 1
+          fi
+          echo "Version $VERSION matches tag $TAG."
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        id: version
+
+      - name: Build Release Zip
+        # Stage the plugin under a traydigita-core/ directory (the
+        # folder WordPress expects after unzipping), excluding
+        # everything that must never ship: version control, CI,
+        # scratch files, and the parent's working notes.
+        run: |
+          set -e
+          VERSION="${{ steps.version.outputs.version }}"
+          if [ -z "$VERSION" ]; then
+            VERSION=$(grep -m1 '^ \* Version:' traydigita-core.php | awk '{print $3}')
+          fi
+          mkdir -p releases staging/traydigita-core
+          rsync -a --delete \
+            --exclude='/.git' \
+            --exclude='/.github' \
+            --exclude='/.tmp' \
+            --exclude='/PARENT_*.md' \
+            --exclude='/.gitignore' \
+            ./ staging/traydigita-core/
+          cd staging
+          zip -r -q "../releases/traydigita-core-${VERSION}.zip" traydigita-core
+          cd ..
+          ls -la releases/
+
+      - name: Verify Release Package
+        # Second gate on the built zip: the files a release must
+        # contain are in it, and no dev file leaked in.
+        run: |
+          set -e
+          ZIP=$(ls releases/*.zip)
+          echo "Verifying $ZIP"
+          unzip -l "$ZIP" | grep -q 'traydigita-core/traydigita-core.php'
+          unzip -l "$ZIP" | grep -q 'traydigita-core/vendor/autoload.php'
+          unzip -l "$ZIP" | grep -q 'traydigita-core/languages/traydigita-core-id_ID.mo'
+          unzip -l "$ZIP" | grep -q 'traydigita-core/LICENSE'
+          unzip -l "$ZIP" | grep -q 'traydigita-core/README.md'
+          if unzip -l "$ZIP" | grep -q -E 'traydigita-core/(\.git|\.github|PARENT_)'; then
+            echo "Dev files leaked into the release zip."
+            exit 1
+          fi
+          echo "Release package verified."
+
+      - name: Upload Zip to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: releases/*.zip
+          generate_release_notes: true
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,181 @@
+/**
+ * TrayDigita Dark — Dashboard Designer preset.
+ *
+ * Cosmetic only. This stylesheet gives wp-admin a dark chrome:
+ * a deep-blue admin bar and admin menu with blue accents,
+ * while the content area keeps the light WordPress background
+ * so core screens (post lists, the editor, settings) stay
+ * readable without restyling every core component. It contains
+ * NO hiding rules: no `display: none`, no `visibility: hidden`,
+ * nothing is removed or moved, and no functional control changes
+ * behaviour. It is loaded only inside wp-admin
+ * (admin_enqueue_scripts), never on the login page and never on
+ * the frontend.
+ *
+ * The accent colour reads the --traydigita-admin-accent custom
+ * property, set by the module when a custom accent colour is
+ * saved; without one it falls back to the bright blue
+ * #60a5fa for the dark chrome. Links and primary buttons
+ * on the light content area use the deeper blue #1d4ed8 through
+ * --wp-admin-theme-color, so text contrast stays readable.
+ * Hover shades use color-mix() with a plain-colour fallback on
+ * the line before, so older browsers keep the fallback. No
+ * external resources are loaded: no fonts, no images, no url()
+ * values at all.
+ */
+
+:root {
+    --traydigita-admin-accent: #60a5fa;
+    --traydigita-admin-accent-contrast: #0b1e3a;
+    --wp-admin-theme-color: #1d4ed8;
+    --wp-admin-theme-color-darker-10: #1e40af;
+    --wp-admin-theme-color-darker-20: #1e3a8a;
+}
+
+/* Links and primary buttons on the light content area follow
+   the deeper blue, so contrast stays readable. */
+body.wp-admin a {
+    color: #1d4ed8;
+}
+
+body.wp-admin a:hover,
+body.wp-admin a:focus {
+    color: #1e40af;
+}
+
+body.wp-admin .wp-core-ui .button-primary {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #FFFFFF;
+}
+
+body.wp-admin .wp-core-ui .button-primary:hover,
+body.wp-admin .wp-core-ui .button-primary:focus {
+    background: #1e40af;
+    border-color: #1e40af;
+    color: #FFFFFF;
+}
+
+/* Admin bar: deep blue bar, pale items, bright accent hover. */
+body.wp-admin #wpadminbar {
+    background: #0b1526;
+    color: #dbe7f5;
+}
+
+body.wp-admin #wpadminbar .ab-item,
+body.wp-admin #wpadminbar a.ab-item,
+body.wp-admin #wpadminbar > #wp-toolbar span.ab-label,
+body.wp-admin #wpadminbar > #wp-toolbar span.noticon {
+    color: #dbe7f5;
+}
+
+body.wp-admin #wpadminbar .ab-top-menu > li:hover > .ab-item,
+body.wp-admin #wpadminbar .ab-top-menu > li.hover > .ab-item,
+body.wp-admin #wpadminbar .ab-top-menu > li > .ab-item:focus,
+body.wp-admin #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus {
+    background: #1b3358;
+    color: var(--traydigita-admin-accent, #60a5fa);
+}
+
+body.wp-admin #wpadminbar .menupop .ab-sub-wrapper,
+body.wp-admin #wpadminbar .shortlink-input {
+    background: #0b1526;
+}
+
+body.wp-admin #wpadminbar .ab-submenu .ab-item {
+    color: #dbe7f5;
+}
+
+body.wp-admin #wpadminbar .ab-submenu .ab-item:hover,
+body.wp-admin #wpadminbar .ab-submenu .ab-item:focus {
+    color: var(--traydigita-admin-accent, #60a5fa);
+}
+
+/* Admin menu: dark blue chrome, bright accent on hover. */
+body.wp-admin #adminmenuback,
+body.wp-admin #adminmenuwrap,
+body.wp-admin #adminmenu {
+    background: #101f3c;
+}
+
+body.wp-admin #adminmenu a {
+    color: #c3d4ea;
+}
+
+body.wp-admin #adminmenu div.wp-menu-image::before {
+    color: #8ba3c7;
+}
+
+body.wp-admin #adminmenu li.menu-top:hover,
+body.wp-admin #adminmenu li.opensub > a.menu-top,
+body.wp-admin #adminmenu li > a.menu-top:focus {
+    background: #1b3358;
+    color: var(--traydigita-admin-accent, #60a5fa);
+}
+
+body.wp-admin #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+body.wp-admin #adminmenu li.current a.menu-top,
+body.wp-admin #adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head {
+    background: #1d4ed8;
+    color: #FFFFFF;
+}
+
+body.wp-admin #adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+body.wp-admin #adminmenu li.current div.wp-menu-image::before {
+    color: #FFFFFF;
+}
+
+body.wp-admin #adminmenu .wp-submenu {
+    background: #0b1526;
+}
+
+body.wp-admin #adminmenu .wp-submenu a {
+    color: #c3d4ea;
+}
+
+body.wp-admin #adminmenu .wp-submenu a:hover,
+body.wp-admin #adminmenu .wp-submenu a:focus,
+body.wp-admin #adminmenu .wp-submenu li.current a {
+    color: var(--traydigita-admin-accent, #60a5fa);
+}
+
+body.wp-admin #adminmenu .wp-submenu li.current a::after {
+    border-right-color: #0b1526;
+}
+
+body.wp-admin #collapse-menu {
+    color: #c3d4ea;
+}
+
+body.wp-admin #collapse-button:hover,
+body.wp-admin #collapse-button:focus {
+    color: var(--traydigita-admin-accent, #60a5fa);
+}
+
+/* Focus rings follow the deeper blue on the light content. */
+body.wp-admin input[type="text"]:focus,
+body.wp-admin input[type="search"]:focus,
+body.wp-admin input[type="email"]:focus,
+body.wp-admin input[type="url"]:focus,
+body.wp-admin input[type="password"]:focus,
+body.wp-admin input[type="number"]:focus,
+body.wp-admin select:focus,
+body.wp-admin textarea:focus {
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 1px #1d4ed8;
+}
+
+/* Softened corners on buttons and form controls. */
+body.wp-admin .wp-core-ui .button,
+body.wp-admin .wp-core-ui .button-primary,
+body.wp-admin .wp-core-ui .button-secondary,
+body.wp-admin input[type="text"],
+body.wp-admin input[type="search"],
+body.wp-admin input[type="email"],
+body.wp-admin input[type="url"],
+body.wp-admin input[type="password"],
+body.wp-admin input[type="number"],
+body.wp-admin select,
+body.wp-admin textarea {
+    border-radius: 6px;
+}

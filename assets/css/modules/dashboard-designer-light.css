@@ -1,0 +1,173 @@
+/**
+ * TrayDigita Light — Dashboard Designer preset.
+ *
+ * Cosmetic only. This stylesheet recolours the WordPress admin
+ * chrome (admin bar, admin menu, links, primary buttons, focus
+ * rings) and softens corners. It contains NO hiding rules: no
+ * `display: none`, no `visibility: hidden`, nothing is removed
+ * or moved, and no functional control changes behaviour. It is
+ * loaded only inside wp-admin (admin_enqueue_scripts), never on
+ * the login page and never on the frontend.
+ *
+ * The accent colour reads the --traydigita-admin-accent custom
+ * property, set by the module when a custom accent colour is
+ * saved; without one it falls back to the elegant blue
+ * #1d4ed8. Hover shades use color-mix() with a plain-colour
+ * fallback on the line before, so older browsers keep the
+ * fallback. No external resources are loaded: no fonts, no
+ * images, no url() values at all.
+ */
+
+:root {
+    --traydigita-admin-accent: #1d4ed8;
+    --traydigita-admin-accent-hover: #1e40af;
+    --traydigita-admin-accent-contrast: #FFFFFF;
+    --wp-admin-theme-color: var(--traydigita-admin-accent, #1d4ed8);
+    --wp-admin-theme-color-darker-10: #1e40af;
+    --wp-admin-theme-color-darker-20: #1e3a8a;
+}
+
+/* Links and primary buttons follow the accent. */
+body.wp-admin a {
+    color: var(--traydigita-admin-accent, #1d4ed8);
+}
+
+body.wp-admin a:hover,
+body.wp-admin a:focus {
+    color: #1e40af;
+    color: color-mix(in srgb, var(--traydigita-admin-accent, #1d4ed8) 88%, #000000);
+}
+
+body.wp-admin .wp-core-ui .button-primary {
+    background: var(--traydigita-admin-accent, #1d4ed8);
+    border-color: var(--traydigita-admin-accent, #1d4ed8);
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin .wp-core-ui .button-primary:hover,
+body.wp-admin .wp-core-ui .button-primary:focus {
+    background: #1e40af;
+    background: color-mix(in srgb, var(--traydigita-admin-accent, #1d4ed8) 88%, #000000);
+    border-color: #1e40af;
+    border-color: color-mix(in srgb, var(--traydigita-admin-accent, #1d4ed8) 88%, #000000);
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+/* Admin bar: blue bar, white items. */
+body.wp-admin #wpadminbar {
+    background: var(--traydigita-admin-accent, #1d4ed8);
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin #wpadminbar .ab-item,
+body.wp-admin #wpadminbar a.ab-item,
+body.wp-admin #wpadminbar > #wp-toolbar span.ab-label,
+body.wp-admin #wpadminbar > #wp-toolbar span.noticon {
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin #wpadminbar .ab-top-menu > li:hover > .ab-item,
+body.wp-admin #wpadminbar .ab-top-menu > li.hover > .ab-item,
+body.wp-admin #wpadminbar .ab-top-menu > li > .ab-item:focus,
+body.wp-admin #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus {
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin #wpadminbar .menupop .ab-sub-wrapper,
+body.wp-admin #wpadminbar .shortlink-input {
+    background: #1e40af;
+}
+
+body.wp-admin #wpadminbar .ab-submenu .ab-item {
+    color: #FFFFFF;
+}
+
+/* Admin menu: light chrome, blue current item. */
+body.wp-admin #adminmenuback,
+body.wp-admin #adminmenuwrap,
+body.wp-admin #adminmenu {
+    background: #FFFFFF;
+}
+
+body.wp-admin #adminmenu a {
+    color: #3C434A;
+}
+
+body.wp-admin #adminmenu div.wp-menu-image::before {
+    color: #50575E;
+}
+
+body.wp-admin #adminmenu li.menu-top:hover,
+body.wp-admin #adminmenu li.opensub > a.menu-top,
+body.wp-admin #adminmenu li > a.menu-top:focus {
+    background: #eff6ff;
+    color: var(--traydigita-admin-accent, #1d4ed8);
+}
+
+body.wp-admin #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+body.wp-admin #adminmenu li.current a.menu-top,
+body.wp-admin #adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head {
+    background: var(--traydigita-admin-accent, #1d4ed8);
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin #adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+body.wp-admin #adminmenu li.current div.wp-menu-image::before {
+    color: var(--traydigita-admin-accent-contrast);
+}
+
+body.wp-admin #adminmenu .wp-submenu {
+    background: #F6F7F7;
+}
+
+body.wp-admin #adminmenu .wp-submenu a {
+    color: #3C434A;
+}
+
+body.wp-admin #adminmenu .wp-submenu a:hover,
+body.wp-admin #adminmenu .wp-submenu a:focus,
+body.wp-admin #adminmenu .wp-submenu li.current a {
+    color: var(--traydigita-admin-accent, #1d4ed8);
+}
+
+body.wp-admin #adminmenu .wp-submenu li.current a::after {
+    border-right-color: #F6F7F7;
+}
+
+body.wp-admin #collapse-menu {
+    color: #3C434A;
+}
+
+body.wp-admin #collapse-button:hover,
+body.wp-admin #collapse-button:focus {
+    color: var(--traydigita-admin-accent, #1d4ed8);
+}
+
+/* Focus rings follow the accent. */
+body.wp-admin input[type="text"]:focus,
+body.wp-admin input[type="search"]:focus,
+body.wp-admin input[type="email"]:focus,
+body.wp-admin input[type="url"]:focus,
+body.wp-admin input[type="password"]:focus,
+body.wp-admin input[type="number"]:focus,
+body.wp-admin select:focus,
+body.wp-admin textarea:focus {
+    border-color: var(--traydigita-admin-accent, #1d4ed8);
+    box-shadow: 0 0 0 1px var(--traydigita-admin-accent, #1d4ed8);
+}
+
+/* Softened corners on buttons and form controls. */
+body.wp-admin .wp-core-ui .button,
+body.wp-admin .wp-core-ui .button-primary,
+body.wp-admin .wp-core-ui .button-secondary,
+body.wp-admin input[type="text"],
+body.wp-admin input[type="search"],
+body.wp-admin input[type="email"],
+body.wp-admin input[type="url"],
+body.wp-admin input[type="password"],
+body.wp-admin input[type="number"],
+body.wp-admin select,
+body.wp-admin textarea {
+    border-radius: 6px;
+}
