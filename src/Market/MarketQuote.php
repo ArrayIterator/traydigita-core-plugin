@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Widgets\Market;
+namespace TrayDigita\WP\Plugin\Core\Market;
 
 /**
  * Immutable value object for one market quote row.

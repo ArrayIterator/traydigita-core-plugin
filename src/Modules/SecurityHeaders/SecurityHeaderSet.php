@@ -50,10 +50,11 @@ final class SecurityHeaderSet
      *
      * Conservative: everything must come from the site itself,
      * except Google Fonts (stylesheets + font files) and the
-     * Open-Meteo / CoinGecko hosts the theme's weather and market
-     * widgets talk to. Frames may only embed the site itself.
+     * Open-Meteo hosts the theme's weather widget talks to.
+     * Market prices are fetched server-side only, so no market
+     * host is allowlisted here. Frames may only embed the site itself.
      */
-    public const string DEFAULT_CSP_POLICY = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://api.open-meteo.com https://geocoding-api.open-meteo.com; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com https://api.coingecko.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'";
+    public const string DEFAULT_CSP_POLICY = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://api.open-meteo.com https://geocoding-api.open-meteo.com; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'";
 
     /**
      * Allowlisted Referrer-Policy values. An empty string means

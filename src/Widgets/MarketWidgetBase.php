@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Widgets;
 
 use TrayDigita\WP\Plugin\Core\Modules\Markets\MarketsModule;
-use TrayDigita\WP\Plugin\Core\Widgets\Market\ManualSnapshotProvider;
-use TrayDigita\WP\Plugin\Core\Widgets\Market\MarketDataProvider;
-use TrayDigita\WP\Plugin\Core\Widgets\Market\MarketQuote;
+use TrayDigita\WP\Plugin\Core\Market\ManualSnapshotProvider;
+use TrayDigita\WP\Plugin\Core\Market\MarketDataProvider;
+use TrayDigita\WP\Plugin\Core\Market\MarketQuote;
 use function __;
 use function abs;
 use function apply_filters;
@@ -20,6 +20,8 @@ use function get_option;
 use function implode;
 use function is_array;
 use function is_numeric;
+use function is_string;
+use function is_subclass_of;
 use function md5;
 use function number_format_i18n;
 use function sanitize_key;
@@ -399,6 +401,52 @@ abstract class MarketWidgetBase extends WidgetBase
     }
 
     /**
+     * Market widget classes registered through the filter below.
+     *
+     * Core ships no concrete market widgets: the Gold, Stock, and
+     * Crypto widgets live in the theme, which registers its widget
+     * classes here through the `traydigita:core:market_widgets`
+     * filter. The filter receives an empty array and must return a
+     * `kind => class-string` map (for example, the gold kind mapped
+     * to the theme's gold widget class).
+     *
+     * A registered class must extend this base class: the
+     * snapshot/prime/clear paths below call protected base methods
+     * (marketWidgetData, quotesCacheKey, deleteCached), which PHP
+     * only allows from an ancestor scope. A class that does not
+     * extend this base — for example a theme widget built on the
+     * theme's own copy of the base — is ignored here; the theme
+     * drives those through its own copy instead. A registered class
+     * must also be constructible with no arguments: snapshotForKind()
+     * builds it with `new $class()`, and a class that needs
+     * constructor arguments is silently skipped. With no
+     * registration this returns an empty map and snapshotForKind()
+     * / primeAllInstances() / clearAllCaches() stay no-ops — the
+     * previous behaviour, now honest instead of naming classes
+     * that do not exist in Core.
+     *
+     * @return array<string, class-string>
+     */
+    private static function marketWidgetClasses(): array
+    {
+        $classes = apply_filters('traydigita:core:market_widgets', []);
+        if (!is_array($classes)) {
+            return [];
+        }
+        $valid = [];
+        foreach ($classes as $kind => $class) {
+            if (!is_string($kind) || $kind === '' || !is_string($class) || $class === '') {
+                continue;
+            }
+            if (!class_exists($class) || !is_subclass_of($class, self::class, true)) {
+                continue;
+            }
+            $valid[$kind] = $class;
+        }
+        return $valid;
+    }
+
+    /**
      * Cached snapshot for the first saved instance of a market kind.
      *
      * The market strip (templates/sections/market-strip.php) reads
@@ -409,21 +457,23 @@ abstract class MarketWidgetBase extends WidgetBase
      * network request (instances are sanitized with
      * sanitizeMarketInstance, not update(), so no priming happens).
      *
+     * The widget class for the kind comes from
+     * marketWidgetClasses() (filter `traydigita:core:market_widgets`).
+     *
      * @param string $kind Market kind: "gold", "stock", or "crypto".
      * @return array{title: string, quotes: array<int, array<string, mixed>>, source: string, updated_at: int|null, currency: string, kind: string}|null Snapshot with cached quotes, or null when no instance has cached quotes.
      */
     public static function snapshotForKind(string $kind): ?array
     {
-        $class = match ($kind) {
-            'gold' => GoldMarketWidget::class,
-            'stock' => StockMarketWidget::class,
-            'crypto' => CryptoMarketWidget::class,
-            default => null,
-        };
-        if ($class === null || !class_exists($class)) {
+        $class = self::marketWidgetClasses()[$kind] ?? null;
+        if ($class === null) {
             return null;
         }
-        $widget = new $class();
+        try {
+            $widget = new $class();
+        } catch (\Throwable) {
+            return null;
+        }
         $instances = get_option('widget_' . $widget->id_base, []);
         if (!is_array($instances)) {
             return null;
@@ -461,16 +511,20 @@ abstract class MarketWidgetBase extends WidgetBase
      * Cron priming forces a real fetch: it bypasses the 60-second
      * failure marker so a provider that recovered is picked up on
      * the next scheduled refresh instead of waiting out the backoff.
+     * Widget classes come from marketWidgetClasses() (filter
+     * `traydigita:core:market_widgets`); with no registration this
+     * is a no-op.
      *
      * @return void
      */
     public static function primeAllInstances(): void
     {
-        foreach ([GoldMarketWidget::class, StockMarketWidget::class, CryptoMarketWidget::class] as $class) {
-            if (!class_exists($class)) {
+        foreach (self::marketWidgetClasses() as $class) {
+            try {
+                $widget = new $class();
+            } catch (\Throwable) {
                 continue;
             }
-            $widget = new $class();
             $instances = get_option('widget_' . $widget->id_base, []);
             if (!is_array($instances)) {
                 continue;
@@ -494,17 +548,21 @@ abstract class MarketWidgetBase extends WidgetBase
      * TTL later. No raw SQL — the keys are recomputed per instance.
      * The 60-second failure markers are deleted alongside the quotes
      * caches, so a provider switch is never blocked by a stale
-     * backoff from the previous provider.
+     * backoff from the previous provider. Widget classes come from
+     * marketWidgetClasses() (filter
+     * `traydigita:core:market_widgets`); with no registration this
+     * is a no-op.
      *
      * @return void
      */
     public static function clearAllCaches(): void
     {
-        foreach ([GoldMarketWidget::class, StockMarketWidget::class, CryptoMarketWidget::class] as $class) {
-            if (!class_exists($class)) {
+        foreach (self::marketWidgetClasses() as $class) {
+            try {
+                $widget = new $class();
+            } catch (\Throwable) {
                 continue;
             }
-            $widget = new $class();
             $instances = get_option('widget_' . $widget->id_base, []);
             if (!is_array($instances)) {
                 continue;

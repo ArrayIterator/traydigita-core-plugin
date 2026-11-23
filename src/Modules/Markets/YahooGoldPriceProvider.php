@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Markets;
 
-use TrayDigita\WP\Plugin\Core\Widgets\Market\YahooFinanceProvider;
+use TrayDigita\WP\Plugin\Core\Market\YahooFinanceProvider;
 use function __;
 use function is_numeric;
 

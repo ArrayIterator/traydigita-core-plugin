@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Markets;
 
-use TrayDigita\WP\Plugin\Core\Widgets\Market\MarketDataProvider;
-use TrayDigita\WP\Plugin\Core\Widgets\Market\MarketQuote;
+use TrayDigita\WP\Plugin\Core\Market\MarketDataProvider;
+use TrayDigita\WP\Plugin\Core\Market\MarketQuote;
 use function array_filter;
 use function array_keys;
 use function array_map;
