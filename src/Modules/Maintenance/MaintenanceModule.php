@@ -427,7 +427,14 @@ final class MaintenanceModule implements \TrayDigita\WP\Plugin\Core\Admin\Module
         }
         update_option(self::OPTION, $settings, false);
         if ($designResult !== null && $designResult['design'] !== null) {
-            update_option(MaintenanceDesigner::OPTION, $designResult['design'], false);
+            // The design was already sanitized above; a failed save
+            // here means the templates-table write failed.
+            if (!MaintenanceDesigner::saveDesign($designResult['design'])) {
+                return [
+                    'success' => false,
+                    'message' => __('The maintenance design is invalid.', 'traydigita-core'),
+                ];
+            }
         }
         return [
             'success' => true,

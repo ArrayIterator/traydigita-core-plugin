@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 05:04+0700\n"
-"PO-Revision-Date: 2026-11-24 05:04+0700\n"
+"POT-Creation-Date: 2026-11-24 05:43+0700\n"
+"PO-Revision-Date: 2026-11-24 05:43+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -468,7 +468,7 @@ msgstr ""
 msgid "A line under the article with the site name, article title, URL, and date. It only appears on the printed page, never on screen."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:250
+#: src/Modules/Maintenance/MaintenanceDesigner.php:257
 msgid "A link button, e.g. to the status page."
 msgstr ""
 
@@ -1530,8 +1530,8 @@ msgstr ""
 msgid "Back up the database before changing anything."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:188
-#: src/Modules/Maintenance/MaintenanceDesigner.php:225
+#: src/Modules/Login/Designer.php:206
+#: src/Modules/Maintenance/MaintenanceDesigner.php:232
 msgid "Background"
 msgstr ""
 
@@ -1721,7 +1721,7 @@ msgstr ""
 msgid "Body font"
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:248
+#: src/Modules/Maintenance/MaintenanceDesigner.php:255
 msgid "Body text. Empty uses the maintenance message."
 msgstr ""
 
@@ -1896,7 +1896,7 @@ msgid "Bulk-optimize the existing media library in small chunks."
 msgstr ""
 
 #: src/Modules/Email/TemplateBuilder.php:739
-#: src/Modules/Maintenance/MaintenanceDesigner.php:230
+#: src/Modules/Maintenance/MaintenanceDesigner.php:237
 msgid "Button"
 msgstr ""
 
@@ -3077,7 +3077,7 @@ msgstr ""
 msgid "Could not update the module."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:229
+#: src/Modules/Maintenance/MaintenanceDesigner.php:236
 msgid "Countdown"
 msgstr ""
 
@@ -3089,7 +3089,7 @@ msgstr ""
 msgid "Countdown to (optional)"
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:249
+#: src/Modules/Maintenance/MaintenanceDesigner.php:256
 msgid "Countdown to the date set in the General settings."
 msgstr ""
 
@@ -3373,7 +3373,7 @@ msgstr ""
 msgid "Curated plugin suggestions for a news site, Google Site Kit first."
 msgstr ""
 
-#: src/Widgets/MarketWidgetBase.php:587
+#: src/Widgets/MarketWidgetBase.php:645
 msgid "Currency:"
 msgstr ""
 
@@ -3415,14 +3415,14 @@ msgstr ""
 msgid "Custom categories"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:193
-#: src/Modules/Maintenance/MaintenanceDesigner.php:233
+#: src/Modules/Login/Designer.php:211
+#: src/Modules/Maintenance/MaintenanceDesigner.php:240
 #: templates/admin/modules/login.php:270
 #: templates/admin/modules/maintenance.php:247
 msgid "Custom CSS"
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:152
+#: src/Modules/Login/LoginModule.php:151
 msgid "Custom CSS support."
 msgstr ""
 
@@ -3434,7 +3434,7 @@ msgstr ""
 msgid "Custom Headers"
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:102
+#: src/Modules/Login/LoginModule.php:101
 msgid "Custom Login Page Builder"
 msgstr ""
 
@@ -3511,7 +3511,7 @@ msgstr ""
 msgid "Dated issue archive."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:984
+#: src/Modules/Maintenance/MaintenanceDesigner.php:494
 #: templates/maintenance.php:243
 msgid "Days"
 msgstr ""
@@ -3754,11 +3754,11 @@ msgstr ""
 msgid "Design preview"
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:150
+#: src/Modules/Login/LoginModule.php:149
 msgid "Design the login page with drag-and-drop blocks."
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:112
+#: src/Modules/Login/LoginModule.php:111
 msgid "Design the WordPress login page with drag-and-drop blocks: logo, background, welcome text, social links and custom CSS."
 msgstr ""
 
@@ -4168,7 +4168,7 @@ msgid "Email"
 msgstr ""
 
 #: src/Modules/Email/EmailModule.php:384
-#: src/Modules/Maintenance/MaintenanceDesigner.php:1029
+#: src/Modules/Maintenance/MaintenanceDesigner.php:539
 #: templates/admin/modules/email.php:210
 #: templates/maintenance.php:296
 #: templates/maintenance.php:297
@@ -4191,7 +4191,7 @@ msgstr ""
 msgid "Email settings are unavailable."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:252
+#: src/Modules/Maintenance/MaintenanceDesigner.php:259
 msgid "Email signup form (subscribes to the newsletter)."
 msgstr ""
 
@@ -4332,7 +4332,7 @@ msgstr ""
 msgid "Enter a category name."
 msgstr ""
 
-#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:167
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:168
 msgid "Enter a Content-Security-Policy before enabling report-only mode."
 msgstr ""
 
@@ -4729,11 +4729,11 @@ msgstr ""
 msgid "Export redirects (JSON)"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:210
+#: src/Modules/Login/Designer.php:228
 msgid "Extra CSS for the login page."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:253
+#: src/Modules/Maintenance/MaintenanceDesigner.php:260
 msgid "Extra CSS for the maintenance page."
 msgstr ""
 
@@ -5116,7 +5116,7 @@ msgstr ""
 msgid "Format support"
 msgstr ""
 
-#: src/Widgets/MarketWidgetBase.php:583
+#: src/Widgets/MarketWidgetBase.php:641
 msgid "Format: Label|price|change|change_percent|buyback. Used when no API provider is configured."
 msgstr ""
 
@@ -5588,7 +5588,7 @@ msgid "Headers this module will send"
 msgstr ""
 
 #: src/Modules/FrontendEditor/FrontendEditorModule.php:548
-#: src/Modules/Maintenance/MaintenanceDesigner.php:227
+#: src/Modules/Maintenance/MaintenanceDesigner.php:234
 #: src/Modules/RelatedPosts/RelatedPostsModule.php:363
 #: src/Modules/Share/ShareModule.php:346
 #: templates/admin/modules/login.php:221
@@ -5601,7 +5601,7 @@ msgstr ""
 msgid "Heading above the list. Empty resets to the default."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:207
+#: src/Modules/Login/Designer.php:225
 msgid "Heading and short text above the login form."
 msgstr ""
 
@@ -5734,7 +5734,7 @@ msgstr ""
 msgid "Hostname or IP address of your SMTP server, for example smtp.example.com. Only used with the SMTP provider. Leave empty to disable SMTP."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:984
+#: src/Modules/Maintenance/MaintenanceDesigner.php:494
 #: templates/maintenance.php:247
 msgid "Hours"
 msgstr ""
@@ -6063,7 +6063,7 @@ msgstr ""
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:177
 #: src/Modules/Installer/InstallerModule.php:171
 #: src/Modules/Integrations/IntegrationsModule.php:267
-#: src/Modules/Login/LoginModule.php:172
+#: src/Modules/Login/LoginModule.php:171
 #: src/Modules/Maintenance/MaintenanceModule.php:248
 #: src/Modules/Markets/MarketsModule.php:251
 #: src/Modules/Paywall/PaywallModule.php:216
@@ -6583,11 +6583,11 @@ msgstr ""
 msgid "Links from the author Website field and the social profile fields (X, Facebook, Instagram, LinkedIn) when they are filled in."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:209
+#: src/Modules/Login/Designer.php:227
 msgid "Links shown below the login form."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:251
+#: src/Modules/Maintenance/MaintenanceDesigner.php:258
 msgid "Links shown below the page content."
 msgstr ""
 
@@ -6728,7 +6728,7 @@ msgstr ""
 msgid "Log entry deleted."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:970
+#: src/Modules/Login/Designer.php:493
 msgid "Log In"
 msgstr ""
 
@@ -6745,19 +6745,19 @@ msgstr ""
 msgid "Logged-in administrators always bypass it."
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:321
+#: src/Modules/Login/LoginModule.php:325
 msgid "Login design saved."
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:249
+#: src/Modules/Login/LoginModule.php:248
 msgid "Login designer"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:191
+#: src/Modules/Login/Designer.php:209
 msgid "Login form"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:208
+#: src/Modules/Login/Designer.php:226
 msgid "Login form colours and corner radius."
 msgstr ""
 
@@ -6765,8 +6765,8 @@ msgstr ""
 msgid "Login verification is skipped until it is registered, so logins are not blocked."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:189
-#: src/Modules/Maintenance/MaintenanceDesigner.php:226
+#: src/Modules/Login/Designer.php:207
+#: src/Modules/Maintenance/MaintenanceDesigner.php:233
 msgid "Logo"
 msgstr ""
 
@@ -6790,7 +6790,7 @@ msgstr ""
 msgid "Logo width (px)"
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:151
+#: src/Modules/Login/LoginModule.php:150
 msgid "Logo, background, welcome text, and social links."
 msgstr ""
 
@@ -6942,7 +6942,7 @@ msgstr ""
 msgid "Mailtrap — free 4,000 emails/month. Best for transactional mail with a built-in sandbox for testing before going live."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:247
+#: src/Modules/Maintenance/MaintenanceDesigner.php:254
 msgid "Main heading and short text. Empty uses the maintenance title."
 msgstr ""
 
@@ -6966,7 +6966,7 @@ msgstr ""
 msgid "Maintenance mode is ON. Visitors see the maintenance page."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceModule.php:434
+#: src/Modules/Maintenance/MaintenanceModule.php:441
 msgid "Maintenance settings saved."
 msgstr ""
 
@@ -7006,7 +7006,7 @@ msgstr ""
 msgid "Manual placement (template partial only)"
 msgstr ""
 
-#: src/Widgets/MarketWidgetBase.php:582
+#: src/Widgets/MarketWidgetBase.php:640
 msgid "Manual price snapshot (one per line):"
 msgstr ""
 
@@ -7214,7 +7214,7 @@ msgstr ""
 msgid "Minimum headings for the table of contents"
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:984
+#: src/Modules/Maintenance/MaintenanceDesigner.php:494
 #: templates/maintenance.php:251
 msgid "Minutes"
 msgstr ""
@@ -7541,7 +7541,7 @@ msgstr ""
 msgid "Newsletter settings saved."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:232
+#: src/Modules/Maintenance/MaintenanceDesigner.php:239
 msgid "Newsletter signup"
 msgstr ""
 
@@ -8142,7 +8142,7 @@ msgstr ""
 msgid "Notifies Google when a post or page is published or updated."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:1030
+#: src/Modules/Maintenance/MaintenanceDesigner.php:540
 #: templates/maintenance.php:299
 msgid "Notify me"
 msgstr ""
@@ -8692,8 +8692,8 @@ msgstr ""
 msgid "Page %s of %s"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:205
-#: src/Modules/Maintenance/MaintenanceDesigner.php:245
+#: src/Modules/Login/Designer.php:223
+#: src/Modules/Maintenance/MaintenanceDesigner.php:252
 msgid "Page background: colour, image or gradient."
 msgstr ""
 
@@ -8752,12 +8752,12 @@ msgstr ""
 msgid "passkey"
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:335
+#: src/Modules/Passkeys/PasskeysAjax.php:363
 #. translators: %d is the passkey number for this account.
 msgid "Passkey %d"
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:351
+#: src/Modules/Passkeys/PasskeysAjax.php:379
 msgid "Passkey added. You can now sign in with your fingerprint or Face ID."
 msgstr ""
 
@@ -8773,17 +8773,17 @@ msgstr ""
 msgid "Passkey registered for two-factor authentication."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:325
+#: src/Modules/Passkeys/PasskeysAjax.php:353
 #: src/Modules/Passkeys/PasskeysModule.php:924
 #: src/Modules/TwoFactor/TwoFactorModule.php:1989
 msgid "Passkey registration failed. Please try again."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:273
+#: src/Modules/Passkeys/PasskeysAjax.php:300
 msgid "Passkey registration is disabled on this site."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:316
+#: src/Modules/Passkeys/PasskeysAjax.php:343
 msgid "Passkey registration is not available on this site."
 msgstr ""
 
@@ -8796,7 +8796,7 @@ msgstr ""
 msgid "Passkey removed from two-factor authentication."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:375
+#: src/Modules/Passkeys/PasskeysAjax.php:403
 msgid "Passkey removed."
 msgstr ""
 
@@ -8808,15 +8808,16 @@ msgstr ""
 msgid "Passkey sign-in failed. Please log in with your password."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:445
-#: src/Modules/Passkeys/PasskeysAjax.php:471
-#: src/Modules/Passkeys/PasskeysAjax.php:519
-#: src/Modules/Passkeys/PasskeysAjax.php:525
-#: src/Modules/Passkeys/PasskeysAjax.php:563
+#: src/Modules/Passkeys/PasskeysAjax.php:473
+#: src/Modules/Passkeys/PasskeysAjax.php:499
+#: src/Modules/Passkeys/PasskeysAjax.php:548
+#: src/Modules/Passkeys/PasskeysAjax.php:554
+#: src/Modules/Passkeys/PasskeysAjax.php:559
+#: src/Modules/Passkeys/PasskeysAjax.php:597
 msgid "Passkey sign-in failed. Please try again."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:404
+#: src/Modules/Passkeys/PasskeysAjax.php:432
 msgid "Passkey sign-in is not available on this site."
 msgstr ""
 
@@ -8828,7 +8829,7 @@ msgstr ""
 msgid "Passkey sign-in: fingerprint or Face ID instead of a password."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:245
+#: src/Modules/Passkeys/PasskeysAjax.php:269
 msgid "Passkey verification failed. Please try again."
 msgstr ""
 
@@ -8869,7 +8870,7 @@ msgstr ""
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP, so passkeys are disabled here — everything else still works. If the site is behind a proxy, check that WordPress knows it is on HTTPS."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:276
+#: src/Modules/Passkeys/PasskeysAjax.php:303
 msgid "Passkeys need a secure connection (HTTPS). This site is served over plain HTTP."
 msgstr ""
 
@@ -8882,7 +8883,7 @@ msgstr ""
 msgid "Passkeys: %d"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:966
+#: src/Modules/Login/Designer.php:489
 #: templates/admin/modules/mailer.php:235
 msgid "Password"
 msgstr ""
@@ -10729,7 +10730,7 @@ msgstr ""
 msgid "Search series"
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:984
+#: src/Modules/Maintenance/MaintenanceDesigner.php:494
 #: templates/maintenance.php:255
 msgid "Seconds"
 msgstr ""
@@ -11651,11 +11652,11 @@ msgstr ""
 msgid "Site Kit is not installed — install it to connect Analytics, Search Console and more."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:206
+#: src/Modules/Login/Designer.php:224
 msgid "Site logo shown above the login form."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:246
+#: src/Modules/Maintenance/MaintenanceDesigner.php:253
 msgid "Site logo shown at the top of the page."
 msgstr ""
 
@@ -11765,8 +11766,8 @@ msgstr ""
 msgid "Social"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:192
-#: src/Modules/Maintenance/MaintenanceDesigner.php:231
+#: src/Modules/Login/Designer.php:210
+#: src/Modules/Maintenance/MaintenanceDesigner.php:238
 msgid "Social links"
 msgstr ""
 
@@ -12351,7 +12352,7 @@ msgstr ""
 
 #: src/Modules/Email/TemplateBuilder.php:738
 #: src/Modules/FormBuilder/FormBuilder.php:120
-#: src/Modules/Maintenance/MaintenanceDesigner.php:228
+#: src/Modules/Maintenance/MaintenanceDesigner.php:235
 #: templates/admin/modules/maintenance.php:195
 msgid "Text"
 msgstr ""
@@ -12461,7 +12462,7 @@ msgstr ""
 msgid "That JSON is not a Google service-account key: it must contain client_email, private_key, and token_uri."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:372
+#: src/Modules/Passkeys/PasskeysAjax.php:400
 msgid "That passkey was not found."
 msgstr ""
 
@@ -12734,7 +12735,7 @@ msgstr ""
 msgid "The Cookie Consent settings template is missing."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceModule.php:742
+#: src/Modules/Maintenance/MaintenanceModule.php:749
 msgid "The countdown date is not valid."
 msgstr ""
 
@@ -13115,7 +13116,7 @@ msgstr[0] ""
 msgid "The log table is ready."
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:277
+#: src/Modules/Login/LoginModule.php:276
 msgid "The login builder template is missing."
 msgstr ""
 
@@ -13123,21 +13124,21 @@ msgstr ""
 msgid "The login challenge cannot render yet: the turnstile script entry is not registered in AssetLoader::ASSETS."
 msgstr ""
 
-#: src/Modules/Login/LoginModule.php:309
+#: src/Modules/Login/LoginModule.php:308
 msgid "The login design could not be saved."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:313
+#: src/Modules/Login/Designer.php:126
 msgid "The login design has no blocks."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:336
+#: src/Modules/Login/Designer.php:136
 msgid "The login design has no valid blocks."
 msgstr ""
 
-#: src/Modules/Login/Designer.php:306
-#: src/Modules/Login/Designer.php:346
-#: src/Modules/Login/LoginModule.php:315
+#: src/Modules/Login/Designer.php:116
+#: src/Modules/Login/LoginModule.php:314
+#: src/Modules/Login/LoginModule.php:320
 msgid "The login design is invalid."
 msgstr ""
 
@@ -13149,17 +13150,17 @@ msgstr ""
 msgid "The mailing list the campaign is sent to (Audience → Email Lists → your list; the ID is in the URL). Every mail goes to the whole list."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:356
+#: src/Modules/Maintenance/MaintenanceDesigner.php:134
 msgid "The maintenance design has no blocks."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:379
+#: src/Modules/Maintenance/MaintenanceDesigner.php:144
 msgid "The maintenance design has no valid blocks."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceDesigner.php:349
-#: src/Modules/Maintenance/MaintenanceDesigner.php:389
+#: src/Modules/Maintenance/MaintenanceDesigner.php:124
 #: src/Modules/Maintenance/MaintenanceModule.php:404
+#: src/Modules/Maintenance/MaintenanceModule.php:435
 msgid "The maintenance design is invalid."
 msgstr ""
 
@@ -13272,12 +13273,12 @@ msgstr ""
 msgid "The plugin is already active."
 msgstr ""
 
-#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:172
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:173
 #. translators: %d is the maximum policy length in characters.
 msgid "The policy must be at most %d characters."
 msgstr ""
 
-#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:177
+#: src/Modules/SecurityHeaders/SecurityHeaderSet.php:178
 msgid "The policy must not contain line breaks or control characters."
 msgstr ""
 
@@ -13353,7 +13354,7 @@ msgstr ""
 msgid "The redirect URI must use https on a public site — Google only accepts plain http on localhost. If the URI above shows http on a live site, switch the site to https first (or serve the admin over https) before registering it in Google Cloud, or Google will reject the callback."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:321
+#: src/Modules/Passkeys/PasskeysAjax.php:349
 msgid "The registration session expired. Please start again."
 msgstr ""
 
@@ -13713,7 +13714,7 @@ msgstr ""
 msgid "These headers are added to every outgoing WordPress email so it does not land in spam. Each group can be switched off, but leaving them on is recommended."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceModule.php:794
+#: src/Modules/Maintenance/MaintenanceModule.php:801
 #. translators: %s is a comma-separated list of invalid IP addresses.
 msgid "These IP addresses are not valid: %s"
 msgstr ""
@@ -13734,7 +13735,7 @@ msgstr ""
 msgid "Third-party providers can register through a filter."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:425
+#: src/Modules/Passkeys/PasskeysAjax.php:453
 msgid "This account has no passkeys."
 msgstr ""
 
@@ -13876,9 +13877,9 @@ msgstr ""
 msgid "This unsubscribe link is invalid or has expired."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:413
-#: src/Modules/Passkeys/PasskeysAjax.php:481
-#: src/Modules/Passkeys/PasskeysAjax.php:487
+#: src/Modules/Passkeys/PasskeysAjax.php:441
+#: src/Modules/Passkeys/PasskeysAjax.php:509
+#: src/Modules/Passkeys/PasskeysAjax.php:516
 #: src/Modules/TwoFactor/TwoFactorModule.php:1661
 #: src/Modules/TwoFactor/TwoFactorModule.php:1727
 msgid "This verification link has expired. Please log in again."
@@ -13961,7 +13962,7 @@ msgid "Title separator"
 msgstr ""
 
 #: src/Widgets/AgendaWidget.php:112
-#: src/Widgets/MarketWidgetBase.php:570
+#: src/Widgets/MarketWidgetBase.php:628
 #: src/Widgets/WidgetBase.php:651
 msgid "Title:"
 msgstr ""
@@ -13987,9 +13988,9 @@ msgstr ""
 msgid "Too many failed attempts. Please try again in %d minutes."
 msgstr ""
 
-#: src/Modules/Passkeys/PasskeysAjax.php:418
-#: src/Modules/Passkeys/PasskeysAjax.php:491
-#: src/Modules/Passkeys/PasskeysAjax.php:556
+#: src/Modules/Passkeys/PasskeysAjax.php:446
+#: src/Modules/Passkeys/PasskeysAjax.php:520
+#: src/Modules/Passkeys/PasskeysAjax.php:590
 msgid "Too many failed attempts. Please try again later."
 msgstr ""
 
@@ -14778,7 +14779,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:964
+#: src/Modules/Login/Designer.php:487
 msgid "Username or Email Address"
 msgstr ""
 
@@ -14938,7 +14939,7 @@ msgstr ""
 msgid "Warning: resetting the OPcache on a busy site causes a reload spike."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceModule.php:582
+#: src/Modules/Maintenance/MaintenanceModule.php:589
 msgid "We are performing scheduled maintenance. Please check back soon."
 msgstr ""
 
@@ -14946,7 +14947,7 @@ msgstr ""
 msgid "We use cookies to keep this site working and to remember your preferences. You can accept or decline optional cookies below."
 msgstr ""
 
-#: src/Modules/Maintenance/MaintenanceModule.php:581
+#: src/Modules/Maintenance/MaintenanceModule.php:588
 msgid "We&rsquo;ll be back soon"
 msgstr ""
 
@@ -14980,7 +14981,7 @@ msgstr ""
 msgid "Weights"
 msgstr ""
 
-#: src/Modules/Login/Designer.php:190
+#: src/Modules/Login/Designer.php:208
 msgid "Welcome text"
 msgstr ""
 
@@ -15434,7 +15435,7 @@ msgstr ""
 #: src/Modules/Bookmarks/BookmarksModule.php:213
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:272
 #: src/Modules/FrontendEditor/FrontendEditorModule.php:487
-#: src/Modules/Login/LoginModule.php:267
+#: src/Modules/Login/LoginModule.php:266
 #: src/Modules/MemberArea/MemberAreaModule.php:636
 #: src/Modules/MemberProfile/MemberProfileModule.php:272
 #: src/Modules/Passkeys/PasskeysModule.php:973
@@ -15692,13 +15693,13 @@ msgstr ""
 #: src/Modules/ImageOptimizer/BulkRunner.php:299
 #: src/Modules/ImageOptimizer/ImageOptimizerModule.php:293
 #: src/Modules/Integrations/IntegrationsModule.php:378
-#: src/Modules/Login/LoginModule.php:301
+#: src/Modules/Login/LoginModule.php:300
 #: src/Modules/Mailer/MailerAjax.php:98
 #: src/Modules/Mailer/MailerModule.php:1676
 #: src/Modules/Mailer/MailerModule.php:2258
-#: src/Modules/Passkeys/PasskeysAjax.php:270
-#: src/Modules/Passkeys/PasskeysAjax.php:313
-#: src/Modules/Passkeys/PasskeysAjax.php:368
+#: src/Modules/Passkeys/PasskeysAjax.php:297
+#: src/Modules/Passkeys/PasskeysAjax.php:340
+#: src/Modules/Passkeys/PasskeysAjax.php:396
 #: src/Modules/PostSeries/PostSeriesModule.php:916
 #: src/Modules/Push/PushAjax.php:84
 #: src/Modules/Recaptcha/RecaptchaModule.php:515

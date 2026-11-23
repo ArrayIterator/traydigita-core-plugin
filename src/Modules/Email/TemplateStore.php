@@ -70,8 +70,8 @@ use function wp_date;
  * ('traydigita_email_templates') into type='email' rows, one
  * time, idempotently. The old option is NEVER deleted or
  * written after migration — it stays as the rollback source.
- * Only email templates are migrated in this round; Maintenance
- * and Login designs stay where they are until MUST-10.
+ * Maintenance and Login designs are migrated by
+ * DesignerEngine::migrateLegacyDesign() (MUST-10), not here.
  */
 final class TemplateStore
 {
@@ -119,9 +119,19 @@ final class TemplateStore
     public const string TABLE_MIGRATION_FLAG_OPTION = 'traydigita_email_templates_table_migrated';
 
     /**
-     * Template type: email templates (the only migrated kind).
+     * Template type: email templates (the only kind migrated here).
      */
     public const string TYPE_EMAIL = 'email';
+
+    /**
+     * Template type: maintenance page designs (MUST-10).
+     */
+    public const string TYPE_MAINTENANCE = 'maintenance';
+
+    /**
+     * Template type: login page designs (MUST-10).
+     */
+    public const string TYPE_LOGIN = 'login';
 
     /**
      * Status: editable, never sent or used live.
@@ -890,8 +900,9 @@ final class TemplateStore
      * is NEVER deleted or written here — it stays as the
      * rollback source.
      *
-     * Only email templates are migrated in this round;
-     * Maintenance and Login designs are not touched.
+     * Only email templates are migrated here; Maintenance and
+     * Login designs are migrated by
+     * DesignerEngine::migrateLegacyDesign().
      *
      * @param array<string, array<string, mixed>> $templates Option templates keyed by id.
      * @param string $defaultId Old default template id.

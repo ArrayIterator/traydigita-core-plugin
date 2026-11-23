@@ -14,7 +14,6 @@ use function esc_url;
 use function file_exists;
 use function get_bloginfo;
 use function is_string;
-use function update_option;
 use function wp_add_inline_style;
 use function wp_create_nonce;
 use function wp_die;
@@ -27,8 +26,8 @@ use function wp_enqueue_style;
  *
  * Implements the module contract defined by the admin shell
  * (\TrayDigita\WP\Plugin\Core\Admin\ModuleInterface). The module stores one
- * design array in the `traydigita_login_design` option (see
- * Designer) and applies it to wp-login.php only while enabled:
+ * design as the published 'login' row in the `traydigita_templates` table
+ * (see Designer) and applies it to wp-login.php only while enabled:
  * generated CSS via `login_head`, the logo link/text via
  * `login_headerurl` / `login_headertext`, and the welcome text and
  * social links via the `login_message` filter.
@@ -287,8 +286,8 @@ final class LoginModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
      * JSON string (see Designer::sanitizeDesign() for why the base64
      * shape exists). Everything is re-validated and deeply sanitized
      * server-side by Designer::sanitizeDesign(); the client is never
-     * trusted. The whole design is stored in one option with autoload
-     * disabled.
+     * trusted. The whole design is stored as the published row of
+     * its type in the templates table.
      *
      * @param array<string, mixed> $data Submitted data.
      * @return array{success: bool, message: string}
@@ -315,7 +314,12 @@ final class LoginModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
                 'message' => $result['error'] ?? __('The login design is invalid.', 'traydigita-core'),
             ];
         }
-        update_option(Designer::OPTION, $result['design'], false);
+        if (!Designer::saveDesign($result['design'])) {
+            return [
+                'success' => false,
+                'message' => __('The login design is invalid.', 'traydigita-core'),
+            ];
+        }
         return [
             'success' => true,
             'message' => __('Login design saved.', 'traydigita-core'),
