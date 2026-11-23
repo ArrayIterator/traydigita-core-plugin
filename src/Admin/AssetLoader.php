@@ -241,6 +241,7 @@ final class AssetLoader
             $this->enqueueStyle(self::ADMIN_STYLE_HANDLE);
         }
         $this->enqueueModalAssets();
+        $this->enqueueSettingsLayoutAssets();
     }
 
     /**
@@ -274,6 +275,30 @@ final class AssetLoader
                 [],
                 Core::VERSION,
                 true
+            );
+        }
+    }
+
+    /**
+     * Enqueue the settings layout fixes (plain CSS, no build).
+     *
+     * assets/css/traydigita-settings-layout.css holds the
+     * save-bar clearance, field rhythm and Contact Form table
+     * rules the bundled admin stylesheet does not cover. Same
+     * pattern as the modal assets above: a plain file versioned
+     * with Core::VERSION, enqueued only when it exists.
+     *
+     * @return void
+     */
+    private function enqueueSettingsLayoutAssets(): void
+    {
+        $css = $this->core->pluginDir . '/assets/css/traydigita-settings-layout.css';
+        if (file_exists($css)) {
+            wp_enqueue_style(
+                'traydigita-core-settings-layout',
+                $this->core->pluginUrl . '/assets/css/traydigita-settings-layout.css',
+                [],
+                Core::VERSION
             );
         }
     }

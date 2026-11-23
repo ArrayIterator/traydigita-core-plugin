@@ -1,0 +1,148 @@
+/**
+ * TrayDigita settings layout fixes.
+ *
+ * Plain CSS (no build step), loaded on every TrayDigita admin
+ * page by AssetLoader alongside the modal stylesheet. It only
+ * patches what the bundled admin stylesheet leaves inconsistent:
+ * the sticky save bar covering the last field, field rows with
+ * no vertical rhythm outside a framework section, the legacy
+ * inline field pattern, and the Contact Form table. Every rule
+ * is scoped to the admin shell (`.traydigita-admin-*`) or a
+ * module settings page, so nothing outside settings pages is
+ * touched.
+ */
+
+/*
+ * Sticky save-bar clearance: the framework save bar sticks to
+ * the bottom of the viewport (`position: sticky; bottom: 1rem`),
+ * so on a page whose last field ends at the bottom of the
+ * content the bar floats over that field and its help text.
+ * Bottom padding on the shell content gives every settings page
+ * scroll room past its last field, so the field can be scrolled
+ * fully above the bar. The bar is about 4.5rem tall and sticks
+ * 1rem above the viewport bottom; 6.5rem leaves a breath of
+ * space above it.
+ */
+.traydigita-admin-content {
+    padding-bottom: 6.5rem;
+}
+
+/*
+ * Field rhythm outside framework sections: inside a
+ * `.td-settings-section` adjacent fields get a divider plus
+ * `margin-top: 1rem` from the bundle, but a framework field
+ * rendered anywhere else (the Contact Form retention and
+ * default-recipient fields, the edit-form fields) stacks with
+ * no gap at all. One shared rule gives those fields the same
+ * 1rem rhythm; inside a section it matches the bundled value
+ * exactly, so the section rule still wins the divider and
+ * padding.
+ */
+.traydigita-ui-field + .traydigita-ui-field {
+    margin-top: 1rem;
+}
+
+/*
+ * Legacy inline field pattern: the Turnstile settings page
+ * still renders each field as one inline paragraph (label,
+ * input and description flowing on one line), which squeezes
+ * the description into a narrow column beside the input. Until
+ * that page moves to framework fields, stack its rows the way
+ * the framework does: label above, input below, description
+ * full-width underneath.
+ */
+.traydigita-module-settings .turnstile-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+}
+
+.traydigita-module-settings .turnstile-field .turnstile-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.traydigita-module-settings .turnstile-field .description {
+    color: var(--traydigita-admin-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/*
+ * reCAPTCHA Content-Security-Policy note: a plain paragraph at
+ * the end of the Keys section. Give it the same divider and
+ * spacing as the field rows above it, so it reads as a footer
+ * note instead of crowding the last field.
+ */
+.td-settings-section .recaptcha-field-help {
+    margin: 1rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--traydigita-admin-line);
+}
+
+/*
+ * Settings sections that are not framework sections (the
+ * Contact Form page): the bundled stylesheet styles no margin
+ * for them, so the sections crowd each other. The bottom margin
+ * restores the same 2rem rhythm the framework sections have
+ * (1.5rem card margin plus breathing room), and the scroll
+ * margin keeps an anchored section from hiding under the
+ * sticky shell header.
+ */
+.traydigita-admin-section {
+    margin-bottom: 2rem;
+}
+
+.traydigita-admin-section[id^="td-section-"] {
+    scroll-margin-top: 2rem;
+}
+
+/*
+ * Contact forms table: header labels wrapped mid-phrase
+ * ("Form Builder form" over three lines, "Send email" over
+ * two) because the columns were squeezed to their content.
+ * Keep every header on one line and the cells top-aligned so
+ * rows read cleanly; the shortcode column gets a minimum width
+ * so the code breaks at its space (two lines) instead of
+ * mid-token, and the table scrolls horizontally instead of
+ * breaking the layout on narrow screens (same block-scroll
+ * treatment the framework already applies to tables inside
+ * `.traydigita-module-settings`).
+ */
+.contact-form-module table.widefat {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.contact-form-module table.widefat th {
+    white-space: nowrap;
+}
+
+.contact-form-module table.widefat td {
+    vertical-align: top;
+}
+
+.contact-form-module table.widefat td:last-child {
+    white-space: nowrap;
+}
+
+.contact-form-module table.widefat td:nth-child(6) {
+    min-width: 13rem;
+}
+
+.contact-form-module table.widefat td code {
+    overflow-wrap: break-word;
+}
+
+/*
+ * The delete form inside a table row is an inline form by
+ * name but a block `<form>` by default, which pushed "Delete"
+ * onto its own line under "Edit |". Keep it inline inside the
+ * table; the create form below the table is untouched.
+ */
+.contact-form-module table .traydigita-admin-inline-form {
+    display: inline;
+}

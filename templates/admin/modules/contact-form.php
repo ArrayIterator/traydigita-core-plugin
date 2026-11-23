@@ -40,7 +40,7 @@ $traydigita_spam_labels = [
 ];
 ?>
 <div class="contact-form-module">
-    <div class="traydigita-admin-section">
+    <div class="traydigita-admin-section" id="td-section-forms">
         <h2><?php esc_html_e('Contact forms', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
             <?php esc_html_e('Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on).', 'traydigita-core'); ?>
@@ -115,15 +115,19 @@ $traydigita_spam_labels = [
                     'attrs' => ['required' => 'required', 'autocomplete' => 'off'],
                 ]);
                 ?>
-                <p>
-                    <label for="contact-form-builder-id"><?php esc_html_e('Form Builder form', 'traydigita-core'); ?></label><br>
-                    <select id="contact-form-builder-id" name="form_builder_id">
-                        <option value=""><?php esc_html_e('— Select a form —', 'traydigita-core'); ?></option>
-                        <?php foreach ($builderForms as $traydigita_builder_form) : ?>
-                            <option value="<?php echo esc_attr($traydigita_builder_form['id']); ?>"<?php selected((string) $editingForm['form_builder_id'], $traydigita_builder_form['id']); ?>><?php echo esc_html($traydigita_builder_form['title']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </p>
+                <?php
+                $traydigita_builder_options = ['' => __('— Select a form —', 'traydigita-core')];
+                foreach ($builderForms as $traydigita_builder_form) {
+                    $traydigita_builder_options[(string) $traydigita_builder_form['id']] = (string) $traydigita_builder_form['title'];
+                }
+                \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::select([
+                    'id' => 'contact-form-builder-id',
+                    'name' => 'form_builder_id',
+                    'label' => __('Form Builder form', 'traydigita-core'),
+                    'value' => (string) $editingForm['form_builder_id'],
+                    'options' => $traydigita_builder_options,
+                ]);
+                ?>
                 <?php
                 \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::input([
                     'type' => 'email',
@@ -142,23 +146,32 @@ $traydigita_spam_labels = [
                     'help' => __('When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form.', 'traydigita-core'),
                 ]);
                 ?>
-                <p>
-                    <label for="contact-form-spam"><?php esc_html_e('Spam protection', 'traydigita-core'); ?></label><br>
-                    <select id="contact-form-spam" name="spam">
-                        <?php foreach ($spamModes as $traydigita_mode) : ?>
-                            <option value="<?php echo esc_attr($traydigita_mode); ?>"<?php selected((string) $editingForm['spam'], $traydigita_mode); ?>><?php echo esc_html($traydigita_spam_labels[$traydigita_mode]); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </p>
-                <p>
-                    <label for="contact-form-email-template"><?php esc_html_e('Notification email template', 'traydigita-core'); ?></label><br>
-                    <select id="contact-form-email-template" name="email_template_id">
-                        <option value=""><?php esc_html_e('— Plain list of values —', 'traydigita-core'); ?></option>
-                        <?php foreach ($emailTemplates as $traydigita_template) : ?>
-                            <option value="<?php echo esc_attr($traydigita_template['id']); ?>"<?php selected((string) $editingForm['email_template_id'], $traydigita_template['id']); ?>><?php echo esc_html($traydigita_template['title']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </p>
+                <?php
+                $traydigita_spam_options = [];
+                foreach ($spamModes as $traydigita_mode) {
+                    $traydigita_spam_options[(string) $traydigita_mode] = $traydigita_spam_labels[(string) $traydigita_mode] ?? (string) $traydigita_mode;
+                }
+                \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::select([
+                    'id' => 'contact-form-spam',
+                    'name' => 'spam',
+                    'label' => __('Spam protection', 'traydigita-core'),
+                    'value' => (string) $editingForm['spam'],
+                    'options' => $traydigita_spam_options,
+                ]);
+                ?>
+                <?php
+                $traydigita_template_options = ['' => __('— Plain list of values —', 'traydigita-core')];
+                foreach ($emailTemplates as $traydigita_template) {
+                    $traydigita_template_options[(string) $traydigita_template['id']] = (string) $traydigita_template['title'];
+                }
+                \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::select([
+                    'id' => 'contact-form-email-template',
+                    'name' => 'email_template_id',
+                    'label' => __('Notification email template', 'traydigita-core'),
+                    'value' => (string) $editingForm['email_template_id'],
+                    'options' => $traydigita_template_options,
+                ]);
+                ?>
                 <?php
                 \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::input([
                     'id' => 'contact-form-subject-prefix',
@@ -174,7 +187,7 @@ $traydigita_spam_labels = [
         </div>
     <?php endif; ?>
 
-    <div class="traydigita-admin-section">
+    <div class="traydigita-admin-section" id="td-section-spam">
         <h2><?php esc_html_e('Spam protection & retention', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
             <?php if ($turnstileActive) : ?>

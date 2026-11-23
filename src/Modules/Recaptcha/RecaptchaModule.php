@@ -497,11 +497,14 @@ final class RecaptchaModule implements ModuleInterface
     /**
      * Render the settings page inside the admin shell content area.
      *
-     * Follows the SeoModule / TurnstileModule pattern: the form is
-     * rendered inline here, no template partial. The secret key is
-     * stripped before the settings reach the markup — the password
-     * field is always rendered empty, and an empty submission keeps
-     * the stored key.
+     * Follows the SeoModule pattern: the form is rendered inline
+     * here, no template partial, and the fields are framework
+     * fields (SettingsControls) inside a framework section, so
+     * the page has the same two-column layout, dividers and
+     * sticky save bar as every other module settings page. The
+     * secret key is stripped before the settings reach the
+     * markup — the password field is always rendered empty, and
+     * an empty submission keeps the stored key.
      *
      * @return void
      */
@@ -547,31 +550,42 @@ final class RecaptchaModule implements ModuleInterface
                 <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr(wp_create_nonce($recaptchaNonceAction)); ?>">
                 <input type="hidden" name="module" value="recaptcha">
 
-                <p class="recaptcha-field">
-                    <label class="recaptcha-label" for="recaptcha-site-key"><?php esc_html_e('Site key', 'traydigita-core'); ?></label>
-                    <input class="traydigita-ui-input traydigita-ui-input-mono recaptcha-input" type="text" id="recaptcha-site-key" name="site_key" value="<?php echo esc_attr($recaptchaSiteKey); ?>" autocomplete="off" spellcheck="false">
-                    <span class="description"><?php SettingsControls::helpText(__('The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair).', 'traydigita-core'), __('It is shown in the page markup by design — only the secret key must stay private.', 'traydigita-core')); ?></span>
-                </p>
-
-                <p class="recaptcha-field">
-                    <label class="recaptcha-label" for="recaptcha-secret-key"><?php esc_html_e('Secret key', 'traydigita-core'); ?></label>
-                    <input
-                        class="traydigita-ui-input recaptcha-input"
-                        type="password"
-                        id="recaptcha-secret-key"
-                        name="secret_key"
-                        value=""
-                        autocomplete="new-password"
-                        placeholder="<?php echo esc_attr($recaptchaHasSecret ? __('•••••••• (saved)', 'traydigita-core') : __('Enter secret key', 'traydigita-core')); ?>"
-                    >
-                    <span class="description"><?php SettingsControls::helpText(__('Leave empty to keep the saved secret key.', 'traydigita-core'), __('The secret key is never shown, never logged, and never returned by any endpoint.', 'traydigita-core')); ?></span>
-                </p>
-
-                <p class="recaptcha-field">
-                    <label class="recaptcha-label" for="recaptcha-v3-threshold"><?php esc_html_e('reCAPTCHA v3 score threshold', 'traydigita-core'); ?></label>
-                    <input class="traydigita-ui-input recaptcha-input" type="number" id="recaptcha-v3-threshold" name="v3_threshold" value="<?php echo esc_attr((string) $recaptchaThreshold); ?>" min="0" max="1" step="0.1">
-                    <span class="description"><?php SettingsControls::helpText(__('Submissions scoring below this (0.0–1.0) are rejected.', 'traydigita-core'), __('0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score.', 'traydigita-core')); ?></span>
-                </p>
+                <?php SettingsControls::sectionOpen('keys', __('Keys', 'traydigita-core')); ?>
+                <?php
+                SettingsControls::input([
+                    'type' => 'text',
+                    'id' => 'recaptcha-site-key',
+                    'name' => 'site_key',
+                    'label' => __('Site key', 'traydigita-core'),
+                    'value' => $recaptchaSiteKey,
+                    'help' => __('The public key from your Google reCAPTCHA site (v2 checkbox and v3 share one key pair).', 'traydigita-core'),
+                    'help_long' => __('It is shown in the page markup by design — only the secret key must stay private.', 'traydigita-core'),
+                    'mono' => true,
+                    'attrs' => ['autocomplete' => 'off', 'spellcheck' => 'false'],
+                ]);
+                SettingsControls::input([
+                    'type' => 'password',
+                    'id' => 'recaptcha-secret-key',
+                    'name' => 'secret_key',
+                    'label' => __('Secret key', 'traydigita-core'),
+                    'value' => '',
+                    'help' => __('Leave empty to keep the saved secret key.', 'traydigita-core'),
+                    'help_long' => __('The secret key is never shown, never logged, and never returned by any endpoint.', 'traydigita-core'),
+                    'attrs' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => $recaptchaHasSecret ? __('•••••••• (saved)', 'traydigita-core') : __('Enter secret key', 'traydigita-core'),
+                    ],
+                ]);
+                SettingsControls::number([
+                    'id' => 'recaptcha-v3-threshold',
+                    'name' => 'v3_threshold',
+                    'label' => __('reCAPTCHA v3 score threshold', 'traydigita-core'),
+                    'value' => $recaptchaThreshold,
+                    'help' => __('Submissions scoring below this (0.0–1.0) are rejected.', 'traydigita-core'),
+                    'help_long' => __('0.5 is Google’s recommended default. Only applies to the v3 (score) mode; the v2 checkbox has no score.', 'traydigita-core'),
+                    'attrs' => ['min' => '0', 'max' => '1', 'step' => '0.1'],
+                ]);
+                ?>
 
                 <p class="recaptcha-field-help">
                     <?php
@@ -582,12 +596,9 @@ final class RecaptchaModule implements ModuleInterface
                     );
                     ?>
                 </p>
+                <?php SettingsControls::sectionClose(); ?>
 
-                <p class="recaptcha-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
         </div>
         <?php
