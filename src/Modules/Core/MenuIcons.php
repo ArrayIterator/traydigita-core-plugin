@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\MenuIcons;
+namespace TrayDigita\WP\Plugin\Core\Modules\Core;
 
 use TrayDigita\WP\Plugin\Core\Stack\Libs\Icons\IcoMoon\Collections;
 use TrayDigita\WP\Plugin\Core\Core;
-use TrayDigita\WP\Plugin\Core\Modules\Core\MenuIconsModule;
 use WP_Post;
 use function __;
 use function add_action;
@@ -490,16 +489,28 @@ final class MenuIcons
      * the glyph inherits the link colour via `currentColor`.
      *
      * @param array{set: string, name: string, color: string} $icon Validated icon triple.
+     *     Unvalidated input is tolerated too: a missing or
+     *     non-string set or name renders nothing, and a missing or
+     *     non-string colour falls back to the default colour.
      * @return string The sanitized inline SVG, or an empty string.
      */
     public function renderIconSvg(array $icon): string
     {
+        // Guard the keys up front: callers pass validated triples,
+        // but the docblock promises this never fatals, so a bare
+        // [] or a non-string value must render nothing instead of
+        // tripping an undefined-array-key warning.
+        $set = isset($icon['set']) && is_string($icon['set']) ? $icon['set'] : '';
+        $name = isset($icon['name']) && is_string($icon['name']) ? $icon['name'] : '';
+        $color = isset($icon['color']) && is_string($icon['color']) ? $icon['color'] : '';
+        if ($set === '' || $name === '') {
+            return '';
+        }
         $collections = new Collections();
-        $component = $collections->get($icon['set']);
+        $component = $collections->get($set);
         if ($component === null) {
             return '';
         }
-        $name = $icon['name'];
         if (!isset($component->{$name})) {
             return '';
         }
@@ -511,8 +522,8 @@ final class MenuIcons
             'width' => '1em',
             'height' => '1em',
         ];
-        if ($icon['color'] !== '') {
-            $attributes['style'] = 'color:' . $icon['color'];
+        if ($color !== '') {
+            $attributes['style'] = 'color:' . $color;
         }
         return wp_kses($glyph->toSvg($attributes), self::svgAllowedHtml());
     }

@@ -6,7 +6,6 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Core;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
 use TrayDigita\WP\Plugin\Core\Core;
-use TrayDigita\WP\Plugin\Core\MenuIcons\MenuIcons;
 use function __;
 use function admin_url;
 use function array_merge;
