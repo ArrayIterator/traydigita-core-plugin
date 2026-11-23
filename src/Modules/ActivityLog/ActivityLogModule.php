@@ -231,6 +231,47 @@ final class ActivityLogModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Central log of module toggles, settings saves, mail and push sends, '
+                . 'sign-ins, and plugin installs.', 'traydigita-core'),
+            __('Filter entries by module, event, or date.', 'traydigita-core'),
+            __('Automatic retention and pruning keeps the log small.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Author shown on the module card in the admin module list.
      *
      * @return string

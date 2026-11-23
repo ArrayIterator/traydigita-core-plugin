@@ -185,6 +185,45 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Sends defensive HTTP security headers.', 'traydigita-core'),
+            __('Includes a report-only Content-Security-Policy.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin menu slug of the settings page.
      *
      * @return string

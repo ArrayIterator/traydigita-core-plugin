@@ -61,16 +61,41 @@ $providerLabels = [];
 foreach ($mailerProviders as $providerId => $definition) {
     $providerLabels[$providerId] = (string) ($definition['label'] ?? $providerId);
 }
-$providerOptions = [];
-foreach ($mailerProviders as $providerId => $definition) {
-    $label = (string) ($definition['label'] ?? $providerId);
-    $freeTier = (string) ($definition['free_tier'] ?? '');
-    $providerOptions[$providerId] = $freeTier !== '' ? $label . ' — ' . $freeTier : $label;
-}
 $presetDescriptions = MailerModule::SMTP_PRESET_DESCRIPTIONS;
-$presetOptions = [];
+// Picker items for the provider / preset popups (same shared
+// modal component as the module info popup): logo, label, a
+// short meta line (free tier / best-for for providers, the
+// one-line description for presets) and the full description
+// for search. The logo URLs come from MailerModule's allowlisted
+// maps, with a generic envelope fallback for unknown ids.
+$pickerProviders = [];
+foreach ($mailerProviders as $providerId => $definition) {
+    $freeTier = (string) ($definition['free_tier'] ?? '');
+    $bestFor = (string) ($definition['best_for'] ?? '');
+    if ($freeTier !== '' && $bestFor !== '') {
+        $providerMeta = $freeTier . ' · ' . $bestFor;
+    } elseif ($bestFor !== '') {
+        $providerMeta = $bestFor;
+    } else {
+        $providerMeta = $freeTier;
+    }
+    $pickerProviders[] = [
+        'id' => $providerId,
+        'label' => (string) ($definition['label'] ?? $providerId),
+        'description' => (string) ($definition['description'] ?? ''),
+        'meta' => $providerMeta,
+        'logo' => MailerModule::providerLogoUrl($providerId),
+    ];
+}
+$pickerPresets = [];
 foreach ($presetDescriptions as $presetId => $preset) {
-    $presetOptions[$presetId] = (string) $preset['label'];
+    $pickerPresets[] = [
+        'id' => $presetId,
+        'label' => (string) $preset['label'],
+        'description' => (string) $preset['description'],
+        'meta' => (string) $preset['description'],
+        'logo' => MailerModule::presetLogoUrl($presetId),
+    ];
 }
 $selectedProviderLabel = $providerLabels[$mailerSettings['provider']] ?? (string) $mailerSettings['provider'];
 $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerResultCode);
@@ -130,43 +155,36 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
             <h2 class="traydigita-ui-section-title"><?php esc_html_e('Provider', 'traydigita-core'); ?></h2>
 
             <?php
-            SettingsControls::select([
+            // Popup pickers (shared modal component): a dropdown
+            // cannot show the provider logos, so the provider and
+            // the SMTP preset are picked from a searchable,
+            // scrollable popup instead. Each picker writes its
+            // value into the hidden input with the same field
+            // name the old select used, so the save flow is
+            // untouched.
+            SettingsControls::picker([
                 'id' => 'mailer-provider',
                 'name' => 'provider',
                 'label' => __('Mail provider', 'traydigita-core'),
                 'value' => (string) $mailerSettings['provider'],
-                'options' => $providerOptions,
+                'title' => __('Choose a mail provider', 'traydigita-core'),
+                'search' => __('Search providers', 'traydigita-core'),
+                'empty' => __('No providers match your search.', 'traydigita-core'),
+                'items' => $pickerProviders,
                 'help' => __('Every provider is built into Core — no extra plugin is needed. Pick one, then enter its credentials under Connection. Third-party plugins can add more providers through the traydigita:core:mailer/providers filter.', 'traydigita-core'),
             ]);
-            SettingsControls::select([
+            SettingsControls::picker([
                 'id' => 'mailer-smtp-preset',
                 'name' => 'smtp_preset',
                 'label' => __('SMTP preset', 'traydigita-core'),
                 'value' => (string) $mailerSettings['smtp_preset'],
-                'options' => $presetOptions,
+                'title' => __('Choose an SMTP preset', 'traydigita-core'),
+                'search' => __('Search presets', 'traydigita-core'),
+                'empty' => __('No presets match your search.', 'traydigita-core'),
+                'items' => $pickerPresets,
                 'help' => __('Only used with the SMTP provider. A preset fills in the host, port, and encryption below when you save.', 'traydigita-core'),
             ]);
             ?>
-
-            <h3 class="traydigita-mailer-list-title"><?php esc_html_e('Providers', 'traydigita-core'); ?></h3>
-            <dl class="traydigita-mailer-provider-list">
-                <?php foreach ($mailerProviders as $providerId => $definition) : ?>
-                    <div class="traydigita-mailer-provider-item">
-                        <dt><?php echo esc_html((string) ($definition['label'] ?? $providerId)); ?></dt>
-                        <dd><?php echo esc_html((string) ($definition['description'] ?? '')); ?></dd>
-                    </div>
-                <?php endforeach; ?>
-            </dl>
-
-            <h3 class="traydigita-mailer-list-title"><?php esc_html_e('SMTP presets', 'traydigita-core'); ?></h3>
-            <dl class="traydigita-mailer-provider-list">
-                <?php foreach ($presetDescriptions as $preset) : ?>
-                    <div class="traydigita-mailer-provider-item">
-                        <dt><?php echo esc_html((string) $preset['label']); ?></dt>
-                        <dd><?php echo esc_html((string) $preset['description']); ?></dd>
-                    </div>
-                <?php endforeach; ?>
-            </dl>
         </section>
 
         <section id="td-section-connection" class="traydigita-ui-section td-settings-section traydigita-mailer-tab-panel" aria-label="<?php esc_attr_e('Connection', 'traydigita-core'); ?>">

@@ -190,6 +190,48 @@ final class RoleEditorModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Clone and edit user roles and their capabilities.', 'traydigita-core'),
+            __('Grouped capability checkboxes.', 'traydigita-core'),
+            __('The administrator role can never be edited or deleted.', 'traydigita-core'),
+            __('Built-in roles can never be deleted.', 'traydigita-core'),
+            __('No save that would leave the site without an administrator is ever applied.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -676,7 +718,8 @@ final class RoleEditorModule implements ModuleInterface
         unset($proposed[$role]);
         if (self::wouldLeaveZeroAdmins($proposed, $counts)) {
             return self::failure(
-                __('Deleting this role would leave no user able to manage the site. Nothing was deleted.', 'traydigita-core'),
+                __('Deleting this role would leave no user able to manage the '
+                    . 'site. Nothing was deleted.', 'traydigita-core'),
                 ['role' => __('At least one user must keep the manage_options capability.', 'traydigita-core')]
             );
         }

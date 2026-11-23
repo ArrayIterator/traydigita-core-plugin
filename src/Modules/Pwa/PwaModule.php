@@ -181,6 +181,55 @@ final class PwaModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Installable web app: manifest, theme colour, store-style install sheet.', 'traydigita-core'),
+            __('Manual push notifications to subscribers via Firebase Cloud Messaging.', 'traydigita-core'),
+            __('One service worker serves both install and push.', 'traydigita-core'),
+            __('Disabling removes every trace.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Installable web app with manifest and service worker.', 'traydigita-core'),
+                ],
+            ],
+            [
+                'version' => '2.0.0',
+                'changes' => [
+                    __('Push notifications merged in: manual Firebase Cloud '
+                        . 'Messaging sends to subscribers.', 'traydigita-core'),
+                    __('One service worker now serves both install and push.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Author shown on the module card in the admin module list.
      *
      * @return string
@@ -372,7 +421,8 @@ final class PwaModule implements ModuleInterface
                 // disabling removes — sit behind Help.
                 SettingsControls::about(
                     __('What the PWA does', 'traydigita-core'),
-                    __('Visitors can install the site as an app, and push notifications share one service worker.', 'traydigita-core'),
+                    __('Visitors can install the site as an app, and push notifications '
+                        . 'share one service worker.', 'traydigita-core'),
                     '<ul class="pwa-status-list">'
                         . '<li>' . esc_html__('Links the web manifest (manifest.webmanifest) from every page head, so browsers know the app name, theme colour, icons, start URL, and scope.', 'traydigita-core') . '</li>'
                         . '<li>' . esc_html__('Prints a theme-color meta tag in the page head, using the brand primary colour from the Customizer.', 'traydigita-core') . '</li>'
@@ -388,7 +438,8 @@ final class PwaModule implements ModuleInterface
                     <p class="push-settings-intro">
                         <?php
                         SettingsControls::helpText(
-                            __('Notifications are sent manually from the Message tab only — never automatically when a post is published.', 'traydigita-core'),
+                            __('Notifications are sent manually from the Message tab only — never '
+                                . 'automatically when a post is published.', 'traydigita-core'),
                             __('Paste the Firebase config once, save it, and the settings lock. Subscribers register from the [traydigita_push_subscribe] button on the site.', 'traydigita-core')
                         );
                         ?>
@@ -450,7 +501,8 @@ final class PwaModule implements ModuleInterface
                             <span class="push-field-help">
                                 <?php
                                 SettingsControls::helpText(
-                                    __('Firebase Console > Project Settings > Service accounts > Generate new private key. Required for sending (FCM HTTP v1).', 'traydigita-core'),
+                                    __('Firebase Console > Project Settings > Service accounts > Generate new private '
+                                        . 'key. Required for sending (FCM HTTP v1).', 'traydigita-core'),
                                     __('Never share this with anyone.', 'traydigita-core')
                                 );
                                 ?>
@@ -477,7 +529,8 @@ final class PwaModule implements ModuleInterface
                         <p class="push-field-help">
                             <?php
                             SettingsControls::helpText(
-                                __('Test config checks the saved credentials without sending anything.', 'traydigita-core'),
+                                __('Test config checks the saved credentials without '
+                                    . 'sending anything.', 'traydigita-core'),
                                 __('Test config fetches an FCM access token from Google with the saved Service Account — proof the config works. It sends no notification.', 'traydigita-core')
                             );
                             ?>

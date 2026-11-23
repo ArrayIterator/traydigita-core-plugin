@@ -186,6 +186,47 @@ final class UserManagerModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Avatar and last-login columns on the Users screen.', 'traydigita-core'),
+            __('Quick role changes.', 'traydigita-core'),
+            __('Administrators are protected from being demoted by anyone '
+                . 'except another administrator.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -290,7 +331,8 @@ final class UserManagerModule implements ModuleInterface
                 'warning',
                 '<p class="traydigita-ui-notice-message">'
                     . SettingsControls::helpBlock(
-                        __('A role change targeting a user who can manage_options is refused when the change comes from a different administrator.', 'traydigita-core'),
+                        __('A role change targeting a user who can manage_options is refused when the '
+                            . 'change comes from a different administrator.', 'traydigita-core'),
                         __('Only the user themself may change their own role. This stops one administrator from demoting another administrator (or any other manage_options account). The rule is enforced on the server for every role change, including bulk changes.', 'traydigita-core')
                     )
                     . '</p>',
@@ -305,7 +347,8 @@ final class UserManagerModule implements ModuleInterface
                     <span class="user-manager-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default.', 'traydigita-core'),
+                            __('Avatars come from the Custom Avatar module when it is enabled, otherwise '
+                                . 'from Gravatar or the site default.', 'traydigita-core'),
                             __('The Custom Avatar module supplies the avatar shown in the Users list through its get_avatar filter. Avatars are changed from the user’s profile page.', 'traydigita-core')
                         );
                         ?>

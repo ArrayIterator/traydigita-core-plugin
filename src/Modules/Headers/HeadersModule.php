@@ -226,6 +226,47 @@ final class HeadersModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Enable the recommended security headers.', 'traydigita-core'),
+            __('Check the headers on your own site.', 'traydigita-core'),
+            __('Copy-paste server snippets.', 'traydigita-core'),
+            __('Defers to the Security Headers module for headers it already sends.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin menu slug of the settings page.
      *
      * @return string

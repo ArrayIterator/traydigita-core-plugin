@@ -179,6 +179,47 @@ final class PaywallModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Soft metered paywall: free articles per period, then a subscribe prompt.', 'traydigita-core'),
+            __('Links to your own subscription page.', 'traydigita-core'),
+            __('No payment processing, no fake checkout.', 'traydigita-core'),
+            __('Articles are always fully rendered for search engines.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -241,7 +282,8 @@ final class PaywallModule implements ModuleInterface
         <div class="traydigita-module-settings paywall-settings">
             <?php
             SettingsControls::intro(
-                __('A soft metered paywall. Each visitor reads a set number of free articles per period; after that a subscribe prompt covers the article and links to your subscription page.', 'traydigita-core'),
+                __('A soft metered paywall. Each visitor reads a set number of free articles per period; after that a '
+                    . 'subscribe prompt covers the article and links to your subscription page.', 'traydigita-core'),
                 __('This module takes no payments itself — connect the subscribe link to your own subscription or payment page. Search engines, feeds and anyone who can edit posts are never metered, and the full article is always rendered for them.', 'traydigita-core')
             );
             ?>

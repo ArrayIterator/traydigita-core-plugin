@@ -159,6 +159,47 @@ final class AvatarModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Custom avatar by verified image URL or upload.', 'traydigita-core'),
+            __('Uploads are cropped to a 256×256 square.', 'traydigita-core'),
+            __('Stored outside the media library.', 'traydigita-core'),
+            __('Replaces Gravatar wherever WordPress shows an avatar.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -273,7 +314,8 @@ final class AvatarModule implements ModuleInterface
                 <p class="avatar-manager-help">
                     <?php
                     SettingsControls::helpText(
-                        __('Uploads are centre-cropped to a square and resized to the recommended size of 256×256 pixels.', 'traydigita-core'),
+                        __('Uploads are centre-cropped to a square and resized to the '
+                            . 'recommended size of 256×256 pixels.', 'traydigita-core'),
                         __('Files are stored under wp-content/traydigita-avatar/ and never in the media library.', 'traydigita-core')
                     );
                     ?>
@@ -299,7 +341,8 @@ final class AvatarModule implements ModuleInterface
                         <span class="avatar-field-help">
                             <?php
                             SettingsControls::helpText(
-                                __('The URL is checked before saving: the server must return an image (JPEG, PNG, GIF, or WebP).', 'traydigita-core'),
+                                __('The URL is checked before saving: the server must return an image '
+                                    . '(JPEG, PNG, GIF, or WebP).', 'traydigita-core'),
                                 __('Anything else is rejected.', 'traydigita-core')
                             );
                             ?>

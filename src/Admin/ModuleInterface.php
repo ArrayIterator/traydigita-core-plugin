@@ -167,6 +167,22 @@ interface ModuleInterface
      * validates it and falls back to the own settings page for
      * anything else, so an absolute or external URL can never
      * leak into the menu or the module list JSON.
+     *
+     * Optional features and changelog.
+     *
+     * A module may also declare static features() and
+     * changelog() methods for the module info popup:
+     * features() returns a list of short strings, one per
+     * thing the module actually does, and changelog() returns
+     * a list of ['version' => string, 'changes' => list of
+     * strings] entries, newest first. Both are resolved by
+     * ModuleRegistry::features() / ::changelog() with
+     * method_exists, and both degrade gracefully: a module
+     * without features() shows its short description in the
+     * popup's Features section, and a module without
+     * changelog() shows a single entry built from version().
+     * Only recorded history belongs in changelog() — never
+     * invent earlier versions.
      */
 
     /**

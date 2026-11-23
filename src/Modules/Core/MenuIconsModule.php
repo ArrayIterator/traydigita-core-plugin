@@ -114,6 +114,46 @@ final class MenuIconsModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Choose an icon for any navigation menu item on the Menus screen.', 'traydigita-core'),
+            __('Icons render beside the menu labels on the frontend.', 'traydigita-core'),
+            __('No extra settings page — everything happens on the Menus screen.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @inheritDoc
      */
     /**
@@ -214,7 +254,8 @@ final class MenuIconsModule implements ModuleInterface
         <div class="traydigita-module-settings menu-icons-settings">
             <?php
             SettingsControls::intro(
-                __('Menu icons are picked per menu item on the Menus screen. The settings below control the default behaviour for every icon on the frontend.', 'traydigita-core'),
+                __('Menu icons are picked per menu item on the Menus screen. The settings below control the '
+                    . 'default behaviour for every icon on the frontend.', 'traydigita-core'),
                 __('Icons are stored per menu item and render inside the link label on every menu rendered by wp_nav_menu().', 'traydigita-core')
             );
             ?>

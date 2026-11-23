@@ -262,6 +262,47 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Insert ads after a paragraph, at a percentage of the article, '
+                . 'or at a seeded-random spot.', 'traydigita-core'),
+            __('The AdSense widget covers sidebars; this inserter covers in-article ads.', 'traydigita-core'),
+            __('Seeded placement keeps the ad spot stable per article.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin page slug for the module settings page.
      *
      * @return string
@@ -445,7 +486,8 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
                     'success' => false,
                     'message' => sprintf(
                         /* translators: %d is the number of rules dropped because their ad code could not be decoded. */
-                        __('%d rule(s) could not be saved because their ad code was corrupted in transit. Please try saving again.', 'traydigita-core'),
+                        __('%d rule(s) could not be saved because their ad code was corrupted in '
+                            . 'transit. Please try saving again.', 'traydigita-core'),
                         $sanitized['dropped']
                     ),
                 ];
@@ -825,7 +867,8 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         if (!$moduleEnabled) {
             echo '<div class="traydigita-admin-notice traydigita-admin-notice-warning"><p>'
                 . SettingsControls::helpBlock(
-                    __('Enable the Ads Inserter module from the Modules grid to use the live preview.', 'traydigita-core'),
+                    __('Enable the Ads Inserter module from the Modules grid to '
+                        . 'use the live preview.', 'traydigita-core'),
                     __('Rules can still be saved while the module is disabled.', 'traydigita-core')
                 )
                 . ' <a href="' . esc_attr(admin_url('admin.php?page=' . AdminMenu::MENU_SLUG)) . '">' . esc_html__('Back to Modules', 'traydigita-core') . '</a></p></div>';
@@ -847,7 +890,8 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
                 . '</p>';
             echo '</form>';
             echo '<p class="description">' . SettingsControls::helpBlock(
-                __('The preview renders the post with the rules from the form above, including unsaved changes.', 'traydigita-core'),
+                __('The preview renders the post with the rules from the form above, '
+                    . 'including unsaved changes.', 'traydigita-core'),
                 __('Scripts do not run inside the preview — it shows where the ads will appear, not the ads themselves.', 'traydigita-core')
             ) . '</p>';
             echo '<div class="traydigita-ads-preview" data-ads-preview-pane aria-live="polite"></div>';

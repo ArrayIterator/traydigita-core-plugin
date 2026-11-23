@@ -166,6 +166,46 @@ final class ShareModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Share row at the bottom of the article.', 'traydigita-core'),
+            __('Facebook, X, WhatsApp, Telegram, email, copy link, and print.', 'traydigita-core'),
+            __('No third-party scripts.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -234,7 +274,8 @@ final class ShareModule implements ModuleInterface
         <div class="traydigita-module-settings share-settings">
             <?php
             SettingsControls::intro(
-                __('One share row on single posts, styled after padangkita.com: small white buttons with dark navy icons, no brand colours, and no share counts.', 'traydigita-core'),
+                __('One share row on single posts, styled after padangkita.com: small white buttons with dark '
+                    . 'navy icons, no brand colours, and no share counts.', 'traydigita-core'),
                 __('No external service is contacted.', 'traydigita-core')
             );
             ?>
@@ -286,7 +327,8 @@ final class ShareModule implements ModuleInterface
                     <span class="share-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Below the content matches the reference: after the topic tags, immediately above the related posts.', 'traydigita-core'),
+                            __('Below the content matches the reference: after the topic tags, '
+                                . 'immediately above the related posts.', 'traydigita-core'),
                             __('The floating rail is a vertical icon-only rail on the left edge, hidden on narrow screens.', 'traydigita-core')
                         );
                         ?>

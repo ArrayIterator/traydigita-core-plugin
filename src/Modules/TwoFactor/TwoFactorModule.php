@@ -426,6 +426,47 @@ final class TwoFactorModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Authenticator-app codes (TOTP).', 'traydigita-core'),
+            __('Passkey login with fingerprint or Face ID.', 'traydigita-core'),
+            __('Trusted devices.', 'traydigita-core'),
+            __('Per-role enforcement and rate limiting.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -2415,7 +2456,8 @@ final class TwoFactorModule implements ModuleInterface
                     <p class="td-settings-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Only failed attempts are recorded (up to 200 entries, oldest first removed).', 'traydigita-core'),
+                            __('Only failed attempts are recorded (up to 200 entries, '
+                                . 'oldest first removed).', 'traydigita-core'),
                             __('This is a lightweight security log, not a full activity log.', 'traydigita-core')
                         );
                         ?>

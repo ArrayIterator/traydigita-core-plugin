@@ -62,6 +62,7 @@ use function array_map;
 use function array_unique;
 use function array_values;
 use function class_exists;
+use function count;
 use function get_option;
 use function in_array;
 use function is_array;
@@ -76,6 +77,7 @@ use function sprintf;
 use function str_contains;
 use function str_replace;
 use function str_starts_with;
+use function trim;
 use function ucwords;
 use function update_option;
 
@@ -773,6 +775,181 @@ final class ModuleRegistry
     }
 
     /**
+     * A module's declared feature list, or [].
+     *
+     * A module may declare an optional static features()
+     * method returning a list of short strings (see
+     * ModuleInterface): each string is one thing the module
+     * actually does. The list is capped at 12 entries and
+     * empty or non-string entries are dropped, so a sloppy
+     * declaration can never break the popup. A missing method
+     * or an empty list means the module info popup shows the
+     * module's short description in the Features section
+     * instead. The method is optional on purpose: adding it
+     * to ModuleInterface would force every existing module
+     * class to implement it.
+     *
+     * @param class-string<ModuleInterface> $moduleClass Module class.
+     * @return array<int, string> Cleaned feature list, never null.
+     */
+    public static function features(string $moduleClass): array
+    {
+        if (!method_exists($moduleClass, 'features')) {
+            return [];
+        }
+        $features = $moduleClass::features();
+        if (!is_array($features)) {
+            return [];
+        }
+        $clean = [];
+        foreach ($features as $feature) {
+            if (!is_string($feature)) {
+                continue;
+            }
+            $feature = trim($feature);
+            if ($feature === '') {
+                continue;
+            }
+            $clean[] = $feature;
+            if (count($clean) >= 12) {
+                break;
+            }
+        }
+        return $clean;
+    }
+
+    /**
+     * A module's declared changelog, with a fallback entry.
+     *
+     * A module may declare an optional static changelog()
+     * method returning a list of entries shaped
+     * ['version' => string, 'changes' => array<int, string>]
+     * (see ModuleInterface). Entries with an empty version or
+     * no usable changes are dropped and the list is capped at
+     * 8 entries, newest first as declared. A missing method
+     * or an empty list falls back to a single entry built from
+     * version() — "Initial release in TrayDigita Core." — so
+     * the popup's Changelog section is never empty and no
+     * history is ever invented. The method is optional on
+     * purpose, for the same reason as features() above.
+     *
+     * @param class-string<ModuleInterface> $moduleClass Module class.
+     * @return array<int, array{version: string, changes: array<int, string>}> At least one entry.
+     */
+    public static function changelog(string $moduleClass): array
+    {
+        $entries = [];
+        if (method_exists($moduleClass, 'changelog')) {
+            $raw = $moduleClass::changelog();
+            if (is_array($raw)) {
+                foreach ($raw as $entry) {
+                    if (!is_array($entry)) {
+                        continue;
+                    }
+                    $version = isset($entry['version']) && is_string($entry['version'])
+                        ? trim($entry['version'])
+                        : '';
+                    if ($version === '') {
+                        continue;
+                    }
+                    $changes = [];
+                    if (isset($entry['changes']) && is_array($entry['changes'])) {
+                        foreach ($entry['changes'] as $change) {
+                            if (!is_string($change)) {
+                                continue;
+                            }
+                            $change = trim($change);
+                            if ($change === '') {
+                                continue;
+                            }
+                            $changes[] = $change;
+                            if (count($changes) >= 8) {
+                                break;
+                            }
+                        }
+                    }
+                    if ($changes === []) {
+                        continue;
+                    }
+                    $entries[] = ['version' => $version, 'changes' => $changes];
+                    if (count($entries) >= 8) {
+                        break;
+                    }
+                }
+            }
+        }
+        if ($entries === []) {
+            $entries[] = [
+                'version' => $moduleClass::version(),
+                'changes' => [__('Initial release in TrayDigita Core.', 'traydigita-core')],
+            ];
+        }
+        return $entries;
+    }
+
+    /**
+     * Everything the module info popup needs, in one array.
+     *
+     * The single source of truth for the popup data: the
+     * context rail embeds it for the current module
+     * (templates/admin/shell.php) and moduleListData() embeds
+     * it per module for the Modules page cards, so both
+     * openings render the same popup from the same shape.
+     * The data is server-rendered JSON — no new AJAX or REST
+     * endpoint, no new nonce or capability surface. Status
+     * uses the same exclusive bucket as moduleListData():
+     * not available, core, needs setup (enabled only),
+     * enabled, disabled.
+     *
+     * @param class-string<ModuleInterface> $moduleClass Module class.
+     * @return array<string, mixed> Popup data (see the keys below).
+     */
+    public static function moduleInfoData(string $moduleClass): array
+    {
+        $id = $moduleClass::id();
+        $available = $moduleClass::isAvailable();
+        $configured = $moduleClass::isConfigured();
+        $isCore = $moduleClass::isCore();
+        $enabled = self::isEnabled($id);
+        if (!$available) {
+            $status = 'not-available';
+            $statusLabel = __('Not available', 'traydigita-core');
+        } elseif ($isCore) {
+            $status = 'core';
+            $statusLabel = __('Core module', 'traydigita-core');
+        } elseif ($enabled && !$configured) {
+            $status = 'needs-setup';
+            $statusLabel = __('Needs setup', 'traydigita-core');
+        } elseif ($enabled) {
+            $status = 'enabled';
+            $statusLabel = __('Enabled', 'traydigita-core');
+        } else {
+            $status = 'disabled';
+            $statusLabel = __('Disabled', 'traydigita-core');
+        }
+        $category = self::categoryOf($moduleClass);
+        return [
+            'id' => $id,
+            'name' => $moduleClass::name(),
+            'description' => $moduleClass::description(),
+            'icon' => $moduleClass::icon(),
+            'version' => $moduleClass::version(),
+            'author' => self::author($moduleClass),
+            'category' => $category,
+            'category_label' => self::categoryLabel($category),
+            'status' => $status,
+            'statusLabel' => $statusLabel,
+            'enabled' => $enabled,
+            'available' => $available,
+            'core' => $isCore,
+            'configured' => $configured,
+            'settings_url' => self::moduleUrl($moduleClass),
+            'features' => self::features($moduleClass),
+            'changelog' => self::changelog($moduleClass),
+        ];
+    }
+
+    /**
      * Default categories: slug => label + Material icon slug.
      *
      * Nine categories cover all 46 shipped modules with at
@@ -1444,6 +1621,7 @@ final class ModuleRegistry
                 'note' => $isCore ? __('Core module', 'traydigita-core') : ($isRecommended ? __('Recommended', 'traydigita-core') : ''),
                 'category' => $category,
                 'category_label' => self::categoryLabel($category),
+                'info' => self::moduleInfoData($moduleClass),
             ];
         }
         return ['modules' => $modules, 'categories' => self::categories()];

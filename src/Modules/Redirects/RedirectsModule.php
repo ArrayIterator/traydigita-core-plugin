@@ -141,6 +141,46 @@ final class RedirectsModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Redirect rules with wildcard support.', 'traydigita-core'),
+            __('404 monitor showing which missing URLs visitors actually hit.', 'traydigita-core'),
+            __('JSON import/export of rules.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -238,7 +278,8 @@ final class RedirectsModule implements ModuleInterface
         >
             <?php
             SettingsControls::intro(
-                __('Redirects run before the page loads, so a moved article or a renamed category keeps working for visitors and search engines.', 'traydigita-core'),
+                __('Redirects run before the page loads, so a moved article or a renamed category '
+                    . 'keeps working for visitors and search engines.', 'traydigita-core'),
                 __('Redirects never apply to the admin area, AJAX, REST, or the login page, and a redirect that points at the page it came from is ignored instead of looping.', 'traydigita-core')
             );
             ?>
@@ -275,7 +316,8 @@ final class RedirectsModule implements ModuleInterface
                     <span class="redirects-field-help">
                         <?php
                             \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
-                                __('A site path starting with /. End with /* to match everything below it, e.g. /old-category/*.', 'traydigita-core'),
+                                __('A site path starting with /. End with /* to match everything '
+                                    . 'below it, e.g. /old-category/*.', 'traydigita-core'),
                                 __('The part after the prefix is carried into the target.', 'traydigita-core')
                             );
                         ?>
@@ -287,7 +329,8 @@ final class RedirectsModule implements ModuleInterface
                     <span class="redirects-field-help">
                         <?php
                             \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
-                                __('A site path starting with /, or a full URL such as https://example.com/new-article.', 'traydigita-core'),
+                                __('A site path starting with /, or a full URL such as '
+                                    . 'https://example.com/new-article.', 'traydigita-core'),
                                 __('With a wildcard source, use * in the target to place the captured part, e.g. /new-category/*. Without a * the remainder is appended to the target.', 'traydigita-core')
                             );
                         ?>
@@ -304,7 +347,8 @@ final class RedirectsModule implements ModuleInterface
                     <span class="redirects-field-help">
                         <?php
                             \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
-                                __('Use 301 for a permanent move (search engines pass the old ranking along).', 'traydigita-core'),
+                                __('Use 301 for a permanent move (search engines pass the '
+                                    . 'old ranking along).', 'traydigita-core'),
                                 __('Use 302 or 307 for something temporary, and 308 when a permanent move must keep POST requests as POSTs.', 'traydigita-core')
                             );
                         ?>
@@ -363,7 +407,8 @@ final class RedirectsModule implements ModuleInterface
                     <span class="redirects-field-help">
                         <?php
                             \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
-                                __('Records the missing path, how often it was hit, when it was last seen, and the referrer.', 'traydigita-core'),
+                                __('Records the missing path, how often it was hit, when it was '
+                                    . 'last seen, and the referrer.', 'traydigita-core'),
                                 __('Missing static files (stylesheets, scripts, images, fonts) are never logged, and the log keeps at most 200 paths.', 'traydigita-core')
                             );
                         ?>

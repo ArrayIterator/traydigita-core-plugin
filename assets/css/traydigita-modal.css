@@ -1,0 +1,481 @@
+/**
+ * TrayDigita shared modal.
+ *
+ * ONE modal component for every popup in the admin: the module info
+ * popup (context rail "More" trigger and Modules page card info
+ * buttons) and the Mailer provider / SMTP preset pickers. One
+ * overlay, one card, one header / body / footer structure, one set
+ * of focus states — the pickers and the module info popup differ
+ * only in body content, never in chrome. Visual language matches
+ * the Elegant Blue admin exactly: primary #2563eb (via the
+ * --traydigita-admin-* variables the admin bundle defines, with
+ * the same hex values as fallbacks), slate canvas, white cards,
+ * 8px-radius controls, the same button and meta-row styling as
+ * the settings shell, module cards, and context rail.
+ *
+ * Plain CSS, no build step: enqueued by
+ * AssetLoader::enqueueAdminEntry() on TrayDigita pages.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Context rail: clamped description + "More" trigger                  */
+/* ------------------------------------------------------------------ */
+
+.traydigita-admin-rail-description.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.traydigita-admin-rail-more {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--traydigita-admin-accent, #2563eb);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.traydigita-admin-rail-more.is-visible {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.traydigita-admin-rail-more:hover {
+    color: var(--traydigita-admin-accent-strong, #1e40af);
+    text-decoration: underline;
+}
+
+.traydigita-admin-rail-more:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Modal shell (shared by module info + pickers)                       */
+/* ------------------------------------------------------------------ */
+
+.traydigita-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100050;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 4rem 1rem 1rem;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.traydigita-modal-overlay[hidden] {
+    display: none;
+}
+
+.traydigita-modal {
+    width: 100%;
+    max-width: 36rem;
+    max-height: calc(100vh - 6rem);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--traydigita-admin-line, #dcdcde);
+    border-radius: 0.75rem;
+    background: var(--traydigita-admin-surface, #fff);
+    box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.25);
+    color: var(--traydigita-admin-ink, #1d2327);
+}
+
+/* Sticky inside the dialog: on a narrow viewport the overlay can
+   scroll when the picker search input takes focus, and the header
+   (title + close) must stay visible. The opaque background (with
+   the dialog's top corner radius) keeps body content from showing
+   through while it sticks; flex-shrink keeps it from compressing
+   when the dialog is height-constrained. No visual change when
+   nothing scrolls: same padding, border, and surface colour. */
+.traydigita-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--traydigita-admin-line, #dcdcde);
+    border-top-left-radius: calc(0.75rem - 1px);
+    border-top-right-radius: calc(0.75rem - 1px);
+    background: var(--traydigita-admin-surface, #fff);
+}
+
+.traydigita-modal-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.traydigita-modal-close {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--traydigita-admin-muted, #50575e);
+    cursor: pointer;
+}
+
+.traydigita-modal-close:hover {
+    border-color: var(--traydigita-admin-line, #dcdcde);
+    background: var(--traydigita-admin-surface-muted, #f6f7f7);
+    color: var(--traydigita-admin-ink, #1d2327);
+}
+
+.traydigita-modal-close:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+}
+
+.traydigita-modal-body {
+    padding: 1.25rem;
+    overflow-y: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.traydigita-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--traydigita-admin-line, #dcdcde);
+}
+
+/* ------------------------------------------------------------------ */
+/* Module info body                                                    */
+/* ------------------------------------------------------------------ */
+
+.traydigita-modal-info-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.traydigita-modal-info-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.5rem;
+    background: var(--traydigita-admin-accent-soft, #eff6ff);
+    color: var(--traydigita-admin-accent, #2563eb);
+    font-size: 1.5rem;
+}
+
+.traydigita-modal-info-name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.traydigita-modal-info-author {
+    margin: 0.125rem 0 0;
+    color: var(--traydigita-admin-muted, #50575e);
+    font-size: 0.75rem;
+}
+
+.traydigita-modal-info-description {
+    margin: 0 0 1rem;
+    color: var(--traydigita-admin-muted, #50575e);
+}
+
+.traydigita-modal-section {
+    margin: 0 0 1rem;
+}
+
+.traydigita-modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.traydigita-modal-section-title {
+    margin: 0 0 0.5rem;
+    color: var(--traydigita-admin-muted, #50575e);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.traydigita-modal-feature-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.traydigita-modal-feature-list li {
+    margin-bottom: 0.25rem;
+}
+
+.traydigita-modal-feature-list li::marker {
+    color: var(--traydigita-admin-accent, #2563eb);
+}
+
+.traydigita-modal-changelog-entry {
+    margin-bottom: 0.75rem;
+}
+
+.traydigita-modal-changelog-entry:last-child {
+    margin-bottom: 0;
+}
+
+.traydigita-modal-changelog-version {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.traydigita-modal-changelog-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.traydigita-modal-changelog-list li {
+    margin-bottom: 0.25rem;
+}
+
+.traydigita-modal-changelog-list li::marker {
+    color: var(--traydigita-admin-accent, #2563eb);
+}
+
+.traydigita-modal-meta {
+    margin: 0;
+}
+
+.traydigita-modal-meta-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.625rem 0;
+    border-top: 1px solid var(--traydigita-admin-line, #dcdcde);
+}
+
+.traydigita-modal-meta-row dt {
+    color: var(--traydigita-admin-muted, #50575e);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.traydigita-modal-meta-row dd {
+    margin: 0;
+    text-align: right;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Picker body (provider + SMTP preset: same component)                */
+/* ------------------------------------------------------------------ */
+
+.traydigita-modal-search {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--traydigita-admin-muted, #50575e);
+    border-radius: 0.5rem;
+    background: var(--traydigita-admin-surface, #fff);
+    color: var(--traydigita-admin-ink, #1d2327);
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.traydigita-modal-search:focus {
+    border-color: var(--traydigita-admin-accent, #2563eb);
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 1px;
+}
+
+.traydigita-modal-picker-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.traydigita-modal-picker-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--traydigita-admin-line, #dcdcde);
+    border-radius: 0.5rem;
+    background: var(--traydigita-admin-surface, #fff);
+    color: var(--traydigita-admin-ink, #1d2327);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+}
+
+.traydigita-modal-picker-item:hover {
+    border-color: var(--traydigita-admin-accent, #2563eb);
+    background: var(--traydigita-admin-accent-soft, #eff6ff);
+}
+
+.traydigita-modal-picker-item:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+}
+
+.traydigita-modal-picker-item.is-selected {
+    border-color: var(--traydigita-admin-accent, #2563eb);
+    background: var(--traydigita-admin-accent-soft, #eff6ff);
+    box-shadow: inset 0 0 0 1px var(--traydigita-admin-accent, #2563eb);
+}
+
+.traydigita-modal-picker-logo {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+}
+
+.traydigita-modal-picker-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.traydigita-modal-picker-name {
+    display: block;
+    font-weight: 700;
+}
+
+.traydigita-modal-picker-description {
+    display: block;
+    margin-top: 0.125rem;
+    color: var(--traydigita-admin-muted, #50575e);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.traydigita-modal-picker-check {
+    flex-shrink: 0;
+    color: var(--traydigita-admin-accent, #2563eb);
+    font-size: 1.25rem;
+    visibility: hidden;
+}
+
+.traydigita-modal-picker-item.is-selected .traydigita-modal-picker-check {
+    visibility: visible;
+}
+
+.traydigita-modal-picker-empty {
+    margin: 0;
+    padding: 1rem 0;
+    color: var(--traydigita-admin-muted, #50575e);
+    text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Picker field button (replaces the provider / preset <select>)      */
+/* ------------------------------------------------------------------ */
+
+.traydigita-mailer-picker-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--traydigita-admin-muted, #50575e);
+    border-radius: 0.5rem;
+    background: var(--traydigita-admin-surface, #fff);
+    color: var(--traydigita-admin-ink, #1d2327);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+}
+
+.traydigita-mailer-picker-button:hover {
+    border-color: var(--traydigita-admin-accent, #2563eb);
+}
+
+.traydigita-mailer-picker-button:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+}
+
+.traydigita-mailer-picker-button .traydigita-modal-picker-logo {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.traydigita-mailer-picker-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.traydigita-mailer-picker-button .material-icons {
+    flex-shrink: 0;
+    color: var(--traydigita-admin-muted, #50575e);
+    font-size: 1.25rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Module card info button (injected by JS into each card foot)        */
+/* ------------------------------------------------------------------ */
+
+.traydigita-admin-card-info {
+    flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Small screens                                                       */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+    .traydigita-modal-overlay {
+        padding: 1rem 0.5rem;
+    }
+
+    .traydigita-modal {
+        max-height: calc(100vh - 2rem);
+    }
+
+    .traydigita-modal-header,
+    .traydigita-modal-body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .traydigita-modal-footer {
+        padding: 0.75rem 1rem;
+    }
+}

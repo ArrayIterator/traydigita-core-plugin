@@ -207,6 +207,46 @@ final class AuthorBoxModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Author box below every article.', 'traydigita-core'),
+            __('Avatar, bio, social links, and article count.', 'traydigita-core'),
+            __('Uses the Custom Avatar module when enabled, otherwise the standard avatar.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -268,7 +308,8 @@ final class AuthorBoxModule implements ModuleInterface
         <div class="traydigita-module-settings author-box-settings">
             <?php
             SettingsControls::intro(
-                __('The author box appears on single posts with the author avatar, name, bio, social links, and article count.', 'traydigita-core'),
+                __('The author box appears on single posts with the author avatar, name, '
+                    . 'bio, social links, and article count.', 'traydigita-core'),
                 __('The avatar comes from the Custom Avatar module when it is enabled, otherwise from the standard avatar.', 'traydigita-core')
             );
             ?>
@@ -305,7 +346,8 @@ final class AuthorBoxModule implements ModuleInterface
                     <span class="author-box-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Links from the author Website field and the social profile fields (X, Facebook, Instagram, LinkedIn) when they are filled in.', 'traydigita-core'),
+                            __('Links from the author Website field and the social profile fields (X, Facebook, '
+                                . 'Instagram, LinkedIn) when they are filled in.', 'traydigita-core'),
                             __('Empty fields render no link.', 'traydigita-core')
                         );
                         ?>

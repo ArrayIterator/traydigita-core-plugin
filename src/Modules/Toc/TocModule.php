@@ -205,6 +205,46 @@ final class TocModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Auto-generates a table of contents from post headings.', 'traydigita-core'),
+            __('Stable anchor ids and smooth scrolling.', 'traydigita-core'),
+            __('Active-section highlighting.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -266,7 +306,8 @@ final class TocModule implements ModuleInterface
         <div class="traydigita-module-settings toc-settings">
             <?php
             SettingsControls::intro(
-                __('The table of contents is built from the h2 and h3 headings of each single post.', 'traydigita-core'),
+                __('The table of contents is built from the h2 and h3 headings '
+                    . 'of each single post.', 'traydigita-core'),
                 __('Headings without an id get a stable slug id (for example toc-getting-started); headings inside blockquotes or code blocks are never listed.', 'traydigita-core')
             );
             ?>
@@ -298,7 +339,8 @@ final class TocModule implements ModuleInterface
                     <span class="toc-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Show the table of contents only when the post has at least this many headings.', 'traydigita-core'),
+                            __('Show the table of contents only when the post has at least '
+                                . 'this many headings.', 'traydigita-core'),
                             __('Below the threshold the content is left untouched.', 'traydigita-core')
                         );
                         ?>

@@ -146,6 +146,46 @@ final class PrintArticleModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Print this article button on single posts.', 'traydigita-core'),
+            __('Print stylesheet hides header, footer, sidebars, and screen chrome.', 'traydigita-core'),
+            __('The printed page holds the article and its source line only.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Author shown on the module card in the admin module list.
      *
      * @return string
@@ -214,7 +254,8 @@ final class PrintArticleModule implements ModuleInterface
         <div class="traydigita-module-settings print-article-settings">
             <?php
             SettingsControls::intro(
-                __('A print button on single posts, and a print stylesheet that hides the site chrome when the article is printed or saved as PDF.', 'traydigita-core'),
+                __('A print button on single posts, and a print stylesheet that hides the site chrome '
+                    . 'when the article is printed or saved as PDF.', 'traydigita-core'),
                 __('Printing is the browser’s own print dialog — there is no server-side PDF generation and no extra request. The source line under the article shows where the print came from.', 'traydigita-core')
             );
             ?>

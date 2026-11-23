@@ -422,6 +422,160 @@ final class MailerModule implements ModuleInterface
     ];
 
     /**
+     * Logo file stem per provider id.
+     *
+     * The files live in assets/images/providers/ and are
+     * lettermark SVGs (initials on a rounded rect, brand-ish
+     * colours) copied from the shared Unified lettermark set
+     * — see assets/images/providers/README.md for provenance.
+     * They are clean initial monograms, not trademarked artwork
+     * redrawn in detail. A provider without an entry here (for
+     * example a third-party provider from the filter) falls
+     * back to the generic SMTP envelope in providerLogo().
+     *
+     * @var array<string, string> Provider id => file stem without '.svg'.
+     */
+    public const array PROVIDER_LOGOS = [
+        'smtp' => 'email-smtp',
+        'local' => 'email-sendmail',
+        'sendgrid' => 'email-sendgrid',
+        'gmail' => 'email-gmail',
+        'sender' => 'email-sender-net',
+        'sendpulse' => 'email-sendpulse',
+        'brevo' => 'email-brevo',
+        'mailjet' => 'email-mailjet',
+        'resend' => 'email-resend',
+        'mailgun' => 'email-mailgun',
+        'smtp2go' => 'email-smtp2go',
+        'mailersend' => 'email-mailersend',
+        'postmark' => 'email-postmark',
+        'elasticemail' => 'email-elastic-email',
+        'zeptomail' => 'email-zeptomail',
+        'sparkpost' => 'email-sparkpost',
+        'onesignal' => 'email-onesignal',
+        'mailtrap' => 'email-mailtrap',
+        'ses' => 'email-ses',
+        'mandrill' => 'email-mandrill',
+        'sendlayer' => 'email-sendlayer',
+        'socketlabs' => 'email-socketlabs',
+        'pepipost' => 'email-pepipost',
+        'courier' => 'email-courier',
+        'smtpcom' => 'email-smtp-com',
+        'unisender' => 'email-unisender',
+        'plunk' => 'email-plunk',
+        'loops' => 'email-loops',
+        'mailerlite' => 'email-mailerlite',
+        'mailchimp' => 'email-mailchimp',
+        'hubspot' => 'email-hubspot',
+        'omnisend' => 'email-omnisend',
+        'klaviyo' => 'email-klaviyo',
+        'getresponse' => 'email-getresponse',
+        'aweber' => 'email-aweber',
+        'constantcontact' => 'email-constant-contact',
+        'moosend' => 'email-moosend',
+        'campaignmonitor' => 'email-campaign-monitor',
+    ];
+
+    /**
+     * Logo file stem per SMTP preset id.
+     *
+     * Same lettermark set as PROVIDER_LOGOS above. The
+     * 'custom' preset has no brand, so it uses the generic
+     * SMTP envelope.
+     *
+     * @var array<string, string> Preset id => file stem without '.svg'.
+     */
+    public const array PRESET_LOGOS = [
+        'custom' => 'email-smtp',
+        'gmail' => 'email-gmail',
+        'yahoo' => 'email-yahoo',
+        'outlook' => 'email-outlook',
+        'zoho' => 'email-zoho',
+        'zoho_eu' => 'email-zoho-eu',
+        'proton' => 'email-proton',
+        'yandex' => 'email-yandex',
+        'fastmail' => 'email-fastmail',
+        'icloud' => 'email-icloud',
+        'gmx' => 'email-gmx',
+        'mailcom' => 'email-mail-com',
+        'aol' => 'email-aol',
+        'qq' => 'email-qq-mail',
+        'mail163' => 'email-mail-163',
+        'mail126' => 'email-mail-126',
+        'sina' => 'email-sina',
+        'mailru' => 'email-mail-ru',
+        'posteo' => 'email-posteo',
+        'migadu' => 'email-migadu',
+        'mailfence' => 'email-mailfence',
+        'startmail' => 'email-startmail',
+        'runbox' => 'email-runbox',
+        'kolabnow' => 'email-kolabnow',
+        'infomaniak' => 'email-infomaniak',
+        'ovh' => 'email-ovh',
+        'gandi' => 'email-gandi',
+        'namecheap' => 'email-namecheap',
+        'dreamhost' => 'email-dreamhost',
+        'mxroute' => 'email-mxroute',
+    ];
+
+    /**
+     * Logo URL for a provider id.
+     *
+     * Returns the provider's lettermark from
+     * assets/images/providers/, or the generic SMTP envelope
+     * when the provider has no logo (a third-party provider
+     * from the filter, or a missing file). The stem is taken
+     * from the allowlisted PROVIDER_LOGOS map only, never from
+     * raw input, so no path traversal is possible.
+     *
+     * @param string $id Provider id.
+     * @return string Logo URL.
+     */
+    public static function providerLogoUrl(string $id): string
+    {
+        $stem = self::PROVIDER_LOGOS[$id] ?? 'email-smtp';
+        return self::logoUrl($stem);
+    }
+
+    /**
+     * Logo URL for an SMTP preset id.
+     *
+     * Unknown presets fall back to the generic SMTP envelope.
+     *
+     * @param string $preset Preset id.
+     * @return string Logo URL.
+     */
+    public static function presetLogoUrl(string $preset): string
+    {
+        $stem = self::PRESET_LOGOS[$preset] ?? 'email-smtp';
+        return self::logoUrl($stem);
+    }
+
+    /**
+     * URL of a logo file stem, with a missing-file fallback.
+     *
+     * The stem must name a file under assets/images/providers/;
+     * anything outside that directory (or a missing file) falls
+     * back to the generic SMTP envelope, so a bad stem can never
+     * produce a broken image or an outside URL.
+     *
+     * @param string $stem File stem without '.svg'.
+     * @return string Logo URL.
+     */
+    private static function logoUrl(string $stem): string
+    {
+        $baseUrl = \TrayDigita\WP\Plugin\Core\Core::pluginUrl() . '/assets/images/providers/';
+        $baseDir = \TrayDigita\WP\Plugin\Core\Core::pluginDir() . '/assets/images/providers/';
+        if ($stem === '' || str_contains($stem, '/') || str_contains($stem, '\\')) {
+            return $baseUrl . 'email-smtp.svg';
+        }
+        if (!file_exists($baseDir . $stem . '.svg')) {
+            return $baseUrl . 'email-smtp.svg';
+        }
+        return $baseUrl . $stem . '.svg';
+    }
+
+    /**
      * Allowed encryption values.
      *
      * @var array<int, string>
@@ -808,6 +962,60 @@ final class MailerModule implements ModuleInterface
     public static function version(): string
     {
         return '2.0.0';
+    }
+
+    /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('SMTP with 30 one-click presets for major mailbox providers.', 'traydigita-core'),
+            __('Local PHP mail for development.', 'traydigita-core'),
+            __('26 transactional APIs plus 10 marketing APIs.', 'traydigita-core'),
+            __('Gmail OAuth sign-in.', 'traydigita-core'),
+            __('Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer.', 'traydigita-core'),
+            __('Test email tool and a send log of the last 50 sends.', 'traydigita-core'),
+            __('Third-party providers can register through a filter.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('SMTP mailer with presets for the major mailbox providers.', 'traydigita-core'),
+                ],
+            ],
+            [
+                'version' => '2.0.0',
+                'changes' => [
+                    __('Rebuilt as the multi-provider Mailer: 26 transactional APIs, 10 marketing '
+                        . 'APIs, Gmail OAuth, and local PHP mail.', 'traydigita-core'),
+                    __('Deliverability headers, test email tool, and send log added.', 'traydigita-core'),
+                    __('Settings migrated from the old traydigita_smtp option; the old '
+                        . 'option is kept as a fallback.', 'traydigita-core'),
+                ],
+            ],
+        ];
     }
 
     /**

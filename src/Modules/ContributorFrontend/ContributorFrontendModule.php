@@ -392,6 +392,48 @@ final class ContributorFrontendModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Frontend dashboard for contributors — no wp-admin needed.', 'traydigita-core'),
+            __('Simple block editor for writing articles.', 'traydigita-core'),
+            __('Scoped featured-image upload.', 'traydigita-core'),
+            __('Needs-revision and rejected statuses set by editors.', 'traydigita-core'),
+            __('Per-role access modes; administrators are never affected.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '2.0.0',
+                'changes' => [
+                    __('Current version in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Author shown on the module card in the admin module list.
      *
      * Modules may override this to name their own author; the
@@ -1007,7 +1049,8 @@ final class ContributorFrontendModule implements ModuleInterface
         <div class="traydigita-module-settings contributor-frontend-settings">
             <?php
             SettingsControls::intro(
-                __('Contributors write and submit articles from a frontend dashboard instead of wp-admin.', 'traydigita-core'),
+                __('Contributors write and submit articles from a frontend '
+                    . 'dashboard instead of wp-admin.', 'traydigita-core'),
                 __('Pick an access mode per role below. Frontend-only users get no admin bar, and any wp-admin page they open redirects them to the member area. The member page is the dashboard: Overview, Posts, My Contributions, Write, Bookmarks, Profile and Change Email in one shell.', 'traydigita-core')
             );
             ?>
@@ -1058,7 +1101,8 @@ final class ContributorFrontendModule implements ModuleInterface
                 <p class="contributor-frontend-field-help">
                     <?php
                     SettingsControls::helpText(
-                        __('Frontend only hides the admin bar and redirects wp-admin to the member area.', 'traydigita-core'),
+                        __('Frontend only hides the admin bar and redirects wp-admin '
+                            . 'to the member area.', 'traydigita-core'),
                         __('A user holding both a dashboard role and a frontend-only role keeps dashboard access.', 'traydigita-core')
                     );
                     ?>

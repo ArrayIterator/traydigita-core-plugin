@@ -10,6 +10,7 @@ use function esc_attr;
 use function esc_html;
 use function esc_html__;
 use function esc_textarea;
+use function esc_url;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -17,6 +18,7 @@ use function mb_strlen;
 use function preg_match;
 use function selected;
 use function str_starts_with;
+use function wp_json_encode;
 
 /**
  * Settings control library (Round 4, R4-5; Settings Redesign).
@@ -472,6 +474,60 @@ final class SettingsControls
             . ' name="' . esc_attr((string) $args['name']) . '"'
             . $attrs . '>' . $options . '</select>';
         self::field($id, (string) $args['label'], $control, $args['help'] ?? null, false, $args['help_long'] ?? null);
+    }
+
+    /**
+     * Render a popup picker as a full field row.
+     *
+     * Replaces a <select> where the options deserve logos and
+     * search: the visible control is a button showing the
+     * current option's logo and label, and the real value lives
+     * in a hidden input with the field name, so the existing
+     * save flow sees exactly the value the old select
+     * submitted. The options are embedded once as JSON on the
+     * button (data-picker-items) and rendered into the shared
+     * modal by assets/js/traydigita-modal.js — the same modal
+     * component as the module info popup.
+     *
+     * @param array{id: string, name: string, label: string, value?: string, title: string, search: string, empty: string, help?: string|null, items: array<int, array{id: string, label: string, description?: string, meta?: string, logo?: string}>} $args Field arguments.
+     * @return void
+     */
+    public static function picker(array $args): void
+    {
+        $id = (string) $args['id'];
+        $current = (string) ($args['value'] ?? '');
+        $items = isset($args['items']) && is_array($args['items']) ? $args['items'] : [];
+        $currentLabel = $current;
+        $currentLogo = '';
+        foreach ($items as $item) {
+            if (!is_array($item) || (string) ($item['id'] ?? '') !== $current) {
+                continue;
+            }
+            $currentLabel = (string) ($item['label'] ?? $current);
+            $currentLogo = (string) ($item['logo'] ?? '');
+        }
+        $buttonId = $id . '-picker';
+        $control = '<input type="hidden"'
+            . ' id="' . esc_attr($id) . '"'
+            . ' name="' . esc_attr((string) $args['name']) . '"'
+            . ' value="' . esc_attr($current) . '">'
+            . '<button type="button" class="traydigita-mailer-picker-button"'
+            . ' id="' . esc_attr($buttonId) . '"'
+            . ' data-traydigita-picker'
+            . ' data-picker-input="' . esc_attr($id) . '"'
+            . ' data-picker-title="' . esc_attr((string) $args['title']) . '"'
+            . ' data-picker-search="' . esc_attr((string) $args['search']) . '"'
+            . ' data-picker-empty="' . esc_attr((string) $args['empty']) . '"'
+            . ' data-picker-items="' . esc_attr((string) wp_json_encode($items)) . '"'
+            . ' aria-haspopup="dialog">'
+            . ($currentLogo !== ''
+                ? '<img class="traydigita-modal-picker-logo" src="'
+                    . esc_url($currentLogo) . '" alt="" aria-hidden="true">'
+                : '')
+            . '<span class="traydigita-mailer-picker-label">' . esc_html($currentLabel) . '</span>'
+            . '<span class="material-icons" aria-hidden="true">expand_more</span>'
+            . '</button>';
+        self::field($buttonId, (string) $args['label'], $control, $args['help'] ?? null);
     }
 
     /**

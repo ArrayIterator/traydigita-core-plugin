@@ -277,6 +277,46 @@ final class TurnstileModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Cloudflare Turnstile bot protection.', 'traydigita-core'),
+            __('Covers the login form, comments, and the newsletter subscribe form.', 'traydigita-core'),
+            __('Disabled until the site key and secret key are entered.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -950,7 +990,8 @@ final class TurnstileModule implements ModuleInterface
                     <p class="turnstile-status-text">
                         <?php
                         SettingsControls::helpText(
-                            __('Create a Turnstile widget in the Cloudflare dashboard (Turnstile section) and paste its site key and secret key below.', 'traydigita-core'),
+                            __('Create a Turnstile widget in the Cloudflare dashboard (Turnstile section) and '
+                                . 'paste its site key and secret key below.', 'traydigita-core'),
                             __('Until both keys are saved, no challenge is shown and logins work exactly as before.', 'traydigita-core')
                         );
                         ?>
@@ -961,7 +1002,8 @@ final class TurnstileModule implements ModuleInterface
                     <p class="turnstile-status-warning">
                         <?php
                         SettingsControls::helpText(
-                            __('The login challenge cannot render yet: the turnstile script entry is not registered in AssetLoader::ASSETS.', 'traydigita-core'),
+                            __('The login challenge cannot render yet: the turnstile script entry is not '
+                                . 'registered in AssetLoader::ASSETS.', 'traydigita-core'),
                             __('Login verification is skipped until it is registered, so logins are not blocked.', 'traydigita-core')
                         );
                         ?>
@@ -1048,7 +1090,8 @@ final class TurnstileModule implements ModuleInterface
                 <p class="turnstile-field-help">
                     <?php
                     SettingsControls::helpText(
-                        __('Emergency escape hatch: if Cloudflare is unreachable and logins are blocked, define TRAYDIGITA_TURNSTILE_FAIL_OPEN as true in wp-config.php to let logins through.', 'traydigita-core'),
+                        __('Emergency escape hatch: if Cloudflare is unreachable and logins are blocked, define '
+                            . 'TRAYDIGITA_TURNSTILE_FAIL_OPEN as true in wp-config.php to let logins through.', 'traydigita-core'),
                         __('Remove it again once Cloudflare recovers.', 'traydigita-core')
                     );
                     ?>
@@ -1056,7 +1099,8 @@ final class TurnstileModule implements ModuleInterface
                 <p class="turnstile-field-help">
                     <?php
                     SettingsControls::helpText(
-                        __('Content-Security-Policy note: Turnstile loads its script and challenge iframe from https://challenges.cloudflare.com.', 'traydigita-core'),
+                        __('Content-Security-Policy note: Turnstile loads its script and challenge iframe '
+                            . 'from https://challenges.cloudflare.com.', 'traydigita-core'),
                         __('A site that enforces a Content-Security-Policy must allow that host in script-src and frame-src, or the widget will not load.', 'traydigita-core')
                     );
                     ?>

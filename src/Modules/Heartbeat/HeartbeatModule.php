@@ -173,6 +173,47 @@ final class HeartbeatModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Control Heartbeat frequency on dashboard, editor, and frontend.', 'traydigita-core'),
+            __('Switch the frontend heartbeat off.', 'traydigita-core'),
+            __('The editor heartbeat can never be disabled, so autosave and '
+                . 'post locking keep working.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -234,14 +275,16 @@ final class HeartbeatModule implements ModuleInterface
         <div class="traydigita-module-settings heartbeat-settings">
             <?php
             SettingsControls::intro(
-                __('The Heartbeat API keeps the browser in touch with WordPress: it autosaves drafts, warns when another user is editing the same post, and lets plugins refresh data without a page reload.', 'traydigita-core'),
+                __('The Heartbeat API keeps the browser in touch with WordPress: it autosaves drafts, warns when another user is '
+                    . 'editing the same post, and lets plugins refresh data without a page reload.', 'traydigita-core'),
                 __('A slower pulse means fewer admin-ajax.php requests; a faster pulse means fresher autosaves and locks.', 'traydigita-core')
             );
             ?>
             <p class="heartbeat-editor-note">
                 <?php
                 SettingsControls::helpText(
-                    __('The post editor heartbeat can never be turned off, and never runs slower than once every 60 seconds.', 'traydigita-core'),
+                    __('The post editor heartbeat can never be turned off, and never runs '
+                        . 'slower than once every 60 seconds.', 'traydigita-core'),
                     __('Autosave and the post lock depend on it — without it, two editors could overwrite each other without warning and drafts would stop autosaving.', 'traydigita-core')
                 );
                 ?>

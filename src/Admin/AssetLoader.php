@@ -240,6 +240,42 @@ final class AssetLoader
             wp_enqueue_script_module(self::ADMIN_HANDLE);
             $this->enqueueStyle(self::ADMIN_STYLE_HANDLE);
         }
+        $this->enqueueModalAssets();
+    }
+
+    /**
+     * Enqueue the shared modal assets (plain CSS + JS, no build).
+     *
+     * One modal component serves the module info popup and the
+     * Mailer provider / SMTP preset pickers on every TrayDigita
+     * page: assets/css/traydigita-modal.css holds the single
+     * modal style block and assets/js/traydigita-modal.js the
+     * single controller. Core has no Vite build, so these are
+     * plain files versioned with Core::VERSION.
+     *
+     * @return void
+     */
+    private function enqueueModalAssets(): void
+    {
+        $css = $this->core->pluginDir . '/assets/css/traydigita-modal.css';
+        if (file_exists($css)) {
+            wp_enqueue_style(
+                'traydigita-core-modal',
+                $this->core->pluginUrl . '/assets/css/traydigita-modal.css',
+                [],
+                Core::VERSION
+            );
+        }
+        $js = $this->core->pluginDir . '/assets/js/traydigita-modal.js';
+        if (file_exists($js)) {
+            wp_enqueue_script(
+                'traydigita-core-modal',
+                $this->core->pluginUrl . '/assets/js/traydigita-modal.js',
+                [],
+                Core::VERSION,
+                true
+            );
+        }
     }
 
     /**

@@ -191,6 +191,47 @@ final class CacheModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Shows which cache plugin is active and purges through it.', 'traydigita-core'),
+            __('OPcache status, object-cache and transient flushing.', 'traydigita-core'),
+            __('Optional Cloudflare zone purge.', 'traydigita-core'),
+            __('The theme never runs its own page cache.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -448,7 +489,8 @@ final class CacheModule implements ModuleInterface
                     'specific' => true,
                     'note' => sprintf(
                         /* translators: 1: server label, e.g. LiteSpeed. 2: recommended cache plugin name. */
-                        __('This site runs on %1$s, so %2$s is the recommended cache plugin — it is built for this server.', 'traydigita-core'),
+                        __('This site runs on %1$s, so %2$s is the recommended cache plugin — '
+                            . 'it is built for this server.', 'traydigita-core'),
                         $label,
                         'LiteSpeed Cache'
                     ),
@@ -463,7 +505,8 @@ final class CacheModule implements ModuleInterface
                     'specific' => true,
                     'note' => sprintf(
                         /* translators: 1: server label, e.g. Apache. 2: recommended cache plugin name. */
-                        __('This site runs on %1$s, so %2$s is the recommended cache plugin — the full-featured free option that runs on any server.', 'traydigita-core'),
+                        __('This site runs on %1$s, so %2$s is the recommended cache plugin — the '
+                            . 'full-featured free option that runs on any server.', 'traydigita-core'),
                         $label,
                         'W3 Total Cache'
                     ),
@@ -824,12 +867,14 @@ final class CacheModule implements ModuleInterface
                     <?php
                     if ($cachePersistentObjectCache) {
                         SettingsControls::helpText(
-                            __('A persistent object cache is in use (for example Redis or Memcached).', 'traydigita-core'),
+                            __('A persistent object cache is in use (for example '
+                                . 'Redis or Memcached).', 'traydigita-core'),
                             __('Flushing it clears the shared cache for the whole site, not just this request — every cached object is rebuilt on its next use.', 'traydigita-core')
                         );
                     } else {
                         SettingsControls::helpText(
-                            __('No persistent object cache is in use: WordPress is using its default in-memory object cache, which only lives for one request.', 'traydigita-core'),
+                            __('No persistent object cache is in use: WordPress is using its default in-memory '
+                                . 'object cache, which only lives for one request.', 'traydigita-core'),
                             __('Flushing it still clears anything cached so far in this request.', 'traydigita-core')
                         );
                     }
@@ -855,7 +900,8 @@ final class CacheModule implements ModuleInterface
                     ?>
                     <?php
                     SettingsControls::helpText(
-                        __('This flush deletes every transient, including live ones — not just expired ones.', 'traydigita-core'),
+                        __('This flush deletes every transient, including live ones — '
+                            . 'not just expired ones.', 'traydigita-core'),
                         __('Cached data (for example widget output and API responses) is rebuilt on its next use, which can briefly slow the site down. This is a cache flush, not a database cleanup: expired-transient cleanup belongs to the DB Tools module. Transients held only in a persistent object cache are not touched here — use the object-cache flush above for those.', 'traydigita-core')
                     );
                     ?>
@@ -882,7 +928,8 @@ final class CacheModule implements ModuleInterface
                 <p class="cache-note">
                     <?php
                     SettingsControls::helpText(
-                        __('Optional. Save a Cloudflare API token and the zone ID below to enable purge-everything for this site’s Cloudflare zone.', 'traydigita-core'),
+                        __('Optional. Save a Cloudflare API token and the zone ID below to enable '
+                            . 'purge-everything for this site’s Cloudflare zone.', 'traydigita-core'),
                         __('Until both are saved, the purge button stays disabled and nothing is sent to Cloudflare.', 'traydigita-core')
                     );
                     ?>

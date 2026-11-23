@@ -180,6 +180,46 @@ final class SeoModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Templated meta tags, sitemaps, and NewsArticle structured data.', 'traydigita-core'),
+            __('Defers to Yoast, Rank Math, All in One SEO, or SEOPress when one is active.', 'traydigita-core'),
+            __('Optional instant indexing.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.1.0',
+                'changes' => [
+                    __('Current version in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -391,7 +431,8 @@ final class SeoModule implements ModuleInterface
                     <p class="seo-status-help">
                         <?php
                         SettingsControls::helpText(
-                            __('The theme outputs no duplicate title, meta, canonical, Open Graph, Twitter, or structured-data tags, and serves no duplicate sitemap, while an SEO plugin is in charge.', 'traydigita-core'),
+                            __('The theme outputs no duplicate title, meta, canonical, Open Graph, Twitter, or structured-data tags, '
+                                . 'and serves no duplicate sitemap, while an SEO plugin is in charge.', 'traydigita-core'),
                             __('The toggles below only take effect when no SEO plugin is active.', 'traydigita-core')
                         );
                         ?>
@@ -477,7 +518,8 @@ final class SeoModule implements ModuleInterface
                         echo esc_html(
                             sprintf(
                                 /* translators: %s is the name of the active SEO plugin, e.g. "Yoast SEO". */
-                                __('Unavailable while %s is active, to avoid serving a duplicate news sitemap.', 'traydigita-core'),
+                                __('Unavailable while %s is active, to avoid serving a '
+                                    . 'duplicate news sitemap.', 'traydigita-core'),
                                 $detected['name']
                             )
                         );
@@ -624,7 +666,8 @@ final class SeoModule implements ModuleInterface
             echo esc_html(
                 sprintf(
                     /* translators: 1: start date, 2: end date, 3: total clicks, 4: total impressions. */
-                    __('Top queries and pages from Search Console, %1$s to %2$s. Total clicks: %3$s. Total impressions: %4$s.', 'traydigita-core'),
+                    __('Top queries and pages from Search Console, %1$s to %2$s. Total '
+                        . 'clicks: %3$s. Total impressions: %4$s.', 'traydigita-core'),
                     $data['start_date'],
                     $data['end_date'],
                     number_format_i18n($data['total_clicks']),

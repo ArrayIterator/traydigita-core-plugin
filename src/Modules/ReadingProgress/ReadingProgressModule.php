@@ -182,6 +182,45 @@ final class ReadingProgressModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Thin progress bar at the top of single articles.', 'traydigita-core'),
+            __('Estimated reading time near the headline.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -243,7 +282,8 @@ final class ReadingProgressModule implements ModuleInterface
         <div class="traydigita-module-settings reading-progress-settings">
             <?php
             SettingsControls::intro(
-                __('A thin bar fixed at the top of single articles fills in as the reader scrolls through the article content, and an estimated reading time is shown near the headline.', 'traydigita-core'),
+                __('A thin bar fixed at the top of single articles fills in as the reader scrolls through the article '
+                    . 'content, and an estimated reading time is shown near the headline.', 'traydigita-core'),
                 __('The bar is printed automatically from wp_footer once the module is enabled; the reading time is placed by the theme in the entry-header meta area (see the module documentation for the exact call).', 'traydigita-core')
             );
             ?>

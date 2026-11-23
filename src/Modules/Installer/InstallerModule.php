@@ -135,6 +135,46 @@ final class InstallerModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Curated plugin suggestions for a news site, Google Site Kit first.', 'traydigita-core'),
+            __('Installs straight from wordpress.org.', 'traydigita-core'),
+            __('Installing never activates anything — activation takes a separate click.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -311,7 +351,8 @@ final class InstallerModule implements ModuleInterface
                 <p>
                     <?php
                     SettingsControls::helpText(
-                        __('Plugins are installed only from the wordpress.org plugin directory — never from any other source — and installing never activates anything.', 'traydigita-core'),
+                        __('Plugins are installed only from the wordpress.org plugin directory — never from any '
+                            . 'other source — and installing never activates anything.', 'traydigita-core'),
                         __('Click Activate separately when you are ready. If WordPress cannot write plugin files directly on this site, the install is refused with an explanation instead of asking for FTP credentials here.', 'traydigita-core')
                     );
                     ?>
@@ -429,7 +470,8 @@ final class InstallerModule implements ModuleInterface
                                                 echo esc_html(
                                                     sprintf(
                                                         /* translators: %s is the name of the theme module this plugin overlaps, e.g. "SEO". */
-                                                        __('Note: this overlaps the theme’s %s module, which steps aside while the plugin is active.', 'traydigita-core'),
+                                                        __('Note: this overlaps the theme’s %s module, which steps aside '
+                                                            . 'while the plugin is active.', 'traydigita-core'),
                                                         $plugin['duplicates'] === 'seo' ? __('SEO', 'traydigita-core') : __('Image Optimizer', 'traydigita-core')
                                                     )
                                                 );

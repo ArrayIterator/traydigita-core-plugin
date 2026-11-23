@@ -160,7 +160,18 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     data-msg-modules-count="<?php echo esc_attr(__('%s modules', 'traydigita-core')); ?>"
     data-msg-category-save-error="<?php echo esc_attr(__('Could not save the category. Please try again.', 'traydigita-core')); ?>"
     data-msg-category-assign-error="<?php echo esc_attr(__('Could not assign the module. Please try again.', 'traydigita-core')); ?>"
-    data-msg-assign-incomplete="<?php echo esc_attr(__('Choose a module and a category first.', 'traydigita-core')); ?>">
+    data-msg-assign-incomplete="<?php echo esc_attr(__('Choose a module and a category first.', 'traydigita-core')); ?>"
+    data-msg-module-info="<?php echo esc_attr(__('Module info', 'traydigita-core')); ?>"
+    data-msg-more="<?php echo esc_attr(__('More', 'traydigita-core')); ?>"
+    data-msg-features="<?php echo esc_attr(__('Features', 'traydigita-core')); ?>"
+    data-msg-changelog="<?php echo esc_attr(__('Changelog', 'traydigita-core')); ?>"
+    data-msg-details="<?php echo esc_attr(__('Details', 'traydigita-core')); ?>"
+    data-msg-open-settings="<?php echo esc_attr(__('Open settings', 'traydigita-core')); ?>"
+    data-msg-close="<?php echo esc_attr(__('Close', 'traydigita-core')); ?>"
+    data-msg-label-version="<?php echo esc_attr(__('Version', 'traydigita-core')); ?>"
+    data-msg-label-author="<?php echo esc_attr(__('Author', 'traydigita-core')); ?>"
+    data-msg-label-category="<?php echo esc_attr(__('Category', 'traydigita-core')); ?>"
+    data-msg-label-status="<?php echo esc_attr(__('Status', 'traydigita-core')); ?>">
     <div class="traydigita-admin-topbar">
         <a class="traydigita-admin-brand"
             href="<?php echo esc_url(admin_url('admin.php?page=' . AdminMenu::MENU_SLUG)); ?>">
@@ -370,7 +381,8 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     </div>
 
     <?php if ($traydigita_rail_module !== null) : ?>
-        <aside class="traydigita-admin-rail" aria-label="<?php echo esc_attr($traydigita_rail_module::name()); ?>">
+        <aside class="traydigita-admin-rail" aria-label="<?php echo esc_attr($traydigita_rail_module::name()); ?>"
+            data-traydigita-module-info="<?php echo esc_attr((string) wp_json_encode(ModuleRegistry::moduleInfoData($traydigita_rail_module))); ?>">
             <div class="traydigita-admin-rail-card">
                 <div class="traydigita-admin-rail-head">
                     <span class="traydigita-admin-rail-icon" aria-hidden="true">
@@ -396,6 +408,18 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
                 <p class="traydigita-admin-rail-description">
                     <?php echo esc_html($traydigita_rail_module::description()); ?>
                 </p>
+                <?php
+                // "More" trigger for the module info popup. The
+                // description is clamped to three lines by CSS
+                // (see assets/css/traydigita-modal.css); the
+                // button starts hidden and the modal script
+                // reveals it only when the clamped text actually
+                // overflows, so short descriptions never get a
+                // broken "more".
+                ?>
+                <button type="button" class="traydigita-admin-rail-more" data-traydigita-rail-more hidden>
+                    <?php esc_html_e('More', 'traydigita-core'); ?>
+                </button>
                 <dl class="traydigita-admin-rail-meta">
                     <div class="traydigita-admin-rail-meta-row">
                         <dt><?php esc_html_e('Status', 'traydigita-core'); ?></dt>

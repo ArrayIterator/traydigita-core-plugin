@@ -187,6 +187,46 @@ final class BreadcrumbModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Home / Category / Post trail above the headline.', 'traydigita-core'),
+            __('Matching BreadcrumbList structured data.', 'traydigita-core'),
+            __('Skipped automatically when an SEO plugin already provides breadcrumbs.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Admin settings page slug.
      *
      * @return string
@@ -259,7 +299,8 @@ final class BreadcrumbModule implements ModuleInterface
                     [$breadcrumbShort, $breadcrumbLong] = SettingsControls::splitHelp(
                         sprintf(
                             /* translators: %s is the name of the active SEO plugin, e.g. "Yoast SEO". */
-                            __('%s is active, so breadcrumb structured data is handled by %s. The visible trail below is still rendered by this module.', 'traydigita-core'),
+                            __('%s is active, so breadcrumb structured data is handled by %s. The visible '
+                                . 'trail below is still rendered by this module.', 'traydigita-core'),
                             $seoPlugin['name'],
                             $seoPlugin['name']
                         )
@@ -271,7 +312,8 @@ final class BreadcrumbModule implements ModuleInterface
                 <p class="breadcrumb-status">
                     <?php
                     SettingsControls::helpText(
-                        __('The theme’s SEO module already outputs breadcrumb structured data, so this module skips its own JSON-LD.', 'traydigita-core'),
+                        __('The theme’s SEO module already outputs breadcrumb structured data, so '
+                            . 'this module skips its own JSON-LD.', 'traydigita-core'),
                         __('The visible trail below is still rendered by this module.', 'traydigita-core')
                     );
                     ?>
@@ -290,7 +332,8 @@ final class BreadcrumbModule implements ModuleInterface
                     <span class="breadcrumb-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Above the title matches padangkita.com: the trail sits directly above the headline.', 'traydigita-core'),
+                            __('Above the title matches padangkita.com: the trail sits '
+                                . 'directly above the headline.', 'traydigita-core'),
                             __('Below the header puts it directly below the entry header (title, meta, and featured image). The same setting is also available in the Customizer, under Navigation.', 'traydigita-core')
                         );
                         ?>

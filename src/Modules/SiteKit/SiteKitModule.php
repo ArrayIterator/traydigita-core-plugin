@@ -127,6 +127,45 @@ final class SiteKitModule implements ModuleInterface
     }
 
     /**
+     * Short feature list shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::features()
+     * when present; a module without it falls back to
+     * its description in the popup.
+     *
+     * @return array<int, string>
+     */
+    public static function features(): array
+    {
+        return [
+            __('Read-only status of the Google Site Kit plugin.', 'traydigita-core'),
+            __('Guard against duplicate analytics tracking.', 'traydigita-core'),
+        ];
+    }
+
+    /**
+     * Changelog shown in the module info popup.
+     *
+     * Optional: resolved by ModuleRegistry::changelog()
+     * when present; a module without it shows a single
+     * entry built from version(). Only recorded history
+     * belongs here — never invent earlier versions.
+     *
+     * @return array<int, array{version: string, changes: array<int, string>}>
+     */
+    public static function changelog(): array
+    {
+        return [
+            [
+                'version' => '1.0.0',
+                'changes' => [
+                    __('Initial release in TrayDigita Core.', 'traydigita-core'),
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @inheritDoc
      */
     /**
@@ -408,7 +447,8 @@ final class SiteKitModule implements ModuleInterface
             <p>
                 <?php
                 SettingsControls::helpText(
-                    __('No duplicate tracking: while Site Kit is active, the theme injects no analytics or tag code of its own, and it never removes Site Kit’s verification meta tags.', 'traydigita-core'),
+                    __('No duplicate tracking: while Site Kit is active, the theme injects no analytics or tag code of its '
+                        . 'own, and it never removes Site Kit’s verification meta tags.', 'traydigita-core'),
                     __('The theme ships no analytics code at all; any future theme feature that adds analytics must check the traydigita:core:analytics_allowed filter (or SiteKitModule::isSiteKitActive()) first.', 'traydigita-core')
                 );
                 ?>
