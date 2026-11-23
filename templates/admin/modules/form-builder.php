@@ -8,22 +8,22 @@
  * form: one row per field, posted to the shell save endpoint.
  * Rows are removed with a Delete checkbox (no JavaScript
  * needed); an empty row at the end adds a new field.
- *
- * Text is single-line per block: the shell's generic save
+ * Email templates are edited in the shared WYSIWYG editor
+ * (templates/admin/modules/email-builder.php), which saves
+ * through the Email AJAX endpoints: the shell's generic save
  * endpoint sanitizes every posted string with
- * sanitize_text_field(), which strips line breaks. Use one text
- * block per paragraph.
+ * sanitize_text_field(), which strips line breaks and block
+ * HTML, so it cannot carry the flat-block shape.
  *
  * Variables passed in:
  * @var array<string, array{id: string, title: string, definition: array<string, mixed>}> $forms
  * @var array<string, array<string, mixed>> $templates Shared published templates (contact-form picker).
+ * @var array<string, array<string, mixed>> $allTemplates All shared templates incl. drafts (list + editor).
  * @var array{id: string, title: string, definition: array<string, mixed>}|null $editingForm
  * @var array<string, mixed>|null $editingTemplate Shared template being edited.
  * @var string $adminNonce
  * @var array<string, string> $fieldLabels
- * @var array<string, string> $blockLabels
  * @var array<int, string> $fieldTypes
- * @var array<int, string> $blockTypes
  * @var array<string, array<string, mixed>> $contactForms
  * @var array<string, mixed> $contactSettings
  * @var array<string, mixed>|null $editingContactForm
@@ -40,7 +40,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
 use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
 
 $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
@@ -191,7 +190,7 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
         <p class="traydigita-admin-description">
             <?php esc_html_e('Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph.', 'traydigita-core'); ?>
         </p>
-        <?php if ($templates === []) : ?>
+        <?php if ($allTemplates === []) : ?>
             <p><?php esc_html_e('No email templates yet. Create the first one below.', 'traydigita-core'); ?></p>
         <?php else : ?>
             <table class="widefat striped">
@@ -204,9 +203,13 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($templates as $traydigita_template) : ?>
+                    <?php foreach ($allTemplates as $traydigita_template) : ?>
                         <tr>
-                            <td><?php echo esc_html((string) ($traydigita_template['name'] ?? '')); ?></td>
+                            <td><?php echo esc_html((string) ($traydigita_template['name'] ?? '')); ?>
+                                <?php if ((string) ($traydigita_template['status'] ?? 'published') === 'draft') : ?>
+                                    <?php esc_html_e('(Draft)', 'traydigita-core'); ?>
+                                <?php endif; ?>
+                            </td>
                             <td><code><?php echo esc_html((string) ($traydigita_template['id'] ?? '')); ?></code></td>
                             <td><?php echo esc_html((string) count((array) ($traydigita_template['blocks'] ?? []))); ?></td>
                             <td>
@@ -240,10 +243,7 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
     <?php if ($editingTemplate !== null) : ?>
         <div class="traydigita-admin-section">
             <h2><?php esc_html_e('Edit email template', 'traydigita-core'); ?> — <?php echo esc_html((string) ($editingTemplate['name'] ?? '')); ?></h2>
-            <form method="post" data-action="traydigita_admin_save" data-module="form-builder">
-                <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($adminNonce); ?>">
-                <input type="hidden" name="module" value="form-builder">
-                <input type="hidden" name="builder_action" value="save_template">
+            <form method="post" class="traydigita-template-edit-form">
                 <input type="hidden" name="template_id" value="<?php echo esc_attr($editingTemplate['id']); ?>">
                 <p>
                     <label>
@@ -251,75 +251,30 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                         <input type="text" name="title" value="<?php echo esc_attr((string) ($editingTemplate['name'] ?? '')); ?>" required autocomplete="off">
                     </label>
                 </p>
-                <table class="widefat striped traydigita-template-editor-table">
-                    <thead>
-                        <tr>
-                            <th scope="col"><?php esc_html_e('Type', 'traydigita-core'); ?></th>
-                            <th scope="col"><?php esc_html_e('Text', 'traydigita-core'); ?></th>
-                            <th scope="col"><?php esc_html_e('Button label', 'traydigita-core'); ?></th>
-                            <th scope="col"><?php esc_html_e('Button URL', 'traydigita-core'); ?></th>
-                            <th scope="col"><?php esc_html_e('Image URL', 'traydigita-core'); ?></th>
-                            <th scope="col"><?php esc_html_e('Delete', 'traydigita-core'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $traydigita_blocks = is_array($editingTemplate['blocks'] ?? null) ? $editingTemplate['blocks'] : [];
-                        $traydigita_blocks[] = ['type' => 'text', 'text' => '', 'label' => '', 'url' => '', 'image_url' => ''];
-                        foreach ($traydigita_blocks as $traydigita_index => $traydigita_block) :
-                            $traydigita_prefix = 'blocks[' . $traydigita_index . ']';
-                            $traydigita_type = (string) ($traydigita_block['type'] ?? 'text');
-                            // Text column: heading/text/footer text, or the image alt text.
-                            $traydigita_text = $traydigita_type === 'image'
-                                ? (string) ($traydigita_block['alt'] ?? '')
-                                : (string) ($traydigita_block['text'] ?? $traydigita_block['content'] ?? '');
-                            // Button URL column: button link, or the image click-through link.
-                            $traydigita_url = $traydigita_type === 'image'
-                                ? (string) ($traydigita_block['link'] ?? '')
-                                : (string) ($traydigita_block['url'] ?? '');
-                            $traydigita_image_url = $traydigita_type === 'image'
-                                ? (string) ($traydigita_block['url'] ?? '')
-                                : '';
-                            ?>
-                            <tr>
-                                <td>
-                                    <select name="<?php echo esc_attr($traydigita_prefix); ?>[type]">
-                                        <?php foreach ($blockTypes as $traydigita_option_type) : ?>
-                                            <option value="<?php echo esc_attr($traydigita_option_type); ?>"<?php selected($traydigita_type, $traydigita_option_type); ?>><?php echo esc_html($blockLabels[$traydigita_option_type] ?? $traydigita_option_type); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </td>
-                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[text]"
-                                    value="<?php echo esc_attr($traydigita_text); ?>"
-                                    autocomplete="off"></td>
-                                <td><input type="text" name="<?php echo esc_attr($traydigita_prefix); ?>[label]"
-                                    value="<?php echo esc_attr((string) ($traydigita_block['label'] ?? '')); ?>"
-                                    autocomplete="off"></td>
-                                <td><input type="url" name="<?php echo esc_attr($traydigita_prefix); ?>[url]"
-                                    value="<?php echo esc_attr($traydigita_url); ?>"
-                                    autocomplete="off" spellcheck="false"></td>
-                                <td><input type="url" name="<?php echo esc_attr($traydigita_prefix); ?>[image_url]"
-                                    value="<?php echo esc_attr($traydigita_image_url); ?>"
-                                    autocomplete="off" spellcheck="false"></td>
-                                <td><input type="checkbox" name="<?php echo esc_attr($traydigita_prefix); ?>[delete]" value="1"></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <p class="traydigita-admin-description">
-                    <?php esc_html_e('Button blocks need both a label and a URL. Image blocks need an image URL. Leave the last empty row blank to ignore it.', 'traydigita-core'); ?>
-                </p>
-                <?php \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::saveBar(); ?>
-            </form>
-            <h3><?php esc_html_e('Preview', 'traydigita-core'); ?></h3>
-            <div class="traydigita-admin-preview">
                 <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- TemplateBuilder::renderEmail() escapes every value it prints.
-                echo TemplateBuilder::renderEmail($editingTemplate, ['name' => 'Jane Doe', 'email' => 'jane@example.com', 'message' => 'Hello, this is a sample message.']);
+                // The shared WYSIWYG editor (same as the Newsletter page).
+                // It saves through the Email AJAX endpoints, not through
+                // this form: the shell's generic save would strip block
+                // HTML (see AdminAjax::deepSanitize()), while the Email
+                // endpoints keep it intact via TemplateBuilder.
+                // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable -- Variables are consumed by the required editor partial below, in the same scope.
+                $editorContext = 'form-builder';
+                $editorTemplates = null;
+                $editorInitial = $editingTemplate;
+                $editorAjaxUrl = admin_url('admin-ajax.php');
+                $editorNonce = $adminNonce;
+                $editorNameSelector = '.traydigita-template-edit-form input[name="title"]';
+                $editorIdSelector = '.traydigita-template-edit-form input[name="template_id"]';
+                $editorFormSelector = '.traydigita-template-edit-form';
+                $editorSiteName = (string) get_bloginfo('name');
+                $editorSiteUrl = home_url('/');
+                // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+                require \TrayDigita\WP\Plugin\Core\Core::pluginDir() . '/templates/admin/modules/email-builder.php';
                 ?>
-            </div>
+            </form>
         </div>
     <?php endif; ?>
+
 <?php
 $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
 $traydigita_submissions_url = admin_url('admin.php?page=traydigita-contact-submissions');

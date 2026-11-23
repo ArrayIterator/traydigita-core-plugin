@@ -19,6 +19,7 @@ use function strrpos;
 use function substr;
 use function wp_enqueue_script;
 use function wp_enqueue_script_module;
+use function wp_enqueue_media;
 use function wp_enqueue_style;
 use function wp_register_script_module;
 use function wp_register_style;
@@ -46,6 +47,16 @@ use function wp_style_is;
  */
 final class AssetLoader
 {
+    /**
+     * Script handle of the WYSIWYG email template builder.
+     */
+    public const string EMAIL_BUILDER_HANDLE = 'traydigita-core-email-builder';
+
+    /**
+     * Style handle of the WYSIWYG email template builder.
+     */
+    public const string EMAIL_BUILDER_STYLE_HANDLE = 'traydigita-core-email-builder';
+
     /**
      * Script-module handle of the admin entry.
      */
@@ -242,6 +253,45 @@ final class AssetLoader
         }
         $this->enqueueModalAssets();
         $this->enqueueSettingsLayoutAssets();
+    }
+
+    /**
+     * Enqueue the WYSIWYG email template builder (plain CSS + JS, no build).
+     *
+     * One shared editor serves the Newsletter Email page and the
+     * FormBuilder template editor: assets/css/traydigita-email-builder.css
+     * and assets/js/traydigita-email-builder.js, versioned with
+     * Core::VERSION (same pattern as the modal assets). The media
+     * library is enqueued too: the image block picks its image
+     * from wp.media. Called only on the two pages that render
+     * the editor (see AdminMenu::enqueueAdminAssets()).
+     *
+     * @return void
+     */
+    public function enqueueEmailBuilderAssets(): void
+    {
+        if (function_exists('wp_enqueue_media')) {
+            wp_enqueue_media();
+        }
+        $css = $this->core->pluginDir . '/assets/css/traydigita-email-builder.css';
+        if (file_exists($css)) {
+            wp_enqueue_style(
+                self::EMAIL_BUILDER_STYLE_HANDLE,
+                $this->core->pluginUrl . '/assets/css/traydigita-email-builder.css',
+                [],
+                Core::VERSION
+            );
+        }
+        $js = $this->core->pluginDir . '/assets/js/traydigita-email-builder.js';
+        if (file_exists($js)) {
+            wp_enqueue_script(
+                self::EMAIL_BUILDER_HANDLE,
+                $this->core->pluginUrl . '/assets/js/traydigita-email-builder.js',
+                [],
+                Core::VERSION,
+                true
+            );
+        }
     }
 
     /**

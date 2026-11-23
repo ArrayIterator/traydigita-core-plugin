@@ -3,15 +3,18 @@
  * Email module settings UI (rendered inside the admin shell content area).
  *
  * Variables (set by EmailModule::renderSettingsPage()):
- * @var array<string, array<string, mixed>> $templates   Templates keyed by id.
+ * @var array<string, array<string, mixed>> $templates   Published templates keyed by id (newsletter compose).
+ * @var array<string, array<string, mixed>> $allTemplates All templates incl. drafts (list + editor).
  * @var string                               $defaultId  Id of the default template.
  * @var array{double_opt_in: bool, from_name: string, from_email: string} $newsletterSettings Newsletter settings.
  * @var list<array{email: string, name: string, token: string, confirmed: bool, created_at: int}> $subscribers
  * @var list<array{job_id: string, subject: string, total: int, sent: int, failed: int, started_at: int, finished_at: int}> $log
  * @var string                               $adminNonce Nonce for the 'traydigita-admin' action.
  *
- * Tabs: Templates (builder + list + set default), Newsletter (compose
- * + subscribers + export), Log (send log). Template create/update/
+ * Tabs: Templates (WYSIWYG builder + list + set default), Newsletter (compose
+ * + subscribers + export), Log (send log). The builder is the shared
+ * WYSIWYG editor (templates/admin/modules/email-builder.php, driven by
+ * assets/js/traydigita-email-builder.js); template create/update/
  * delete, preview and chunked sending run through the EmailAjax
  * endpoints; the default-template choice is also saved through
  * EmailModule::saveSettings() by the shell (data key: default_id).
@@ -47,10 +50,10 @@ declare(strict_types=1);
         </p>
 
         <div class="email-template-list">
-            <?php if ($templates === []) : ?>
+            <?php if ($allTemplates === []) : ?>
                 <p class="email-module-empty"><?php esc_html_e('No templates yet. Build your first template below.', 'traydigita-core'); ?></p>
             <?php endif; ?>
-            <?php foreach ($templates as $template) : ?>
+            <?php foreach ($allTemplates as $template) : ?>
                 <article class="email-template-card">
                     <h3 class="email-template-name"><?php echo esc_html((string) ($template['name'] ?? '')); ?></h3>
                     <p class="email-template-meta">
@@ -62,12 +65,17 @@ declare(strict_types=1);
                     <?php if ((string) ($template['id'] ?? '') === $defaultId) : ?>
                         <span class="email-template-badge"><?php esc_html_e('Default', 'traydigita-core'); ?></span>
                     <?php endif; ?>
+                    <?php if ((string) ($template['status'] ?? 'published') === 'draft') : ?>
+                        <span class="email-template-badge"><?php esc_html_e('Draft', 'traydigita-core'); ?></span>
+                    <?php endif; ?>
                     <div class="email-template-actions">
                         <button type="button" class="email-template-load"
                             data-template-id="<?php echo esc_attr((string) ($template['id'] ?? '')); ?>">
                             <?php esc_html_e('Edit', 'traydigita-core'); ?>
                         </button>
-                        <?php if ((string) ($template['id'] ?? '') !== $defaultId) : ?>
+                        <?php if ((string) ($template['id'] ?? '') !== $defaultId
+                            && (string) ($template['status'] ?? 'published') === 'published'
+                        ) : ?>
                             <button type="button" class="email-template-default"
                                 data-template-id="<?php echo esc_attr((string) ($template['id'] ?? '')); ?>">
                                 <?php esc_html_e('Set as default', 'traydigita-core'); ?>
@@ -83,40 +91,29 @@ declare(strict_types=1);
             <?php endforeach; ?>
         </div>
 
-        <div class="email-builder">
-            <div class="email-builder-main">
-                <label class="email-builder-label" for="email-template-name">
-                    <?php esc_html_e('Template name', 'traydigita-core'); ?>
-                </label>
-                <input class="email-template-name-input" type="text" id="email-template-name"
-                    value="" maxlength="100"
-                    placeholder="<?php echo esc_attr__('e.g. Newsletter default', 'traydigita-core'); ?>" />
-                <input type="hidden" id="email-template-id" value="" />
+        <label class="email-builder-label" for="email-template-name">
+            <?php esc_html_e('Template name', 'traydigita-core'); ?>
+        </label>
+        <input class="email-template-name-input" type="text" id="email-template-name"
+            value="" maxlength="100"
+            placeholder="<?php echo esc_attr__('e.g. Newsletter default', 'traydigita-core'); ?>" />
+        <input type="hidden" id="email-template-id" value="" />
 
-                <h3 class="email-builder-heading"><?php esc_html_e('Add a block', 'traydigita-core'); ?></h3>
-                <div class="email-block-palette">
-                    <?php foreach (['header', 'text', 'button', 'image', 'divider', 'footer'] as $blockType) : ?>
-                        <button type="button" class="email-block-palette-item" data-block-type="<?php echo esc_attr($blockType); ?>">
-                            <?php echo esc_html(ucfirst($blockType)); ?>
-                        </button>
-                    <?php endforeach; ?>
-                </div>
-
-                <h3 class="email-builder-heading"><?php esc_html_e('Blocks', 'traydigita-core'); ?></h3>
-                <ol class="email-block-list"></ol>
-                <p class="email-block-list-empty"><?php esc_html_e('No blocks yet. Add one from the palette above.', 'traydigita-core'); ?></p>
-
-                <div class="email-builder-actions">
-                    <button type="button" class="email-builder-preview"><?php esc_html_e('Preview', 'traydigita-core'); ?></button>
-                    <button type="button" class="email-builder-save"><?php esc_html_e('Save changes', 'traydigita-core'); ?></button>
-                    <button type="button" class="email-builder-new"><?php esc_html_e('New template', 'traydigita-core'); ?></button>
-                </div>
-            </div>
-            <div class="email-builder-preview-pane">
-                <h3 class="email-builder-heading"><?php esc_html_e('Live preview', 'traydigita-core'); ?></h3>
-                <iframe class="email-preview-frame" title="<?php echo esc_attr__('Email preview', 'traydigita-core'); ?>"></iframe>
-            </div>
-        </div>
+        <?php
+        // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable -- Variables are consumed by the required editor partial below, in the same scope.
+        $editorContext = 'newsletter';
+        $editorTemplates = $allTemplates;
+        $editorInitial = null;
+        $editorAjaxUrl = admin_url('admin-ajax.php');
+        $editorNonce = $adminNonce;
+        $editorNameSelector = '#email-template-name';
+        $editorIdSelector = '#email-template-id';
+        $editorFormSelector = null;
+        $editorSiteName = (string) get_bloginfo('name');
+        $editorSiteUrl = home_url('/');
+        // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+        require \TrayDigita\WP\Plugin\Core\Core::pluginDir() . '/templates/admin/modules/email-builder.php';
+        ?>
     </section>
 
     <section class="email-module-panel" data-panel="newsletter">
@@ -301,14 +298,11 @@ declare(strict_types=1);
     'use strict';
     var ajaxUrl = <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>;
     var nonce = <?php echo wp_json_encode($adminNonce); ?>;
-    var templates = <?php echo wp_json_encode($templates); ?>;
     var root = document.querySelector('.email-module');
     if (!root) {
         return;
     }
     var messageEl = root.querySelector('.email-module-message');
-    var blocks = [];
-    var draggedIndex = -1;
 
     function showMessage(text, isError) {
         messageEl.textContent = text;
@@ -347,204 +341,15 @@ declare(strict_types=1);
         });
     });
 
-    /* Block builder. */
-    var listEl = root.querySelector('.email-block-list');
-    var emptyEl = root.querySelector('.email-block-list-empty');
-    var nameInput = root.querySelector('#email-template-name');
-    var idInput = root.querySelector('#email-template-id');
-    var previewFrame = root.querySelector('.email-preview-frame');
-
-    function defaultBlock(type) {
-        var base = { type: type, align: 'left' };
-        if (type === 'header') {
-            base.text = '';
-            base.subtitle = '';
-            base.background = '#0b6b3a';
-        }
-        if (type === 'text') {
-            base.content = '';
-        }
-        if (type === 'button') {
-            base.label = '';
-            base.url = '';
-            base.background = '#0b6b3a';
-        }
-        if (type === 'image') {
-            base.attachment_id = 0;
-            base.url = '';
-            base.alt = '';
-            base.link = '';
-            base.width = 600;
-        }
-        if (type === 'divider') {
-            base.style = 'solid';
-            base.color = '#dddddd';
-        }
-        if (type === 'footer') {
-            base.text = '';
-        }
-        return base;
-    }
-
-    function fieldInput(block, index, key, label, inputType) {
-        var value = block[key] === undefined || block[key] === null ? '' : String(block[key]);
-        return '<label class="email-block-field"><span>' + label + '</span>'
-            + '<input type="' + (inputType || 'text') + '" data-block-index="' + index
-            + '" data-block-key="' + key + '" value="' + value.replace(/"/g, '&quot;') + '" /></label>';
-    }
-
-    function renderBlocks() {
-        emptyEl.hidden = blocks.length > 0;
-        listEl.innerHTML = '';
-        blocks.forEach(function (block, index) {
-            var item = document.createElement('li');
-            item.className = 'email-block-item';
-            item.draggable = true;
-            item.dataset.index = String(index);
-            var fields = '';
-            if (block.type === 'header') {
-                fields += fieldInput(block, index, 'text', 'Heading');
-                fields += fieldInput(block, index, 'subtitle', 'Subtitle');
-                fields += fieldInput(block, index, 'background', 'Background', 'color');
-            } else if (block.type === 'text') {
-                fields += '<label class="email-block-field"><span>Content (HTML: p, b, strong, em, a, br)</span>'
-                    + '<textarea data-block-index="' + index + '" data-block-key="content" rows="3">'
-                    + String(block.content || '').replace(/</g, '&lt;') + '</textarea></label>';
-            } else if (block.type === 'button') {
-                fields += fieldInput(block, index, 'label', 'Label');
-                fields += fieldInput(block, index, 'url', 'URL', 'url');
-                fields += fieldInput(block, index, 'background', 'Background', 'color');
-            } else if (block.type === 'image') {
-                fields += fieldInput(block, index, 'attachment_id', 'Attachment ID', 'number');
-                fields += fieldInput(block, index, 'url', 'Image URL', 'url');
-                fields += fieldInput(block, index, 'alt', 'Alt text');
-                fields += fieldInput(block, index, 'link', 'Link URL', 'url');
-                fields += fieldInput(block, index, 'width', 'Width (px)', 'number');
-            } else if (block.type === 'divider') {
-                fields += '<label class="email-block-field"><span>Style</span><select data-block-index="'
-                    + index + '" data-block-key="style"><option value="solid"'
-                    + (block.style === 'solid' ? ' selected' : '') + '>Solid</option><option value="dashed"'
-                    + (block.style === 'dashed' ? ' selected' : '') + '>Dashed</option></select></label>';
-                fields += fieldInput(block, index, 'color', 'Colour', 'color');
-            } else if (block.type === 'footer') {
-                fields += fieldInput(block, index, 'text', 'Text');
-            }
-            if (block.type !== 'divider') {
-                fields += '<label class="email-block-field"><span>Alignment</span><select data-block-index="'
-                    + index + '" data-block-key="align"><option value="left"'
-                    + (block.align === 'left' ? ' selected' : '') + '>Left</option><option value="center"'
-                    + (block.align === 'center' ? ' selected' : '') + '>Center</option><option value="right"'
-                    + (block.align === 'right' ? ' selected' : '') + '>Right</option></select></label>';
-            }
-            item.innerHTML = '<div class="email-block-item-head"><span class="email-block-item-type">'
-                + block.type + '</span><span class="email-block-item-tools">'
-                + '<button type="button" data-move="-1" aria-label="Move up">&uarr;</button>'
-                + '<button type="button" data-move="1" aria-label="Move down">&darr;</button>'
-                + '<button type="button" data-delete="1" aria-label="Delete">&times;</button>'
-                + '</span></div><div class="email-block-item-fields">' + fields + '</div>';
-            listEl.appendChild(item);
-        });
-    }
-
-    listEl.addEventListener('input', function (event) {
-        var target = event.target;
-        var index = parseInt(target.dataset.blockIndex || '', 10);
-        var key = target.dataset.blockKey || '';
-        if (isNaN(index) || !key || !blocks[index]) {
-            return;
-        }
-        blocks[index][key] = (key === 'attachment_id' || key === 'width')
-            ? parseInt(target.value || '0', 10) : target.value;
-    });
-    listEl.addEventListener('change', function (event) {
-        var target = event.target;
-        var index = parseInt(target.dataset.blockIndex || '', 10);
-        var key = target.dataset.blockKey || '';
-        if (isNaN(index) || !key || !blocks[index]) {
-            return;
-        }
-        blocks[index][key] = target.value;
-    });
-    listEl.addEventListener('click', function (event) {
-        var button = event.target.closest('button');
-        if (!button) {
-            return;
-        }
-        var item = event.target.closest('.email-block-item');
-        if (!item) {
-            return;
-        }
-        var index = parseInt(item.dataset.index || '', 10);
-        if (button.dataset.delete) {
-            blocks.splice(index, 1);
-            renderBlocks();
-            return;
-        }
-        var move = parseInt(button.dataset.move || '0', 10);
-        if (move !== 0) {
-            var next = index + move;
-            if (next >= 0 && next < blocks.length) {
-                var moved = blocks.splice(index, 1)[0];
-                blocks.splice(next, 0, moved);
-                renderBlocks();
-            }
-        }
-    });
-    listEl.addEventListener('dragstart', function (event) {
-        var item = event.target.closest('.email-block-item');
-        if (!item) {
-            return;
-        }
-        draggedIndex = parseInt(item.dataset.index || '', 10);
-        event.dataTransfer.effectAllowed = 'move';
-    });
-    listEl.addEventListener('dragover', function (event) {
-        event.preventDefault();
-        event.dataTransfer.dropEffect = 'move';
-    });
-    listEl.addEventListener('drop', function (event) {
-        event.preventDefault();
-        var item = event.target.closest('.email-block-item');
-        if (!item || draggedIndex < 0) {
-            return;
-        }
-        var targetIndex = parseInt(item.dataset.index || '', 10);
-        var moved = blocks.splice(draggedIndex, 1)[0];
-        blocks.splice(targetIndex, 0, moved);
-        draggedIndex = -1;
-        renderBlocks();
-    });
-
-    root.querySelectorAll('.email-block-palette-item').forEach(function (button) {
-        button.addEventListener('click', function () {
-            blocks.push(defaultBlock(button.dataset.blockType));
-            renderBlocks();
-        });
-    });
-
-    function loadTemplate(id) {
-        var template = templates[id];
-        if (!template) {
-            return;
-        }
-        nameInput.value = template.name || '';
-        idInput.value = template.id || '';
-        blocks = JSON.parse(JSON.stringify(template.blocks || []));
-        renderBlocks();
-        showMessage('');
-    }
-
-    root.querySelectorAll('.email-template-load').forEach(function (button) {
-        button.addEventListener('click', function () {
-            loadTemplate(button.dataset.templateId);
-        });
-    });
+    /* Template list actions. Edit is handled by the
+     * WYSIWYG builder script (traydigita-email-builder.js). */
     root.querySelectorAll('.email-template-default').forEach(function (button) {
         button.addEventListener('click', function () {
             post('traydigita_email_set_default', { template_id: button.dataset.templateId })
                 .then(reloadAfterSuccess);
         });
     });
+
     root.querySelectorAll('.email-template-delete').forEach(function (button) {
         button.addEventListener('click', function () {
             if (!window.confirm('Delete template "' + button.dataset.templateName + '"?')) {
@@ -553,33 +358,6 @@ declare(strict_types=1);
             post('traydigita_email_delete_template', { template_id: button.dataset.templateId })
                 .then(reloadAfterSuccess);
         });
-    });
-
-    root.querySelector('.email-builder-preview').addEventListener('click', function () {
-        post('traydigita_email_preview', { blocks: JSON.stringify(blocks) }).then(function (result) {
-            if (result && result.success) {
-                previewFrame.srcdoc = result.data.html;
-            } else {
-                showMessage((result && result.data && result.data.message) || 'Error', true);
-            }
-        });
-    });
-    root.querySelector('.email-builder-save').addEventListener('click', function () {
-        if (!nameInput.value.trim()) {
-            showMessage('Please enter a template name.', true);
-            return;
-        }
-        post('traydigita_email_save_template', {
-            template: JSON.stringify({ id: idInput.value, name: nameInput.value, blocks: blocks })
-        }).then(reloadAfterSuccess);
-    });
-    root.querySelector('.email-builder-new').addEventListener('click', function () {
-        nameInput.value = '';
-        idInput.value = '';
-        blocks = [];
-        renderBlocks();
-        previewFrame.srcdoc = '';
-        showMessage('');
     });
 
     /* Newsletter send (chunked, 25 mails per request). */
@@ -662,6 +440,5 @@ declare(strict_types=1);
         });
     });
 
-    renderBlocks();
 })();
 </script>

@@ -44,7 +44,10 @@ use function wp_verify_nonce;
  *   hash_equals() only, and rate-limited per IP (10/hour).
  *
  * Endpoint reference (POST fields unless noted):
- * - traydigita_email_save_template: template (JSON string of one template)
+ * - traydigita_email_save_template: template (JSON string of one template), status ('published' | 'draft')
+ * - traydigita_email_autosave: template (JSON string of one template, blocks may be empty)
+ * - traydigita_email_get_autosave: template_id
+ * - traydigita_email_delete_autosave: template_id
  * - traydigita_email_set_default: template_id
  * - traydigita_email_delete_template: template_id
  * - traydigita_email_preview: blocks (JSON string of block list)
@@ -72,6 +75,9 @@ final class EmailAjax
     public static function register(): void
     {
         add_action('wp_ajax_traydigita_email_save_template', [self::class, 'saveTemplate']);
+        add_action('wp_ajax_traydigita_email_autosave', [self::class, 'autosaveTemplate']);
+        add_action('wp_ajax_traydigita_email_get_autosave', [self::class, 'getAutosave']);
+        add_action('wp_ajax_traydigita_email_delete_autosave', [self::class, 'deleteAutosave']);
         add_action('wp_ajax_traydigita_email_set_default', [self::class, 'setDefault']);
         add_action('wp_ajax_traydigita_email_delete_template', [self::class, 'deleteTemplate']);
         add_action('wp_ajax_traydigita_email_preview', [self::class, 'previewTemplate']);
@@ -136,9 +142,11 @@ final class EmailAjax
     /**
      * Create or update a template.
      *
-     * POST: template (JSON string of one template: id, name, blocks).
-     * The template is sanitized by TemplateBuilder; invalid input is
-     * rejected with a 400 error.
+     * POST: template (JSON string of one template: id, name, blocks),
+     * status ('published' or 'draft', default 'published'). The
+     * template is sanitized by TemplateBuilder; invalid input is
+     * rejected with a 400 error. A draft is editable but never
+     * sent; a published save clears the template's autosave row.
      *
      * @return void
      */
@@ -150,11 +158,83 @@ final class EmailAjax
         if ($template === null) {
             wp_send_json_error(['message' => esc_html__('The template needs a name and at least one block.', 'traydigita-core')], 400);
         }
-        $saved = TemplateBuilder::saveTemplate($template);
+        $status = self::postString('status');
+        if ($status !== TemplateStore::STATUS_DRAFT && $status !== TemplateStore::STATUS_PUBLISHED) {
+            $status = TemplateStore::STATUS_PUBLISHED;
+        }
+        $saved = TemplateBuilder::saveTemplate($template, $status);
         wp_send_json_success([
             'template' => $saved,
+            'status' => $status,
             'message' => esc_html__('Template saved.', 'traydigita-core'),
         ]);
+    }
+
+    /**
+     * Autosave the in-progress editor state of a template.
+     *
+     * POST: template (JSON string of one template: id, name,
+     * blocks). Unlike a publish save, empty blocks are allowed:
+     * the editor autosaves while the user is still typing. When
+     * the template has no id yet, a draft parent row is created
+     * first and its id is returned. Drafts are never sent.
+     *
+     * @return void
+     */
+    public static function autosaveTemplate(): void
+    {
+        self::authorizeAdmin();
+        $decoded = json_decode(self::postRaw('template'), true);
+        if (!is_array($decoded)) {
+            wp_send_json_error(['message' => esc_html__('No template to autosave.', 'traydigita-core')], 400);
+        }
+        $saved = TemplateBuilder::saveAutosave($decoded);
+        if ($saved === null) {
+            wp_send_json_error(['message' => esc_html__('Could not autosave the template.', 'traydigita-core')], 400);
+        }
+        wp_send_json_success($saved);
+    }
+
+    /**
+     * Read the autosave of a template, with its freshness.
+     *
+     * POST: template_id. Returns {autosave: {template,
+     * updated_at, parent_updated_at, is_newer} | null}. The
+     * editor offers a restore only when is_newer is true.
+     *
+     * @return void
+     */
+    public static function getAutosave(): void
+    {
+        self::authorizeAdmin();
+        $id = sanitize_key(self::postString('template_id'));
+        if ($id === '') {
+            wp_send_json_error(['message' => esc_html__('Missing template.', 'traydigita-core')], 400);
+        }
+        $autosave = TemplateBuilder::getAutosave($id);
+        wp_send_json_success([
+            'autosave' => $autosave,
+            'is_newer' => $autosave !== null && $autosave['is_newer'],
+        ]);
+    }
+
+    /**
+     * Delete the autosave of a template.
+     *
+     * POST: template_id. Used when the editor discards a
+     * restore offer.
+     *
+     * @return void
+     */
+    public static function deleteAutosave(): void
+    {
+        self::authorizeAdmin();
+        $id = sanitize_key(self::postString('template_id'));
+        if ($id === '') {
+            wp_send_json_error(['message' => esc_html__('Missing template.', 'traydigita-core')], 400);
+        }
+        TemplateBuilder::deleteAutosave($id);
+        wp_send_json_success(['message' => esc_html__('Autosave discarded.', 'traydigita-core')]);
     }
 
     /**

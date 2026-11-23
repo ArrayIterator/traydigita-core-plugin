@@ -1,0 +1,415 @@
+/* TrayDigita WYSIWYG email template builder.
+ *
+ * Plain CSS, no build step (same pattern as
+ * traydigita-modal.css): versioned with Core::VERSION and
+ * enqueued only on the Email and Form Builder pages.
+ * The canvas mirrors the email renderer: a 600px white
+ * sheet on a grey page, blocks styled with the same
+ * padding, colours and type scale TemplateBuilder uses,
+ * so what the admin edits is what subscribers receive.
+ */
+
+.td-email-builder {
+    --td-eb-green: #0b6b3a;
+    --td-eb-green-dark: #095830;
+    --td-eb-border: #dcdcde;
+    --td-eb-muted: #646970;
+    --td-eb-danger: #b32d2e;
+    box-sizing: border-box;
+}
+
+.td-email-builder *,
+.td-email-builder *::before,
+.td-email-builder *::after {
+    box-sizing: border-box;
+}
+
+.td-eb-message {
+    margin: 0 0 12px;
+    min-height: 1.4em;
+    font-size: 13px;
+    color: var(--td-eb-muted);
+}
+
+.td-eb-message.is-error {
+    color: var(--td-eb-danger);
+}
+
+.td-eb-message.is-ok {
+    color: var(--td-eb-green);
+}
+
+/* Restore banner (a newer autosave exists). */
+.td-eb-restore {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border: 1px solid #dba617;
+    border-left-width: 4px;
+    border-radius: 4px;
+    background: #fcf9e8;
+    font-size: 13px;
+}
+
+.td-eb-restore[hidden] {
+    display: none;
+}
+
+.td-eb-restore-text {
+    flex: 1 1 auto;
+    min-width: 200px;
+}
+
+/* Add-block palette. */
+.td-eb-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 16px;
+}
+
+.td-eb-palette-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 6px 12px;
+    border: 1px solid var(--td-eb-border);
+    border-radius: 4px;
+    background: #fff;
+    color: #1d2327;
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.td-eb-palette-item:hover,
+.td-eb-palette-item:focus-visible {
+    border-color: var(--td-eb-green);
+    color: var(--td-eb-green);
+    outline: none;
+}
+
+.td-eb-palette-item::before {
+    content: "+";
+    font-weight: 700;
+    color: var(--td-eb-green);
+}
+
+/* Workspace: canvas + inspector. */
+.td-eb-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 16px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .td-eb-workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Canvas: the live email sheet. */
+.td-eb-canvas-wrap {
+    padding: 16px 12px 24px;
+    border: 1px solid var(--td-eb-border);
+    border-radius: 6px;
+    background: #f5f5f5;
+}
+
+.td-eb-canvas {
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.td-eb-empty {
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--td-eb-muted);
+    font-size: 14px;
+}
+
+/* One editable block. */
+.td-eb-block {
+    position: relative;
+    cursor: pointer;
+}
+
+.td-eb-block:hover {
+    outline: 1px dashed #8c8f94;
+    outline-offset: -1px;
+}
+
+.td-eb-block.is-selected {
+    outline: 2px solid var(--td-eb-green);
+    outline-offset: -2px;
+}
+
+.td-eb-block.is-dragging {
+    opacity: 0.5;
+}
+
+.td-eb-block.is-drop-target {
+    outline: 2px dashed var(--td-eb-green);
+    outline-offset: -2px;
+}
+
+/* Per-block toolbar (editor chrome, never sent). */
+.td-eb-block-toolbar {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    background: #f6f7f7;
+    font-size: 12px;
+    color: var(--td-eb-muted);
+}
+
+.td-eb-block.is-selected .td-eb-block-toolbar,
+.td-eb-block:hover .td-eb-block-toolbar {
+    display: flex;
+}
+
+.td-eb-block-type {
+    margin-right: auto;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #1d2327;
+}
+
+.td-eb-block-drag {
+    cursor: grab;
+    color: var(--td-eb-muted);
+    font-size: 14px;
+    line-height: 1;
+    touch-action: none;
+}
+
+.td-eb-block-tool {
+    min-width: 28px;
+    min-height: 28px;
+    padding: 2px 6px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    color: #1d2327;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.td-eb-block-tool:hover,
+.td-eb-block-tool:focus-visible {
+    border-color: var(--td-eb-border);
+    background: #fff;
+    outline: none;
+}
+
+.td-eb-block-tool.is-active {
+    border-color: var(--td-eb-green);
+    background: #e6f4ea;
+    color: var(--td-eb-green);
+    font-weight: 600;
+}
+
+.td-eb-block-tool.is-danger:hover {
+    border-color: var(--td-eb-danger);
+    color: var(--td-eb-danger);
+}
+
+/* Editable text inside blocks. */
+.td-eb-editable {
+    outline: none;
+    overflow-wrap: break-word;
+}
+
+.td-eb-editable:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(255, 255, 255, 0.65);
+    pointer-events: none;
+}
+
+.td-eb-editable--dark:empty::before {
+    color: #a7aaad;
+}
+
+.td-eb-block:focus-within .td-eb-editable {
+    outline: none;
+}
+
+/* Text-block formatting toolbar. */
+.td-eb-formatbar {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.td-eb-block.is-selected .td-eb-formatbar {
+    display: flex;
+}
+
+.td-eb-formatbar input[type="url"] {
+    min-width: 180px;
+    flex: 1 1 auto;
+}
+
+/* Image placeholder. */
+.td-eb-image-empty {
+    padding: 28px 24px;
+    border: 2px dashed var(--td-eb-border);
+    border-radius: 4px;
+    text-align: center;
+    color: var(--td-eb-muted);
+    font-size: 13px;
+}
+
+.td-eb-image-empty p {
+    margin: 0 0 10px;
+}
+
+.td-eb-image-preview {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+/* Inspector. */
+.td-eb-inspector {
+    padding: 12px;
+    border: 1px solid var(--td-eb-border);
+    border-radius: 6px;
+    background: #fff;
+}
+
+.td-eb-inspector h3 {
+    margin: 0 0 4px;
+    font-size: 13px;
+}
+
+.td-eb-inspector-desc {
+    margin: 0 0 12px;
+    color: var(--td-eb-muted);
+    font-size: 12px;
+}
+
+.td-eb-field {
+    display: block;
+    margin: 0 0 12px;
+}
+
+.td-eb-field > span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.td-eb-field input[type="text"],
+.td-eb-field input[type="url"],
+.td-eb-field input[type="number"],
+.td-eb-field select {
+    width: 100%;
+    max-width: 100%;
+}
+
+.td-eb-field-row {
+    display: flex;
+    gap: 8px;
+    align-items: end;
+}
+
+.td-eb-field-row .td-eb-field {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.td-eb-field-row .button {
+    flex: 0 0 auto;
+}
+
+.td-eb-align {
+    display: inline-flex;
+    border: 1px solid var(--td-eb-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.td-eb-align button {
+    min-width: 36px;
+    min-height: 30px;
+    padding: 4px 8px;
+    border: 0;
+    border-right: 1px solid var(--td-eb-border);
+    background: #fff;
+    color: #1d2327;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.td-eb-align button:last-child {
+    border-right: 0;
+}
+
+.td-eb-align button.is-active {
+    background: var(--td-eb-green);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Actions + exact preview. */
+.td-eb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.td-eb-preview-wrap {
+    margin: 16px 0 0;
+}
+
+.td-eb-preview-wrap h3 {
+    margin: 0 0 4px;
+    font-size: 13px;
+}
+
+.td-eb-preview-note {
+    margin: 0 0 8px;
+    color: var(--td-eb-muted);
+    font-size: 12px;
+}
+
+.td-eb-preview-frame {
+    width: 100%;
+    height: 480px;
+    border: 1px solid var(--td-eb-border);
+    border-radius: 6px;
+    background: #fff;
+}
+
+@media (max-width: 600px) {
+    .td-eb-canvas-wrap {
+        padding: 12px 8px 20px;
+    }
+
+    .td-eb-preview-frame {
+        height: 380px;
+    }
+}

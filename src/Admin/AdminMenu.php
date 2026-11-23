@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Admin;
 
 use TrayDigita\WP\Plugin\Core\Core;
+use TrayDigita\WP\Plugin\Core\Modules\Email\EmailModule;
+use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 use TrayDigita\WP\Plugin\Core\Modules\MemberArea\MemberAreaModule;
 use function __;
 use function add_action;
@@ -251,6 +253,12 @@ final class AdminMenu
             return;
         }
         Core::assets()->enqueueAdminEntry();
+        $page = isset($_GET['page']) && is_string($_GET['page']) ? $_GET['page'] : '';
+        if ($page === EmailModule::settingsPageSlug()
+            || $page === FormBuilderModule::settingsPageSlug()
+        ) {
+            Core::assets()->enqueueEmailBuilderAssets();
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
 use TrayDigita\WP\Plugin\Core\Core;
 use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
+use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateStore;
 use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\RecaptchaModule;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\TurnstileModule;
 use function __;
@@ -530,6 +531,7 @@ final class FormBuilderModule implements ModuleInterface
         $editingFormId = isset($_GET['form']) ? sanitize_key((string) wp_unslash($_GET['form'])) : '';
         $editingTemplateId = isset($_GET['template']) ? sanitize_key((string) wp_unslash($_GET['template'])) : '';
         // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable -- Variables are consumed by the required template partial below, in the same scope.
+        $allTemplates = TemplateBuilder::getTemplates(TemplateStore::TYPE_EMAIL, null);
         $editingForm = $editingFormId !== '' ? ($forms[$editingFormId] ?? null) : null;
         $editingTemplate = $editingTemplateId !== '' ? ($templates[$editingTemplateId] ?? null) : null;
         $adminNonce = wp_create_nonce(self::NONCE_ACTION);
@@ -790,11 +792,20 @@ final class FormBuilderModule implements ModuleInterface
     /**
      * Map posted editor rows to shared flat blocks.
      *
-     * One posted row carries type, text (header/text/footer text
-     * or image alt text), label and url (button link or image
-     * click-through link) and image_url (image source). Empty
-     * rows are kept here; TemplateBuilder::sanitizeTemplate()
-     * drops them.
+     * Two shapes are accepted. The old table editor posted one
+     * flat row per block (type, text, label, url, image_url);
+     * the WYSIWYG editor posts the flat-block shape itself
+     * (type, text/content, label, url, align, background,
+     * style, color, attachment_id, width, alt, link, subtitle).
+     * Both are mapped to the shared flat-block shape and
+     * sanitized by TemplateBuilder. Empty rows are kept here;
+     * TemplateBuilder::sanitizeTemplate() drops them.
+     *
+     * Note: rows arriving through the shell's generic save are
+     * deep-sanitized first (AdminAjax::deepSanitize()), so block
+     * HTML and line breaks do not survive that path — the
+     * WYSIWYG editor saves through the Email AJAX endpoints
+     * instead, which keep them intact.
      *
      * @param array<int, mixed>|null $rows Posted block rows.
      * @return list<array<string, mixed>>
@@ -811,16 +822,34 @@ final class FormBuilderModule implements ModuleInterface
             }
             $type = sanitize_key((string) ($row['type'] ?? ''));
             $text = isset($row['text']) && is_string($row['text']) ? $row['text'] : '';
+            if ($text === '' && isset($row['content']) && is_string($row['content'])) {
+                $text = $row['content'];
+            }
             $label = isset($row['label']) && is_string($row['label']) ? $row['label'] : '';
             $url = isset($row['url']) && is_string($row['url']) ? $row['url'] : '';
             $imageUrl = isset($row['image_url']) && is_string($row['image_url']) ? $row['image_url'] : '';
+            if ($imageUrl === '' && $type === 'image' && $url !== '') {
+                $imageUrl = $url;
+            }
+            // Flat-shape extras (ignored by the old table rows).
+            $flat = [];
+            foreach (['align', 'background', 'style', 'color', 'subtitle', 'alt', 'link'] as $key) {
+                if (isset($row[$key]) && is_string($row[$key])) {
+                    $flat[$key] = $row[$key];
+                }
+            }
+            foreach (['attachment_id', 'width'] as $key) {
+                if (isset($row[$key]) && is_numeric($row[$key])) {
+                    $flat[$key] = (int) $row[$key];
+                }
+            }
             $blocks[] = match ($type) {
-                'header' => ['type' => 'header', 'text' => $text],
-                'text' => ['type' => 'text', 'content' => $text],
-                'button' => ['type' => 'button', 'label' => $label, 'url' => $url],
-                'image' => ['type' => 'image', 'url' => $imageUrl, 'alt' => $text, 'link' => $url],
-                'divider' => ['type' => 'divider'],
-                'footer' => ['type' => 'footer', 'text' => $text],
+                'header' => array_merge(['type' => 'header', 'text' => $text], $flat),
+                'text' => array_merge(['type' => 'text', 'content' => $text], $flat),
+                'button' => array_merge(['type' => 'button', 'label' => $label, 'url' => $url], $flat),
+                'image' => array_merge(['type' => 'image', 'url' => $imageUrl, 'alt' => $text, 'link' => $url], $flat),
+                'divider' => array_merge(['type' => 'divider'], $flat),
+                'footer' => array_merge(['type' => 'footer', 'text' => $text], $flat),
                 default => ['type' => $type, 'text' => $text],
             };
         }

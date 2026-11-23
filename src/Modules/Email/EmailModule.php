@@ -291,6 +291,7 @@ final class EmailModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
     {
         // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable -- Variables are consumed by the required template partial below, in the same scope.
         $templates = TemplateBuilder::getTemplates();
+        $allTemplates = TemplateBuilder::getTemplates(TemplateStore::TYPE_EMAIL, null);
         $defaultId = TemplateBuilder::getDefaultId();
         $newsletterSettings = Newsletter::getSettings();
         $subscribers = Newsletter::getSubscribers();

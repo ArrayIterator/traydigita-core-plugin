@@ -14,6 +14,7 @@ use function esc_url_raw;
 use function file_exists;
 use function function_exists;
 use function get_bloginfo;
+use function get_current_user_id;
 use function get_option;
 use function home_url;
 use function implode;
@@ -52,9 +53,22 @@ use function wp_kses;
  * - divider: style (solid|dashed), color (hex colour)
  * - footer:  text, align (left|center|right)
  *
- * All templates live in the single option 'traydigita_email_templates'
- * (autoload 'no') as ['templates' => [id => template], 'default_id' => string].
+ * All templates live in the generic templates table
+ * (`{$wpdb->prefix}traydigita_templates`, see TemplateStore)
+ * as type='email' rows — never in an option, so a large
+ * template library cannot bloat the options blob. The old
+ * option store ('traydigita_email_templates') is migrated
+ * into the table once, on first read, by ensureMigrated();
+ * the old option is kept afterwards as a read-only backup
+ * and is never written again.
  *
+ * Statuses are post-type-like: 'published' rows are live
+ * (the only ones the send paths read), 'draft' rows are
+ * editable but never sent, and 'autosave' rows hold
+ * in-progress editor state (one per template, parented to
+ * its template row). The public methods below default to
+ * type='email', status='published', so existing callers
+ * (Newsletter, FormBuilder) keep working unchanged.
  * This is the ONE shared builder and store for every email template
  * in the plugin: the Newsletter (Email module) and the Contact Form
  * notification mail (via the FormBuilder module) both read and write
@@ -98,6 +112,70 @@ final class TemplateBuilder
      * @var bool
      */
     private static bool $migrationAttempted = false;
+
+    /**
+     * Whether the option-to-table migration has already run in
+     * this request.
+     *
+     * @var bool
+     */
+    private static bool $tableMigrationAttempted = false;
+
+    /**
+     * Run the one-time option-to-table migration (if needed).
+     *
+     * Order matters: the legacy FormBuilder migration runs
+     * first, so legacy templates merged into the shared store
+     * land in the table too; then the option store itself is
+     * imported. Afterwards the old option is never read for
+     * templates again (except by migrateLegacyTemplates() on
+     * its own first run, which the flag makes a no-op).
+     *
+     * @return void
+     */
+    private static function ensureMigrated(): void
+    {
+        if (self::$tableMigrationAttempted) {
+            return;
+        }
+        self::$tableMigrationAttempted = true;
+        self::migrateLegacyTemplates();
+        TemplateStore::ensureTableExists();
+        if (TemplateStore::isTableMigrated()) {
+            return;
+        }
+        $stored = get_option(self::OPTION_TEMPLATES, []);
+        $templates = is_array($stored) ? ($stored['templates'] ?? []) : [];
+        $defaultId = is_array($stored) ? ($stored['default_id'] ?? '') : '';
+        TemplateStore::migrateFromOption(
+            is_array($templates) ? $templates : [],
+            is_string($defaultId) ? sanitize_key($defaultId) : ''
+        );
+    }
+
+    /**
+     * Map one store row to the public template shape.
+     *
+     * The public shape is unchanged from the option era:
+     * id (the row slug), name, blocks, created_at (Unix).
+     * The row id, status and default flag are attached for
+     * callers that need them (editor, autosave).
+     *
+     * @param array<string, mixed> $row Decoded store row.
+     * @return array<string, mixed>
+     */
+    private static function rowToTemplate(array $row): array
+    {
+        return [
+            'id' => (string) ($row['slug'] ?? ''),
+            'name' => (string) ($row['name'] ?? ''),
+            'blocks' => is_array($row['blocks'] ?? null) ? $row['blocks'] : [],
+            'created_at' => (int) ($row['created_at_ts'] ?? 0),
+            'row_id' => (int) ($row['id'] ?? 0),
+            'status' => (string) ($row['status'] ?? TemplateStore::STATUS_PUBLISHED),
+            'is_default' => !empty($row['is_default']),
+        ];
+    }
 
     /**
      * Marker comment included in every rendered template.
@@ -145,81 +223,118 @@ final class TemplateBuilder
     public const string DEFAULT_COLOR = '#0b6b3a';
 
     /**
-     * Read the raw templates option.
+     * Read the published email templates in the legacy shape.
      *
-     * Runs the one-time legacy migration first, so any caller
-     * that reads templates also triggers the import of the old
-     * FormBuilder store (see migrateLegacyTemplates()).
+     * Runs the one-time option-to-table migration first, so any
+     * caller that reads templates also triggers the import of
+     * the old option store. The shape is unchanged from the
+     * option era: ['templates' => [id => template],
+     * 'default_id' => string].
      *
      * @return array{templates: array<string, array<string, mixed>>, default_id: string}
      */
     public static function getStored(): array
     {
-        self::migrateLegacyTemplates();
-        $stored = get_option(self::OPTION_TEMPLATES, []);
-        if (!is_array($stored)) {
-            return ['templates' => [], 'default_id' => ''];
-        }
-        $templates = $stored['templates'] ?? [];
-        $defaultId = $stored['default_id'] ?? '';
-        if (!is_array($templates)) {
-            $templates = [];
+        self::ensureMigrated();
+        $rows = TemplateStore::getRows(TemplateStore::TYPE_EMAIL, TemplateStore::STATUS_PUBLISHED);
+        $templates = [];
+        foreach ($rows as $slug => $row) {
+            $template = self::rowToTemplate($row);
+            unset($template['row_id'], $template['status'], $template['is_default']);
+            $templates[$slug] = $template;
         }
         return [
             'templates' => $templates,
-            'default_id' => is_string($defaultId) ? sanitize_key($defaultId) : '',
+            'default_id' => TemplateStore::getDefaultSlug(TemplateStore::TYPE_EMAIL),
         ];
     }
 
     /**
      * Get all templates, keyed by id.
      *
+     * Defaults to published email templates — the live set
+     * every existing caller expects. Pass another type (for
+     * example 'maintenance' once MUST-10 moves it) or a status
+     * ('draft', 'published', or null for every non-autosave
+     * status) to read a different slice. Drafts are never in
+     * the default result, so a draft can never be sent.
+     *
+     * @param string $type Template type.
+     * @param string|null $status Status filter ('published' by default).
      * @return array<string, array<string, mixed>>
      */
-    public static function getTemplates(): array
-    {
-        return self::getStored()['templates'];
+    public static function getTemplates(
+        string $type = TemplateStore::TYPE_EMAIL,
+        ?string $status = TemplateStore::STATUS_PUBLISHED
+    ): array {
+        self::ensureMigrated();
+        $rows = TemplateStore::getRows($type, $status);
+        $templates = [];
+        foreach ($rows as $slug => $row) {
+            $templates[$slug] = self::rowToTemplate($row);
+        }
+        return $templates;
     }
 
     /**
-     * Get one template by id, or null when it does not exist.
+     * Get one template by id (slug), or null when it does not exist.
      *
-     * @param string $id Template id.
+     * Defaults to published email templates; the type and
+     * status filters match getTemplates().
+     *
+     * @param string $id Template id (slug).
+     * @param string $type Template type.
+     * @param string|null $status Status filter ('published' by default).
      * @return array<string, mixed>|null
      */
-    public static function getTemplate(string $id): ?array
-    {
-        $templates = self::getTemplates();
-        $template = $templates[sanitize_key($id)] ?? null;
-        return is_array($template) ? $template : null;
+    public static function getTemplate(
+        string $id,
+        string $type = TemplateStore::TYPE_EMAIL,
+        ?string $status = TemplateStore::STATUS_PUBLISHED
+    ): ?array {
+        self::ensureMigrated();
+        $row = TemplateStore::getRow($type, sanitize_key($id), $status);
+        return $row === null ? null : self::rowToTemplate($row);
     }
 
     /**
      * Get the default template, or null when none is marked default.
      *
+     * The default is always a published row of the type.
+     *
+     * @param string $type Template type.
      * @return array<string, mixed>|null
      */
-    public static function getDefaultTemplate(): ?array
+    public static function getDefaultTemplate(string $type = TemplateStore::TYPE_EMAIL): ?array
     {
-        $stored = self::getStored();
-        if ($stored['default_id'] === '') {
+        self::ensureMigrated();
+        $slug = TemplateStore::getDefaultSlug($type);
+        if ($slug === '') {
             return null;
         }
-        return self::getTemplate($stored['default_id']);
+        return self::getTemplate($slug, $type, TemplateStore::STATUS_PUBLISHED);
     }
 
     /**
      * Get the default template id (empty string when none).
      *
+     * @param string $type Template type.
      * @return string
      */
-    public static function getDefaultId(): string
+    public static function getDefaultId(string $type = TemplateStore::TYPE_EMAIL): string
     {
-        return self::getStored()['default_id'];
+        self::ensureMigrated();
+        return TemplateStore::getDefaultSlug($type);
     }
 
     /**
-     * Persist the whole templates option.
+     * Persist the whole published email set.
+     *
+     * Table form of the old whole-option save: every template
+     * is upserted as a published row, published rows missing
+     * from the set are deleted, and the default flag is set
+     * exactly from $defaultId. Draft and autosave rows are
+     * never touched. The old option is NOT written.
      *
      * @param array<string, array<string, mixed>> $templates Templates keyed by id.
      * @param string $defaultId Id of the default template.
@@ -227,10 +342,11 @@ final class TemplateBuilder
      */
     public static function saveStored(array $templates, string $defaultId): void
     {
-        update_option(
-            self::OPTION_TEMPLATES,
-            ['templates' => $templates, 'default_id' => sanitize_key($defaultId)],
-            false
+        self::ensureMigrated();
+        TemplateStore::replacePublishedRows(
+            TemplateStore::TYPE_EMAIL,
+            $templates,
+            sanitize_key($defaultId)
         );
     }
 
@@ -388,58 +504,226 @@ final class TemplateBuilder
     /**
      * Create or update a template and persist it.
      *
+     * Defaults to a published row (the historical behaviour:
+     * a saved template is live). Pass 'draft' to save an
+     * editable row that is never sent. A published save also
+     * clears the template's autosave row: publishing is the
+     * promotion of the in-progress edits into the live row.
+     *
      * @param array<string, mixed> $template Sanitized template.
+     * @param string $status Row status ('published' or 'draft').
+     * @param string $type Template type.
      * @return array<string, mixed> The stored template.
      */
-    public static function saveTemplate(array $template): array
-    {
-        $stored = self::getStored();
-        $templates = $stored['templates'];
-        $existing = $templates[$template['id']] ?? null;
-        if (is_array($existing) && isset($existing['created_at'])) {
-            $template['created_at'] = (int) $existing['created_at'];
+    public static function saveTemplate(
+        array $template,
+        string $status = TemplateStore::STATUS_PUBLISHED,
+        string $type = TemplateStore::TYPE_EMAIL
+    ): array {
+        self::ensureMigrated();
+        if ($status !== TemplateStore::STATUS_DRAFT && $status !== TemplateStore::STATUS_PUBLISHED) {
+            $status = TemplateStore::STATUS_PUBLISHED;
         }
-        $templates[$template['id']] = $template;
-        self::saveStored($templates, $stored['default_id']);
+        $id = sanitize_key((string) ($template['id'] ?? ''));
+        $existing = $id !== '' ? TemplateStore::getRow($type, $id, null) : null;
+        if ($existing !== null && isset($existing['created_at_ts'])) {
+            $template['created_at'] = (int) $existing['created_at_ts'];
+        }
+        $authorId = function_exists('get_current_user_id') ? (int) get_current_user_id() : 0;
+        $stored = TemplateStore::upsertRow(
+            $type,
+            $id,
+            (string) ($template['name'] ?? ''),
+            $status,
+            is_array($template['blocks'] ?? null) ? $template['blocks'] : [],
+            null,
+            null,
+            $authorId
+        );
+        if ($stored !== null && $status === TemplateStore::STATUS_PUBLISHED) {
+            TemplateStore::deleteAutosave($type, (int) $stored['id']);
+        }
+        if ($stored !== null) {
+            $template['created_at'] = (int) $stored['created_at_ts'];
+        }
         return $template;
     }
 
     /**
      * Delete a template by id. Clears the default pointer when needed.
      *
+     * Hard-deletes the row and its autosave row (the historical
+     * behaviour). A deleted default leaves no default behind.
+     *
      * @param string $id Template id.
+     * @param string $type Template type.
      * @return bool True when a template was deleted.
      */
-    public static function deleteTemplate(string $id): bool
+    public static function deleteTemplate(string $id, string $type = TemplateStore::TYPE_EMAIL): bool
     {
-        $stored = self::getStored();
-        $id = sanitize_key($id);
-        if (!isset($stored['templates'][$id])) {
-            return false;
-        }
-        unset($stored['templates'][$id]);
-        if ($stored['default_id'] === $id) {
-            $stored['default_id'] = '';
-        }
-        self::saveStored($stored['templates'], $stored['default_id']);
-        return true;
+        self::ensureMigrated();
+        return TemplateStore::deleteRow($type, sanitize_key($id));
     }
 
     /**
      * Mark a template as the default template.
      *
+     * Only a published row can become the default of its type.
+     *
      * @param string $id Template id.
+     * @param string $type Template type.
      * @return bool True when the template exists and was marked default.
      */
-    public static function setDefault(string $id): bool
+    public static function setDefault(string $id, string $type = TemplateStore::TYPE_EMAIL): bool
     {
-        $stored = self::getStored();
-        $id = sanitize_key($id);
-        if (!isset($stored['templates'][$id])) {
+        self::ensureMigrated();
+        return TemplateStore::setDefault($type, sanitize_key($id));
+    }
+
+    /**
+     * Write the autosave row of a template.
+     *
+     * The autosave carries sanitized blocks (empty blocks are
+     * allowed here, unlike a publish save) and the template
+     * name. When the template has no id yet, a draft parent row
+     * is created first and its id is returned, so the editor
+     * can keep autosaving against it. Publishing (a published
+     * saveTemplate) clears the autosave row.
+     *
+     * @param array<string, mixed> $template Template data (id, name, blocks).
+     * @param string $type Template type.
+     * @return array{id: string, updated_at: int}|null Null when the write failed.
+     */
+    public static function saveAutosave(array $template, string $type = TemplateStore::TYPE_EMAIL): ?array
+    {
+        self::ensureMigrated();
+        $id = sanitize_key((string) ($template['id'] ?? ''));
+        $name = sanitize_text_field((string) ($template['name'] ?? ''));
+        $blocks = [];
+        $rawBlocks = $template['blocks'] ?? [];
+        if (is_array($rawBlocks)) {
+            foreach (array_values($rawBlocks) as $rawBlock) {
+                $block = self::sanitizeBlock($rawBlock);
+                if ($block !== null) {
+                    $blocks[] = $block;
+                }
+            }
+        }
+        $authorId = function_exists('get_current_user_id') ? (int) get_current_user_id() : 0;
+        $parent = $id !== '' ? TemplateStore::getRow($type, $id, null) : null;
+        if ($parent === null) {
+            if ($id === '') {
+                $id = 'tpl_' . sanitize_key(uniqid());
+            }
+            $parent = TemplateStore::upsertRow(
+                $type,
+                $id,
+                $name !== '' ? $name : __('Untitled template', 'traydigita-core'),
+                TemplateStore::STATUS_DRAFT,
+                $blocks,
+                false,
+                null,
+                $authorId
+            );
+            if ($parent === null) {
+                return null;
+            }
+        }
+        $autosave = TemplateStore::saveAutosave(
+            $type,
+            (int) $parent['id'],
+            $id,
+            $name,
+            $blocks,
+            $authorId
+        );
+        if ($autosave === null) {
+            return null;
+        }
+        return ['id' => $id, 'updated_at' => (int) $autosave['updated_at_ts']];
+    }
+
+    /**
+     * Read the autosave of a template, with its freshness.
+     *
+     * Returns null when there is no autosave. The `is_newer`
+     * flag is true when the autosave holds changes the parent
+     * row does not (later timestamp, or different content):
+     * the editor offers a restore only when it is true.
+     *
+     * @param string $id Template id.
+     * @param string $type Template type.
+     * @return array{template: array<string, mixed>, updated_at: int, parent_updated_at: int, is_newer: bool}|null
+     */
+    public static function getAutosave(string $id, string $type = TemplateStore::TYPE_EMAIL): ?array
+    {
+        self::ensureMigrated();
+        $parent = TemplateStore::getRow($type, sanitize_key($id), null);
+        if ($parent === null) {
+            return null;
+        }
+        $autosave = TemplateStore::getAutosave($type, (int) $parent['id']);
+        if ($autosave === null) {
+            return null;
+        }
+        // "Newer" means the autosave holds changes the parent
+        // row does not: a later timestamp, or different content.
+        // The timestamp alone is not enough — DATETIME has
+        // one-second precision, so an autosave written in the
+        // same second as the parent save would compare equal
+        // even when its content differs.
+        $autoBlocks = is_array($autosave['blocks'] ?? null) ? $autosave['blocks'] : [];
+        $parentBlocks = is_array($parent['blocks'] ?? null) ? $parent['blocks'] : [];
+        $isNewer = (int) $autosave['updated_at_ts'] > (int) $parent['updated_at_ts']
+            || $autoBlocks !== $parentBlocks
+            || (string) ($autosave['name'] ?? '') !== (string) ($parent['name'] ?? '');
+        return [
+            'template' => self::rowToTemplate($autosave),
+            'updated_at' => (int) $autosave['updated_at_ts'],
+            'parent_updated_at' => (int) $parent['updated_at_ts'],
+            'is_newer' => $isNewer,
+        ];
+    }
+
+    /**
+     * Delete the autosave of a template.
+     *
+     * @param string $id Template id.
+     * @param string $type Template type.
+     * @return bool True when an autosave row was deleted.
+     */
+    public static function deleteAutosave(string $id, string $type = TemplateStore::TYPE_EMAIL): bool
+    {
+        self::ensureMigrated();
+        $parent = TemplateStore::getRow($type, sanitize_key($id), null);
+        if ($parent === null) {
             return false;
         }
-        self::saveStored($stored['templates'], $id);
-        return true;
+        return TemplateStore::deleteAutosave($type, (int) $parent['id']);
+    }
+
+    /**
+     * Promote an autosave into its template row and publish it.
+     *
+     * The autosave content (name + blocks) becomes the published
+     * template, and the autosave row is cleared. Returns the
+     * published template, or null when there is no autosave.
+     *
+     * @param string $id Template id.
+     * @param string $type Template type.
+     * @return array<string, mixed>|null
+     */
+    public static function publishAutosave(string $id, string $type = TemplateStore::TYPE_EMAIL): ?array
+    {
+        self::ensureMigrated();
+        $autosave = self::getAutosave($id, $type);
+        if ($autosave === null) {
+            return null;
+        }
+        $template = $autosave['template'];
+        $template['id'] = sanitize_key($id);
+        $saved = self::saveTemplate($template, TemplateStore::STATUS_PUBLISHED, $type);
+        return $saved;
     }
 
     /**
@@ -577,7 +861,7 @@ final class TemplateBuilder
         }
         self::saveStored($templates, $defaultId);
         if ($remapped !== []) {
-            // ContactFormModule::OPTION_FORMS ('traydigita_contact_forms'):
+            // FormBuilderModule::CONTACT_OPTION_FORMS ('traydigita_contact_forms'):
             // remap forms that pointed at a renamed legacy template.
             // This is migration-only repair, not a runtime dependency.
             $forms = get_option('traydigita_contact_forms', []);
