@@ -171,7 +171,11 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     data-msg-label-version="<?php echo esc_attr(__('Version', 'traydigita-core')); ?>"
     data-msg-label-author="<?php echo esc_attr(__('Author', 'traydigita-core')); ?>"
     data-msg-label-category="<?php echo esc_attr(__('Category', 'traydigita-core')); ?>"
-    data-msg-label-status="<?php echo esc_attr(__('Status', 'traydigita-core')); ?>">
+    data-msg-label-status="<?php echo esc_attr(__('Status', 'traydigita-core')); ?>"
+    data-msg-label-settings="<?php echo esc_attr(__('Settings', 'traydigita-core')); ?>"
+    data-msg-view="<?php echo esc_attr(__('View', 'traydigita-core')); ?>"
+    data-msg-view-cards="<?php echo esc_attr(__('Card view', 'traydigita-core')); ?>"
+    data-msg-view-list="<?php echo esc_attr(__('List view', 'traydigita-core')); ?>">
     <div class="traydigita-admin-topbar">
         <a class="traydigita-admin-brand"
             href="<?php echo esc_url(admin_url('admin.php?page=' . AdminMenu::MENU_SLUG)); ?>">

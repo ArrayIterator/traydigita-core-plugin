@@ -6,9 +6,13 @@
  *
  * - the module info popup, opened from the context rail "More"
  *   trigger and from the info button injected into each Modules
- *   page card;
+ *   page card: a tabbed body (Features / Changelog / Details)
+ *   under a compact identity strip, with only the active panel
+ *   scrolling;
  * - the Mailer provider picker and SMTP preset picker (the same
- *   picker component with different data).
+ *   picker component with different data): a searchable list
+ *   with a list / grid view switcher reusing the Modules page
+ *   switcher pattern.
  *
  * One overlay, one card, one header / body / footer structure,
  * one focus trap, one close behaviour — the popups differ only
@@ -95,6 +99,7 @@
     var trigger = null;
     var previousOverflow = '';
     var onCloseCallback = null;
+    var viewportFitHandler = null;
 
     /**
      * Build the singleton overlay + dialog shell.
@@ -192,6 +197,59 @@
     }
 
     /**
+     * Clear the visual-viewport sizing on the overlay.
+     *
+     * Restores the plain `inset: 0` sizing from the stylesheet.
+     *
+     * @return {void}
+     */
+    function clearOverlayViewportFit() {
+        if (!overlay) {
+            return;
+        }
+        overlay.style.left = '';
+        overlay.style.right = '';
+        overlay.style.width = '';
+    }
+
+    /**
+     * Pin the overlay to the visual viewport.
+     *
+     * A fixed overlay is sized against the layout viewport, so
+     * when the underlying page overflows horizontally (a settings
+     * page that lays out wider than the phone screen) the overlay
+     * is wider than what the user sees, and the dialog, close
+     * button and footer buttons sit partly past the visual
+     * viewport edge. window.visualViewport reports the part of
+     * the page that is actually visible, so when it is narrower
+     * than the layout viewport the overlay is narrowed to it
+     * and shifted by its horizontal offset. When the two
+     * viewports agree (desktop, and phones whose page does not
+     * overflow) nothing is set and the overlay keeps its plain
+     * `inset: 0` sizing. Listened to on visualViewport resize
+     * and scroll, so pinch-zooming or rotating while the modal
+     * is open re-fits it.
+     *
+     * @return {void}
+     */
+    function fitOverlayToVisualViewport() {
+        if (!overlay || overlay.hidden) {
+            return;
+        }
+        var viewport = window.visualViewport;
+        if (!viewport) {
+            return;
+        }
+        if (viewport.width >= window.innerWidth - 1) {
+            clearOverlayViewportFit();
+            return;
+        }
+        overlay.style.left = viewport.offsetLeft + 'px';
+        overlay.style.right = 'auto';
+        overlay.style.width = viewport.width + 'px';
+    }
+
+    /**
      * Open the modal with fresh content.
      *
      * @param {Object} config {title, build(body), footer(footer), initialFocus, onClose, trigger}
@@ -205,6 +263,10 @@
         while (bodyNode.firstChild) {
             bodyNode.removeChild(bodyNode.firstChild);
         }
+        /* Reset the body to its plain variant: a previous popup
+           may have added a layout class (the module info tabs),
+           and the next popup must start from the shared base. */
+        bodyNode.className = 'traydigita-modal-body';
         while (footerNode.firstChild) {
             footerNode.removeChild(footerNode.firstChild);
         }
@@ -218,6 +280,12 @@
         previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
         overlay.hidden = false;
+        fitOverlayToVisualViewport();
+        if (window.visualViewport) {
+            viewportFitHandler = fitOverlayToVisualViewport;
+            window.visualViewport.addEventListener('resize', viewportFitHandler);
+            window.visualViewport.addEventListener('scroll', viewportFitHandler);
+        }
         var focusTarget = null;
         if (config.initialFocus) {
             focusTarget = dialog.querySelector(config.initialFocus);
@@ -243,6 +311,12 @@
             return;
         }
         overlay.hidden = true;
+        if (window.visualViewport && viewportFitHandler) {
+            window.visualViewport.removeEventListener('resize', viewportFitHandler);
+            window.visualViewport.removeEventListener('scroll', viewportFitHandler);
+            viewportFitHandler = null;
+        }
+        clearOverlayViewportFit();
         document.body.style.overflow = previousOverflow;
         var callback = onCloseCallback;
         onCloseCallback = null;
@@ -300,13 +374,26 @@
     /**
      * Open the module info popup for one module.
      *
-     * Sections, in order: (1) title in the header, (2) icon,
-     * (3) features, (4) changelog, (5) version and other info
-     * (author, category, status, settings link). A module
-     * without features() shows its short description in the
-     * Features section instead of an empty list; the changelog
-     * always has at least the current-version entry because the
-     * server builds that fallback.
+     * Tabbed layout: a compact identity strip (icon, name,
+     * version badge, author) sits above an underline tab bar
+     * that reuses the settings shell's tab pattern
+     * (.traydigita-admin-tabs / .traydigita-admin-tab), and
+     * only the active panel is shown — (1) Features, (2)
+     * Changelog, (3) Details (version, author, category,
+     * status, settings link). The tab headings replace the
+     * old stacked section titles, so nothing is repeated.
+     * A module without features() shows its short description
+     * in the Features panel instead of an empty list; the
+     * changelog always has at least the current-version entry
+     * because the server builds that fallback. The body is a
+     * flex column and only the active panel scrolls, so a long
+     * changelog never pushes the footer off screen and a
+     * short module never leaves a tall empty modal.
+     *
+     * Tabs follow the roving-tabindex pattern: the active tab
+     * is tabbable, the others are reached with the arrow keys,
+     * Home / End; Tab stays in the modal through the existing
+     * focus trap and Esc still closes it.
      *
      * @param {Object} info Module info data (ModuleRegistry::moduleInfoData()).
      * @param {HTMLElement} from Trigger element to return focus to.
@@ -321,13 +408,23 @@
             title: name,
             trigger: from,
             build: function (body) {
+                body.classList.add('traydigita-modal-body-tabs');
+
                 var head = el('div', 'traydigita-modal-info-head');
                 var icon = el('span', 'traydigita-modal-info-icon');
                 var dashicon = el('span', 'dashicons dashicons-' + cleanIcon(info.icon));
                 dashicon.setAttribute('aria-hidden', 'true');
                 icon.appendChild(dashicon);
-                var titles = el('div', '');
-                titles.appendChild(el('p', 'traydigita-modal-info-name', name));
+                var titles = el('div', 'traydigita-modal-info-titles');
+                var nameNode = el('p', 'traydigita-modal-info-name', name);
+                if (String(info.version || '') !== '') {
+                    nameNode.appendChild(el(
+                        'span',
+                        'traydigita-modal-info-version',
+                        String(info.version || '')
+                    ));
+                }
+                titles.appendChild(nameNode);
                 titles.appendChild(el(
                     'p',
                     'traydigita-modal-info-author',
@@ -337,35 +434,26 @@
                 head.appendChild(titles);
                 body.appendChild(head);
 
+                /* --- Panels (built first, tabs point at them) --- */
+
                 var features = Array.isArray(info.features) ? info.features : [];
-                var featuresSection = el('section', 'traydigita-modal-section');
-                featuresSection.appendChild(el(
-                    'h3',
-                    'traydigita-modal-section-title',
-                    msg('features', 'Features')
-                ));
+                var featuresPanel = el('section', 'traydigita-modal-tab-panel');
                 if (features.length > 0) {
                     var list = el('ul', 'traydigita-modal-feature-list');
                     features.forEach(function (feature) {
                         list.appendChild(el('li', '', String(feature)));
                     });
-                    featuresSection.appendChild(list);
+                    featuresPanel.appendChild(list);
                 } else {
-                    featuresSection.appendChild(el(
+                    featuresPanel.appendChild(el(
                         'p',
                         'traydigita-modal-info-description',
                         String(info.description || '')
                     ));
                 }
-                body.appendChild(featuresSection);
 
                 var changelog = Array.isArray(info.changelog) ? info.changelog : [];
-                var changelogSection = el('section', 'traydigita-modal-section');
-                changelogSection.appendChild(el(
-                    'h3',
-                    'traydigita-modal-section-title',
-                    msg('changelog', 'Changelog')
-                ));
+                var changelogPanel = el('section', 'traydigita-modal-tab-panel');
                 changelog.forEach(function (entry) {
                     if (!entry || typeof entry !== 'object') {
                         return;
@@ -384,16 +472,10 @@
                         });
                         block.appendChild(changeList);
                     }
-                    changelogSection.appendChild(block);
+                    changelogPanel.appendChild(block);
                 });
-                body.appendChild(changelogSection);
 
-                var details = el('section', 'traydigita-modal-section');
-                details.appendChild(el(
-                    'h3',
-                    'traydigita-modal-section-title',
-                    msg('details', 'Details')
-                ));
+                var detailsPanel = el('section', 'traydigita-modal-tab-panel');
                 var meta = el('dl', 'traydigita-modal-meta');
                 metaRow(meta, msg('label-version', 'Version'), String(info.version || ''));
                 metaRow(meta, msg('label-author', 'Author'), String(info.author || ''));
@@ -407,8 +489,108 @@
                     msg('label-status', 'Status'),
                     String(info.statusLabel || info.status || '')
                 );
-                details.appendChild(meta);
-                body.appendChild(details);
+                var settingsRow = el('div', 'traydigita-modal-meta-row');
+                settingsRow.appendChild(el('dt', '', msg('label-settings', 'Settings')));
+                var settingsCell = el('dd', '');
+                var settingsLink = document.createElement('a');
+                settingsLink.className = 'traydigita-modal-meta-link';
+                settingsLink.href = String(info.settings_url || '#');
+                settingsLink.textContent = msg('open-settings', 'Open settings');
+                settingsCell.appendChild(settingsLink);
+                settingsRow.appendChild(settingsCell);
+                meta.appendChild(settingsRow);
+                detailsPanel.appendChild(meta);
+
+                /* --- Tab bar (settings shell underline pattern) --- */
+
+                var tabs = [
+                    {
+                        id: 'features',
+                        label: msg('features', 'Features'),
+                        panel: featuresPanel,
+                    },
+                    {
+                        id: 'changelog',
+                        label: msg('changelog', 'Changelog'),
+                        panel: changelogPanel,
+                    },
+                    {
+                        id: 'details',
+                        label: msg('details', 'Details'),
+                        panel: detailsPanel,
+                    },
+                ];
+                var tabList = el('div', 'traydigita-admin-tabs');
+                tabList.setAttribute('role', 'tablist');
+                tabList.setAttribute('aria-label', name);
+                var tabButtons = [];
+                tabs.forEach(function (tab, index) {
+                    var button = el('button', 'traydigita-admin-tab', tab.label);
+                    button.type = 'button';
+                    button.setAttribute('role', 'tab');
+                    button.id = 'traydigita-modal-tab-' + tab.id;
+                    button.setAttribute('aria-controls', 'traydigita-modal-panel-' + tab.id);
+                    button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+                    button.tabIndex = index === 0 ? 0 : -1;
+                    if (index === 0) {
+                        button.classList.add('traydigita-admin-tab-active');
+                    }
+                    button.addEventListener('click', function () {
+                        activateTab(index, false);
+                    });
+                    tab.panel.id = 'traydigita-modal-panel-' + tab.id;
+                    tab.panel.setAttribute('role', 'tabpanel');
+                    tab.panel.setAttribute('aria-labelledby', button.id);
+                    tab.panel.hidden = index !== 0;
+                    tabList.appendChild(button);
+                    tabButtons.push(button);
+                });
+
+                /**
+                 * Show one tab and hide the others.
+                 *
+                 * @param {number} index Tab index to activate.
+                 * @param {boolean} focusTab Move focus to the tab.
+                 * @return {void}
+                 */
+                function activateTab(index, focusTab) {
+                    tabs.forEach(function (tab, i) {
+                        var selected = i === index;
+                        tabButtons[i].classList.toggle('traydigita-admin-tab-active', selected);
+                        tabButtons[i].setAttribute('aria-selected', selected ? 'true' : 'false');
+                        tabButtons[i].tabIndex = selected ? 0 : -1;
+                        tab.panel.hidden = !selected;
+                    });
+                    if (focusTab) {
+                        tabButtons[index].focus();
+                    }
+                }
+
+                tabList.addEventListener('keydown', function (event) {
+                    var current = tabButtons.indexOf(document.activeElement);
+                    if (current === -1) {
+                        return;
+                    }
+                    var next = -1;
+                    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                        next = (current + 1) % tabButtons.length;
+                    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                        next = (current - 1 + tabButtons.length) % tabButtons.length;
+                    } else if (event.key === 'Home') {
+                        next = 0;
+                    } else if (event.key === 'End') {
+                        next = tabButtons.length - 1;
+                    }
+                    if (next !== -1) {
+                        event.preventDefault();
+                        activateTab(next, true);
+                    }
+                });
+
+                body.appendChild(tabList);
+                tabs.forEach(function (tab) {
+                    body.appendChild(tab.panel);
+                });
             },
             footer: function (footer) {
                 var settingsLink = el(
@@ -584,15 +766,76 @@
             trigger: from,
             initialFocus: '.traydigita-modal-search',
             build: function (body) {
+                /* Toolbar: the search input plus the grid / list
+                   view switcher — the same switcher the Modules
+                   page uses (.traydigita-ui-view-switch with
+                   grid_view / list icons and the same active
+                   state), so the popup looks like it belongs to
+                   this admin. List is the default view; the
+                   switch only changes presentation, the search
+                   filter below applies in both views. */
+                var toolbar = el('div', 'traydigita-modal-picker-toolbar');
                 var search = el('input', 'traydigita-modal-search');
                 search.type = 'search';
                 search.placeholder = picker.searchPlaceholder;
                 search.setAttribute('aria-label', picker.searchPlaceholder);
+                toolbar.appendChild(search);
+                var viewSwitch = el('div', 'traydigita-ui-view-switch');
+                viewSwitch.setAttribute('role', 'group');
+                viewSwitch.setAttribute('aria-label', msg('view', 'View'));
                 var list = el('ul', 'traydigita-modal-picker-list');
                 list.setAttribute('role', 'listbox');
+                var viewButtons = {};
+                var currentView = 'list';
+
+                /**
+                 * Switch the picker between list and grid view.
+                 *
+                 * @param {string} view 'list' or 'cards'.
+                 * @return {void}
+                 */
+                function setView(view) {
+                    if (view !== 'cards' && view !== 'list') {
+                        return;
+                    }
+                    currentView = view;
+                    list.classList.toggle('is-grid', view === 'cards');
+                    ['list', 'cards'].forEach(function (key) {
+                        var active = key === view;
+                        viewButtons[key].classList.toggle(
+                            'traydigita-ui-view-button-active',
+                            active
+                        );
+                        viewButtons[key].setAttribute('aria-pressed', active ? 'true' : 'false');
+                    });
+                }
+
+                [
+                    { key: 'list', icon: 'list', label: msg('view-list', 'List view') },
+                    { key: 'cards', icon: 'grid_view', label: msg('view-cards', 'Card view') },
+                ].forEach(function (view) {
+                    var button = el('button', 'traydigita-ui-view-button');
+                    button.type = 'button';
+                    var viewIcon = el('span', 'material-icons traydigita-ui-view-button-icon');
+                    viewIcon.setAttribute('aria-hidden', 'true');
+                    viewIcon.textContent = view.icon;
+                    button.appendChild(viewIcon);
+                    button.setAttribute('aria-label', view.label);
+                    button.setAttribute('aria-pressed', view.key === currentView ? 'true' : 'false');
+                    button.title = view.label;
+                    if (view.key === currentView) {
+                        button.classList.add('traydigita-ui-view-button-active');
+                    }
+                    button.addEventListener('click', function () {
+                        setView(view.key);
+                    });
+                    viewSwitch.appendChild(button);
+                    viewButtons[view.key] = button;
+                });
+                toolbar.appendChild(viewSwitch);
                 var empty = el('p', 'traydigita-modal-picker-empty', picker.emptyText);
                 empty.hidden = true;
-                body.appendChild(search);
+                body.appendChild(toolbar);
                 body.appendChild(list);
                 body.appendChild(empty);
 
@@ -617,6 +860,9 @@
                     var meta = String(item.meta || item.description || '');
                     if (meta !== '') {
                         text.appendChild(el('span', 'traydigita-modal-picker-description', meta));
+                        /* Grid view hides the description, so it
+                           stays reachable as a hover tooltip. */
+                        button.title = meta;
                     }
                     var check = el('span', 'material-icons traydigita-modal-picker-check');
                     check.setAttribute('aria-hidden', 'true');

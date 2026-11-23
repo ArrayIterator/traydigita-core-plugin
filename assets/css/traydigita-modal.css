@@ -3,8 +3,10 @@
  *
  * ONE modal component for every popup in the admin: the module info
  * popup (context rail "More" trigger and Modules page card info
- * buttons) and the Mailer provider / SMTP preset pickers. One
- * overlay, one card, one header / body / footer structure, one set
+ * buttons), tabbed into Features / Changelog / Details under a
+ * compact identity strip, and the Mailer provider / SMTP preset
+ * pickers with a searchable list and a list / grid view switcher.
+ * One overlay, one card, one header / body / footer structure, one set
  * of focus states — the pickers and the module info popup differ
  * only in body content, never in chrome. Visual language matches
  * the Elegant Blue admin exactly: primary #2563eb (via the
@@ -172,7 +174,12 @@
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.traydigita-modal-info-titles {
+    flex: 1;
+    min-width: 0;
 }
 
 .traydigita-modal-info-icon {
@@ -195,6 +202,21 @@
     line-height: 1.4;
 }
 
+/* Version badge next to the module name in the identity strip. */
+.traydigita-modal-info-version {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 999px;
+    background: var(--traydigita-admin-accent-soft, #eff6ff);
+    color: var(--traydigita-admin-accent, #2563eb);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+    vertical-align: 0.125rem;
+    white-space: nowrap;
+}
+
 .traydigita-modal-info-author {
     margin: 0.125rem 0 0;
     color: var(--traydigita-admin-muted, #50575e);
@@ -202,26 +224,96 @@
 }
 
 .traydigita-modal-info-description {
-    margin: 0 0 1rem;
+    margin: 0;
     color: var(--traydigita-admin-muted, #50575e);
 }
 
-.traydigita-modal-section {
-    margin: 0 0 1rem;
+/* ------------------------------------------------------------------ */
+/* Module info tabs                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Tabbed body: a flex column whose head and tab bar stay put
+   while only the active panel scrolls, so a long changelog
+   never pushes the footer off screen and a short module never
+   leaves a tall empty modal. The tab bar reuses the settings
+   shell's underline-tab pattern (.traydigita-admin-tabs /
+   .traydigita-admin-tab) with the exact values of the shell's
+   inline critical CSS (.td-settings-nav in
+   templates/admin/shell.php) — tight 12px 2px tabs, a 16px
+   gap, no container rule — so the tabs look identical next
+   to a real settings page; the 1rem gap the old container
+   margin provided now lives on the panel instead. */
+.traydigita-modal-body-tabs {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
 }
 
-.traydigita-modal-section:last-child {
-    margin-bottom: 0;
+.traydigita-modal-body-tabs .traydigita-modal-info-head {
+    flex-shrink: 0;
 }
 
-.traydigita-modal-section-title {
-    margin: 0 0 0.5rem;
+.traydigita-modal .traydigita-admin-tabs {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0 1rem;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    border-bottom: 0;
+    list-style: none;
+    scrollbar-width: thin;
+}
+
+.traydigita-modal .traydigita-admin-tab {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0 0 -1px;
+    padding: 0.75rem 0.125rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
     color: var(--traydigita-admin-muted, #50575e);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: 0.875rem;
+    font-weight: 600;
     line-height: 1.4;
-    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.traydigita-modal .traydigita-admin-tab:hover {
+    color: var(--traydigita-admin-ink, #1d2327);
+}
+
+.traydigita-modal .traydigita-admin-tab:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+}
+
+.traydigita-modal .traydigita-admin-tab-active {
+    border-bottom-color: var(--traydigita-admin-accent, #2563eb);
+    color: var(--traydigita-admin-accent, #2563eb);
+}
+
+/* Only the active panel shows, and it is the scroll container.
+   The top margin is the gap the tab bar used to carry as its
+   own bottom margin (see above): it keeps the panel content
+   1rem below the tabs without a container rule or margin. */
+.traydigita-modal-tab-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-top: 1rem;
+    overflow-y: auto;
+}
+
+.traydigita-modal-tab-panel[hidden] {
+    display: none;
 }
 
 .traydigita-modal-feature-list {
@@ -292,6 +384,23 @@
     font-weight: 600;
 }
 
+/* Settings link in the Details panel (the footer carries the
+   same action as a button; this row names it in the list). */
+.traydigita-modal-meta-link {
+    color: var(--traydigita-admin-accent, #2563eb);
+    text-decoration: none;
+}
+
+.traydigita-modal-meta-link:hover {
+    text-decoration: underline;
+}
+
+.traydigita-modal-meta-link:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
 /* ------------------------------------------------------------------ */
 /* Picker body (provider + SMTP preset: same component)                */
 /* ------------------------------------------------------------------ */
@@ -322,6 +431,7 @@
 }
 
 .traydigita-modal-picker-item {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -396,6 +506,121 @@
     padding: 1rem 0;
     color: var(--traydigita-admin-muted, #50575e);
     text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Picker toolbar: search + grid / list view switcher                 */
+/* ------------------------------------------------------------------ */
+
+/* The search input shares its row with the view switcher, so it
+   gives up its own bottom margin to the toolbar. The switcher
+   reuses the Modules page pattern (.traydigita-ui-view-switch
+   with grid_view / list icon buttons, same values as the admin
+   bundle); these modal-scoped rules only confirm that pattern
+   inside the dialog. */
+.traydigita-modal-picker-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.traydigita-modal-picker-toolbar .traydigita-modal-search {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.traydigita-modal .traydigita-ui-view-switch {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--traydigita-admin-line, #dcdcde);
+    border-radius: 0.25rem;
+    background: var(--traydigita-admin-surface-muted, #f6f7f7);
+}
+
+.traydigita-modal .traydigita-ui-view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: var(--traydigita-admin-muted, #50575e);
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.traydigita-modal .traydigita-ui-view-button:hover {
+    background: var(--traydigita-admin-surface, #fff);
+    color: var(--traydigita-admin-ink, #1d2327);
+}
+
+.traydigita-modal .traydigita-ui-view-button:focus-visible {
+    outline: 2px solid var(--traydigita-admin-focus, #2563eb);
+    outline-offset: 2px;
+}
+
+.traydigita-modal .traydigita-ui-view-button-active,
+.traydigita-modal .traydigita-ui-view-button-active:hover {
+    background: var(--traydigita-admin-accent-strong, #1e40af);
+    color: #fff;
+}
+
+.traydigita-modal .traydigita-ui-view-button-icon {
+    font-size: 1.25rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Picker grid view                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Grid view turns the list into compact icon tiles: logo +
+   name only, the description hidden (it stays on the tile as a
+   hover tooltip). Search filtering still hides the <li>, so it
+   applies identically in both views. */
+.traydigita-modal-picker-list.is-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    gap: 0.5rem;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-item {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-logo {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-text {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-name {
+    overflow-wrap: break-word;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-description {
+    display: none;
+}
+
+.traydigita-modal-picker-list.is-grid .traydigita-modal-picker-check {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
 }
 
 /* ------------------------------------------------------------------ */
@@ -477,5 +702,10 @@
 
     .traydigita-modal-footer {
         padding: 0.75rem 1rem;
+    }
+
+    /* Grid view keeps two columns on a narrow phone. */
+    .traydigita-modal-picker-list.is-grid {
+        grid-template-columns: repeat(auto-fill, minmax(6.75rem, 1fr));
     }
 }
