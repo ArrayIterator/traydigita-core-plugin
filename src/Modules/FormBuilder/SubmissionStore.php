@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\ContactForm;
+namespace TrayDigita\WP\Plugin\Core\Modules\FormBuilder;
 
 use function array_keys;
 use function array_map;
@@ -22,7 +22,15 @@ use function stream_get_contents;
 use function update_option;
 
 /**
- * Contact form submission storage.
+ * Form submission storage.
+ *
+ * Moved here from the Contact Form module (MUST-8): the store
+ * belongs to FormBuilder, so every FormBuilder consumer stores
+ * its submissions instead of silently losing them. The table
+ * name (`{$wpdb->prefix}traydigita_contact_submissions`) and
+ * the schema-version option are unchanged, so submissions
+ * stored by the old Contact Form module stay readable with no
+ * data migration.
  *
  * Submissions live in their OWN table
  * (`{$wpdb->prefix}traydigita_contact_submissions`), never in
@@ -45,7 +53,7 @@ use function update_option;
  *   daily `traydigita_contact_form_prune` cron event. A
  *   retention of 0 keeps submissions forever.
  *
- * @package TrayDigita\WP\Plugin\Core\Modules\ContactForm
+ * @package TrayDigita\WP\Plugin\Core\Modules\FormBuilder
  */
 final class SubmissionStore
 {

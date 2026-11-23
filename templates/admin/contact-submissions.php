@@ -30,9 +30,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use TrayDigita\WP\Plugin\Core\Modules\ContactForm\ContactFormModule;
+use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 
 $traydigita_pages = (int) ceil($total / $perPage);
+$traydigita_submissions_page = FormBuilderModule::CONTACT_SUBMISSIONS_SLUG;
 $traydigita_export_url = add_query_arg(
     array_merge(
         ['export' => 'csv', '_wpnonce' => $actionNonce],
@@ -134,7 +135,7 @@ $traydigita_export_url = add_query_arg(
         </form>
     <?php else : ?>
         <form method="get" class="traydigita-submissions-filters">
-            <input type="hidden" name="page" value="<?php echo esc_attr(ContactFormModule::SUBMISSIONS_SLUG); ?>">
+            <input type="hidden" name="page" value="<?php echo esc_attr($traydigita_submissions_page); ?>">
             <label>
                 <?php esc_html_e('Form', 'traydigita-core'); ?>
                 <select name="form_id">

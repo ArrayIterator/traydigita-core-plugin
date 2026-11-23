@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace TrayDigita\WP\Plugin\Core\Modules\ContactForm;
+namespace TrayDigita\WP\Plugin\Core\Modules\FormBuilder;
 
 use TrayDigita\WP\Plugin\Core\Modules\Email\TemplateBuilder;
-use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilder;
-use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 use TrayDigita\WP\Plugin\Core\Modules\Mailer\MailerModule;
 use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\RecaptchaModule;
 use TrayDigita\WP\Plugin\Core\Modules\Recaptcha\Verifier as RecaptchaVerifier;
@@ -36,7 +34,13 @@ use function wp_unslash;
 use function wp_verify_nonce;
 
 /**
- * Contact Form submission handling (frontend + admin list).
+ * Contact form submission handling (frontend + admin list).
+ *
+ * Folded into FormBuilder with the Contact Form module
+ * (MUST-8 / SHOULD-18): the contact forms themselves are
+ * config records owned by FormBuilderModule, and the
+ * submissions they store live in the FormBuilder-owned
+ * SubmissionStore table.
  *
  * The frontend flow is: nonce → spam verification → Form
  * Builder validation → STORE the submission → send the
@@ -50,7 +54,7 @@ use function wp_verify_nonce;
  * run as plain POST/GET requests from the submissions page,
  * each guarded by the submissions nonce + manage_options.
  *
- * @package TrayDigita\WP\Plugin\Core\Modules\ContactForm
+ * @package TrayDigita\WP\Plugin\Core\Modules\FormBuilder
  */
 final class ContactFormAjax
 {
@@ -66,7 +70,7 @@ final class ContactFormAjax
             wp_send_json_error(['message' => __('Security check failed. Please reload the page and try again.', 'traydigita-core')], 403);
         }
         $formId = isset($_POST['form_id']) ? sanitize_key((string) wp_unslash($_POST['form_id'])) : '';
-        $form = $formId !== '' ? ContactFormModule::getForm($formId) : null;
+        $form = $formId !== '' ? FormBuilderModule::getContactForm($formId) : null;
         if ($form === null) {
             wp_send_json_error(['message' => __('Unknown contact form.', 'traydigita-core')], 400);
         }
@@ -95,24 +99,13 @@ final class ContactFormAjax
         }
         $values = $result['values'];
         // Store FIRST: the submission must survive a mail failure.
-        $submissionId = SubmissionStore::insert([
-            'form_id' => $form['id'],
-            'form_title' => $form['title'],
-            'name' => self::pickValue($values, 'name'),
-            'email' => self::pickValue($values, 'email'),
-            'subject' => self::pickValue($values, 'subject'),
-            'fields' => $values,
-            'ip' => self::clientIp(),
-            'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) && is_string($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '',
-            'spam' => false,
-            'email_sent' => false,
-        ]);
+        $submissionId = self::storeSubmission($form['id'], $form['title'], $values);
         if ($submissionId === 0) {
             wp_send_json_error(['message' => __('Your message could not be saved. Please try again later.', 'traydigita-core')], 500);
         }
         // Retention prune runs on the insert path (cheap, once per
         // submission) in addition to the daily cron event.
-        $settings = ContactFormModule::getSettings();
+        $settings = FormBuilderModule::getContactSettings();
         if ($settings['retention_days'] > 0) {
             SubmissionStore::prune($settings['retention_days']);
         }
@@ -136,6 +129,37 @@ final class ContactFormAjax
     }
 
     /**
+     * Store one submission in the FormBuilder-owned store.
+     *
+     * Shared by the contact-form endpoint above and the generic
+     * [traydigita_form] endpoint (FormBuilderModule): both store
+     * first and mail/notify after, so a submission is never lost
+     * when the mail fails.
+     *
+     * @param string $formId Form id to record (contact form id,
+     *     or Form Builder form id for generic forms).
+     * @param string $formTitle Human form title for the list.
+     * @param array<string, mixed> $values Cleaned values keyed by field id.
+     * @param bool $spam Whether the submission was flagged as spam.
+     * @return int Inserted row id, or 0 on failure.
+     */
+    public static function storeSubmission(string $formId, string $formTitle, array $values, bool $spam = false): int
+    {
+        return SubmissionStore::insert([
+            'form_id' => $formId,
+            'form_title' => $formTitle,
+            'name' => self::pickValue($values, 'name'),
+            'email' => self::pickValue($values, 'email'),
+            'subject' => self::pickValue($values, 'subject'),
+            'fields' => $values,
+            'ip' => self::clientIp(),
+            'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) && is_string($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '',
+            'spam' => $spam,
+            'email_sent' => false,
+        ]);
+    }
+
+    /**
      * Verify the spam protection for one form.
      *
      * Returns an error message on failure, or '' when the
@@ -146,7 +170,7 @@ final class ContactFormAjax
      */
     private static function verifySpam(array $form): string
     {
-        $mode = ContactFormModule::resolveSpamMode($form);
+        $mode = FormBuilderModule::resolveSpamMode($form);
         if ($mode === 'turnstile') {
             $token = isset($_POST[TurnstileModule::TOKEN_FIELD]) ? sanitize_text_field((string) wp_unslash($_POST[TurnstileModule::TOKEN_FIELD])) : '';
             $result = TurnstileVerifier::verify($token, TurnstileModule::clientIp());
@@ -164,7 +188,7 @@ final class ContactFormAjax
                 $settings['secret_key'],
                 $version,
                 (float) $settings['v3_threshold'],
-                $version === 'v3' ? ContactFormModule::RECAPTCHA_V3_ACTION : ''
+                $version === 'v3' ? FormBuilderModule::RECAPTCHA_V3_ACTION : ''
             );
             if (!$result['success']) {
                 return $result['error'] !== '' ? $result['error'] : __('Spam protection failed. Please try again.', 'traydigita-core');
@@ -191,7 +215,7 @@ final class ContactFormAjax
     {
         $recipient = (string) ($form['recipient'] ?? '');
         if ($recipient === '') {
-            $settings = ContactFormModule::getSettings();
+            $settings = FormBuilderModule::getContactSettings();
             $recipient = (string) ($settings['default_recipient'] ?? '');
         }
         if ($recipient === '') {
@@ -330,7 +354,7 @@ final class ContactFormAjax
             return null;
         }
         $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field((string) wp_unslash($_REQUEST['_wpnonce'])) : '';
-        if ($nonce === '' || !wp_verify_nonce($nonce, ContactFormModule::SUBMISSIONS_NONCE_ACTION)) {
+        if ($nonce === '' || !wp_verify_nonce($nonce, FormBuilderModule::CONTACT_SUBMISSIONS_NONCE_ACTION)) {
             // No valid nonce: no action runs. The list still renders.
             return null;
         }

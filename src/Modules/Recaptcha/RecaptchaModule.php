@@ -5,7 +5,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Recaptcha;
 
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
-use TrayDigita\WP\Plugin\Core\Modules\ContactForm\ContactFormModule;
+use TrayDigita\WP\Plugin\Core\Modules\FormBuilder\FormBuilderModule;
 use function __;
 use function array_key_exists;
 use function array_merge;
@@ -384,7 +384,7 @@ final class RecaptchaModule implements ModuleInterface
             update_option(self::OPTION, $settings, false);
             return $settings;
         }
-        $legacy = get_option(ContactFormModule::OPTION, []);
+        $legacy = get_option(FormBuilderModule::CONTACT_OPTION, []);
         if (!is_array($legacy)) {
             update_option(self::OPTION, $settings, false);
             return $settings;

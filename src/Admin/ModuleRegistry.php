@@ -12,7 +12,6 @@ use TrayDigita\WP\Plugin\Core\Modules\Breadcrumb\BreadcrumbModule;
 use TrayDigita\WP\Plugin\Core\Modules\Cache\CacheModule;
 use TrayDigita\WP\Plugin\Core\Modules\CookieConsent\CookieConsentModule;
 use TrayDigita\WP\Plugin\Core\Modules\Comments\CommentsModule;
-use TrayDigita\WP\Plugin\Core\Modules\ContactForm\ContactFormModule;
 use TrayDigita\WP\Plugin\Core\Modules\ContributorFrontend\ContributorFrontendModule;
 use TrayDigita\WP\Plugin\Core\Modules\Core\MenuIconsModule;
 use TrayDigita\WP\Plugin\Core\Modules\DashboardDesigner\DashboardDesignerModule;
@@ -328,7 +327,6 @@ final class ModuleRegistry
         MailerModule::class,
         EmailModule::class,
         FormBuilderModule::class,
-        ContactFormModule::class,
         CookieConsentModule::class,
         SecurityHeadersModule::class,
         SeoModule::class,
@@ -1693,10 +1691,19 @@ final class ModuleRegistry
      * unconditionally — unless they are unavailable. Missing classes
      * are skipped (see all()).
      *
+     * The Contact Form fold migration runs first
+     * (FormBuilderModule::migrateEnabledFromContactForm()): it must
+     * not live in FormBuilderModule::boot(), which only runs when
+     * FormBuilder is already enabled — a site with 'contact-form'
+     * enabled but 'form-builder' disabled would never migrate.
+     * Running it here, before enabled() is read, also lets the
+     * newly enabled FormBuilder boot in this same request.
+     *
      * @return void
      */
     public static function bootEnabled(): void
     {
+        FormBuilderModule::migrateEnabledFromContactForm();
         $enabled = self::enabled();
         foreach (self::all() as $class) {
             if (!in_array($class::id(), $enabled, true)) {
