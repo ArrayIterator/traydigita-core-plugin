@@ -450,7 +450,7 @@ def main():
         "CORE</text>"
         '<text x="522" y="380" font-family="Arial, Helvetica, sans-serif" '
         'font-size="34" font-weight="400" fill="#dbeafe">'
-        "Connecting To The Core</text>"
+        "Where Modules Connect.</text>"
         "</svg>"
     )
     with open(f"{TMP}/banner.svg", "w") as f:
