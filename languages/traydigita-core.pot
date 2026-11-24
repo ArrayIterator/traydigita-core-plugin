@@ -15978,3 +15978,54 @@ msgstr ""
 msgctxt "taxonomy singular name"
 msgid "Series"
 msgstr ""
+
+#: templates/admin/modules/mailer.php:201
+msgid "A provider is ready when its endpoint answered in the 2026-11-24 health audit, it is well-known with public docs and a standard API key or OAuth flow, and its send path uses the shared helpers."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:199
+msgid "About provider readiness"
+msgstr ""
+
+#: templates/admin/modules/mailer.php:200
+msgid "Only ready providers can be picked. Unverified providers cannot be selected for a new setup."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:126
+msgid "Ready"
+msgstr ""
+
+#: templates/admin/modules/mailer.php:202
+msgid "Ready does not mean a live send was proven — no real send has been tested from this site yet. A provider that was already selected before verification keeps sending."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:489
+msgid "Ready provider. No live send has been proven for it yet."
+msgstr ""
+
+#: src/Modules/Mailer/MailerModule.php:1781
+msgid "That provider is not verified yet. Pick a ready provider."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:153
+msgid "This provider was selected before verification and keeps sending. Pick a ready provider to switch."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:128
+#: templates/admin/modules/mailer.php:289
+#: templates/admin/shell.php:114
+msgid "Unverified"
+msgstr ""
+
+#: templates/admin/modules/mailer.php:491
+msgid "Unverified provider. It keeps sending because it was selected before verification — pick a ready provider to switch."
+msgstr ""
+
+#: templates/admin/modules/mailer.php:124
+#: templates/admin/shell.php:115
+msgid "Verified live"
+msgstr ""
+
+#: templates/admin/modules/mailer.php:487
+msgid "Verified live: a real test send succeeded with this provider."
+msgstr ""

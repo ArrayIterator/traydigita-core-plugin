@@ -111,6 +111,8 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     data-msg-hide-help="<?php echo esc_attr(__('Hide help', 'traydigita-core')); ?>"
     data-msg-copy="<?php echo esc_attr(__('Copy', 'traydigita-core')); ?>"
     data-msg-copied="<?php echo esc_attr(__('Copied', 'traydigita-core')); ?>"
+    data-msg-picker-unverified="<?php echo esc_attr(__('Unverified', 'traydigita-core')); ?>"
+    data-msg-picker-verified-live="<?php echo esc_attr(__('Verified live', 'traydigita-core')); ?>"
     data-msg-dismiss="<?php echo esc_attr(__('Dismiss', 'traydigita-core')); ?>"
     data-msg-toast-done="<?php echo esc_attr(__('Done', 'traydigita-core')); ?>"
     data-msg-toast-failed="<?php echo esc_attr(__('Failed', 'traydigita-core')); ?>"

@@ -86,6 +86,12 @@ foreach ($mailerProviders as $providerId => $definition) {
         'description' => (string) ($definition['description'] ?? ''),
         'meta' => $providerMeta,
         'logo' => MailerModule::providerLogoUrl($providerId),
+        // Readiness travels with the item so the shared modal
+        // can disable unverified providers (see
+        // traydigita-modal.js); SMTP presets carry no flags and
+        // are always pickable.
+        'ready' => !empty($definition['is_ready']),
+        'proven' => !empty($definition['ready_proven']),
     ];
 }
 $pickerPresets = [];
@@ -99,6 +105,9 @@ foreach ($presetDescriptions as $presetId => $preset) {
     ];
 }
 $selectedProviderLabel = $providerLabels[$mailerSettings['provider']] ?? (string) $mailerSettings['provider'];
+$selectedProviderId = (string) $mailerSettings['provider'];
+$selectedProviderReady = !empty($mailerProviders[$selectedProviderId]['is_ready']);
+$selectedProviderProven = !empty($mailerProviders[$selectedProviderId]['ready_proven']);
 $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerResultCode);
 ?>
 <div class="traydigita-mailer-settings">
@@ -111,6 +120,13 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
     <div class="traydigita-mailer-status" role="status">
         <?php if ($mailerConfigured) : ?>
             <span class="traydigita-mailer-status-badge traydigita-mailer-status-badge-configured"><?php esc_html_e('Configured', 'traydigita-core'); ?></span>
+            <?php if ($selectedProviderProven) : ?>
+                <span class="traydigita-mailer-status-badge traydigita-mailer-status-badge-proven"><?php esc_html_e('Verified live', 'traydigita-core'); ?></span>
+            <?php elseif ($selectedProviderReady) : ?>
+                <span class="traydigita-mailer-status-badge traydigita-mailer-status-badge-ready"><?php esc_html_e('Ready', 'traydigita-core'); ?></span>
+            <?php else : ?>
+                <span class="traydigita-mailer-status-badge traydigita-mailer-status-badge-unverified"><?php esc_html_e('Unverified', 'traydigita-core'); ?></span>
+            <?php endif; ?>
             <p class="traydigita-mailer-status-text">
                 <?php if ($mailerSettings['provider'] === 'gmail') : ?>
                     <?php
@@ -132,6 +148,9 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
         <?php else : ?>
             <span class="traydigita-mailer-status-badge traydigita-mailer-status-badge-unconfigured"><?php esc_html_e('Not configured', 'traydigita-core'); ?></span>
             <p class="traydigita-mailer-status-text"><?php esc_html_e('Pick a provider and enter its details below. Until then, WordPress keeps sending mail with its default mailer.', 'traydigita-core'); ?></p>
+        <?php endif; ?>
+        <?php if ($mailerConfigured && !$selectedProviderReady) : ?>
+            <p class="traydigita-mailer-status-text"><?php esc_html_e('This provider was selected before verification and keeps sending. Pick a ready provider to switch.', 'traydigita-core'); ?></p>
         <?php endif; ?>
         <?php if ($mailerLastTest !== null) : ?>
             <p class="traydigita-mailer-last-test">
@@ -174,6 +193,14 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
                 'items' => $pickerProviders,
                 'help' => __('Every provider is built into Core — no extra plugin is needed. Pick one, then enter its credentials under Connection. Third-party plugins can add more providers through the traydigita:core:mailer/providers filter.', 'traydigita-core'),
             ]);
+            // Readiness, in one place: the rule lives behind
+            // Help so the Provider section stays short.
+            SettingsControls::about(
+                __('About provider readiness', 'traydigita-core'),
+                __('Only ready providers can be picked. Unverified providers cannot be selected for a new setup.', 'traydigita-core'),
+                '<p>' . esc_html__('A provider is ready when its endpoint answered in the 2026-11-24 health audit, it is well-known with public docs and a standard API key or OAuth flow, and its send path uses the shared helpers.', 'traydigita-core') . '</p>'
+                    . '<p>' . esc_html__('Ready does not mean a live send was proven — no real send has been tested from this site yet. A provider that was already selected before verification keeps sending.', 'traydigita-core') . '</p>'
+            );
             SettingsControls::picker([
                 'id' => 'mailer-smtp-preset',
                 'name' => 'smtp_preset',
@@ -258,6 +285,9 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
                     <?php
                     /* translators: %s is the mail provider name. */
                     echo esc_html(sprintf(__('Only used with %s', 'traydigita-core'), (string) ($definition['label'] ?? $providerId)));
+                    if (empty($definition['is_ready'])) {
+                        echo ' (' . esc_html__('Unverified', 'traydigita-core') . ')';
+                    }
                     ?>
                 </h3>
                 <?php
@@ -451,6 +481,16 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
 
             <?php if (!$mailerConfigured) : ?>
                 <p class="traydigita-mailer-test-note"><?php esc_html_e('Save the provider settings first — the test email can only run once Mailer is configured.', 'traydigita-core'); ?></p>
+            <?php else : ?>
+                <p class="traydigita-mailer-test-note">
+                    <?php if ($selectedProviderProven) : ?>
+                        <?php esc_html_e('Verified live: a real test send succeeded with this provider.', 'traydigita-core'); ?>
+                    <?php elseif ($selectedProviderReady) : ?>
+                        <?php esc_html_e('Ready provider. No live send has been proven for it yet.', 'traydigita-core'); ?>
+                    <?php else : ?>
+                        <?php esc_html_e('Unverified provider. It keeps sending because it was selected before verification — pick a ready provider to switch.', 'traydigita-core'); ?>
+                    <?php endif; ?>
+                </p>
             <?php endif; ?>
 
             <?php

@@ -865,6 +865,19 @@
                     if (String(item.id) === selectedId) {
                         button.classList.add('is-selected');
                     }
+                    /* Readiness (Mailer provider picker only — the
+                       preset picker carries no flags, so a missing
+                       flag means ready): an unverified provider is
+                       shown but cannot be picked. The server-side
+                       save still refuses it, so this is a guide,
+                       not the gate. */
+                    var isReady = item.ready !== false;
+                    var isProven = item.proven === true;
+                    if (!isReady) {
+                        button.disabled = true;
+                        button.classList.add('is-disabled');
+                        button.setAttribute('aria-disabled', 'true');
+                    }
                     var logo = document.createElement('img');
                     logo.className = 'traydigita-modal-picker-logo';
                     logo.src = String(item.logo || '');
@@ -874,6 +887,11 @@
                     var text = el('span', 'traydigita-modal-picker-text');
                     var label = String(item.label || item.id);
                     text.appendChild(el('span', 'traydigita-modal-picker-name', label));
+                    if (!isReady) {
+                        text.appendChild(el('span', 'traydigita-modal-picker-badge', msg('picker-unverified', 'Unverified')));
+                    } else if (isProven) {
+                        text.appendChild(el('span', 'traydigita-modal-picker-badge traydigita-modal-picker-badge-verified', msg('picker-verified-live', 'Verified live')));
+                    }
                     var meta = String(item.meta || item.description || '');
                     if (meta !== '') {
                         text.appendChild(el('span', 'traydigita-modal-picker-description', meta));
@@ -885,6 +903,9 @@
                        readable on hover, and the description
                        follows it when there is one. */
                     button.title = meta !== '' ? label + ' — ' + meta : label;
+                    if (!isReady) {
+                        button.title += ' — ' + msg('picker-unverified', 'Unverified');
+                    }
                     var check = el('span', 'material-icons traydigita-modal-picker-check');
                     check.setAttribute('aria-hidden', 'true');
                     check.textContent = 'check';
@@ -923,7 +944,7 @@
                     }
                     event.preventDefault();
                     for (var i = 0; i < rowButtons.length; i++) {
-                        if (!rowButtons[i].button.parentNode.hidden) {
+                        if (!rowButtons[i].button.parentNode.hidden && !rowButtons[i].button.disabled) {
                             rowButtons[i].button.focus();
                             return;
                         }
@@ -934,14 +955,14 @@
                         var next = null;
                         if (event.key === 'ArrowDown') {
                             for (var i = index + 1; i < rowButtons.length; i++) {
-                                if (!rowButtons[i].button.parentNode.hidden) {
+                                if (!rowButtons[i].button.parentNode.hidden && !rowButtons[i].button.disabled) {
                                     next = rowButtons[i].button;
                                     break;
                                 }
                             }
                         } else if (event.key === 'ArrowUp') {
                             for (var j = index - 1; j >= 0; j--) {
-                                if (!rowButtons[j].button.parentNode.hidden) {
+                                if (!rowButtons[j].button.parentNode.hidden && !rowButtons[j].button.disabled) {
                                     next = rowButtons[j].button;
                                     break;
                                 }

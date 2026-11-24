@@ -296,6 +296,83 @@ final class MailerModule implements ModuleInterface
     ];
 
     /**
+     * Providers ready to pick, and providers proven by a live send.
+     *
+     * Readiness is curated, not proven. A provider is ready when
+     * (1) its endpoint answered in the 2026-11-24 health audit
+     * (`files/mailer-providers-health-2026-11-24.md`) — `smtp`
+     * and `local` need no remote endpoint, so they pass on their
+     * transport alone; (2) it is well-known — real public docs
+     * and a standard auth flow (API key or OAuth) a new user can
+     * obtain today; and (3) its send path is implemented through
+     * the shared helpers (`AbstractApiProvider::postJson()` and
+     * friends, PHPMailer for `smtp`, the `wp_mail` default for
+     * `local`). Ready does NOT mean a send was proven: no real
+     * send has ever been tested from this VM (no API keys exist
+     * here), so a ready provider is curated-ready until a real
+     * test send with a real key promotes it to PROVEN_PROVIDERS
+     * below. Live-proven is currently empty: the first
+     * candidate, Zoho Mail over SMTP, cannot be tested from this
+     * VM yet — outbound SMTP is denied for this assistant until
+     * the site owner allows it — and the Zoho CPaaS API route
+     * was declined by the user.
+     *
+     * The ready set (15 of 37): `smtp`, `local`, Gmail OAuth and
+     * the household-name transactional APIs (SendGrid, Mailgun,
+     * Amazon SES, Brevo, Mailjet, Postmark, Resend, SMTP2GO,
+     * MailerSend, Elastic Email, Mandrill / Mailchimp
+     * Transactional, ZeptoMail / Zoho CPaaS — both renames keep
+     * the old API host and credentials, per the audit). The other
+     * 22 start unverified: the 10 marketing campaign providers
+     * (their send is a campaign, not a direct transactional
+     * send), the orchestrator / routed sends (Courier, Plunk),
+     * the testing sandbox (Mailtrap), the rename whose new keys
+     * are unverified on the old API (SparkPost / Bird), and the
+     * smaller second-tier APIs (Sender.net, SendPulse, OneSignal,
+     * SendLayer, SocketLabs, SMTP.com, Unisender, Loops) — all
+     * alive per the audit, none proven to send.
+     *
+     * `providerDefinitions()` stamps every definition with
+     * `is_ready` (in either list, or an explicit third-party
+     * opt-in — see below) and `ready_proven` (in PROVEN only),
+     * so the picker, the settings page and `saveSettings()` all
+     * read one source of truth. A new selection of an unverified
+     * provider is refused in `saveSettings()`; a provider that
+     * was already selected keeps sending (grandfathered).
+     *
+     * @var array<int, string>
+     */
+    public const array READY_PROVIDERS = [
+        'smtp',
+        'local',
+        'gmail',
+        'sendgrid',
+        'mailgun',
+        'ses',
+        'brevo',
+        'mailjet',
+        'postmark',
+        'resend',
+        'smtp2go',
+        'mailersend',
+        'elasticemail',
+        'mandrill',
+        'zeptomail',
+    ];
+
+    /**
+     * Providers with a live-proven send: a real test send
+     * succeeded with a real key. Record the proof next to the
+     * id when one is added (date, endpoint, response).
+     *
+     * Currently empty — see READY_PROVIDERS above for why no
+     * provider is proven yet.
+     *
+     * @var array<int, string>
+     */
+    public const array PROVEN_PROVIDERS = [];
+
+    /**
      * Allowed SMTP presets: the mailbox providers from the
      * final provider catalog (37 providers in the dropdown,
      * 30 SMTP presets inside the SMTP provider).
@@ -625,6 +702,11 @@ final class MailerModule implements ModuleInterface
      * active link), `fields` (settings fields), `type`
      * (`smtp`, `oauth`, or `api`), and either `class` (a
      * provider class) or `send` (a callable) for the send path.
+     * Every definition also carries `is_ready` (see
+     * READY_PROVIDERS: in the ready list, the proven list, or
+     * an explicit third-party opt-in) and `ready_proven` (in
+     * PROVEN_PROVIDERS only) — the single source of truth the
+     * picker, the settings page and `saveSettings()` read.
      *
      * Third-party plugins register extra providers through the
      * `traydigita:core:mailer/providers` filter by adding an
@@ -632,8 +714,13 @@ final class MailerModule implements ModuleInterface
      * takes `($mail, $settings)` and returns
      * `['success' => bool, 'message' => string]`, and
      * optionally an `is_configured` callable. Entries without
-     * a usable id, label, or send path are dropped. The result
-     * is cached for the request.
+     * a usable id, label, or send path are dropped. A
+     * third-party entry starts unverified unless it explicitly
+     * declares `'is_ready' => true`; the site owner installed
+     * that plugin on purpose, so its own readiness claim is
+     * honoured — built-ins never self-declare, the two lists
+     * above decide for them. The result is cached for the
+     * request.
      *
      * @return array<string, array<string, mixed>>
      */
@@ -714,6 +801,14 @@ final class MailerModule implements ModuleInterface
             $definition['link'] = isset($definition['link']) && is_string($definition['link']) ? $definition['link'] : '';
             $definition['fields'] = isset($definition['fields']) && is_array($definition['fields']) ? $definition['fields'] : [];
             $definition['type'] = isset($definition['type']) && is_string($definition['type']) ? $definition['type'] : 'api';
+            // Readiness, stamped here so every definition that
+            // leaves this method carries it: built-ins follow
+            // the two lists above; a third-party entry may opt
+            // in explicitly, and defaults to unverified.
+            $definition['ready_proven'] = in_array($id, self::PROVEN_PROVIDERS, true);
+            $definition['is_ready'] = $definition['ready_proven']
+                || in_array($id, self::READY_PROVIDERS, true)
+                || ($definition['is_ready'] ?? false) === true;
             $validated[$id] = $definition;
         }
         self::$providerDefinitions = $validated;
@@ -740,6 +835,40 @@ final class MailerModule implements ModuleInterface
     {
         $definitions = self::providerDefinitions();
         return $definitions[$id] ?? null;
+    }
+
+    /**
+     * Whether a provider may be picked for a new setup.
+     *
+     * Reads the `is_ready` flag `providerDefinitions()` stamps
+     * on every definition (see READY_PROVIDERS), so callers
+     * never re-implement the readiness rule. Unknown ids are
+     * not ready. Readiness gates new selection only — a stored
+     * unverified provider keeps sending (see `saveSettings()`).
+     *
+     * @param string $id Provider id.
+     * @return bool
+     */
+    public static function providerIsReady(string $id): bool
+    {
+        $definition = self::providerDefinition($id);
+        return $definition !== null && ($definition['is_ready'] ?? false) === true;
+    }
+
+    /**
+     * Whether a provider's send was proven with a real key.
+     *
+     * Reads the `ready_proven` flag `providerDefinitions()`
+     * stamps on every definition (see PROVEN_PROVIDERS).
+     * Unknown ids are not proven.
+     *
+     * @param string $id Provider id.
+     * @return bool
+     */
+    public static function providerIsProven(string $id): bool
+    {
+        $definition = self::providerDefinition($id);
+        return $definition !== null && ($definition['ready_proven'] ?? false) === true;
     }
 
     /**
@@ -1469,7 +1598,10 @@ final class MailerModule implements ModuleInterface
      * over the submitted connection fields. An empty host is
      * allowed and means "not configured" for the SMTP provider.
      * On failure the returned message lists every invalid field
-     * and nothing is saved.
+     * and nothing is saved. A new selection of an unverified
+     * provider is refused the same way (nothing saved); saving
+     * the already-stored provider again is always allowed, so a
+     * grandfathered selection is never broken by re-saving.
      *
      * @param array<string, mixed> $data Submitted settings.
      * @return array{success: bool, message: string}
@@ -1485,11 +1617,20 @@ final class MailerModule implements ModuleInterface
         $current = self::getSettings();
         $new = $current;
         $invalid = [];
+        // A new selection of an unverified provider is refused:
+        // only ready providers may be picked (see
+        // READY_PROVIDERS). Re-saving the provider that is
+        // already stored is always allowed, so a site that
+        // selected a provider before verification keeps working
+        // — grandfathered, not broken by this gate.
+        $providerNotReady = false;
 
         if (array_key_exists('provider', $data)) {
             $provider = sanitize_key(self::inputString($data, 'provider'));
             if (!in_array($provider, self::providerIds(), true)) {
                 $invalid[] = __('Provider', 'traydigita-core');
+            } elseif ($provider !== $current['provider'] && !self::providerIsReady($provider)) {
+                $providerNotReady = true;
             } else {
                 $new['provider'] = $provider;
             }
@@ -1631,6 +1772,13 @@ final class MailerModule implements ModuleInterface
                 'success' => false,
                 /* translators: %s is a comma-separated list of invalid field names. */
                 'message' => sprintf(__('Please check the following fields: %s.', 'traydigita-core'), implode(', ', $invalid)),
+            ];
+        }
+
+        if ($providerNotReady) {
+            return [
+                'success' => false,
+                'message' => __('That provider is not verified yet. Pick a ready provider.', 'traydigita-core'),
             ];
         }
 
