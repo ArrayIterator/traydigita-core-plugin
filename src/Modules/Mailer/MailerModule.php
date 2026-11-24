@@ -62,7 +62,9 @@ use function chunk_split;
 use function count;
 use function current_user_can;
 use function ctype_digit;
+use function delete_transient;
 use function did_action;
+use function dns_get_record;
 use function do_action;
 use function doing_action;
 use function esc_html__;
@@ -74,7 +76,9 @@ use function filter_var;
 use function function_exists;
 use function get_bloginfo;
 use function get_current_screen;
+use function get_current_user_id;
 use function get_option;
+use function get_transient;
 use function home_url;
 use function implode;
 use function in_array;
@@ -87,17 +91,26 @@ use function is_int;
 use function is_object;
 use function is_readable;
 use function is_string;
+use function is_wp_error;
+use function json_decode;
 use function mb_substr;
 use function md5;
+use function openssl_pkey_export;
+use function openssl_pkey_get_details;
+use function openssl_pkey_get_private;
+use function openssl_pkey_new;
 use function parse_url;
 use function preg_match;
+use function rawurlencode;
 use function remove_filter;
 use function sanitize_email;
 use function sanitize_key;
 use function sanitize_text_field;
+use function set_transient;
 use function sprintf;
 use function str_contains;
 use function str_replace;
+use function str_starts_with;
 use function strlen;
 use function strtolower;
 use function time;
@@ -109,6 +122,9 @@ use function wp_create_nonce;
 use function wp_mail;
 use function wp_nonce_url;
 use function wp_redirect;
+use function wp_remote_get;
+use function wp_remote_retrieve_body;
+use function wp_remote_retrieve_response_code;
 use function wp_unslash;
 use function wp_verify_nonce;
 
@@ -243,6 +259,25 @@ final class MailerModule implements ModuleInterface
      * Nonce action for the Gmail OAuth start / callback / disconnect.
      */
     public const string GMAIL_OAUTH_NONCE_ACTION = 'traydigita_mailer_gmail_oauth';
+
+    /**
+     * Default DKIM selector, used when the site owner leaves
+     * the selector field empty.
+     */
+    public const string DKIM_DEFAULT_SELECTOR = 'traydigita';
+
+    /**
+     * Admin-post action that generates a DKIM keypair.
+     */
+    public const string DKIM_GENERATE_ACTION = 'traydigita_mailer_dkim_generate';
+
+    /**
+     * Transient prefix for the one-time display of a freshly
+     * generated DKIM private key. The full transient name is
+     * this prefix plus the current user id, so only the admin
+     * who generated the key can read it back, and only once.
+     */
+    private const string DKIM_ONCE_TRANSIENT_PREFIX = 'traydigita_mailer_dkim_once_';
 
     /**
      * Built-in API provider classes, keyed by provider id.
@@ -992,7 +1027,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (25 presets: Gmail, Zoho, Zoho EU, Proton, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (25 presets: Gmail, Zoho, Zoho EU, Proton, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, DKIM signing, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
@@ -1032,6 +1067,7 @@ final class MailerModule implements ModuleInterface
             __('25 transactional APIs plus 10 marketing APIs.', 'traydigita-core'),
             __('Gmail OAuth sign-in.', 'traydigita-core'),
             __('Deliverability headers: Reply-To, List-Unsubscribe, Message-ID, X-Mailer.', 'traydigita-core'),
+            __('DKIM signing for SMTP mail (RSA keypair, DNS TXT record shown in settings).', 'traydigita-core'),
             __('Test email tool and a send log of the last 50 sends.', 'traydigita-core'),
             __('Third-party providers can register through a filter.', 'traydigita-core'),
         ];
@@ -1163,6 +1199,7 @@ final class MailerModule implements ModuleInterface
         add_action('admin_post_traydigita_mailer_gmail_start', [self::class, 'startGmailOAuth']);
         add_action('admin_post_traydigita_mailer_gmail_callback', [self::class, 'handleGmailCallback']);
         add_action('admin_post_traydigita_mailer_gmail_disconnect', [self::class, 'disconnectGmail']);
+        add_action('admin_post_' . self::DKIM_GENERATE_ACTION, [self::class, 'generateDkimKeypair']);
         // Coexistence with the theme's identical Mailer
         // implementation: when both Core and the theme are active
         // they each register the same `pre_wp_mail`,
@@ -1300,6 +1337,11 @@ final class MailerModule implements ModuleInterface
             'headers_x_mailer' => true,
             'headers_auto' => true,
             'headers_feedback' => true,
+            'dkim_enabled' => false,
+            'dkim_domain' => '',
+            'dkim_selector' => self::DKIM_DEFAULT_SELECTOR,
+            'dkim_private_key' => '',
+            'dkim_passphrase' => '',
         ];
         foreach (self::providerDefinitions() as $definition) {
             foreach ($definition['fields'] as $field) {
@@ -1421,6 +1463,14 @@ final class MailerModule implements ModuleInterface
             'headers_x_mailer' => (bool) ($settings['headers_x_mailer'] ?? true),
             'headers_auto' => (bool) ($settings['headers_auto'] ?? true),
             'headers_feedback' => (bool) ($settings['headers_feedback'] ?? true),
+            'dkim_enabled' => (bool) ($settings['dkim_enabled'] ?? false),
+            'dkim_domain' => self::normalizeDkimDomain(self::asString($settings['dkim_domain'] ?? '')),
+            'dkim_selector' => self::normalizeDkimSelector(self::asString($settings['dkim_selector'] ?? '')),
+            // DKIM secrets (private key, passphrase) are stored
+            // as-is and never printed, logged, or returned to
+            // the template; see renderSettingsPage() and redact().
+            'dkim_private_key' => self::asString($settings['dkim_private_key'] ?? ''),
+            'dkim_passphrase' => self::asString($settings['dkim_passphrase'] ?? ''),
         ];
         // Provider credential fields: secrets stored as-is,
         // select fields allowlisted against their definition,
@@ -1556,7 +1606,7 @@ final class MailerModule implements ModuleInterface
             return $text;
         }
         $settings = self::getSettings();
-        $secrets = [$settings['password']];
+        $secrets = [$settings['password'], $settings['dkim_private_key'], $settings['dkim_passphrase']];
         foreach (self::providerDefinitions() as $definition) {
             foreach ($definition['fields'] as $field) {
                 if (!is_array($field) || empty($field['secret']) || empty($field['key']) || !is_string($field['key'])) {
@@ -1759,6 +1809,68 @@ final class MailerModule implements ModuleInterface
             }
         }
 
+        // DKIM signing (SMTP only). The toggle, domain and
+        // selector are plain values; the private key and
+        // passphrase are secrets — stored as-is and only
+        // overwritten when a non-empty value is submitted, so
+        // an empty field keeps the stored key. A submitted key
+        // must parse as an RSA private key, otherwise nothing
+        // is saved. Enabling DKIM without a key is allowed
+        // (it simply does not sign yet); signing only happens
+        // once domain, selector and key are all present, see
+        // dkimApplies().
+        if (array_key_exists('dkim_enabled', $data)) {
+            $new['dkim_enabled'] = (bool) filter_var(self::inputValue($data, 'dkim_enabled'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (array_key_exists('dkim_domain', $data)) {
+            $domain = self::normalizeDkimDomain(self::inputString($data, 'dkim_domain'));
+            if ($domain === '') {
+                $new['dkim_domain'] = '';
+            } elseif (!self::isValidHost($domain)) {
+                $invalid[] = __('DKIM domain', 'traydigita-core');
+            } else {
+                $new['dkim_domain'] = $domain;
+            }
+        }
+
+        if (array_key_exists('dkim_selector', $data)) {
+            $selector = self::normalizeDkimSelector(self::inputString($data, 'dkim_selector'));
+            if (!self::isValidDkimSelector($selector)) {
+                $invalid[] = __('DKIM selector', 'traydigita-core');
+            } else {
+                $new['dkim_selector'] = $selector;
+            }
+        }
+
+        if (array_key_exists('dkim_private_key', $data)) {
+            $key = wp_unslash(self::inputString($data, 'dkim_private_key'));
+            if ($key !== '') {
+                // The passphrase is needed to open an encrypted
+                // key, so validate against the submitted one
+                // (or the stored one when none was submitted).
+                $passphrase = '';
+                if (array_key_exists('dkim_passphrase', $data)) {
+                    $passphrase = wp_unslash(self::inputString($data, 'dkim_passphrase'));
+                }
+                if ($passphrase === '') {
+                    $passphrase = self::asString($current['dkim_passphrase'] ?? '');
+                }
+                if (!self::isValidDkimPrivateKey($key, $passphrase)) {
+                    $invalid[] = __('DKIM private key', 'traydigita-core');
+                } else {
+                    $new['dkim_private_key'] = $key;
+                }
+            }
+        }
+
+        if (array_key_exists('dkim_passphrase', $data)) {
+            $passphrase = wp_unslash(self::inputString($data, 'dkim_passphrase'));
+            if ($passphrase !== '') {
+                $new['dkim_passphrase'] = $passphrase;
+            }
+        }
+
         if ($invalid !== []) {
             return [
                 'success' => false,
@@ -1819,9 +1931,10 @@ final class MailerModule implements ModuleInterface
         }
         $settings = self::getSettings();
         $mailerSettings = $settings;
-        // Strip every secret field (SMTP password + all
-        // provider secrets) before the template sees the settings.
-        unset($mailerSettings['password']);
+        // Strip every secret field (SMTP password, DKIM private
+        // key + passphrase, all provider secrets) before the
+        // template sees the settings.
+        unset($mailerSettings['password'], $mailerSettings['dkim_private_key'], $mailerSettings['dkim_passphrase']);
         foreach (self::providerDefinitions() as $definition) {
             foreach ($definition['fields'] as $field) {
                 if (is_array($field) && !empty($field['secret']) && isset($field['key']) && is_string($field['key'])) {
@@ -1851,6 +1964,27 @@ final class MailerModule implements ModuleInterface
         $mailerHasGmailSecret = $settings['gmail_client_secret'] !== '';
         $mailerGmailConnected = GmailOAuth::isConnected();
         $mailerGmailEmail = GmailOAuth::connectedEmail();
+        $mailerHasDkimKey = $settings['dkim_private_key'] !== '';
+        $mailerDkimApplies = self::dkimApplies($settings);
+        $mailerDkimDns = self::dkimDnsRecord($settings);
+        $mailerDkimCheckAction = MailerAjax::DKIM_CHECK_ACTION;
+        // The DNS check tool only appears when the saved DKIM
+        // configuration is complete and valid (domain + selector
+        // + a parseable RSA key). The check itself never receives
+        // the private key — it only gets domain + selector, and
+        // the server compares against the stored key.
+        $mailerDkimCheckReady = $mailerDkimDns !== null
+            && is_string($settings['dkim_domain']) && self::isValidHost($settings['dkim_domain'])
+            && is_string($settings['dkim_selector']) && self::isValidDkimSelector($settings['dkim_selector'])
+            && self::isValidDkimPrivateKey($settings['dkim_private_key'], $settings['dkim_passphrase']);
+        // Generate (or rotate) a keypair: an admin-post link with
+        // a nonce, like the Gmail connect/disconnect links. The
+        // handler reads domain/selector from the SAVED settings,
+        // so the user saves those first.
+        $mailerDkimGenerateUrl = wp_nonce_url(
+            admin_url('admin-post.php?action=' . self::DKIM_GENERATE_ACTION),
+            self::NONCE_ACTION
+        );
         $mailerLastTest = self::getLastTest();
         $mailerSendLog = array_slice(self::getSendLog(), 0, 15);
         $mailerNonceAction = self::NONCE_ACTION;
@@ -1871,6 +2005,20 @@ final class MailerModule implements ModuleInterface
         $mailerGmailRedirectUri = GmailOAuth::redirectUri();
         $mailerResult = isset($_GET['mailer-result']) ? sanitize_key(wp_unslash($_GET['mailer-result'])) : '';
         $mailerResultCode = isset($_GET['mailer-code']) ? sanitize_key(wp_unslash($_GET['mailer-code'])) : '';
+        // A freshly generated private key is shown exactly once,
+        // right after generation: it lives in a user-scoped
+        // transient (5 minutes) that is read and deleted here,
+        // so a refresh never shows it again. The key itself is
+        // already stored as a secret; this is only its one-time
+        // display copy for backup.
+        $mailerDkimGeneratedKey = '';
+        if ($mailerResult === 'dkim-generated') {
+            $once = get_transient(self::DKIM_ONCE_TRANSIENT_PREFIX . get_current_user_id());
+            if (is_string($once) && $once !== '') {
+                $mailerDkimGeneratedKey = $once;
+            }
+            delete_transient(self::DKIM_ONCE_TRANSIENT_PREFIX . get_current_user_id());
+        }
         // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
         $file = \TrayDigita\WP\Plugin\Core\Core::pluginDir() . '/templates/admin/modules/mailer.php';
         if (!file_exists($file)) {
@@ -1965,6 +2113,22 @@ final class MailerModule implements ModuleInterface
             }
             if (!empty($settings['headers_x_mailer'])) {
                 $phpmailer->XMailer = 'TrayDigita Core Mailer ' . \TrayDigita\WP\Plugin\Core\Core::VERSION;
+            }
+            // DKIM signing (SMTP path only; the API path never
+            // reaches PHPMailer). The private key is passed as a
+            // string (DKIM_private_string), never as a file path:
+            // DKIM_private is a path and would silently not sign
+            // when given key text. Signing only happens when
+            // dkimApplies() says the settings are complete and
+            // the DKIM domain matches the From domain.
+            if (self::dkimApplies($settings)) {
+                $phpmailer->DKIM_domain = $settings['dkim_domain'];
+                $phpmailer->DKIM_selector = $settings['dkim_selector'];
+                $phpmailer->DKIM_private_string = $settings['dkim_private_key'];
+                if ($settings['dkim_passphrase'] !== '') {
+                    $phpmailer->DKIM_passphrase = $settings['dkim_passphrase'];
+                }
+                $phpmailer->DKIM_identity = $settings['from_email'];
             }
         } catch (Throwable) {
             // No error_log here: a mail send must never spam the
@@ -2374,6 +2538,95 @@ final class MailerModule implements ModuleInterface
     }
 
     /**
+     * Generate a DKIM keypair (admin-post action).
+     *
+     * Generates a 2048-bit RSA keypair with OpenSSL and stores
+     * the private key immediately as a secret. The domain and
+     * selector come from the saved settings (the site owner
+     * saves them first), so the DNS record shown after
+     * generation matches what is stored. The private key is
+     * also put in a user-scoped transient (5 minutes) so the
+     * settings page can show it exactly once for backup; the
+     * transient is deleted on first read, so a refresh never
+     * shows it again. Rotating is the same action again: a new
+     * keypair replaces the old one, and the DNS record must be
+     * updated to the new public key.
+     *
+     * @return void
+     */
+    public static function generateDkimKeypair(): void
+    {
+        $base = admin_url('admin.php?page=' . self::settingsPageSlug());
+        check_admin_referer(self::NONCE_ACTION);
+        if (!current_user_can('manage_options')) {
+            wp_redirect($base . '&mailer-result=error&mailer-code=forbidden');
+            exit;
+        }
+        if (!function_exists('openssl_pkey_new') || !function_exists('openssl_pkey_export')) {
+            wp_redirect($base . '&mailer-result=dkim-error&mailer-code=no-openssl');
+            exit;
+        }
+        $settings = self::getSettings();
+        $domain = $settings['dkim_domain'] ?? '';
+        $selector = $settings['dkim_selector'] ?? '';
+        if (!is_string($domain) || $domain === '' || !self::isValidHost($domain)) {
+            wp_redirect($base . '&mailer-result=dkim-error&mailer-code=no-domain');
+            exit;
+        }
+        if (!is_string($selector) || !self::isValidDkimSelector($selector)) {
+            wp_redirect($base . '&mailer-result=dkim-error&mailer-code=bad-selector');
+            exit;
+        }
+        $res = openssl_pkey_new([
+            'private_key_bits' => 2048,
+            'private_key_type' => OPENSSL_KEYTYPE_RSA,
+        ]);
+        if ($res === false) {
+            wp_redirect($base . '&mailer-result=dkim-error&mailer-code=generate-failed');
+            exit;
+        }
+        $privateKey = '';
+        if (openssl_pkey_export($res, $privateKey) === false || $privateKey === '') {
+            wp_redirect($base . '&mailer-result=dkim-error&mailer-code=generate-failed');
+            exit;
+        }
+        self::updateSetting('dkim_private_key', $privateKey);
+        self::updateSetting('dkim_domain', $domain);
+        self::updateSetting('dkim_selector', $selector);
+        set_transient(self::DKIM_ONCE_TRANSIENT_PREFIX . get_current_user_id(), $privateKey, 5 * MINUTE_IN_SECONDS);
+        wp_redirect($base . '&mailer-result=dkim-generated');
+        exit;
+    }
+
+    /**
+     * Human text for a DKIM redirect result code.
+     *
+     * Allowlist only: unknown codes render no notice at all, and
+     * raw request input is never echoed.
+     *
+     * @param string $result Result flag from the redirect URL.
+     * @param string $code Detail code from the redirect URL.
+     * @return string Human-readable message, or '' for an unknown code.
+     */
+    public static function dkimResultMessage(string $result, string $code): string
+    {
+        if ($result === 'dkim-generated') {
+            return __('A new DKIM keypair was generated and saved. Copy the private key shown below now — it will never be shown again. Then publish the DNS TXT record and enable DKIM signing.', 'traydigita-core');
+        }
+        if ($result !== 'dkim-error') {
+            return '';
+        }
+        return match ($code) {
+            'forbidden' => __('You are not allowed to do that.', 'traydigita-core'),
+            'no-openssl' => __('OpenSSL is not available on this server, so a DKIM keypair cannot be generated here. Paste a key generated elsewhere instead.', 'traydigita-core'),
+            'no-domain' => __('Enter a valid DKIM domain and save the settings first, then generate a keypair.', 'traydigita-core'),
+            'bad-selector' => __('The DKIM selector is not valid. Use lowercase letters, digits and hyphens, starting with a letter or digit.', 'traydigita-core'),
+            'generate-failed' => __('The DKIM keypair could not be generated. Please try again.', 'traydigita-core'),
+            default => __('The DKIM keypair could not be generated. Please try again.', 'traydigita-core'),
+        };
+    }
+
+    /**
      * Human text for a Gmail OAuth redirect result code.
      *
      * Allowlist only: unknown codes render no notice at all, and
@@ -2717,6 +2970,354 @@ final class MailerModule implements ModuleInterface
             return true;
         }
         return filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== false;
+    }
+
+    /**
+     * Normalize a DKIM domain for storage: lowercase, trimmed.
+     *
+     * An empty value stays empty (DKIM simply does not sign
+     * until a domain is set).
+     *
+     * @param string $domain Submitted domain.
+     * @return string Normalized domain.
+     */
+    private static function normalizeDkimDomain(string $domain): string
+    {
+        return strtolower(trim($domain));
+    }
+
+    /**
+     * Normalize a DKIM selector for storage: lowercase,
+     * trimmed, falling back to the default selector when empty.
+     *
+     * @param string $selector Submitted selector.
+     * @return string Normalized selector.
+     */
+    private static function normalizeDkimSelector(string $selector): string
+    {
+        $selector = strtolower(trim($selector));
+        return $selector === '' ? self::DKIM_DEFAULT_SELECTOR : $selector;
+    }
+
+    /**
+     * Whether a DKIM domain is valid.
+     *
+     * Public so the AJAX check endpoint can validate the
+     * submitted domain before any DNS lookup or rate limiting.
+     * Delegates to the same host check the save path uses, so
+     * a domain accepted on save is accepted here too.
+     *
+     * @param string $domain Normalized domain.
+     * @return bool
+     */
+    public static function isValidDkimDomain(string $domain): bool
+    {
+        return self::isValidHost($domain);
+    }
+
+    /**
+     * Whether a DKIM selector is valid: a DNS label (1-63
+     * chars, lowercase letters, digits, hyphens, starting
+     * with a letter or digit).
+     *
+     * Public so the AJAX check endpoint can validate the
+     * submitted selector before any DNS lookup or rate limiting.
+     *
+     * @param string $selector Normalized selector.
+     * @return bool
+     */
+    public static function isValidDkimSelector(string $selector): bool
+    {
+        if ($selector === '' || strlen($selector) > 63) {
+            return false;
+        }
+        return preg_match('/^[a-z0-9][a-z0-9-]*$/', $selector) === 1;
+    }
+
+    /**
+     * Whether a string parses as an RSA private key.
+     *
+     * With OpenSSL available the key is actually parsed (and
+     * must be RSA); without it the check falls back to the PEM
+     * armor, so a non-key is still refused. An encrypted key
+     * needs its passphrase to open.
+     *
+     * @param string $key Private key text (PEM).
+     * @param string $passphrase Passphrase for an encrypted key, or ''.
+     * @return bool
+     */
+    private static function isValidDkimPrivateKey(string $key, string $passphrase = ''): bool
+    {
+        if ($key === '') {
+            return false;
+        }
+        if (function_exists('openssl_pkey_get_private')) {
+            $res = openssl_pkey_get_private($key, $passphrase);
+            if ($res === false) {
+                return false;
+            }
+            $details = openssl_pkey_get_details($res);
+            return is_array($details) && ($details['type'] ?? null) === OPENSSL_KEYTYPE_RSA;
+        }
+        return str_contains($key, '-----BEGIN')
+            && str_contains($key, 'PRIVATE KEY-----')
+            && str_contains($key, '-----END');
+    }
+
+    /**
+     * Derive the base64 public key body from a private key.
+     *
+     * The DNS `p=` value is the public key without its PEM
+     * armor or line breaks. Returns null when OpenSSL is
+     * unavailable or the key cannot be opened (wrong key or
+     * wrong passphrase).
+     *
+     * @param string $privateKey Private key text (PEM).
+     * @param string $passphrase Passphrase for an encrypted key, or ''.
+     * @return string|null Base64 public key body, or null.
+     */
+    private static function dkimPublicKey(string $privateKey, string $passphrase = ''): ?string
+    {
+        if (!function_exists('openssl_pkey_get_private') || !function_exists('openssl_pkey_get_details')) {
+            return null;
+        }
+        $res = openssl_pkey_get_private($privateKey, $passphrase);
+        if ($res === false) {
+            return null;
+        }
+        $details = openssl_pkey_get_details($res);
+        if (!is_array($details) || empty($details['key']) || !is_string($details['key'])) {
+            return null;
+        }
+        $body = str_replace(['-----BEGIN PUBLIC KEY-----', '-----END PUBLIC KEY-----'], '', $details['key']);
+        $body = str_replace(["\r", "\n", ' ', "\t"], '', $body);
+        return $body !== '' ? $body : null;
+    }
+
+    /**
+     * The DNS TXT record the site owner must publish for DKIM.
+     *
+     * Returns null when the domain, selector or key is missing,
+     * or when the public key cannot be derived. The public key
+     * is public by design (it lives in DNS); only the private
+     * key is a secret and it never appears here.
+     *
+     * @param array<string, mixed> $settings Normalized settings.
+     * @return array{host: string, value: string}|null DNS host + value, or null.
+     */
+    public static function dkimDnsRecord(array $settings): ?array
+    {
+        $domain = self::asString($settings['dkim_domain'] ?? '');
+        $selector = self::asString($settings['dkim_selector'] ?? '');
+        $key = self::asString($settings['dkim_private_key'] ?? '');
+        $passphrase = self::asString($settings['dkim_passphrase'] ?? '');
+        if ($domain === '' || $selector === '' || $key === '') {
+            return null;
+        }
+        $publicKey = self::dkimPublicKey($key, $passphrase);
+        if ($publicKey === null) {
+            return null;
+        }
+        return [
+            'host' => $selector . '._domainkey.' . $domain,
+            'value' => 'v=DKIM1; k=rsa; p=' . $publicKey,
+        ];
+    }
+
+    /**
+     * Whether DKIM signing applies to the next send.
+     *
+     * Signing needs all of: enabled, domain, selector, private
+     * key — and the DKIM domain must match the From domain, so
+     * the signature aligns for DMARC. A mismatched domain would
+     * still sign but fail alignment, which hurts deliverability
+     * instead of helping it.
+     *
+     * @param array<string, mixed> $settings Normalized settings.
+     * @return bool
+     */
+    public static function dkimApplies(array $settings): bool
+    {
+        if (empty($settings['dkim_enabled'])) {
+            return false;
+        }
+        $domain = self::asString($settings['dkim_domain'] ?? '');
+        $selector = self::asString($settings['dkim_selector'] ?? '');
+        $key = self::asString($settings['dkim_private_key'] ?? '');
+        if ($domain === '' || $selector === '' || $key === '') {
+            return false;
+        }
+        $fromEmail = self::asString($settings['from_email'] ?? '');
+        if ($fromEmail === '' || is_email($fromEmail) === false) {
+            return false;
+        }
+        $parts = explode('@', $fromEmail);
+        $fromDomain = strtolower(trim((string) $parts[count($parts) - 1]));
+        return $fromDomain === strtolower($domain);
+    }
+
+    /**
+     * Look up the TXT strings published for a host.
+     *
+     * Tries the server resolver first (`dns_get_record`), then
+     * DNS-over-HTTPS (Cloudflare) when the resolver is
+     * unavailable or returns nothing — shared hosting often
+     * has a broken or restricted resolver, while outbound
+     * HTTPS (which WordPress needs anyway) usually works.
+     * Returns null only when both lookups fail outright (as
+     * opposed to finding no records, which is an empty array).
+     *
+     * @param string $host Host to query, e.g. `s1._domainkey.example.com`.
+     * @return array<int, string>|null TXT strings found, or null on lookup failure.
+     */
+    private static function dkimDnsLookup(string $host): ?array
+    {
+        if (function_exists('dns_get_record')) {
+            $records = dns_get_record($host, DNS_TXT);
+            if (is_array($records) && $records !== []) {
+                $texts = [];
+                foreach ($records as $record) {
+                    if (!is_array($record)) {
+                        continue;
+                    }
+                    if (isset($record['txt']) && is_string($record['txt']) && $record['txt'] !== '') {
+                        $texts[] = $record['txt'];
+                    } elseif (isset($record['entries']) && is_array($record['entries'])) {
+                        $joined = '';
+                        foreach ($record['entries'] as $entry) {
+                            if (is_string($entry)) {
+                                $joined .= $entry;
+                            }
+                        }
+                        if ($joined !== '') {
+                            $texts[] = $joined;
+                        }
+                    }
+                }
+                return $texts;
+            }
+        }
+        // Fall back to DNS-over-HTTPS (Cloudflare JSON API).
+        $url = 'https://cloudflare-dns.com/dns-query?name=' . rawurlencode($host) . '&type=TXT';
+        $response = wp_remote_get($url, [
+            'headers' => ['Accept' => 'application/dns-json'],
+            'timeout' => 10,
+        ]);
+        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+            return null;
+        }
+        $body = wp_remote_retrieve_body($response);
+        if (!is_string($body) || $body === '') {
+            return null;
+        }
+        $decoded = json_decode($body, true);
+        if (!is_array($decoded) || empty($decoded['Answer']) || !is_array($decoded['Answer'])) {
+            return [];
+        }
+        $texts = [];
+        foreach ($decoded['Answer'] as $answer) {
+            if (!is_array($answer) || !isset($answer['data']) || !is_string($answer['data'])) {
+                continue;
+            }
+            // DoH returns each TXT string quoted; a record split
+            // across strings comes back as several quoted parts.
+            $data = str_replace('"', '', $answer['data']);
+            if ($data !== '') {
+                $texts[] = $data;
+            }
+        }
+        return $texts;
+    }
+
+    /**
+     * Check the published DKIM TXT record against the key.
+     *
+     * Looks up `<selector>._domainkey.<domain>`, finds the
+     * DKIM record in it, and compares its `p=` value with the
+     * public key derived from the stored private key.
+     *
+     * @param string $domain DKIM domain to check.
+     * @param string $selector DKIM selector to check.
+     * @param string $privateKey Stored private key text (PEM).
+     * @param string $passphrase Passphrase for an encrypted key, or ''.
+     * @return array{status: string, message: string, found: string|null, expected: string|null}
+     *     Status is one of `ok`, `missing`, `mismatch`, `error`.
+     */
+    public static function dkimCheckDns(
+        string $domain,
+        string $selector,
+        string $privateKey,
+        string $passphrase = ''
+    ): array {
+        $expected = self::dkimPublicKey($privateKey, $passphrase);
+        if ($expected === null) {
+            return [
+                'status' => 'error',
+                'message' => __('Could not derive the public key from the stored private key. Check the key and its passphrase.', 'traydigita-core'),
+                'found' => null,
+                'expected' => null,
+            ];
+        }
+        $host = $selector . '._domainkey.' . $domain;
+        $texts = self::dkimDnsLookup($host);
+        if ($texts === null) {
+            return [
+                'status' => 'error',
+                'message' => __('The DNS lookup failed. The server could not reach a DNS resolver or DNS-over-HTTPS — try again, or check the record with an external DNS checker.', 'traydigita-core'),
+                'found' => null,
+                'expected' => $expected,
+            ];
+        }
+        $found = null;
+        foreach ($texts as $text) {
+            // A DKIM record starts with v=DKIM1; other TXT
+            // records on the same name are ignored.
+            $flat = str_replace([' ', "\t", "\r", "\n"], '', $text);
+            if (str_starts_with(strtolower($flat), 'v=dkim1;')) {
+                $found = $flat;
+                break;
+            }
+        }
+        if ($found === null) {
+            return [
+                'status' => 'missing',
+                'message' => sprintf(
+                    /* translators: %s is the DNS host that has no DKIM TXT record yet. */
+                    __('No DKIM TXT record found at %s yet. Publish the DNS record shown below, then check again — DNS changes can take a while to propagate.', 'traydigita-core'),
+                    $host
+                ),
+                'found' => null,
+                'expected' => $expected,
+            ];
+        }
+        // Extract the p= value (everything after p= up to the
+        // next semicolon or the end).
+        $published = null;
+        if (preg_match('/p=([^;]+)/', $found, $matches) === 1) {
+            $published = str_replace([' ', "\t", "\r", "\n"], '', $matches[1]);
+        }
+        if ($published === null || $published === '') {
+            return [
+                'status' => 'mismatch',
+                'message' => __('A DKIM TXT record was found, but it has no public key (p=) value. Fix the DNS record so its p= value matches the public key shown below.', 'traydigita-core'),
+                'found' => $found,
+                'expected' => $expected,
+            ];
+        }
+        if ($published === $expected) {
+            return [
+                'status' => 'ok',
+                'message' => __('DKIM is set up correctly: the published TXT record matches the private key.', 'traydigita-core'),
+                'found' => $found,
+                'expected' => $expected,
+            ];
+        }
+        return [
+            'status' => 'mismatch',
+            'message' => __('A DKIM TXT record was found, but its public key does not match this private key. Either the DNS record is stale (an old key) or the wrong key is stored here — publish the public key shown below, or generate a new keypair.', 'traydigita-core'),
+            'found' => $found,
+            'expected' => $expected,
+        ];
     }
 
     /**

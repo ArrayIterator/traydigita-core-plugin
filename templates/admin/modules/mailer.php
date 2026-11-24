@@ -20,6 +20,13 @@
  * @var string $mailerGmailRedirectUri Redirect URI for the Google Cloud OAuth client (GmailOAuth::redirectUri()).
  * @var string $mailerResult Gmail OAuth redirect result flag (`connected`, `disconnected`, `error`, or '').
  * @var string $mailerResultCode Gmail OAuth redirect detail code, or ''.
+ * @var bool $mailerHasDkimKey Whether a DKIM private key is currently stored.
+ * @var bool $mailerDkimApplies Whether DKIM signing will happen for the next send (enabled + domain + selector + key present, and the DKIM domain matches the From domain).
+ * @var array{host: string, value: string}|null $mailerDkimDns DNS TXT record to publish for DKIM, or null when it cannot be derived yet.
+ * @var string $mailerDkimGeneratedKey A freshly generated DKIM private key, shown exactly once right after generation ('' otherwise; never stored in the page on a later load).
+ * @var string $mailerDkimCheckAction AJAX action name for the DKIM DNS check endpoint.
+ * @var bool $mailerDkimCheckReady Whether the saved DKIM configuration is complete and valid, so the DNS check tool may be shown.
+ * @var string $mailerDkimGenerateUrl URL that generates (or rotates) a DKIM keypair (nonce in the URL).
  *
  * Forms:
  * - Settings form: posts to the shell generic save endpoint
@@ -109,11 +116,17 @@ $selectedProviderId = (string) $mailerSettings['provider'];
 $selectedProviderReady = !empty($mailerProviders[$selectedProviderId]['is_ready']);
 $selectedProviderProven = !empty($mailerProviders[$selectedProviderId]['ready_proven']);
 $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerResultCode);
+$dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResultCode);
 ?>
 <div class="traydigita-mailer-settings">
     <?php if ($gmailResultMessage !== '') : ?>
         <div class="traydigita-admin-notice <?php echo $mailerResult === 'error' ? 'traydigita-admin-notice-error' : 'traydigita-admin-notice-success'; ?>">
             <p><?php echo esc_html($gmailResultMessage); ?></p>
+        </div>
+    <?php endif; ?>
+    <?php if ($dkimResultMessage !== '') : ?>
+        <div class="traydigita-admin-notice <?php echo $mailerResult === 'dkim-error' ? 'traydigita-admin-notice-error' : 'traydigita-admin-notice-success'; ?>">
+            <p><?php echo esc_html($dkimResultMessage); ?></p>
         </div>
     <?php endif; ?>
 
@@ -467,6 +480,172 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
                 'help' => __('Why: lets the site owner track spam complaints per list in the provider dashboard, so a bad list can be found and fixed instead of hurting the whole domain.', 'traydigita-core'),
             ]);
             ?>
+
+            <?php
+            // DKIM signing: a sub-group inside Deliverability. The
+            // private key is a secret — it is always rendered empty
+            // (the stored key is never printed), and the passphrase
+            // likewise. The long help lives behind the framework
+            // Help toggle, like every other field here.
+            ?>
+            <div class="traydigita-field" data-mailer-dkim
+                data-has-dkim-key="<?php echo $mailerHasDkimKey ? '1' : '0'; ?>"
+                data-msg-dkim-domain-invalid="<?php esc_attr_e('Enter a valid domain, for example example.com.', 'traydigita-core'); ?>"
+                data-msg-dkim-selector-invalid="<?php esc_attr_e('Use lowercase letters, digits and hyphens only, starting with a letter or digit.', 'traydigita-core'); ?>"
+                data-msg-dkim-key-invalid="<?php esc_attr_e('Paste a valid RSA private key in PEM format (-----BEGIN PRIVATE KEY----- ... -----END PRIVATE KEY-----).', 'traydigita-core'); ?>"
+                data-msg-dkim-confirm="<?php esc_attr_e('Are you sure you want to save these DKIM settings?', 'traydigita-core'); ?>"
+                data-msg-dkim-confirm-warning="<?php esc_attr_e('Warning: the following DKIM fields are not valid:', 'traydigita-core'); ?>"
+                data-msg-dkim-check-title="<?php esc_attr_e('DKIM DNS check', 'traydigita-core'); ?>"
+                data-msg-dkim-check-loading="<?php esc_attr_e('Checking DNS…', 'traydigita-core'); ?>"
+                data-msg-dkim-check-cached="<?php esc_attr_e('Result from cache (checked less than 5 minutes ago).', 'traydigita-core'); ?>"
+                data-msg-dkim-check-close="<?php esc_attr_e('Close', 'traydigita-core'); ?>"
+                data-msg-dkim-check-error="<?php esc_attr_e('The DNS check failed. Try again.', 'traydigita-core'); ?>">
+                <h3 class="traydigita-field-heading"><span class="material-icons" aria-hidden="true">vpn_key</span> <?php esc_html_e('DKIM signing', 'traydigita-core'); ?></h3>
+                <p class="traydigita-field-description">
+                    <?php esc_html_e('DKIM signs every outgoing email so receivers can verify it really came from this domain. Publish the DNS record below, then turn signing on.', 'traydigita-core'); ?>
+                </p>
+
+                <?php
+                SettingsControls::toggle([
+                    'id' => 'mailer-dkim-enabled',
+                    'name' => 'dkim_enabled',
+                    'label' => __('Sign outgoing mail with DKIM', 'traydigita-core'),
+                    'checked' => (bool) ($mailerSettings['dkim_enabled'] ?? false),
+                    'help' => __('Why: a valid DKIM signature is one of the strongest trust signals for spam filters, and it is required for DMARC alignment. Signing only happens when the From address belongs to the DKIM domain.', 'traydigita-core'),
+                ]);
+                SettingsControls::input([
+                    'id' => 'mailer-dkim-domain',
+                    'name' => 'dkim_domain',
+                    'label' => __('DKIM domain', 'traydigita-core'),
+                    'value' => (string) ($mailerSettings['dkim_domain'] ?? ''),
+                    'mono' => true,
+                    'help' => __('The domain the mail is signed for — normally the same domain as the From address.', 'traydigita-core'),
+                    'attrs' => ['placeholder' => 'example.com', 'autocomplete' => 'off', 'spellcheck' => 'false'],
+                ]);
+                ?>
+                <span class="traydigita-field-error" data-field-error="dkim_domain" hidden></span>
+                <?php
+                SettingsControls::input([
+                    'id' => 'mailer-dkim-selector',
+                    'name' => 'dkim_selector',
+                    'label' => __('DKIM selector', 'traydigita-core'),
+                    'value' => (string) ($mailerSettings['dkim_selector'] ?? 'traydigita'),
+                    'mono' => true,
+                    'help' => __('A short label for this key, so the key can be rotated later by publishing a new selector. Lowercase letters, digits and hyphens only.', 'traydigita-core'),
+                    'attrs' => ['autocomplete' => 'off', 'spellcheck' => 'false'],
+                ]);
+                ?>
+                <span class="traydigita-field-error" data-field-error="dkim_selector" hidden></span>
+                <?php
+                SettingsControls::textarea([
+                    'id' => 'mailer-dkim-private-key',
+                    'name' => 'dkim_private_key',
+                    'label' => __('DKIM private key', 'traydigita-core'),
+                    'value' => '',
+                    'variant' => 'code',
+                    'help' => __('The RSA private key in PEM format. It is stored as a secret and never shown again after saving — paste it only to set or replace it.', 'traydigita-core'),
+                    'attrs' => [
+                        'placeholder' => $mailerHasDkimKey
+                            ? __('•••••••• (saved)', 'traydigita-core')
+                            : __('-----BEGIN PRIVATE KEY-----', 'traydigita-core'),
+                        'autocomplete' => 'off',
+                        'spellcheck' => 'false',
+                        'rows' => '6',
+                    ],
+                ]);
+                ?>
+                <span class="traydigita-field-error" data-field-error="dkim_private_key" hidden></span>
+                <?php
+                SettingsControls::input([
+                    'id' => 'mailer-dkim-passphrase',
+                    'name' => 'dkim_passphrase',
+                    'type' => 'password',
+                    'label' => __('Private key passphrase (optional)', 'traydigita-core'),
+                    'value' => '',
+                    'help' => __('Only needed when the private key itself is encrypted. Leave empty for a plain key.', 'traydigita-core'),
+                    'attrs' => [
+                        'placeholder' => __('•••••••• (saved)', 'traydigita-core'),
+                        'autocomplete' => 'new-password',
+                    ],
+                ]);
+
+                if ($mailerDkimGeneratedKey !== '') :
+                    // A freshly generated key is shown exactly once,
+                    // right after generation: a readonly code block
+                    // with the framework copy button, plus a warning
+                    // notice. A refresh never shows it again.
+                    ?>
+                    <div class="traydigita-admin-notice traydigita-admin-notice-warning">
+                        <?php esc_html_e('This private key is shown only once. Copy it now and store it somewhere safe — it will never be shown again.', 'traydigita-core'); ?>
+                    </div>
+                    <?php
+                    $generatedControl = '<span class="td-settings-code-wrap">'
+                        . '<textarea class="traydigita-ui-textarea traydigita-ui-textarea-code" id="mailer-dkim-generated-key" readonly spellcheck="false" rows="6">'
+                        . esc_textarea($mailerDkimGeneratedKey)
+                        . '</textarea>'
+                        . SettingsControls::copyButton('mailer-dkim-generated-key')
+                        . '</span>';
+                    SettingsControls::field(
+                        'mailer-dkim-generated-key',
+                        __('New private key (shown once)', 'traydigita-core'),
+                        $generatedControl,
+                        __('The key is already saved. Update the DNS record to the public key below, or signing will fail.', 'traydigita-core')
+                    );
+                endif;
+
+                if ($mailerDkimDns !== null) :
+                    // DNS TXT guidance: the record name and value,
+                    // readonly with the framework copy button. The
+                    // value holds only the public key — the private
+                    // key is never in DNS.
+                    $dnsHostControl = '<span class="td-settings-code-wrap">'
+                        . '<input class="traydigita-ui-input traydigita-ui-input-mono" type="text" id="mailer-dkim-dns-host" value="' . esc_attr($mailerDkimDns['host']) . '" readonly spellcheck="false" autocomplete="off">'
+                        . SettingsControls::copyButton('mailer-dkim-dns-host')
+                        . '</span>';
+                    SettingsControls::field(
+                        'mailer-dkim-dns-host',
+                        __('DNS record name', 'traydigita-core'),
+                        $dnsHostControl,
+                        __('Add a TXT record with this name at your DNS provider.', 'traydigita-core')
+                    );
+                    $dnsValueControl = '<span class="td-settings-code-wrap">'
+                        . '<textarea class="traydigita-ui-textarea traydigita-ui-textarea-code" id="mailer-dkim-dns-value" readonly spellcheck="false" rows="3">'
+                        . esc_textarea($mailerDkimDns['value'])
+                        . '</textarea>'
+                        . SettingsControls::copyButton('mailer-dkim-dns-value')
+                        . '</span>';
+                    SettingsControls::field(
+                        'mailer-dkim-dns-value',
+                        __('DNS record value', 'traydigita-core'),
+                        $dnsValueControl,
+                        __('The TXT value for that record. It contains only the public key — the private key is never in DNS.', 'traydigita-core')
+                    );
+                endif;
+                ?>
+
+                <p class="traydigita-mailer-dkim-actions">
+                    <a class="traydigita-admin-button" href="<?php echo esc_url($mailerDkimGenerateUrl); ?>" data-confirm="<?php esc_attr_e('Generate a new DKIM keypair? The old private key stops working — update the DNS record to the new public key.', 'traydigita-core'); ?>">
+                        <span class="material-icons" aria-hidden="true">vpn_key</span> <?php echo $mailerHasDkimKey ? esc_html__('Rotate keypair', 'traydigita-core') : esc_html__('Generate keypair', 'traydigita-core'); ?>
+                    </a>
+                    <span class="description"><?php esc_html_e('Save the domain and selector first, then generate. The key is stored as a secret and shown only once.', 'traydigita-core'); ?></span>
+                    <?php if ($mailerDkimCheckReady) : ?>
+                        <?php
+                        // The DNS check tool only appears when the
+                        // saved DKIM configuration is complete and
+                        // valid. It sends only domain + selector to
+                        // the server — never the private key.
+                        ?>
+                        <button type="button" class="traydigita-admin-button" data-mailer-dkim-check
+                            data-action="<?php echo esc_attr($mailerDkimCheckAction); ?>"
+                            data-nonce="<?php echo esc_attr(wp_create_nonce($mailerNonceAction)); ?>"
+                            data-domain="<?php echo esc_attr((string) ($mailerSettings['dkim_domain'] ?? '')); ?>"
+                            data-selector="<?php echo esc_attr((string) ($mailerSettings['dkim_selector'] ?? '')); ?>">
+                            <span class="material-icons" aria-hidden="true">dns</span> <?php esc_html_e('Check DNS', 'traydigita-core'); ?>
+                        </button>
+                        <span class="description"><?php esc_html_e('Looks up the published TXT record and compares it with this key.', 'traydigita-core'); ?></span>
+                    <?php endif; ?>
+                </p>
+            </div>
         </section>
 
         <?php SettingsControls::saveBar(); ?>
@@ -578,3 +757,283 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
         </section>
     </form>
 </div>
+
+<?php
+// DKIM behaviour: one inline script block (the same pattern as
+// the inline `window.confirm()` in templates/admin/modules/email.php).
+// - Blur validation on the DKIM fields (only when non-empty).
+// - Save confirmation when DKIM is enabled: the form is stopped
+//   before the shell's AJAX save handler runs (preventDefault +
+//   stopImmediatePropagation, the same pair the role editor uses
+//   to block a submit), a confirm dialog is shown — with a warning
+//   listing the invalid fields when any — and on confirm the form
+//   is re-submitted once, so the shell handler runs.
+// - DNS check popup (shared modal): results are cached in a JS
+//   Map keyed by the full DNS name, 5-minute TTL, memory only
+//   (no localStorage / sessionStorage). The server is only called
+//   on a cache miss. Only domain + selector are sent — never the
+//   private key.
+?>
+<script>
+(function () {
+    'use strict';
+
+    var container = document.querySelector('[data-mailer-dkim]');
+    if (!container) {
+        return;
+    }
+
+    var form = container.closest('form.traydigita-mailer-form');
+    var toggle = document.getElementById('mailer-dkim-enabled');
+    var domainField = document.getElementById('mailer-dkim-domain');
+    var selectorField = document.getElementById('mailer-dkim-selector');
+    var keyField = document.getElementById('mailer-dkim-private-key');
+    var checkButton = container.querySelector('[data-mailer-dkim-check]');
+    var hasStoredKey = container.getAttribute('data-has-dkim-key') === '1';
+
+    function msg(key, fallback) {
+        var value = container.getAttribute('data-msg-' + key);
+        return value ? value : fallback;
+    }
+
+    function isValidDomain(value) {
+        var v = String(value || '').toLowerCase().trim();
+        if (v === '' || v.length > 253) {
+            return false;
+        }
+        if (/[\s\/\\@]/.test(v)) {
+            return false;
+        }
+        return /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$/.test(v);
+    }
+
+    function isValidSelector(value) {
+        var v = String(value || '').toLowerCase().trim();
+        if (v === '' || v.length > 63) {
+            return false;
+        }
+        return /^[a-z0-9][a-z0-9-]*$/.test(v);
+    }
+
+    /* Client-side private-key check is a PEM-format check only;
+       the full RSA parse is server-side (OpenSSL). */
+    function isValidPrivateKeyFormat(value) {
+        var v = String(value || '').trim();
+        if (v === '') {
+            return false;
+        }
+        return /-----BEGIN (?:RSA )?PRIVATE KEY-----/.test(v)
+            && /-----END (?:RSA )?PRIVATE KEY-----/.test(v);
+    }
+
+    function showFieldError(fieldName, message) {
+        var node = container.querySelector('[data-field-error="' + fieldName + '"]');
+        if (!node) {
+            return;
+        }
+        if (message) {
+            node.textContent = message;
+            node.hidden = false;
+        } else {
+            node.textContent = '';
+            node.hidden = true;
+        }
+    }
+
+    /* Validate the three DKIM fields as the user typed them.
+       Returns an array of { field, label, message } for the
+       fields that are invalid. An empty field is only invalid
+       when DKIM is enabled (it means the config is incomplete);
+       when DKIM is off, empty fields are fine. */
+    function validateDkimFields() {
+        var problems = [];
+        var enabled = toggle ? toggle.checked : false;
+        var domain = domainField ? domainField.value : '';
+        var selector = selectorField ? selectorField.value : '';
+        var key = keyField ? keyField.value : '';
+        if (domain.trim() === '') {
+            if (enabled) {
+                problems.push({ field: 'dkim_domain', label: 'DKIM domain', message: msg('dkim-domain-invalid', 'Enter a valid domain, for example example.com.') });
+            }
+        } else if (!isValidDomain(domain)) {
+            problems.push({ field: 'dkim_domain', label: 'DKIM domain', message: msg('dkim-domain-invalid', 'Enter a valid domain, for example example.com.') });
+        }
+        if (selector.trim() === '') {
+            if (enabled) {
+                problems.push({ field: 'dkim_selector', label: 'DKIM selector', message: msg('dkim-selector-invalid', 'Use lowercase letters, digits and hyphens only, starting with a letter or digit.') });
+            }
+        } else if (!isValidSelector(selector)) {
+            problems.push({ field: 'dkim_selector', label: 'DKIM selector', message: msg('dkim-selector-invalid', 'Use lowercase letters, digits and hyphens only, starting with a letter or digit.') });
+        }
+        if (key.trim() !== '') {
+            if (!isValidPrivateKeyFormat(key)) {
+                problems.push({ field: 'dkim_private_key', label: 'DKIM private key', message: msg('dkim-key-invalid', 'Paste a valid RSA private key in PEM format.') });
+            }
+        } else if (enabled && !hasStoredKey) {
+            problems.push({ field: 'dkim_private_key', label: 'DKIM private key', message: msg('dkim-key-invalid', 'Paste a valid RSA private key in PEM format.') });
+        }
+        return problems;
+    }
+
+    /* Blur validation: only when the field is not empty. An
+       empty field shows no error (DKIM may be off / not yet
+       filled). */
+    function bindBlur(field, fieldName, validate) {
+        if (!field) {
+            return;
+        }
+        field.addEventListener('blur', function () {
+            var value = field.value;
+            if (value.trim() === '') {
+                showFieldError(fieldName, '');
+                return;
+            }
+            showFieldError(fieldName, validate(value) ? '' : msg(fieldName === 'dkim_domain' ? 'dkim-domain-invalid' : fieldName === 'dkim_selector' ? 'dkim-selector-invalid' : 'dkim-key-invalid', 'This field is not valid.'));
+        });
+    }
+    bindBlur(domainField, 'dkim_domain', isValidDomain);
+    bindBlur(selectorField, 'dkim_selector', isValidSelector);
+    bindBlur(keyField, 'dkim_private_key', isValidPrivateKeyFormat);
+
+    /* Save confirmation: only when DKIM is enabled. When it is
+       off, the form saves directly with no popup. When it is on,
+       the popup always appears; inside it, a warning lists the
+       invalid fields when any. */
+    if (form && toggle) {
+        var confirmed = false;
+        form.addEventListener('submit', function (event) {
+            if (confirmed) {
+                confirmed = false;
+                return;
+            }
+            if (!toggle.checked) {
+                return;
+            }
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            var problems = validateDkimFields();
+            var message = msg('dkim-confirm', 'Are you sure you want to save these DKIM settings?');
+            if (problems.length > 0) {
+                message = msg('dkim-confirm-warning', 'Warning: the following DKIM fields are not valid:') + '\n'
+                    + problems.map(function (p) { return '- ' + p.label + ': ' + p.message; }).join('\n')
+                    + '\n\n' + message;
+            }
+            if (window.confirm(message)) {
+                confirmed = true;
+                form.requestSubmit();
+            }
+        });
+    }
+
+    /* DNS check popup with a JS Map cache (HashMap): key is the
+       full DNS name `<selector>._domainkey.<domain>`, value is
+       { result, timestamp }. A cached result younger than 5
+       minutes is reused without calling the server. The cache
+       lives in memory only and is gone on page reload. Only
+       domain + selector are sent — never the private key. */
+    if (checkButton && window.TrayDigitaModal) {
+        var dkimDnsCache = new Map();
+        var DKIM_DNS_CACHE_TTL_MS = 5 * 60 * 1000;
+
+        function el(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) {
+                node.className = className;
+            }
+            if (text) {
+                node.textContent = text;
+            }
+            return node;
+        }
+
+        function renderDkimCheckResult(body, result, fromCache) {
+            while (body.firstChild) {
+                body.removeChild(body.firstChild);
+            }
+            var status = result && result.status ? String(result.status) : 'error';
+            var noticeClass = 'traydigita-admin-notice';
+            if (status === 'ok') {
+                noticeClass += ' traydigita-admin-notice-success';
+            } else if (status === 'missing') {
+                noticeClass += ' traydigita-admin-notice-warning';
+            } else {
+                noticeClass += ' traydigita-admin-notice-error';
+            }
+            var notice = el('div', noticeClass);
+            /* Status icon (Material Icons, like the rest of the
+               admin): a check for OK, a warning for a missing
+               record, an error for a mismatch or a lookup failure. */
+            var iconName = status === 'ok' ? 'check_circle' : status === 'missing' ? 'warning' : 'error';
+            var icon = el('span', 'material-icons', iconName);
+            icon.setAttribute('aria-hidden', 'true');
+            notice.appendChild(icon);
+            var message = result && result.message ? String(result.message) : msg('dkim-check-error', 'The DNS check failed. Try again.');
+            notice.appendChild(el('p', '', message));
+            if (fromCache) {
+                notice.appendChild(el('p', '', msg('dkim-check-cached', 'Result from cache (checked less than 5 minutes ago).')));
+            }
+            body.appendChild(notice);
+            if (result && result.found) {
+                body.appendChild(el('p', '', 'Published: ' + String(result.found)));
+            }
+            if (result && result.expected) {
+                body.appendChild(el('p', '', 'Expected public key (p=): ' + String(result.expected)));
+            }
+        }
+
+        checkButton.addEventListener('click', function () {
+            var domain = domainField && domainField.value.trim() !== '' ? domainField.value.trim().toLowerCase() : String(checkButton.getAttribute('data-domain') || '');
+            var selector = selectorField && selectorField.value.trim() !== '' ? selectorField.value.trim().toLowerCase() : String(checkButton.getAttribute('data-selector') || '');
+            if (!isValidDomain(domain) || !isValidSelector(selector)) {
+                return;
+            }
+            var dnsName = selector + '._domainkey.' + domain;
+            var cached = dkimDnsCache.get(dnsName);
+            var fresh = cached && (Date.now() - cached.timestamp) < DKIM_DNS_CACHE_TTL_MS;
+            var bodyNode = null;
+            window.TrayDigitaModal.open({
+                title: msg('dkim-check-title', 'DKIM DNS check'),
+                trigger: checkButton,
+                build: function (body) {
+                    bodyNode = body;
+                    if (fresh) {
+                        renderDkimCheckResult(body, cached.result, true);
+                    } else {
+                        body.appendChild(el('p', '', msg('dkim-check-loading', 'Checking DNS…')));
+                    }
+                },
+            });
+            if (fresh) {
+                return;
+            }
+            var params = new URLSearchParams();
+            params.set('action', String(checkButton.getAttribute('data-action') || ''));
+            params.set('_ajax_nonce', String(checkButton.getAttribute('data-nonce') || ''));
+            params.set('domain', domain);
+            params.set('selector', selector);
+            fetch(window.ajaxurl || '/wp-admin/admin-ajax.php', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: params.toString(),
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (json) {
+                    var result = json && json.data ? json.data : null;
+                    if (!result) {
+                        result = { status: 'error', message: msg('dkim-check-error', 'The DNS check failed. Try again.'), found: null, expected: null };
+                    }
+                    dkimDnsCache.set(dnsName, { result: result, timestamp: Date.now() });
+                    if (bodyNode) {
+                        renderDkimCheckResult(bodyNode, result, false);
+                    }
+                })
+                .catch(function () {
+                    if (bodyNode) {
+                        renderDkimCheckResult(bodyNode, { status: 'error', message: msg('dkim-check-error', 'The DNS check failed. Try again.'), found: null, expected: null }, false);
+                    }
+                });
+        });
+    }
+})();
+</script>

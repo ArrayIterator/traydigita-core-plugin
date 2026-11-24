@@ -1040,6 +1040,21 @@
     }
 
     /* ------------------------------------------------------------------ */
+    /* Public API                                                           */
+    /* ------------------------------------------------------------------ */
+
+    /* One public opener for popups that are not a picker or a module
+       info card (for example the Mailer DKIM DNS check): the same
+       overlay, header / body / footer, focus trap and close
+       behaviour as every other popup, so no new modal style is
+       ever invented. `config` is the same object `openModal`
+       takes: `title`, `build(body)`, optional `footer(footer)`,
+       `trigger`, `onClose`, `initialFocus`. */
+    window.TrayDigitaModal = {
+        open: openModal,
+    };
+
+    /* ------------------------------------------------------------------ */
     /* Boot                                                                */
     /* ------------------------------------------------------------------ */
 

@@ -20,6 +20,8 @@ use function sanitize_text_field;
 use function sanitize_textarea_field;
 use function set_transient;
 use function sprintf;
+use function strtolower;
+use function trim;
 use function wp_mail;
 use function wp_send_json_error;
 use function wp_send_json_success;
@@ -68,6 +70,21 @@ final class MailerAjax
     public const int RATE_LIMIT_SECONDS = 30;
 
     /**
+     * AJAX action name for the DKIM DNS check endpoint.
+     */
+    public const string DKIM_CHECK_ACTION = 'traydigita_mailer_dkim_check';
+
+    /**
+     * Minimum seconds between DKIM DNS checks from the same user.
+     *
+     * The check hits DNS (and DNS-over-HTTPS) on every call, so
+     * it is rate-limited like the test email — and the browser
+     * caches results for five minutes as well, so a normal user
+     * never hits this limit twice in a row.
+     */
+    public const int DKIM_CHECK_RATE_LIMIT_SECONDS = 30;
+
+    /**
      * Register the test-email AJAX action.
      *
      * Called from `MailerModule::boot()`; do not call it directly.
@@ -77,6 +94,7 @@ final class MailerAjax
     public static function register(): void
     {
         add_action('wp_ajax_' . self::AJAX_ACTION, [self::class, 'sendTest']);
+        add_action('wp_ajax_' . self::DKIM_CHECK_ACTION, [self::class, 'checkDkimDns']);
     }
 
     /**
@@ -190,6 +208,68 @@ final class MailerAjax
         }
         MailerModule::recordLastTest(false);
         wp_send_json_error(['message' => MailerModule::redact($message)], 500);
+    }
+
+    /**
+     * Check the published DKIM TXT record against the stored key.
+     *
+     * POST: `domain` + `selector` (both required, strictly
+     * validated). The private key is NEVER accepted here — it
+     * is not sent by the browser and not read from the request;
+     * the check compares the published record against the public
+     * key derived from the key already stored in settings.
+     *
+     * Responses are JSON: on success the check result
+     * (`status` = `ok` / `missing` / `mismatch`, plus a message,
+     * the published record and the expected public key). The
+     * private key never appears in any response. The endpoint is
+     * rate-limited to one check per 30 seconds per user (HTTP
+     * 429 while limited), and only administrators
+     * (`manage_options`) may call it.
+     *
+     * @return void
+     */
+    public static function checkDkimDns(): void
+    {
+        check_ajax_referer(MailerModule::NONCE_ACTION);
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => __('You are not allowed to do that.', 'traydigita-core')], 403);
+        }
+        // Validate the input first, before rate limiting, so a
+        // typo does not burn the caller's check allowance.
+        $domain = strtolower(trim(self::postString('domain')));
+        $selector = strtolower(trim(self::postString('selector')));
+        if ($domain === '' || !MailerModule::isValidDkimDomain($domain)) {
+            wp_send_json_error(['message' => __('Enter a valid DKIM domain first.', 'traydigita-core')], 400);
+        }
+        if (!MailerModule::isValidDkimSelector($selector)) {
+            wp_send_json_error(['message' => __('The DKIM selector is not valid. Use lowercase letters, digits and hyphens, starting with a letter or digit.', 'traydigita-core')], 400);
+        }
+        // Rate limit: one DNS check per 30 seconds per user, so
+        // the endpoint cannot be used to spray DNS lookups.
+        $userId = get_current_user_id();
+        $rateLimitKey = 'traydigita_mailer_dkim_check_' . $userId;
+        if (false !== get_transient($rateLimitKey)) {
+            wp_send_json_error([
+                'message' => sprintf(
+                    /* translators: %d is the number of seconds to wait before checking DNS again. */
+                    __('Please wait %d seconds before checking DNS again.', 'traydigita-core'),
+                    self::DKIM_CHECK_RATE_LIMIT_SECONDS
+                ),
+            ], 429);
+        }
+        set_transient($rateLimitKey, 1, self::DKIM_CHECK_RATE_LIMIT_SECONDS);
+        $settings = MailerModule::getSettings();
+        $key = is_string($settings['dkim_private_key'] ?? null) ? (string) $settings['dkim_private_key'] : '';
+        $passphrase = is_string($settings['dkim_passphrase'] ?? null) ? (string) $settings['dkim_passphrase'] : '';
+        if ($key === '') {
+            wp_send_json_error(['message' => __('No DKIM private key is saved yet. Generate or paste a key first.', 'traydigita-core')], 400);
+        }
+        $result = MailerModule::dkimCheckDns($domain, $selector, $key, $passphrase);
+        if ($result['status'] === 'error') {
+            wp_send_json_error($result, 400);
+        }
+        wp_send_json_success($result);
     }
 
     /**
