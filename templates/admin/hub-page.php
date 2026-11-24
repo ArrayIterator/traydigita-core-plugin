@@ -124,7 +124,7 @@ if ($traydigita_brand_gif !== '' || $traydigita_brand_svg !== '' || $traydigita_
                 </span>
             </h2>
             <p class="traydigita-admin-about-text">
-                <?php esc_html_e('The engine behind the TrayDigita theme: modules, mail, security, and performance — one core, everything connected.', 'traydigita-core'); ?>
+                <?php esc_html_e('One connected core powers the whole theme: modules, mail, security, and performance.', 'traydigita-core'); ?>
             </p>
         </div>
     </div>

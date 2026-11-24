@@ -13007,8 +13007,8 @@ msgid "The email template the campaign message uses (Content → Templates → y
 msgstr "Templat email yang dipakai pesan kampanye (Content → Templates → templat Anda; ID ada di URL)."
 
 #: templates/admin/hub-page.php:127
-msgid "The engine behind the TrayDigita theme: modules, mail, security, and performance — one core, everything connected."
-msgstr "Mesin di balik tema TrayDigita: modul, email, keamanan, dan performa — satu inti, semua terhubung."
+msgid "One connected core powers the whole theme: modules, mail, security, and performance."
+msgstr "Satu inti yang terhubung menggerakkan seluruh tema: modul, email, keamanan, dan performa."
 
 #: src/Modules/Agenda/AgendaAjax.php:158
 #: templates/admin/modules/agenda.php:73

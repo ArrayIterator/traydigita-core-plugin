@@ -2,7 +2,7 @@
 
 ![TrayDigita Core](assets/brand/traydigita-core-logo.gif)
 
-> **Where Modules Connect.** The engine behind the TrayDigita theme: 49 admin modules, a 37-provider mailer with 30 one-click SMTP presets, forms, push notifications, and the vendored Stack libraries — in one self-contained WordPress plugin. The theme keeps presentation only (templates, styles, layouts) and depends on Core for everything else.
+> **Where Modules Connect.** One connected core powers the whole theme: 56 admin modules, a 37-provider mailer with 25 one-click SMTP presets, forms, push notifications, and the vendored Stack libraries — in one self-contained WordPress plugin. The theme keeps presentation only (templates, styles, layouts) and depends on Core for everything else.
 
 ![Banner](assets/brand/banner-1544x500.png)
 
@@ -22,7 +22,7 @@ The release zip is self-contained: it ships `vendor/` (the Composer autoloader p
 
 ## Modules
 
-49 modules, grouped by category. Core modules are always enabled; recommended modules are off by default but marked **Recommended** in the module list. Every module renders its own settings page under the TrayDigita menu.
+56 modules, grouped by category. Core modules are always enabled; recommended modules are off by default but marked **Recommended** in the module list. Every module renders its own settings page under the TrayDigita menu.
 
 ### Administration
 

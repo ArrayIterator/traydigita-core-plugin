@@ -13005,7 +13005,7 @@ msgid "The email template the campaign message uses (Content → Templates → y
 msgstr ""
 
 #: templates/admin/hub-page.php:127
-msgid "The engine behind the TrayDigita theme: modules, mail, security, and performance — one core, everything connected."
+msgid "One connected core powers the whole theme: modules, mail, security, and performance."
 msgstr ""
 
 #: src/Modules/Agenda/AgendaAjax.php:158
