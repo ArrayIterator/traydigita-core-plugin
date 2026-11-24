@@ -480,6 +480,39 @@ final class ModuleRegistry
     }
 
     /**
+     * Whether a module id is registered (exists in the module list).
+     *
+     * This is the module-exists check: it only asks whether the
+     * id resolves to a module class, not whether the module is
+     * enabled. Use isEnabled() when the caller also needs the
+     * module to be active, or isAvailable() for both at once.
+     * Unknown ids never exist.
+     *
+     * @param string $id Module id.
+     * @return bool
+     */
+    public static function exists(string $id): bool
+    {
+        return self::get($id) !== null;
+    }
+
+    /**
+     * Whether a module id exists and is currently enabled.
+     *
+     * Exists means the id resolves to a module class (see
+     * exists()); enabled means the module is active (see
+     * isEnabled()). A module that is registered but disabled
+     * is not available.
+     *
+     * @param string $id Module id.
+     * @return bool
+     */
+    public static function isAvailable(string $id): bool
+    {
+        return self::exists($id) && self::isEnabled($id);
+    }
+
+    /**
      * Enabled module ids, sanitized against the known module list.
      *
      * A missing or malformed option falls back to DEFAULT_ENABLED.
