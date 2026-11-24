@@ -396,7 +396,6 @@ final class MailerModule implements ModuleInterface
         'mail163',
         'mail126',
         'sina',
-        'mailru',
         'posteo',
         'migadu',
         'mailfence',
@@ -447,7 +446,6 @@ final class MailerModule implements ModuleInterface
         'mail163' => ['host' => 'smtp.163.com', 'port' => 465, 'encryption' => 'ssl'],
         'mail126' => ['host' => 'smtp.126.com', 'port' => 465, 'encryption' => 'ssl'],
         'sina' => ['host' => 'smtp.sina.com', 'port' => 465, 'encryption' => 'ssl'],
-        'mailru' => ['host' => 'smtp.mail.ru', 'port' => 465, 'encryption' => 'ssl'],
         'posteo' => ['host' => 'posteo.de', 'port' => 587, 'encryption' => 'tls'],
         'migadu' => ['host' => 'smtp.migadu.com', 'port' => 587, 'encryption' => 'tls'],
         'mailfence' => ['host' => 'smtp.mailfence.com', 'port' => 465, 'encryption' => 'ssl'],
@@ -484,7 +482,6 @@ final class MailerModule implements ModuleInterface
         'mail163' => ['label' => '163 Mail', 'description' => 'Needs a 163 Mail authorization code (not the account password).'],
         'mail126' => ['label' => '126 Mail', 'description' => 'Needs a 126 Mail authorization code (not the account password).'],
         'sina' => ['label' => 'Sina Mail', 'description' => 'Needs a 16-character Sina client authorization code (not the account password).'],
-        'mailru' => ['label' => 'Mail.ru', 'description' => 'Needs a Mail.ru app password.'],
         'posteo' => ['label' => 'Posteo', 'description' => 'Paid service (about 1 euro/month). Needs a Posteo password; enable SMTP in the Posteo settings.'],
         'migadu' => ['label' => 'Migadu', 'description' => 'Paid service (free trial). Needs a Migadu app password.'],
         'mailfence' => ['label' => 'Mailfence', 'description' => 'Free plan with 500 MB storage; SMTP works on paid plans. Needs a Mailfence app password.'],
@@ -579,7 +576,6 @@ final class MailerModule implements ModuleInterface
         'mail163' => 'email-mail-163',
         'mail126' => 'email-mail-126',
         'sina' => 'email-sina',
-        'mailru' => 'email-mail-ru',
         'posteo' => 'email-posteo',
         'migadu' => 'email-migadu',
         'mailfence' => 'email-mailfence',
@@ -996,7 +992,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (27 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (26 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
