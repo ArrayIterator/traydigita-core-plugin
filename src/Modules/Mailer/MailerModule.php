@@ -1321,7 +1321,11 @@ final class MailerModule implements ModuleInterface
     public static function defaults(): array
     {
         $defaults = [
-            'provider' => 'smtp',
+            // Local mail is the default: it needs no credentials,
+            // so a fresh install is configured (no "not configured"
+            // notice) and sends through wp_mail until the owner
+            // picks a real provider.
+            'provider' => 'local',
             'smtp_preset' => 'custom',
             'host' => '',
             'port' => self::DEFAULT_PORT,
@@ -1420,9 +1424,9 @@ final class MailerModule implements ModuleInterface
         $settings = array_merge(self::defaults(), $stored);
         $provider = isset($settings['provider']) && is_string($settings['provider'])
             ? sanitize_key($settings['provider'])
-            : 'smtp';
+            : 'local';
         if (!in_array($provider, self::providerIds(), true)) {
-            $provider = 'smtp';
+            $provider = 'local';
         }
         $preset = isset($settings['smtp_preset']) && is_string($settings['smtp_preset'])
             ? sanitize_key($settings['smtp_preset'])
