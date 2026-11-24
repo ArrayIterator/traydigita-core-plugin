@@ -46,8 +46,8 @@ use const MINUTE_IN_SECONDS;
  * - Unauthenticated endpoints (nonce `traydigita_2fa_login`,
  *   `wp_ajax_nopriv_*` only): passkey options and verification
  *   for the login page. These run before any auth cookie exists,
- *   so they are rate-limited per user (lockout) and never reveal
- *   whether a credential id exists.
+ *   so they are rate-limited per user (lockout) and per IP,
+ *   and never reveal whether a credential id exists.
  *
  * The nonces are shared with the Two-Factor module on purpose
  * and must not be renamed: the profile page prints one JSON
@@ -247,14 +247,19 @@ final class PasskeysAjax
      * failed-attempt log (the security log for passkey attempts);
      * the log and its lockout still apply when TwoFactor itself
      * is disabled, so a usernameless login cannot be brute-
-     * forced through a disabled 2FA module.
+     * forced through a disabled 2FA module. With $countIp the
+     * failure also counts against the client IP (login brute
+     * force), even when no user could be resolved. Registration
+     * failures never pass it: they are authenticated profile
+     * actions, not logins.
      *
      * @param WebAuthnException $exception The failure.
      * @param int $userId User id, for the failed-attempt log (0 logs the attempt as `unknown_user`, not skipped).
      * @param string $method Method label for the log ('passkey').
+     * @param bool $countIp Whether to count the failure against the client IP too (verification endpoints only).
      * @return never
      */
-    private static function sendWebauthnError(WebAuthnException $exception, int $userId = 0, string $method = 'passkey'): never
+    private static function sendWebauthnError(WebAuthnException $exception, int $userId = 0, string $method = 'passkey', bool $countIp = false): never
     {
         if ($userId > 0) {
             TwoFactorModule::recordFailedAttempt($userId, $method, $exception->reason);
@@ -264,6 +269,9 @@ final class PasskeysAjax
             // but the attempt itself is still logged (user 0) so
             // it is not invisible to the Activity Log.
             TwoFactorModule::logEvent(0, $method, 'failed', 'unknown_user');
+        }
+        if ($countIp) {
+            TwoFactorModule::recordIpFailedAttempt();
         }
         wp_send_json_error(
             ['message' => __('Passkey verification failed. Please try again.', 'traydigita-core'), 'code' => $exception->reason],
@@ -445,6 +453,10 @@ final class PasskeysAjax
                 TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'locked_out');
                 wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
             }
+            if (TwoFactorModule::isIpLockedOut()) {
+                TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'ip_locked_out');
+                wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
+            }
             $allow = [];
             foreach (PasskeysModule::getPasskeys($userId) as $record) {
                 $allow[] = ['id' => (string) ($record['id'] ?? '')];
@@ -461,6 +473,13 @@ final class PasskeysAjax
             wp_send_json_success(['options' => $built['options']]);
         }
         if ($mode === 'login') {
+            // No user is known yet, so only the per-IP throttle
+            // can refuse a challenge here; a blocked IP cannot
+            // farm challenges to brute-force against later.
+            if (TwoFactorModule::isIpLockedOut()) {
+                TwoFactorModule::logEvent(0, 'passkey', 'locked', 'ip_locked_out');
+                wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
+            }
             $token = bin2hex(random_bytes(16));
             $built = $webauthn->assertionOptions([]);
             set_transient(
@@ -519,6 +538,10 @@ final class PasskeysAjax
                 TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'locked_out');
                 wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
             }
+            if (TwoFactorModule::isIpLockedOut()) {
+                TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'ip_locked_out');
+                wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
+            }
             try {
                 $result = self::webauthn()->verifyAssertion(
                     $data,
@@ -533,7 +556,7 @@ final class PasskeysAjax
                     }
                 );
             } catch (WebAuthnException $exception) {
-                self::sendWebauthnError($exception, $userId);
+                self::sendWebauthnError($exception, $userId, 'passkey', true);
             }
             /** @var array{user_id: int, credential_id: string, counter: int, user_verified: bool, backup_state: bool} $result */
             PasskeysModule::updatePasskeyCounter($userId, $result['credential_id'], $result['counter']);
@@ -558,6 +581,14 @@ final class PasskeysAjax
                 TwoFactorModule::logEvent(0, 'passkey', 'failed', 'expired');
                 wp_send_json_error(['message' => __('Passkey sign-in failed. Please try again.', 'traydigita-core')], 400);
             }
+            // No user is known yet, so only the per-IP throttle
+            // can refuse the verification itself; without this
+            // a challenge farmed before the IP lockout could
+            // still be verified against later.
+            if (TwoFactorModule::isIpLockedOut()) {
+                TwoFactorModule::logEvent(0, 'passkey', 'locked', 'ip_locked_out');
+                wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
+            }
             try {
                 $result = self::webauthn()->verifyAssertion(
                     $data,
@@ -581,7 +612,7 @@ final class PasskeysAjax
                 );
             } catch (WebAuthnException $exception) {
                 $userId = self::userIdFromAssertionResponse($data);
-                self::sendWebauthnError($exception, $userId);
+                self::sendWebauthnError($exception, $userId, 'passkey', true);
             }
             /** @var array{user_id: int, credential_id: string, counter: int, user_verified: bool, backup_state: bool} $result */
             $userId = (int) $result['user_id'];
@@ -589,9 +620,14 @@ final class PasskeysAjax
                 TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'locked_out');
                 wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
             }
+            if (TwoFactorModule::isIpLockedOut()) {
+                TwoFactorModule::logEvent($userId, 'passkey', 'locked', 'ip_locked_out');
+                wp_send_json_error(['message' => __('Too many failed attempts. Please try again later.', 'traydigita-core')], 429);
+            }
             PasskeysModule::updatePasskeyCounter($userId, $result['credential_id'], $result['counter']);
             TwoFactorModule::logEvent($userId, 'passkey', 'success', 'verified');
             wp_set_auth_cookie($userId, false);
+            TwoFactorModule::clearIpAttempts();
             wp_send_json_success(['redirect' => admin_url()]);
         }
         wp_send_json_error(['message' => __('Passkey sign-in failed. Please try again.', 'traydigita-core')], 400);

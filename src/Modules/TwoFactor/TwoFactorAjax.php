@@ -163,7 +163,10 @@ final class TwoFactorAjax
      *
      * The secret is held in a short-lived transient and only
      * becomes active when the user confirms a correct code
-     * (totpConfirm). Until then the account is unchanged.
+     * (totpConfirm). Until then the account is unchanged. The
+     * transient holds the secret encrypted (the same AES-256-CBC
+     * as enrolled secrets), never plaintext — a database read
+     * must not expose a usable secret.
      *
      * @return void
      */
@@ -183,9 +186,13 @@ final class TwoFactorAjax
             wp_send_json_error(['message' => __('An authenticator app is already set up for this account.', 'traydigita-core')], 400);
         }
         $secret = Totp::generateSecret();
+        // Encrypted at rest: an openssl failure stores '' and
+        // totpConfirm treats it as an expired session, so the
+        // user simply starts again — no plaintext secret is
+        // ever written to the options table.
         set_transient(
             TwoFactorModule::totpPendingTransient($userId),
-            $secret,
+            TwoFactorModule::encryptSecret($secret),
             TwoFactorModule::TOTP_PENDING_MINUTES * MINUTE_IN_SECONDS
         );
         $issuer = (string) get_bloginfo('name');
@@ -229,8 +236,13 @@ final class TwoFactorAjax
             );
             wp_send_json_error(['message' => $lockedMessage], 429);
         }
-        $secret = get_transient(TwoFactorModule::totpPendingTransient($userId));
-        if (!is_string($secret) || $secret === '') {
+        $stored = get_transient(TwoFactorModule::totpPendingTransient($userId));
+        // The pending secret is stored encrypted (see
+        // totpStart). A value written before that change is
+        // plaintext and cannot decrypt, so it is treated as an
+        // expired session and the user simply starts again.
+        $secret = is_string($stored) ? TwoFactorModule::decryptSecret($stored) : null;
+        if ($secret === null) {
             wp_send_json_error(['message' => __('The setup session expired. Please start again.', 'traydigita-core')], 400);
         }
         $code = self::postString('code');

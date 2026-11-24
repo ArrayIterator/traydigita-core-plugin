@@ -1251,6 +1251,134 @@ final class TwoFactorModule implements ModuleInterface
         delete_transient(self::lockoutTransient($userId));
     }
 
+    // ------------------------------------------------------------------
+    // Per-IP throttling
+    // ------------------------------------------------------------------
+
+    /**
+     * Failed attempts from one IP before that IP is blocked.
+     *
+     * Deliberately twice the per-user limit (5): a single IP
+     * can lock at most two accounts per window (5 failures each)
+     * before the IP itself is refused, so one address can no
+     * longer lock out arbitrary accounts at will — while a
+     * shared IP (office NAT, CGNAT) still tolerates 10 combined
+     * typos before blocking. The block only refuses further
+     * attempts from that IP for the window; it never locks an
+     * account, and the per-user lockout still governs accounts
+     * separately. A successful login clears the IP counter via
+     * clearIpAttempts(), so a mostly-legitimate IP recovers.
+     */
+    public const int IP_MAX_ATTEMPTS = 10;
+
+    /**
+     * Transient name for one IP's failure counter.
+     *
+     * The key is an HMAC of the client IP, never the raw IP —
+     * the same "IP as HMAC only" policy as the failed-attempt
+     * log — so no address is stored in the options table.
+     *
+     * @param string $ipKey HMAC key from clientIpKey().
+     * @return string
+     */
+    public static function ipAttemptsTransient(string $ipKey): string
+    {
+        return 'traydigita_2fa_ip_attempts_' . $ipKey;
+    }
+
+    /**
+     * Transient name for one IP's lockout flag.
+     *
+     * @param string $ipKey HMAC key from clientIpKey().
+     * @return string
+     */
+    public static function ipLockoutTransient(string $ipKey): string
+    {
+        return 'traydigita_2fa_ip_lockout_' . $ipKey;
+    }
+
+    /**
+     * HMAC key for the client IP, or null when it cannot be
+     * determined.
+     *
+     * @return string|null
+     */
+    public static function clientIpKey(): ?string
+    {
+        $ip = self::clientIp();
+        if ($ip === null) {
+            return null;
+        }
+        return substr(hash_hmac('sha256', $ip, wp_salt('auth')), 0, 16);
+    }
+
+    /**
+     * Whether the client IP is currently blocked from
+     * verification.
+     *
+     * An undeterminable IP is never blocked: the IP layer fails
+     * open and the per-user lockout still applies.
+     *
+     * @return bool
+     */
+    public static function isIpLockedOut(): bool
+    {
+        $key = self::clientIpKey();
+        if ($key === null) {
+            return false;
+        }
+        return get_transient(self::ipLockoutTransient($key)) !== false;
+    }
+
+    /**
+     * Record a failed verification attempt against the client
+     * IP, alongside the per-user counter.
+     *
+     * Same transient-counter pattern as recordFailedAttempt():
+     * the counter lives for the lockout window and the IP is
+     * blocked once it reaches IP_MAX_ATTEMPTS. The block is
+     * logged (user 0, no account is named) so it is visible
+     * to the administrator instead of silent — one event per
+     * attempt at or past the threshold, mirroring the
+     * per-user counter.
+     *
+     * @return void
+     */
+    public static function recordIpFailedAttempt(): void
+    {
+        $key = self::clientIpKey();
+        if ($key === null) {
+            return;
+        }
+        $settings = self::getSettings();
+        $count = (int) get_transient(self::ipAttemptsTransient($key));
+        $count++;
+        set_transient(self::ipAttemptsTransient($key), $count, $settings['lockout_minutes'] * MINUTE_IN_SECONDS);
+        if ($count >= self::IP_MAX_ATTEMPTS) {
+            set_transient(self::ipLockoutTransient($key), time(), $settings['lockout_minutes'] * MINUTE_IN_SECONDS);
+            self::logEvent(0, 'login', 'locked', 'ip_too_many_attempts');
+        }
+    }
+
+    /**
+     * Clear the client IP's attempt counter and lockout flag.
+     *
+     * Called after a successful login (finishPendingLogin and
+     * the usernameless passkey path), so a mostly-legitimate
+     * IP recovers instead of staying blocked for the window.
+     *
+     * @return void
+     */
+    public static function clearIpAttempts(): void
+    {
+        $key = self::clientIpKey();
+        if ($key === null) {
+            return;
+        }
+        delete_transient(self::ipAttemptsTransient($key));
+        delete_transient(self::ipLockoutTransient($key));
+    }
+
     /**
      * Append an entry to the failed-attempt log.
      *
@@ -1501,6 +1629,7 @@ final class TwoFactorModule implements ModuleInterface
         delete_transient(self::pendingTransient($token));
         delete_transient(PasskeysModule::passkeyChallengeTransient($token));
         self::clearAttempts($userId);
+        self::clearIpAttempts();
         if ($rememberDevice) {
             self::issueTrustedDevice($userId);
         }
@@ -1636,9 +1765,12 @@ final class TwoFactorModule implements ModuleInterface
      * (auth cookie + redirect + exit). On failure the error is
      * stored for the form to show when it renders in the same
      * request — the user stays on the challenge screen and can
-     * retry until the lockout limit. Every outcome is logged,
-     * including an expired link and an attempt made while
-     * locked out, so no failure path is invisible to the log.
+     * retry until the lockout limit. Failures count against
+     * both the per-user lockout and the per-IP throttle, so one
+     * address cannot lock out arbitrary accounts at will. Every
+     * outcome is logged, including an expired link and an
+     * attempt made while locked out, so no failure path is
+     * invisible to the log.
      *
      * The code field accepts both forms: 6 digits are checked as
      * a TOTP code, 8 digits as a backup code. Anything else fails
@@ -1662,8 +1794,11 @@ final class TwoFactorModule implements ModuleInterface
             return;
         }
         $userId = (int) $pending['user_id'];
-        if (self::isLockedOut($userId)) {
-            self::logEvent($userId, 'login', 'locked', 'locked_out');
+        if (self::isLockedOut($userId) || self::isIpLockedOut()) {
+            // Same message either way: the response must not
+            // reveal whether the account or the IP is blocked.
+            $reason = self::isLockedOut($userId) ? 'locked_out' : 'ip_locked_out';
+            self::logEvent($userId, 'login', 'locked', $reason);
             /* translators: %d is the number of minutes until the lockout ends. */
             self::$challengeError = sprintf(__('Too many failed attempts. Please try again in %d minutes.', 'traydigita-core'), self::getSettings()['lockout_minutes']);
             return;
@@ -1690,6 +1825,7 @@ final class TwoFactorModule implements ModuleInterface
         }
         if (!$verified) {
             self::recordFailedAttempt($userId, $method, 'bad_code');
+            self::recordIpFailedAttempt();
             self::$challengeError = __('That code did not match. Please try again.', 'traydigita-core');
             return;
         }
