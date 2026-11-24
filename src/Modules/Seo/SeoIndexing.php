@@ -12,6 +12,7 @@ use function bin2hex;
 use function delete_option;
 use function get_option;
 use function get_permalink;
+use function get_post;
 use function get_query_var;
 use function header;
 use function home_url;
@@ -59,7 +60,10 @@ use function wp_remote_retrieve_response_code;
  * GoogleServiceAccount client (RS256 JWT, pure PHP), and the
  * access token is used only for the Indexing API endpoint. If
  * no JSON is provided the feature reports as unconfigured,
- * never faked.
+ * never faked. A published post or page that is trashed or
+ * permanently deleted is notified as URL_DELETED; a post
+ * trashed and then permanently deleted is notified once, at
+ * trash time, because its URL already stopped existing then.
  *
  * Logs (last ping / last notification only, no secrets, no
  * tokens): `traydigita_seo_indexnow_log` and
@@ -126,14 +130,27 @@ final class SeoIndexing
     public const string GOOGLE_TYPE_UPDATED = 'URL_UPDATED';
 
     /**
+     * Notification type sent for a URL that no longer exists.
+     */
+    public const string GOOGLE_TYPE_DELETED = 'URL_DELETED';
+
+    /**
+     * Minimum seconds between IndexNow key regenerations from the same user.
+     */
+    public const int REGENERATE_RATE_LIMIT_SECONDS = 60;
+
+    /**
      * Register the key-file rule, the key-file handler, and the publish pings.
      *
      * Called from SeoModule::boot() (only when the module is
      * enabled). The key-file rewrite rule is registered on `init`
      * only while IndexNow is enabled; the publish hook is
-     * registered whenever either indexing feature is enabled. Each
-     * handler re-checks its toggle and the SEO plugin detection at
-     * run time.
+     * registered whenever either indexing feature is enabled. The
+     * trash and delete hooks are registered while the Google
+     * Indexing API is enabled, so a published post or page that
+     * is trashed or permanently deleted is notified as
+     * URL_DELETED. Each handler re-checks its toggle and the SEO
+     * plugin detection at run time.
      *
      * @return void
      */
@@ -146,6 +163,10 @@ final class SeoIndexing
         }
         if ($settings['indexnow_enabled'] || $settings['google_indexing_enabled']) {
             add_action('transition_post_status', [self::class, 'maybePingOnPublish'], 10, 3);
+        }
+        if ($settings['google_indexing_enabled']) {
+            add_action('wp_trash_post', [self::class, 'maybeNotifyOnTrash']);
+            add_action('before_delete_post', [self::class, 'maybeNotifyOnDelete'], 10, 1);
         }
     }
 
@@ -243,6 +264,84 @@ final class SeoIndexing
         if ($settings['google_indexing_enabled']) {
             self::notifyGoogle($url, self::GOOGLE_TYPE_UPDATED);
         }
+    }
+
+    /**
+     * Notify Google that a published post or page was trashed.
+     *
+     * Hooked on `wp_trash_post`, which fires before the status
+     * changes, so the post is still published here and
+     * get_permalink() returns the real URL. A trashed post
+     * answers 404 on the frontend, so its URL is deleted as far
+     * as Google is concerned. Only published posts and pages are
+     * notified, and only while no SEO plugin is active.
+     *
+     * @param int $postId Trashed post ID.
+     * @return void
+     */
+    public static function maybeNotifyOnTrash(int $postId): void
+    {
+        $post = get_post($postId);
+        if (!$post instanceof \WP_Post || $post->post_status !== 'publish') {
+            return;
+        }
+        if ($post->post_type !== 'post' && $post->post_type !== 'page') {
+            return;
+        }
+        self::notifyDeleted($post);
+    }
+
+    /**
+     * Notify Google that a published post or page was permanently deleted.
+     *
+     * Hooked on `before_delete_post`. Only a post that is still
+     * published at delete time is notified here: a post deleted
+     * out of the trash was already notified when it was trashed
+     * (its URL stopped existing then), and its slug carries the
+     * `__trashed` suffix by then, so get_permalink() would return
+     * a URL that never existed. Force-deleting a published post
+     * (bypassing the trash) is notified here instead.
+     *
+     * @param int $postId Deleted post ID.
+     * @return void
+     */
+    public static function maybeNotifyOnDelete(int $postId): void
+    {
+        $post = get_post($postId);
+        if (!$post instanceof \WP_Post || $post->post_status !== 'publish') {
+            return;
+        }
+        if ($post->post_type !== 'post' && $post->post_type !== 'page') {
+            return;
+        }
+        self::notifyDeleted($post);
+    }
+
+    /**
+     * Send a URL_DELETED notification for one post or page.
+     *
+     * Shared by the trash and delete hooks. Re-checks the Google
+     * toggle and the SEO plugin detection at run time, so a
+     * notification is never sent while an SEO plugin is in
+     * charge of indexing.
+     *
+     * @param \WP_Post $post Published post or page that stopped existing.
+     * @return void
+     */
+    private static function notifyDeleted(\WP_Post $post): void
+    {
+        if (SeoDetector::hasSeoPlugin()) {
+            return;
+        }
+        $settings = SeoModule::getSettings();
+        if (!$settings['google_indexing_enabled']) {
+            return;
+        }
+        $url = get_permalink($post);
+        if ($url === false || $url === '') {
+            return;
+        }
+        self::notifyGoogle($url, self::GOOGLE_TYPE_DELETED);
     }
 
     /**

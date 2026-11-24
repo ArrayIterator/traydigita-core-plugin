@@ -24,15 +24,19 @@ use WP_Post;
  *
  * Registered from SeoModule::boot() (only when the module is
  * enabled), so the endpoints do not exist while the module is
- * disabled. Both endpoints require the shared `traydigita-admin`
+ * disabled. All endpoints require the shared `traydigita-admin`
  * nonce (sent as `_ajax_nonce`) and the `manage_options`
- * capability, following the TurnstileAjax pattern, and both are
+ * capability, following the TurnstileAjax pattern, and all are
  * rate-limited per user. Responses carry a `message` key only —
  * never keys, tokens, or service-account material.
  *
  * - traydigita_seo_indexnow_ping: POST post_id; pings IndexNow
  *   now for one published post or page. Requires IndexNow enabled
  *   and no SEO plugin active.
+ * - traydigita_seo_google_notify: POST post_id; notifies the
+ *   Google Indexing API now for one published post or page
+ *   (URL_UPDATED). Requires the Google Indexing API enabled and
+ *   configured, and no SEO plugin active.
  * - traydigita_seo_sc_refresh: POST with no fields; clears the
  *   cached Search Console dashboard data and refetches it from
  *   Site Kit. Requires Site Kit connected with Search Console
@@ -56,6 +60,11 @@ final class SeoAjax
     public const string ACTION_INDEXNOW_PING = 'traydigita_seo_indexnow_ping';
 
     /**
+     * AJAX action name for the manual Google Indexing API notification.
+     */
+    public const string ACTION_GOOGLE_NOTIFY = 'traydigita_seo_google_notify';
+
+    /**
      * AJAX action name for the Search Console refresh.
      */
     public const string ACTION_SC_REFRESH = 'traydigita_seo_sc_refresh';
@@ -66,12 +75,17 @@ final class SeoAjax
     public const int PING_RATE_LIMIT_SECONDS = 30;
 
     /**
+     * Minimum seconds between manual Google notifications from the same user.
+     */
+    public const int GOOGLE_NOTIFY_RATE_LIMIT_SECONDS = 30;
+
+    /**
      * Minimum seconds between Search Console refreshes from the same user.
      */
     public const int REFRESH_RATE_LIMIT_SECONDS = 60;
 
     /**
-     * Register both AJAX actions.
+     * Register all AJAX actions.
      *
      * Called from SeoModule::boot(); do not call it directly.
      *
@@ -80,6 +94,7 @@ final class SeoAjax
     public static function register(): void
     {
         add_action('wp_ajax_' . self::ACTION_INDEXNOW_PING, [self::class, 'pingIndexNow']);
+        add_action('wp_ajax_' . self::ACTION_GOOGLE_NOTIFY, [self::class, 'notifyGoogleNow']);
         add_action('wp_ajax_' . self::ACTION_SC_REFRESH, [self::class, 'refreshSearchConsole']);
     }
 
@@ -143,6 +158,80 @@ final class SeoAjax
         }
         wp_send_json_error(
             ['message' => __('IndexNow did not accept the ping. Check the last-ping log below and try again later.', 'traydigita-core')],
+            502
+        );
+    }
+
+    /**
+     * Notify the Google Indexing API now for one published post or page.
+     *
+     * POST: post_id. Sends a URL_UPDATED notification for the
+     * post's permalink. Answers with a JSON success or error
+     * carrying a `message` key only. The service-account JSON and
+     * the access token never appear in any response.
+     *
+     * @return void
+     */
+    public static function notifyGoogleNow(): void
+    {
+        check_ajax_referer(AdminAjax::NONCE_ACTION);
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => __('You are not allowed to do that.', 'traydigita-core')], 403);
+        }
+        $settings = SeoModule::getSettings();
+        if (!$settings['google_indexing_enabled'] || SeoDetector::hasSeoPlugin()) {
+            wp_send_json_error(
+                ['message' => __('The Google Indexing API is not available right now. Enable it in the SEO settings, '
+                    . 'and note it is unavailable while an SEO plugin is active.', 'traydigita-core')],
+                400
+            );
+        }
+        if (!SeoIndexing::isGoogleConfigured()) {
+            wp_send_json_error(
+                ['message' => __('The Google Indexing API is not configured yet. Save a service-account JSON '
+                    . 'in the SEO settings first.', 'traydigita-core')],
+                400
+            );
+        }
+        $userId = get_current_user_id();
+        $rateLimitKey = 'traydigita_seo_google_notify_' . $userId;
+        if (false !== get_transient($rateLimitKey)) {
+            wp_send_json_error(
+                [
+                    'message' => sprintf(
+                        /* translators: %d is the number of seconds to wait before notifying Google again. */
+                        __('Please wait %d seconds before notifying Google again.', 'traydigita-core'),
+                        self::GOOGLE_NOTIFY_RATE_LIMIT_SECONDS
+                    ),
+                ],
+                429
+            );
+        }
+        $postId = isset($_POST['post_id']) ? (int) $_POST['post_id'] : 0;
+        $post = $postId > 0 ? get_post($postId) : null;
+        if (!$post instanceof WP_Post || $post->post_status !== 'publish') {
+            wp_send_json_error(
+                ['message' => __('That post could not be found, or it is not published.', 'traydigita-core')],
+                400
+            );
+        }
+        $url = get_permalink($post);
+        if ($url === false || $url === '') {
+            wp_send_json_error(
+                ['message' => __('That post has no permalink to notify.', 'traydigita-core')],
+                400
+            );
+        }
+        set_transient($rateLimitKey, 1, self::GOOGLE_NOTIFY_RATE_LIMIT_SECONDS);
+        $notified = SeoIndexing::notifyGoogle($url, SeoIndexing::GOOGLE_TYPE_UPDATED);
+        if ($notified) {
+            wp_send_json_success(
+                ['message' => __('Google was notified about this post.', 'traydigita-core')]
+            );
+        }
+        wp_send_json_error(
+            ['message' => __('Google did not accept the notification. Check the last-notification log below '
+                . 'and try again later.', 'traydigita-core')],
             502
         );
     }

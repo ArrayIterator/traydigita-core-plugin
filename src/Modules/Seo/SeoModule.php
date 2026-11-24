@@ -24,18 +24,25 @@ use function esc_html;
 use function esc_html_e;
 use function esc_url;
 use function flush_rewrite_rules;
+use function get_current_user_id;
 use function get_option;
 use function get_post;
 use function get_post_meta;
+use function get_query_var;
 use function get_the_title;
+use function get_transient;
+use function in_array;
 use function is_array;
 use function is_string;
 use function mb_substr;
 use function number_format_i18n;
+use function preg_match;
 use function remove_action;
 use function sanitize_key;
 use function sanitize_text_field;
+use function set_transient;
 use function sprintf;
+use function strtok;
 use function trim;
 use function update_option;
 use function update_post_meta;
@@ -59,13 +66,19 @@ use WP_Post;
  * single posts, breadcrumb JSON-LD on singular posts and pages,
  * XML sitemaps (posts, pages, categories) plus the optional Google
  * News sitemap (news-sitemap.xml, posts from the last 48 hours).
+ * While the native sitemaps are on, WordPress core's own sitemaps
+ * (/wp-sitemap.xml) are disabled through the `wp_sitemaps_enabled`
+ * filter, so only one sitemap set is ever served.
  *
  * Instant indexing (both opt-in, OFF by default, and both gated
  * on the same no-SEO-plugin rule): IndexNow (Bing/Yandex) with a
  * key file served from the site root and a ping on publish/update
  * plus a visible last-ping log, and the Google Indexing API with a
  * service-account JSON stored in its own option and used only for
- * Google's endpoint.
+ * Google's endpoint. The IndexNow key can be regenerated from the
+ * settings page (the old key file stops working immediately), and
+ * Google is notified with URL_DELETED when a published post or
+ * page is trashed or permanently deleted.
  *
  * AI meta suggestions use WordPress core's AI Client API
  * (wp_ai_client_prompt(), since WordPress 7.0) and only run when a
@@ -382,9 +395,10 @@ final class SeoModule implements ModuleInterface
      * Search Console dashboard (Site Kit data, or a connect-Site
      * Kit card), the native output settings form (toggles plus
      * title/description templates), the sitemap URLs, the IndexNow
-     * panel (key, key-file URL, last-ping log, manual ping form),
-     * the Google Indexing panel (service-account JSON classic form
-     * plus last-notification log), and the AI suggestions panel
+     * panel (key, key-file URL, key regeneration form, last-ping
+     * log, manual ping form), the Google Indexing panel
+     * (service-account JSON classic form, manual notify form, plus
+     * last-notification log), and the AI suggestions panel
      * (classic forms: generate, apply, remove).
      *
      * Framework (R4-5): the native-output form uses
@@ -477,6 +491,7 @@ final class SeoModule implements ModuleInterface
                     'checked' => $settings['meta_output'],
                     'help' => __('Templated meta title and description, canonical URL, Open Graph and Twitter card tags, and a robots tag.', 'traydigita-core'),
                     'help_long' => __('Nothing is printed without real data behind it.', 'traydigita-core'),
+                    'attrs' => $detected !== null ? ['disabled' => true] : [],
                 ]);
                 SettingsControls::toggle([
                     'id' => 'seo-json-ld',
@@ -485,6 +500,7 @@ final class SeoModule implements ModuleInterface
                     'checked' => $settings['json_ld'],
                     'help' => __('NewsArticle JSON-LD on single posts: headline, publish and modification dates, author, publisher with logo, and the featured image.', 'traydigita-core'),
                     'help_long' => __('Each field only when the data exists.', 'traydigita-core'),
+                    'attrs' => $detected !== null ? ['disabled' => true] : [],
                 ]);
                 SettingsControls::toggle([
                     'id' => 'seo-breadcrumbs',
@@ -493,6 +509,7 @@ final class SeoModule implements ModuleInterface
                     'checked' => $settings['breadcrumbs'],
                     'help' => __('BreadcrumbList JSON-LD on single posts and pages (home, category or page ancestors, then the current page).', 'traydigita-core'),
                     'help_long' => __('Only emitted when no SEO plugin provides breadcrumbs.', 'traydigita-core'),
+                    'attrs' => $detected !== null ? ['disabled' => true] : [],
                 ]);
                 SettingsControls::toggle([
                     'id' => 'seo-xml-sitemap',
@@ -528,6 +545,7 @@ final class SeoModule implements ModuleInterface
                     </p>
                     <?php
                 }
+                self::renderSitemapLinks($settings, $detected !== null);
                 SettingsControls::toggle([
                     'id' => 'seo-indexnow-enabled',
                     'name' => 'indexnow_enabled',
@@ -553,6 +571,7 @@ final class SeoModule implements ModuleInterface
                     'checked' => $settings['ai_enabled'],
                     'help' => __('Shows the AI suggestions panel below.', 'traydigita-core'),
                     'help_long' => __('Suggestions are generated on demand through the WordPress AI Client API and applied explicitly as per-post overrides; they only affect the frontend while no SEO plugin is active.', 'traydigita-core'),
+                    'attrs' => $detected !== null ? ['disabled' => true] : [],
                 ]);
                 SettingsControls::sectionClose(); ?>
                 <?php SettingsControls::sectionOpen('templates', __('Title and description templates', 'traydigita-core'), __('Variables: %title% %site% %sitetagline% %sep% %excerpt% %category% %tag% %author% %date% %page%.', 'traydigita-core'), __('A variable with no value for the current page expands to nothing. Applied only when no SEO plugin is active.', 'traydigita-core')); ?>
@@ -603,6 +622,72 @@ final class SeoModule implements ModuleInterface
             'description_home' => __('Home page description template', 'traydigita-core'),
             'description_archive' => __('Archive description template', 'traydigita-core'),
         ];
+    }
+
+    /**
+     * Render the clickable sitemap URLs inside the native-output section.
+     *
+     * Lists the sitemap index and the posts, pages, and categories
+     * sitemaps through SeoSitemap::url() plus the Google News
+     * sitemap through SeoOutput::sitemapUrl(), but only for the
+     * sitemaps that are switched on — a switched-off sitemap
+     * answers 404, so linking to it would be a dead link. While
+     * an SEO plugin is active the plugin serves its own sitemaps,
+     * so no theme sitemap URL is listed.
+     *
+     * @param array<string, mixed> $settings Module settings.
+     * @param bool $pluginActive Whether an SEO plugin is active.
+     * @return void
+     */
+    private static function renderSitemapLinks(array $settings, bool $pluginActive): void
+    {
+        if ($pluginActive) {
+            ?>
+            <p class="traydigita-ui-field-help td-settings-help"><?php esc_html_e('Sitemap URLs are served by the active SEO plugin.', 'traydigita-core'); ?></p>
+            <?php
+            return;
+        }
+        $links = [];
+        if ($settings['xml_sitemap']) {
+            foreach ([
+                SeoSitemap::TYPE_INDEX,
+                SeoSitemap::TYPE_POSTS,
+                SeoSitemap::TYPE_PAGES,
+                SeoSitemap::TYPE_CATEGORIES,
+            ] as $type) {
+                $url = SeoSitemap::url($type);
+                if ($url !== '') {
+                    $links[$type] = $url;
+                }
+            }
+        }
+        if ($settings['news_sitemap']) {
+            $links['news'] = SeoOutput::sitemapUrl();
+        }
+        if ($links === []) {
+            ?>
+            <p class="traydigita-ui-field-help td-settings-help"><?php esc_html_e('Switch on XML sitemaps or the Google News sitemap above to see their URLs here.', 'traydigita-core'); ?></p>
+            <?php
+            return;
+        }
+        $labels = [
+            SeoSitemap::TYPE_INDEX => __('Sitemap index', 'traydigita-core'),
+            SeoSitemap::TYPE_POSTS => __('Posts sitemap', 'traydigita-core'),
+            SeoSitemap::TYPE_PAGES => __('Pages sitemap', 'traydigita-core'),
+            SeoSitemap::TYPE_CATEGORIES => __('Categories sitemap', 'traydigita-core'),
+            'news' => __('Google News sitemap', 'traydigita-core'),
+        ];
+        ?>
+        <h3 class="seo-section-title"><?php esc_html_e('Sitemap URLs', 'traydigita-core'); ?></h3>
+        <ul class="seo-sitemap-links">
+            <?php foreach ($links as $type => $url) : ?>
+                <li>
+                    <?php echo esc_html($labels[$type]); ?>:
+                    <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener"><?php echo esc_html($url); ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php
     }
 
     /**
@@ -730,7 +815,7 @@ final class SeoModule implements ModuleInterface
     }
 
     /**
-     * Render the IndexNow panel (key, key-file URL, last-ping log, manual ping form).
+     * Render the IndexNow panel (key, key-file URL, key regeneration, last-ping log, manual ping form).
      *
      * @param array<string, mixed> $settings Module settings.
      * @param bool $pluginActive Whether an SEO plugin is active.
@@ -760,6 +845,16 @@ final class SeoModule implements ModuleInterface
             <p>
                 <a href="<?php echo esc_url($keyUrl); ?>" target="_blank" rel="noopener"><?php echo esc_html($keyUrl); ?></a>
             </p>
+        <?php endif; ?>
+        <?php if (!$pluginActive) : ?>
+            <form class="seo-indexnow-regenerate-form" method="post" action="">
+                <?php wp_nonce_field(self::CLASSIC_NONCE_ACTION); ?>
+                <input type="hidden" name="traydigita_seo_classic_action" value="indexnow_regenerate">
+                <p class="seo-form-actions">
+                    <button type="submit" class="traydigita-admin-button"><?php esc_html_e('Generate a new key', 'traydigita-core'); ?></button>
+                </p>
+                <p class="seo-field-help"><?php esc_html_e('Generates a new key and serves it as the key file. The old key file stops working immediately, so update the key wherever you registered it.', 'traydigita-core'); ?></p>
+            </form>
         <?php endif; ?>
         <?php if ($log !== null) : ?>
             <p class="seo-field-help">
@@ -811,12 +906,15 @@ final class SeoModule implements ModuleInterface
     }
 
     /**
-     * Render the Google Indexing API panel (service-account JSON form, status, last log).
+     * Render the Google Indexing API panel (service-account JSON form, manual notify form, status, last log).
      *
      * The JSON textarea is a classic POST form: it carries no
      * data-action marker, so the admin shell leaves it alone and
      * the page reloads with the save result. The stored JSON is
-     * never printed back into the textarea or anywhere else.
+     * never printed back into the textarea or anywhere else. The
+     * manual notify form is an AJAX form (data-action), like the
+     * IndexNow ping form: it sends a URL_UPDATED notification for
+     * one published post or page without reloading the page.
      *
      * @param array<string, mixed> $settings Module settings.
      * @param bool $pluginActive Whether an SEO plugin is active.
@@ -872,6 +970,16 @@ final class SeoModule implements ModuleInterface
                     <span class="traydigita-admin-badge traydigita-admin-badge-warning"><?php esc_html_e('Failed', 'traydigita-core'); ?></span>
                 <?php endif; ?>
             </p>
+        <?php endif; ?>
+        <?php if ($settings['google_indexing_enabled'] && $configured && !$pluginActive) : ?>
+            <form class="seo-google-notify-form" method="post" data-action="<?php echo esc_attr(SeoAjax::ACTION_GOOGLE_NOTIFY); ?>">
+                <p class="seo-field">
+                    <label for="seo-google-post-id"><?php esc_html_e('Notify Google now for post or page ID', 'traydigita-core'); ?></label>
+                    <input type="number" id="seo-google-post-id" name="post_id" min="1" step="1" class="small-text" required>
+                    <button type="submit" class="traydigita-admin-button"><?php esc_html_e('Notify now', 'traydigita-core'); ?></button>
+                </p>
+                <p class="seo-field-help"><?php esc_html_e('Sends a URL_UPDATED notification for one published post or page.', 'traydigita-core'); ?></p>
+            </form>
         <?php endif; ?>
         <form class="seo-google-json-form" method="post" action="">
             <?php wp_nonce_field(self::CLASSIC_NONCE_ACTION); ?>
@@ -1022,7 +1130,8 @@ final class SeoModule implements ModuleInterface
     }
 
     /**
-     * Handle a classic POST from the Google JSON or AI suggestion forms.
+     * Handle a classic POST from the Google JSON, IndexNow key
+     * regeneration, or AI suggestion forms.
      *
      * The admin shell leaves forms without a data-action marker
      * alone, so these forms post normally and the page reloads
@@ -1031,7 +1140,9 @@ final class SeoModule implements ModuleInterface
      * the `manage_options` capability are verified before any
      * action runs. The service-account JSON is read raw (never
      * through sanitize_text_field(), which would corrupt the
-     * private key); the AI fields are sanitized per field.
+     * private key); the AI fields are sanitized per field. Key
+     * regeneration is rate-limited per user, like the manual
+     * IndexNow ping.
      *
      * @return array{notice: string, error: bool, ai_post_id: int, ai_title: string, ai_description: string, ai_generated: bool}
      */
@@ -1070,6 +1181,32 @@ final class SeoModule implements ModuleInterface
             $saved = SeoIndexing::saveGoogleJson($raw);
             $result['notice'] = $saved['message'];
             $result['error'] = !$saved['success'];
+            return $result;
+        }
+        if ($action === 'indexnow_regenerate') {
+            $settings = self::getSettings();
+            if (!$settings['indexnow_enabled'] || SeoDetector::hasSeoPlugin()) {
+                $result['notice'] = __('IndexNow is not available right now. Enable it in the SEO settings, '
+                    . 'and note it is unavailable while an SEO plugin is active.', 'traydigita-core');
+                $result['error'] = true;
+                return $result;
+            }
+            $userId = get_current_user_id();
+            $rateLimitKey = 'traydigita_seo_indexnow_regen_' . $userId;
+            if (false !== get_transient($rateLimitKey)) {
+                $result['notice'] = sprintf(
+                    /* translators: %d is the number of seconds to wait before generating a new IndexNow key. */
+                    __('Please wait %d seconds before generating a new IndexNow key.', 'traydigita-core'),
+                    SeoIndexing::REGENERATE_RATE_LIMIT_SECONDS
+                );
+                $result['error'] = true;
+                return $result;
+            }
+            set_transient($rateLimitKey, 1, SeoIndexing::REGENERATE_RATE_LIMIT_SECONDS);
+            $settings['indexnow_key'] = SeoIndexing::generateKey();
+            update_option(self::OPTION, $settings, false);
+            $result['notice'] = __('A new IndexNow key was generated. The old key file no longer works — '
+                . 'update the key wherever you registered it.', 'traydigita-core');
             return $result;
         }
         $postId = isset($_POST['ai_post_id']) ? absint($_POST['ai_post_id']) : 0;
@@ -1149,7 +1286,8 @@ final class SeoModule implements ModuleInterface
      * '1' or not at all. Unknown keys are dropped.
      *
      * While an SEO plugin is active, the native-output toggles
-     * (news sitemap, XML sitemap, IndexNow, Google Indexing) are
+     * (meta output, JSON-LD, breadcrumbs, news sitemap, XML
+     * sitemap, IndexNow, Google Indexing, AI suggestions) are
      * disabled in the form and their stored values are preserved
      * instead of being wiped by the missing checkboxes. Enabling
      * IndexNow with no key stored generates a fresh key. When any
@@ -1188,10 +1326,14 @@ final class SeoModule implements ModuleInterface
         $settings['title_sep'] = $sep !== '' ? mb_substr(trim($sep), 0, 3) : $defaults['title_sep'];
         $settings['indexnow_key'] = $existing['indexnow_key'];
         if (SeoDetector::hasSeoPlugin()) {
+            $settings['meta_output'] = $existing['meta_output'];
+            $settings['json_ld'] = $existing['json_ld'];
+            $settings['breadcrumbs'] = $existing['breadcrumbs'];
             $settings['news_sitemap'] = $existing['news_sitemap'];
             $settings['xml_sitemap'] = $existing['xml_sitemap'];
             $settings['indexnow_enabled'] = $existing['indexnow_enabled'];
             $settings['google_indexing_enabled'] = $existing['google_indexing_enabled'];
+            $settings['ai_enabled'] = $existing['ai_enabled'];
         }
         if ($settings['indexnow_enabled'] && $settings['indexnow_key'] === '') {
             $settings['indexnow_key'] = SeoIndexing::generateKey();
@@ -1221,7 +1363,11 @@ final class SeoModule implements ModuleInterface
      * publish pings are registered through SeoIndexing, and the
      * extra AJAX endpoints through SeoAjax. Each output callback
      * re-checks its own toggle and the SEO plugin detection at
-     * render time.
+     * render time. WordPress core's own sitemaps are disabled
+     * through the `wp_sitemaps_enabled` filter while the native
+     * sitemaps are on (see disableCoreSitemaps()); the filter is
+     * registered here, on `after_setup_theme`, which always runs
+     * before core builds its sitemap server on `init`.
      *
      * Canonical: WordPress core prints its own canonical on
      * `wp_head` (`rel_canonical`, singular views only) while this
@@ -1253,8 +1399,72 @@ final class SeoModule implements ModuleInterface
         }
         add_action('template_redirect', [SeoOutput::class, 'maybeServeNewsSitemap']);
         add_action('template_redirect', [SeoSitemap::class, 'maybeServe']);
+        add_filter('wp_sitemaps_enabled', [self::class, 'disableCoreSitemaps']);
+        add_filter('redirect_canonical', [self::class, 'preventCanonicalRedirect'], 10, 2);
         SeoIndexing::register();
         SeoAjax::register();
+    }
+
+    /**
+     * Disable WordPress core's sitemaps while the native sitemaps are served.
+     *
+     * Filtered on `wp_sitemaps_enabled`, which core applies when it
+     * builds its sitemap server on `init` — after this module boots
+     * on `after_setup_theme`, so the filter is always in place in
+     * time. The decision re-checks the exact conditions the native
+     * sitemap uses (SeoSitemap::canServe(): the XML sitemap toggle
+     * is on and no SEO plugin is active), so core sitemaps stay
+     * enabled whenever the native ones are off or an SEO plugin is
+     * in charge of sitemaps. Returning false makes core answer 404
+     * for /wp-sitemap.xml instead of serving a second sitemap set.
+     *
+     * @param bool $enabled Whether core sitemaps are enabled (true for public sites).
+     * @return bool False while the native sitemaps are served, the passed value otherwise.
+     */
+    public static function disableCoreSitemaps(bool $enabled): bool
+    {
+        if (SeoSitemap::canServe()) {
+            return false;
+        }
+        return $enabled;
+    }
+
+    /**
+     * Keep WordPress core's canonical redirect off the module's own URLs.
+     *
+     * Filtered on `redirect_canonical`, which core runs on
+     * `template_redirect` before the module's own handlers serve the
+     * request. Core appends a trailing slash to the native sitemap
+     * URLs and the IndexNow key file (its exemption only covers
+     * core's own `sitemap` query var and robots.txt), so the bare
+     * URLs would 301 to a slashed copy instead of answering 200
+     * directly. Returning false skips the redirect whenever the
+     * request carries one of the module's query vars; every other
+     * request is left alone. The request-URI fallback covers
+     * switched-off toggles, whose query vars are only registered
+     * while their toggle is on — without it a switched-off sitemap
+     * would 301 instead of answering 404 directly.
+     *
+     * @param string|false $redirectUrl URL core wants to redirect to, or false.
+     * @param string $requestedUrl URL that was requested.
+     * @return string|false False for the module's own URLs, the passed value otherwise.
+     */
+    public static function preventCanonicalRedirect(string|false $redirectUrl, string $requestedUrl): string|false
+    {
+        if (get_query_var(SeoSitemap::QUERY_VAR) !== ''
+            || get_query_var(SeoOutput::SITEMAP_QUERY_VAR) !== ''
+            || get_query_var(SeoIndexing::KEY_QUERY_VAR) !== ''
+        ) {
+            return false;
+        }
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) wp_unslash($_SERVER['REQUEST_URI']) : '';
+        $path = trim((string) strtok($requestUri, '?'), '/');
+        $files = array_values(SeoSitemap::FILES);
+        $files[] = SeoOutput::SITEMAP_FILE;
+        if (in_array($path, $files, true) || preg_match('/^[0-9a-f]{32}\.txt$/', $path) === 1) {
+            return false;
+        }
+        return $redirectUrl;
     }
 
     /**

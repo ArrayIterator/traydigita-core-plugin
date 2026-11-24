@@ -92,11 +92,16 @@ final class SeoSitemap
      */
     public static function register(): void
     {
+        // The query var is registered even while the sitemaps are
+        // switched off, so maybeServe() still sees the request and
+        // answers 404 explicitly instead of letting WordPress serve
+        // the homepage for a stale rewrite rule. Only the rewrite
+        // rules themselves are gated on the toggle.
+        add_filter('query_vars', [self::class, 'addQueryVar']);
         $settings = SeoModule::getSettings();
         if (!$settings['xml_sitemap']) {
             return;
         }
-        add_filter('query_vars', [self::class, 'addQueryVar']);
         foreach (self::FILES as $type => $file) {
             add_rewrite_rule(
                 '^' . preg_quote($file, '/') . '$',

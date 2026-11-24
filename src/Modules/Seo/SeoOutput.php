@@ -106,6 +106,21 @@ final class SeoOutput
     public const string SITEMAP_REGEX = '^news-sitemap\\.xml$';
 
     /**
+     * News sitemap file name, as served from the site root.
+     */
+    public const string SITEMAP_FILE = 'news-sitemap.xml';
+
+    /**
+     * Absolute URL of the news sitemap.
+     *
+     * @return string
+     */
+    public static function sitemapUrl(): string
+    {
+        return home_url('/' . self::SITEMAP_FILE);
+    }
+
+    /**
      * Maximum number of URLs in the news sitemap (Google News limit).
      */
     public const int SITEMAP_MAX_URLS = 1000;
@@ -218,11 +233,17 @@ final class SeoOutput
      */
     public static function registerNewsSitemap(): void
     {
+        // The query var is registered even while the news sitemap
+        // is switched off, so maybeServeNewsSitemap() still sees the
+        // request and answers 404 explicitly instead of letting
+        // WordPress serve the homepage for a stale rewrite rule.
+        // Only the canonical filter and the rewrite rule are gated
+        // on the toggle.
+        add_filter('query_vars', [self::class, 'addNewsSitemapQueryVar']);
         $settings = SeoModule::getSettings();
         if (!$settings['news_sitemap']) {
             return;
         }
-        add_filter('query_vars', [self::class, 'addNewsSitemapQueryVar']);
         add_filter('redirect_canonical', [self::class, 'noCanonicalForNewsSitemap'], 10, 2);
         add_rewrite_rule(
             self::SITEMAP_REGEX,
