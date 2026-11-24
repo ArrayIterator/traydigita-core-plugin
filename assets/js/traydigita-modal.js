@@ -881,7 +881,7 @@
                     /* The tile tooltip always starts with the full
                        name: grid view clamps the name to one line
                        with an ellipsis, so a long name (e.g.
-                       "Mailchimp Transactional (Mandrill)") stays
+                       "Mailchimp Transactional") stays
                        readable on hover, and the description
                        follows it when there is one. */
                     button.title = meta !== '' ? label + ' — ' + meta : label;

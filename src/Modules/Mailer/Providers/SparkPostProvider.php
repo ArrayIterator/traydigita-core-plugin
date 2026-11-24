@@ -7,14 +7,22 @@ use function __;
 use function is_array;
 
 /**
- * SparkPost (Bird Email) Transmissions API provider.
+ * Bird Email Transmissions API provider (formerly SparkPost).
  *
  * Endpoint `POST https://api.sparkpost.com/api/v1/transmissions`
  * with the API key as the `Authorization` header value. A 200
  * response with a `results.id` means the transmission was
  * accepted. Cc / Bcc are sent as extra recipients with
  * `header_to` set to the primary recipient, which is how
- * SparkPost renders them.
+ * Bird Email renders them.
+ * SparkPost rebranded to Bird Email (MessageBird acquired
+ * SparkPost in Apr 2021); no sunset date for the old API has
+ * been published, so the api.sparkpost.com endpoint stays.
+ * Bird's new SMTP hosts (us1.smtp.bird.com /
+ * eu1.smtp.bird.com) are for new SMTP signups, not for this
+ * API provider.
+ *
+ * Docs: https://bird.com/docs
  *
  * Free tier verified from the official pricing page (Nov 2026):
  * 1,000 emails/month. Best for: high-volume sending with
@@ -25,7 +33,7 @@ use function is_array;
 final class SparkPostProvider extends AbstractApiProvider
 {
     /**
-     * SparkPost transmissions endpoint: the only host contacted.
+     * Bird Email (formerly SparkPost) transmissions endpoint: the only host contacted.
      */
     public const string API_URL = 'https://api.sparkpost.com/api/v1/transmissions';
 
@@ -36,9 +44,9 @@ final class SparkPostProvider extends AbstractApiProvider
     {
         return [
             'id' => 'sparkpost',
-            'label' => 'SparkPost',
+            'label' => 'Bird Email',
             'description' => __(
-                'SparkPost — free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing).',
+                'Bird Email — formerly SparkPost. Free 1,000 emails/month. Best for high-volume sending with predictive deliverability analytics (wallet-based pricing).',
                 'traydigita-core'
             ),
             'free_tier' => '1,000/month',
@@ -47,10 +55,10 @@ final class SparkPostProvider extends AbstractApiProvider
             'fields' => [
                 [
                     'key' => 'sparkpost_api_key',
-                    'label' => __('SparkPost API key', 'traydigita-core'),
+                    'label' => __('Bird Email API key', 'traydigita-core'),
                     'type' => 'password',
                     'hint' => __(
-                        'Create an API key with Transmissions: Read/Write permission in the SparkPost (Bird) dashboard. The From address must use a verified domain.',
+                        'Create an API key with Transmissions: Read/Write permission in the Bird Email dashboard. The From address must use a verified domain.',
                         'traydigita-core'
                     ),
                     'secret' => true,
@@ -73,7 +81,7 @@ final class SparkPostProvider extends AbstractApiProvider
         }
         $apiKey = self::setting($settings, 'sparkpost_api_key');
         if ($apiKey === '') {
-            return ['success' => false, 'message' => __('Enter the SparkPost API key in the Mailer settings first.', 'traydigita-core')];
+            return ['success' => false, 'message' => __('Enter the Bird Email API key in the Mailer settings first.', 'traydigita-core')];
         }
         $primary = self::formatAddress($mail['to'][0]);
         $recipients = [];
@@ -132,11 +140,11 @@ final class SparkPostProvider extends AbstractApiProvider
             ]
         );
         if ($result['error'] !== '' || $result['code'] !== 200) {
-            return ['success' => false, 'message' => self::apiErrorMessage($result, 'SparkPost')];
+            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Bird Email')];
         }
         if (!is_array($result['data']['results'] ?? null) || empty($result['data']['results']['id'])) {
-            return ['success' => false, 'message' => __('SparkPost did not accept the message.', 'traydigita-core')];
+            return ['success' => false, 'message' => __('Bird Email did not accept the message.', 'traydigita-core')];
         }
-        return ['success' => true, 'message' => __('Sent through SparkPost.', 'traydigita-core')];
+        return ['success' => true, 'message' => __('Sent through Bird Email.', 'traydigita-core')];
     }
 }

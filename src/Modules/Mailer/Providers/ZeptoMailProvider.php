@@ -6,12 +6,18 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers;
 use function __;
 
 /**
- * ZeptoMail (Zoho CPaaS) Email API v1.1 provider.
+ * Zoho CPaaS Email API v1.1 provider (formerly ZeptoMail).
  *
  * Endpoint `POST https://api.zeptomail.com/v1.1/email` with the
  * API key in the `Authorization: Zoho-enczapikey <key>` header.
- * A 201 response means the mail was accepted. ZeptoMail is
+ * A 201 response means the mail was accepted. Zoho CPaaS is
  * transactional-only: no bulk or marketing mail.
+ * ZeptoMail rebranded to Zoho CPaaS; Zoho states
+ * the SMTP configuration, API keys, Agents, credentials,
+ * configurations, and billing are all unchanged, so the
+ * endpoint, keys, and settings stay exactly as they are.
+ *
+ * Docs: https://www.zoho.com/cpaas/help/
  *
  * Free tier verified from Zoho's pricing (Nov 2026): the first
  * 10,000-email credit is free (one-time, credits valid 6
@@ -24,7 +30,7 @@ use function __;
 final class ZeptoMailProvider extends AbstractApiProvider
 {
     /**
-     * ZeptoMail send endpoint: the only host contacted.
+     * Zoho CPaaS (formerly ZeptoMail) send endpoint: the only host contacted.
      */
     public const string API_URL = 'https://api.zeptomail.com/v1.1/email';
 
@@ -35,9 +41,9 @@ final class ZeptoMailProvider extends AbstractApiProvider
     {
         return [
             'id' => 'zeptomail',
-            'label' => 'ZeptoMail',
+            'label' => 'Zoho CPaaS',
             'description' => __(
-                'ZeptoMail — first 10,000-email credit free (one-time), then $2.50 per 10,000 emails. Best for low-volume transactional mail and sites already in the Zoho ecosystem.',
+                'Zoho CPaaS — formerly ZeptoMail. First 10,000-email credit free (one-time), then $2.50 per 10,000 emails. Best for low-volume transactional mail and sites already in the Zoho ecosystem.',
                 'traydigita-core'
             ),
             'free_tier' => 'First 10,000 free',
@@ -46,10 +52,10 @@ final class ZeptoMailProvider extends AbstractApiProvider
             'fields' => [
                 [
                     'key' => 'zeptomail_api_key',
-                    'label' => __('ZeptoMail API key', 'traydigita-core'),
+                    'label' => __('Zoho CPaaS API key', 'traydigita-core'),
                     'type' => 'password',
                     'hint' => __(
-                        'From the ZeptoMail dashboard (Mail Agents → API). The From address must be a verified sender. ZeptoMail is transactional-only.',
+                        'From the Zoho CPaaS dashboard (Mail Agents → API). The From address must be a verified sender. Zoho CPaaS is transactional-only.',
                         'traydigita-core'
                     ),
                     'secret' => true,
@@ -72,7 +78,7 @@ final class ZeptoMailProvider extends AbstractApiProvider
         }
         $apiKey = self::setting($settings, 'zeptomail_api_key');
         if ($apiKey === '') {
-            return ['success' => false, 'message' => __('Enter the ZeptoMail API key in the Mailer settings first.', 'traydigita-core')];
+            return ['success' => false, 'message' => __('Enter the Zoho CPaaS API key in the Mailer settings first.', 'traydigita-core')];
         }
         $address = static function (array $item): array {
             $entry = ['address' => $item['email']];
@@ -131,8 +137,8 @@ final class ZeptoMailProvider extends AbstractApiProvider
             $payload
         );
         if ($result['error'] !== '' || ($result['code'] !== 200 && $result['code'] !== 201)) {
-            return ['success' => false, 'message' => self::apiErrorMessage($result, 'ZeptoMail')];
+            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Zoho CPaaS')];
         }
-        return ['success' => true, 'message' => __('Sent through ZeptoMail.', 'traydigita-core')];
+        return ['success' => true, 'message' => __('Sent through Zoho CPaaS.', 'traydigita-core')];
     }
 }

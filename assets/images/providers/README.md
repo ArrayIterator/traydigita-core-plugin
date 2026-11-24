@@ -18,6 +18,18 @@ those 7 with real marks, reworks 3 more (`email-mailerlite.svg`,
 provenance of `email-constant-contact.svg`; the remaining 2 generic
 fallbacks are kept deliberately.
 
+Rebrand round (2026-11-24): Mandrill, SparkPost, and ZeptoMail
+were renamed to their successor brands — Mailchimp
+Transactional, Bird Email, and Zoho CPaaS. The filenames keep
+their old stems (`email-mandrill.svg`, `email-sparkpost.svg`,
+`email-zeptomail.svg`) because `MailerModule::PROVIDER_LOGOS`
+and the stored provider ids (`mandrill`, `sparkpost`,
+`zeptomail`) are unchanged; only the artwork, labels, and
+descriptions changed. The Mailchimp slug is present in
+simple-icons (verified 2026-11-24); Bird / MessageBird and
+ZeptoMail have no simple-icons slug, so those two marks come
+from the brands' own sites (see below).
+
 Every file was verified by rendering at 32px (the picker list-row
 size) and at 96px on light and dark backgrounds. Every file parses
 as valid XML, is under 100 KB, keeps its original filename, and
@@ -78,6 +90,19 @@ the brand's official monochrome (single-colour) mark.
   Source: https://cdn.simpleicons.org/hubspot (slug `hubspot`,
   verified present in the simple-icons slug list 2026-11-23).
   Licence: CC0 1.0.
+- `email-mandrill.svg` (4,193 B, vector) — Mailchimp mark
+  (Freddie, yellow `#FFE01B`), used for Mailchimp
+  Transactional (formerly Mandrill). Source:
+  https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/mailchimp.svg
+  (slug `mailchimp`; the raw file carries no fill and renders
+  black, so `fill="#FFE01B"` was added to the `<svg>` root —
+  the same fill the sibling `email-mailchimp.svg` carries.
+  Path data is byte-identical to the source; sha256 of the
+  shipped file is
+  `c950f4e21f16d7d546332dabefdf35e8ce30b5308541fe31750616c98eefe1c2`).
+  The same mark already ships as `email-mailchimp.svg` for the
+  Mailchimp marketing API — Mailchimp Transactional uses
+  Mailchimp branding. Licence: CC0 1.0.
 
 ### From Wikimedia Commons (public domain)
 
@@ -203,13 +228,6 @@ open-licensed artwork; no licence is claimed for them.
   apple-touch-icon from the same official set is used instead.
   (The previous 1200x630 banner logo rendered ~3px tall at 32px
   and is superseded.)
-- `email-mandrill.svg` (1,069 B, raster embed, 16x16 PNG) —
-  Mandrill "M" mark (blue/black/yellow/red bars). Source:
-  https://mandrillapp.com/img/favicon.ico (16px is the only size
-  Mandrill publishes; upscaled 2x at 32px display, slightly soft
-  but the mark is simple geometry). The published wordmark
-  (`mandrillapp.com/img/logo.png`) is white text for dark
-  backgrounds.
 - `email-moosend.svg` (3,343 B, vector) — Moosend cow logomark.
   Source:
   https://moosend.com/wp-content/uploads/2026/06/logomark-white-background.svg
@@ -282,6 +300,18 @@ open-licensed artwork; no licence is claimed for them.
 - `email-socketlabs.svg` (1,723 B, vector) — SocketLabs puzzle
   mark (orange `#fc6423`). Source:
   https://www.socketlabs.com/images/favicon.svg
+- `email-sparkpost.svg` (1,430 B, vector) — Bird "B" mark
+  (black tile, white B knocked out), used for Bird Email
+  (formerly SparkPost). Source: https://bird.com/favicon.svg
+  (byte-identical to the source, sha256
+  `143ce08f7a700cf83b76d12f6b8f644130c185b2c762624e5e19c176e24e481f`).
+  Render verified: the SVG rasterizes to the same 32x32 pixels
+  as Bird's own `favicon-light.png` (1009/1024 pixels agree;
+  the rest are antialiasing edge pixels). The file ships Bird's
+  own dark-mode media query, which only flips the tile to a
+  white square with a black B — visible on a light tile in
+  either scheme. simple-icons has no Bird / MessageBird slug
+  (checked 2026-11-24).
 - `email-startmail.svg` (4,078 B, raster embed, 48x48 PNG) —
   Startmail envelope mark (dark navy). Source:
   https://www.startmail.com/favicon.ico (48px frame). The published
@@ -295,14 +325,21 @@ open-licensed artwork; no licence is claimed for them.
   https://mail.yandex.com/favicon.ico (48px frame). The Commons
   `Yandex 2021.svg` logotype (512x123, 4.2:1) was downloaded but
   is a wide wordmark; the mail envelope mark renders better.
-- `email-zeptomail.svg` (4,319 B, vector) — Zoho ZeptoMail
-  lockup (blue envelope/Z + "Zoho ZeptoMail"). Source:
-  https://www.zohowebstatic.com/sites/zweb/images/productlogos/zeptomail.svg
-  Ratio 3.86:1, so it renders small (~8px tall) at 32px, but it
-  is the current official lockup and no icon-only variant is
-  published.
+- `email-zeptomail.svg` (16,862 B, vector) — Zoho CPaaS
+  lockup (CPaaS knot mark + "Zoho CPaaS" wordmark), used for
+  Zoho CPaaS (formerly ZeptoMail). Source:
+  https://www.zohowebstatic.com/sites/zweb/images/productlogos/cpaas.svg
+  (byte-identical to the source, sha256
+  `3a49613f0fefc8b6a71047f49f599b1fd9e2572ef39b1cf52136cf2e9aafdeb4`).
+  Ratio 2.87:1, so it renders small (~11px tall) at 32px, but
+  it is the current official lockup and no icon-only variant
+  is published. The simple-icons Zoho mark is the same file
+  already shipped as `email-zoho.svg` for Zoho Mail and would
+  make the two providers indistinguishable in the picker.
+  (Supersedes the Zoho ZeptoMail lockup from the same source
+  directory, `zeptomail.svg`.)
 
-### Unchanged real marks (22, from the earlier set)
+### Unchanged real marks (21, from the earlier set)
 
 `email-brevo.svg`, `email-campaign-monitor.svg`, `email-gandi.svg`,
 `email-gmail.svg`, `email-gmx.svg`, `email-icloud.svg`,
@@ -310,8 +347,8 @@ open-licensed artwork; no licence is claimed for them.
 `email-mail-ru.svg`, `email-mailchimp.svg`, `email-mailgun.svg`,
 `email-mailtrap.svg`, `email-migadu.svg`, `email-namecheap.svg`,
 `email-ovh.svg`, `email-proton.svg`, `email-qq-mail.svg`,
-`email-resend.svg`, `email-sparkpost.svg`, `email-zoho.svg`,
-`email-zoho-eu.svg` — all 22 are simple-icons (CC0 1.0) marks.
+`email-resend.svg`, `email-zoho.svg`,
+`email-zoho-eu.svg` — all 21 are simple-icons (CC0 1.0) marks.
 None were touched in this round. (`email-outlook.svg`,
 `email-postmark.svg`, `email-sendgrid.svg`, `email-ses.svg` and
 `email-yahoo.svg` were removed from this list in this fix round —
@@ -344,8 +381,9 @@ generic fallbacks as real marks.)
   "lite", not a black monochrome mark.)
 - Raster embeds are capped at 256px on the long edge (largest
   file in the set is `email-mailjet.svg` at 64,256 B). Total set
-  size is 423,730 B for 66 files (sum of the 66 SVG files,
-  recomputed 2026-11-23).
+  size is 440,037 B for 65 files (sum of the 65 SVG files,
+  recomputed 2026-11-24 after the rebrand round, incl. the
+  Mandrill fill fix).
 - The previous README's "Created here" section (10 lettermarks
   drawn for providers with no file in the Unified set) is
   superseded: all 10 of those files are now real marks

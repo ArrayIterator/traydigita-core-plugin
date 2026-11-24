@@ -124,7 +124,7 @@ Four theme modules were deliberately **not** ported — they are presentation, n
 
 The Mailer is the single sending path for the whole plugin: WordPress notification mail, the Newsletter module, and the Contact Form all send through it, and every send is recorded in the send log. No third-party plugin is required for any provider; the provider hook stays available for plugins that want to add their own (see [HOOKS.md](HOOKS.md)).
 
-Counting: the provider dropdown lists **37 providers** — SMTP, Local / PHP mail, Gmail (OAuth), SendGrid, and 33 API providers (`API_PROVIDER_CLASSES`). The SMTP provider itself offers **30 one-click presets**, so the Mailer presents **67 selectable choices in total (37 + 30)**. An earlier draft said "66 providers"; that figure added the 30 presets to the 33 API providers plus SendGrid and Local (30 + 33 + 1 + 1 = 65) while leaving Gmail out — presets are choices inside one provider, not providers.
+Counting: the provider dropdown lists **37 providers** — SMTP, Local / PHP mail, Gmail (OAuth), SendGrid, and 35 API providers (`API_PROVIDER_CLASSES`). The SMTP provider itself offers **30 one-click presets**, so the Mailer presents **67 selectable choices in total (37 + 30)**. An earlier draft said "66 providers"; that figure added the 30 presets to the 33 API providers plus SendGrid and Local (30 + 33 + 1 + 1 = 65) while leaving Gmail out — presets are choices inside one provider, not providers.
 
 ### SMTP presets (30)
 
@@ -144,13 +144,13 @@ Custom, Gmail, Yahoo, Outlook / Microsoft 365, Zoho Mail, Zoho Mail EU, Proton M
 | Elastic Email | 3,000/month (100/day, no card) |
 | Mailgun | 100/day |
 | SMTP2GO | ~1,000/month |
-| SparkPost / Bird Email | 1,000/month (50/day, no card) |
+| Bird Email | 1,000/month (50/day, no card) |
 | MailerSend | 500/month (needs a credit card) |
 | Postmark | 100/month (never expires) |
-| ZeptoMail / Zoho CPaaS | First 10,000 emails free (one-time credit, 6 months), then $2.50 per 10,000 |
+| Zoho CPaaS | First 10,000 emails free (one-time credit, 6 months), then $2.50 per 10,000 |
 | SendGrid | 60-day trial only, then paid |
 | Amazon SES | No free tier, $0.10 per 1,000 |
-| Mailchimp Transactional (Mandrill) | Paid, no free tier |
+| Mailchimp Transactional | Paid, no free tier |
 | SendLayer | Trial only (~200), no free plan |
 | SocketLabs | No free plan (1st month free: 40,000, then $39.95/month) |
 | Courier | Free tier exists, amount not verified |

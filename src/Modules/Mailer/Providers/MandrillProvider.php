@@ -8,12 +8,18 @@ use function in_array;
 use function is_array;
 
 /**
- * Mailchimp Transactional (Mandrill) provider.
+ * Mailchimp Transactional provider (formerly Mandrill).
  *
  * Endpoint `POST https://mandrillapp.com/api/1.0/messages/send.json`
  * with the API key inside the JSON body. The response is an
  * array with one entry per recipient; the send counts as a
  * success only when every entry is `sent` or `queued`.
+ * Mailchimp rebranded Mandrill to Mailchimp Transactional in
+ * fall 2025 and kept the mandrillapp.com host for backward
+ * compatibility, so the endpoint, keys, and settings are
+ * unchanged.
+ *
+ * Docs: https://mailchimp.com/developer/transactional/
  *
  * Pricing (Nov 2026): paid only, no free tier. Best for:
  * teams already on Mailchimp who want transactional mail on
@@ -24,7 +30,9 @@ use function is_array;
 final class MandrillProvider extends AbstractApiProvider
 {
     /**
-     * Mandrill send endpoint: the only host contacted.
+     * Mailchimp Transactional send endpoint: the only host contacted.
+     * The mandrillapp.com host is kept by Mailchimp for backward
+     * compatibility after the Mandrill rebrand.
      */
     public const string API_URL = 'https://mandrillapp.com/api/1.0/messages/send.json';
 
@@ -35,9 +43,9 @@ final class MandrillProvider extends AbstractApiProvider
     {
         return [
             'id' => 'mandrill',
-            'label' => 'Mailchimp Transactional (Mandrill)',
+            'label' => 'Mailchimp Transactional',
             'description' => __(
-                'Mailchimp Transactional (Mandrill) — paid only, no free tier. Best for teams already on Mailchimp who want transactional mail on the same account.',
+                'Mailchimp Transactional — formerly Mandrill. Paid only, no free tier. Best for teams already on Mailchimp who want transactional mail on the same account.',
                 'traydigita-core'
             ),
             'free_tier' => '',
@@ -46,7 +54,7 @@ final class MandrillProvider extends AbstractApiProvider
             'fields' => [
                 [
                     'key' => 'mandrill_api_key',
-                    'label' => __('Mandrill API key', 'traydigita-core'),
+                    'label' => __('Mailchimp Transactional API key', 'traydigita-core'),
                     'type' => 'password',
                     'hint' => __(
                         'Create a key in the Mailchimp Transactional dashboard (Settings → API Keys). Leave empty to keep the saved key.',
@@ -72,7 +80,7 @@ final class MandrillProvider extends AbstractApiProvider
         }
         $apiKey = self::setting($settings, 'mandrill_api_key');
         if ($apiKey === '') {
-            return ['success' => false, 'message' => __('Enter the Mandrill API key in the Mailer settings first.', 'traydigita-core')];
+            return ['success' => false, 'message' => __('Enter the Mailchimp Transactional API key in the Mailer settings first.', 'traydigita-core')];
         }
         $to = [];
         foreach ($mail['to'] as $address) {
@@ -117,11 +125,11 @@ final class MandrillProvider extends AbstractApiProvider
             ['key' => $apiKey, 'message' => $message]
         );
         if ($result['error'] !== '' || $result['code'] !== 200) {
-            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Mandrill')];
+            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Mailchimp Transactional')];
         }
         $data = $result['data'];
         if (!is_array($data) || $data === []) {
-            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Mandrill')];
+            return ['success' => false, 'message' => self::apiErrorMessage($result, 'Mailchimp Transactional')];
         }
         foreach ($data as $entry) {
             if (!is_array($entry) || !isset($entry['status']) || !in_array($entry['status'], ['sent', 'queued'], true)) {
@@ -130,10 +138,10 @@ final class MandrillProvider extends AbstractApiProvider
                     'success' => false,
                     'message' => $reason !== ''
                         ? $reason
-                        : self::apiErrorMessage($result, 'Mandrill'),
+                        : self::apiErrorMessage($result, 'Mailchimp Transactional'),
                 ];
             }
         }
-        return ['success' => true, 'message' => __('Sent through Mailchimp Transactional (Mandrill).', 'traydigita-core')];
+        return ['success' => true, 'message' => __('Sent through Mailchimp Transactional.', 'traydigita-core')];
     }
 }

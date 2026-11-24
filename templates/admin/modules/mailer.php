@@ -17,6 +17,7 @@
  * @var string $mailerSaveAction AJAX action for the shell generic save endpoint (`traydigita_admin_save`).
  * @var string $mailerGmailStartUrl URL that starts the Gmail OAuth flow (nonce in the URL).
  * @var string $mailerGmailDisconnectUrl URL that disconnects the Gmail account (nonce in the URL).
+ * @var string $mailerGmailRedirectUri Redirect URI for the Google Cloud OAuth client (GmailOAuth::redirectUri()).
  * @var string $mailerResult Gmail OAuth redirect result flag (`connected`, `disconnected`, `error`, or '').
  * @var string $mailerResultCode Gmail OAuth redirect detail code, or ''.
  *
@@ -292,6 +293,59 @@ $gmailResultMessage = MailerModule::gmailResultMessage($mailerResult, $mailerRes
                         SettingsControls::input($fieldArgs);
                     }
                 endforeach;
+                if ($providerId === 'gmail') :
+                    // Gmail OAuth setup notes: the redirect URI
+                    // is read-only (no name, so it never submits)
+                    // with the framework copy button, and the
+                    // five setup steps sit behind the framework
+                    // Help toggle — only one short line is
+                    // visible inline. The URI comes from
+                    // GmailOAuth::redirectUri(), the same value
+                    // the authorization request and the code
+                    // exchange send to Google.
+                    $gmailRedirectControl = '<span class="td-settings-code-wrap">'
+                        . '<input class="traydigita-ui-input traydigita-ui-input-mono" type="text"'
+                        . ' id="mailer-gmail-redirect-uri"'
+                        . ' value="' . esc_attr($mailerGmailRedirectUri) . '"'
+                        . ' readonly spellcheck="false" autocomplete="off">'
+                        . SettingsControls::copyButton('mailer-gmail-redirect-uri')
+                        . '</span>';
+                    SettingsControls::field(
+                        'mailer-gmail-redirect-uri',
+                        __('Redirect URI', 'traydigita-core'),
+                        $gmailRedirectControl,
+                        __(
+                            'Add this URL as an authorized redirect URI in the Google Cloud OAuth client.',
+                            'traydigita-core'
+                        )
+                    );
+                    SettingsControls::about(
+                        __('How to connect Gmail', 'traydigita-core'),
+                        __(
+                            'Create a Google Cloud OAuth app, then paste its client ID and secret into the fields above.',
+                            'traydigita-core'
+                        ),
+                        '<ol>'
+                            . '<li>' . esc_html__(
+                                'Create a project in the Google Cloud console.',
+                                'traydigita-core'
+                            ) . '</li>'
+                            . '<li>' . esc_html__(
+                                'Configure the OAuth consent screen for the project.',
+                                'traydigita-core'
+                            ) . '</li>'
+                            . '<li>' . esc_html__(
+                                'Create OAuth credentials of type "Web application".',
+                                'traydigita-core'
+                            ) . '</li>'
+                            . '<li>' . esc_html__('Paste the client ID into "Google OAuth client ID" and the client secret into "Google OAuth client secret" above.', 'traydigita-core') . '</li>'
+                            . '<li>' . esc_html__('Copy the redirect URI above and add it as an authorized redirect URI in the OAuth client.', 'traydigita-core') . '</li>'
+                            . '</ol>'
+                            . '<p>' . esc_html__('Save the settings, then click "Connect Gmail". Google asks for permission to send mail only — the token can never read the mailbox.', 'traydigita-core') . '</p>'
+                            . '<p>' . esc_html__('The redirect URI must use https on a public site — Google only accepts plain http on localhost. If the URI above shows http on a live site, switch the site to https first (or serve the admin over https) before registering it in Google Cloud, or Google will reject the callback.', 'traydigita-core') . '</p>'
+                            . '<p>' . esc_html__('If the connect fails, check that you are still logged in to this site: when the login session expired while authorizing on Google (or you authorized in another browser), the callback arrives logged out and the connect fails — just log in again and reconnect.', 'traydigita-core') . '</p>'
+                    );
+                endif;
             endforeach;
             ?>
             <p class="traydigita-mailer-gmail-connect">

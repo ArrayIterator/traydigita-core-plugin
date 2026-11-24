@@ -121,7 +121,7 @@ use function wp_verify_nonce;
  * providers), or one of the transactional API providers
  * (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo,
  * Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark,
- * Elastic Email, ZeptoMail, SparkPost). Every provider is
+ * Elastic Email, Zoho CPaaS, Bird Email). Every provider is
  * first-party and built into Core; the
  * `traydigita:core:mailer/providers` filter stays available so
  * a third-party plugin MAY register an extra provider, but
@@ -871,7 +871,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, ZeptoMail, SparkPost, OneSignal, Mailtrap, Amazon SES, Mandrill, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
@@ -1724,6 +1724,11 @@ final class MailerModule implements ModuleInterface
             admin_url('admin-post.php?action=traydigita_mailer_gmail_disconnect'),
             self::GMAIL_OAUTH_NONCE_ACTION
         );
+        // Redirect URI the site owner registers in the Google
+        // Cloud OAuth client: the same value GmailOAuth uses in
+        // both the authorization request and the code exchange,
+        // so the template shows it from the code, never a copy.
+        $mailerGmailRedirectUri = GmailOAuth::redirectUri();
         $mailerResult = isset($_GET['mailer-result']) ? sanitize_key(wp_unslash($_GET['mailer-result'])) : '';
         $mailerResultCode = isset($_GET['mailer-code']) ? sanitize_key(wp_unslash($_GET['mailer-code'])) : '';
         // phpcs:enable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
