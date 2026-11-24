@@ -110,13 +110,27 @@ final class FastSearchAjax
         }
         $job = IndexManager::startJob(get_current_user_id());
         if ($job === null) {
-            wp_send_json_success(
-                [
-                    'already_installed' => true,
-                    'message' => esc_html__('All search indexes are already installed.', 'traydigita-core'),
-                    'statuses' => IndexManager::checkStatus(),
-                    'ready' => IndexManager::isReady(),
-                ]
+            // startJob() returns null in two cases: nothing is
+            // missing, or a build is already running. The running
+            // case was answered with 409 above, so re-check what
+            // is actually missing instead of assuming the
+            // already-installed case — a stale lock used to land
+            // here too and report "already installed" while all
+            // four indexes were still missing.
+            $missing = IndexManager::missingKeys(IndexManager::checkStatus());
+            if ($missing === []) {
+                wp_send_json_success(
+                    [
+                        'already_installed' => true,
+                        'message' => esc_html__('All search indexes are already installed.', 'traydigita-core'),
+                        'statuses' => IndexManager::checkStatus(),
+                        'ready' => IndexManager::isReady(),
+                    ]
+                );
+            }
+            wp_send_json_error(
+                ['message' => esc_html__('The index build could not run. Please try again.', 'traydigita-core')],
+                500
             );
         }
         wp_send_json_success(

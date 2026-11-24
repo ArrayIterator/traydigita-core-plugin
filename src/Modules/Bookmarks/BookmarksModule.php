@@ -5,7 +5,6 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Bookmarks;
 
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
-use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
 use TrayDigita\WP\Plugin\Core\Bookmarks;
 use TrayDigita\WP\Plugin\Core\Modules\MemberArea\MemberAreaModule;
 use function __;
@@ -202,8 +201,10 @@ final class BookmarksModule implements ModuleInterface
     /**
      * Render the settings page inside the admin shell content area.
      *
-     * Bookmarks have no settings: the page only explains the
-     * browser-only storage. There is no form to save.
+     * Bookmarks have no settings: the page is a visible info
+     * page in two sections — what the module does and what
+     * disabling removes — with nothing hidden behind a Help
+     * toggle. There is no form to save.
      *
      * @return void
      */
@@ -214,18 +215,27 @@ final class BookmarksModule implements ModuleInterface
         }
         ?>
         <div class="traydigita-module-settings bookmarks-settings">
-            <?php
-            SettingsControls::intro(
-                __('Reader bookmarks, stored in the browser only.', 'traydigita-core'),
-                __('Bookmarks live in the reader’s browser (IndexedDB database traydigita-bookmarks, version 1) — never in the WordPress database, never in user meta, never synced through REST. The article toggle, the bookmark list page and the member-area Bookmarks section all read the same store, so a bookmark saved on an article shows up in the member area on the same browser.', 'traydigita-core')
-            );
-            ?>
-            <p class="bookmarks-settings-note">
-                <?php esc_html_e('Disabling this module removes the Bookmarks section from the member area and hides the save-for-later toggle on articles. Bookmarks already saved in a reader’s browser stay there until the reader clears them; they are not deleted by disabling the module.', 'traydigita-core'); ?>
-            </p>
-            <p class="bookmarks-settings-note">
-                <?php esc_html_e('This module has no settings. Bookmarks do not sync across devices and are lost when the browser data is cleared — that trade-off is accepted.', 'traydigita-core'); ?>
-            </p>
+            <div class="traydigita-ui-section td-settings-section">
+                <h2 class="traydigita-ui-section-title"><?php esc_html_e('What this module does', 'traydigita-core'); ?></h2>
+                <p>
+                    <?php esc_html_e('Reader bookmarks, stored in the browser only.', 'traydigita-core'); ?>
+                </p>
+                <p>
+                    <?php esc_html_e('Bookmarks live in the reader’s browser (IndexedDB database traydigita-bookmarks, version 1) — never in the WordPress database, never in user meta, never synced through REST. The article toggle, the bookmark list page and the member-area Bookmarks section all read the same store, so a bookmark saved on an article shows up in the member area on the same browser.', 'traydigita-core'); ?>
+                </p>
+                <p>
+                    <?php esc_html_e('Guests can bookmark exactly like logged-in users — no account is needed; bookmarks are tied to the browser, not the user.', 'traydigita-core'); ?>
+                </p>
+                <p>
+                    <?php esc_html_e('This module has no settings. Bookmarks do not sync across devices and are lost when the browser data is cleared — that trade-off is accepted.', 'traydigita-core'); ?>
+                </p>
+            </div>
+            <div class="traydigita-ui-section td-settings-section">
+                <h2 class="traydigita-ui-section-title"><?php esc_html_e('What disabling does', 'traydigita-core'); ?></h2>
+                <p>
+                    <?php esc_html_e('Disabling this module removes the Bookmarks section from the member area and hides the save-for-later toggle on articles. Bookmarks already saved in a reader’s browser stay there until the reader clears them; they are not deleted by disabling the module.', 'traydigita-core'); ?>
+                </p>
+            </div>
         </div>
         <?php
     }

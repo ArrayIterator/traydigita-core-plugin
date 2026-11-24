@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
-"POT-Creation-Date: 2026-11-24 15:16+0700\n"
+"POT-Creation-Date: 2026-11-24 22:30+0700\n"
 "PO-Revision-Date: 2026-11-24 15:16+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
@@ -556,7 +556,7 @@ msgid "A short label for this key, so the key can be rotated later by publishing
 msgstr ""
 
 #: src/Modules/Share/ShareModule.php:145
-msgid "A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — styled after padangkita.com, with no share counts and no external requests."
+msgid "A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — small white buttons with dark navy icons and no brand colours, with no share counts and no external requests."
 msgstr ""
 
 #: src/Modules/Redirects/RedirectsModule.php:332
@@ -735,7 +735,7 @@ msgid "Above the title (default)"
 msgstr ""
 
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:358
-msgid "Above the title matches padangkita.com: the trail sits directly above the headline."
+msgid "The trail sits directly above the headline."
 msgstr ""
 
 #: src/Modules/CookieConsent/ConsentScript.php:172
@@ -4802,7 +4802,7 @@ msgid "Extra CSS for the maintenance page."
 msgstr ""
 
 #: src/Modules/Share/ShareModule.php:304
-msgid "Extra network, off by default — it is not part of the padangkita.com reference row."
+msgid "Extra network, off by default — it is not part of the default row."
 msgstr ""
 
 #: src/Modules/Push/PushModule.php:576
@@ -6213,7 +6213,7 @@ msgid "Installed and active."
 msgstr ""
 
 #: src/Admin/SetupPage.php:322
-msgid "Installed but not active. Activate it so the theme can boot."
+msgid "Installed but not active. Activate it to enable the helpers."
 msgstr ""
 
 #: src/Modules/Fonts/FontsModule.php:454
@@ -8332,7 +8332,7 @@ msgid "One service worker now serves both install and push."
 msgstr ""
 
 #: src/Modules/Share/ShareModule.php:277
-msgid "One share row on single posts, styled after padangkita.com: small white buttons with dark navy icons, no brand colours, and no share counts."
+msgid "One share row on single posts: small white buttons with dark navy icons, no brand colours, and no share counts."
 msgstr ""
 
 #: src/Modules/Mailer/Providers/OneSignalProvider.php:42
@@ -10278,7 +10278,7 @@ msgid "Required FULLTEXT indexes are missing."
 msgstr ""
 
 #: src/Modules/Installer/PluginList.php:213
-msgid "Required by the theme: the theme does not boot without it. It provides the image, popular-posts and messaging helpers the theme uses."
+msgid "Required by the theme: the theme does not boot without it. It provides the module system and all TrayDigita modules."
 msgstr ""
 
 #: src/Modules/Markets/GoldApiPriceProvider.php:101
@@ -13471,7 +13471,7 @@ msgstr ""
 #: src/Admin/SetupPage.php:304
 #: src/Admin/SetupPage.php:317
 #: src/Admin/SetupPage.php:329
-msgid "The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses."
+msgid "The required companion plugin. It provides the image, popular-posts and messaging helpers the theme uses; without it, those helpers fall back to built-in behaviour."
 msgstr ""
 
 #: src/Modules/Redirects/RedirectsAjax.php:109
@@ -16191,4 +16191,168 @@ msgstr ""
 #: src/Modules/PostSeries/PostSeriesModule.php:383
 msgctxt "taxonomy singular name"
 msgid "Series"
+msgstr ""
+
+#: templates/admin/shell.php:365
+msgid "This module is disabled."
+msgstr ""
+
+#: templates/admin/shell.php:366
+msgid "You can keep configuring it — settings saved here take effect as soon as the module is enabled."
+msgstr ""
+
+#: templates/admin/shell.php:190
+msgid "Enable module"
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:219
+msgid "What this module does"
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:234
+msgid "What disabling does"
+msgstr ""
+
+#: src/Modules/Bookmarks/BookmarksModule.php:29
+msgid "Guests can bookmark exactly like logged-in users — no account is needed; bookmarks are tied to the browser, not the user."
+msgstr ""
+
+#: src/Modules/Pwa/PwaModule.php:284
+msgid "What disabling removes"
+msgstr ""
+
+#: src/Admin/SetupPage.php:1049
+msgid "Page %1$d of %2$d (%3$d plugins)"
+msgstr ""
+
+#: src/Admin/SetupPage.php:1045
+msgid "Recommended plugin pages"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1290
+msgid "Lists & endpoints"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:563
+msgid "Gold brands"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1303
+msgid "Comma-separated list of gold brands shown in the gold widget."
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:578
+msgid "Stock symbols"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1310
+msgid "Comma-separated stock tickers shown in the stock widget, for example BBCA, BBRI, TLKM."
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1316
+msgid "Gold API endpoint"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1318
+msgid "Custom API endpoint template for gold prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1324
+msgid "Stock API endpoint"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1326
+msgid "Custom API endpoint template for stock prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1332
+msgid "Crypto API endpoint"
+msgstr ""
+
+#: src/Modules/Markets/MarketsModule.php:1334
+msgid "Custom API endpoint template for crypto prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:129
+msgid "Weather"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:74
+msgid "Default city"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:499
+msgid "Default latitude"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:507
+msgid "Default longitude"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:520
+msgid "Weather locations"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:330
+msgid "Carousel locations"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:312
+msgid "Default location"
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:479
+msgid "Current weather, free from Open-Meteo."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:494
+msgid "City shown by default in the weather widget and the top bar."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:501
+msgid "Latitude of the default weather location, between -90 and 90."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:509
+msgid "Longitude of the default weather location, between -180 and 180."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:330
+msgid "Carousel locations for the weather widget, one per line as Name|latitude|longitude."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:587
+msgid "Weather settings saved."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:550
+msgid "You are not allowed to change weather settings."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:139
+msgid "Current weather from Open-Meteo (free, no API key) for the top bar and the weather widget. Disable to remove every trace of it."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:174
+msgid "Current weather in the top bar and the weather widget, from Open-Meteo."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:175
+msgid "Location picker over a carousel of cities."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:191
+msgid "Weather is a module of its own, with an enable/disable toggle."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:192
+msgid "Default city, coordinates and carousel locations moved here from the Customizer."
+msgstr ""
+
+#: src/Modules/Integrations/IntegrationsModule.php:679
+msgid "The Weather module is disabled — enable it in Modules to use the weather integration."
+msgstr ""
+
+#: src/Modules/Weather/WeatherModule.php:480
+msgid "No API key, no account: the widget and the top bar show the current temperature and condition for the default city, with a location picker over the carousel cities below. Forecasts are cached for 30 minutes."
 msgstr ""

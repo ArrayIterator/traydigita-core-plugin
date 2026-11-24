@@ -9,14 +9,22 @@
  * the content area, and the toast area. Module settings pages
  * additionally get a context rail beside the content: a card
  * with the module's icon, name, description and status, so the
- * right-hand space is information, not dead air. The tabs are
- * the module's tabs as underline buttons when it declares at
- * least two, otherwise anchor links to its declared sections
- * (see SettingsPage::navItems()), or a single item with the
- * module name when it declares neither. The tab buttons keep
+ * right-hand space is information, not dead air. The tab bar
+ * renders only when the module declares two or more navigation
+ * items (tabs or sections): a single item is just the module's
+ * own name linking to the top of the page, so showing it as a
+ * "tab bar" is noise — the shell hides it and the page starts
+ * with the content instead. The tab buttons keep
  * their [data-traydigita-tab] attributes, so the shell
  * JavaScript switches panels exactly as it did with the old
  * left nav; only the placement changed.
+ *
+ * A disabled module's settings page carries a banner above the
+ * settings (see $traydigita_module_disabled below): the module
+ * is off, so saved settings have no effect until it is enabled,
+ * with a one-click Enable button that posts to the existing
+ * module-toggle endpoint. The settings stay editable while
+ * disabled, so a module can be configured before it is enabled.
  *
  * Template variables, set by AdminMenu::renderPage():
  * - $traydigita_title (string): page title.
@@ -70,7 +78,6 @@ $traydigita_topbar_items = isset($traydigita_topbar_items) && is_array($traydigi
 $traydigita_topbar_current = isset($traydigita_topbar_current) && is_string($traydigita_topbar_current)
     ? $traydigita_topbar_current
     : '';
-$traydigita_current_user = wp_get_current_user();
 $traydigita_back_url = isset($traydigita_back_url) && is_string($traydigita_back_url)
     ? $traydigita_back_url
     : '';
@@ -96,6 +103,16 @@ $traydigita_rail_module = $traydigita_is_module_page && is_string($traydigita_mo
     : null;
 $traydigita_body_class = $traydigita_rail_module !== null ? ' traydigita-admin-body-has-rail' : '';
 $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_module::icon() : '';
+// Disabled banner (see the shell docblock): a module page whose
+// module is off gets a banner above its settings. Core modules
+// are always enabled, so they never get one. The settings stay
+// editable while disabled — only the effect waits for enable.
+$traydigita_module_disabled = $traydigita_rail_module !== null
+    && !$traydigita_rail_module::isCore()
+    && !ModuleRegistry::isEnabled($traydigita_rail_module::id());
+// Single-item navigation is noise (see the shell docblock): the
+// bar renders only for two or more items.
+$traydigita_show_nav = count($traydigita_nav_items) >= 2;
 ?>
 <div class="wrap traydigita-admin-shell"
     data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
@@ -170,6 +187,7 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
     data-msg-changelog="<?php echo esc_attr(__('Changelog', 'traydigita-core')); ?>"
     data-msg-details="<?php echo esc_attr(__('Details', 'traydigita-core')); ?>"
     data-msg-open-settings="<?php echo esc_attr(__('Open settings', 'traydigita-core')); ?>"
+    data-msg-enable-module="<?php echo esc_attr(__('Enable module', 'traydigita-core')); ?>"
     data-msg-close="<?php echo esc_attr(__('Close', 'traydigita-core')); ?>"
     data-msg-label-version="<?php echo esc_attr(__('Version', 'traydigita-core')); ?>"
     data-msg-label-author="<?php echo esc_attr(__('Author', 'traydigita-core')); ?>"
@@ -217,37 +235,6 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
                             </li>
                         </ul>
                     </nav>
-                </div>
-            </div>
-            <div class="traydigita-admin-menu" data-traydigita-menu>
-                <button type="button" class="traydigita-admin-menu-button" data-traydigita-menu-button
-                    aria-haspopup="true" aria-expanded="false" aria-controls="traydigita-topbar-user">
-                    <?php echo get_avatar($traydigita_current_user->ID, 28, '', '', ['class' => 'traydigita-admin-menu-avatar']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_avatar() returns core-built avatar markup. ?>
-                    <span class="traydigita-admin-menu-button-label"><?php echo esc_html($traydigita_current_user->display_name); ?></span>
-                    <span class="material-icons traydigita-admin-menu-chevron" aria-hidden="true">expand_more</span>
-                </button>
-                <div class="traydigita-admin-menu-panel" id="traydigita-topbar-user" data-traydigita-menu-panel hidden>
-                    <div class="traydigita-admin-menu-user">
-                        <p class="traydigita-admin-menu-user-name"><?php echo esc_html($traydigita_current_user->display_name); ?></p>
-                        <p class="traydigita-admin-menu-user-email"><?php echo esc_html($traydigita_current_user->user_email); ?></p>
-                    </div>
-                    <ul class="traydigita-admin-menu-list">
-                        <li>
-                            <a class="traydigita-admin-menu-item" href="<?php echo esc_url(admin_url('profile.php')); ?>">
-                                <?php esc_html_e('Profile', 'traydigita-core'); ?>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="traydigita-admin-menu-item" href="<?php echo esc_url(admin_url('index.php')); ?>">
-                                <?php esc_html_e('WordPress Dashboard', 'traydigita-core'); ?>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="traydigita-admin-menu-item" href="<?php echo esc_url(wp_logout_url()); ?>">
-                                <?php esc_html_e('Log out', 'traydigita-core'); ?>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -305,7 +292,7 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
         </div>
     </header>
 
-    <?php if ($traydigita_is_module_page) : ?>
+    <?php if ($traydigita_is_module_page && $traydigita_show_nav) : ?>
         <?php
         // Critical tab-bar CSS (fixes round, Task 16): the admin
         // stylesheet is a Vite bundle that arrives after first
@@ -372,6 +359,20 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
         <?php elseif ($traydigita_setup_page) : ?>
             <?php require __DIR__ . '/setup-page.php'; ?>
         <?php elseif (is_string($traydigita_module_class) && class_exists($traydigita_module_class)) : ?>
+            <?php if ($traydigita_module_disabled) : ?>
+                <div class="traydigita-admin-notice traydigita-admin-notice-warning traydigita-admin-disabled-banner" role="status">
+                    <p>
+                        <strong><?php esc_html_e('This module is disabled.', 'traydigita-core'); ?></strong>
+                        <?php esc_html_e('You can keep configuring it — settings saved here take effect as soon as the module is enabled.', 'traydigita-core'); ?>
+                    </p>
+                    <p>
+                        <button type="button" class="traydigita-admin-button traydigita-admin-button-primary"
+                            data-traydigita-enable-module="<?php echo esc_attr($traydigita_module_class::id()); ?>">
+                            <?php esc_html_e('Enable module', 'traydigita-core'); ?>
+                        </button>
+                    </p>
+                </div>
+            <?php endif; ?>
             <?php $traydigita_module_class::renderSettingsPage(); ?>
         <?php else : ?>
             <div class="traydigita-admin-empty">
@@ -413,13 +414,19 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
                     </div>
                 </div>
                 <p class="traydigita-admin-rail-description">
-                    <?php echo esc_html($traydigita_rail_module::description()); ?>
+                    <?php echo esc_html(wp_trim_words($traydigita_rail_module::description(), 20, '…')); ?>
                 </p>
                 <?php
                 // "More" trigger for the module info popup. The
-                // description is clamped to three lines by CSS
-                // (see assets/css/traydigita-modal.css); the
-                // button starts hidden and the modal script
+                // description is truncated server-side to 20 words
+                // (wp_trim_words, same as the module list cards),
+                // so what the rail shows is decided in PHP, never
+                // in the browser; the full text stays available in
+                // the module-info data attribute above, and the
+                // modal shows it untruncated. The 3-line CSS clamp
+                // (see assets/css/traydigita-modal.css) stays only
+                // as a safety net for narrow viewports, and the
+                // button below starts hidden — the modal script
                 // reveals it only when the clamped text actually
                 // overflows, so short descriptions never get a
                 // broken "more".

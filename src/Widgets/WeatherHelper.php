@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Widgets;
 
-use TrayDigita\WP\Plugin\Core\Customizer\Settings;
+use TrayDigita\WP\Plugin\Core\Modules\Weather\WeatherModule;
 use function __;
 use function date_i18n;
 use function get_transient;
 use function is_array;
 use function is_numeric;
-use function is_string;
 use function is_wp_error;
 use function json_decode;
 use function md5;
@@ -29,11 +28,10 @@ use function wp_remote_retrieve_body;
  * and every request has an 8 second timeout. All fetches go through
  * this class; widget render paths only read the transient cache.
  *
- * Default city: Padang (-0.9471, 100.4172), read from the Customizer
- * theme mods `traydigita_weather_default_city`,
- * `traydigita_weather_default_latitude`, and
- * `traydigita_weather_default_longitude` (Track B owns the
- * Customizer definitions; these keys are the contract).
+ * Default city: Padang (-0.9471, 100.4172), read from the Weather
+ * module (WeatherModule::getDefaultLocation()), which itself falls
+ * back to the `weather_default_*` theme mods for values set in
+ * the Customizer before the module existed.
  */
 final class WeatherHelper
 {
@@ -144,35 +142,31 @@ final class WeatherHelper
     }
 
     /**
-     * Default city from the Customizer, with the Padang fallback.
+     * Default city from the Weather module, with the Padang fallback.
+     *
+     * Delegates to WeatherModule, the single source of truth
+     * (module option with a theme-mod fallback for values set
+     * in the Customizer before the module existed).
      *
      * @return array{name: string, latitude: float, longitude: float}
      */
     public static function getDefaultLocation(): array
     {
-        $name = Settings::get('weather_default_city');
-        $latitude = Settings::get('weather_default_latitude');
-        $longitude = Settings::get('weather_default_longitude');
-        return [
-            'name' => is_string($name) && trim($name) !== '' ? trim($name) : self::DEFAULT_CITY,
-            'latitude' => is_numeric($latitude) ? (float) $latitude : self::DEFAULT_LATITUDE,
-            'longitude' => is_numeric($longitude) ? (float) $longitude : self::DEFAULT_LONGITUDE,
-        ];
+        return WeatherModule::getDefaultLocation();
     }
 
     /**
-     * Default carousel locations from the Customizer, with a fallback list.
+     * Default carousel locations from the Weather module, with a fallback list.
      *
-     * The theme mod `weather_locations` holds one location per line
-     * as `Name|latitude|longitude`; SettingsCustomizer parses it.
-     * When it is empty or has no valid row, the built-in five-city
-     * list is returned.
+     * Delegates to WeatherModule, the single source of truth.
+     * When the stored list is empty or has no valid row, the
+     * built-in five-city list is returned.
      *
      * @return array<int, array{name: string, latitude: float, longitude: float}>
      */
     public static function getDefaultLocations(): array
     {
-        return Settings::getWeatherLocations();
+        return WeatherModule::getDefaultLocations();
     }
 
     /**

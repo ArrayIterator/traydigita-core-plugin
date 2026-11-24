@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TrayDigita Core 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ArrayIterator/traydigita-core-plugin/issues\n"
 "POT-Creation-Date: 2026-11-24 15:16+0700\n"
-"PO-Revision-Date: 2026-11-24 15:23+0700\n"
+"PO-Revision-Date: 2026-11-24 22:30+0700\n"
 "Last-Translator: TrayDigita\n"
 "Language-Team: TrayDigita\n"
 "MIME-Version: 1.0\n"
@@ -558,8 +558,8 @@ msgid "A short label for this key, so the key can be rotated later by publishing
 msgstr "Label singkat untuk kunci ini, agar kunci dapat dirotasi nanti dengan mempublikasikan selektor baru. Hanya huruf kecil, angka, dan tanda hubung."
 
 #: src/Modules/Share/ShareModule.php:145
-msgid "A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — styled after padangkita.com, with no share counts and no external requests."
-msgstr "Satu baris bagikan di bagian bawah artikel — Facebook, X, WhatsApp, Telegram, surel, salin tautan, dan cetak — dengan gaya padangkita.com, tanpa jumlah bagikan dan tanpa permintaan eksternal."
+msgid "A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — small white buttons with dark navy icons and no brand colours, with no share counts and no external requests."
+msgstr "Satu baris bagikan di bagian bawah artikel — Facebook, X, WhatsApp, Telegram, surel, salin tautan, dan cetak — tombol putih kecil dengan ikon biru navy gelap dan tanpa warna merek, tanpa jumlah bagikan dan tanpa permintaan eksternal."
 
 #: src/Modules/Redirects/RedirectsModule.php:332
 msgid "A site path starting with /, or a full URL such as https://example.com/new-article."
@@ -737,8 +737,8 @@ msgid "Above the title (default)"
 msgstr "Di atas judul (bawaan)"
 
 #: src/Modules/Breadcrumb/BreadcrumbModule.php:358
-msgid "Above the title matches padangkita.com: the trail sits directly above the headline."
-msgstr "Di atas judul sesuai dengan padangkita.com: jejak berada tepat di atas judul."
+msgid "The trail sits directly above the headline."
+msgstr "Jejak berada tepat di atas judul."
 
 #: src/Modules/CookieConsent/ConsentScript.php:172
 #: src/Modules/CookieConsent/CookieConsentModule.php:389
@@ -4804,8 +4804,8 @@ msgid "Extra CSS for the maintenance page."
 msgstr "CSS tambahan untuk halaman perawatan."
 
 #: src/Modules/Share/ShareModule.php:304
-msgid "Extra network, off by default — it is not part of the padangkita.com reference row."
-msgstr "Jaringan tambahan, nonaktif secara bawaan — bukan bagian dari baris referensi padangkita.com."
+msgid "Extra network, off by default — it is not part of the default row."
+msgstr "Jaringan tambahan, nonaktif secara bawaan — bukan bagian dari baris bawaan."
 
 #: src/Modules/Push/PushModule.php:576
 msgid "FCM token of the test device"
@@ -6215,8 +6215,8 @@ msgid "Installed and active."
 msgstr "Terpasang dan aktif."
 
 #: src/Admin/SetupPage.php:322
-msgid "Installed but not active. Activate it so the theme can boot."
-msgstr "Terinstal tetapi tidak aktif. Aktifkan agar tema dapat berjalan."
+msgid "Installed but not active. Activate it to enable the helpers."
+msgstr "Terinstal tetapi tidak aktif. Aktifkan untuk mengaktifkan helper."
 
 #: src/Modules/Fonts/FontsModule.php:454
 #: templates/admin/modules/fonts.php:101
@@ -8334,8 +8334,8 @@ msgid "One service worker now serves both install and push."
 msgstr "Satu service worker kini melayani instal dan push."
 
 #: src/Modules/Share/ShareModule.php:277
-msgid "One share row on single posts, styled after padangkita.com: small white buttons with dark navy icons, no brand colours, and no share counts."
-msgstr "Satu baris berbagi pada artikel tunggal, bergaya padangkita.com: tombol putih kecil dengan ikon biru navy gelap, tanpa warna merek, dan tanpa jumlah berbagi."
+msgid "One share row on single posts: small white buttons with dark navy icons, no brand colours, and no share counts."
+msgstr "Satu baris berbagi pada artikel tunggal: tombol putih kecil dengan ikon biru navy gelap, tanpa warna merek, dan tanpa jumlah berbagi."
 
 #: src/Modules/Mailer/Providers/OneSignalProvider.php:42
 msgid "OneSignal Email — free 10,000 emails/month. Best for apps already using OneSignal for push, adding email on the same account."
@@ -10280,8 +10280,8 @@ msgid "Required FULLTEXT indexes are missing."
 msgstr "Indeks FULLTEXT yang diperlukan hilang."
 
 #: src/Modules/Installer/PluginList.php:213
-msgid "Required by the theme: the theme does not boot without it. It provides the image, popular-posts and messaging helpers the theme uses."
-msgstr "Diperlukan oleh tema: tema tidak dapat berjalan tanpanya. Plugin ini menyediakan helper gambar, kiriman populer, dan pesan yang digunakan tema."
+msgid "Required by the theme: the theme does not boot without it. It provides the module system and all TrayDigita modules."
+msgstr "Diperlukan oleh tema: tema tidak dapat berjalan tanpanya. Plugin ini menyediakan sistem modul dan semua modul TrayDigita."
 
 #: src/Modules/Markets/GoldApiPriceProvider.php:101
 msgid "Required — GoldAPI.io has no keyless tier. Get one at goldapi.io. Only used when GoldAPI.io is the selected gold provider."
@@ -13473,8 +13473,8 @@ msgstr "Permintaan mengembalikan status %d tanpa header yang dapat dibaca."
 #: src/Admin/SetupPage.php:304
 #: src/Admin/SetupPage.php:317
 #: src/Admin/SetupPage.php:329
-msgid "The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses."
-msgstr "Plugin pendamping yang wajib ada. Tema tidak dapat berjalan tanpanya: plugin ini menyediakan helper gambar, popular-posts, dan messaging yang dipakai tema."
+msgid "The required companion plugin. It provides the image, popular-posts and messaging helpers the theme uses; without it, those helpers fall back to built-in behaviour."
+msgstr "Plugin pendamping yang wajib ada. Plugin ini menyediakan helper gambar, popular-posts, dan messaging yang dipakai tema; tanpanya, helper tersebut kembali ke perilaku bawaan."
 
 #: src/Modules/Redirects/RedirectsAjax.php:109
 msgid "The rule you tried to edit no longer exists."
@@ -16194,3 +16194,167 @@ msgstr "Seri"
 msgctxt "taxonomy singular name"
 msgid "Series"
 msgstr "Seri"
+
+#: templates/admin/shell.php:365
+msgid "This module is disabled."
+msgstr "Modul ini dinonaktifkan."
+
+#: templates/admin/shell.php:366
+msgid "You can keep configuring it — settings saved here take effect as soon as the module is enabled."
+msgstr "Anda tetap dapat mengonfigurasinya — pengaturan yang disimpan di sini berlaku segera setelah modul diaktifkan."
+
+#: templates/admin/shell.php:190
+msgid "Enable module"
+msgstr "Aktifkan modul"
+
+#: src/Modules/Bookmarks/BookmarksModule.php:219
+msgid "What this module does"
+msgstr "Apa yang dilakukan modul ini"
+
+#: src/Modules/Bookmarks/BookmarksModule.php:234
+msgid "What disabling does"
+msgstr "Apa yang terjadi saat dinonaktifkan"
+
+#: src/Modules/Bookmarks/BookmarksModule.php:29
+msgid "Guests can bookmark exactly like logged-in users — no account is needed; bookmarks are tied to the browser, not the user."
+msgstr "Tamu dapat membuat bookmark persis seperti pengguna yang masuk — tidak perlu akun; bookmark terikat pada browser, bukan pada pengguna."
+
+#: src/Modules/Pwa/PwaModule.php:284
+msgid "What disabling removes"
+msgstr "Apa yang dihapus saat dinonaktifkan"
+
+#: src/Admin/SetupPage.php:1049
+msgid "Page %1$d of %2$d (%3$d plugins)"
+msgstr "Halaman %1$d dari %2$d (%3$d plugin)"
+
+#: src/Admin/SetupPage.php:1045
+msgid "Recommended plugin pages"
+msgstr "Halaman plugin yang direkomendasikan"
+
+#: src/Modules/Markets/MarketsModule.php:1290
+msgid "Lists & endpoints"
+msgstr "Daftar & endpoint"
+
+#: src/Modules/Markets/MarketsModule.php:563
+msgid "Gold brands"
+msgstr "Merek emas"
+
+#: src/Modules/Markets/MarketsModule.php:1303
+msgid "Comma-separated list of gold brands shown in the gold widget."
+msgstr "Daftar merek emas yang dipisahkan koma dan ditampilkan di widget emas."
+
+#: src/Modules/Markets/MarketsModule.php:578
+msgid "Stock symbols"
+msgstr "Simbol saham"
+
+#: src/Modules/Markets/MarketsModule.php:1310
+msgid "Comma-separated stock tickers shown in the stock widget, for example BBCA, BBRI, TLKM."
+msgstr "Ticker saham yang dipisahkan koma dan ditampilkan di widget saham, contohnya BBCA, BBRI, TLKM."
+
+#: src/Modules/Markets/MarketsModule.php:1316
+msgid "Gold API endpoint"
+msgstr "Endpoint API emas"
+
+#: src/Modules/Markets/MarketsModule.php:1318
+msgid "Custom API endpoint template for gold prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr "Template endpoint API kustom untuk harga emas. Belum ada provider bawaan yang menggunakannya — disimpan untuk provider API generik di masa mendatang."
+
+#: src/Modules/Markets/MarketsModule.php:1324
+msgid "Stock API endpoint"
+msgstr "Endpoint API saham"
+
+#: src/Modules/Markets/MarketsModule.php:1326
+msgid "Custom API endpoint template for stock prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr "Template endpoint API kustom untuk harga saham. Belum ada provider bawaan yang menggunakannya — disimpan untuk provider API generik di masa mendatang."
+
+#: src/Modules/Markets/MarketsModule.php:1332
+msgid "Crypto API endpoint"
+msgstr "Endpoint API kripto"
+
+#: src/Modules/Markets/MarketsModule.php:1334
+msgid "Custom API endpoint template for crypto prices. No built-in provider uses it yet — it is kept for a future generic API provider."
+msgstr "Template endpoint API kustom untuk harga kripto. Belum ada provider bawaan yang menggunakannya — disimpan untuk provider API generik di masa mendatang."
+
+#: src/Modules/Weather/WeatherModule.php:129
+msgid "Weather"
+msgstr "Cuaca"
+
+#: src/Modules/Weather/WeatherModule.php:74
+msgid "Default city"
+msgstr "Kota bawaan"
+
+#: src/Modules/Weather/WeatherModule.php:499
+msgid "Default latitude"
+msgstr "Lintang bawaan"
+
+#: src/Modules/Weather/WeatherModule.php:507
+msgid "Default longitude"
+msgstr "Bujur bawaan"
+
+#: src/Modules/Weather/WeatherModule.php:520
+msgid "Weather locations"
+msgstr "Lokasi cuaca"
+
+#: src/Modules/Weather/WeatherModule.php:330
+msgid "Carousel locations"
+msgstr "Lokasi carousel"
+
+#: src/Modules/Weather/WeatherModule.php:312
+msgid "Default location"
+msgstr "Lokasi bawaan"
+
+#: src/Modules/Weather/WeatherModule.php:479
+msgid "Current weather, free from Open-Meteo."
+msgstr "Cuaca terkini, gratis dari Open-Meteo."
+
+#: src/Modules/Weather/WeatherModule.php:494
+msgid "City shown by default in the weather widget and the top bar."
+msgstr "Kota yang ditampilkan secara bawaan di widget cuaca dan bilah atas."
+
+#: src/Modules/Weather/WeatherModule.php:501
+msgid "Latitude of the default weather location, between -90 and 90."
+msgstr "Lintang lokasi cuaca bawaan, antara -90 dan 90."
+
+#: src/Modules/Weather/WeatherModule.php:509
+msgid "Longitude of the default weather location, between -180 and 180."
+msgstr "Bujur lokasi cuaca bawaan, antara -180 dan 180."
+
+#: src/Modules/Weather/WeatherModule.php:330
+msgid "Carousel locations for the weather widget, one per line as Name|latitude|longitude."
+msgstr "Lokasi carousel untuk widget cuaca, satu per baris dengan format Nama|lintang|bujur."
+
+#: src/Modules/Weather/WeatherModule.php:587
+msgid "Weather settings saved."
+msgstr "Pengaturan cuaca disimpan."
+
+#: src/Modules/Weather/WeatherModule.php:550
+msgid "You are not allowed to change weather settings."
+msgstr "Anda tidak diizinkan mengubah pengaturan cuaca."
+
+#: src/Modules/Weather/WeatherModule.php:139
+msgid "Current weather from Open-Meteo (free, no API key) for the top bar and the weather widget. Disable to remove every trace of it."
+msgstr "Cuaca terkini dari Open-Meteo (gratis, tanpa kunci API) untuk bilah atas dan widget cuaca. Nonaktifkan untuk menghapus semua jejaknya."
+
+#: src/Modules/Weather/WeatherModule.php:174
+msgid "Current weather in the top bar and the weather widget, from Open-Meteo."
+msgstr "Cuaca terkini di bilah atas dan widget cuaca, dari Open-Meteo."
+
+#: src/Modules/Weather/WeatherModule.php:175
+msgid "Location picker over a carousel of cities."
+msgstr "Pemilih lokasi di atas carousel kota."
+
+#: src/Modules/Weather/WeatherModule.php:191
+msgid "Weather is a module of its own, with an enable/disable toggle."
+msgstr "Cuaca adalah modul tersendiri, dengan tombol aktif/nonaktif."
+
+#: src/Modules/Weather/WeatherModule.php:192
+msgid "Default city, coordinates and carousel locations moved here from the Customizer."
+msgstr "Kota bawaan, koordinat, dan lokasi carousel dipindahkan ke sini dari Customizer."
+
+#: src/Modules/Integrations/IntegrationsModule.php:679
+msgid "The Weather module is disabled — enable it in Modules to use the weather integration."
+msgstr "Modul Cuaca dinonaktifkan — aktifkan di Modul untuk memakai integrasi cuaca."
+
+#: src/Modules/Weather/WeatherModule.php:480
+msgid "No API key, no account: the widget and the top bar show the current temperature and condition for the default city, with a location picker over the carousel cities below. Forecasts are cached for 30 minutes."
+msgstr "Tanpa kunci API, tanpa akun: widget dan bilah atas menampilkan suhu dan kondisi terkini untuk kota bawaan, dengan pemilih lokasi di atas kota carousel di bawah. Prakiraan disimpan di cache selama 30 menit."

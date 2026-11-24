@@ -16,7 +16,11 @@ use TrayDigita\WP\Plugin\Core\Modules\Installer\PluginList;
 use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use TrayDigita\WP\Plugin\Core\Modules\Pwa\PwaModule;
 use function __;
+use function absint;
+use function add_query_arg;
 use function admin_url;
+use function array_slice;
+use function ceil;
 use function count;
 use function esc_attr;
 use function esc_html;
@@ -27,6 +31,9 @@ use function get_locale;
 use function get_option;
 use function implode;
 use function is_array;
+use function is_numeric;
+use function max;
+use function min;
 use function sprintf;
 use function sanitize_key;
 use function in_array;
@@ -97,6 +104,14 @@ final class SetupPage
      * Admin page slug of the Setup page.
      */
     public const string SLUG = 'traydigita-setup';
+
+    /**
+     * Recommended plugins per page in the Setup grid.
+     *
+     * Fourteen curated plugins at six per page is three pages:
+     * short enough to scan, long enough that paging is rare.
+     */
+    public const int RECOMMENDED_PER_PAGE = 6;
 
     /**
      * Return the checklist items as structured data.
@@ -302,7 +317,7 @@ final class SetupPage
                 'id' => 'stack',
                 'title' => __('TrayDigita Stack', 'traydigita-core'),
                 'description' => __(
-                    'The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses.',
+                    'The required companion plugin. It provides the image, popular-posts and messaging helpers the theme uses; without it, those helpers fall back to built-in behaviour.',
                     'traydigita-core'
                 ),
                 'status' => 'done',
@@ -315,11 +330,11 @@ final class SetupPage
                 'id' => 'stack',
                 'title' => __('TrayDigita Stack', 'traydigita-core'),
                 'description' => __(
-                    'The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses.',
+                    'The required companion plugin. It provides the image, popular-posts and messaging helpers the theme uses; without it, those helpers fall back to built-in behaviour.',
                     'traydigita-core'
                 ),
                 'status' => 'pending',
-                'detail' => __('Installed but not active. Activate it so the theme can boot.', 'traydigita-core'),
+                'detail' => __('Installed but not active. Activate it to enable the helpers.', 'traydigita-core'),
                 'action' => 'stack-activate',
             ];
         }
@@ -327,7 +342,7 @@ final class SetupPage
             'id' => 'stack',
             'title' => __('TrayDigita Stack', 'traydigita-core'),
             'description' => __(
-                'The required companion plugin. The theme does not boot without it: it provides the image, popular-posts and messaging helpers the theme uses.',
+                'The required companion plugin. It provides the image, popular-posts and messaging helpers the theme uses; without it, those helpers fall back to built-in behaviour.',
                 'traydigita-core'
             ),
             'status' => 'pending',
@@ -938,11 +953,30 @@ final class SetupPage
      * them with no extra JavaScript. The stack entry is not in
      * this list: it cannot be installed from wordpress.org.
      *
+     * Paginated, six per page, with prev/next links back to this
+     * page (`td_recommended_page` query arg) — the same pattern
+     * as the Activity Log viewer. The cards are plain
+     * server-rendered markup, so the Install / Activate buttons
+     * keep working on every page: the installer JavaScript binds
+     * one delegated click listener on the grid container.
+     *
      * @param array<int, array{slug: string, name: string, reason: string, status: string}> $plugins Installable curated plugins with live statuses.
      * @return void
      */
     private static function renderRecommendedPlugins(array $plugins): void
     {
+        $total = count($plugins);
+        $perPage = self::RECOMMENDED_PER_PAGE;
+        $totalPages = $perPage > 0 ? (int) ceil($total / $perPage) : 1;
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
+        $page = isset($_GET['td_recommended_page']) && is_numeric(wp_unslash($_GET['td_recommended_page']))
+            ? absint(wp_unslash($_GET['td_recommended_page']))
+            : 1;
+        $page = max(1, min($page, $totalPages));
+        $pagePlugins = array_slice($plugins, ($page - 1) * $perPage, $perPage);
+        $baseUrl = admin_url('admin.php?page=' . self::SLUG);
         ?>
         <div class="setup-plugin-grid" data-installer-admin
             data-msg-installing="<?php echo esc_attr(__('Installing…', 'traydigita-core')); ?>"
@@ -951,7 +985,7 @@ final class SetupPage
             data-msg-installed="<?php echo esc_attr(__('Installed', 'traydigita-core')); ?>"
             data-msg-active="<?php echo esc_attr(__('Active', 'traydigita-core')); ?>"
             data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
-            <?php foreach ($plugins as $plugin) : ?>
+            <?php foreach ($pagePlugins as $plugin) : ?>
                 <?php
                 $badgeClass = $plugin['status'] === PluginList::STATUS_ACTIVE
                     ? 'traydigita-admin-badge-success'
@@ -1007,6 +1041,22 @@ final class SetupPage
                 </article>
             <?php endforeach; ?>
         </div>
+        <?php if ($totalPages > 1) : ?>
+            <nav class="setup-plugin-pagination" aria-label="<?php esc_attr_e('Recommended plugin pages', 'traydigita-core'); ?>">
+                <span class="setup-plugin-page-info">
+                    <?php
+                    /* translators: 1: current page, 2: total pages, 3: total recommended plugins. */
+                    echo esc_html(sprintf(__('Page %1$d of %2$d (%3$d plugins)', 'traydigita-core'), $page, $totalPages, $total));
+                    ?>
+                </span>
+                <?php if ($page > 1) : ?>
+                    <a class="traydigita-admin-button" href="<?php echo esc_url(add_query_arg(['td_recommended_page' => $page - 1], $baseUrl)); ?>"><?php esc_html_e('Previous', 'traydigita-core'); ?></a>
+                <?php endif; ?>
+                <?php if ($page < $totalPages) : ?>
+                    <a class="traydigita-admin-button" href="<?php echo esc_url(add_query_arg(['td_recommended_page' => $page + 1], $baseUrl)); ?>"><?php esc_html_e('Next', 'traydigita-core'); ?></a>
+                <?php endif; ?>
+            </nav>
+        <?php endif; ?>
         <?php
     }
 }

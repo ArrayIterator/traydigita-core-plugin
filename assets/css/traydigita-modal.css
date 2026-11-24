@@ -304,9 +304,20 @@
 /* Only the active panel shows, and it is the scroll container.
    The top margin is the gap the tab bar used to carry as its
    own bottom margin (see above): it keeps the panel content
-   1rem below the tabs without a container rule or margin. */
+   1rem below the tabs without a container rule or margin.
+   The panel never grows (flex-grow 0): in a dialog that sizes
+   to its content, a growing panel lets the flex pass resolve
+   it a fraction short of its content — the 22.4px fractional
+   line-height rounds differently for the panel box and its
+   scroll height — and overflow-y: auto turns that 1px
+   shortfall into a phantom scrollbar on short modules. With
+   grow 0 the panel is purely content-sized while space
+   allows, so no scrollbar appears; it still shrinks (with
+   min-height 0) when the dialog hits its max-height, and then
+   it scrolls inside itself while the head, tab bar and footer
+   stay put. */
 .traydigita-modal-tab-panel {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-height: 0;
     margin-top: 1rem;
     overflow-y: auto;

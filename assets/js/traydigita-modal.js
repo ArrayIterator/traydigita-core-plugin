@@ -508,11 +508,31 @@
                 var settingsRow = el('div', 'traydigita-modal-meta-row');
                 settingsRow.appendChild(el('dt', '', msg('label-settings', 'Settings')));
                 var settingsCell = el('dd', '');
-                var settingsLink = document.createElement('a');
-                settingsLink.className = 'traydigita-modal-meta-link';
-                settingsLink.href = String(info.settings_url || '#');
-                settingsLink.textContent = msg('open-settings', 'Open settings');
-                settingsCell.appendChild(settingsLink);
+                if (String(info.status || '') === 'disabled' && String(info.id || '') !== '') {
+                    // A disabled module offers no "Open settings"
+                    // here: the popup is the module's front door,
+                    // and settings that do nothing must not be
+                    // one click away without saying so. Enable
+                    // instead, through the existing toggle
+                    // endpoint — the settings stay reachable from
+                    // the module list for pre-configuration.
+                    var enableButton = el(
+                        'button',
+                        'traydigita-admin-button traydigita-admin-button-primary',
+                        msg('enable-module', 'Enable module')
+                    );
+                    enableButton.type = 'button';
+                    enableButton.addEventListener('click', function () {
+                        enableModule(String(info.id), enableButton);
+                    });
+                    settingsCell.appendChild(enableButton);
+                } else {
+                    var settingsLink = document.createElement('a');
+                    settingsLink.className = 'traydigita-modal-meta-link';
+                    settingsLink.href = String(info.settings_url || '#');
+                    settingsLink.textContent = msg('open-settings', 'Open settings');
+                    settingsCell.appendChild(settingsLink);
+                }
                 settingsRow.appendChild(settingsCell);
                 meta.appendChild(settingsRow);
                 detailsPanel.appendChild(meta);
@@ -609,16 +629,106 @@
                 });
             },
             footer: function (footer) {
-                var settingsLink = el(
-                    'a',
-                    'traydigita-admin-button traydigita-admin-button-primary',
-                    msg('open-settings', 'Open settings')
-                );
-                settingsLink.href = String(info.settings_url || '#');
-                footer.appendChild(settingsLink);
+                if (String(info.status || '') === 'disabled' && String(info.id || '') !== '') {
+                    // Same rule as the Details tab's Settings row
+                    // above: no "Open settings" for a disabled
+                    // module — Enable instead, through the
+                    // existing toggle endpoint.
+                    var footerEnable = el(
+                        'button',
+                        'traydigita-admin-button traydigita-admin-button-primary',
+                        msg('enable-module', 'Enable module')
+                    );
+                    footerEnable.type = 'button';
+                    footerEnable.addEventListener('click', function () {
+                        enableModule(String(info.id), footerEnable);
+                    });
+                    footer.appendChild(footerEnable);
+                } else {
+                    var settingsLink = el(
+                        'a',
+                        'traydigita-admin-button traydigita-admin-button-primary',
+                        msg('open-settings', 'Open settings')
+                    );
+                    settingsLink.href = String(info.settings_url || '#');
+                    footer.appendChild(settingsLink);
+                }
                 footer.appendChild(closeButton());
             },
             initialFocus: '.traydigita-modal-close',
+        });
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Module enable (disabled banner + info popup)                      */
+    /* ------------------------------------------------------------------ */
+
+    /**
+     * Enable one module through the existing toggle endpoint,
+     * then reload so the page reflects the new state.
+     *
+     * The same endpoint the module list toggles use
+     * (traydigita_admin_toggle_module): module id, enabled=1,
+     * the shell nonce from the shell root's data attributes.
+     * The button is disabled while the request runs; on failure
+     * it comes back carrying the error as its label, so the
+     * failure is visible without a toast system.
+     *
+     * @param {string} moduleId Module id to enable.
+     * @param {HTMLElement} button Button that triggered the enable.
+     * @return {void}
+     */
+    function enableModule(moduleId, button) {
+        var shell = document.querySelector('.traydigita-admin-shell');
+        if (!shell || moduleId === '') {
+            return;
+        }
+        var ajaxUrl = shell.getAttribute('data-ajax-url') || '';
+        var nonce = shell.getAttribute('data-nonce') || '';
+        if (ajaxUrl === '' || nonce === '') {
+            return;
+        }
+        button.textContent = msg('enable-module', 'Enable module');
+        button.disabled = true;
+        var body = new FormData();
+        body.set('action', 'traydigita_admin_toggle_module');
+        body.set('module', moduleId);
+        body.set('enabled', '1');
+        body.set('_ajax_nonce', nonce);
+        fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
+            .then(function (response) { return response.json(); })
+            .then(function (result) {
+                if (result && result.success) {
+                    window.location.reload();
+                    return;
+                }
+                button.disabled = false;
+                var message = result && result.data
+                    && typeof result.data.message === 'string'
+                    && result.data.message !== ''
+                    ? result.data.message
+                    : msg('toggle-error', 'Could not change the module state. Please try again.');
+                button.textContent = message;
+            })
+            .catch(function () {
+                button.disabled = false;
+                button.textContent = msg('toggle-error', 'Could not change the module state. Please try again.');
+            });
+    }
+
+    /**
+     * Wire the disabled-banner Enable button on module settings
+     * pages (rendered by templates/admin/shell.php). The popup's
+     * own Enable buttons are wired where they are built.
+     *
+     * @return {void}
+     */
+    function initEnableButtons() {
+        var buttons = document.querySelectorAll('[data-traydigita-enable-module]');
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                enableModule(button.getAttribute('data-traydigita-enable-module') || '', button);
+            });
         });
     }
 
@@ -1062,6 +1172,7 @@
         initRail();
         initCards();
         initPickers();
+        initEnableButtons();
     }
 
     if (document.readyState === 'loading') {

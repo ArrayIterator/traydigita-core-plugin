@@ -11,6 +11,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use TrayDigita\WP\Plugin\Core\Modules\Seo\SeoModule;
 use TrayDigita\WP\Plugin\Core\Modules\SiteKit\SiteKitModule;
 use TrayDigita\WP\Plugin\Core\Modules\Turnstile\TurnstileModule;
+use TrayDigita\WP\Plugin\Core\Modules\Weather\WeatherModule;
 use TrayDigita\WP\Plugin\Core\Core;
 use TrayDigita\WP\Plugin\Core\Customizer\Definitions;
 use TrayDigita\WP\Plugin\Core\Customizer\Settings;
@@ -103,10 +104,11 @@ use function trim;
  *   module ('push'); the entry is built here from
  *   PushModule::isConfigured() because the module itself
  *   does not register integration entries in boot().
- * - Open-Meteo weather: owned by the weather widget and
- *   WeatherHelper, which have no module and no boot(); the entry
- *   is built here from WeatherHelper::getDefaultLocation() and
- *   WeatherHelper::getCachedCurrent().
+ * - Open-Meteo weather: owned by the Weather module
+ *   ('weather'); the entry is built here from
+ *   WeatherHelper::getDefaultLocation() and
+ *   WeatherHelper::getCachedCurrent(), and reports
+ *   'module-disabled' while the module is off.
  * - Photon: the toggle lives in the Customizer
  *   (`photon_enabled`) and serving lives in ThemeImage via the
  *   traydigita-stack helper; there is no Photon module, so the
@@ -645,13 +647,13 @@ final class IntegrationsModule implements ModuleInterface
     /**
      * Built-in entry: Open-Meteo weather.
      *
-     * Registered here because the weather widget and WeatherHelper
-     * own Open-Meteo and have no module and no boot(). Open-Meteo
-     * is free and keyless with a built-in default location
+     * Open-Meteo is free and keyless with a built-in default location
      * (Padang), so there is no 'not-configured' state: 'active'
      * when a fresh forecast is cached (WeatherHelper caches a
      * successful fetch for 30 minutes, so a cache hit proves the
-     * provider responded recently), 'configured' otherwise.
+     * provider responded recently), 'configured' otherwise, and
+     * 'module-disabled' while the Weather module is off (same
+     * pattern as MarketsModule::registerIntegrationEntry()).
      *
      * @param array<int, array<string, mixed>> $entries Entries so far.
      * @return array<int, array<string, mixed>> Entries with the weather entry appended.
@@ -673,13 +675,21 @@ final class IntegrationsModule implements ModuleInterface
                 __('Free forecast for %s from Open-Meteo — no API key. No fresh data cached yet.', 'traydigita-core'),
                 $location['name']
             );
+        if (!WeatherModule::isEnabled()) {
+            $description = __('The Weather module is disabled — enable it in Modules to use the weather integration.', 'traydigita-core');
+            $status = 'module-disabled';
+            $url = self::modulesUrl();
+        } else {
+            $status = $active ? 'active' : 'configured';
+            $url = admin_url('admin.php?page=' . WeatherModule::settingsPageSlug());
+        }
         $entries[] = [
             'id' => 'open-meteo',
             'name' => 'Open-Meteo',
             'description' => $description,
-            'status' => $active ? 'active' : 'configured',
-            'url' => admin_url('customize.php?autofocus[section]=' . Definitions::SECTION_WEATHER),
-            'module' => self::id(),
+            'status' => $status,
+            'url' => $url,
+            'module' => WeatherModule::id(),
             'icon' => 'cloud',
         ];
         return $entries;

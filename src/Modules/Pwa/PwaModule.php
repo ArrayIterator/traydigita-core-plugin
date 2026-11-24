@@ -5,11 +5,9 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Pwa;
 
 use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
-use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
 use TrayDigita\WP\Plugin\Core\Modules\Push\PushModule;
 use function __;
 use function admin_url;
-use function esc_html__;
 use function esc_html_e;
 use function esc_url;
 
@@ -250,8 +248,10 @@ final class PwaModule implements ModuleInterface
      * Render the settings page inside the admin shell content area.
      *
      * Read-only: the PWA has no settings to save, so the page
-     * is the "What the PWA does" summary plus a link to the
-     * Push module for notifications.
+     * is a visible info page in three sections — what the PWA
+     * does, what disabling removes, and where push
+     * notifications live — with nothing hidden behind a Help
+     * toggle.
      *
      * @return void
      */
@@ -268,29 +268,35 @@ final class PwaModule implements ModuleInterface
                 </div>
             <?php endif; ?>
 
-            <?php
-            // Settings Redesign: only the one-line summary
-            // shows; the three things the PWA does — and what
-            // disabling removes — sit behind Help.
-            SettingsControls::about(
-                __('What the PWA does', 'traydigita-core'),
-                __('Visitors can install the site as an app.', 'traydigita-core'),
-                '<ul class="pwa-status-list">'
-                    . '<li>' . esc_html__('Links the web manifest (manifest.webmanifest) from every page head, so browsers know the app name, theme colour, icons, start URL, and scope.', 'traydigita-core') . '</li>'
-                    . '<li>' . esc_html__('Prints a theme-color meta tag in the page head, using the brand primary colour from the Customizer.', 'traydigita-core') . '</li>'
-                    . '<li>' . esc_html__('Shows a store-style install sheet (Play Store variant, App Store variant on macOS and iOS) with an Install button and install instructions.', 'traydigita-core') . '</li>'
-                    . '</ul>'
-                    . '<p>' . esc_html__('Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the "Install App" buttons entirely.', 'traydigita-core') . '</p>'
-            );
-            ?>
+            <div class="traydigita-ui-section td-settings-section">
+                <h2 class="traydigita-ui-section-title"><?php esc_html_e('What the PWA does', 'traydigita-core'); ?></h2>
+                <p>
+                    <?php esc_html_e('Visitors can install the site as an app.', 'traydigita-core'); ?>
+                </p>
+                <ul class="pwa-status-list">
+                    <li><?php esc_html_e('Links the web manifest (manifest.webmanifest) from every page head, so browsers know the app name, theme colour, icons, start URL, and scope.', 'traydigita-core'); ?></li>
+                    <li><?php esc_html_e('Prints a theme-color meta tag in the page head, using the brand primary colour from the Customizer.', 'traydigita-core'); ?></li>
+                    <li><?php esc_html_e('Shows a store-style install sheet (Play Store variant, App Store variant on macOS and iOS) with an Install button and install instructions.', 'traydigita-core'); ?></li>
+                </ul>
+            </div>
 
-            <p>
-                <?php esc_html_e('Push notifications live in the Push module.', 'traydigita-core'); ?>
-                <a class="traydigita-admin-button traydigita-admin-button-secondary"
-                    href="<?php echo esc_url(admin_url('admin.php?page=' . PushModule::settingsPageSlug())); ?>">
-                    <?php esc_html_e('Open Push Notifications', 'traydigita-core'); ?>
-                </a>
-            </p>
+            <div class="traydigita-ui-section td-settings-section">
+                <h2 class="traydigita-ui-section-title"><?php esc_html_e('What disabling removes', 'traydigita-core'); ?></h2>
+                <p>
+                    <?php esc_html_e('Disabling this module in the module grid removes the manifest link, the theme-color meta tag, the install sheet, and the "Install App" buttons entirely.', 'traydigita-core'); ?>
+                </p>
+            </div>
+
+            <div class="traydigita-ui-section td-settings-section">
+                <h2 class="traydigita-ui-section-title"><?php esc_html_e('Push notifications', 'traydigita-core'); ?></h2>
+                <p>
+                    <?php esc_html_e('Push notifications live in the Push module.', 'traydigita-core'); ?>
+                    <a class="traydigita-admin-button traydigita-admin-button-secondary"
+                        href="<?php echo esc_url(admin_url('admin.php?page=' . PushModule::settingsPageSlug())); ?>">
+                        <?php esc_html_e('Open Push Notifications', 'traydigita-core'); ?>
+                    </a>
+                </p>
+            </div>
         </div>
         <?php
     }

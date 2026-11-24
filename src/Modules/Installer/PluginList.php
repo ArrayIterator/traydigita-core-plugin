@@ -228,7 +228,7 @@ final class PluginList
                 'file' => self::CORE_PLUGIN_FILE,
                 'name' => 'TrayDigita Core',
                 'reason' => __(
-                    'Required by the theme: the theme does not boot without it. It provides the image, popular-posts and messaging helpers the theme uses.',
+                    'Required by the theme: the theme does not boot without it. It provides the module system and all TrayDigita modules.',
                     'traydigita-core'
                 ),
                 'category' => self::CATEGORY_REQUIRED,

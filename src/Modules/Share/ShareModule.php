@@ -142,7 +142,7 @@ final class ShareModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — styled after padangkita.com, with no share counts and no external requests.', 'traydigita-core');
+        return __('A single share row at the bottom of the article — Facebook, X, WhatsApp, Telegram, email, copy link, and print — small white buttons with dark navy icons and no brand colours, with no share counts and no external requests.', 'traydigita-core');
     }
 
     /**
@@ -274,7 +274,7 @@ final class ShareModule implements ModuleInterface
         <div class="traydigita-module-settings share-settings">
             <?php
             SettingsControls::intro(
-                __('One share row on single posts, styled after padangkita.com: small white buttons with dark '
+                __('One share row on single posts: small white buttons with dark '
                     . 'navy icons, no brand colours, and no share counts.', 'traydigita-core'),
                 __('No external service is contacted.', 'traydigita-core')
             );
@@ -301,7 +301,7 @@ final class ShareModule implements ModuleInterface
                     <p class="share-field">
                         <label class="traydigita-ui-toggle" for="share-telegram"><input class="traydigita-ui-toggle-input" type="checkbox" id="share-telegram" name="telegram" value="1" <?php checked($settings['telegram']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Telegram', 'traydigita-core'); ?></span></label>
                         <span class="share-field-help">
-                            <?php esc_html_e('Extra network, off by default — it is not part of the padangkita.com reference row.', 'traydigita-core'); ?>
+                            <?php esc_html_e('Extra network, off by default — it is not part of the default row.', 'traydigita-core'); ?>
                         </span>
                     </p>
 

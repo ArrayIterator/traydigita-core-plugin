@@ -26,6 +26,8 @@ use function esc_attr;
 use function esc_html_e;
 use function explode;
 use function get_option;
+use function get_theme_mod;
+use function implode;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -33,6 +35,7 @@ use function sanitize_key;
 use function sanitize_text_field;
 use function sanitize_textarea_field;
 use function sprintf;
+use function strtoupper;
 use function time;
 use function trim;
 use function update_option;
@@ -146,6 +149,23 @@ final class MarketsModule implements ModuleInterface
      * @var array<int, string>
      */
     public const array CURRENCIES = ['IDR', 'USD'];
+
+    /**
+     * Default gold brands, comma-separated.
+     *
+     * Same list the Customizer shipped as the `gold_brands` theme
+     * mod default, so a site that never sets the value shows the
+     * same brands as before.
+     */
+    public const string DEFAULT_GOLD_BRANDS = 'Antam, UBS, Galeri 24, Pegadaian, EmasKita';
+
+    /**
+     * Default stock symbols, comma-separated.
+     *
+     * Same list the Customizer shipped as the `stock_symbols`
+     * theme mod default.
+     */
+    public const string DEFAULT_STOCK_SYMBOLS = 'BBCA, BBRI, TLKM, ASII, BMRI';
 
     /**
      * Module id.
@@ -366,11 +386,23 @@ final class MarketsModule implements ModuleInterface
     /**
      * Read the stored settings merged over the defaults.
      *
+     * The five list/endpoint keys (`gold_brands`, `stock_symbols`,
+     * `gold_api_endpoint`, `stock_api_endpoint`,
+     * `crypto_api_endpoint`) used to live in the Customizer as
+     * theme mods. When the module option has never stored one of
+     * them, the theme-mod value is used instead (see
+     * settingWithThemeModFallback()), so an existing site keeps
+     * its values when the Customizer section goes away. Once the
+     * Markets settings page is saved, the keys exist in the
+     * module option and the theme mods are never consulted again.
+     *
      * @return array{show_strip: bool, gold_enabled: bool, stock_enabled: bool,
      *     crypto_enabled: bool, gold_snapshots: string, stock_snapshots: string,
      *     stock_provider: string, gold_provider: string, crypto_provider: string,
      *     crypto_currency: string, api_key: string, coinmarketcap_key: string,
-     *     goldapi_key: string, cache_ttl_minutes: int, snapshots_updated_at: int}
+     *     goldapi_key: string, gold_brands: string, stock_symbols: string,
+     *     gold_api_endpoint: string, stock_api_endpoint: string,
+     *     crypto_api_endpoint: string, cache_ttl_minutes: int, snapshots_updated_at: int}
      */
     public static function getSettings(): array
     {
@@ -442,6 +474,11 @@ final class MarketsModule implements ModuleInterface
             'goldapi_key' => isset($settings['goldapi_key']) && is_string($settings['goldapi_key'])
                 ? $settings['goldapi_key']
                 : '',
+            'gold_brands' => self::settingWithThemeModFallback($stored, 'gold_brands', self::DEFAULT_GOLD_BRANDS),
+            'stock_symbols' => self::settingWithThemeModFallback($stored, 'stock_symbols', self::DEFAULT_STOCK_SYMBOLS),
+            'gold_api_endpoint' => self::settingWithThemeModFallback($stored, 'gold_api_endpoint', ''),
+            'stock_api_endpoint' => self::settingWithThemeModFallback($stored, 'stock_api_endpoint', ''),
+            'crypto_api_endpoint' => self::settingWithThemeModFallback($stored, 'crypto_api_endpoint', ''),
             'cache_ttl_minutes' => $ttl,
             'snapshots_updated_at' => isset($settings['snapshots_updated_at'])
                 ? (int) $settings['snapshots_updated_at']
@@ -461,7 +498,9 @@ final class MarketsModule implements ModuleInterface
      *     crypto_enabled: bool, gold_snapshots: string, stock_snapshots: string,
      *     stock_provider: string, gold_provider: string, crypto_provider: string,
      *     crypto_currency: string, api_key: string, coinmarketcap_key: string,
-     *     goldapi_key: string, cache_ttl_minutes: int, snapshots_updated_at: int}
+     *     goldapi_key: string, gold_brands: string, stock_symbols: string,
+     *     gold_api_endpoint: string, stock_api_endpoint: string,
+     *     crypto_api_endpoint: string, cache_ttl_minutes: int, snapshots_updated_at: int}
      */
     public static function getDefaults(): array
     {
@@ -479,9 +518,99 @@ final class MarketsModule implements ModuleInterface
             'api_key' => '',
             'coinmarketcap_key' => '',
             'goldapi_key' => '',
+            'gold_brands' => self::DEFAULT_GOLD_BRANDS,
+            'stock_symbols' => self::DEFAULT_STOCK_SYMBOLS,
+            'gold_api_endpoint' => '',
+            'stock_api_endpoint' => '',
+            'crypto_api_endpoint' => '',
             'cache_ttl_minutes' => 5,
             'snapshots_updated_at' => 0,
         ];
+    }
+
+    /**
+     * Resolve one list/endpoint setting with its Customizer fallback.
+     *
+     * A stored non-empty value wins. When the module option has
+     * never stored the key, the theme mod of the same name wins
+     * (the value the Market Data Customizer section used to own);
+     * when there is no theme mod either, the module default wins.
+     * When the key exists in the option but is empty, the empty
+     * value wins — clearing a field on the settings page really
+     * clears it instead of resurrecting the old theme mod.
+     *
+     * @param array<string, mixed> $stored Raw stored option value.
+     * @param string $key Setting key, same name as the theme mod.
+     * @param string $default Module default when neither source has a value.
+     * @return string
+     */
+    private static function settingWithThemeModFallback(array $stored, string $key, string $default): string
+    {
+        if (isset($stored[$key]) && is_string($stored[$key]) && trim($stored[$key]) !== '') {
+            return trim($stored[$key]);
+        }
+        if (!array_key_exists($key, $stored)) {
+            $mod = get_theme_mod($key, '');
+            if (is_string($mod) && trim($mod) !== '') {
+                return trim($mod);
+            }
+            return $default;
+        }
+        return '';
+    }
+
+    /**
+     * Gold brands as a clean list of names.
+     *
+     * Widget handover: the gold widget reads this, not the
+     * `gold_brands` theme mod. Same parsing the Customizer used:
+     * split on commas, trim each name, drop empties and
+     * duplicates.
+     *
+     * @return array<int, string>
+     */
+    public static function goldBrands(): array
+    {
+        return self::splitList(self::getSettings()['gold_brands']);
+    }
+
+    /**
+     * Stock symbols as a clean list of upper-case tickers.
+     *
+     * Widget handover: the stock widget reads this, not the
+     * `stock_symbols` theme mod. Same parsing the Customizer
+     * used: split on commas, trim, upper-case, drop empties
+     * and duplicates.
+     *
+     * @return array<int, string>
+     */
+    public static function stockSymbols(): array
+    {
+        return array_map(
+            static fn(string $symbol): string => strtoupper($symbol),
+            self::splitList(self::getSettings()['stock_symbols'])
+        );
+    }
+
+    /**
+     * Split a comma-separated list the way the Customizer did.
+     *
+     * Trims each item, drops empties and duplicates, keeps the
+     * first-seen order.
+     *
+     * @param string $value Raw comma-separated value.
+     * @return array<int, string>
+     */
+    private static function splitList(string $value): array
+    {
+        $items = [];
+        foreach (explode(',', $value) as $item) {
+            $item = trim(sanitize_text_field($item));
+            if ($item !== '' && !in_array($item, $items, true)) {
+                $items[] = $item;
+            }
+        }
+        return $items;
     }
 
     /**
@@ -1158,6 +1287,55 @@ final class MarketsModule implements ModuleInterface
                     SettingsControls::sectionClose();
                     ?>
 
+                <?php SettingsControls::sectionOpen('lists', __('Lists & endpoints', 'traydigita-core')); ?>
+                <?php
+                // Moved here from the Customizer's Market Data
+                // section: the module is the single source of
+                // truth for these lists. Values an existing site
+                // set in the Customizer keep working through the
+                // theme-mod fallback in getSettings() until this
+                // page is saved.
+                SettingsControls::input([
+                    'id' => 'markets-gold-brands',
+                    'name' => 'gold_brands',
+                    'label' => __('Gold brands', 'traydigita-core'),
+                    'value' => $settings['gold_brands'],
+                    'help' => __('Comma-separated list of gold brands shown in the gold widget.', 'traydigita-core'),
+                ]);
+                SettingsControls::input([
+                    'id' => 'markets-stock-symbols',
+                    'name' => 'stock_symbols',
+                    'label' => __('Stock symbols', 'traydigita-core'),
+                    'value' => $settings['stock_symbols'],
+                    'help' => __('Comma-separated stock tickers shown in the stock widget, for example BBCA, BBRI, TLKM.', 'traydigita-core'),
+                ]);
+                SettingsControls::input([
+                    'type' => 'url',
+                    'id' => 'markets-gold-api-endpoint',
+                    'name' => 'gold_api_endpoint',
+                    'label' => __('Gold API endpoint', 'traydigita-core'),
+                    'value' => $settings['gold_api_endpoint'],
+                    'help' => __('Custom API endpoint template for gold prices. No built-in provider uses it yet — it is kept for a future generic API provider.', 'traydigita-core'),
+                ]);
+                SettingsControls::input([
+                    'type' => 'url',
+                    'id' => 'markets-stock-api-endpoint',
+                    'name' => 'stock_api_endpoint',
+                    'label' => __('Stock API endpoint', 'traydigita-core'),
+                    'value' => $settings['stock_api_endpoint'],
+                    'help' => __('Custom API endpoint template for stock prices. No built-in provider uses it yet — it is kept for a future generic API provider.', 'traydigita-core'),
+                ]);
+                SettingsControls::input([
+                    'type' => 'url',
+                    'id' => 'markets-crypto-api-endpoint',
+                    'name' => 'crypto_api_endpoint',
+                    'label' => __('Crypto API endpoint', 'traydigita-core'),
+                    'value' => $settings['crypto_api_endpoint'],
+                    'help' => __('Custom API endpoint template for crypto prices. No built-in provider uses it yet — it is kept for a future generic API provider.', 'traydigita-core'),
+                ]);
+                SettingsControls::sectionClose();
+                ?>
+
                 <?php SettingsControls::sectionOpen('snapshots', __('Manual snapshots', 'traydigita-core')); ?>
                 <?php
                 SettingsControls::textarea([
@@ -1368,6 +1546,24 @@ final class MarketsModule implements ModuleInterface
         $stockSnapshots = isset($data['stock_snapshots']) && is_string($data['stock_snapshots'])
             ? sanitize_textarea_field($data['stock_snapshots'])
             : '';
+        $goldBrands = isset($data['gold_brands']) && is_string($data['gold_brands'])
+            ? implode(', ', self::splitList($data['gold_brands']))
+            : $previous['gold_brands'];
+        $stockSymbols = isset($data['stock_symbols']) && is_string($data['stock_symbols'])
+            ? implode(', ', array_map(
+                static fn(string $symbol): string => strtoupper($symbol),
+                self::splitList($data['stock_symbols'])
+            ))
+            : $previous['stock_symbols'];
+        $goldApiEndpoint = isset($data['gold_api_endpoint']) && is_string($data['gold_api_endpoint'])
+            ? sanitize_text_field($data['gold_api_endpoint'])
+            : $previous['gold_api_endpoint'];
+        $stockApiEndpoint = isset($data['stock_api_endpoint']) && is_string($data['stock_api_endpoint'])
+            ? sanitize_text_field($data['stock_api_endpoint'])
+            : $previous['stock_api_endpoint'];
+        $cryptoApiEndpoint = isset($data['crypto_api_endpoint']) && is_string($data['crypto_api_endpoint'])
+            ? sanitize_text_field($data['crypto_api_endpoint'])
+            : $previous['crypto_api_endpoint'];
         $settings = [
             'show_strip' => !empty($data['show_strip']),
             'gold_enabled' => !empty($data['gold_enabled']),
@@ -1382,6 +1578,11 @@ final class MarketsModule implements ModuleInterface
             'api_key' => $previous['api_key'],
             'coinmarketcap_key' => $previous['coinmarketcap_key'],
             'goldapi_key' => $previous['goldapi_key'],
+            'gold_brands' => $goldBrands,
+            'stock_symbols' => $stockSymbols,
+            'gold_api_endpoint' => $goldApiEndpoint,
+            'stock_api_endpoint' => $stockApiEndpoint,
+            'crypto_api_endpoint' => $cryptoApiEndpoint,
             'cache_ttl_minutes' => $ttl,
             'snapshots_updated_at' => $previous['snapshots_updated_at'],
         ];

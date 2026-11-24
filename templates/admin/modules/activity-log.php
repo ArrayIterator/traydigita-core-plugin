@@ -33,6 +33,15 @@
  *   message, so the browser asks once more before anything is
  *   deleted. The create-table button posts to the Setup
  *   create-table endpoint the same way.
+ *
+ * Tabs: the viewer content is the `viewer` panel and the whole
+ * retention form is the `retention` panel
+ * (`data-traydigita-panel`), so the tab switcher hides one while
+ * showing the other. The retention form must stay INSIDE its
+ * panel: the shell JavaScript injects a floating save bar after
+ * every form[data-action][data-module], and the template's own
+ * saveBar sits in the form, so either bar would leak onto the
+ * read-only Log tab if the form lived outside the panel.
  */
 declare(strict_types=1);
 
@@ -62,6 +71,7 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
     data-msg-deleting="<?php echo esc_attr(__('Deleting…', 'traydigita-core')); ?>"
     data-msg-clearing="<?php echo esc_attr(__('Clearing the log…', 'traydigita-core')); ?>"
     data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
+    <section id="td-section-viewer" class="traydigita-ui-section td-settings-section" data-traydigita-panel="viewer" role="tabpanel" aria-labelledby="traydigita-tab-viewer">
     <div class="traydigita-activity-log-status" role="status">
         <?php if ($activityTableExists) : ?>
             <span class="traydigita-activity-log-badge traydigita-activity-log-badge-ok"><?php esc_html_e('Table ready', 'traydigita-core'); ?></span>
@@ -131,6 +141,7 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
     <?php if ($activityRows === []) : ?>
         <p class="traydigita-activity-log-empty"><?php esc_html_e('No log entries match the current filters.', 'traydigita-core'); ?></p>
     <?php else : ?>
+        <div class="traydigita-admin-table-wrap">
         <table class="traydigita-activity-log-table">
             <thead>
                 <tr>
@@ -161,6 +172,7 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
 
         <nav class="traydigita-activity-log-pagination" aria-label="<?php esc_attr_e('Log pages', 'traydigita-core'); ?>">
             <span class="traydigita-activity-log-page-info">
@@ -186,12 +198,13 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
         </button>
         <span class="traydigita-activity-log-action-status" data-activity-log-action-status role="status"></span>
     </p>
+    </section>
 
+    <section id="td-section-retention" class="traydigita-ui-section td-settings-section" data-traydigita-panel="retention" role="tabpanel" aria-labelledby="traydigita-tab-retention" aria-label="<?php esc_attr_e('Retention', 'traydigita-core'); ?>" hidden>
     <form class="traydigita-activity-log-retention-form" method="post" data-action="<?php echo esc_attr($activitySaveAction); ?>" data-module="activity-log">
         <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr(wp_create_nonce($activityNonceAction)); ?>">
         <input type="hidden" name="module" value="activity-log">
 
-        <section id="td-section-retention" class="traydigita-ui-section td-settings-section" aria-label="<?php esc_attr_e('Retention', 'traydigita-core'); ?>">
             <h2 class="traydigita-ui-section-title"><?php esc_html_e('Retention', 'traydigita-core'); ?></h2>
 
             <?php
@@ -212,8 +225,7 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
                 'attrs' => ['min' => '0', 'max' => '365', 'step' => '1'],
             ]);
             ?>
-        </section>
-
         <?php \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::saveBar(); ?>
     </form>
+    </section>
 </div>

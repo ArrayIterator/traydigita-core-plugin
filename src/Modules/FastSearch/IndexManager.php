@@ -11,6 +11,7 @@ use function get_option;
 use function get_transient;
 use function is_array;
 use function is_string;
+use function sanitize_key;
 use function set_transient;
 use function time;
 use function update_option;
@@ -286,9 +287,11 @@ final class IndexManager
      * Acquires the transient lock and stores the job (queue of
      * missing keys, done/failed lists, owner, start time). When
      * nothing is missing there is no job to run and null is
-     * returned with no lock taken. When a lock is already held,
-     * null is returned so the caller can report "already running"
-     * instead of starting a second build.
+     * returned with no lock taken. When a lock is already held
+     * by a live job, null is returned so the caller can report
+     * "already running" instead of starting a second build. A
+     * lock with no job behind it is stale and is released so a
+     * fresh build can start.
      *
      * @param int $userId Id of the administrator starting the build.
      * @return array{token: string, queue: array<int, string>, total: int}|null
@@ -296,13 +299,29 @@ final class IndexManager
     public static function startJob(int $userId): ?array
     {
         if (get_transient(self::LOCK_TRANSIENT) !== false) {
-            return null;
+            if (self::getJob() !== null) {
+                return null;
+            }
+            // Stale lock: the lock is held but the job itself is
+            // gone (crashed request, expired job transient), so
+            // the lock would otherwise block every retry until
+            // its TTL expires while start() reports "already
+            // installed". Release it and start a fresh job.
+            delete_transient(self::LOCK_TRANSIENT);
         }
         $missing = self::missingKeys(self::checkStatus());
         if ($missing === []) {
             return null;
         }
-        $token = wp_generate_password(24, false);
+        // The token must survive the chunk endpoint's
+        // sanitize_key() round-trip: wp_generate_password()
+        // emits upper-case letters, and sanitize_key()
+        // lower-cases them, so a raw token could never match the
+        // stored one — every chunk call 404'd with "Build job
+        // not found or expired." while start() had already
+        // reported 0 / N. Normalise the token here, once, so
+        // the stored token and the sanitised POST value agree.
+        $token = sanitize_key(wp_generate_password(24, false));
         $job = [
             'token' => $token,
             'queue' => array_values($missing),

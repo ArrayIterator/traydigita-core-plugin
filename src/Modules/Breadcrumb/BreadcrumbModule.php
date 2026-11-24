@@ -355,8 +355,7 @@ final class BreadcrumbModule implements ModuleInterface
                     <span class="breadcrumb-field-help">
                         <?php
                         SettingsControls::helpText(
-                            __('Above the title matches padangkita.com: the trail sits '
-                                . 'directly above the headline.', 'traydigita-core'),
+                            __('The trail sits directly above the headline.', 'traydigita-core'),
                             __('Below the header puts it directly below the entry header (title, meta, and featured image). The same setting is also available in the Customizer, under Navigation.', 'traydigita-core')
                         );
                         ?>
