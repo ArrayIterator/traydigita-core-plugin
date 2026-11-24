@@ -375,15 +375,13 @@ final class MailerModule implements ModuleInterface
     /**
      * Allowed SMTP presets: the mailbox providers from the
      * final provider catalog (37 providers in the dropdown,
-     * 30 SMTP presets inside the SMTP provider).
+     * 28 SMTP presets inside the SMTP provider).
      *
      * @var array<int, string>
      */
     public const array SMTP_PRESETS = [
         'custom',
         'gmail',
-        'yahoo',
-        'outlook',
         'zoho',
         'zoho_eu',
         'proton',
@@ -434,8 +432,6 @@ final class MailerModule implements ModuleInterface
      */
     public const array SMTP_PRESET_VALUES = [
         'gmail' => ['host' => 'smtp.gmail.com', 'port' => 587, 'encryption' => 'tls'],
-        'yahoo' => ['host' => 'smtp.mail.yahoo.com', 'port' => 465, 'encryption' => 'ssl'],
-        'outlook' => ['host' => 'smtp.office365.com', 'port' => 587, 'encryption' => 'tls'],
         'zoho' => ['host' => 'smtp.zoho.com', 'port' => 465, 'encryption' => 'ssl'],
         'zoho_eu' => ['host' => 'smtp.zoho.eu', 'port' => 465, 'encryption' => 'ssl'],
         'proton' => ['host' => '127.0.0.1', 'port' => 1025, 'encryption' => 'tls'],
@@ -472,8 +468,6 @@ final class MailerModule implements ModuleInterface
     public const array SMTP_PRESET_DESCRIPTIONS = [
         'custom' => ['label' => 'Custom SMTP server', 'description' => 'Enter the host, port, and encryption below by hand.'],
         'gmail' => ['label' => 'Gmail SMTP', 'description' => 'Needs a Google app password (account with 2-Step Verification); the account password does not work.'],
-        'yahoo' => ['label' => 'Yahoo SMTP', 'description' => 'Needs a Yahoo app password when 2-Step Verification is on.'],
-        'outlook' => ['label' => 'Outlook / Microsoft 365 / Hotmail', 'description' => 'Microsoft mailbox (personal or work); SMTP AUTH must be turned on for the mailbox.'],
         'zoho' => ['label' => 'Zoho Mail', 'description' => 'Forever Free plan: 1 domain, 5 users, 5 GB. Domain-based organisation accounts use smtppro.zoho.com instead. App password needed with 2FA.'],
         'zoho_eu' => ['label' => 'Zoho Mail (EU)', 'description' => 'Zoho Mail hosted in the EU (zoho.eu). Organisation accounts use smtppro.zoho.eu instead. App password needed with 2FA.'],
         'proton' => ['label' => 'Proton Mail (via Bridge)', 'description' => 'Proton Mail Bridge must be running on this same host (paid Proton plan); use the Bridge-generated password.'],
@@ -568,8 +562,6 @@ final class MailerModule implements ModuleInterface
     public const array PRESET_LOGOS = [
         'custom' => 'email-smtp',
         'gmail' => 'email-gmail',
-        'yahoo' => 'email-yahoo',
-        'outlook' => 'email-outlook',
         'zoho' => 'email-zoho',
         'zoho_eu' => 'email-zoho-eu',
         'proton' => 'email-proton',
@@ -1000,7 +992,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (30 presets: Gmail, Yahoo, Outlook, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (28 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
