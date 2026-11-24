@@ -16029,3 +16029,12 @@ msgstr ""
 #: templates/admin/modules/mailer.php:487
 msgid "Verified live: a real test send succeeded with this provider."
 msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:704
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:762
+msgid "Revision note"
+msgstr ""
+
+#: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:227
+msgid "Revision note editable from Quick Edit."
+msgstr ""

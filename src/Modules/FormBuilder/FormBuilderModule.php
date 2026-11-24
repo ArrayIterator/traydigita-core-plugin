@@ -999,6 +999,9 @@ final class FormBuilderModule implements ModuleInterface
         if (!wp_verify_nonce($nonce, FormBuilder::NONCE_ACTION)) {
             wp_send_json_error(['message' => __('Security check failed. Please reload the page and try again.', 'traydigita-core')], 403);
         }
+        if (!ContactFormAjax::checkRateLimit()) {
+            wp_send_json_error(['message' => __('Too many requests. Please try again later.', 'traydigita-core')], 429);
+        }
         $formId = isset($_POST['form_id']) ? sanitize_key((string) wp_unslash($_POST['form_id'])) : '';
         $form = $formId !== '' ? self::getForm($formId) : null;
         if ($form === null) {

@@ -476,6 +476,16 @@ final class MaintenanceModule implements \TrayDigita\WP\Plugin\Core\Admin\Module
             wp_safe_redirect(add_query_arg('maintenance_subscribed', 'error', home_url('/')));
             exit;
         }
+        // Same per-IP limit as the newsletter subscribe endpoint:
+        // without it this public form would mail a confirmation to
+        // any address, as often as asked, with no account needed.
+        $ip = isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])
+            ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR']))
+            : '';
+        if (!Newsletter::checkRateLimit($ip)) {
+            wp_safe_redirect(add_query_arg('maintenance_subscribed', 'error', home_url('/')));
+            exit;
+        }
         $result = Newsletter::subscribe($email);
         $flag = !empty($result['success']) ? 'ok' : 'error';
         wp_safe_redirect(add_query_arg('maintenance_subscribed', $flag, home_url('/')));

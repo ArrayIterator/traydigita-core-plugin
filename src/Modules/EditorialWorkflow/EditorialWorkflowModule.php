@@ -15,8 +15,10 @@ use function add_filter;
 use function add_meta_box;
 use function current_user_can;
 use function delete_post_meta;
+use function esc_html;
 use function esc_html__;
 use function esc_textarea;
+use function get_current_screen;
 use function get_post;
 use function get_post_meta;
 use function get_the_title;
@@ -27,10 +29,13 @@ use function sanitize_text_field;
 use function sanitize_textarea_field;
 use function sprintf;
 use function update_post_meta;
+use function wp_add_inline_script;
 use function wp_die;
+use function wp_enqueue_script;
 use function wp_is_post_autosave;
 use function wp_is_post_revision;
 use function wp_nonce_field;
+use function wp_trim_words;
 use function wp_unslash;
 use function wp_verify_nonce;
 
@@ -52,10 +57,8 @@ use function wp_verify_nonce;
  * them through its own status filter) and the revision-note
  * box.
  *
- * OUT OF SCOPE (later security+membership round): restoring a
- * trashed rejected / needs-revision post returns it to draft
- * instead of its previous status (O-1), and the revision note
- * cannot be entered from Quick Edit (O-2).
+ * OUT OF SCOPE: none — O-1 (restore to previous status) and O-2
+ * (revision note in Quick Edit) are both implemented here.
  *
  * This module has no settings of its own: the settings page
  * only explains the workflow.
@@ -103,9 +106,46 @@ final class EditorialWorkflowModule implements ModuleInterface
     public const string REVISION_NOTE_META = '_traydigita_revision_note';
 
     /**
+     * Post-list column holding the revision note.
+     *
+     * The column is also what makes the Quick Edit field exist:
+     * core fires `quick_edit_custom_box` once per non-core
+     * column, so without a column there is no box to hook.
+     */
+    public const string REVISION_NOTE_COLUMN = 'traydigita_revision_note';
+
+    /**
      * Nonce field name for the revision-note meta box.
      */
     public const string REVISION_NOTE_NONCE_ACTION = 'traydigita_revision_note_save';
+
+    /**
+     * Statuses a trashed post may be restored to.
+     *
+     * Publish is deliberately NOT here: a trashed published post
+     * comes back as a draft, so restoring it can never
+     * re-publish without a review.
+     *
+     * @var array<int, string>
+     */
+    private const array RESTORABLE_STATUSES = [
+        'draft',
+        'pending',
+        self::STATUS_NEEDS_REVISION,
+        self::STATUS_REJECTED,
+    ];
+
+    /**
+     * Posts mid-untrash in this request, keyed by post id.
+     *
+     * Set by untrashToPreviousStatus() (which runs before core
+     * deletes `_wp_trash_meta_status`) and consumed once by
+     * enforceEditorialStatus() — see there for why the guard
+     * cannot re-read the meta itself.
+     *
+     * @var array<int, string>
+     */
+    private static array $untrashRestores = [];
 
     /**
      * Module id.
@@ -184,6 +224,7 @@ final class EditorialWorkflowModule implements ModuleInterface
             __('Needs-revision and rejected post statuses.', 'traydigita-core'),
             __('Contributors cannot set editorial statuses.', 'traydigita-core'),
             __('Revision note shown to the author.', 'traydigita-core'),
+            __('Revision note editable from Quick Edit.', 'traydigita-core'),
             __('Works without the frontend editor.', 'traydigita-core'),
         ];
     }
@@ -327,8 +368,13 @@ final class EditorialWorkflowModule implements ModuleInterface
         add_action('transition_post_status', [self::class, 'recordStatusChange'], 10, 3);
         add_filter('quick_edit_statuses', [self::class, 'quickEditStatuses'], 10, 4);
         add_filter('wp_insert_post_data', [self::class, 'enforceEditorialStatus'], 10, 2);
+        add_filter('wp_untrash_post_status', [self::class, 'untrashToPreviousStatus'], 10, 3);
         add_action('add_meta_boxes', [self::class, 'addRevisionNoteBox']);
         add_action('save_post', [self::class, 'saveRevisionNote'], 10, 2);
+        add_filter('manage_post_posts_columns', [self::class, 'addRevisionNoteColumn']);
+        add_action('manage_post_posts_custom_column', [self::class, 'renderRevisionNoteColumn'], 10, 2);
+        add_action('quick_edit_custom_box', [self::class, 'renderQuickEditRevisionNote'], 10, 3);
+        add_action('admin_enqueue_scripts', [self::class, 'enqueueQuickEditScript']);
     }
 
     /**
@@ -401,7 +447,20 @@ final class EditorialWorkflowModule implements ModuleInterface
             return $data;
         }
         if (!empty($postarr['ID'])) {
-            $existing = get_post((int) $postarr['ID']);
+            $postId = (int) $postarr['ID'];
+            // An untrash restoring the pre-trash status: the
+            // author only gets back the status the post already
+            // had, never a new editorial status. The restore is
+            // recorded by untrashToPreviousStatus() because core
+            // deletes `_wp_trash_meta_status` before this filter
+            // runs, so it cannot be re-read here. Consumed once.
+            if (($restoreStatus = self::$untrashRestores[$postId] ?? null) !== null
+                && $restoreStatus === $status
+            ) {
+                unset(self::$untrashRestores[$postId]);
+                return $data;
+            }
+            $existing = get_post($postId);
             if ($existing !== null && !in_array($existing->post_status, self::EDITORIAL_STATUSES, true)) {
                 $data['post_status'] = $existing->post_status;
                 return $data;
@@ -409,6 +468,33 @@ final class EditorialWorkflowModule implements ModuleInterface
         }
         $data['post_status'] = 'draft';
         return $data;
+    }
+
+    /**
+     * Restore a trashed post to its pre-trash status.
+     *
+     * WordPress core defaults every untrash to draft (since
+     * 5.6) and ships `wp_untrash_post_set_previous_status()` as
+     * the opt-in; this is the same choice, narrowed to the
+     * statuses a trashed post may hold again. Anything else
+     * (publish, private, future) keeps core's draft default.
+     *
+     * @param string $newStatus Status core would assign (draft).
+     * @param int $postId Post being restored.
+     * @param string $previousStatus Status the post had when trashed.
+     * @return string Status to restore to.
+     */
+    public static function untrashToPreviousStatus(string $newStatus, int $postId, string $previousStatus): string
+    {
+        $post = get_post($postId);
+        if ($post === null || $post->post_type !== 'post') {
+            return $newStatus;
+        }
+        if (!in_array($previousStatus, self::RESTORABLE_STATUSES, true)) {
+            return $newStatus;
+        }
+        self::$untrashRestores[$postId] = $previousStatus;
+        return $previousStatus;
     }
 
     /**
@@ -462,6 +548,13 @@ final class EditorialWorkflowModule implements ModuleInterface
             return;
         }
         if ($newStatus === $oldStatus) {
+            return;
+        }
+        // A restore from trash is not a new editorial decision:
+        // without this the author would get a second "rejected"
+        // (or "needs revision") notice for a post they only
+        // un-trashed.
+        if ($oldStatus === 'trash') {
             return;
         }
         $watched = ['pending', self::STATUS_NEEDS_REVISION, self::STATUS_REJECTED, 'publish'];
@@ -594,5 +687,127 @@ final class EditorialWorkflowModule implements ModuleInterface
             return;
         }
         update_post_meta($postId, self::REVISION_NOTE_META, $note);
+    }
+
+    /**
+     * Add the revision-note column to the posts list.
+     *
+     * The column is what makes the Quick Edit field exist: core
+     * fires `quick_edit_custom_box` once per non-core column, so
+     * without a registered column there is no box to hook.
+     *
+     * @param array<string, string> $columns List columns.
+     * @return array<string, string> Columns with the note added.
+     */
+    public static function addRevisionNoteColumn(array $columns): array
+    {
+        $columns[self::REVISION_NOTE_COLUMN] = __('Revision note', 'traydigita-core');
+        return $columns;
+    }
+
+    /**
+     * Render one row's revision-note cell.
+     *
+     * Shows a short excerpt, plus the full note in a hidden
+     * element the Quick Edit script reads back into the
+     * textarea — Quick Edit never fetches the row again, so
+     * the value has to travel in the list markup.
+     *
+     * @param string $column Column being rendered.
+     * @param int $postId Post id of the row.
+     * @return void
+     */
+    public static function renderRevisionNoteColumn(string $column, int $postId): void
+    {
+        if ($column !== self::REVISION_NOTE_COLUMN) {
+            return;
+        }
+        $note = get_post_meta($postId, self::REVISION_NOTE_META, true);
+        if (!is_string($note) || $note === '') {
+            echo '<span class="traydigita-revision-note-value" hidden></span>';
+            return;
+        }
+        echo '<span class="traydigita-revision-note-text">' . esc_html(wp_trim_words($note, 12)) . '</span>';
+        echo '<span class="traydigita-revision-note-value" hidden>' . esc_html($note) . '</span>';
+    }
+
+    /**
+     * Render the revision-note field in Quick Edit.
+     *
+     * Only editors and administrators see it, like the meta
+     * box. The field posts with the same name and nonce as the
+     * meta box, so saveRevisionNote() handles the save without
+     * a second save path: Quick Edit submits through
+     * `inline-save`, which runs wp_update_post() and fires
+     * save_post.
+     *
+     * @param string $column Column the box is for.
+     * @param string $postType Post type of the list.
+     * @param string $taxonomy Taxonomy, unused here.
+     * @return void
+     */
+    public static function renderQuickEditRevisionNote(string $column, string $postType, string $taxonomy): void
+    {
+        if ($column !== self::REVISION_NOTE_COLUMN || $postType !== 'post') {
+            return;
+        }
+        if (!current_user_can(self::EDITORIAL_CAPABILITY)) {
+            return;
+        }
+        wp_nonce_field(self::REVISION_NOTE_NONCE_ACTION, 'traydigita_revision_note_nonce');
+        ?>
+        <fieldset class="inline-edit-col-right">
+            <div class="inline-edit-col">
+                <label>
+                    <span class="title"><?php esc_html_e('Revision note', 'traydigita-core'); ?></span>
+                    <textarea name="traydigita_revision_note" rows="3" cols="22"></textarea>
+                </label>
+            </div>
+        </fieldset>
+        <?php
+    }
+
+    /**
+     * Fill the Quick Edit note field from the list row.
+     *
+     * Core's inline editor only knows its own fields, so a
+     * wrapped inlineEditPost.edit() copies the note out of the
+     * row's hidden value element after the original runs.
+     * Only loaded on the posts list, only for editors and
+     * administrators.
+     *
+     * @param string $hook Current admin page hook suffix.
+     * @return void
+     */
+    public static function enqueueQuickEditScript(string $hook): void
+    {
+        if ($hook !== 'edit.php') {
+            return;
+        }
+        $screen = get_current_screen();
+        if ($screen === null || $screen->post_type !== 'post') {
+            return;
+        }
+        if (!current_user_can(self::EDITORIAL_CAPABILITY)) {
+            return;
+        }
+        wp_enqueue_script('inline-edit-post');
+        wp_add_inline_script(
+            'inline-edit-post',
+            'document.addEventListener("DOMContentLoaded",function(){'
+            . 'if(typeof inlineEditPost==="undefined")return;'
+            . 'var original=inlineEditPost.edit;'
+            . 'inlineEditPost.edit=function(id){'
+            . 'original.apply(this,arguments);'
+            . 'var postId=typeof id==="object"?parseInt(inlineEditPost.getId(id),10):parseInt(id,10);'
+            . 'if(!postId)return;'
+            . 'var row=document.getElementById("post-"+postId);'
+            . 'var form=document.getElementById("edit-"+postId);'
+            . 'if(!row||!form)return;'
+            . 'var source=row.querySelector(".traydigita-revision-note-value");'
+            . 'var field=form.querySelector(\'textarea[name="traydigita_revision_note"]\');'
+            . 'if(source&&field)field.value=source.textContent;'
+            . '};});'
+        );
     }
 }

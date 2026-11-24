@@ -15,6 +15,7 @@ use function array_map;
 use function current_user_can;
 use function esc_html;
 use function get_option;
+use function get_transient;
 use function gmdate;
 use function header;
 use function implode;
@@ -25,13 +26,16 @@ use function nl2br;
 use function preg_match;
 use function sanitize_key;
 use function sanitize_text_field;
+use function set_transient;
 use function sprintf;
 use function strlen;
 use function trim;
+use function wp_hash;
 use function wp_send_json_error;
 use function wp_send_json_success;
 use function wp_unslash;
 use function wp_verify_nonce;
+use const HOUR_IN_SECONDS;
 
 /**
  * Contact form submission handling (frontend + admin list).
@@ -70,6 +74,37 @@ final class ContactFormAjax
     private static bool $handled = false;
 
     /**
+     * Submissions allowed per client IP per hour.
+     *
+     * Matches the newsletter limit: enough for real visitors
+     * behind a shared address, low enough that a bot with a
+     * fresh page nonce cannot flood the submissions table or
+     * the admin's inbox.
+     */
+    public const int RATE_LIMIT_PER_HOUR = 10;
+
+    /**
+     * Per-IP submission rate limit, shared by both public
+     * submit paths (contact form + generic shortcode form).
+     *
+     * Counts attempts per hashed client IP in a transient; the
+     * raw IP is never stored, only its salted hash is used as
+     * the transient key (same shape as Newsletter).
+     *
+     * @return bool True when the attempt is allowed.
+     */
+    public static function checkRateLimit(): bool
+    {
+        $key = 'traydigita_form_rl_' . sanitize_key(wp_hash(self::clientIp()));
+        $attempts = absint(get_transient($key));
+        if ($attempts >= self::RATE_LIMIT_PER_HOUR) {
+            return false;
+        }
+        set_transient($key, $attempts + 1, HOUR_IN_SECONDS);
+        return true;
+    }
+
+    /**
      * Handle a frontend contact form submission (AJAX).
      *
      * @return void
@@ -79,6 +114,9 @@ final class ContactFormAjax
         $nonce = isset($_POST['traydigita_form_nonce']) ? sanitize_text_field((string) wp_unslash($_POST['traydigita_form_nonce'])) : '';
         if (!wp_verify_nonce($nonce, FormBuilder::NONCE_ACTION)) {
             wp_send_json_error(['message' => __('Security check failed. Please reload the page and try again.', 'traydigita-core')], 403);
+        }
+        if (!self::checkRateLimit()) {
+            wp_send_json_error(['message' => __('Too many requests. Please try again later.', 'traydigita-core')], 429);
         }
         $formId = isset($_POST['form_id']) ? sanitize_key((string) wp_unslash($_POST['form_id'])) : '';
         $form = $formId !== '' ? FormBuilderModule::getContactForm($formId) : null;

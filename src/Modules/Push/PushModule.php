@@ -7,6 +7,7 @@ use TrayDigita\WP\Plugin\Core\Admin\ModuleInterface;
 use TrayDigita\WP\Plugin\Core\Admin\ModuleRegistry;
 use TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls;
 use function __;
+use function absint;
 use function add_action;
 use function add_filter;
 use function add_shortcode;
@@ -23,23 +24,28 @@ use function esc_url_raw;
 use function function_exists;
 use function get_option;
 use function get_site_icon_url;
+use function get_transient;
 use function home_url;
 use function in_array;
 use function is_array;
 use function is_plugin_active;
 use function is_string;
 use function json_decode;
+use function sanitize_key;
 use function sanitize_text_field;
+use function set_transient;
 use function status_header;
 use function strtok;
 use function trim;
 use function update_option;
 use function wp_create_nonce;
 use function wp_enqueue_script;
+use function wp_hash;
 use function wp_json_encode;
 use function wp_localize_script;
 use function wp_register_script;
 use function wp_unslash;
+use const HOUR_IN_SECONDS;
 
 /**
  * Push Notifications module (Firebase Cloud Messaging).
@@ -774,6 +780,42 @@ final class PushModule implements ModuleInterface
     }
 
     /**
+     * Token registrations allowed per client IP per hour.
+     *
+     * Generous on purpose: a device re-registers when its
+     * service worker updates, and many visitors can share one
+     * egress address — but without any limit the public
+     * endpoint would let anyone fill the tokens table with
+     * random 20+ character strings. Deletes need no limit: a
+     * delete names a token hash, so a random token deletes
+     * nothing.
+     */
+    private const int TOKEN_RATE_LIMIT_PER_HOUR = 60;
+
+    /**
+     * Per-IP rate limit for the public token-registration route.
+     *
+     * Counts attempts per hashed client IP in a transient; the
+     * raw IP is never stored, only its salted hash is used as
+     * the transient key (same shape as Newsletter).
+     *
+     * @return bool True when the attempt is allowed.
+     */
+    private static function checkTokenRateLimit(): bool
+    {
+        $ip = isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])
+            ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR']))
+            : '';
+        $key = 'traydigita_push_token_rl_' . sanitize_key(wp_hash($ip));
+        $attempts = absint(get_transient($key));
+        if ($attempts >= self::TOKEN_RATE_LIMIT_PER_HOUR) {
+            return false;
+        }
+        set_transient($key, $attempts + 1, HOUR_IN_SECONDS);
+        return true;
+    }
+
+    /**
      * REST callback: store one device token.
      *
      * @param \WP_REST_Request $request Request with a `token` param.
@@ -781,6 +823,13 @@ final class PushModule implements ModuleInterface
      */
     public static function restSaveToken(\WP_REST_Request $request): array|\WP_Error
     {
+        if (!self::checkTokenRateLimit()) {
+            return new \WP_Error(
+                'push_rate_limited',
+                __('Too many requests. Please try again later.', 'traydigita-core'),
+                ['status' => 429]
+            );
+        }
         $token = sanitize_text_field((string) $request->get_param('token'));
         $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
         if (!PushSender::saveToken($token, $userAgent)) {

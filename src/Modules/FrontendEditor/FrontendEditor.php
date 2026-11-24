@@ -134,7 +134,7 @@ final class FrontendEditor
         'core/paragraph' => ['align', 'dropCap'],
         'core/heading' => ['level', 'align'],
         'core/list' => ['ordered', 'reversed', 'start'],
-        'core/quote' => ['align'],
+        'core/quote' => ['align', 'textAlign'],
         'core/list-item' => [],
     ];
 
@@ -452,6 +452,20 @@ final class FrontendEditor
             foreach ($innerContent as $piece) {
                 $cleanContent[] = is_string($piece) ? wp_kses($piece, $tags) : $piece;
             }
+            if ($name === 'core/list') {
+                // Core's list save output always carries
+                // class="wp-block-list" on the <ul>/<ol>: without
+                // it wp.blocks.parse() migrates the block on
+                // first reopen and logs "Updated Block" noise.
+                // wp_kses above stripped every class, so the
+                // tag is always bare at this point.
+                $block['innerHTML'] = self::addListClass($block['innerHTML']);
+                foreach ($cleanContent as $index => $piece) {
+                    if (is_string($piece)) {
+                        $cleanContent[$index] = self::addListClass($piece);
+                    }
+                }
+            }
             if ($name === 'core/quote') {
                 // Gutenberg's quote save output carries
                 // class="wp-block-quote"; without it the block
@@ -460,16 +474,17 @@ final class FrontendEditor
                 // fixed here, never taken from the input: wp_kses
                 // above already stripped every class, so the tag
                 // is always bare <blockquote> at this point.
+                $quoteClass = 'wp-block-quote' . self::quoteAlignClass($block['attrs'] ?? []);
                 $block['innerHTML'] = str_replace(
                     '<blockquote>',
-                    '<blockquote class="wp-block-quote">',
+                    '<blockquote class="' . $quoteClass . '">',
                     $block['innerHTML']
                 );
                 foreach ($cleanContent as $index => $piece) {
                     if (is_string($piece)) {
                         $cleanContent[$index] = str_replace(
                             '<blockquote>',
-                            '<blockquote class="wp-block-quote">',
+                            '<blockquote class="' . $quoteClass . '">',
                             $piece
                         );
                     }
@@ -525,6 +540,9 @@ final class FrontendEditor
      * same repair the leaf blocks get, one level up), with
      * innerContent carrying the null placeholder so
      * serialize_block() renders the paragraph delimiters.
+     * The blockquote class — including any align class from
+     * the block attrs — survives the rebuild, so a repaired
+     * aligned quote does not migrate on the next reopen.
      *
      * A quote that already has inner blocks is left
      * untouched, and a quote with empty content stays empty
@@ -542,10 +560,24 @@ final class FrontendEditor
             return $block;
         }
         $innerHtml = is_string($block['innerHTML'] ?? null) ? (string) $block['innerHTML'] : '';
-        if (preg_match('/\A<blockquote class="wp-block-quote">(.*)<\/blockquote>\z/s', $innerHtml, $matches) !== 1) {
+        // parse_blocks() wraps innerHTML in newlines, and the
+        // class cleanBlock() just injected carries the align
+        // class for aligned quotes — the pattern must tolerate
+        // both, or this repair never runs on real input.
+        $pattern = '/\A\s*<blockquote(?:\s+class="([^"]*)")?\s*>(.*)<\/blockquote>\s*\z/s';
+        if (preg_match($pattern, $innerHtml, $matches) !== 1) {
             return $block;
         }
-        $inner = trim($matches[1]);
+        // The class is the one cleanBlock() injected from the
+        // allowlisted align attr, never input HTML — preserving
+        // it keeps an aligned quote aligned after the repair.
+        $quoteClass = ($matches[1] ?? '') !== ''
+            ? (string) $matches[1]
+            : 'wp-block-quote' . self::quoteAlignClass($block['attrs'] ?? []);
+        if (strpos($quoteClass, 'wp-block-quote') === false) {
+            return $block;
+        }
+        $inner = trim($matches[2]);
         if ($inner === '') {
             return $block;
         }
@@ -577,8 +609,8 @@ final class FrontendEditor
                 'innerContent' => [$paragraphHtml],
             ],
         ];
-        $block['innerHTML'] = '<blockquote class="wp-block-quote">' . $paragraphHtml . $cite . '</blockquote>';
-        $block['innerContent'] = ['<blockquote class="wp-block-quote">', null, $cite . '</blockquote>'];
+        $block['innerHTML'] = '<blockquote class="' . $quoteClass . '">' . $paragraphHtml . $cite . '</blockquote>';
+        $block['innerContent'] = ['<blockquote class="' . $quoteClass . '">', null, $cite . '</blockquote>'];
         return $block;
     }
 
@@ -650,6 +682,7 @@ final class FrontendEditor
     private static function ensureBlockWrapper(string $html, string $name, mixed $attrs): string
     {
         $trimmed = trim($html);
+        $classAttr = self::wrapperClassAttr($name, $attrs);
         if ($name === 'core/heading') {
             $level = 2;
             if (is_array($attrs) && isset($attrs['level'])) {
@@ -659,9 +692,9 @@ final class FrontendEditor
                 $level = 2;
             }
             if (preg_match('/\A<h[1-6]>(.*)<\/h[1-6]>\z/s', $trimmed, $matches) === 1) {
-                return '<h' . $level . '>' . $matches[1] . '</h' . $level . '>';
+                return '<h' . $level . $classAttr . '>' . $matches[1] . '</h' . $level . '>';
             }
-            return '<h' . $level . '>' . $trimmed . '</h' . $level . '>';
+            return '<h' . $level . $classAttr . '>' . $trimmed . '</h' . $level . '>';
         }
         if ($name === 'core/list-item') {
             if (preg_match('/\A<li>(.*)<\/li>\z/s', $trimmed, $matches) === 1) {
@@ -671,11 +704,72 @@ final class FrontendEditor
         }
         if ($name === 'core/paragraph') {
             if (preg_match('/\A<p>(.*)<\/p>\z/s', $trimmed, $matches) === 1) {
-                return '<p>' . $matches[1] . '</p>';
+                return '<p' . $classAttr . '>' . $matches[1] . '</p>';
             }
-            return '<p>' . $trimmed . '</p>';
+            return '<p' . $classAttr . '>' . $trimmed . '</p>';
         }
         return $html;
+    }
+
+    // Class list core's save() output carries on the block's own
+    // wrapper tag, derived from the (already allowlisted) attrs.
+    // wp_kses strips every class, so without this the stored HTML
+    // never matches save() output and wp.blocks.parse() migrates
+    // the block on first reopen ("Updated Block" console noise);
+    // a drop-cap paragraph even migrates into nested <p> tags.
+    private static function wrapperClassAttr(string $name, mixed $attrs): string
+    {
+        $classes = '';
+        if ($name === 'core/heading') {
+            $classes = 'wp-block-heading' . self::textAlignClass($attrs);
+        } elseif ($name === 'core/paragraph') {
+            if (is_array($attrs) && !empty($attrs['dropCap'])) {
+                $classes = 'has-drop-cap';
+            }
+            $classes .= self::textAlignClass($attrs);
+            $classes = ltrim($classes);
+        }
+        return $classes === '' ? '' : ' class="' . $classes . '"';
+    }
+
+    private static function textAlignClass(mixed $attrs): string
+    {
+        if (!is_array($attrs) || !isset($attrs['align']) || !is_string($attrs['align'])) {
+            return '';
+        }
+        if (!in_array($attrs['align'], ['left', 'center', 'right', 'justify'], true)) {
+            return '';
+        }
+        return ' has-text-align-' . $attrs['align'];
+    }
+
+    // Quote alignment only: Gutenberg's native quote
+    // attribute is textAlign, so an editor re-save submits
+    // {"textAlign":"center"} while a handler save carries
+    // align — accept either (align first, so existing
+    // handler-saved content behaves exactly as before), or
+    // an aligned quote silently loses its class on re-save.
+    // Kept quote-only on purpose: heading/paragraph keep
+    // their existing align handling (see textAlignClass()).
+    private static function quoteAlignClass(mixed $attrs): string
+    {
+        $class = self::textAlignClass($attrs);
+        if ($class !== '') {
+            return $class;
+        }
+        if (!is_array($attrs) || !isset($attrs['textAlign']) || !is_string($attrs['textAlign'])) {
+            return '';
+        }
+        if (!in_array($attrs['textAlign'], ['left', 'center', 'right', 'justify'], true)) {
+            return '';
+        }
+        return ' has-text-align-' . $attrs['textAlign'];
+    }
+
+    private static function addListClass(string $html): string
+    {
+        $result = preg_replace('/<(ul|ol)(?=[\s>])/', '<$1 class="wp-block-list"', $html, 1);
+        return is_string($result) ? $result : $html;
     }
 
     /**
@@ -889,6 +983,12 @@ final class FrontendEditor
             'order' => 'ASC',
         ]);
         $settings = FrontendEditorModule::getSettings();
+        // Run stored content through the same sanitizer the save
+        // path uses, so drafts saved before the save-output
+        // classes were added (headings/lists without their
+        // wp-block-* classes) also reopen without block-validation
+        // noise — and the next save persists the clean version.
+        $content = self::sanitizeBlocks($content, $settings);
         self::enqueueEditorAssets();
         $html = '';
         if ($revisionNote !== '') {
