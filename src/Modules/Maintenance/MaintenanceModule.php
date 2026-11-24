@@ -378,9 +378,12 @@ final class MaintenanceModule implements \TrayDigita\WP\Plugin\Core\Admin\Module
      * or an empty string), `allowed_roles` (array of role slugs),
      * `allowed_ips` (array of IP strings, or a string with one IP
      * per line / comma-separated), `regenerate_bypass` (`1` to
-     * rotate the bypass secret). The bypass secret is generated on
-     * first save and is preserved otherwise, unless regeneration
-     * was requested.
+     * rotate the bypass secret). Any key the caller does not send
+     * keeps its stored value, so a toggle-only call such as
+     * `saveSettings(['enabled' => '0'])` never blanks the other
+     * fields; sending a key with an empty value clears it on
+     * purpose. The bypass secret is generated on first save and
+     * is preserved otherwise, unless regeneration was requested.
      *
      * @param array<string, mixed> $data Raw submitted data.
      * @return array{success: bool, message: string}
@@ -738,82 +741,94 @@ final class MaintenanceModule implements \TrayDigita\WP\Plugin\Core\Admin\Module
      */
     private static function sanitizeSettings(array $data, array $existing): array
     {
+        // Partial saves keep the stored value for any key the
+        // caller did not send: a toggle-only call such as
+        // saveSettings(['enabled' => '0']) must never blank the
+        // title, message, countdown, roles, or IPs. A key that
+        // IS sent is sanitized as before, so submitting an empty
+        // field still clears it on purpose.
         $settings = $existing;
         $settings['enabled'] = !empty($data['enabled']);
-        $title = isset($data['title']) && is_string($data['title']) ? sanitize_text_field(wp_unslash($data['title'])) : '';
-        if (mb_strlen($title) > self::TITLE_MAX_LENGTH) {
-            $title = mb_substr($title, 0, self::TITLE_MAX_LENGTH);
-        }
-        $settings['title'] = $title;
-        $settings['message'] = isset($data['message']) && is_string($data['message'])
-            ? wp_kses_post(wp_unslash($data['message']))
-            : '';
-        $countdown = isset($data['countdown_to']) && is_string($data['countdown_to'])
-            ? sanitize_text_field(wp_unslash($data['countdown_to']))
-            : '';
-        if ($countdown !== '') {
-            $timestamp = strtotime($countdown);
-            if ($timestamp === false) {
-                return [
-                    'settings' => $existing,
-                    'error' => __('The countdown date is not valid.', 'traydigita-core'),
-                ];
+        if (array_key_exists('title', $data) && is_string($data['title'])) {
+            $title = sanitize_text_field(wp_unslash($data['title']));
+            if (mb_strlen($title) > self::TITLE_MAX_LENGTH) {
+                $title = mb_substr($title, 0, self::TITLE_MAX_LENGTH);
             }
-            $settings['countdown_to'] = date('Y-m-d H:i:s', $timestamp);
-        } else {
-            $settings['countdown_to'] = '';
+            $settings['title'] = $title;
+        }
+        if (array_key_exists('message', $data) && is_string($data['message'])) {
+            $settings['message'] = wp_kses_post(wp_unslash($data['message']));
+        }
+        if (array_key_exists('countdown_to', $data) && is_string($data['countdown_to'])) {
+            $countdown = sanitize_text_field(wp_unslash($data['countdown_to']));
+            if ($countdown !== '') {
+                $timestamp = strtotime($countdown);
+                if ($timestamp === false) {
+                    return [
+                        'settings' => $existing,
+                        'error' => __('The countdown date is not valid.', 'traydigita-core'),
+                    ];
+                }
+                $settings['countdown_to'] = date('Y-m-d H:i:s', $timestamp);
+            } else {
+                $settings['countdown_to'] = '';
+            }
         }
         $allowedRoles = self::editableRoles();
-        $roles = [];
-        if (isset($data['allowed_roles']) && is_array($data['allowed_roles'])) {
-            foreach ($data['allowed_roles'] as $role) {
-                $slug = sanitize_key(is_string($role) ? $role : '');
-                if ($slug !== '' && isset($allowedRoles[$slug]) && !in_array($slug, $roles, true)) {
-                    $roles[] = $slug;
+        if (array_key_exists('allowed_roles', $data)) {
+            $roles = [];
+            if (is_array($data['allowed_roles'])) {
+                foreach ($data['allowed_roles'] as $role) {
+                    $slug = sanitize_key(is_string($role) ? $role : '');
+                    if ($slug !== '' && isset($allowedRoles[$slug]) && !in_array($slug, $roles, true)) {
+                        $roles[] = $slug;
+                    }
                 }
             }
+            $settings['allowed_roles'] = $roles;
         }
-        $settings['allowed_roles'] = $roles;
-        $ipInput = [];
-        if (isset($data['allowed_ips']) && is_array($data['allowed_ips'])) {
-            $ipInput = $data['allowed_ips'];
-        } elseif (isset($data['allowed_ips']) && is_string($data['allowed_ips'])) {
-            // Split on any whitespace or comma, not just newlines: the
-            // admin shell dispatcher runs sanitize_text_field() over
-            // the submitted data first, which collapses newlines to
-            // spaces, so a newline-only split would glue a whole
-            // textarea into one invalid token.
-            $ipInput = preg_split('/[\s,]+/', (string) wp_unslash($data['allowed_ips']), -1, PREG_SPLIT_NO_EMPTY);
-            $ipInput = is_array($ipInput) ? $ipInput : [];
-        }
-        $ips = [];
-        $invalid = [];
-        foreach ($ipInput as $candidate) {
-            $candidate = trim(is_string($candidate) ? wp_unslash($candidate) : '');
-            if ($candidate === '') {
-                continue;
+        if (array_key_exists('allowed_ips', $data)) {
+            $ipInput = [];
+            if (is_array($data['allowed_ips'])) {
+                $ipInput = $data['allowed_ips'];
+            } elseif (is_string($data['allowed_ips'])) {
+                // Split on any whitespace or comma, not just newlines: the
+                // admin shell dispatcher runs sanitize_text_field() over
+                // the submitted data first, which collapses newlines to
+                // spaces, so a newline-only split would glue a whole
+                // textarea into one invalid token.
+                $ipInput = preg_split('/[\s,]+/', (string) wp_unslash($data['allowed_ips']), -1, PREG_SPLIT_NO_EMPTY);
+                $ipInput = is_array($ipInput) ? $ipInput : [];
             }
-            $normalized = self::normalizeIp($candidate);
-            if ($normalized === null) {
-                $invalid[] = $candidate;
-                continue;
+            $ips = [];
+            $invalid = [];
+            foreach ($ipInput as $candidate) {
+                $candidate = trim(is_string($candidate) ? wp_unslash($candidate) : '');
+                if ($candidate === '') {
+                    continue;
+                }
+                $normalized = self::normalizeIp($candidate);
+                if ($normalized === null) {
+                    $invalid[] = $candidate;
+                    continue;
+                }
+                if (!in_array($normalized, $ips, true)) {
+                    $ips[] = $normalized;
+                }
             }
-            if (!in_array($normalized, $ips, true)) {
-                $ips[] = $normalized;
+            if ($invalid !== []) {
+                $shown = array_map(static fn (string $ip): string => $ip, array_slice($invalid, 0, 5));
+                return [
+                    'settings' => $existing,
+                    'error' => sprintf(
+                        /* translators: %s is a comma-separated list of invalid IP addresses. */
+                        __('These IP addresses are not valid: %s', 'traydigita-core'),
+                        implode(', ', $shown)
+                    ),
+                ];
             }
+            $settings['allowed_ips'] = $ips;
         }
-        if ($invalid !== []) {
-            $shown = array_map(static fn (string $ip): string => $ip, array_slice($invalid, 0, 5));
-            return [
-                'settings' => $existing,
-                'error' => sprintf(
-                    /* translators: %s is a comma-separated list of invalid IP addresses. */
-                    __('These IP addresses are not valid: %s', 'traydigita-core'),
-                    implode(', ', $shown)
-                ),
-            ];
-        }
-        $settings['allowed_ips'] = $ips;
         return ['settings' => $settings, 'error' => ''];
     }
 

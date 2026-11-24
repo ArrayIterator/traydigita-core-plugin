@@ -131,8 +131,16 @@ final class FrontendEditor
      * @var array<string, array<int, string>>
      */
     private const array ALLOWED_ATTRS = [
-        'core/paragraph' => ['align', 'dropCap'],
-        'core/heading' => ['level', 'align'],
+        // Paragraph and heading both accept textAlign as well
+        // as align: Gutenberg's native text-alignment attribute
+        // is textAlign on heading (and on quote), and an editor
+        // re-save submits {"textAlign":"center"} — without it in
+        // the allowlist a centered paragraph/heading silently
+        // loses its alignment on re-save. align stays first in
+        // textAlignClass(), so handler-saved content behaves
+        // exactly as before.
+        'core/paragraph' => ['align', 'textAlign', 'dropCap'],
+        'core/heading' => ['level', 'align', 'textAlign'],
         'core/list' => ['ordered', 'reversed', 'start'],
         'core/quote' => ['align', 'textAlign'],
         'core/list-item' => [],
@@ -732,38 +740,38 @@ final class FrontendEditor
         return $classes === '' ? '' : ' class="' . $classes . '"';
     }
 
+    // Text-alignment class from the block attributes. align
+    // first, so handler-saved content behaves exactly as
+    // before, then textAlign: Gutenberg's native text-alignment
+    // attribute is textAlign on heading and quote (and an editor
+    // re-save submits {"textAlign":"center"}), so without the
+    // fallback an aligned heading — and a paragraph saved that
+    // way — silently loses its class on re-save. A heading's
+    // align can also mean block alignment (wide/full); the
+    // value check below rejects those, so they never become a
+    // text-alignment class.
     private static function textAlignClass(mixed $attrs): string
     {
-        if (!is_array($attrs) || !isset($attrs['align']) || !is_string($attrs['align'])) {
-            return '';
+        if (is_array($attrs)) {
+            foreach (['align', 'textAlign'] as $key) {
+                if (!isset($attrs[$key]) || !is_string($attrs[$key])) {
+                    continue;
+                }
+                if (!in_array($attrs[$key], ['left', 'center', 'right', 'justify'], true)) {
+                    continue;
+                }
+                return ' has-text-align-' . $attrs[$key];
+            }
         }
-        if (!in_array($attrs['align'], ['left', 'center', 'right', 'justify'], true)) {
-            return '';
-        }
-        return ' has-text-align-' . $attrs['align'];
+        return '';
     }
 
-    // Quote alignment only: Gutenberg's native quote
-    // attribute is textAlign, so an editor re-save submits
-    // {"textAlign":"center"} while a handler save carries
-    // align — accept either (align first, so existing
-    // handler-saved content behaves exactly as before), or
-    // an aligned quote silently loses its class on re-save.
-    // Kept quote-only on purpose: heading/paragraph keep
-    // their existing align handling (see textAlignClass()).
+    // Quote alignment only: shares textAlignClass() (align
+    // first, textAlign fallback). Kept as its own method so the
+    // quote call sites read as quote alignment.
     private static function quoteAlignClass(mixed $attrs): string
     {
-        $class = self::textAlignClass($attrs);
-        if ($class !== '') {
-            return $class;
-        }
-        if (!is_array($attrs) || !isset($attrs['textAlign']) || !is_string($attrs['textAlign'])) {
-            return '';
-        }
-        if (!in_array($attrs['textAlign'], ['left', 'center', 'right', 'justify'], true)) {
-            return '';
-        }
-        return ' has-text-align-' . $attrs['textAlign'];
+        return self::textAlignClass($attrs);
     }
 
     private static function addListClass(string $html): string

@@ -328,6 +328,15 @@ final class AvatarStorage
     private static function isPublicHost(string $host): bool
     {
         $host = strtolower(trim($host));
+        // parse_url() keeps the brackets on a literal IPv6 host
+        // ("[::1]"), and filter_var() rejects a bracketed address
+        // — without this trim every bracketed IPv6 URL would be
+        // refused as unresolvable, including a public one, while
+        // a private one would be rejected for the wrong reason.
+        // Trim exactly one surrounding pair before any check.
+        if (strlen($host) >= 2 && $host[0] === '[' && $host[strlen($host) - 1] === ']') {
+            $host = substr($host, 1, -1);
+        }
         if ($host === '' || $host === 'localhost' || str_ends_with($host, '.localhost') || str_ends_with($host, '.local')) {
             return false;
         }
