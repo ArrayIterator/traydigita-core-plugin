@@ -116,6 +116,29 @@ final class BreadcrumbModule implements ModuleInterface
     public const string CUSTOMIZER_SETTING_ID = 'breadcrumb_position';
 
     /**
+     * Theme hook the visible trail listens on (above-title position).
+     *
+     * The theme fires `entry_header:before` on its own hook
+     * prefix (`traydigita:theme`), not on Core's prefix
+     * (`traydigita:core`): registering the Core-prefixed name
+     * meant the hook never fired and the trail never rendered.
+     * The full theme-prefixed name is used here, registered via
+     * `Hooks::directAdd()` (which does not add Core's prefix),
+     * so the two sides meet. This re-wire is Core-side only —
+     * the theme repo is not touched.
+     */
+    public const string THEME_ENTRY_HEADER_BEFORE = 'traydigita:theme:entry_header:before';
+
+    /**
+     * Theme hook the visible trail listens on (below-header position).
+     *
+     * Same re-wire as THEME_ENTRY_HEADER_BEFORE, for the
+     * `entry_header:after` hook the theme fires below the entry
+     * header.
+     */
+    public const string THEME_ENTRY_HEADER_AFTER = 'traydigita:theme:entry_header:after';
+
+    /**
      * Allowed positions for the trail.
      *
      * @var array<int, string>
@@ -425,6 +448,13 @@ final class BreadcrumbModule implements ModuleInterface
      * is bundled into the theme's app entry by the coordinator;
      * this module registers no separate assets.
      *
+     * Hook prefix note: the visible trail listens on the
+     * THEME-prefixed hook names (see THEME_ENTRY_HEADER_BEFORE /
+     * THEME_ENTRY_HEADER_AFTER). The theme fires these on its own
+     * `traydigita:theme` prefix; registering them through
+     * `Core::hooks()->add()` would silently re-prefix them with
+     * `traydigita:core` and the trail would never render.
+     *
      * @return void
      */
     public static function boot(): void
@@ -437,9 +467,9 @@ final class BreadcrumbModule implements ModuleInterface
         add_action('wp_head', [self::class, 'renderJsonLd'], 22);
         $hooks = Core::hooks();
         if (self::getSettings()['position'] === 'below-header') {
-            $hooks->add('entry_header:after', [self::class, 'renderHook'], 10, 1);
+            $hooks->directAdd(self::THEME_ENTRY_HEADER_AFTER, [self::class, 'renderHook'], 10, 1);
         } else {
-            $hooks->add('entry_header:before', [self::class, 'renderHook'], 10, 1);
+            $hooks->directAdd(self::THEME_ENTRY_HEADER_BEFORE, [self::class, 'renderHook'], 10, 1);
         }
     }
 

@@ -53,6 +53,7 @@ use function wp_create_nonce;
 use function wp_die;
 use function wp_enqueue_script_module;
 use function wp_json_encode;
+use function wp_script_modules;
 use function wp_send_json_error;
 use function wp_unslash;
 
@@ -400,6 +401,11 @@ final class TurnstileModule implements ModuleInterface
         $settings = self::getSettings();
         if ($settings['protect_login']) {
             add_action('login_enqueue_scripts', [self::class, 'enqueueLoginScript']);
+            // WordPress prints script modules only on `wp_footer` and
+            // `admin_print_footer_scripts`, neither of which fires on
+            // `wp-login.php` — without this the enqueued module would
+            // never reach the browser (see printLoginScriptModules()).
+            add_action('login_footer', [self::class, 'printLoginScriptModules'], 9);
             add_action('login_form', [self::class, 'renderLoginWidget']);
             add_filter('authenticate', [self::class, 'verifyLogin'], 40, 3);
         }
@@ -674,7 +680,8 @@ final class TurnstileModule implements ModuleInterface
      * registered in `AssetLoader::ASSETS` yet this is a no-op —
      * WordPress silently skips unregistered script modules — and
      * `isLoginChallengeRenderable()` reports the gap so the
-     * settings page can warn about it.
+     * settings page can warn about it. The module is printed by
+     * `printLoginScriptModules()` on `login_footer`.
      *
      * @return void
      */
@@ -687,6 +694,37 @@ final class TurnstileModule implements ModuleInterface
             return;
         }
         wp_enqueue_script_module(self::SCRIPT_HANDLE);
+    }
+
+    /**
+     * Print enqueued script modules in the login page footer.
+     *
+     * Runs on `login_footer`. WordPress prints script modules
+     * only on `wp_footer` and `admin_print_footer_scripts`,
+     * neither of which fires on `wp-login.php`, so a module
+     * enqueued on `login_enqueue_scripts` would otherwise never
+     * reach the browser: the widget div renders but no challenge
+     * ever loads, and with `login_fail_closed` every login fails.
+     * This mirrors what core's `WP_Script_Modules::add_hooks()`
+     * does for the admin footer — import map, then the modules,
+     * then preloads — at priority 9, before the classic footer
+     * scripts print at priority 20. Printing is idempotent
+     * (core marks printed modules done), so a module is never
+     * printed twice even if another footer hook prints it too.
+     * Any other module enqueued on the login page (e.g. the
+     * Two-Factor login script) is printed by the same hook.
+     *
+     * @return void
+     */
+    public static function printLoginScriptModules(): void
+    {
+        if (!function_exists('wp_script_modules')) {
+            return;
+        }
+        $modules = wp_script_modules();
+        $modules->print_import_map();
+        $modules->print_enqueued_script_modules();
+        $modules->print_script_module_preloads();
     }
 
     /**

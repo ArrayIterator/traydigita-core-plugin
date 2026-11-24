@@ -205,15 +205,19 @@ final class SiteKitModule implements ModuleInterface
     /**
      * Whether the module is configured enough to do its job.
      *
-     * Always true: there is nothing to set up. The module needs
-     * no credentials, no options and no Site Kit state of its own
-     * to report status and enforce the guard.
+     * Configured means Site Kit itself is actually connected:
+     * the plugin is active and its setup wizard completed
+     * (`SiteKitDetector::isConnected()`). A hardcoded `true`
+     * would claim the module is configured while the plugin is
+     * not even installed, which is exactly the false "Configured"
+     * the sidebar used to show. The module still has no settings
+     * of its own — this only reports Site Kit's real state.
      *
-     * @return bool Always true.
+     * @return bool True only when Site Kit is active and connected.
      */
     public static function isConfigured(): bool
     {
-        return true;
+        return SiteKitDetector::isConnected();
     }
 
     /**

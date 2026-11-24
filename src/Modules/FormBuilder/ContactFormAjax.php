@@ -59,6 +59,17 @@ use function wp_verify_nonce;
 final class ContactFormAjax
 {
     /**
+     * Whether the submissions actions have already run on this request.
+     *
+     * The handler runs once on `load-{$hook}` for the submissions
+     * page (before any output, so the CSV export can send its
+     * headers) and is called again from `renderSubmissionsPage()`
+     * as a fallback; the second call is a no-op so a POST action
+     * is never applied twice.
+     */
+    private static bool $handled = false;
+
+    /**
      * Handle a frontend contact form submission (AJAX).
      *
      * @return void
@@ -346,10 +357,22 @@ final class ContactFormAjax
      * manage_options). Export: ?export=csv (GET, nonce +
      * manage_options) streams the CSV and ends the request.
      *
+     * The export must run BEFORE any output: `header()` fails
+     * once the admin header is printed, and the browser would
+     * get the admin page instead of the file. That is why
+     * `FormBuilderModule` runs this on `load-{$hook}` for the
+     * submissions page and only calls it again from
+     * `renderSubmissionsPage()` as a fallback — the handled
+     * guard makes the second call a no-op.
+     *
      * @return string|null 'csv' when the CSV was streamed, else null.
      */
     public static function handleSubmissionsActions(): ?string
     {
+        if (self::$handled) {
+            return null;
+        }
+        self::$handled = true;
         if (!current_user_can('manage_options')) {
             return null;
         }

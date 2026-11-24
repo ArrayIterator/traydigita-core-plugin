@@ -413,13 +413,16 @@ final class FormBuilderModule implements ModuleInterface
      * Registered with a null parent so WordPress keeps it
      * reachable at its deep link without listing it a second
      * time in the menu; the Form Builder settings page links to
-     * it from the Contact forms section.
+     * it from the Contact forms section. The `load-{$hook}`
+     * callback runs the list actions and the CSV export before
+     * any output, so the export can send its headers (see
+     * `handleSubmissionsPageLoad()`).
      *
      * @return void
      */
     public static function registerSubmissionsPage(): void
     {
-        add_submenu_page(
+        $hook = add_submenu_page(
             null,
             __('Contact Submissions', 'traydigita-core'),
             __('Contact Submissions', 'traydigita-core'),
@@ -427,6 +430,31 @@ final class FormBuilderModule implements ModuleInterface
             self::CONTACT_SUBMISSIONS_SLUG,
             [self::class, 'renderSubmissionsPage']
         );
+        if (is_string($hook)) {
+            add_action("load-{$hook}", [self::class, 'handleSubmissionsPageLoad']);
+        }
+    }
+
+    /**
+     * Handle the submissions page before any output.
+     *
+     * Runs on `load-{$hook}` for the submissions page, i.e.
+     * before admin-header prints anything. The CSV export
+     * streams its own headers and exits, so it must run here:
+     * by the time `renderSubmissionsPage()` runs, the admin
+     * header is already printed, `header()` fails with
+     * "headers already sent", and the browser gets the admin
+     * page instead of the file. The POST actions (mark
+     * read/unread, delete) run here too; the render callback's
+     * own call to `ContactFormAjax::handleSubmissionsActions()`
+     * is then a no-op (see its handled guard).
+     *
+     * @return void
+     */
+    public static function handleSubmissionsPageLoad(): void
+    {
+        SubmissionStore::ensureTable();
+        ContactFormAjax::handleSubmissionsActions();
     }
 
     /**
@@ -1379,10 +1407,12 @@ final class FormBuilderModule implements ModuleInterface
     /**
      * Render the submissions list page.
      *
-     * Handles the list filters, the detail view, the print view,
-     * the CSV export and the read/unread/delete actions (each
-     * guarded by a nonce + manage_options). The page has its own
-     * WordPress admin wrapper because it is registered as a
+     * Renders the list filters, the detail view, and the print
+     * view. The CSV export and the read/unread/delete actions
+     * already ran on `load-{$hook}` (see
+     * `handleSubmissionsPageLoad()`); the call below is only a
+     * fallback for when that hook did not fire. The page has its
+     * own WordPress admin wrapper because it is registered as a
      * hidden page, not through the shell.
      *
      * @return void

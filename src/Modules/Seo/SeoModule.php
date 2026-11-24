@@ -32,6 +32,7 @@ use function is_array;
 use function is_string;
 use function mb_substr;
 use function number_format_i18n;
+use function remove_action;
 use function sanitize_key;
 use function sanitize_text_field;
 use function sprintf;
@@ -1222,6 +1223,14 @@ final class SeoModule implements ModuleInterface
      * re-checks its own toggle and the SEO plugin detection at
      * render time.
      *
+     * Canonical: WordPress core prints its own canonical on
+     * `wp_head` (`rel_canonical`, singular views only) while this
+     * module prints one of its own in `SeoOutput::renderMeta()`,
+     * so the module-managed tag is kept and core's is removed —
+     * but only while the module will actually output its own
+     * (meta output on, no SEO plugin active). Otherwise core's
+     * tag stays as the only canonical on the page.
+     *
      * @return void
      */
     public static function boot(): void
@@ -1239,6 +1248,9 @@ final class SeoModule implements ModuleInterface
         add_filter('document_title_parts', [SeoOutput::class, 'filterDocumentTitle'], 20);
         add_action('wp_head', [SeoOutput::class, 'renderMeta'], 20);
         add_action('wp_head', [SeoOutput::class, 'renderJsonLd'], 21);
+        if (self::getSettings()['meta_output'] && !SeoDetector::hasSeoPlugin()) {
+            remove_action('wp_head', 'rel_canonical');
+        }
         add_action('template_redirect', [SeoOutput::class, 'maybeServeNewsSitemap']);
         add_action('template_redirect', [SeoSitemap::class, 'maybeServe']);
         SeoIndexing::register();
