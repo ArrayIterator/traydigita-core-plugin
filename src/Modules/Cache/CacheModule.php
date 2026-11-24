@@ -939,38 +939,52 @@ final class CacheModule implements ModuleInterface
                 <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($cacheNonce); ?>">
                 <input type="hidden" name="module" value="cache">
 
-                <p class="cache-field">
-                    <label class="cache-label" for="cache-api-token"><?php esc_html_e('Cloudflare API token', 'traydigita-core'); ?></label>
-                    <input
-                        class="cache-input"
-                        type="password"
-                        id="cache-api-token"
-                        name="api_token"
-                        value=""
-                        autocomplete="new-password"
-                        placeholder="<?php echo esc_attr($cacheHasToken ? __('•••••••• (saved)', 'traydigita-core') : __('Enter API token', 'traydigita-core')); ?>"
-                    >
-                    <span class="description"><?php SettingsControls::helpText(__('A token with the Zone → Cache Purge permission for this zone (create one under My Profile → API Tokens in the Cloudflare dashboard).', 'traydigita-core'), __('Leave empty to keep the saved token. The token is never shown, never logged, and never returned by any endpoint.', 'traydigita-core')); ?></span>
-                </p>
+                <?php
+                SettingsControls::input([
+                    'type' => 'password',
+                    'id' => 'cache-api-token',
+                    'name' => 'api_token',
+                    'label' => __('Cloudflare API token', 'traydigita-core'),
+                    'value' => '',
+                    'mono' => true,
+                    'attrs' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => $cacheHasToken ? __('•••••••• (saved)', 'traydigita-core') : __('Enter API token', 'traydigita-core'),
+                    ],
+                    'help' => __('A token with the Zone → Cache Purge permission for this zone (create one under My Profile → API Tokens in the Cloudflare dashboard).', 'traydigita-core'),
+                    'help_long' => __('Leave empty to keep the saved token. The token is never shown, never logged, and never returned by any endpoint.', 'traydigita-core'),
+                ]);
 
-                <p class="cache-field">
-                    <label class="cache-label" for="cache-zone-id"><?php esc_html_e('Zone ID', 'traydigita-core'); ?></label>
-                    <input class="cache-input" type="text" id="cache-zone-id" name="zone_id" value="<?php echo esc_attr($cacheZoneId); ?>" autocomplete="off" spellcheck="false" placeholder="<?php echo esc_attr(__('32 hexadecimal characters', 'traydigita-core')); ?>">
-                    <span class="description"><?php esc_html_e('Found on the Overview page of the zone in the Cloudflare dashboard, at the bottom right.', 'traydigita-core'); ?></span>
-                </p>
+                SettingsControls::input([
+                    'id' => 'cache-zone-id',
+                    'name' => 'zone_id',
+                    'label' => __('Zone ID', 'traydigita-core'),
+                    'value' => $cacheZoneId,
+                    'attrs' => [
+                        'autocomplete' => 'off',
+                        'spellcheck' => 'false',
+                        'placeholder' => __('32 hexadecimal characters', 'traydigita-core'),
+                    ],
+                    'help' => __('Found on the Overview page of the zone in the Cloudflare dashboard, at the bottom right.', 'traydigita-core'),
+                ]);
 
-                <p class="cache-field">
-                    <label class="cache-label" for="cache-confirm-word"><?php esc_html_e('Confirmation word', 'traydigita-core'); ?></label>
-                    <input class="cache-input" type="text" id="cache-confirm-word" name="confirm_word" value="<?php echo esc_attr($cacheConfirmWord); ?>" pattern="[A-Za-z0-9]{3,20}" maxlength="20" required>
-                    <span class="description"><?php SettingsControls::helpText(__('The word the transient flush asks you to type.', 'traydigita-core'), __('3–20 letters or digits, no spaces; the check is case-sensitive.', 'traydigita-core')); ?></span>
-                    <span class="cache-field-error" data-field-error="confirm_word" hidden></span>
-                </p>
+                SettingsControls::input([
+                    'id' => 'cache-confirm-word',
+                    'name' => 'confirm_word',
+                    'label' => __('Confirmation word', 'traydigita-core'),
+                    'value' => $cacheConfirmWord,
+                    'attrs' => [
+                        'pattern' => '[A-Za-z0-9]{3,20}',
+                        'maxlength' => '20',
+                        'required' => true,
+                    ],
+                    'help' => __('The word the transient flush asks you to type.', 'traydigita-core'),
+                    'help_long' => __('3–20 letters or digits, no spaces; the check is case-sensitive.', 'traydigita-core'),
+                ]);
+                ?>
+                <span class="cache-field-error traydigita-field-error" data-field-error="confirm_word" hidden></span>
 
-                <p class="cache-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
 
             <form class="cache-action-form" method="post" data-action="<?php echo esc_attr(CacheAjax::ACTION_CLOUDFLARE_PURGE); ?>">

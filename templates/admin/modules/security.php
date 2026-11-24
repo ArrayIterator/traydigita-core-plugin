@@ -23,9 +23,10 @@
  * form submit: resources/js/modules/admin-security-monitor.ts
  * posts it to admin-ajax.php with the shell nonce and re-renders
  * the check list from the JSON response without a reload.
- * The save form below carries data-traydigita-module-form so the
- * shell submits it through the generic save endpoint; the module
- * has no persistent settings, so saving is a no-op success.
+ * There is deliberately no save form on this page: the module
+ * keeps no settings, so a save button would be a no-op — the
+ * shell's generic save endpoint still accepts the module (see
+ * SecurityModule::saveSettings()) for the dispatcher contract.
  */
 declare(strict_types=1);
 
@@ -145,20 +146,4 @@ $statusLabels = [
         </button>
         <span class="security-monitor-status" data-security-monitor-status aria-live="polite"></span>
     </div>
-
-    <form class="traydigita-module-form security-monitor-save-form" data-traydigita-module-form data-module="security-monitor" method="post">
-        <p class="traydigita-field-description">
-            <?php
-                \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
-                    __('Security Monitor keeps no settings of its own — checks run on demand with the Re-check button above.', 'traydigita-core'),
-                    __('Saving here only confirms there is nothing to store.', 'traydigita-core')
-                );
-                ?>
-        </p>
-        <div class="traydigita-module-actions">
-            <button type="submit" class="traydigita-admin-button">
-                <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-            </button>
-        </div>
-    </form>
 </div>

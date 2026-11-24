@@ -9897,10 +9897,6 @@ msgstr ""
 msgid "reCAPTCHA keys are not set yet."
 msgstr ""
 
-#: templates/admin/modules/form-builder.php:466
-msgid "reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
-msgstr ""
-
 #: templates/admin/modules/form-builder.php:464
 msgid "reCAPTCHA keys are set in the Google reCAPTCHA module."
 msgstr ""
@@ -10600,10 +10596,6 @@ msgstr ""
 msgid "Saved."
 msgstr ""
 
-#: templates/admin/modules/security.php:154
-msgid "Saving here only confirms there is nothing to store."
-msgstr ""
-
 #: src/Modules/Ads/AdsModule.php:819
 #: src/Modules/Avatar/AvatarModule.php:309
 #: src/Modules/Push/PushModule.php:403
@@ -10808,10 +10800,6 @@ msgstr ""
 
 #: src/Modules/Security/SecurityModule.php:293
 msgid "Security Monitor has no settings to save. Use the Re-check button to run the checks again."
-msgstr ""
-
-#: templates/admin/modules/security.php:153
-msgid "Security Monitor keeps no settings of its own — checks run on demand with the Re-check button above."
 msgstr ""
 
 #: src/Admin/SetupPage.php:862
@@ -16037,4 +16025,9 @@ msgstr ""
 
 #: src/Modules/EditorialWorkflow/EditorialWorkflowModule.php:227
 msgid "Revision note editable from Quick Edit."
+msgstr ""
+
+
+#: templates/admin/modules/form-builder.php:490
+msgid "Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved."
 msgstr ""

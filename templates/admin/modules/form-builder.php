@@ -48,7 +48,10 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
     <div class="traydigita-admin-section">
         <h2><?php esc_html_e('Forms', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
-            <?php esc_html_e('Forms built here can be used by the contact forms below and rendered anywhere with the shortcode shown below. A form stores its submissions in the submissions table when "Store submissions" is on for it; every submission is also handed to the traydigita:core:form-builder/submitted action.', 'traydigita-core'); ?>
+            <?php
+            [$traydigita_forms_short, $traydigita_forms_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('Forms built here can be used by the contact forms below and rendered anywhere with the shortcode shown below. A form stores its submissions in the submissions table when "Store submissions" is on for it; every submission is also handed to the traydigita:core:form-builder/submitted action.', 'traydigita-core'));
+            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_forms_short, $traydigita_forms_long);
+            ?>
         </p>
         <?php if ($forms === []) : ?>
             <p><?php esc_html_e('No forms yet. Create the first one below.', 'traydigita-core'); ?></p>
@@ -118,7 +121,10 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                             <?php checked(!empty($editingForm['store_submissions'])); ?>>
                         <?php esc_html_e('Store submissions', 'traydigita-core'); ?>
                     </label>
-                    <span class="traydigita-admin-description"><?php esc_html_e('When on, every submission of this form is stored in the submissions table (listed on the submissions page, with CSV export and retention prune). When off, submissions are only handed to the traydigita:core:form-builder/submitted action.', 'traydigita-core'); ?></span>
+                    <span class="traydigita-admin-description"><?php
+                    [$traydigita_store_short, $traydigita_store_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('When on, every submission of this form is stored in the submissions table (listed on the submissions page, with CSV export and retention prune). When off, submissions are only handed to the traydigita:core:form-builder/submitted action.', 'traydigita-core'));
+                    \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_store_short, $traydigita_store_long);
+                    ?></span>
                 </p>
                 <table class="widefat striped">
                     <thead>
@@ -171,7 +177,10 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
                     </tbody>
                 </table>
                 <p class="traydigita-admin-description">
-                    <?php esc_html_e('Field IDs must start with a letter and contain only lowercase letters, digits and underscores. Choice fields (dropdown, radio, checkboxes) need at least one option. Leave the last empty row blank to ignore it.', 'traydigita-core'); ?>
+                    <?php
+                    [$traydigita_field_ids_short, $traydigita_field_ids_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('Field IDs must start with a letter and contain only lowercase letters, digits and underscores. Choice fields (dropdown, radio, checkboxes) need at least one option. Leave the last empty row blank to ignore it.', 'traydigita-core'));
+                    \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_field_ids_short, $traydigita_field_ids_long);
+                    ?>
                 </p>
                 <?php \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::saveBar(); ?>
             </form>
@@ -188,7 +197,10 @@ $traydigita_settings_url = admin_url('admin.php?page=traydigita-form-builder');
     <div class="traydigita-admin-section">
         <h2><?php esc_html_e('Email templates', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
-            <?php esc_html_e('Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph.', 'traydigita-core'); ?>
+            <?php
+            [$traydigita_templates_short, $traydigita_templates_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('Block-based email templates shared with the Newsletter — a template built here can also be picked for newsletter sends, and vice versa. Text supports {{field_id}} placeholders, replaced with the submitted values when the mail is sent. Image blocks are supported too. Use one text block per paragraph.', 'traydigita-core'));
+            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_templates_short, $traydigita_templates_long);
+            ?>
         </p>
         <?php if ($allTemplates === []) : ?>
             <p><?php esc_html_e('No email templates yet. Create the first one below.', 'traydigita-core'); ?></p>
@@ -289,7 +301,10 @@ $traydigita_spam_labels = [
     <div class="traydigita-admin-section" id="td-section-contact-forms">
         <h2><?php esc_html_e('Contact forms', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
-            <?php esc_html_e('Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on).', 'traydigita-core'); ?>
+            <?php
+            [$traydigita_contact_short, $traydigita_contact_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('Each contact form uses a form built in the Form Builder. Submissions are stored in their own table first, then the notification email is sent via the Core Mailer (when send-to-email is on).', 'traydigita-core'));
+            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_contact_short, $traydigita_contact_long);
+            ?>
             <a href="<?php echo esc_url($traydigita_submissions_url); ?>"><?php esc_html_e('View submissions', 'traydigita-core'); ?></a>
         </p>
         <?php if ($contactForms === []) : ?>
@@ -388,12 +403,14 @@ $traydigita_spam_labels = [
                     'help' => __('Leave empty to use the default recipient below.', 'traydigita-core'),
                     'attrs' => ['autocomplete' => 'email', 'spellcheck' => 'false'],
                 ]);
+                [$traydigita_send_email_short, $traydigita_send_email_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp(__('When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form.', 'traydigita-core'));
                 \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::toggle([
                     'id' => 'contact-form-send-email',
                     'name' => 'send_email',
                     'label' => __('Send to email', 'traydigita-core'),
                     'checked' => !empty($editingContactForm['send_email']),
-                    'help' => __('When on, each submission is emailed to the recipient via the Core Mailer (and appears in the Mailer send log). When off, submissions are stored only — sending is prevented per form.', 'traydigita-core'),
+                    'help' => $traydigita_send_email_short,
+                    'help_long' => $traydigita_send_email_long,
                 ]);
                 ?>
                 <?php
@@ -440,16 +457,16 @@ $traydigita_spam_labels = [
     <div class="traydigita-admin-section" id="td-section-contact-settings">
         <h2><?php esc_html_e('Spam protection & retention', 'traydigita-core'); ?></h2>
         <p class="traydigita-admin-description">
-            <?php if ($turnstileActive) : ?>
-                <?php esc_html_e('Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge.', 'traydigita-core'); ?>
-            <?php else : ?>
-                <?php esc_html_e('Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings.', 'traydigita-core'); ?>
-            <?php endif; ?>
-            <?php if ($recaptchaConfigured) : ?>
-                <?php esc_html_e('reCAPTCHA keys are set.', 'traydigita-core'); ?>
-            <?php else : ?>
-                <?php esc_html_e('reCAPTCHA keys are not set yet.', 'traydigita-core'); ?>
-            <?php endif; ?>
+            <?php
+            $traydigita_spam_intro = ($turnstileActive
+                    ? __('Turnstile is active and configured — forms using Automatic or Turnstile protection will show the Turnstile challenge.', 'traydigita-core')
+                    : __('Turnstile is not active or not configured. Turnstile keys are managed in the Turnstile module settings.', 'traydigita-core'))
+                . ' ' . ($recaptchaConfigured
+                    ? __('reCAPTCHA keys are set.', 'traydigita-core')
+                    : __('reCAPTCHA keys are not set yet.', 'traydigita-core'));
+            [$traydigita_spam_short, $traydigita_spam_long] = \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::splitHelp($traydigita_spam_intro);
+            \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText($traydigita_spam_short, $traydigita_spam_long);
+            ?>
         </p>
         <form method="post" data-action="traydigita_admin_save" data-module="form-builder">
             <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($adminNonce); ?>">
@@ -463,7 +480,16 @@ $traydigita_spam_labels = [
                 <?php if ($recaptchaConfigured) : ?>
                     <?php esc_html_e('reCAPTCHA keys are set in the Google reCAPTCHA module.', 'traydigita-core'); ?>
                 <?php else : ?>
-                    <?php esc_html_e('reCAPTCHA keys are not set yet. Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved.', 'traydigita-core'); ?>
+                    <?php
+                    // Two separate strings on purpose: splitHelp() cannot
+                    // split this note — its first sentence is under the
+                    // 40-character floor — so the short/long split is
+                    // written out instead of derived.
+                    \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
+                        __('reCAPTCHA keys are not set yet.', 'traydigita-core'),
+                        __('Contact forms using reCAPTCHA protection will have no spam protection until the keys are saved.', 'traydigita-core')
+                    );
+                    ?>
                 <?php endif; ?>
                 <a href="<?php echo esc_url($recaptchaSettingsUrl); ?>"><?php esc_html_e('Manage reCAPTCHA keys', 'traydigita-core'); ?></a>
             </p>

@@ -276,3 +276,540 @@
         white-space: normal;
     }
 }
+
+/*
+ * Injected save bars after inline action forms (task 33).
+ *
+ * The shell JavaScript injects a floating `.traydigita-admin-save-bar`
+ * after every form matching `form[data-action][data-module]` — which
+ * includes the Form Builder's small inline forms (the per-row Delete
+ * forms inside the tables and the Create form/template/contact-form
+ * forms). Each of those forms already shows its own submit button
+ * in place, so the injected bar is a duplicate: while the admin
+ * scrolls through the sections above one of these forms, its bar
+ * sticks to the viewport bottom and floats over unrelated content
+ * (the template table header, the forms list). The bars after real
+ * settings forms are untouched — those forms either carry
+ * `data-traydigita-module-form` or render their own saveBar, and
+ * the injected bar is the framework's fallback for them.
+ */
+.traydigita-admin-inline-form + .traydigita-admin-save-bar {
+    display: none;
+}
+
+/*
+ * DB Tools tables table: eight columns (Table, Engine, Rows, Data,
+ * Index, Overhead, FULLTEXT, Actions) whose natural width is wider
+ * than the content card, so at 1440px the Actions column and its
+ * Optimize buttons were clipped at the card edge, and at 390px the
+ * columns were squeezed and table names wrapped mid-word. Same
+ * block-scroll treatment as the Contact Form table above: the table
+ * scrolls horizontally inside its card instead of overflowing it.
+ * Headers never wrap, the table-name code never breaks mid-word,
+ * and the Actions column keeps its buttons on one line.
+ *
+ * The block scroll alone was not enough at desktop width: the table
+ * still measured 801px against a 740px card, so the first Optimize
+ * button was cut on first paint. The compact sizing below trims
+ * ~89px (tighter cell padding, 12px cell type, smaller action
+ * buttons) so all eight columns fit the card at 1440px with no
+ * table scroll; the block scroll stays as the fallback for narrow
+ * viewports, where eight columns can never fit.
+ */
+.db-tools-settings table.db-tools-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.db-tools-settings table.db-tools-table th,
+.db-tools-settings table.db-tools-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.db-tools-settings table.db-tools-table th {
+    white-space: nowrap;
+}
+
+.db-tools-settings table.db-tools-table td {
+    vertical-align: top;
+}
+
+.db-tools-settings table.db-tools-table td:first-child code {
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.db-tools-settings table.db-tools-table td:last-child {
+    white-space: nowrap;
+}
+
+.db-tools-settings table.db-tools-table td:last-child .traydigita-admin-button {
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+/*
+ * Mailer send-log table: five columns (time, recipient, subject,
+ * result, provider) that run wider than a 390px viewport, so the
+ * table pushed the page itself wider (document width 440px) and
+ * the provider column was cut at the card edge. Same block-scroll
+ * treatment: the log scrolls inside its card. Headers stay on one
+ * line so "Sent" and "Failed" cannot collide.
+ */
+.traydigita-mailer-log {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.traydigita-mailer-log th {
+    white-space: nowrap;
+}
+
+.traydigita-mailer-log td {
+    vertical-align: top;
+}
+
+/*
+ * Email module tabs: the tab buttons had no styling at all, so the
+ * three tabs rendered as one plain text line ("Templates Newsletter
+ * Log"). Underline tabs in the framework's own tab-bar style: muted
+ * labels, the active tab in the accent colour with an accent
+ * underline, horizontally scrollable on narrow screens.
+ */
+.email-module-tabs {
+    display: flex;
+    gap: 0 1.25rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border-bottom: 1px solid var(--traydigita-admin-line);
+    overflow-x: auto;
+}
+
+.email-module-tab {
+    flex-shrink: 0;
+    padding: 0.75rem 0.125rem;
+    margin: 0 0 -1px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--traydigita-admin-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.email-module-tab:hover {
+    border-bottom-color: var(--traydigita-admin-line);
+    color: var(--traydigita-admin-ink);
+}
+
+.email-module-tab.is-active,
+.email-module-tab.is-active:hover {
+    border-bottom-color: var(--traydigita-admin-accent);
+    color: var(--traydigita-admin-accent);
+}
+
+/*
+ * Email template list: the cards exist in the markup but had no
+ * styling, so every template rendered as bare text rows with plain
+ * "Edit / Set as default / Delete" links. Cards in the framework
+ * style: bordered, rounded, name and block count, a pill badge for
+ * Default/Draft, and bordered action buttons (Delete in the danger
+ * colour) instead of bare text links.
+ */
+.email-template-list {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 0 1.5rem;
+}
+
+.email-template-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--traydigita-admin-line);
+    border-radius: 0.75rem;
+    background: var(--traydigita-admin-surface);
+}
+
+.email-template-name {
+    margin: 0 0 0.25rem;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.email-template-meta {
+    margin: 0 0 0.75rem;
+    color: var(--traydigita-admin-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.email-template-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    margin: 0 0.25rem 0.75rem 0;
+    border-radius: 999px;
+    background: var(--traydigita-admin-accent-soft);
+    color: var(--traydigita-admin-accent-strong);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.email-template-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.email-template-actions button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--traydigita-admin-muted);
+    border-radius: 0.25rem;
+    background: var(--traydigita-admin-surface);
+    box-shadow: none;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.email-template-actions button:hover {
+    border-color: var(--traydigita-admin-accent);
+    background: var(--traydigita-admin-accent-soft);
+    color: var(--traydigita-admin-accent);
+}
+
+.email-template-actions .email-template-delete {
+    color: var(--traydigita-admin-danger);
+}
+
+.email-template-actions .email-template-delete:hover {
+    border-color: var(--traydigita-admin-danger);
+    background: var(--traydigita-admin-danger-bg);
+    color: var(--traydigita-admin-danger);
+}
+
+/*
+ * Email module headings, descriptions and controls: the template
+ * name input, the newsletter compose fields and the add-subscriber
+ * form use bare controls with no framework classes, so they render
+ * in the browser default style. Give them the framework input
+ * treatment (same border, radius, padding and type scale as
+ * `.traydigita-ui-input`) and the labels the framework label
+ * treatment, without touching the builder's own stylesheet.
+ */
+.email-module-heading {
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--traydigita-admin-line);
+    color: var(--traydigita-admin-ink);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.email-builder-heading {
+    margin: 1.5rem 0 1rem;
+    color: var(--traydigita-admin-ink);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.email-module-description {
+    margin: 0 0 1rem;
+    color: var(--traydigita-admin-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.email-builder-label {
+    display: block;
+    margin: 0 0 0.25rem;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.email-template-name-input,
+.email-newsletter-subject,
+.email-newsletter-intro,
+.email-subscriber-add-email,
+.email-subscriber-add-name {
+    width: 100%;
+    max-width: 36rem;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--traydigita-admin-line);
+    border-radius: 0.5rem;
+    background: var(--traydigita-admin-surface);
+    box-shadow: none;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.email-newsletter-intro {
+    resize: vertical;
+    min-height: 6rem;
+}
+
+.email-template-name-input:hover,
+.email-newsletter-subject:hover,
+.email-newsletter-intro:hover,
+.email-subscriber-add-email:hover,
+.email-subscriber-add-name:hover {
+    border-color: var(--traydigita-admin-accent);
+}
+
+.email-template-name-input:focus,
+.email-newsletter-subject:focus,
+.email-newsletter-intro:focus,
+.email-subscriber-add-email:focus,
+.email-subscriber-add-name:focus {
+    border-color: var(--traydigita-admin-accent);
+    outline: 2px solid var(--traydigita-admin-focus);
+    outline-offset: 1px;
+}
+
+.email-newsletter-send,
+.email-subscriber-add button[type="submit"] {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--traydigita-admin-accent-strong);
+    border-radius: 0.25rem;
+    background: var(--traydigita-admin-accent-strong);
+    box-shadow: none;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.email-newsletter-send:hover,
+.email-subscriber-add button[type="submit"]:hover {
+    border-color: var(--traydigita-admin-accent);
+    background: var(--traydigita-admin-accent);
+    color: #fff;
+}
+
+.email-subscriber-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+}
+
+.email-subscriber-add-email,
+.email-subscriber-add-name {
+    flex: 1 1 12rem;
+    min-width: 0;
+}
+
+.email-subscribers-export {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--traydigita-admin-muted);
+    border-radius: 0.25rem;
+    background: var(--traydigita-admin-surface);
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.email-subscribers-export:hover {
+    border-color: var(--traydigita-admin-accent);
+    background: var(--traydigita-admin-accent-soft);
+    color: var(--traydigita-admin-accent);
+}
+
+.email-subscriber-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+.email-subscriber-badge.is-confirmed {
+    background: var(--traydigita-admin-accent-soft);
+    color: var(--traydigita-admin-accent-strong);
+}
+
+.email-subscriber-badge.is-pending {
+    background: var(--traydigita-admin-warning-bg);
+    color: var(--traydigita-admin-warning);
+}
+
+.email-subscriber-remove {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--traydigita-admin-line);
+    border-radius: 0.25rem;
+    background: var(--traydigita-admin-surface);
+    box-shadow: none;
+    color: var(--traydigita-admin-danger);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.5;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.email-subscriber-remove:hover {
+    border-color: var(--traydigita-admin-danger);
+    background: var(--traydigita-admin-danger-bg);
+}
+
+/*
+ * Ads rule fields: the rule fieldset renders as plain paragraphs
+ * (label, `<br>`, bare control, `<br>`, description) with no
+ * section card around them. Stack each field the framework way —
+ * label above, control below, description full-width underneath —
+ * and give the rule fieldset the framework section-card treatment
+ * so a rule reads as one card instead of a loose pile of fields.
+ * The checkbox rows keep their inline label (the label is not the
+ * first child there), and the placement-driven rows keep their
+ * data attributes for the module JavaScript.
+ */
+.traydigita-ads-rule {
+    padding: 1.25rem;
+    margin: 0 0 1rem;
+    border: 1px solid var(--traydigita-admin-line);
+    border-radius: 0.75rem;
+    background: var(--traydigita-admin-surface);
+}
+
+.traydigita-ads-rule legend {
+    padding: 0 0.5rem;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.traydigita-ads-rule .traydigita-ads-field {
+    margin: 0 0 1rem;
+}
+
+.traydigita-ads-rule .traydigita-ads-field > label:first-child {
+    display: block;
+    margin: 0 0 0.25rem;
+    color: var(--traydigita-admin-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.traydigita-ads-rule .traydigita-ads-field > .description {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--traydigita-admin-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.traydigita-ads-summary {
+    margin: 0 0 1rem;
+    color: var(--traydigita-admin-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/*
+ * Security Monitor code snippets: the `<pre>` already scrolls
+ * horizontally (`overflow-x: auto` in the bundle), but at 390px
+ * the code is cut mid-line with no visible cue that it scrolls.
+ * A thin, always-visible scrollbar makes the scroll affordance
+ * obvious instead of leaving the snippet looking clipped.
+ */
+.security-monitor-code {
+    max-width: 100%;
+}
+
+.security-monitor-code pre {
+    scrollbar-width: thin;
+    scrollbar-color: var(--traydigita-admin-muted) transparent;
+}
+
+.security-monitor-code pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.security-monitor-code pre::-webkit-scrollbar-thumb {
+    background: var(--traydigita-admin-muted);
+    border-radius: 4px;
+}
+
+.security-monitor-code pre::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/*
+ * Legacy inline field rows that keep their hand-rolled markup:
+ * the User Manager bulk-role selects, the Cache transient-confirm
+ * input, and the DB Tools confirm inputs. Until those rows move to
+ * framework fields, stack them the way the framework does (the
+ * same treatment the Turnstile rows got in bd894d4): label above,
+ * control below, description full-width underneath.
+ */
+.traydigita-module-settings .user-manager-field,
+.traydigita-module-settings .cache-field,
+.traydigita-module-settings .db-tools-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+}
+
+.traydigita-module-settings .user-manager-field > label,
+.traydigita-module-settings .cache-field > label,
+.traydigita-module-settings .db-tools-field > label {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.traydigita-module-settings .user-manager-field .user-manager-field-help,
+.traydigita-module-settings .cache-field .description {
+    color: var(--traydigita-admin-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/*
+ * Email + Mailer log tables: neither table is a `.widefat`
+ * table, so their cells have no padding at all (0px) — at 390px
+ * the Sent/Failed headers touched ("TerkirimGagal") even though
+ * the table itself fits and the block-scroll rule applies. Give
+ * the cells the same padding a widefat table has so the columns
+ * read as separate columns.
+ */
+.email-module table.email-subscriber-table th,
+.email-module table.email-log-table th,
+.traydigita-mailer-log th,
+.email-module table.email-subscriber-table td,
+.email-module table.email-log-table td,
+.traydigita-mailer-log td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}

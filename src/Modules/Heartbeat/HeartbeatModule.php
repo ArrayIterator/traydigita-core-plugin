@@ -10,11 +10,7 @@ use function __;
 use function _n;
 use function add_action;
 use function add_filter;
-use function checked;
 use function current_user_can;
-use function esc_attr;
-use function esc_html;
-use function esc_html_e;
 use function get_current_screen;
 use function get_option;
 use function in_array;
@@ -23,7 +19,6 @@ use function is_array;
 use function is_numeric;
 use function post_type_exists;
 use function sanitize_key;
-use function selected;
 use function update_option;
 use function wp_deregister_script;
 use function wp_unslash;
@@ -291,53 +286,57 @@ final class HeartbeatModule implements ModuleInterface
             </p>
 
             <form class="heartbeat-settings-form" data-traydigita-module-form data-traydigita-module="heartbeat" data-module="heartbeat" method="post" action="">
-                <p class="heartbeat-field">
-                    <label class="heartbeat-label" for="heartbeat-dashboard-interval"><?php esc_html_e('Dashboard interval', 'traydigita-core'); ?></label>
-                    <select class="heartbeat-input" id="heartbeat-dashboard-interval" name="dashboard_interval">
-                        <?php foreach (self::INTERVAL_CHOICES as $seconds) : ?>
-                            <option value="<?php echo esc_attr((string) $seconds); ?>" <?php selected($settings['dashboard_interval'], $seconds); ?>>
-                                <?php echo esc_html(self::formatIntervalLabel($seconds)); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <span class="description"><?php esc_html_e('How often the heartbeat pulses on dashboard and other admin screens.', 'traydigita-core'); ?></span>
-                </p>
+                <?php
+                $intervalOptions = [];
+                foreach (self::INTERVAL_CHOICES as $seconds) {
+                    $intervalOptions[$seconds] = self::formatIntervalLabel($seconds);
+                }
+                $editorIntervalOptions = [];
+                foreach (self::EDITOR_INTERVAL_CHOICES as $seconds) {
+                    $editorIntervalOptions[$seconds] = self::formatIntervalLabel($seconds);
+                }
 
-                <p class="heartbeat-field">
-                    <label class="heartbeat-label" for="heartbeat-editor-interval"><?php esc_html_e('Post editor interval', 'traydigita-core'); ?></label>
-                    <select class="heartbeat-input" id="heartbeat-editor-interval" name="editor_interval">
-                        <?php foreach (self::EDITOR_INTERVAL_CHOICES as $seconds) : ?>
-                            <option value="<?php echo esc_attr((string) $seconds); ?>" <?php selected($settings['editor_interval'], $seconds); ?>>
-                                <?php echo esc_html(self::formatIntervalLabel($seconds)); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <span class="description"><?php SettingsControls::helpText(__('Minimum 60 seconds.', 'traydigita-core'), __('Autosave and post locking need the editor heartbeat, so it cannot be disabled or slowed further.', 'traydigita-core')); ?></span>
-                </p>
+                SettingsControls::select([
+                    'id' => 'heartbeat-dashboard-interval',
+                    'name' => 'dashboard_interval',
+                    'label' => __('Dashboard interval', 'traydigita-core'),
+                    'value' => (string) $settings['dashboard_interval'],
+                    'options' => $intervalOptions,
+                    'help' => __('How often the heartbeat pulses on dashboard and other admin screens.', 'traydigita-core'),
+                ]);
 
-                <p class="heartbeat-field">
-                    <label class="heartbeat-label" for="heartbeat-frontend-interval"><?php esc_html_e('Frontend interval', 'traydigita-core'); ?></label>
-                    <select class="heartbeat-input" id="heartbeat-frontend-interval" name="frontend_interval" <?php echo $settings['frontend_enabled'] ? '' : 'disabled'; ?>>
-                        <?php foreach (self::INTERVAL_CHOICES as $seconds) : ?>
-                            <option value="<?php echo esc_attr((string) $seconds); ?>" <?php selected($settings['frontend_interval'], $seconds); ?>>
-                                <?php echo esc_html(self::formatIntervalLabel($seconds)); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <span class="description"><?php SettingsControls::helpText(__('How often the heartbeat pulses for logged-in visitors on the frontend.', 'traydigita-core'), __('Only used when the frontend heartbeat is enabled below.', 'traydigita-core')); ?></span>
-                </p>
+                SettingsControls::select([
+                    'id' => 'heartbeat-editor-interval',
+                    'name' => 'editor_interval',
+                    'label' => __('Post editor interval', 'traydigita-core'),
+                    'value' => (string) $settings['editor_interval'],
+                    'options' => $editorIntervalOptions,
+                    'help' => __('Minimum 60 seconds.', 'traydigita-core'),
+                    'help_long' => __('Autosave and post locking need the editor heartbeat, so it cannot be disabled or slowed further.', 'traydigita-core'),
+                ]);
 
-                <p class="heartbeat-field">
-                    <input type="hidden" name="frontend_enabled" value="0">
-                    <label class="traydigita-ui-toggle" for="heartbeat-frontend-enabled"><input class="traydigita-ui-toggle-input" type="checkbox" id="heartbeat-frontend-enabled" name="frontend_enabled" value="1" <?php checked($settings['frontend_enabled']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Enable heartbeat on the frontend', 'traydigita-core'); ?></span></label>
-                    <span class="description"><?php SettingsControls::helpText(__('Switch off to stop the frontend heartbeat entirely and skip its admin-ajax.php requests for logged-in visitors.', 'traydigita-core'), __('Some plugins rely on the frontend heartbeat; switch it back on if a frontend feature stops refreshing.', 'traydigita-core')); ?></span>
-                </p>
+                SettingsControls::select([
+                    'id' => 'heartbeat-frontend-interval',
+                    'name' => 'frontend_interval',
+                    'label' => __('Frontend interval', 'traydigita-core'),
+                    'value' => (string) $settings['frontend_interval'],
+                    'options' => $intervalOptions,
+                    'help' => __('How often the heartbeat pulses for logged-in visitors on the frontend.', 'traydigita-core'),
+                    'help_long' => __('Only used when the frontend heartbeat is enabled below.', 'traydigita-core'),
+                    'attrs' => $settings['frontend_enabled'] ? [] : ['disabled' => true],
+                ]);
 
-                <p class="heartbeat-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                SettingsControls::toggle([
+                    'id' => 'heartbeat-frontend-enabled',
+                    'name' => 'frontend_enabled',
+                    'label' => __('Enable heartbeat on the frontend', 'traydigita-core'),
+                    'checked' => (bool) $settings['frontend_enabled'],
+                    'help' => __('Switch off to stop the frontend heartbeat entirely and skip its admin-ajax.php requests for logged-in visitors.', 'traydigita-core'),
+                    'help_long' => __('Some plugins rely on the frontend heartbeat; switch it back on if a frontend feature stops refreshing.', 'traydigita-core'),
+                ]);
+
+                SettingsControls::saveBar();
+                ?>
             </form>
         </div>
         <?php

@@ -14,7 +14,6 @@ use function add_action;
 use function add_filter;
 use function admin_url;
 use function array_values;
-use function checked;
 use function class_exists;
 use function current_user_can;
 use function esc_attr;
@@ -342,48 +341,43 @@ final class UserManagerModule implements ModuleInterface
 
             <form class="user-manager-settings-form" data-traydigita-module-form data-traydigita-module="user-manager" data-module="user-manager" method="post" action="">
                 <?php wp_nonce_field('traydigita_user_manager_save'); ?>
-                <p class="user-manager-field">
-                    <label class="traydigita-ui-toggle" for="user-manager-show-avatar"><input class="traydigita-ui-toggle-input" type="checkbox" id="user-manager-show-avatar" name="show_avatar_column" value="1" <?php checked($settings['show_avatar_column']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Show the avatar column on the Users screen', 'traydigita-core'); ?></span></label>
-                    <span class="user-manager-field-help">
-                        <?php
-                        SettingsControls::helpText(
-                            __('Avatars come from the Custom Avatar module when it is enabled, otherwise '
-                                . 'from Gravatar or the site default.', 'traydigita-core'),
-                            __('The Custom Avatar module supplies the avatar shown in the Users list through its get_avatar filter. Avatars are changed from the user’s profile page.', 'traydigita-core')
-                        );
-                        ?>
-                    </span>
-                </p>
-                <p class="user-manager-field">
-                    <label class="traydigita-ui-toggle" for="user-manager-show-last-login"><input class="traydigita-ui-toggle-input" type="checkbox" id="user-manager-show-last-login" name="show_last_login_column" value="1" <?php checked($settings['show_last_login_column']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Show the last-login column on the Users screen', 'traydigita-core'); ?></span></label>
-                </p>
-                <p class="user-manager-field">
-                    <label class="traydigita-ui-toggle" for="user-manager-show-quick-role"><input class="traydigita-ui-toggle-input" type="checkbox" id="user-manager-show-quick-role" name="show_quick_role" value="1" <?php checked($settings['show_quick_role']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Show the quick role-change control on the Users screen', 'traydigita-core'); ?></span></label>
-                    <span class="user-manager-field-help">
-                        <?php
-                        SettingsControls::helpText(
-                            __('Requires the promote_users capability.', 'traydigita-core'),
-                            __('The control is disabled for protected users (see the safety rule above).', 'traydigita-core')
-                        );
-                        ?>
-                    </span>
-                </p>
-                <p class="user-manager-field">
-                    <label class="traydigita-ui-toggle" for="user-manager-track-last-login"><input class="traydigita-ui-toggle-input" type="checkbox" id="user-manager-track-last-login" name="track_last_login" value="1" <?php checked($settings['track_last_login']); ?>><span class="traydigita-ui-toggle-track" aria-hidden="true"><span class="traydigita-ui-toggle-thumb" aria-hidden="true"></span></span><span class="traydigita-ui-toggle-label"><?php esc_html_e('Record the last-login time when a user signs in', 'traydigita-core'); ?></span></label>
-                    <span class="user-manager-field-help">
-                        <?php
-                        SettingsControls::helpText(
-                            __('Stored as a timestamp in user meta and shown in the site timezone.', 'traydigita-core'),
-                            __('Users who have never signed in since this was switched on show “Never”.', 'traydigita-core')
-                        );
-                        ?>
-                    </span>
-                </p>
-                <p class="user-manager-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php
+                SettingsControls::toggle([
+                    'id' => 'user-manager-show-avatar',
+                    'name' => 'show_avatar_column',
+                    'label' => __('Show the avatar column on the Users screen', 'traydigita-core'),
+                    'checked' => (bool) $settings['show_avatar_column'],
+                    'help' => __('Avatars come from the Custom Avatar module when it is enabled, otherwise from Gravatar or the site default.', 'traydigita-core'),
+                    'help_long' => __('The Custom Avatar module supplies the avatar shown in the Users list through its get_avatar filter. Avatars are changed from the user’s profile page.', 'traydigita-core'),
+                ]);
+
+                SettingsControls::toggle([
+                    'id' => 'user-manager-show-last-login',
+                    'name' => 'show_last_login_column',
+                    'label' => __('Show the last-login column on the Users screen', 'traydigita-core'),
+                    'checked' => (bool) $settings['show_last_login_column'],
+                ]);
+
+                SettingsControls::toggle([
+                    'id' => 'user-manager-show-quick-role',
+                    'name' => 'show_quick_role',
+                    'label' => __('Show the quick role-change control on the Users screen', 'traydigita-core'),
+                    'checked' => (bool) $settings['show_quick_role'],
+                    'help' => __('Requires the promote_users capability.', 'traydigita-core'),
+                    'help_long' => __('The control is disabled for protected users (see the safety rule above).', 'traydigita-core'),
+                ]);
+
+                SettingsControls::toggle([
+                    'id' => 'user-manager-track-last-login',
+                    'name' => 'track_last_login',
+                    'label' => __('Record the last-login time when a user signs in', 'traydigita-core'),
+                    'checked' => (bool) $settings['track_last_login'],
+                    'help' => __('Stored as a timestamp in user meta and shown in the site timezone.', 'traydigita-core'),
+                    'help_long' => __('Users who have never signed in since this was switched on show “Never”.', 'traydigita-core'),
+                ]);
+
+                SettingsControls::saveBar();
+                ?>
             </form>
 
             <div class="user-manager-bulk">

@@ -837,17 +837,26 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         echo '<input type="hidden" name="module" value="ads">';
         echo '<input type="hidden" name="_ajax_nonce" value="' . esc_attr($nonce) . '">';
         echo '<input type="hidden" name="ad_code_encoding" value="base64">';
-        echo '<h2>' . esc_html__('General', 'traydigita-core') . '</h2>';
-        echo '<p class="traydigita-ads-field">'
-            . '<label for="ads-max-ads">' . esc_html__('Maximum ads per page', 'traydigita-core') . '</label><br>'
-            . '<input type="number" id="ads-max-ads" name="max_ads_per_page" value="' . esc_attr((string) $settings['max_ads_per_page']) . '" min="0" max="' . esc_attr((string) self::MAX_ADS_PER_PAGE) . '" step="1">'
-            . '<br><span class="description">' . esc_html__('Shared across all rules on one page. Set to 0 to show no ads at all.', 'traydigita-core') . '</span>'
-            . '</p>';
-        echo '<h2>' . esc_html__('Rules', 'traydigita-core') . '</h2>';
-        echo '<p class="description">' . SettingsControls::helpBlock(
+        SettingsControls::sectionOpen('general', __('General', 'traydigita-core'));
+        SettingsControls::number([
+            'id' => 'ads-max-ads',
+            'name' => 'max_ads_per_page',
+            'label' => __('Maximum ads per page', 'traydigita-core'),
+            'value' => (string) $settings['max_ads_per_page'],
+            'help' => __('Shared across all rules on one page. Set to 0 to show no ads at all.', 'traydigita-core'),
+            'attrs' => [
+                'min' => '0',
+                'max' => (string) self::MAX_ADS_PER_PAGE,
+                'step' => '1',
+            ],
+        ]);
+        SettingsControls::sectionClose();
+        SettingsControls::sectionOpen(
+            'rules',
+            __('Rules', 'traydigita-core'),
             __('Each rule places one ad.', 'traydigita-core'),
             __('Rules run in order; when the per-page limit is reached, later rules are skipped. A rule whose target does not exist (for example paragraph 9 in a 4-paragraph article) shows nothing.', 'traydigita-core')
-        ) . '</p>';
+        );
         echo '<div data-ads-rules>';
         foreach ($settings['rules'] as $index => $rule) {
             echo self::renderRuleFields($index, $rule, $postTypes, $categories, $tags);
@@ -858,12 +867,11 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         echo '</template>';
         echo '<p><button type="button" class="traydigita-admin-button" data-ads-add-rule>' . esc_html__('Add rule', 'traydigita-core') . '</button></p>';
         echo '<p class="description">' . esc_html__('Rule summaries refresh after saving and reloading the page.', 'traydigita-core') . '</p>';
-        echo '<p class="traydigita-ads-form-actions">'
-            . '<button class="traydigita-admin-button traydigita-admin-button-primary" type="submit">' . esc_html__('Save changes', 'traydigita-core') . '</button> '
-            . '<span data-ads-save-status role="status" aria-live="polite"></span>'
-            . '</p>';
+        SettingsControls::sectionClose();
+        SettingsControls::saveBar();
+        echo '<p><span data-ads-save-status role="status" aria-live="polite"></span></p>';
         echo '</form>';
-        echo '<h2>' . esc_html__('Live preview', 'traydigita-core') . '</h2>';
+        SettingsControls::sectionOpen('preview', __('Live preview', 'traydigita-core'));
         if (!$moduleEnabled) {
             echo '<div class="traydigita-admin-notice traydigita-admin-notice-warning"><p>'
                 . SettingsControls::helpBlock(
@@ -877,13 +885,17 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         } else {
             echo '<form method="post" data-ads-preview-form>';
             echo '<input type="hidden" name="_ajax_nonce" value="' . esc_attr($nonce) . '">';
-            echo '<p class="traydigita-ads-field">'
-                . '<label for="ads-preview-post">' . esc_html__('Preview on post', 'traydigita-core') . '</label><br>'
-                . '<select id="ads-preview-post" name="post_id">';
+            $previewOptions = [];
             foreach ($previewPosts as $previewPost) {
-                echo '<option value="' . esc_attr((string) $previewPost['id']) . '">' . esc_html($previewPost['title']) . '</option>';
+                $previewOptions[$previewPost['id']] = $previewPost['title'];
             }
-            echo '</select></p>';
+            SettingsControls::select([
+                'id' => 'ads-preview-post',
+                'name' => 'post_id',
+                'label' => __('Preview on post', 'traydigita-core'),
+                'value' => (string) $previewPosts[0]['id'],
+                'options' => $previewOptions,
+            ]);
             echo '<p class="traydigita-ads-form-actions">'
                 . '<button class="traydigita-admin-button traydigita-admin-button-secondary" type="submit">' . esc_html__('Preview with current rules', 'traydigita-core') . '</button> '
                 . '<span data-ads-preview-status role="status" aria-live="polite"></span>'
@@ -896,6 +908,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
             ) . '</p>';
             echo '<div class="traydigita-ads-preview" data-ads-preview-pane aria-live="polite"></div>';
         }
+        SettingsControls::sectionClose();
         echo '</div>';
     }
 
@@ -1201,7 +1214,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
             . '</p>';
         $html .= '<p class="traydigita-ads-field">'
             . '<input type="hidden" name="' . esc_attr($prefix) . '[enabled]" value="0">'
-            . '<input type="checkbox" id="' . esc_attr($idPrefix) . '-enabled" name="' . esc_attr($prefix) . '[enabled]" value="1"' . ($enabled ? ' checked' : '') . '> '
+            . '<input type="checkbox" class="traydigita-ui-checkbox" id="' . esc_attr($idPrefix) . '-enabled" name="' . esc_attr($prefix) . '[enabled]" value="1"' . ($enabled ? ' checked' : '') . '> '
             . '<label for="' . esc_attr($idPrefix) . '-enabled">' . esc_html__('Enabled', 'traydigita-core') . '</label>'
             . '</p>';
         $html .= '<p class="traydigita-ads-field">'
@@ -1214,20 +1227,20 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
             . '</p>';
         $html .= '<p class="traydigita-ads-field">'
             . '<label for="' . esc_attr($idPrefix) . '-placement">' . esc_html__('Placement', 'traydigita-core') . '</label><br>'
-            . '<select id="' . esc_attr($idPrefix) . '-placement" name="' . esc_attr($prefix) . '[placement]" data-ads-placement>'
+            . '<select class="traydigita-ui-select" id="' . esc_attr($idPrefix) . '-placement" name="' . esc_attr($prefix) . '[placement]" data-ads-placement>'
             . self::placementOptions($placement)
             . '</select></p>';
         $html .= '<p class="traydigita-ads-field" data-ads-paragraph-row>'
             . '<label for="' . esc_attr($idPrefix) . '-paragraph">' . esc_html__('After paragraph', 'traydigita-core') . '</label><br>'
-            . '<input type="number" id="' . esc_attr($idPrefix) . '-paragraph" name="' . esc_attr($prefix) . '[paragraph]" value="' . esc_attr((string) $paragraph) . '" min="1" max="100" step="1">'
+            . '<input type="number" class="traydigita-ui-input" id="' . esc_attr($idPrefix) . '-paragraph" name="' . esc_attr($prefix) . '[paragraph]" value="' . esc_attr((string) $paragraph) . '" min="1" max="100" step="1">'
             . '</p>';
         $html .= '<p class="traydigita-ads-field" data-ads-percent-row>'
             . '<label for="' . esc_attr($idPrefix) . '-percent">' . esc_html__('After this much of the content (%)', 'traydigita-core') . '</label><br>'
-            . '<input type="number" id="' . esc_attr($idPrefix) . '-percent" name="' . esc_attr($prefix) . '[percent]" value="' . esc_attr((string) $percent) . '" min="1" max="99" step="1">'
+            . '<input type="number" class="traydigita-ui-input" id="' . esc_attr($idPrefix) . '-percent" name="' . esc_attr($prefix) . '[percent]" value="' . esc_attr((string) $percent) . '" min="1" max="99" step="1">'
             . '</p>';
         $html .= '<p class="traydigita-ads-field">'
             . '<label for="' . esc_attr($idPrefix) . '-post-types">' . esc_html__('Post types', 'traydigita-core') . '</label><br>'
-            . '<select id="' . esc_attr($idPrefix) . '-post-types" name="' . esc_attr($prefix) . '[post_types][]" multiple size="3">'
+            . '<select class="traydigita-ui-select" id="' . esc_attr($idPrefix) . '-post-types" name="' . esc_attr($prefix) . '[post_types][]" multiple size="3">'
             . self::multiOptions($postTypes, $rulePostTypes)
             . '</select>'
             . '<br><span class="description">' . esc_html__('Hold Ctrl (or Cmd) to select more than one.', 'traydigita-core') . '</span>'
@@ -1238,12 +1251,12 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         $html .= self::termPicker($idPrefix, $prefix, 'exclude_tags', __('Exclude tags', 'traydigita-core'), $tags, $rule, __('Leave empty to exclude nothing.', 'traydigita-core'));
         $html .= '<p class="traydigita-ads-field">'
             . '<label for="' . esc_attr($idPrefix) . '-device">' . esc_html__('Device', 'traydigita-core') . '</label><br>'
-            . '<select id="' . esc_attr($idPrefix) . '-device" name="' . esc_attr($prefix) . '[device]">'
+            . '<select class="traydigita-ui-select" id="' . esc_attr($idPrefix) . '-device" name="' . esc_attr($prefix) . '[device]">'
             . self::deviceOptions($device)
             . '</select></p>';
         $html .= '<p class="traydigita-ads-field">'
             . '<input type="hidden" name="' . esc_attr($prefix) . '[exclude_home_archive]" value="0">'
-            . '<input type="checkbox" id="' . esc_attr($idPrefix) . '-exclude-home" name="' . esc_attr($prefix) . '[exclude_home_archive]" value="1"' . ($excludeHomeArchive ? ' checked' : '') . '> '
+            . '<input type="checkbox" class="traydigita-ui-checkbox" id="' . esc_attr($idPrefix) . '-exclude-home" name="' . esc_attr($prefix) . '[exclude_home_archive]" value="1"' . ($excludeHomeArchive ? ' checked' : '') . '> '
             . '<label for="' . esc_attr($idPrefix) . '-exclude-home">' . esc_html__('Only on single posts and pages (not on home, archive, or search pages)', 'traydigita-core') . '</label>'
             . '</p>';
         $html .= '<p><button type="button" class="traydigita-admin-button" data-ads-remove-rule>' . esc_html__('Remove rule', 'traydigita-core') . '</button></p>';
@@ -1277,11 +1290,11 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
         $html = '<p class="traydigita-ads-field">'
             . '<label for="' . esc_attr($fieldId) . '">' . esc_html($label) . '</label><br>';
         if ($terms === []) {
-            $html .= '<select id="' . esc_attr($fieldId) . '" name="' . esc_attr($prefix) . '[' . esc_attr($field) . '][]" multiple size="1" disabled>'
+            $html .= '<select class="traydigita-ui-select" id="' . esc_attr($fieldId) . '" name="' . esc_attr($prefix) . '[' . esc_attr($field) . '][]" multiple size="1" disabled>'
                 . '<option value="">' . esc_html__('None yet', 'traydigita-core') . '</option>'
                 . '</select>';
         } else {
-            $html .= '<select id="' . esc_attr($fieldId) . '" name="' . esc_attr($prefix) . '[' . esc_attr($field) . '][]" multiple size="5">'
+            $html .= '<select class="traydigita-ui-select" id="' . esc_attr($fieldId) . '" name="' . esc_attr($prefix) . '[' . esc_attr($field) . '][]" multiple size="5">'
                 . self::multiOptions($terms, $selected)
                 . '</select>';
         }
