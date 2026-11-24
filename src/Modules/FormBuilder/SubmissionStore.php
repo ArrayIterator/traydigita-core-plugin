@@ -60,8 +60,13 @@ final class SubmissionStore
 {
     /**
      * Schema version. Bump when the table definition changes.
+     *
+     * Version 2 adds the `form_status_created` composite
+     * (form_id, status, created_at) for the admin list's usual
+     * filter combination and drops the single-column `form_id`
+     * key, which is the composite's leftmost prefix.
      */
-    public const int SCHEMA_VERSION = 1;
+    public const int SCHEMA_VERSION = 2;
 
     /**
      * Option holding the installed schema version.
@@ -167,9 +172,9 @@ final class SubmissionStore
             email_sent tinyint(1) NOT NULL DEFAULT 0,
             created_at datetime NOT NULL,
             PRIMARY KEY  (id),
-            KEY form_id (form_id),
             KEY status (status),
-            KEY created_at (created_at)
+            KEY created_at (created_at),
+            KEY form_status_created (form_id, status, created_at)
         ) {$charset};";
     }
 

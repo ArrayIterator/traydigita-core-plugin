@@ -91,8 +91,14 @@ final class ActivityLogModule implements ModuleInterface
 
     /**
      * Current table schema version.
+     *
+     * Version 2 drops the redundant single-column `module` and
+     * `event_type` keys (each is the leftmost prefix of its
+     * composite) and replaces `user_id` with the composite
+     * `user_created`, so the viewer filter on a user sorts by
+     * `created_at` from the index instead of a filesort.
      */
-    public const int TABLE_VERSION = 1;
+    public const int TABLE_VERSION = 2;
 
     /**
      * Transient throttling the version-gated dbDelta check.
@@ -371,13 +377,19 @@ final class ActivityLogModule implements ModuleInterface
     /**
      * CREATE TABLE statement for the log table.
      *
-     * Indexes: `created_at` (date-range + ordering), `module`,
-     * `event_type`, `user_id`, and the composites
-     * (`module`, `created_at`) and (`event_type`, `created_at`)
-     * that the viewer queries filter and order by — so the
-     * viewer never full-scans a big log. The `$ifNotExists`
+     * Indexes: `created_at` (date-range + ordering), the
+     * composites (`module`, `created_at`) and (`event_type`,
+     * `created_at`) that the viewer queries filter and order by,
+     * and (`user_id`, `created_at`) so a user filter sorts from
+     * the index — so the viewer never full-scans a big log. The
+     * single-column `module` / `event_type` keys are deliberately
+     * absent: each is the leftmost prefix of its composite, so a
+     * separate key would only cost writes. The `$ifNotExists`
      * form is for the lazy insert path (Stack pattern); the
-     * plain form is for dbDelta upgrades.
+     * plain form is for dbDelta upgrades. Note dbDelta never
+     * drops an index, so installs upgraded from version 1 keep
+     * the old single-column keys as harmless duplicates; fresh
+     * installs get exactly the keys below.
      *
      * @param bool $ifNotExists Whether to add IF NOT EXISTS.
      * @return string
@@ -398,11 +410,9 @@ final class ActivityLogModule implements ModuleInterface
             meta longtext NULL,
             PRIMARY KEY (id),
             KEY created_at (created_at),
-            KEY module (module),
-            KEY event_type (event_type),
-            KEY user_id (user_id),
             KEY module_created (module, created_at),
-            KEY event_created (event_type, created_at)
+            KEY event_created (event_type, created_at),
+            KEY user_created (user_id, created_at)
         ) {$charset};";
     }
 

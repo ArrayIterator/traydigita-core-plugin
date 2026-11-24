@@ -61,8 +61,17 @@ final class AgendaTable
 
     /**
      * Current database schema version.
+     *
+     * Version 2 replaces the single-column `start_datetime`
+     * and `category` keys with the composites `start_end`
+     * (start_datetime, end_datetime) and `category_start`
+     * (category, start_datetime): the status filters compare
+     * both datetimes and the category filter orders by
+     * start_datetime, so the composites serve filter + sort
+     * from the index. Each old single is the leftmost prefix
+     * of its composite, so no lookup is lost.
      */
-    public const int DB_VERSION = 1;
+    public const int DB_VERSION = 2;
 
     /**
      * Option flag recording the installed schema version.
@@ -218,8 +227,8 @@ final class AgendaTable
                 created_at datetime NOT NULL,
                 updated_at datetime NOT NULL,
                 PRIMARY KEY (id),
-                KEY start_datetime (start_datetime),
-                KEY category (category)
+                KEY start_end (start_datetime, end_datetime),
+                KEY category_start (category, start_datetime)
             ) %s;',
             $guard,
             $table,

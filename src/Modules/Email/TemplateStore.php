@@ -77,8 +77,16 @@ final class TemplateStore
 
     /**
      * Current database schema version.
+     *
+     * Version 2 extends `type_status` to `type_status_default`
+     * (type, status, is_default) so the default-template lookup
+     * is served from the index, replaces the single-column
+     * `parent_id` key with `type_parent_status`
+     * (type, parent_id, status) for the children queries, and
+     * drops the single-column `is_default` key — no query
+     * filters on `is_default` alone.
      */
-    public const int DB_VERSION = 1;
+    public const int DB_VERSION = 2;
 
     /**
      * Option flag recording the installed schema version.
@@ -243,9 +251,8 @@ final class TemplateStore
                 updated_at datetime NOT NULL,
                 PRIMARY KEY  (id),
                 UNIQUE KEY type_slug (type, slug),
-                KEY type_status (type, status),
-                KEY parent_id (parent_id),
-                KEY is_default (is_default)
+                KEY type_status_default (type, status, is_default),
+                KEY type_parent_status (type, parent_id, status)
             ) %s;',
             $guard,
             $table,

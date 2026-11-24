@@ -77,11 +77,18 @@ final class IndexManager
      * Index definitions, in build order.
      *
      * The posts FULLTEXT index goes first (it is the one the
-     * search filter needs), then the composite posts index, then
-     * the term indexes. Each entry carries the table, index name,
-     * human-readable columns, type, and the exact fixed SQL used
-     * to create it. Table names are resolved from `$wpdb` at call
-     * time so a custom table prefix works.
+     * search filter needs), then the term indexes. Each entry
+     * carries the table, index name, human-readable columns,
+     * type, and the exact fixed SQL used to create it. Table
+     * names are resolved from `$wpdb` at call time so a custom
+     * table prefix works.
+     *
+     * There is deliberately NO `type_status_date` entry here:
+     * WordPress core already ships that exact index on
+     * `wp_posts` (post_type, post_status, post_date, ID), so
+     * defining it again would only duplicate a core index —
+     * the post-type/status/date filtering the search relies on
+     * is already served by core's index.
      *
      * @return array<string, array{table: string, name: string, columns: string, type: string, sql: string}>
      */
@@ -95,13 +102,6 @@ final class IndexManager
                 'columns' => 'post_title, post_content, post_excerpt',
                 'type' => 'FULLTEXT',
                 'sql' => "ALTER TABLE `{$wpdb->posts}` ADD FULLTEXT INDEX `idx_td_posts_fulltext` (`post_title`, `post_content`, `post_excerpt`);",
-            ],
-            'posts_tsd' => [
-                'table' => $wpdb->posts,
-                'name' => 'type_status_date',
-                'columns' => 'post_type, post_status, post_date, ID',
-                'type' => 'INDEX',
-                'sql' => "ALTER TABLE `{$wpdb->posts}` ADD INDEX `type_status_date` (`post_type`, `post_status`, `post_date`, `ID`);",
             ],
             'terms_ft' => [
                 'table' => $wpdb->terms,

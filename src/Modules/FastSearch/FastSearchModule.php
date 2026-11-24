@@ -27,9 +27,11 @@ use function update_option;
  * The theme's own implementation of the index design from the
  * reference gist (TrayDigita WP Fast Search): a FULLTEXT index
  * `idx_td_posts_fulltext` on (post_title, post_content,
- * post_excerpt), a composite `type_status_date` index on posts, a
- * FULLTEXT index on terms.name, and join indexes on the term
- * relationship / taxonomy tables. The frontend search then runs
+ * post_excerpt), a FULLTEXT index on terms.name, and join
+ * indexes on the term relationship / taxonomy tables. The
+ * post-type/status/date filtering is served by WordPress
+ * core's own `type_status_date` index on `wp_posts` — it is
+ * deliberately NOT redefined here. The frontend search then runs
  * `MATCH ... AGAINST (... IN BOOLEAN MODE)` (words cleaned of
  * boolean operators, minimum two characters, `+word*` tokens)
  * and also matches posts through their category / tag names.
