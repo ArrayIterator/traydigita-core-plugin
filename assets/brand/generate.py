@@ -31,12 +31,16 @@ leader is a soft glow at the stroke's leading edge.
      resolves.
   3. HOLD (2.80-5.0 s): clean whole mark on the gradient tile, nothing
      else — just the sheen breathing gently (~2.2 s hold).
-Outputs: traydigita-core-logo.mp4 (video), traydigita-core-logo.gif,
+Outputs: traydigita-core-logo.mp4 (video), traydigita-core-logo.gif
+(transparent background — the animation frames are screenshotted
+with a transparent page background and the GIF keeps a transparent
+palette index for the corners outside the rounded tile; the MP4 has
+no alpha channel, so its frames are composited over white first),
 traydigita-core-logo.svg (animated SMIL), traydigita-core-logo-static.svg,
 icon-512/256/128.png, banner-1544x500.png + banner-772x250.png.
 
 Frames are baked in Python (no SMIL timing in the video) and screenshotted
-with chrome-headless-shell, then assembled with ffmpeg.
+with chrome-headless-shell, then assembled with ffmpeg (MP4) and PIL (GIF).
 """
 import math
 import os
@@ -375,13 +379,21 @@ def build_svg_animated():
     return "".join(p)
 
 
-def shot(svg_path, png_path, width, height):
-    subprocess.run(
-        [CHROME, "--headless", "--disable-gpu", "--no-sandbox",
-         f"--screenshot={png_path}", f"--window-size={width},{height}",
-         "--hide-scrollbars", f"file://{svg_path}"],
-        check=True, capture_output=True, timeout=60,
-    )
+def shot(svg_path, png_path, width, height, transparent=False):
+    """Screenshot an SVG with chrome-headless-shell.
+
+    With transparent=True the page background is fully transparent
+    (--default-background-color=00000000), so the PNG keeps its
+    alpha channel (the corners outside the rounded tile stay
+    transparent instead of painting white). Default is the
+    browser's white page background.
+    """
+    cmd = [CHROME, "--headless", "--disable-gpu", "--no-sandbox",
+           f"--screenshot={png_path}", f"--window-size={width},{height}",
+           "--hide-scrollbars", f"file://{svg_path}"]
+    if transparent:
+        cmd.append("--default-background-color=00000000")
+    subprocess.run(cmd, check=True, capture_output=True, timeout=60)
 
 
 def main():
@@ -403,17 +415,45 @@ def main():
         svg = f"{TMP}/frame-{i:03d}.svg"
         with open(svg, "w") as f:
             f.write(frame_svg(i / FPS))
-        shot(svg, f"{TMP}/frame-{i:03d}.png", 512, 512)
+        # Transparent page background: the PNG keeps its alpha channel
+        # (corners outside the rounded tile stay transparent).
+        shot(svg, f"{TMP}/frame-{i:03d}.png", 512, 512, transparent=True)
+    from PIL import Image
+
+    # The MP4 has no alpha channel, so its frames are composited over
+    # white first — the video keeps the white corners it always had.
+    for i in range(N_FRAMES):
+        rgba = Image.open(f"{TMP}/frame-{i:03d}.png").convert("RGBA")
+        bg = Image.new("RGBA", rgba.size, (255, 255, 255, 255))
+        bg.alpha_composite(rgba)
+        bg.convert("RGB").save(f"{TMP}/mp4-{i:03d}.png")
     subprocess.run(
         ["ffmpeg", "-y", "-v", "error", "-framerate", str(FPS),
-         "-i", f"{TMP}/frame-%03d.png", "-c:v", "libx264", "-pix_fmt",
+         "-i", f"{TMP}/mp4-%03d.png", "-c:v", "libx264", "-pix_fmt",
          "yuv420p", "-movflags", "+faststart",
          f"{BRAND}/traydigita-core-logo.mp4"],
         check=True, timeout=180,
     )
-    from PIL import Image
 
-    gif_frames = [Image.open(f"{TMP}/frame-{i:03d}.png").convert("RGB")
+    def gif_frame(path):
+        """One animation frame as a P-mode image with a transparent index.
+
+        GIF transparency is 1-bit: fully-transparent pixels (alpha 0,
+        the corners outside the rounded tile) become palette index
+        255, which the GIF marks transparent. Semi-transparent
+        pixels (the soft glow / blur edges) stay opaque with their
+        RGB colour — GIF cannot do partial alpha, so those edges
+        quantize. The frame is quantized to 255 colours so index
+        255 stays free for transparency.
+        """
+        rgba = Image.open(path).convert("RGBA")
+        pal = rgba.convert("RGB").quantize(colors=255)
+        mask = rgba.getchannel("A").point(lambda a: 255 if a == 0 else 0)
+        pal.paste(255, mask=mask)
+        pal.info["transparency"] = 255
+        return pal
+
+    gif_frames = [gif_frame(f"{TMP}/frame-{i:03d}.png")
                   for i in range(0, N_FRAMES, 4)]
     gif_frames[0].save(
         f"{BRAND}/traydigita-core-logo.gif", save_all=True,

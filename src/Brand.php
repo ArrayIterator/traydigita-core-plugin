@@ -32,16 +32,19 @@ use function trim;
  * from chrome-headless-shell screenshots and assembles them
  * with ffmpeg):
  *
- * - `traydigita-core-logo.mp4` — the 5 s animation, used on
- *   the hub/about page.
+ * - `traydigita-core-logo.mp4` — the 5 s animation. Kept for API
+ *   compatibility (Brand::logoVideo()); the hub/about page no
+ *   longer uses it because MP4 (h264, yuv420p) cannot carry an
+ *   alpha channel, so its corners are white.
  * - `traydigita-core-logo.svg` — animated (SMIL, as above).
  *   Used as the admin menu icon (base64 data URI; browsers
  *   animate SMIL in data-URI SVGs, and the first frame is the
  *   correct static logo where they do not).
  * - `traydigita-core-logo-static.svg` — the same mark without
  *   animation, for contexts that cannot animate.
- * - `traydigita-core-logo.gif` — animated raster version, for
- *   the readme.
+ * - `traydigita-core-logo.gif` — animated raster version with a
+ *   transparent background, used on the hub/about page (and the
+ *   readme).
  * - `icon-128x128.png`, `icon-256x256.png`, `icon-512x512.png`
  *   — plugin icons (WP.org sizes).
  * - `banner-772x250.png`, `banner-1544x500.png` — readme banners.
@@ -158,7 +161,7 @@ final class Brand
     }
 
     /**
-     * URL of the logo video (5 s MP4, hub/about page use).
+     * URL of the logo video (5 s MP4).
      *
      * @return string
      */
@@ -168,7 +171,31 @@ final class Brand
     }
 
     /**
-     * The logo video markup for the hub/about page.
+     * The animated GIF logo markup for the hub/about page.
+     *
+     * The GIF has a transparent background (see `generate.py`),
+     * so it sits cleanly on any admin background — the MP4 it
+     * replaces cannot carry alpha. Returns '' when the GIF file
+     * is missing, so the caller can fall back to logoSvg().
+     *
+     * @param int $size Display size in pixels (square).
+     * @return string Img markup, or ''.
+     */
+    public static function logoGif(int $size = 72): string
+    {
+        $file = Core::pluginDir() . '/' . self::LOGO_GIF;
+        if (!is_readable($file)) {
+            return '';
+        }
+        return sprintf(
+            '<img src="%2$s" width="%1$d" height="%1$d" alt="" aria-hidden="true">',
+            $size,
+            self::gifUrl()
+        );
+    }
+
+    /**
+     * The logo video markup.
      *
      * Autoplays muted on a loop (the 5 s animation); the
      * animated SVG is the fallback content for browsers that

@@ -92,10 +92,10 @@ foreach (ModuleRegistry::all() as $moduleClass) {
 }
 ?>
 <?php
-$traydigita_brand_video = \TrayDigita\WP\Plugin\Core\Brand::logoVideo();
-$traydigita_brand_svg = $traydigita_brand_video !== '' ? '' : \TrayDigita\WP\Plugin\Core\Brand::logoSvg();
-$traydigita_brand_static = ($traydigita_brand_video !== '' || $traydigita_brand_svg !== '') ? '' : \TrayDigita\WP\Plugin\Core\Brand::staticLogoUrl();
-if ($traydigita_brand_video !== '' || $traydigita_brand_svg !== '' || $traydigita_brand_static !== '') :
+$traydigita_brand_gif = \TrayDigita\WP\Plugin\Core\Brand::logoGif();
+$traydigita_brand_svg = $traydigita_brand_gif !== '' ? '' : \TrayDigita\WP\Plugin\Core\Brand::logoSvg();
+$traydigita_brand_static = ($traydigita_brand_gif !== '' || $traydigita_brand_svg !== '') ? '' : \TrayDigita\WP\Plugin\Core\Brand::staticLogoUrl();
+if ($traydigita_brand_gif !== '' || $traydigita_brand_svg !== '' || $traydigita_brand_static !== '') :
     ?>
     <style>
         .traydigita-admin-about{display:flex;gap:16px;align-items:center;margin-bottom:20px}
@@ -106,9 +106,9 @@ if ($traydigita_brand_video !== '' || $traydigita_brand_svg !== '' || $traydigit
     </style>
     <div class="traydigita-admin-about">
         <div class="traydigita-admin-about-logo" aria-hidden="true"><?php
-        if ($traydigita_brand_video !== '') {
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brand::logoVideo() builds the markup from plugin asset URLs only.
-            echo $traydigita_brand_video;
+        if ($traydigita_brand_gif !== '') {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brand::logoGif() builds the markup from plugin asset URLs only.
+            echo $traydigita_brand_gif;
         } elseif ($traydigita_brand_svg !== '') {
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brand::logoSvg() returns the plugin's own SVG asset.
             echo $traydigita_brand_svg;
