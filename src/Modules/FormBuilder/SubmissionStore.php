@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\FormBuilder;
 
+use Throwable;
 use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function array_keys;
 use function array_map;
@@ -65,8 +66,10 @@ final class SubmissionStore
      * (form_id, status, created_at) for the admin list's usual
      * filter combination and drops the single-column `form_id`
      * key, which is the composite's leftmost prefix.
+     * Version 3 drops the legacy single-column `form_id` key
+     * left behind by version 2 (dbDelta never drops an index).
      */
-    public const int SCHEMA_VERSION = 2;
+    public const int SCHEMA_VERSION = 3;
 
     /**
      * Option holding the installed schema version.
@@ -203,7 +206,9 @@ final class SubmissionStore
      * respected). Table creation itself never happens here: the
      * lazy insert path (ensureTableForInsert(), called from
      * insert()) creates a missing table with CREATE TABLE IF NOT
-     * EXISTS.
+     * EXISTS. After a successful version bump the legacy
+     * single-column index left by version 2 is dropped
+     * (see dropLegacyIndexes()).
      *
      * @param bool $force Bypass the hourly version-check throttle.
      * @return bool True when the table exists with the current version,
@@ -211,7 +216,55 @@ final class SubmissionStore
      */
     public static function ensureTable(bool $force = false): bool
     {
-        return self::schema()->ensureSchema($force);
+        $before = self::schema()->storedVersion();
+        $ok = self::schema()->ensureSchema($force);
+        if ($ok && $before < self::SCHEMA_VERSION && self::schema()->isCurrentVersion()) {
+            self::dropLegacyIndexes();
+        }
+        return $ok;
+    }
+
+    /**
+     * Drop the legacy single-column index left by version 2.
+     *
+     * dbDelta adds indexes but never drops them, so installs
+     * upgraded from version 1 kept the `form_id` single
+     * alongside the version 2 composite. The legacy key is
+     * dropped only when it still exists AND the composite
+     * that covers it is present, so a failed composite
+     * creation can never leave a query without an index.
+     * The admin list query was verified against this:
+     * `form_id` is filtered alone and is the leftmost prefix
+     * of `form_status_created`. Never throws, never
+     * error_logs — a leftover duplicate is harmless.
+     *
+     * @return void
+     */
+    private static function dropLegacyIndexes(): void
+    {
+        try {
+            global $wpdb;
+            $table = self::tableName();
+            $existing = [];
+            $rows = $wpdb->get_results("SHOW INDEX FROM {$table}", ARRAY_A);
+            if (is_array($rows)) {
+                foreach ($rows as $row) {
+                    if (isset($row['Key_name']) && is_string($row['Key_name'])) {
+                        $existing[$row['Key_name']] = true;
+                    }
+                }
+            }
+            $drops = [
+                'form_id' => 'form_status_created',
+            ];
+            foreach ($drops as $legacy => $composite) {
+                if (isset($existing[$legacy]) && isset($existing[$composite])) {
+                    $wpdb->query("ALTER TABLE {$table} DROP INDEX {$legacy}");
+                }
+            }
+        } catch (Throwable) {
+            // Silent: a leftover duplicate index is harmless.
+        }
     }
 
     /**

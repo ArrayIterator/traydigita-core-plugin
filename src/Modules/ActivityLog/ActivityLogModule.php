@@ -97,8 +97,13 @@ final class ActivityLogModule implements ModuleInterface
      * composite) and replaces `user_id` with the composite
      * `user_created`, so the viewer filter on a user sorts by
      * `created_at` from the index instead of a filesort.
+     * Version 3 drops the legacy single-column `module`,
+     * `event_type` and `user_id` keys left behind by version 2
+     * (dbDelta never drops an index): each is the leftmost
+     * prefix of its composite, verified against the viewer
+     * queries, so no lookup is lost.
      */
-    public const int TABLE_VERSION = 2;
+    public const int TABLE_VERSION = 3;
 
     /**
      * Transient throttling the version-gated dbDelta check.
@@ -463,6 +468,9 @@ final class ActivityLogModule implements ModuleInterface
      * the upgrade, and the lock is always released in a
      * `finally` block. The Setup button passes $force to bypass
      * the version transient (the lock is still respected).
+     * After a successful version bump the legacy
+     * single-column indexes left by version 2 are dropped
+     * (see dropLegacyIndexes()).
      *
      * @param bool $force Bypass the version transient (Setup button).
      * @return bool True when the table exists with the current version,
@@ -470,7 +478,60 @@ final class ActivityLogModule implements ModuleInterface
      */
     public static function ensureSchema(bool $force = false): bool
     {
-        return self::schema()->ensureSchema($force);
+        $before = self::schema()->storedVersion();
+        $ok = self::schema()->ensureSchema($force);
+        if ($ok && $before < self::TABLE_VERSION && self::schema()->isCurrentVersion()) {
+            self::dropLegacyIndexes();
+        }
+        return $ok;
+    }
+
+    /**
+     * Drop the legacy single-column indexes left by version 2.
+     *
+     * dbDelta adds indexes but never drops them, so installs
+     * upgraded from version 1 kept the `module`, `event_type`
+     * and `user_id` singles alongside the version 2 composites.
+     * Each legacy key is dropped only when it still exists AND
+     * the composite that covers it is present, so a failed
+     * composite creation can never leave a query without an
+     * index. The viewer queries were verified against this:
+     * `module` / `event_type` / `user_id` are each filtered
+     * alone and each is the leftmost prefix of its composite
+     * (`module_created` / `event_created` / `user_created`),
+     * and the DISTINCT filter-select queries order by the same
+     * leading column. Never throws, never error_logs — a
+     * leftover duplicate is harmless.
+     *
+     * @return void
+     */
+    private static function dropLegacyIndexes(): void
+    {
+        try {
+            global $wpdb;
+            $table = self::tableName();
+            $existing = [];
+            $rows = $wpdb->get_results("SHOW INDEX FROM {$table}", ARRAY_A);
+            if (is_array($rows)) {
+                foreach ($rows as $row) {
+                    if (isset($row['Key_name']) && is_string($row['Key_name'])) {
+                        $existing[$row['Key_name']] = true;
+                    }
+                }
+            }
+            $drops = [
+                'module' => 'module_created',
+                'event_type' => 'event_created',
+                'user_id' => 'user_created',
+            ];
+            foreach ($drops as $legacy => $composite) {
+                if (isset($existing[$legacy]) && isset($existing[$composite])) {
+                    $wpdb->query("ALTER TABLE {$table} DROP INDEX {$legacy}");
+                }
+            }
+        } catch (Throwable) {
+            // Silent: a leftover duplicate index is harmless.
+        }
     }
 
     /**

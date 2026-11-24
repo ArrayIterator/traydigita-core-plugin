@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TrayDigita\WP\Plugin\Core\Modules\Email;
 
+use Throwable;
 use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function absint;
 use function function_exists;
@@ -85,8 +86,11 @@ final class TemplateStore
      * (type, parent_id, status) for the children queries, and
      * drops the single-column `is_default` key — no query
      * filters on `is_default` alone.
+     * Version 3 drops the legacy `type_status`, `parent_id`
+     * and `is_default` keys left behind by version 2
+     * (dbDelta never drops an index).
      */
-    public const int DB_VERSION = 2;
+    public const int DB_VERSION = 3;
 
     /**
      * Option flag recording the installed schema version.
@@ -289,13 +293,71 @@ final class TemplateStore
      * itself never happens here: the lazy paths
      * (ensureTableExists()) create a missing table with CREATE
      * TABLE IF NOT EXISTS.
+     * After a successful version bump the legacy indexes left
+     * by version 2 are dropped (see dropLegacyIndexes()).
      *
      * @param bool $force Bypass the hourly version-check throttle.
      * @return bool True when the table exists after this call.
      */
     public static function ensureTable(bool $force = false): bool
     {
-        return self::schema()->ensureSchema($force);
+        $before = self::schema()->storedVersion();
+        $ok = self::schema()->ensureSchema($force);
+        if ($ok && $before < self::DB_VERSION && self::schema()->isCurrentVersion()) {
+            self::dropLegacyIndexes();
+        }
+        return $ok;
+    }
+
+    /**
+     * Drop the legacy indexes left by version 2.
+     *
+     * dbDelta adds indexes but never drops them, so installs
+     * upgraded from version 1 kept the `type_status`,
+     * `parent_id` and `is_default` keys alongside the version 2
+     * composites. Each legacy key is dropped only when it still
+     * exists AND the composite that serves its queries is
+     * present, so a failed composite creation can never leave
+     * a query without an index. The queries were verified
+     * against this: `type_status` is the leftmost prefix of
+     * `type_status_default`; the children/autosave queries
+     * filter type + parent_id + status, served exactly by
+     * `type_parent_status`, and no query filters `parent_id`
+     * alone; the only query using `is_default` is the default
+     * lookup (type + status + is_default), served exactly by
+     * `type_status_default`, and no query filters `is_default`
+     * alone. Never throws, never error_logs — a leftover
+     * duplicate is harmless.
+     *
+     * @return void
+     */
+    private static function dropLegacyIndexes(): void
+    {
+        try {
+            global $wpdb;
+            $table = self::tableName();
+            $existing = [];
+            $rows = $wpdb->get_results("SHOW INDEX FROM {$table}", ARRAY_A);
+            if (is_array($rows)) {
+                foreach ($rows as $row) {
+                    if (isset($row['Key_name']) && is_string($row['Key_name'])) {
+                        $existing[$row['Key_name']] = true;
+                    }
+                }
+            }
+            $drops = [
+                'type_status' => 'type_status_default',
+                'parent_id' => 'type_parent_status',
+                'is_default' => 'type_status_default',
+            ];
+            foreach ($drops as $legacy => $composite) {
+                if (isset($existing[$legacy]) && isset($existing[$composite])) {
+                    $wpdb->query("ALTER TABLE {$table} DROP INDEX {$legacy}");
+                }
+            }
+        } catch (Throwable) {
+            // Silent: a leftover duplicate index is harmless.
+        }
     }
 
     /**

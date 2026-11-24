@@ -5,6 +5,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Agenda;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use TrayDigita\WP\Plugin\Core\Libs\SchemaTable;
 use function __;
 use function absint;
@@ -70,8 +71,11 @@ final class AgendaTable
      * start_datetime, so the composites serve filter + sort
      * from the index. Each old single is the leftmost prefix
      * of its composite, so no lookup is lost.
+     * Version 3 drops the legacy single-column
+     * `start_datetime` and `category` keys left behind by
+     * version 2 (dbDelta never drops an index).
      */
-    public const int DB_VERSION = 2;
+    public const int DB_VERSION = 3;
 
     /**
      * Option flag recording the installed schema version.
@@ -265,13 +269,68 @@ final class AgendaTable
      * the lazy write path (ensureTableExists(), called from
      * insert/update/delete) creates a missing table with
      * CREATE TABLE IF NOT EXISTS.
+     * After a successful version bump the legacy
+     * single-column indexes left by version 2 are dropped
+     * (see dropLegacyIndexes()).
      *
      * @param bool $force Bypass the hourly version-check throttle.
      * @return bool True when the table exists after this call.
      */
     public static function ensureTable(bool $force = false): bool
     {
-        return self::schema()->ensureSchema($force);
+        $before = self::schema()->storedVersion();
+        $ok = self::schema()->ensureSchema($force);
+        if ($ok && $before < self::DB_VERSION && self::schema()->isCurrentVersion()) {
+            self::dropLegacyIndexes();
+        }
+        return $ok;
+    }
+
+    /**
+     * Drop the legacy single-column indexes left by version 2.
+     *
+     * dbDelta adds indexes but never drops them, so installs
+     * upgraded from version 1 kept the `start_datetime` and
+     * `category` singles alongside the version 2 composites.
+     * Each legacy key is dropped only when it still exists AND
+     * the composite that covers it is present, so a failed
+     * composite creation can never leave a query without an
+     * index. The list queries were verified against this:
+     * `start_datetime` is filtered (alone or with
+     * `end_datetime`) and ordered by in every status filter,
+     * so `start_end` covers it as its leftmost prefix, and
+     * the category filter orders by `start_datetime`, so
+     * `category_start` covers it. Never throws, never
+     * error_logs — a leftover duplicate is harmless.
+     *
+     * @return void
+     */
+    private static function dropLegacyIndexes(): void
+    {
+        try {
+            global $wpdb;
+            $table = self::tableName();
+            $existing = [];
+            $rows = $wpdb->get_results("SHOW INDEX FROM {$table}", ARRAY_A);
+            if (is_array($rows)) {
+                foreach ($rows as $row) {
+                    if (isset($row['Key_name']) && is_string($row['Key_name'])) {
+                        $existing[$row['Key_name']] = true;
+                    }
+                }
+            }
+            $drops = [
+                'start_datetime' => 'start_end',
+                'category' => 'category_start',
+            ];
+            foreach ($drops as $legacy => $composite) {
+                if (isset($existing[$legacy]) && isset($existing[$composite])) {
+                    $wpdb->query("ALTER TABLE {$table} DROP INDEX {$legacy}");
+                }
+            }
+        } catch (Throwable) {
+            // Silent: a leftover duplicate index is harmless.
+        }
     }
 
     /**

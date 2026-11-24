@@ -230,10 +230,29 @@ final class EmailModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
     /**
      * Register hooks. Called only when the module is enabled.
      *
+     * Runs the templates-table schema-upgrade check first
+     * (TemplateStore::ensureTable(), admin-only, throttled),
+     * so upgraded installs receive schema changes even
+     * though the registry has no activation hook.
+     *
      * @return void
      */
     public static function boot(): void
     {
+        // The registry has no activation hook, so the
+        // templates-table schema-upgrade check runs here, the
+        // first time the enabled module boots — mirroring
+        // AgendaModule::boot() → AgendaTable::ensureTable().
+        // Without this call nothing ever runs
+        // TemplateStore::ensureTable(): the read/write paths
+        // only call ensureTableExists(), which returns at once
+        // when the table exists and never checks the version,
+        // so an upgraded install would never receive the
+        // version 3 index cleanup. It is admin-only and
+        // throttled to one check per hour behind a transient,
+        // so repeat boots cost nothing; table creation itself
+        // is lazy (ensureTableExists() on the first write).
+        TemplateStore::ensureTable();
         add_filter('wp_mail', [self::class, 'wrapWpMail'], 10, 1);
         add_filter('traydigita:core:mailer/unsubscribe-url', [self::class, 'unsubscribeUrl'], 10, 2);
         EmailAjax::register();
