@@ -366,11 +366,7 @@ final class AuthorBoxModule implements ModuleInterface
                     <input type="number" id="author-box-avatar-size" name="avatar_size" value="<?php echo esc_attr((string) $settings['avatar_size']); ?>" min="48" max="256" step="1">
                 </p>
 
-                <p class="author-box-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
         </div>
         <?php

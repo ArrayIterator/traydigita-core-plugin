@@ -307,7 +307,7 @@ final class RedirectsModule implements ModuleInterface
 
             <p class="redirects-status" data-redirects-status role="status" aria-live="polite"></p>
 
-            <h2 class="redirects-section-title"><?php esc_html_e('Add redirect', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Add redirect', 'traydigita-core'); ?></h2>
             <form class="redirects-rule-form" data-redirects-rule-form method="post" action="">
                 <input type="hidden" name="edit_index" value="" data-redirects-edit-index>
                 <p class="redirects-field">
@@ -364,7 +364,7 @@ final class RedirectsModule implements ModuleInterface
                 </p>
             </form>
 
-            <h2 class="redirects-section-title"><?php esc_html_e('Redirect rules', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Redirect rules', 'traydigita-core'); ?></h2>
             <table class="widefat fixed striped redirects-rules-table">
                 <thead>
                     <tr>
@@ -399,7 +399,7 @@ final class RedirectsModule implements ModuleInterface
                 </tbody>
             </table>
 
-            <h2 class="redirects-section-title"><?php esc_html_e('Settings', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Settings', 'traydigita-core'); ?></h2>
             <form class="redirects-settings-form" data-traydigita-module-form data-traydigita-module="redirects" data-module="redirects" method="post" action="">
                 <?php wp_nonce_field(self::SETTINGS_NONCE_ACTION); ?>
                 <p class="redirects-field">
@@ -414,14 +414,10 @@ final class RedirectsModule implements ModuleInterface
                         ?>
                     </span>
                 </p>
-                <p class="redirects-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
 
-            <h2 class="redirects-section-title"><?php esc_html_e('Most-hit 404s', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Most-hit 404s', 'traydigita-core'); ?></h2>
             <p class="redirects-field-help">
                 <?php
                     \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
@@ -474,7 +470,7 @@ final class RedirectsModule implements ModuleInterface
                 </button>
             </p>
 
-            <h2 class="redirects-section-title"><?php esc_html_e('Import / export', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Import / export', 'traydigita-core'); ?></h2>
             <p class="redirects-field-help">
                 <?php
                     \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(

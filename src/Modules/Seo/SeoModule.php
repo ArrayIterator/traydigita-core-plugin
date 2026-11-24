@@ -1000,9 +1000,7 @@ final class SeoModule implements ModuleInterface
                 'input_class' => 'code',
             ]);
             ?>
-            <p class="seo-form-actions">
-                <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary"><?php esc_html_e('Save changes', 'traydigita-core'); ?></button>
-            </p>
+            <?php SettingsControls::saveBar(); ?>
         </form>
         <?php
         SettingsControls::sectionClose();

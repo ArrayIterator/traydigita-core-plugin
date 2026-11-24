@@ -35,13 +35,13 @@ use function wp_json_encode;
  * Help pattern (Settings Redesign): only a TITLE and a SHORT
  * description are ever visible inline. Any LONG explanation
  * goes behind a Help toggle — the framework renders the short
- * text plus a Help button, and the long text in a hidden panel
- * that the button reveals (see helpText(), intro(), about(),
- * and the `help_long` argument on every control). Module code
- * never builds its own toggle: it passes `help` (short) and
- * `help_long` (long), and the framework does the rest, so the
- * pattern is identical on every settings page. The toggle
- * behaviour lives in `initSettingsHelp()` in
+ * text plus a Help button, and the long text opens in a centred
+ * Help modal with a blurred backdrop (see helpText(), intro(),
+ * about(), and the `help_long` argument on every control).
+ * Module code never builds its own toggle: it passes `help`
+ * (short) and `help_long` (long), and the framework does the
+ * rest, so the pattern is identical on every settings page.
+ * The toggle behaviour lives in `initSettingsHelp()` in
  * resources/js/admin.ts; the labels come from the shell's
  * data-msg-help / data-msg-hide-help attributes.
  *
@@ -122,19 +122,24 @@ final class SettingsControls
      * Help-toggle button markup for a hidden long-text panel.
      *
      * The button carries `aria-controls` (the panel id) and
-     * `aria-expanded`; resources/js/admin.ts flips both and
-     * swaps the label between the shell's Help / Hide help
-     * strings. The label span is what the script rewrites, so
-     * the icon span is kept separate.
+     * `aria-expanded`; resources/js/admin.ts opens the panel's
+     * text in the centred Help modal and swaps the label between
+     * the shell's Help / Hide help strings. The label span is
+     * what the script rewrites, so the icon span is kept
+     * separate. `$title` names the modal heading (the field
+     * label or section title); without one the modal falls back
+     * to the shell's generic Help string.
      *
      * @param string $targetId Id of the hidden panel.
+     * @param string $title Already-translated modal heading, if any.
      * @return string
      */
-    private static function helpToggle(string $targetId): string
+    private static function helpToggle(string $targetId, string $title = ''): string
     {
+        $titleAttr = $title !== '' ? ' data-td-help-title="' . esc_attr($title) . '"' : '';
         return '<button type="button" class="td-settings-help-toggle"'
             . ' data-td-help-toggle aria-expanded="false"'
-            . ' aria-controls="' . esc_attr($targetId) . '">'
+            . ' aria-controls="' . esc_attr($targetId) . '"' . $titleAttr . '>'
             . '<span class="material-icons" aria-hidden="true">help_outline</span>'
             . '<span class="td-settings-help-toggle-label">' . esc_html__('Help', 'traydigita-core') . '</span>'
             . '</button>';
@@ -182,8 +187,8 @@ final class SettingsControls
      * Inline sequence for use inside any existing help wrapper
      * (a `<p class="description">`, a `<span class="…-help">`,
      * or a field help line): the short text stays visible, the
-     * toggle reveals the long text in place. With no long text
-     * this renders the short text alone.
+     * toggle opens the long text in the centred Help modal.
+     * With no long text this renders the short text alone.
      *
      * @param string $short Already-translated short help text.
      * @param string|null $long Already-translated long help text, if any.
@@ -209,7 +214,7 @@ final class SettingsControls
      * so callers that build pre-escaped HTML — an AdminNotice
      * body, for example — can embed a Help toggle without
      * restructuring the notice. The short text is visible; the
-     * long text sits in a hidden panel the toggle reveals.
+     * long text opens in the centred Help modal.
      *
      * @param string $short Already-translated short text.
      * @param string|null $long Already-translated long text, if any.
@@ -279,7 +284,7 @@ final class SettingsControls
             <?php if ($longHtml !== '') : ?>
                 <?php
                 $targetId = self::nextHelpId();
-                echo self::helpToggle($targetId); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id.
+                echo self::helpToggle($targetId, $title); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id.
                 ?>
                 <div class="td-settings-help-long" id="<?php echo esc_attr($targetId); ?>" hidden><?php echo $longHtml; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Caller-built escaped HTML, documented on this method. ?></div>
             <?php endif; ?>
@@ -292,9 +297,10 @@ final class SettingsControls
      *
      * The label is linked to the control through `for` / `id`
      * unless the control is a toggle, whose label wraps the
-     * checkbox itself. The help line shows only the short text;
-     * a long explanation (`$helpLong`) sits behind a Help
-     * toggle in a panel below the row.
+     * checkbox itself. The help line shows only the short text,
+     * on its own line below the control; a long explanation
+     * (`$helpLong`) sits behind a Help toggle that opens the
+     * centred Help modal.
      *
      * @param string $id Control id (also the label `for` value).
      * @param string $label Already-translated field label.
@@ -326,11 +332,11 @@ final class SettingsControls
             <?php if ($help !== null && $help !== '') : ?>
                 <p class="traydigita-ui-field-help td-settings-help"><?php echo esc_html($help); ?>
                 <?php if ($targetId !== '') : ?>
-                    <?php echo self::helpToggle($targetId); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
+                    <?php echo self::helpToggle($targetId, $label); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
                 <?php endif; ?>
                 </p>
             <?php elseif ($targetId !== '') : ?>
-                <?php echo self::helpToggle($targetId); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
+                <?php echo self::helpToggle($targetId, $label); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
             <?php endif; ?>
             <?php if ($targetId !== '') : ?>
                 <div class="td-settings-help-long" id="<?php echo esc_attr($targetId); ?>" hidden>
@@ -636,8 +642,8 @@ final class SettingsControls
      * The id is the anchor the left navigation links to, so it
      * must match the module's `settingsSections()` entry. Only
      * the short description shows inline; a long description
-     * sits behind a Help toggle, like every other long text on
-     * a settings page.
+     * sits behind a Help toggle that opens the centred Help
+     * modal, like every other long text on a settings page.
      *
      * @param string $id Section anchor id, without the `td-section-` prefix.
      * @param string $title Already-translated section title.
@@ -658,11 +664,11 @@ final class SettingsControls
             <?php if ($description !== null && $description !== '') : ?>
                 <p class="traydigita-ui-field-help td-settings-section-description"><?php echo esc_html($description); ?>
                 <?php if ($targetId !== '') : ?>
-                    <?php echo self::helpToggle($targetId); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
+                    <?php echo self::helpToggle($targetId, $title); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
                 <?php endif; ?>
                 </p>
             <?php elseif ($targetId !== '') : ?>
-                <?php echo self::helpToggle($targetId); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
+                <?php echo self::helpToggle($targetId, $title); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Button markup is built by this class from an escaped id. ?>
             <?php endif; ?>
             <?php if ($targetId !== '') : ?>
                 <div class="td-settings-help-long" id="<?php echo esc_attr($targetId); ?>" hidden>
@@ -688,20 +694,29 @@ final class SettingsControls
      * Render the sticky save bar at the end of a settings form.
      *
      * The bar sticks to the bottom of the viewport while the form
-     * scrolls, so Save is always reachable on long pages. It holds
-     * the form's submit button: the shell JavaScript observes that
-     * button and hides its own injected save bar while this one is
-     * visible, so a page never shows two save bars.
+     * scrolls, so Save is always reachable on long pages. This is
+     * the single save pattern for every module settings page: a
+     * form ends with this bar and nothing else — no inline submit
+     * button, no JavaScript-injected second bar.
+     *
+     * `$extraHtml` is an optional caller-built escaped fragment
+     * shown at the left of the bar (for example a secondary link
+     * such as "Open Menus", or a one-line note). It is printed
+     * as-is, so the caller must build it from escaped pieces.
      *
      * @param string|null $label Already-translated button label; defaults to "Save changes".
      * @param bool $disabled True when the form must not be submittable (for example while Photon serves the images).
+     * @param string $extraHtml Caller-built escaped HTML shown at the left of the bar, if any.
      * @return void
      */
-    public static function saveBar(?string $label = null, bool $disabled = false): void
+    public static function saveBar(?string $label = null, bool $disabled = false, string $extraHtml = ''): void
     {
         $buttonLabel = $label ?? __('Save changes', 'traydigita-core');
         ?>
         <div class="td-settings-savebar">
+            <?php if ($extraHtml !== '') : ?>
+                <span class="td-settings-savebar-extra"><?php echo $extraHtml; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Caller-built escaped HTML, documented on this method. ?></span>
+            <?php endif; ?>
             <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary" <?php disabled($disabled); ?>>
                 <?php echo esc_html($buttonLabel); ?>
             </button>

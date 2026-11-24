@@ -1144,11 +1144,7 @@ final class TurnstileModule implements ModuleInterface
                     ?>
                 </p>
 
-                <p class="turnstile-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
 
             <form class="turnstile-test-form" method="post" data-action="<?php echo esc_attr($turnstileTestAction); ?>" data-turnstile-test-form>

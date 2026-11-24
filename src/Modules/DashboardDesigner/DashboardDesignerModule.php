@@ -324,11 +324,7 @@ final class DashboardDesignerModule implements ModuleInterface
                     </span>
                 </p>
 
-                <p class="dashboard-designer-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </p>
+                <?php SettingsControls::saveBar(); ?>
             </form>
         </div>
         <?php

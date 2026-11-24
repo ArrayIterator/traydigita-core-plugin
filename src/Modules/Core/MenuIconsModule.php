@@ -10,6 +10,7 @@ use function __;
 use function admin_url;
 use function array_merge;
 use function current_user_can;
+use function esc_html__;
 use function esc_html_e;
 use function esc_url;
 use function get_option;
@@ -262,39 +263,34 @@ final class MenuIconsModule implements ModuleInterface
             <form class="menu-icons-settings-form" data-traydigita-module-form data-traydigita-module="menu-icons" data-module="menu-icons" method="post" action="">
                 <?php wp_nonce_field(self::SETTINGS_NONCE_ACTION); ?>
 
-                <fieldset class="menu-icons-field-group">
-                    <legend><?php esc_html_e('Default icon behaviour', 'traydigita-core'); ?></legend>
-
-                    <?php
-                    SettingsControls::toggle([
-                        'id' => 'menu-icons-enabled',
-                        'name' => 'enabled',
-                        'label' => __('Show icons in menus', 'traydigita-core'),
-                        'checked' => $settings['enabled'],
-                        'help' => __('When off, icons are still pickable on the Menus screen but are not rendered on the frontend.', 'traydigita-core'),
-                    ]);
-                    SettingsControls::select([
-                        'id' => 'menu-icons-position',
-                        'name' => 'position',
-                        'label' => __('Icon position', 'traydigita-core'),
-                        'value' => $settings['position'],
-                        'options' => [
-                            'before' => __('Before the label (default)', 'traydigita-core'),
-                            'after' => __('After the label', 'traydigita-core'),
-                        ],
-                        'help' => __('Where the icon sits relative to the menu item label.', 'traydigita-core'),
-                    ]);
-                    ?>
-                </fieldset>
-
-                <p class="menu-icons-form-actions">
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                    <a class="traydigita-admin-button" href="<?php echo esc_url(admin_url('nav-menus.php')); ?>">
-                        <?php esc_html_e('Open Menus', 'traydigita-core'); ?>
-                    </a>
-                </p>
+                <?php
+                SettingsControls::sectionOpen('default-behaviour', __('Default icon behaviour', 'traydigita-core'));
+                SettingsControls::toggle([
+                    'id' => 'menu-icons-enabled',
+                    'name' => 'enabled',
+                    'label' => __('Show icons in menus', 'traydigita-core'),
+                    'checked' => $settings['enabled'],
+                    'help' => __('When off, icons are still pickable on the Menus screen but are not rendered on the frontend.', 'traydigita-core'),
+                ]);
+                SettingsControls::select([
+                    'id' => 'menu-icons-position',
+                    'name' => 'position',
+                    'label' => __('Icon position', 'traydigita-core'),
+                    'value' => $settings['position'],
+                    'options' => [
+                        'before' => __('Before the label (default)', 'traydigita-core'),
+                        'after' => __('After the label', 'traydigita-core'),
+                    ],
+                    'help' => __('Where the icon sits relative to the menu item label.', 'traydigita-core'),
+                ]);
+                SettingsControls::sectionClose();
+                SettingsControls::saveBar(
+                    null,
+                    false,
+                    '<a class="traydigita-admin-button" href="' . esc_url(admin_url('nav-menus.php')) . '">'
+                        . esc_html__('Open Menus', 'traydigita-core') . '</a>'
+                );
+                ?>
             </form>
         </div>
         <?php

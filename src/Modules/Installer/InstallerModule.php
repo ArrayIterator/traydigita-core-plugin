@@ -13,6 +13,7 @@ use function count;
 use function current_user_can;
 use function esc_attr;
 use function esc_html;
+use function esc_html__;
 use function esc_html_e;
 use function esc_url;
 use function get_option;
@@ -551,14 +552,14 @@ final class InstallerModule implements ModuleInterface
                         ?>
                     </span>
                 </p>
-                <div class="traydigita-admin-card-foot">
-                    <span class="traydigita-admin-card-note">
-                        <?php esc_html_e('Only changes this page.', 'traydigita-core'); ?>
-                    </span>
-                    <button type="submit" class="traydigita-admin-button traydigita-admin-button-primary">
-                        <?php esc_html_e('Save changes', 'traydigita-core'); ?>
-                    </button>
-                </div>
+                <?php
+                SettingsControls::saveBar(
+                    null,
+                    false,
+                    '<span class="traydigita-admin-card-note">'
+                        . esc_html__('Only changes this page.', 'traydigita-core') . '</span>'
+                );
+                ?>
             </form>
         </div>
         <?php

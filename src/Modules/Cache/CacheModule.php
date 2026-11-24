@@ -737,8 +737,8 @@ final class CacheModule implements ModuleInterface
                 <a href="<?php echo esc_url($cacheHeadersUrl); ?>"><?php esc_html_e('Open Custom Headers', 'traydigita-core'); ?></a>
             </p>
 
-            <div data-traydigita-panel="cache" role="tabpanel" aria-labelledby="traydigita-tab-cache">
-            <h2 class="cache-section-title"><?php esc_html_e('Cache plugins', 'traydigita-core'); ?></h2>
+            <div class="traydigita-ui-section td-settings-section" data-traydigita-panel="cache" role="tabpanel" aria-labelledby="traydigita-tab-cache">
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Cache plugins', 'traydigita-core'); ?></h2>
             <?php if ($cachePlugins === []) : ?>
                 <p class="cache-empty">
                     <?php esc_html_e('No cache plugin detected. The actions below still cover the OPcache, the object cache, and transients.', 'traydigita-core'); ?>
@@ -793,7 +793,7 @@ final class CacheModule implements ModuleInterface
                 </table>
             <?php endif; ?>
 
-            <h2 class="cache-section-title"><?php esc_html_e('OPcache', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('OPcache', 'traydigita-core'); ?></h2>
             <?php if ($cacheOpcache === null) : ?>
                 <p class="cache-empty">
                     <?php
@@ -859,7 +859,7 @@ final class CacheModule implements ModuleInterface
                 <div class="cache-result" data-cache-result aria-live="polite"></div>
             </form>
 
-            <h2 class="cache-section-title"><?php esc_html_e('Object cache', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Object cache', 'traydigita-core'); ?></h2>
             <form class="cache-action-form" method="post" data-action="<?php echo esc_attr(CacheAjax::ACTION_OBJECT_FLUSH); ?>">
                 <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($cacheNonce); ?>">
                 <input type="hidden" name="action" value="<?php echo esc_attr(CacheAjax::ACTION_OBJECT_FLUSH); ?>">
@@ -886,7 +886,7 @@ final class CacheModule implements ModuleInterface
                 <div class="cache-result" data-cache-result aria-live="polite"></div>
             </form>
 
-            <h2 class="cache-section-title"><?php esc_html_e('Transients', 'traydigita-core'); ?></h2>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Transients', 'traydigita-core'); ?></h2>
             <form class="cache-action-form" method="post" data-action="<?php echo esc_attr(CacheAjax::ACTION_TRANSIENTS_FLUSH); ?>">
                 <input type="hidden" name="_ajax_nonce" value="<?php echo esc_attr($cacheNonce); ?>">
                 <input type="hidden" name="action" value="<?php echo esc_attr(CacheAjax::ACTION_TRANSIENTS_FLUSH); ?>">
@@ -922,8 +922,8 @@ final class CacheModule implements ModuleInterface
             </form>
 
             </div>
-            <div data-traydigita-panel="cloudflare" role="tabpanel" aria-labelledby="traydigita-tab-cloudflare">
-            <h2 class="cache-section-title"><?php esc_html_e('Cloudflare', 'traydigita-core'); ?></h2>
+            <div class="traydigita-ui-section td-settings-section" data-traydigita-panel="cloudflare" role="tabpanel" aria-labelledby="traydigita-tab-cloudflare" hidden>
+            <h2 class="traydigita-ui-section-title"><?php esc_html_e('Cloudflare', 'traydigita-core'); ?></h2>
             <?php if (!$cacheCloudflareConfigured) : ?>
                 <p class="cache-note">
                     <?php
