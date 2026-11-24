@@ -185,6 +185,8 @@
             dirty: false,
         };
         var autosaveTimer = null;
+        var autosaveController = null;
+        var lastSavedJson = '';
         var previewTimer = null;
         var draggedIndex = -1;
         var mediaFrame = null;
@@ -199,14 +201,18 @@
             messageEl.classList.toggle('is-ok', kind === 'ok');
         }
 
-        function post(action, fields) {
+        function post(action, fields, signal) {
             var body = new FormData();
             body.append('action', action);
             body.append('_ajax_nonce', nonce);
             Object.keys(fields).forEach(function (key) {
                 body.append(key, fields[key]);
             });
-            return fetch(ajaxUrl, { method: 'POST', body: body, credentials: 'same-origin' })
+            var options = { method: 'POST', body: body, credentials: 'same-origin' };
+            if (signal) {
+                options.signal = signal;
+            }
+            return fetch(ajaxUrl, options)
                 .then(function (response) { return response.json(); });
         }
 
@@ -567,22 +573,77 @@
             autosaveTimer = window.setTimeout(runAutosave, 1500);
         }
 
+        /* The content an autosave would store, as one string:
+         * the comparison is against the last saved draft, so
+         * the autosave never rewrites a row with content the
+         * draft already holds. */
+        function savedContentJson(name, blocks) {
+            return JSON.stringify({ name: name, blocks: blocks });
+        }
+
+        /* Drop a pending autosave: the timer, and an autosave
+         * request already in flight (aborted, so its response
+         * can never overwrite the message a save just showed). */
+        function cancelAutosave() {
+            if (autosaveTimer) {
+                window.clearTimeout(autosaveTimer);
+                autosaveTimer = null;
+            }
+            if (autosaveController) {
+                autosaveController.abort();
+                autosaveController = null;
+            }
+        }
+
         function runAutosave() {
+            autosaveTimer = null;
             var blocks = serializeBlocks();
             var name = readName().trim();
             var id = readId();
             if (id === '' && name === '' && !hasUsableBlock(blocks)) {
                 return;
             }
+            /* The draft already holds exactly this content (a
+             * save just ran, or the template was just loaded):
+             * writing it again as an autosave would only bump
+             * the row's timestamp, and the restore check treats
+             * a newer timestamp as unsaved changes, so the
+             * banner would offer to restore identical content. */
+            var contentJson = savedContentJson(name, blocks);
+            if (contentJson === lastSavedJson) {
+                return;
+            }
+            autosaveController = new AbortController();
+            var controller = autosaveController;
             post('traydigita_email_autosave', {
                 template: JSON.stringify({ id: id, name: name, blocks: blocks }),
-            }).then(function (result) {
+            }, controller.signal).then(function (result) {
+                if (autosaveController === controller) {
+                    autosaveController = null;
+                }
                 if (result && result.success && result.data) {
                     if (result.data.id) {
                         writeId(result.data.id);
                     }
                     state.dirty = false;
-                    showMessage('Autosaved ' + timeString(result.data.updated_at) + '.', 'ok');
+                    /* A save may have landed while this request
+                     * was in flight: the saved draft now holds
+                     * this content, so the save's message stands
+                     * and the autosave one must not overwrite it. */
+                    if (contentJson !== lastSavedJson) {
+                        showMessage('Autosaved ' + timeString(result.data.updated_at) + '.', 'ok');
+                    }
+                }
+            }).catch(function (error) {
+                if (autosaveController === controller) {
+                    autosaveController = null;
+                }
+                /* Only the abort from cancelAutosave() is
+                 * swallowed: anything else still rejects, as
+                 * it did before (autosave failures stay silent
+                 * in the UI, they never surface as errors). */
+                if (!error || error.name !== 'AbortError') {
+                    throw error;
                 }
             });
         }
@@ -601,6 +662,11 @@
                 showMessage('Add at least one filled block before saving.', 'error');
                 return;
             }
+            /* The save supersedes any autosave of this same
+             * content: drop its timer, and abort it if it is
+             * already in flight, so no autosave message can
+             * land after the save's message. */
+            cancelAutosave();
             post('traydigita_email_save_template', {
                 template: JSON.stringify({ id: id, name: name, blocks: blocks }),
                 status: status,
@@ -611,6 +677,7 @@
                             writeId(result.data.template.id);
                         }
                         state.dirty = false;
+                        lastSavedJson = savedContentJson(name, blocks);
                         showMessage('Draft saved.', 'ok');
                         return;
                     }
@@ -627,6 +694,7 @@
             state.blocks = deepCopy(template.blocks || []);
             state.selected = -1;
             state.dirty = false;
+            lastSavedJson = savedContentJson(state.name, state.blocks);
             hideRestore();
             renderCanvas();
             updatePreview();
@@ -1064,11 +1132,13 @@
         var newBtn = root.querySelector('.td-eb-new');
         if (newBtn) {
             newBtn.addEventListener('click', function () {
+                cancelAutosave();
                 writeId('');
                 writeName('');
                 state.blocks = [];
                 state.selected = -1;
                 state.dirty = false;
+                lastSavedJson = '';
                 hideRestore();
                 renderCanvas();
                 if (previewFrame) {

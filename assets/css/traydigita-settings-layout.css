@@ -184,3 +184,95 @@
 .form-builder-module table.traydigita-template-editor-table td:nth-child(5) {
     min-width: 13rem;
 }
+
+/*
+ * Email subscriber and send-log tables: five columns whose
+ * content makes the table wider than the content column, so
+ * at 390px the subscriber table ran to 444px and the page
+ * overflowed by ~70px. Same block-scroll treatment as the
+ * Contact Form table above, scoped to these two tables only:
+ * the table scrolls horizontally inside its column instead
+ * of overflowing the page. At desktop widths the content
+ * fits, so no scrollbar appears and the layout is unchanged.
+ */
+.email-module table.email-subscriber-table,
+.email-module table.email-log-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.email-module table.email-subscriber-table th,
+.email-module table.email-log-table th {
+    white-space: nowrap;
+}
+
+.email-module table.email-subscriber-table td,
+.email-module table.email-log-table td {
+    vertical-align: top;
+}
+
+.email-module table.email-subscriber-table td:last-child {
+    white-space: nowrap;
+}
+
+/*
+ * Form Builder tables: the Forms list, the field-editor
+ * table, the templates list and the contact-forms list are
+ * all plain `.widefat` tables whose columns make them wider
+ * than the content column, so at 390px the widest ran to
+ * 614px and the page overflowed by 240px. Same block-scroll
+ * treatment as the Contact Form table above, scoped to this
+ * module: each table scrolls horizontally inside its column
+ * instead of overflowing the page. At desktop widths the
+ * content fits, so no scrollbar appears. The template-editor
+ * table keeps its own rule above (same declarations, narrower
+ * scope, so it is unaffected by this one).
+ */
+.form-builder-module table.widefat {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.form-builder-module table.widefat th {
+    white-space: nowrap;
+}
+
+.form-builder-module table.widefat td {
+    vertical-align: top;
+}
+
+/*
+ * Settings nav rail on narrow screens: the section links
+ * (`.td-settings-nav-list`, one `<li>` per page section) are
+ * a horizontal strip with `flex-shrink: 0` and `white-space:
+ * nowrap`, so at 390px the last links sit past the viewport
+ * (right edge ~531px) and are reachable only by scrolling
+ * the strip. At the framework's mobile breakpoint (782px,
+ * the same breakpoint the bundled stylesheet uses) the rail
+ * collapses into a vertical list instead: every section is
+ * visible without horizontal scrolling, with full-width tap
+ * targets. These selectors (0,2,0) outrank both the bundled
+ * stylesheet and the shell's inline critical CSS (0,1,0 for
+ * the list and the links), so the collapse wins without
+ * touching shell.php. The tab variant (`.traydigita-admin-tabs`
+ * buttons) is intentionally untouched: the framework keeps
+ * those scrolling horizontally at this breakpoint by design.
+ */
+@media (max-width: 782px) {
+    .td-settings-nav .td-settings-nav-list {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 0;
+        overflow-x: visible;
+    }
+
+    .td-settings-nav .td-settings-nav-link {
+        flex-shrink: 1;
+        white-space: normal;
+    }
+}
