@@ -375,7 +375,7 @@ final class MailerModule implements ModuleInterface
     /**
      * Allowed SMTP presets: the mailbox providers from the
      * final provider catalog (37 providers in the dropdown,
-     * 28 SMTP presets inside the SMTP provider).
+     * 27 SMTP presets inside the SMTP provider).
      *
      * @var array<int, string>
      */
@@ -391,7 +391,7 @@ final class MailerModule implements ModuleInterface
         'icloud',
         'gmx',
         'mailcom',
-        'aol',
+        // 'aol', // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
         'qq',
         'mail163',
         'mail126',
@@ -442,7 +442,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => ['host' => 'smtp.mail.me.com', 'port' => 587, 'encryption' => 'tls'],
         'gmx' => ['host' => 'mail.gmx.com', 'port' => 587, 'encryption' => 'tls'],
         'mailcom' => ['host' => 'smtp.mail.com', 'port' => 587, 'encryption' => 'tls'],
-        'aol' => ['host' => 'smtp.aol.com', 'port' => 587, 'encryption' => 'tls'],
+        // 'aol' => ['host' => 'smtp.aol.com', 'port' => 587, 'encryption' => 'tls'], // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
         'qq' => ['host' => 'smtp.qq.com', 'port' => 465, 'encryption' => 'ssl'],
         'mail163' => ['host' => 'smtp.163.com', 'port' => 465, 'encryption' => 'ssl'],
         'mail126' => ['host' => 'smtp.126.com', 'port' => 465, 'encryption' => 'ssl'],
@@ -479,7 +479,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => ['label' => 'iCloud Mail', 'description' => 'Needs an Apple app-specific password; use the full @icloud.com address as the username.'],
         'gmx' => ['label' => 'GMX Mail', 'description' => 'Enable SMTP access in the GMX settings first.'],
         'mailcom' => ['label' => 'Mail.com', 'description' => 'SMTP access is a premium Mail.com feature.'],
-        'aol' => ['label' => 'AOL Mail', 'description' => 'Needs an AOL app password when 2-Step Verification is on.'],
+        // 'aol' => ['label' => 'AOL Mail', 'description' => 'Needs an AOL app password when 2-Step Verification is on.'], // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
         'qq' => ['label' => 'QQ Mail', 'description' => 'Needs a QQ Mail authorization code (not the account password).'],
         'mail163' => ['label' => '163 Mail', 'description' => 'Needs a 163 Mail authorization code (not the account password).'],
         'mail126' => ['label' => '126 Mail', 'description' => 'Needs a 126 Mail authorization code (not the account password).'],
@@ -574,7 +574,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => 'email-icloud',
         'gmx' => 'email-gmx',
         'mailcom' => 'email-mail-com',
-        'aol' => 'email-aol',
+        // 'aol' => 'email-aol', // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
         'qq' => 'email-qq-mail',
         'mail163' => 'email-mail-163',
         'mail126' => 'email-mail-126',
@@ -996,7 +996,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (28 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, AOL, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (27 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Mail.ru, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
