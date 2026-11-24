@@ -48,7 +48,7 @@ use function wp_unslash;
  *
  * Trust rules, enforced before any network or filesystem work:
  * - The slug must be in the curated PluginList, and the entry must
- *   be marked installable. Unknown slugs and the traydigita-stack
+ *   be marked installable. Unknown slugs and the traydigita-core
  *   slug (no wordpress.org package) are refused with a JSON error;
  *   nothing is ever downloaded from a caller-supplied URL.
  * - The download link returned by plugins_api() must point at the
@@ -274,7 +274,7 @@ final class InstallerAjax
      *
      * Returns the entry only when the slug is curated AND marked
      * installable (a wordpress.org package exists). Returns null
-     * for unknown slugs and for traydigita-stack, so callers can
+     * for unknown slugs and for traydigita-core, so callers can
      * refuse before any network or filesystem work happens. Pure
      * allowlist check — no WordPress state is read or changed.
      *
@@ -312,7 +312,7 @@ final class InstallerAjax
     /**
      * Error message for a slug that cannot be installed from here.
      *
-     * Unknown slugs get a generic refusal. The stack slug gets the
+     * Unknown slugs get a generic refusal. The core slug gets the
      * specific explanation: it has no wordpress.org package, so
      * this installer cannot fetch it — it must come from the
      * project's own release, and the theme cannot boot without it.
@@ -322,9 +322,9 @@ final class InstallerAjax
      */
     private static function notInstallableMessage(string $slug): string
     {
-        if ($slug === PluginList::STACK_SLUG) {
+        if ($slug === PluginList::CORE_SLUG) {
             return esc_html__(
-                'TrayDigita Stack is not available from the wordpress.org plugin directory, so it cannot be installed from here. Install it from the project’s own release instead — the theme cannot boot without it.',
+                'TrayDigita Core is not available from the wordpress.org plugin directory, so it cannot be installed from here. Install it from the project’s own release instead — the theme cannot boot without it.',
                 'traydigita-core'
             );
         }

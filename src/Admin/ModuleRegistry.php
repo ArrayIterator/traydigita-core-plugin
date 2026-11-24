@@ -411,6 +411,7 @@ final class ModuleRegistry
         'redirects',
         'bookmarks',
         'passkeys',
+        'activity-log',
     ];
 
     /**

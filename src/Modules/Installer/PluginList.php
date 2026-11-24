@@ -20,7 +20,7 @@ use function is_string;
  *
  * Trust rule: a plugin is installable from here only when its package
  * comes from the wordpress.org plugin directory. Every entry below
- * is a wordpress.org slug — except traydigita-stack, which is the
+ * is a wordpress.org slug — except traydigita-core, which is the
  * theme's own required companion plugin and is NOT on wordpress.org:
  * it is listed for its required-notice and status only, and
  * InstallerAjax refuses to install it (see isInstallable()).
@@ -61,17 +61,34 @@ use function is_string;
 final class PluginList
 {
     /**
-     * Plugin file of the required traydigita-stack companion plugin.
+     * Plugin file of the required traydigita-core companion plugin.
      *
      * The theme gates its boot on this plugin (functions.php), so a
      * site running the theme normally always has it active. The row
      * still exists so the dependency is visible and its status is
      * checked, not assumed.
      */
+    public const string CORE_PLUGIN_FILE = 'traydigita-core/traydigita-core.php';
+
+    /**
+     * Plugin slug of the required traydigita-core companion plugin.
+     */
+    public const string CORE_SLUG = 'traydigita-core';
+
+    /**
+     * Plugin file of the legacy traydigita-stack companion plugin.
+     *
+     * No longer the theme's required dependency — that is
+     * traydigita-core (see CORE_SLUG). The Setup flow
+     * (SetupAjax/SetupPage) still installs and checks the stack
+     * plugin, so the constants stay until that flow is updated.
+     */
     public const string STACK_PLUGIN_FILE = 'traydigita-stack/traydigita-stack.php';
 
     /**
-     * Plugin slug of the required traydigita-stack companion plugin.
+     * Plugin slug of the legacy traydigita-stack companion plugin.
+     *
+     * Kept for the Setup flow (see STACK_PLUGIN_FILE).
      */
     public const string STACK_SLUG = 'traydigita-stack';
 
@@ -134,7 +151,7 @@ final class PluginList
      * matters because ModuleRegistry::moduleListData() calls
      * isConfigured() for every module on the modules page.
      *
-     * Each entry: slug (wordpress.org slug, except the stack slug),
+     * Each entry: slug (wordpress.org slug, except the core slug),
      * file (plugin file as used by is_plugin_active() /
      * activate_plugin()), name (product name, intentionally not
      * translated), reason (one line, translatable), category
@@ -142,7 +159,7 @@ final class PluginList
      * recommended (top recommendation badge — from the shared
      * cache mapping for cache plugins, static for the rest),
      * required (theme dependency badge), installable (false when
-     * no wordpress.org package exists — the stack plugin),
+     * no wordpress.org package exists — the core plugin),
      * duplicates (theme module id this plugin overlaps, or null;
      * shown as a disclosure, never hidden).
      *
@@ -207,9 +224,9 @@ final class PluginList
                 'duplicates' => 'seo',
             ],
             [
-                'slug' => self::STACK_SLUG,
-                'file' => self::STACK_PLUGIN_FILE,
-                'name' => 'TrayDigita Stack',
+                'slug' => self::CORE_SLUG,
+                'file' => self::CORE_PLUGIN_FILE,
+                'name' => 'TrayDigita Core',
                 'reason' => __(
                     'Required by the theme: the theme does not boot without it. It provides the image, popular-posts and messaging helpers the theme uses.',
                     'traydigita-core'
@@ -465,7 +482,7 @@ final class PluginList
         return match ($slug) {
             'google-site-kit' => 'analytics',
             'seo-by-rank-math', 'wordpress-seo', 'wp-seopress', 'all-in-one-seo-pack', 'slim-seo', 'autodescription' => 'search',
-            self::STACK_SLUG => 'layers',
+            self::CORE_SLUG => 'layers',
             'litespeed-cache', 'w3-total-cache', 'wp-super-cache', 'wp-fastest-cache', 'cache-enabler' => 'speed',
             'wordfence' => 'shield',
             'ewww-image-optimizer' => 'image',
@@ -498,7 +515,7 @@ final class PluginList
      * Whether a slug may be installed from here.
      *
      * True only for a curated entry that has a wordpress.org
-     * package. Unknown slugs and the traydigita-stack slug (no
+     * package. Unknown slugs and the traydigita-core slug (no
      * wordpress.org package) are not installable — InstallerAjax
      * refuses them instead of fetching anything.
      *

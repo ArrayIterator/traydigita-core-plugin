@@ -29,9 +29,9 @@ use function _n;
  *
  * Its own admin page lists a short curated set of plugins for a
  * news site, with Google Site Kit as the top recommendation and
- * traydigita-stack flagged as required — the theme does not boot
- * without the stack plugin (functions.php gates on it), so the
- * stack row carries a "required" notice and its status is checked,
+ * traydigita-core flagged as required — the theme does not boot
+ * without the core plugin (functions.php gates on it), so the
+ * core row carries a "required" notice and its status is checked,
  * not assumed. Each plugin shows its status (not installed /
  * installed / active) with per-plugin Install and Activate
  * buttons that run live over AJAX with progress; installing never
@@ -39,7 +39,7 @@ use function _n;
  *
  * Trust rules (see PluginList and InstallerAjax): only curated
  * wordpress.org slugs can be installed, the package must come
- * from downloads.wordpress.org, and the stack plugin cannot be
+ * from downloads.wordpress.org, and the core plugin cannot be
  * installed from here at all because it has no wordpress.org
  * package. Installs use core's Plugin_Upgrader, require the
  * `install_plugins` capability (`activate_plugins` for
@@ -189,7 +189,7 @@ final class InstallerModule implements ModuleInterface
      *
      * Always true: the module only lists and installs plugins, so
      * it works whether or not any given recommended plugin is
-     * present. The stack plugin's absence is a status to show, not
+     * present. The core plugin's absence is a status to show, not
      * a missing dependency of this module.
      *
      * @return bool Always true.
@@ -202,17 +202,17 @@ final class InstallerModule implements ModuleInterface
     /**
      * Whether the module is configured enough to do its job.
      *
-     * Configured means the required traydigita-stack plugin is
+     * Configured means the required TrayDigita Core plugin is
      * active. In practice the theme does not boot without it, so
      * this is normally true whenever the page can be reached at
-     * all; it stays a real check so a deactivated stack plugin is
+     * all; it stays a real check so a deactivated Core plugin is
      * surfaced as "needs setup" instead of silently assumed.
      *
      * @return bool
      */
     public static function isConfigured(): bool
     {
-        return PluginList::status(PluginList::STACK_SLUG) === PluginList::STATUS_ACTIVE;
+        return PluginList::status(PluginList::CORE_SLUG) === PluginList::STATUS_ACTIVE;
     }
 
     /**
@@ -264,7 +264,7 @@ final class InstallerModule implements ModuleInterface
     /**
      * Render the installer page inside the admin shell content area.
      *
-     * A required-plugin notice for traydigita-stack, a short "how
+     * A required-plugin notice for traydigita-core, a short "how
      * installing works" note, then the curated plugins grouped by
      * category — Required, Cache, SEO, Analytics, Security, Image
      * — with the recommended plugin first in its group. The cache
@@ -293,7 +293,7 @@ final class InstallerModule implements ModuleInterface
         $settings = self::getSettings();
         $statuses = PluginList::statuses();
         $plugins = PluginList::all();
-        $stackStatus = $statuses[PluginList::STACK_SLUG] ?? PluginList::STATUS_NOT_INSTALLED;
+        $coreStatus = $statuses[PluginList::CORE_SLUG] ?? PluginList::STATUS_NOT_INSTALLED;
         $counts = [
             'all' => count($plugins),
             'active' => 0,
@@ -335,10 +335,10 @@ final class InstallerModule implements ModuleInterface
             data-msg-refreshing="<?php echo esc_attr(__('Refreshing…', 'traydigita-core')); ?>"
             data-msg-refreshed="<?php echo esc_attr(__('Statuses refreshed.', 'traydigita-core')); ?>"
             data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
-            <?php if ($stackStatus !== PluginList::STATUS_ACTIVE) : ?>
+            <?php if ($coreStatus !== PluginList::STATUS_ACTIVE) : ?>
                 <div class="traydigita-admin-notice traydigita-admin-notice-warning">
                     <p>
-                        <?php esc_html_e('TrayDigita Stack is required by the theme and is not active. The theme does not boot without it — install it from the project’s own release, then activate it on the Plugins screen.', 'traydigita-core'); ?>
+                        <?php esc_html_e('TrayDigita Core is required by the theme and is not active. The theme does not boot without it — install it from the project’s own release, then activate it on the Plugins screen.', 'traydigita-core'); ?>
                     </p>
                     <p>
                         <a class="traydigita-admin-button" href="<?php echo esc_url(admin_url('plugins.php')); ?>">
