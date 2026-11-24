@@ -386,7 +386,7 @@ final class MailerModule implements ModuleInterface
         'zoho',
         'zoho_eu',
         'proton',
-        'yandex',
+        // 'yandex', // PENDING (user 2026-11-24): Yandex OAuth blocked by Gosuslugi verification + scopes unconfirmed; SMTP preset disabled, code + logo kept for re-enable.
         'fastmail',
         'icloud',
         'gmx',
@@ -436,7 +436,7 @@ final class MailerModule implements ModuleInterface
         'zoho' => ['host' => 'smtp.zoho.com', 'port' => 465, 'encryption' => 'ssl'],
         'zoho_eu' => ['host' => 'smtp.zoho.eu', 'port' => 465, 'encryption' => 'ssl'],
         'proton' => ['host' => '127.0.0.1', 'port' => 1025, 'encryption' => 'tls'],
-        'yandex' => ['host' => 'smtp.yandex.com', 'port' => 465, 'encryption' => 'ssl'],
+        // 'yandex' => ['host' => 'smtp.yandex.com', 'port' => 465, 'encryption' => 'ssl'], // PENDING (user 2026-11-24): see above.
         'fastmail' => ['host' => 'smtp.fastmail.com', 'port' => 465, 'encryption' => 'ssl'],
         'icloud' => ['host' => 'smtp.mail.me.com', 'port' => 587, 'encryption' => 'tls'],
         'gmx' => ['host' => 'mail.gmx.com', 'port' => 587, 'encryption' => 'tls'],
@@ -472,7 +472,7 @@ final class MailerModule implements ModuleInterface
         'zoho' => ['label' => 'Zoho Mail', 'description' => 'Forever Free plan: 1 domain, 5 users, 5 GB. Domain-based organisation accounts use smtppro.zoho.com instead. App password needed with 2FA.'],
         'zoho_eu' => ['label' => 'Zoho Mail (EU)', 'description' => 'Zoho Mail hosted in the EU (zoho.eu). Organisation accounts use smtppro.zoho.eu instead. App password needed with 2FA.'],
         'proton' => ['label' => 'Proton Mail (via Bridge)', 'description' => 'Proton Mail Bridge must be running on this same host (paid Proton plan); use the Bridge-generated password.'],
-        'yandex' => ['label' => 'Yandex Mail', 'description' => 'Needs a Yandex app password.'],
+        // 'yandex' => ['label' => 'Yandex Mail', 'description' => 'Needs a Yandex app password.'], // PENDING (user 2026-11-24): see above.
         'fastmail' => ['label' => 'Fastmail', 'description' => 'Paid service (30-day trial). Needs a Fastmail app password; the main password never works over SMTP.'],
         'icloud' => ['label' => 'iCloud Mail', 'description' => 'Needs an Apple app-specific password; use the full @icloud.com address as the username.'],
         'gmx' => ['label' => 'GMX Mail', 'description' => 'Enable SMTP access in the GMX settings first.'],
@@ -566,7 +566,7 @@ final class MailerModule implements ModuleInterface
         'zoho' => 'email-zoho',
         'zoho_eu' => 'email-zoho-eu',
         'proton' => 'email-proton',
-        'yandex' => 'email-yandex',
+        // 'yandex' => 'email-yandex', // PENDING (user 2026-11-24): see above.
         'fastmail' => 'email-fastmail',
         'icloud' => 'email-icloud',
         'gmx' => 'email-gmx',
@@ -992,7 +992,7 @@ final class MailerModule implements ModuleInterface
      */
     public static function description(): string
     {
-        return __('Send WordPress mail through SMTP (26 presets: Gmail, Zoho, Zoho EU, Proton, Yandex, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
+        return __('Send WordPress mail through SMTP (25 presets: Gmail, Zoho, Zoho EU, Proton, Fastmail, iCloud, GMX, Mail.com, QQ, 163, 126, Sina, Posteo, Migadu, Mailfence, StartMail, Runbox, Kolab Now, Infomaniak, OVH, Gandi, Namecheap, DreamHost, MXroute), Local PHP mail, or one of 25 transactional APIs (SendGrid, Gmail OAuth, Sender.net, SendPulse, Brevo, Mailjet, Resend, Mailgun, SMTP2GO, MailerSend, Postmark, Elastic Email, Zoho CPaaS, Bird Email, OneSignal, Mailtrap, Amazon SES, Mailchimp Transactional, SendLayer, SocketLabs, Courier, SMTP.com, Unisender, Plunk, Loops) plus 10 marketing APIs (MailerLite, Mailchimp, HubSpot, Omnisend, Klaviyo, GetResponse, AWeber, Constant Contact, Moosend, Campaign Monitor). Includes deliverability headers, a test email tool, and a send log.', 'traydigita-core');
     }
 
     /**
