@@ -4,7 +4,7 @@
  *
  * One entry per ACTIVE module that has a settings page: each entry
  * links to that module's settings page. Disabled modules are not
- * listed here — they live on the Modules page. Core modules link
+ * listed here - they live on the Modules page. Core modules link
  * to their settings page, which forwards to the WordPress screen
  * that owns the setting.
  *

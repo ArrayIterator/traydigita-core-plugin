@@ -41,7 +41,7 @@ use function wp_unslash;
  * default: roles are the site's authorization boundary, and the
  * module must be switched on deliberately.
  *
- * SAFETY — the whole point of this module. Every rule is enforced
+ * SAFETY - the whole point of this module. Every rule is enforced
  * server-side in `saveSettings()`; the UI only mirrors the rules
  * so an administrator is warned before submitting:
  *
@@ -49,7 +49,7 @@ use function wp_unslash;
  *    attempt is refused with an error and nothing is written.
  * 2. Built-in roles (`administrator`, `editor`, `author`,
  *    `contributor`, `subscriber`) can NEVER be deleted. Their
- *    capabilities may be edited — except `administrator` (rule 1).
+ *    capabilities may be edited - except `administrator` (rule 1).
  *    Custom roles can be deleted.
  * 3. Before writing ANY change, the module verifies at least one
  *    user will still have `manage_options` afterwards, counting
@@ -65,7 +65,7 @@ use function wp_unslash;
  *    small documented set of common plugin capabilities). An
  *    unknown name is rejected and nothing is written. Cloning
  *    copies capability names that already exist on the source
- *    role in the database — the request supplies no capability
+ *    role in the database - the request supplies no capability
  *    names at all on that path, only the slug, the display name,
  *    and whether `manage_options` is granted.
  * 5. The whole page requires `manage_options`: the admin menu
@@ -215,7 +215,7 @@ final class RoleEditorModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -268,7 +268,7 @@ final class RoleEditorModule implements ModuleInterface
     /**
      * Whether the module is configured enough to do its job.
      *
-     * Always true: the editor needs no setup — roles already
+     * Always true: the editor needs no setup - roles already
      * exist, and the log starts empty.
      *
      * @return bool Always true.
@@ -459,7 +459,7 @@ final class RoleEditorModule implements ModuleInterface
      * its capability list AFTER the proposed change, and
      * `$userCounts` maps each role slug to its user count. A
      * role only counts when it grants `manage_options` AND has
-     * at least one user — a user holding several roles is
+     * at least one user - a user holding several roles is
      * counted under each of them by `count_users()`, so a
      * multi-role user still counts through the role that keeps
      * the capability. On multisite, an existing super admin also
@@ -492,7 +492,7 @@ final class RoleEditorModule implements ModuleInterface
      * Edit one role's capabilities.
      *
      * Expected fields: `role` (slug), `caps[]` (the complete
-     * desired capability set — unchecked boxes are absent, so
+     * desired capability set - unchecked boxes are absent, so
      * the list is the new set, not a delta). Refuses, writing
      * nothing, when the role is `administrator`, the role does
      * not exist, any capability is not allowlisted, or the
@@ -676,7 +676,7 @@ final class RoleEditorModule implements ModuleInterface
      * zero-admin check runs against the role map without the
      * deleted role, so deleting the last `manage_options` role
      * is refused and nothing is written. Users who held only
-     * the deleted role keep their accounts but lose that role —
+     * the deleted role keep their accounts but lose that role -
      * the page shows the affected user count before confirming.
      *
      * @param array<string, mixed> $data Sanitized form data.
@@ -826,7 +826,7 @@ final class RoleEditorModule implements ModuleInterface
      * All roles mapped to their granted capability names.
      *
      * Reads `wp_roles()->roles` (the roles API's own store) and
-     * keeps only capabilities stored as truthy — WordPress
+     * keeps only capabilities stored as truthy - WordPress
      * stores capabilities as `capability => bool`.
      *
      * @return array<string, array<int, string>> Role slug => capability names.
@@ -889,7 +889,7 @@ final class RoleEditorModule implements ModuleInterface
      * User count per role slug.
      *
      * Uses `count_users()` (which counts a multi-role user
-     * under each of their roles — exactly what the zero-admin
+     * under each of their roles - exactly what the zero-admin
      * check needs). Falls back to a `get_users()` scan when
      * `count_users()` is unavailable.
      *

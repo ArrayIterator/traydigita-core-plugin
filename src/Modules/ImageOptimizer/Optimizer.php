@@ -42,7 +42,7 @@ use function wp_update_attachment_metadata;
  * `getimagesize()` with the expected target MIME type, and only
  * then is it renamed over the destination. An original file is
  * deleted only when the `keep_original` setting is explicitly off
- * AND its converted replacement was verified — a failed conversion
+ * AND its converted replacement was verified - a failed conversion
  * never deletes or corrupts an original, and the attachment
  * metadata is left untouched on failure.
  *
@@ -331,7 +331,7 @@ final class Optimizer
         }
 
         // Only now, with the converted files verified and live, may
-        // the originals be deleted — and only when the setting
+        // the originals be deleted - and only when the setting
         // explicitly says so.
         if (!$keepOriginal) {
             foreach ($renamed as $source => $destination) {
@@ -349,8 +349,8 @@ final class Optimizer
      *
      * The editor writes to a temporary file in the same directory
      * (same filesystem, so the later rename is atomic). The
-     * temporary file is verified — it must exist and
-     * `getimagesize()` must report the target MIME type — before
+     * temporary file is verified - it must exist and
+     * `getimagesize()` must report the target MIME type - before
      * it is accepted. Returns null on any failure, in which case
      * the temporary file is removed.
      *

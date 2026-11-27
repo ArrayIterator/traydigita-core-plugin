@@ -44,7 +44,7 @@ use function wp_remote_retrieve_response_code;
  *    `fonts.gstatic.com` for the font files). Every remote request
  *    carries a timeout, responses are capped in size, and a
  *    downloaded file must start with the woff2 magic bytes before
- *    it is stored — a redirect to a hostile host or a non-font
+ *    it is stored - a redirect to a hostile host or a non-font
  *    payload is rejected instead of saved.
  * 2. Uploads: the client-sent MIME type and the file extension are
  *    never trusted on their own. A file is accepted only when
@@ -138,7 +138,7 @@ final class FontDownloader
     /**
      * Build the Google Fonts css2 stylesheet URL for a family.
      *
-     * Weights are the requested font weights (100–900, step 100).
+     * Weights are the requested font weights (100-900, step 100).
      * With `$italic` true the italic axis is requested for the
      * same weights, so one request covers both styles.
      *

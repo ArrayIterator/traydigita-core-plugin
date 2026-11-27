@@ -80,8 +80,8 @@ use const DAY_IN_SECONDS;
  *   the built `<a>` tag, and it applies to every menu location
  *   (primary, footer, mobile) because all of them render through
  *   `wp_nav_menu()`. The icon is an inline `Glyph::toSvg()` (not a
- *   sprite `<use>`), so a menu rendered anywhere — including after
- *   `wp_footer` or inside the Customizer preview — always finds
+ *   sprite `<use>`), so a menu rendered anywhere - including after
+ *   `wp_footer` or inside the Customizer preview - always finds
  *   its icon, with no page-level sprite state to track.
  * - Storage: one menu-item meta entry (`traydigita_menu_icon`)
  *   holding `['set' => ..., 'name' => ..., 'color' => ...]`, where
@@ -108,7 +108,7 @@ use const DAY_IN_SECONDS;
  *   the legacy one and has the final word.
  * - Filter: `traydigita:core:menu-icons/render` receives the
  *   rendered item HTML (`$html, $icon, $item, $depth`) and may
- *   replace it — for example to move the icon after the label or
+ *   replace it - for example to move the icon after the label or
  *   wrap it in extra markup. It runs only when the icon actually
  *   renders (an item with no icon, or rendering disabled in the
  *   module settings, never reaches it).
@@ -131,7 +131,7 @@ use const DAY_IN_SECONDS;
  * item panel too (same walker), but saving there goes through the
  * Customizer's `customized` JSON rather than the nav-menus form
  * POST, so icon changes made in the Customizer are not persisted
- * — the save handler only touches meta when its fields are present
+ * - the save handler only touches meta when its fields are present
  * in `$_POST`, and never deletes meta it did not see. Icons are
  * edited on Appearance > Menus.
  */

@@ -23,8 +23,8 @@ use function wp_json_encode;
 /**
  * Settings control library (Round 4, R4-5; Settings Redesign).
  *
- * One renderer per control type — text, email, url, password,
- * number, textarea, select, toggle, color and checkbox groups —
+ * One renderer per control type - text, email, url, password,
+ * number, textarea, select, toggle, color and checkbox groups -
  * so every module settings page renders the same markup: a
  * `.traydigita-ui-field` row with a label on the left and the
  * control on the right (see
@@ -34,7 +34,7 @@ use function wp_json_encode;
  *
  * Help pattern (Settings Redesign): only a TITLE and a SHORT
  * description are ever visible inline. Any LONG explanation
- * goes behind a Help toggle — the framework renders the short
+ * goes behind a Help toggle - the framework renders the short
  * text plus a Help button, and the long text opens in a centred
  * Help modal with a blurred backdrop (see helpText(), intro(),
  * about(), and the `help_long` argument on every control).
@@ -53,7 +53,7 @@ use function wp_json_encode;
  * exactly as the generic AJAX save endpoint expects.
  *
  * Form Controls Redesign: every control is a modern field (see
- * resources/css/components/admin-ui.css) — an 8px radius,
+ * resources/css/components/admin-ui.css) - an 8px radius,
  * generous padding, a hover border and an identical focus ring
  * on every type. A textarea takes `'variant' => 'code'` for
  * JSON / code content (monospace, code tint, taller minimum)
@@ -148,8 +148,8 @@ final class SettingsControls
     /**
      * Split an already-translated description into short + long.
      *
-     * For descriptions that arrive as one dynamic string — a
-     * market provider's getDescription(), for example — where
+     * For descriptions that arrive as one dynamic string - a
+     * market provider's getDescription(), for example - where
      * the author cannot split short/long at the call site. The
      * split is the first sentence boundary (". ", "! " or "? ")
      * past 40 characters; when the text is short, or has no
@@ -185,7 +185,7 @@ final class SettingsControls
      * a Help toggle.
      *
      * Inline sequence for use inside any existing help wrapper
-     * (a `<p class="description">`, a `<span class="…-help">`,
+     * (a `<p class="description">`, a `<span class="...-help">`,
      * or a field help line): the short text stays visible, the
      * toggle opens the long text in the centred Help modal.
      * With no long text this renders the short text alone.
@@ -211,8 +211,8 @@ final class SettingsControls
      * Inline help sequence as a string, for HTML-string contexts.
      *
      * Same output as helpText(), but returned instead of echoed,
-     * so callers that build pre-escaped HTML — an AdminNotice
-     * body, for example — can embed a Help toggle without
+     * so callers that build pre-escaped HTML - an AdminNotice
+     * body, for example - can embed a Help toggle without
      * restructuring the notice. The short text is visible; the
      * long text opens in the centred Help modal.
      *
@@ -267,8 +267,8 @@ final class SettingsControls
      *
      * For an intro that needs richer long content than plain text
      * (for example a list of what a feature does). The long HTML
-     * is built by the caller from escaped pieces — typically a
-     * `<ul>` of `esc_html()` items — and printed as-is.
+     * is built by the caller from escaped pieces - typically a
+     * `<ul>` of `esc_html()` items - and printed as-is.
      *
      * @param string $title Already-translated block title.
      * @param string $short Already-translated short text.
@@ -405,7 +405,7 @@ final class SettingsControls
      *
      * Pass `'variant' => 'code'` for JSON / code content
      * (monospace, code tint, taller minimum) and `'copy' => true`
-     * to add a copy button inside the field — the button copies
+     * to add a copy button inside the field - the button copies
      * the textarea value; the behaviour lives in
      * `initSettingsFramework()` in resources/js/admin.ts and the
      * "Copied" label comes from the shell's data-msg-copied
@@ -492,7 +492,7 @@ final class SettingsControls
      * save flow sees exactly the value the old select
      * submitted. The options are embedded once as JSON on the
      * button (data-picker-items) and rendered into the shared
-     * modal by assets/js/traydigita-modal.js — the same modal
+     * modal by assets/js/traydigita-modal.js - the same modal
      * component as the module info popup.
      *
      * @param array{id: string, name: string, label: string, value?: string, title: string, search: string, empty: string, help?: string|null, items: array<int, array{id: string, label: string, description?: string, meta?: string, logo?: string}>} $args Field arguments.
@@ -540,7 +540,7 @@ final class SettingsControls
      * Render a toggle (checkbox styled as a switch) as a field row.
      *
      * A hidden input with the same name and value `0` is printed
-     * first, so an unchecked toggle still submits a value — the
+     * first, so an unchecked toggle still submits a value - the
      * generic save endpoint must see the field to store `false`.
      * Pass `'hidden_zero' => false` to skip it (for example when
      * the field is one of a checkbox group sharing a name).
@@ -696,7 +696,7 @@ final class SettingsControls
      * The bar sticks to the bottom of the viewport while the form
      * scrolls, so Save is always reachable on long pages. This is
      * the single save pattern for every module settings page: a
-     * form ends with this bar and nothing else — no inline submit
+     * form ends with this bar and nothing else - no inline submit
      * button, no JavaScript-injected second bar.
      *
      * `$extraHtml` is an optional caller-built escaped fragment

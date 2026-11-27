@@ -5,7 +5,7 @@
  * Every TrayDigita admin page renders through this shell: a top
  * bar with the brand, the section navigation and the user menu,
  * a page card with the header (back link, breadcrumb, title) and
- * — on module settings pages — the tab bar at its bottom edge,
+ * - on module settings pages - the tab bar at its bottom edge,
  * the content area, and the toast area. Module settings pages
  * additionally get a context rail beside the content: a card
  * with the module's icon, name, description and status, so the
@@ -13,7 +13,7 @@
  * renders only when the module declares two or more navigation
  * items (tabs or sections): a single item is just the module's
  * own name linking to the top of the page, so showing it as a
- * "tab bar" is noise — the shell hides it and the page starts
+ * "tab bar" is noise - the shell hides it and the page starts
  * with the content instead. The tab buttons keep
  * their [data-traydigita-tab] attributes, so the shell
  * JavaScript switches panels exactly as it did with the old
@@ -47,7 +47,7 @@
  *
  * The shell root element carries the AJAX endpoint and nonce as data
  * attributes (read by resources/js/admin.ts) plus the translatable
- * UI strings the JavaScript needs — JavaScript strings always come
+ * UI strings the JavaScript needs - JavaScript strings always come
  * from these attributes, never from hardcoded text in the script.
  *
  * @package TrayDigita Core\Admin
@@ -94,7 +94,7 @@ $traydigita_nav_has_tabs = $traydigita_nav_items !== []
     && ($traydigita_nav_items[0]['kind'] ?? '') === 'tab';
 // Context rail (module pages only): the module class behind the
 // page, so the rail can read its name, description, icon,
-// version, author and state straight from the module — no new
+// version, author and state straight from the module - no new
 // data, no new strings.
 /** @var class-string<\TrayDigita\WP\Plugin\Core\Admin\ModuleInterface>|null $traydigita_rail_module */
 $traydigita_rail_module = $traydigita_is_module_page && is_string($traydigita_module_class)
@@ -106,7 +106,7 @@ $traydigita_rail_icon = $traydigita_rail_module !== null ? $traydigita_rail_modu
 // Disabled banner (see the shell docblock): a module page whose
 // module is off gets a banner above its settings. Core modules
 // are always enabled, so they never get one. The settings stay
-// editable while disabled — only the effect waits for enable.
+// editable while disabled - only the effect waits for enable.
 $traydigita_module_disabled = $traydigita_rail_module !== null
     && !$traydigita_rail_module::isCore()
     && !ModuleRegistry::isEnabled($traydigita_rail_module::id());
@@ -118,7 +118,7 @@ $traydigita_show_nav = count($traydigita_nav_items) >= 2;
     data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
     data-nonce="<?php echo esc_attr(wp_create_nonce(AdminAjax::NONCE_ACTION)); ?>"
     data-msg-saved="<?php echo esc_attr(__('Settings saved.', 'traydigita-core')); ?>"
-    data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>"
+    data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>"
     data-msg-saving="<?php echo esc_attr(__('Saving…', 'traydigita-core')); ?>"
     data-msg-toggle-error="<?php echo esc_attr(__('Could not change the module state. Please try again.', 'traydigita-core')); ?>"
     data-msg-enabled="<?php echo esc_attr(__('Module enabled', 'traydigita-core')); ?>"
@@ -294,7 +294,7 @@ $traydigita_show_nav = count($traydigita_nav_items) >= 2;
 
     <?php if ($traydigita_is_module_page && $traydigita_show_nav) : ?>
         <?php
-        // Critical tab-bar CSS (fixes round, Task 16): the admin
+        // Critical tab-bar CSS: the admin
         // stylesheet is a Vite bundle that arrives after first
         // paint on a cold load, so without this the nav renders
         // as a plain vertical <ul> (~408px tall) and snaps to a
@@ -303,7 +303,7 @@ $traydigita_show_nav = count($traydigita_nav_items) >= 2;
         // rules mirror resources/css/components/
         // admin-settings-framework.css exactly, so the bar paints
         // correctly the first time and the bundle only confirms
-        // it — there is no restyle flash.
+        // it - there is no restyle flash.
         ?>
         <style>
         .td-settings-nav{margin:1.25rem -1.5rem 0;padding:0 1.5rem;border-top:1px solid var(--traydigita-admin-line)}
@@ -426,7 +426,7 @@ $traydigita_show_nav = count($traydigita_nav_items) >= 2;
                 // modal shows it untruncated. The 3-line CSS clamp
                 // (see assets/css/traydigita-modal.css) stays only
                 // as a safety net for narrow viewports, and the
-                // button below starts hidden — the modal script
+                // button below starts hidden - the modal script
                 // reveals it only when the clamped text actually
                 // overflows, so short descriptions never get a
                 // broken "more".

@@ -50,14 +50,14 @@ use function wp_verify_nonce;
  *
  * Split out of the Contributor Frontend Editor module
  * (SHOULD-4, 2026-11-24): the workflow lives in wp-admin and
- * works with the frontend editor disabled — editors keep
+ * works with the frontend editor disabled - editors keep
  * sending posts back for revision and rejecting them either
  * way. Disabling this module removes the statuses (posts in
  * them keep their stored status value; the dashboard lists
  * them through its own status filter) and the revision-note
  * box.
  *
- * OUT OF SCOPE: none — O-1 (restore to previous status) and O-2
+ * OUT OF SCOPE: none - O-1 (restore to previous status) and O-2
  * (revision note in Quick Edit) are both implemented here.
  *
  * This module has no settings of its own: the settings page
@@ -140,7 +140,7 @@ final class EditorialWorkflowModule implements ModuleInterface
      *
      * Set by untrashToPreviousStatus() (which runs before core
      * deletes `_wp_trash_meta_status`) and consumed once by
-     * enforceEditorialStatus() — see there for why the guard
+     * enforceEditorialStatus() - see there for why the guard
      * cannot re-read the meta itself.
      *
      * @var array<int, string>
@@ -384,7 +384,7 @@ final class EditorialWorkflowModule implements ModuleInterface
      * in wp-admin: they appear in the post-list status filters
      * and in quick edit, so editors can set them there. They are
      * also exposed in the REST API so the block editor can read
-     * them. Only editors and administrators may SET them — see
+     * them. Only editors and administrators may SET them - see
      * enforceEditorialStatus(), which strips them from any save
      * by a user without `edit_others_posts`.
      *
@@ -503,7 +503,7 @@ final class EditorialWorkflowModule implements ModuleInterface
      * WordPress core's Quick Edit status dropdown only lists
      * the built-in statuses; custom statuses need the
      * `quick_edit_statuses` filter (since WP 6.9) to appear.
-     * Only editors and administrators are offered them —
+     * Only editors and administrators are offered them -
      * contributors never see these options, and
      * enforceEditorialStatus() still strips them from any save
      * by a user without `edit_others_posts`, so the dropdown
@@ -531,7 +531,7 @@ final class EditorialWorkflowModule implements ModuleInterface
      * Hooked on `transition_post_status`. Only transitions
      * into the statuses the dashboard shows are recorded
      * (pending, needs-revision, rejected, publish), and only
-     * for posts — the Activity Log module is the notification
+     * for posts - the Activity Log module is the notification
      * source for the dashboard Overview (see
      * MemberDashboard::fetchNotifications()). The
      * call is a no-op when the Activity Log module is disabled
@@ -710,7 +710,7 @@ final class EditorialWorkflowModule implements ModuleInterface
      *
      * Shows a short excerpt, plus the full note in a hidden
      * element the Quick Edit script reads back into the
-     * textarea — Quick Edit never fetches the row again, so
+     * textarea - Quick Edit never fetches the row again, so
      * the value has to travel in the list markup.
      *
      * @param string $column Column being rendered.

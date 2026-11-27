@@ -24,7 +24,7 @@ use function wp_unslash;
  *
  * Registered from `FontsModule::boot()` (only when the module is
  * enabled), so the endpoints do not exist while the module is
- * disabled — the same pattern as the SMTP test-email endpoint.
+ * disabled - the same pattern as the SMTP test-email endpoint.
  *
  * Every endpoint requires the `traydigita-admin` nonce sent as
  * `_ajax_nonce` (see `AdminAjax::NONCE_ACTION`) plus the

@@ -30,7 +30,7 @@ use function wp_unslash;
  * Endpoints (all POST to `admin-ajax.php`):
  * - `traydigita_agenda_save`: create or update one event. POST
  *   `id` (0 for a new event) plus the event fields. The raw POST
- *   is read here — NOT through the generic dispatcher — because
+ *   is read here - NOT through the generic dispatcher - because
  *   the description is multi-line text and the dispatcher's
  *   recursive sanitize_text_field() would collapse its newlines.
  *   AgendaTable::validate() sanitizes every field for its own

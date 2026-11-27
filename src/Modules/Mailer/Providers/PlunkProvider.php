@@ -17,7 +17,7 @@ use function array_merge;
  * is ever exposed to another recipient). A 200 or 201 response
  * means the mail was accepted.
  *
- * Free tier (Oct–Nov 2026 sources): 1,000 emails/month, then
+ * Free tier (Oct-Nov 2026 sources): 1,000 emails/month, then
  * $0.001 per email. Older sources quoted 3,000/month; the
  * 1,000 figure is used here because it is the newer one.
  * Best for: simple transactional mail with a generous

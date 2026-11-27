@@ -22,18 +22,18 @@ use function wp_remote_retrieve_body;
  * (`query1.finance.yahoo.com/v8/finance/chart/{symbol}`), one
  * request per symbol, with an 8 second timeout and a browser
  * user agent. IDX symbols get the `.JK` suffix when they have
- * none (BBCA → BBCA.JK). Prices come back in the listing currency
+ * none (BBCA -> BBCA.JK). Prices come back in the listing currency
  * (IDR for IDX).
  *
  * This endpoint is unofficial and can break or start rate-limiting
- * without notice — verified live from this VM on 2026-11-21
+ * without notice - verified live from this VM on 2026-11-21
  * (BBCA.JK and TLKM.JK both returned prices), but the manual
  * snapshot provider stays the default and any failure here falls
  * back to it. A symbol that cannot be priced is skipped, never
  * zero-filled.
  *
  * Only ever called from admin save, WP-Cron refresh, or the admin
- * preview — never from a frontend render path.
+ * preview - never from a frontend render path.
  */
 final class YahooFinanceProvider implements MarketDataProvider
 {
@@ -108,7 +108,7 @@ final class YahooFinanceProvider implements MarketDataProvider
      *
      * Unlike fetchSymbol() this applies no `.JK` suffix and no
      * currency assumption: the caller passes the exact Yahoo symbol
-     * (`GC=F`, `USDIDR=X`…) and gets the meta array back. Used by
+     * (`GC=F`, `USDIDR=X`...) and gets the meta array back. Used by
      * the gold providers, which combine two symbols (gold in USD
      * per troy ounce plus the USD/IDR rate) into an IDR per-gram
      * price. Returns null on any failure.

@@ -49,7 +49,7 @@ use function wp_safe_redirect;
  * configured member page is the dashboard, with sections from
  * the member registry (Overview, Posts, My Contributions, plus
  * sections other modules register through the
- * `traydigita:core:member/sections` filter — Write from the
+ * `traydigita:core:member/sections` filter - Write from the
  * Frontend Editor, Bookmarks, Profile and Change Email).
  * Sections are manageable from the module settings
  * (enable/disable, reorder). A section renders only when the
@@ -504,7 +504,7 @@ final class MemberAreaModule implements ModuleInterface
      * BOTH conditions must hold: the capability callback (when
      * set) must pass, AND the availability callback (when set)
      * must pass. A section failing either is hidden entirely
-     * — never shown greyed-out — and its URL redirects away
+     * - never shown greyed-out - and its URL redirects away
      * (see MemberDashboard::resolveView()).
      *
      * @param array{id: string, label: string, capability: callable|null, available: callable|null, render: callable|null} $section Section definition.
@@ -541,7 +541,7 @@ final class MemberAreaModule implements ModuleInterface
      * The dashboard template and its access gate only apply when
      * a member page is configured (a real published page). With
      * no member page the shortcode still renders inline wherever
-     * it is placed, and the homepage is never gated — gating it
+     * it is placed, and the homepage is never gated - gating it
      * would lock the whole front page for guests.
      *
      * @return bool
@@ -802,7 +802,7 @@ final class MemberAreaModule implements ModuleInterface
      *
      * Hooked on `template_include`. The gate runs first: guests
      * go to wp-login (see dashboardGateRedirect()). Every
-     * logged-in user may use the dashboard shell — sections
+     * logged-in user may use the dashboard shell - sections
      * inside it are gated by capability and feature
      * availability, and only the Write section is
      * contributor-only (non-contributors hitting it are
@@ -852,7 +852,7 @@ final class MemberAreaModule implements ModuleInterface
     /**
      * Hide the admin bar on the member page.
      *
-     * The member page hides the bar for every dashboard user —
+     * The member page hides the bar for every dashboard user -
      * the dashboard has its own top bar. Frontend-only users
      * lose the bar everywhere through
      * RoleAccessModule::filterShowAdminBar(), hooked on the

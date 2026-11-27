@@ -2,10 +2,10 @@
 /**
  * Breadcrumb trail (single posts and pages).
  *
- * Visible trail "Home › Category › Post title" with the
+ * Visible trail "Home > Category > Post title" with the
  * category parent chain (or the page ancestor chain) in
- * between, matching the padangkita.com reference ("Home ›
- * Top News › [title]" above the headline). The first items
+ * between, matching the padangkita.com reference ("Home >
+ * Top News > [title]" above the headline). The first items
  * are links; the current page is plain text with
  * aria-current="page". The separator is rendered by CSS, so it
  * is never read out by screen readers.

@@ -48,7 +48,7 @@ use function wp_verify_nonce;
  * Lets a user have a custom avatar in one of two ways: a remote
  * image URL, verified as a real image before it is saved
  * (`wp_remote_head()` pre-check plus a `getimagesize()` MIME
- * check on the downloaded file — only JPEG, PNG, GIF, and WebP
+ * check on the downloaded file - only JPEG, PNG, GIF, and WebP
  * are allowed), or an uploaded image, which is centre-cropped to
  * a square and resized to the recommended 256x256 with
  * `wp_get_image_editor()`. Uploaded files live under
@@ -58,7 +58,7 @@ use function wp_verify_nonce;
  * avatar file for a user is deleted when it is replaced.
  *
  * Administrators manage any user's avatar from the module page
- * (the user must exist — unknown user ids are refused). Users can
+ * (the user must exist - unknown user ids are refused). Users can
  * also set their own avatar from their profile page when
  * self-service is enabled (or when they are an administrator).
  * The `get_avatar` filter returns the custom avatar (sized to the
@@ -183,7 +183,7 @@ final class AvatarModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -300,7 +300,7 @@ final class AvatarModule implements ModuleInterface
                 data-avatar-admin
                 data-msg-saved="<?php esc_attr_e('Avatar saved.', 'traydigita-core'); ?>"
                 data-msg-deleted="<?php esc_attr_e('Avatar deleted.', 'traydigita-core'); ?>"
-                data-msg-error="<?php esc_attr_e('Something went wrong. Try again.', 'traydigita-core'); ?>"
+                data-msg-error="<?php esc_attr_e('Request failed. Try again.', 'traydigita-core'); ?>"
                 data-msg-uploading="<?php esc_attr_e('Uploading…', 'traydigita-core'); ?>"
                 data-msg-saving="<?php esc_attr_e('Saving…', 'traydigita-core'); ?>"
                 data-msg-no-file="<?php esc_attr_e('Choose an image file first.', 'traydigita-core'); ?>"
@@ -749,7 +749,7 @@ final class AvatarModule implements ModuleInterface
      * one-time avatar notice will show.
      *
      * profile.php is not a TrayDigita page, so the `admin` entry
-     * does not load there by itself — without it the library
+     * does not load there by itself - without it the library
      * notice in showProfileNotice() would render unstyled. The
      * entry's JavaScript guards itself when the admin shell is
      * absent, so only its styles take effect here.

@@ -23,7 +23,7 @@ use function wp_create_nonce;
  * index size, overhead, FULLTEXT indexes, per-table MyISAM to
  * InnoDB conversion and OPTIMIZE TABLE), Cleaner (expired
  * transients + orphaned timeout rows, post revisions, auto-drafts,
- * trashed posts/comments, spam comments, orphaned postmeta — each
+ * trashed posts/comments, spam comments, orphaned postmeta - each
  * category separately selectable with its count shown before
  * deleting), and Optimize (OPTIMIZE TABLE for all tables).
  *
@@ -39,7 +39,7 @@ use function wp_create_nonce;
  *   confirmation word typed exactly (default `DELETE`).
  * - Only one destructive job runs at a time (transient lock in
  *   DbToolsAjax); every action reports exactly what it did
- *   ("Deleted N rows from …").
+ *   ("Deleted N rows from ...").
  * - No user input ever reaches SQL or DDL unvalidated; all
  *   values go through `$wpdb` placeholders.
  *
@@ -163,7 +163,7 @@ final class DbToolsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -230,7 +230,7 @@ final class DbToolsModule implements ModuleInterface
     /**
      * Whether this is a core module.
      *
-     * False: the module is optional and toggleable — and disabled
+     * False: the module is optional and toggleable - and disabled
      * by default, because it deletes data and alters tables.
      *
      * @return bool
@@ -304,7 +304,7 @@ final class DbToolsModule implements ModuleInterface
     /**
      * Validate and save settings from a submitted form.
      *
-     * The only setting is `confirm_word`: 3–20 letters or digits,
+     * The only setting is `confirm_word`: 3-20 letters or digits,
      * stored exactly as typed (the typed confirmation compares
      * case-sensitively). An invalid word is rejected with a field
      * error and nothing is saved.

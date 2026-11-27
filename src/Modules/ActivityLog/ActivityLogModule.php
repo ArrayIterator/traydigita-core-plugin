@@ -48,15 +48,15 @@ use function wp_unslash;
  * modules: module enable/disable, settings saves, push sends,
  * mail sends, sign-ins, and plugin installs/activations. It is
  * deliberately not a Simple History clone: no per-pageview
- * logging, no postmeta, no option blobs — one dedicated table,
+ * logging, no postmeta, no option blobs - one dedicated table,
  * capped rows, auto-prune, and a viewer with filters.
  *
  * Table handling lives in the shared `SchemaTable` kernel
  * (see `Libs\SchemaTable`): record() inserts through the lazy
- * path — one `CREATE TABLE IF NOT EXISTS` when the table is
+ * path - one `CREATE TABLE IF NOT EXISTS` when the table is
  * missing, never dbDelta, never error_log, never throws, so a
  * log-write failure returns false and the action being logged
- * carries on — and ensureSchema() runs the version-gated
+ * carries on - and ensureSchema() runs the version-gated
  * dbDelta upgrade (admin-only, throttled, locked). The Setup
  * create-table button calls ensureSchema(true) and bypasses
  * the version transient (but still respects the lock).
@@ -109,7 +109,7 @@ final class ActivityLogModule implements ModuleInterface
      * Transient throttling the version-gated dbDelta check.
      *
      * A fresh value means "checked within the last hour, table
-     * was fine" — ensureSchema() then returns immediately with
+     * was fine" - ensureSchema() then returns immediately with
      * no DB query at all.
      */
     public const string DB_CHECK_TRANSIENT = 'traydigita_db_check_activity_log';
@@ -243,7 +243,7 @@ final class ActivityLogModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -386,7 +386,7 @@ final class ActivityLogModule implements ModuleInterface
      * composites (`module`, `created_at`) and (`event_type`,
      * `created_at`) that the viewer queries filter and order by,
      * and (`user_id`, `created_at`) so a user filter sorts from
-     * the index — so the viewer never full-scans a big log. The
+     * the index - so the viewer never full-scans a big log. The
      * single-column `module` / `event_type` keys are deliberately
      * absent: each is the leftmost prefix of its composite, so a
      * separate key would only cost writes. The `$ifNotExists`
@@ -500,7 +500,7 @@ final class ActivityLogModule implements ModuleInterface
      * alone and each is the leftmost prefix of its composite
      * (`module_created` / `event_created` / `user_created`),
      * and the DISTINCT filter-select queries order by the same
-     * leading column. Never throws, never error_logs — a
+     * leading column. Never throws, never error_logs - a
      * leftover duplicate is harmless.
      *
      * @return void
@@ -540,7 +540,7 @@ final class ActivityLogModule implements ModuleInterface
      * The insert path never breaks or slows the action being
      * logged: when this module is disabled, when the table
      * cannot be created, or when the insert itself fails, this
-     * returns false silently — no dbDelta on this path (the
+     * returns false silently - no dbDelta on this path (the
      * lazy CREATE TABLE IF NOT EXISTS in ensureTableForInsert()
      * is the only DDL here), no error_log (it would spam on a
      * hot path), no exception ever escapes.
@@ -897,8 +897,8 @@ final class ActivityLogModule implements ModuleInterface
      * Validate and save the retention settings.
      *
      * Expected flat keys: `max_rows` (integer clamped to
-     * 500–20000) and `retention_days` (integer clamped to
-     * 0–365). Unknown keys are dropped. Saving runs a prune
+     * 500-20000) and `retention_days` (integer clamped to
+     * 0-365). Unknown keys are dropped. Saving runs a prune
      * immediately, so a lowered cap takes effect at once.
      *
      * @param array<string, mixed> $data Sanitized form data.
@@ -966,7 +966,7 @@ final class ActivityLogModule implements ModuleInterface
     /**
      * Record a failed sign-in attempt (wp_login_failed).
      *
-     * Only the attempted username is logged — never a password
+     * Only the attempted username is logged - never a password
      * (WordPress never passes one to this hook).
      *
      * @param string $username Attempted username.

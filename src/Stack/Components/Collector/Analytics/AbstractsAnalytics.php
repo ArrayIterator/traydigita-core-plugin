@@ -86,7 +86,7 @@ abstract class AbstractsAnalytics
     /**
      * Rewrite the analytics data if not already rewritten.
      *
-     * This method checks if the analytics data has already been rewritten. If not, it sets the
+     * If not, it sets the
      * rewrite flag to true and calls the doRewrite() method to perform the actual rewriting of
      * analytics data.
      */
@@ -105,8 +105,7 @@ abstract class AbstractsAnalytics
     /**
      * Perform the actual rewriting of analytics data.
      *
-     * This method is intended to be overridden by subclasses to implement the specific logic
-     * for rewriting analytics data. By default, it does nothing.
+     * By default, it does nothing.
      */
     protected function doRewrite() // @phpstan-ignore-line
     {

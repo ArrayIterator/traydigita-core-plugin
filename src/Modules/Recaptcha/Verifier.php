@@ -17,7 +17,7 @@ use function wp_remote_retrieve_body;
  * Google reCAPTCHA verification (v2 checkbox and v3 score).
  *
  * Both versions verify the token directly against the
- * siteverify endpoint with wp_remote_post — no external
+ * siteverify endpoint with wp_remote_post - no external
  * library. The secret key never leaves the server. The
  * siteverify host is a class constant, never caller input.
  *
@@ -36,7 +36,7 @@ final class Verifier
      * @param string $token Token posted by the frontend widget.
      * @param string $secret Secret key from the module settings.
      * @param string $version 'v2' or 'v3'.
-     * @param float $threshold Minimum v3 score (0.0–1.0); ignored for v2.
+     * @param float $threshold Minimum v3 score (0.0-1.0); ignored for v2.
      * @param string $action Expected v3 action ('' skips the action check).
      * @return array{success: bool, score: float|null, error: string}
      */

@@ -21,7 +21,7 @@
  * @var array<int, string> $dsConditionAreas Areas whose rules may carry conditions.
  * @var string $dsSaveAction AJAX action saving one sidebar.
  * @var string $dsDeleteAction AJAX action deleting one sidebar.
- * @var string $dsNonceAction Nonce action (unused here — the shell nonce is used by the script).
+ * @var string $dsNonceAction Nonce action (unused here - the shell nonce is used by the script).
  * @var string $dsBaseUrl This settings page URL.
  *
  * Behaviour:
@@ -30,7 +30,7 @@
  *   Delete buttons (confirm in JS, delete via AJAX, reload).
  * - Edit form: posts to the module's OWN AJAX action
  *   (`data-dynamic-sidebars-form`, handled by
- *   admin-dynamic-sidebars.ts) — NOT the generic dispatcher —
+ *   admin-dynamic-sidebars.ts) - NOT the generic dispatcher -
  *   and reloads the page on success so the list shows the saved
  *   sidebar. Condition pickers are plain server-rendered selects
  *   (categories, tags, authors) plus a post/page ID field: the

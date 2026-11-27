@@ -33,7 +33,7 @@ use function wp_nonce_field;
  * A soft, honest metered paywall: each visitor may read a
  * configured number of free articles per period (default 3 per
  * 30 days); after that, a subscribe prompt covers the article.
- * There is no payment processing here — the prompt links to the
+ * There is no payment processing here - the prompt links to the
  * site's own subscription page (configured URL), and the site
  * owner wires that page to whatever payment provider they use.
  * Nothing is faked: no fake prices, no fake checkout.
@@ -43,8 +43,8 @@ use function wp_nonce_field;
  * list of article ids read in the current period in localStorage
  * (`traydigita_paywall_v1`). When the distinct count passes the
  * free limit, the script shows the overlay. The article itself
- * is always rendered in full by the server — the overlay is a
- * client-side layer only — so search engines, feeds and readers
+ * is always rendered in full by the server - the overlay is a
+ * client-side layer only - so search engines, feeds and readers
  * without JavaScript always see the complete article, and the
  * meter can never break the site for crawlers.
  *
@@ -53,7 +53,7 @@ use function wp_nonce_field;
  * every view that is not a single post. The configuration is
  * printed from `wp_footer` as data attributes on one hidden
  * element, only on single posts, only when the module is
- * enabled — there is no extra query and no network request.
+ * enabled - there is no extra query and no network request.
  *
  * Settings live in the single option `traydigita_paywall`
  * (autoload `no`) and are saved through the phase-2 admin AJAX
@@ -203,7 +203,7 @@ final class PaywallModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -338,7 +338,7 @@ final class PaywallModule implements ModuleInterface
      * Validate and save settings from a submitted form.
      *
      * Expected flat keys: `free_articles` (integer clamped to
-     * 1–20), `period_days` (integer clamped to 1–90),
+     * 1-20), `period_days` (integer clamped to 1-90),
      * `subscribe_url` (URL or an empty string), and `message`
      * (plain text, empty falls back to the default message).
      * Unknown keys are dropped.
@@ -405,7 +405,7 @@ final class PaywallModule implements ModuleInterface
      * Only on single posts, never in admin screens or feeds, and
      * never for users who can edit posts. The markup comes from
      * render(), so a coordinator that prefers manual placement
-     * can call render() instead — but never both, or two meter
+     * can call render() instead - but never both, or two meter
      * elements render and the count is recorded twice.
      *
      * @return void
@@ -433,7 +433,7 @@ final class PaywallModule implements ModuleInterface
      * and the prompt message as data attributes; the JavaScript
      * reads them, counts this article in localStorage, and shows
      * the overlay only when the free articles are used up. The
-     * overlay itself is built by the script from these values —
+     * overlay itself is built by the script from these values -
      * no prompt markup is printed for readers still inside
      * their free allowance.
      *

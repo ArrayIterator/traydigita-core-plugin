@@ -53,7 +53,7 @@ use const FILTER_VALIDATE_BOOLEAN;
  * - Passkey login on wp-login.php: fingerprint / Face ID /
  *   security-key sign-in with discoverable credentials
  *   (usernameless) and as a second factor on the Two-Factor
- *   challenge screen. Password login is never replaced — it
+ *   challenge screen. Password login is never replaced - it
  *   stays the fallback, and TOTP stays available alongside
  *   passkeys. Enrolment happens on the user profile page.
  * - The implementation is a deliberate, scope-limited, fully
@@ -67,11 +67,11 @@ use const FILTER_VALIDATE_BOOLEAN;
  *   was split out, so already-enrolled passkeys keep working
  *   with zero data migration). The relying-party id and the
  *   expected origin are derived from the site host, not from
- *   settings — the only setting is enable/disable.
+ *   settings - the only setting is enable/disable.
  *
  * Relationship with TwoFactor (MUST-7 split):
  * - Passkeys is a login method in its own right, not just a
- *   second factor — that is why it is a module of its own.
+ *   second factor - that is why it is a module of its own.
  *   TwoFactor keeps offering passkeys on its challenge screen,
  *   but only through this module's public API
  *   (isPasskeysEnabled / getPasskeys / renderPasskeyBlock).
@@ -98,7 +98,7 @@ use const FILTER_VALIDATE_BOOLEAN;
  * - Nonces are shared with TwoFactor on purpose: the user nonce
  *   `traydigita_2fa_user` and the login nonce
  *   `traydigita_2fa_login` live on TwoFactorModule and must not
- *   be renamed — the theme script passes the nonce value
+ *   be renamed - the theme script passes the nonce value
  *   straight from the printed config blocks.
  *
  * Settings: the single option `traydigita_passkeys`
@@ -112,7 +112,7 @@ use const FILTER_VALIDATE_BOOLEAN;
  * value untouched, so the fallback stays intact.
  *
  * Default-enabled: YES (listed in ModuleRegistry::
- * DEFAULT_ENABLED). A passkey is purely additive — password
+ * DEFAULT_ENABLED). A passkey is purely additive - password
  * login always works, enrolment is opt-in per user, and the
  * module enforces nothing. The four combinations behave as:
  * - Passkeys on + TwoFactor off: usernameless login works,
@@ -146,7 +146,7 @@ final class PasskeysModule implements ModuleInterface
      * User meta key holding the registered passkeys.
      *
      * Byte-identical with the key the Two-Factor module used
-     * before the split — already-enrolled passkeys keep
+     * before the split - already-enrolled passkeys keep
      * working with zero data migration.
      *
      * A list of credential records as returned by
@@ -366,7 +366,7 @@ final class PasskeysModule implements ModuleInterface
      *
      * Legacy fallback (read-through, no migration write):
      * installs that set the passkey toggle in the Two-Factor
-     * settings before the split keep their value — when this
+     * settings before the split keep their value - when this
      * module's own option has never been saved, the legacy
      * `traydigita_two_factor` option's `passkey_enabled` value
      * is used instead. Once this module's settings page is
@@ -412,7 +412,7 @@ final class PasskeysModule implements ModuleInterface
      * WebAuthn requires a secure context: HTTPS, or localhost
      * (WordPress-style exception for local development). On plain
      * HTTP the passkey UI is disabled with an honest notice, never
-     * a cryptic error — and registration is refused server-side
+     * a cryptic error - and registration is refused server-side
      * too, so a forged request cannot enroll a passkey over HTTP.
      *
      * @return bool
@@ -459,9 +459,7 @@ final class PasskeysModule implements ModuleInterface
         return $origin;
     }
 
-    // ------------------------------------------------------------------
     // Credential store
-    // ------------------------------------------------------------------
 
     /**
      * Read the user's registered passkeys.
@@ -606,9 +604,7 @@ final class PasskeysModule implements ModuleInterface
         return 'traydigita_2fa_pk_reg_' . $userId;
     }
 
-    // ------------------------------------------------------------------
     // Hooks
-    // ------------------------------------------------------------------
 
     /**
      * Register the module hooks. Called only when the module is enabled.
@@ -623,7 +619,7 @@ final class PasskeysModule implements ModuleInterface
      * enabled, its profile shell owns the single
      * `data-traydigita-two-factor-profile` container the theme
      * script queries, and it calls renderPasskeyBlock() inside
-     * that shell — so this module hooks nothing on the profile
+     * that shell - so this module hooks nothing on the profile
      * page itself. When TwoFactor is disabled, this module
      * renders its own standalone profile section instead.
      *
@@ -650,9 +646,7 @@ final class PasskeysModule implements ModuleInterface
         add_action('edit_user_profile', [self::class, 'renderProfileFields']);
     }
 
-    // ------------------------------------------------------------------
     // Login page
-    // ------------------------------------------------------------------
 
     /**
      * Enqueue the login-page assets.
@@ -771,15 +765,13 @@ final class PasskeysModule implements ModuleInterface
             . '</script>';
     }
 
-    // ------------------------------------------------------------------
     // Profile UI
-    // ------------------------------------------------------------------
 
     /**
      * Print the profile-page JSON config block (at most once).
      *
      * The block carries the AJAX URL, the user nonce, the target
-     * user id, and the feature flags — never a secret. The
+     * user id, and the feature flags - never a secret. The
      * theme's `two-factor` script reads it by element id and
      * drives the TOTP, passkey, and trusted-device UI from it,
      * so the flags cover both modules: TOTP and trusted-device
@@ -833,7 +825,7 @@ final class PasskeysModule implements ModuleInterface
      * never submit the surrounding profile form; the frontend
      * script drives them over AJAX with the user nonce. Passkey
      * management by another admin requires the `edit_users`
-     * capability — the AJAX layer enforces that, not the markup.
+     * capability - the AJAX layer enforces that, not the markup.
      *
      * On plain HTTP the block shows the honest HTTPS notice
      * instead of the add-passkey button.
@@ -895,7 +887,7 @@ final class PasskeysModule implements ModuleInterface
      * Render the standalone passkeys section on the profile page.
      *
      * Runs on `show_user_profile` (own profile) and
-     * `edit_user_profile` (an admin editing another user) — but
+     * `edit_user_profile` (an admin editing another user) - but
      * only while TwoFactor is disabled (see boot()): while
      * TwoFactor is enabled its shell renders the section and
      * calls renderPasskeyBlock() inside it, because the theme
@@ -918,7 +910,7 @@ final class PasskeysModule implements ModuleInterface
         ?>
         <h2><?php esc_html_e('Passkeys', 'traydigita-core'); ?></h2>
         <div class="traydigita-two-factor-profile" data-traydigita-two-factor-profile
-            data-msg-error="<?php echo esc_attr__('Something went wrong. Please try again.', 'traydigita-core'); ?>"
+            data-msg-error="<?php echo esc_attr__('Request failed. Please try again.', 'traydigita-core'); ?>"
             data-msg-passkey-no-support="<?php echo esc_attr__('This browser does not support passkeys.', 'traydigita-core'); ?>"
             data-msg-passkey-cancelled="<?php echo esc_attr__('Passkey registration was cancelled.', 'traydigita-core'); ?>"
             data-msg-passkey-failed="<?php echo esc_attr__('Passkey registration failed. Please try again.', 'traydigita-core'); ?>"
@@ -934,9 +926,7 @@ final class PasskeysModule implements ModuleInterface
         <?php
     }
 
-    // ------------------------------------------------------------------
     // Settings page
-    // ------------------------------------------------------------------
 
     /**
      * Framework sections for the left navigation.

@@ -20,7 +20,7 @@ use function wp_enqueue_script;
  * via wp_list_comments() and the comment form via comment_form())
  * and enqueues the `comment-reply` script for threaded replies.
  * Comment avatars come from get_avatar(), so the Custom Avatar
- * module's filter applies automatically — there is no second
+ * module's filter applies automatically - there is no second
  * avatar path here.
  */
 final class WordpressProvider implements CommentProviderInterface
@@ -58,7 +58,7 @@ final class WordpressProvider implements CommentProviderInterface
     /**
      * Provider-specific settings fields.
      *
-     * None — native comments need no extra setup.
+     * None - native comments need no extra setup.
      *
      * @return array<string, array{type: string, label: string, help?: string, default?: mixed, options?: array<string, string>, min?: int, max?: int, placeholder?: string, sanitize?: string}>
      */

@@ -85,8 +85,8 @@ final class Core
     /**
      * Absolute path of the plugin bootstrap file
      * (traydigita-core.php). Kept so paths that must be
-     * relative to the plugin root — the languages directory
-     * for load_plugin_textdomain() — resolve from the
+     * relative to the plugin root - the languages directory
+     * for load_plugin_textdomain() - resolve from the
      * bootstrap file, not from a class file under src/.
      *
      * @var string

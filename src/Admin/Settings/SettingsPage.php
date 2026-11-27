@@ -29,7 +29,7 @@ use function sanitize_key;
  *    underline tab buttons in the page card's tab bar. The buttons
  *    keep their `[data-traydigita-tab]` attributes, so the shell
  *    JavaScript (resources/js/admin.ts) switches the panels
- *    exactly as it did with the old top tab bar — only the
+ *    exactly as it did with the old top tab bar - only the
  *    placement changed.
  * 2. Declared sections: a module may declare an optional static
  *    `settingsSections()` method returning a list of
@@ -40,11 +40,11 @@ use function sanitize_key;
  *    change sections through the
  *    `traydigita:core:admin:settings_sections` filter.
  * 3. Fallback: a module with neither tabs nor sections gets a
- *    single navigation item — its own name, linking to the top of
+ *    single navigation item - its own name, linking to the top of
  *    the page. The shell hides a single-item navigation (a lone
  *    "tab" carrying the module's own name is noise, not
  *    navigation), so this item only ever renders as part of a
- *    longer list — in practice it never renders, and the page
+ *    longer list - in practice it never renders, and the page
  *    simply starts with its content.
  *
  * Nothing here changes how settings are saved: forms, field

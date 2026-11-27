@@ -13,41 +13,41 @@ use function trim;
 /**
  * TrayDigita Core brand assets (logo v4).
  *
- * The logo keeps the ORIGINAL TrayDigita mark — the white T+D
+ * The logo keeps the ORIGINAL TrayDigita mark - the white T+D
  * glyph from the theme (`resources/images/traydigita-mark.svg`);
  * no new mark was created. The mark is THREE separate white
  * pieces (its three potrace subpaths: top swoosh, stem, bowl).
- * The theme is "Connecting To The Core": ABSTRACT first — the
+ * The theme is "Connecting To The Core": ABSTRACT first - the
  * three pieces fly in as abstract shapes from different
  * directions (swoosh from the top, stem from bottom-left, bowl
  * from bottom-right), each spinning and fading in, so no whole
  * T or D shows at the start; they lock together into the T+D
  * logo, a gold flash fires at the seam, then circuit traces
- * draw out from behind the logo to six CHIP nodes — abstract
- * microchips with pins, NOT round circles, and NO ring — which
+ * draw out from behind the logo to six CHIP nodes - abstract
+ * microchips with pins, NOT round circles, and NO ring - which
  * pop in one by one. The animation is a 5 s video (MP4, 512x512,
  * h264, 24 fps) plus the GIF; the SVG keeps the same story as
  * a SMIL animation. The assets live in `assets/brand/` (see
- * `generate.py`, re-runnable — it bakes the frames in Python
+ * `generate.py`, re-runnable - it bakes the frames in Python
  * from chrome-headless-shell screenshots and assembles them
  * with ffmpeg):
  *
- * - `traydigita-core-logo.mp4` — the 5 s animation. Kept for API
+ * - `traydigita-core-logo.mp4` - the 5 s animation. Kept for API
  *   compatibility (Brand::logoVideo()); the hub/about page no
  *   longer uses it because MP4 (h264, yuv420p) cannot carry an
  *   alpha channel, so its corners are white.
- * - `traydigita-core-logo.svg` — animated (SMIL, as above).
+ * - `traydigita-core-logo.svg` - animated (SMIL, as above).
  *   Used as the admin menu icon (base64 data URI; browsers
  *   animate SMIL in data-URI SVGs, and the first frame is the
  *   correct static logo where they do not).
- * - `traydigita-core-logo-static.svg` — the same mark without
+ * - `traydigita-core-logo-static.svg` - the same mark without
  *   animation, for contexts that cannot animate.
- * - `traydigita-core-logo.gif` — animated raster version with a
+ * - `traydigita-core-logo.gif` - animated raster version with a
  *   transparent background, used on the hub/about page (and the
  *   readme).
  * - `icon-128x128.png`, `icon-256x256.png`, `icon-512x512.png`
- *   — plugin icons (WP.org sizes).
- * - `banner-772x250.png`, `banner-1544x500.png` — readme banners.
+ *   - plugin icons (WP.org sizes).
+ * - `banner-772x250.png`, `banner-1544x500.png` - readme banners.
  *
  * Earlier versions are NOT used: v1 (a core + nodes mark that
  * looked like an eye), v2 (T and D halves sliding together)
@@ -174,7 +174,7 @@ final class Brand
      * The animated GIF logo markup for the hub/about page.
      *
      * The GIF has a transparent background (see `generate.py`),
-     * so it sits cleanly on any admin background — the MP4 it
+     * so it sits cleanly on any admin background - the MP4 it
      * replaces cannot carry alpha. Returns '' when the GIF file
      * is missing, so the caller can fall back to logoSvg().
      *

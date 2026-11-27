@@ -49,7 +49,7 @@ use function trim;
  * registered entry: the service name, a one-line description, a
  * live status badge, and a link to the service's own settings page
  * when the entry provides one. Status is computed live by the
- * registering module when the filter runs (at render time) — it is
+ * registering module when the filter runs (at render time) - it is
  * never stored and never hardcoded here.
  *
  * Filter contract (hook convention `traydigita:core:<name>`):
@@ -85,7 +85,7 @@ use function trim;
  *   and only after checking ModuleRegistry::isEnabled() itself.
  *
  * Registration (round 6): every entry is registered from ONE
- * place — IntegrationsModule::registerEntries(), called by
+ * place - IntegrationsModule::registerEntries(), called by
  * renderSettingsPage() before apply_filters() and guarded so it
  * runs once per request. Owning modules do NOT register in
  * boot(): ModuleRegistry::bootEnabled() only boots enabled
@@ -256,7 +256,7 @@ final class IntegrationsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -614,7 +614,7 @@ final class IntegrationsModule implements ModuleInterface
      * integration entries in boot(). Status comes from the
      * module: 'active' when a valid push config is saved,
      * 'not-configured' otherwise (including when the module is
-     * disabled — the entry then links to the Modules page via
+     * disabled - the entry then links to the Modules page via
      * the module id, per the integrations contract).
      *
      * @param array<int, array<string, mixed>> $entries Entries so far.
@@ -752,7 +752,7 @@ final class IntegrationsModule implements ModuleInterface
      * the theme: there is no owner module and no configured signal
      * in the codebase to reuse. Detection is the plugin file only,
      * so only 'active' (plugin active) and 'not-configured'
-     * (plugin not active) are used — 'configured' is never
+     * (plugin not active) are used - 'configured' is never
      * reported because no real configured signal exists.
      *
      * @param array<int, array<string, mixed>> $entries Entries so far.
@@ -857,8 +857,8 @@ final class IntegrationsModule implements ModuleInterface
      *
      * Accepts absolute URLs under this site's wp-admin (as built
      * by admin_url()) and admin-relative targets naming a WordPress
-     * admin file. Anything else — external URLs, javascript:,
-     * protocol-relative URLs — is rejected, so a bad entry can
+     * admin file. Anything else - external URLs, javascript:,
+     * protocol-relative URLs - is rejected, so a bad entry can
      * never turn its link button into an off-site link.
      *
      * @param string $url Candidate URL.

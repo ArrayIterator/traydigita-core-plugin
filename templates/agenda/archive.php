@@ -6,7 +6,7 @@
  * `template_include` filter when the `traydigita_agenda` query
  * variable is `archive`. Data comes from
  * AgendaRenderer::archiveData(): the event list, pagination, the
- * active filter, and the search term. Semantic classes only — no
+ * active filter, and the search term. Semantic classes only - no
  * Tailwind utilities.
  *
  * @package Tray Digita Theme

@@ -192,7 +192,7 @@ final class RedirectsAjax
      *
      * The admin JavaScript downloads the payload as a JSON file;
      * no file is written on the server. Only the rules are
-     * exported — the 404 log is diagnostic data, not config.
+     * exported - the 404 log is diagnostic data, not config.
      *
      * @return void
      */
@@ -219,7 +219,7 @@ final class RedirectsAjax
      * skip any rule whose `from` already exists). Strict-decoded
      * (base64_decode(..., true)) and strictly JSON-validated:
      * an undecodable payload or a wrong shape is rejected, and
-     * each rule is re-validated through RedirectStore — invalid
+     * each rule is re-validated through RedirectStore - invalid
      * entries are skipped and counted, never stored. Returns the
      * imported/skipped/duplicate counts and the full rule list.
      *

@@ -37,8 +37,8 @@ use function wp_enqueue_media;
  * option `traydigita_epaper_issues` (see EPaperStorage), capped
  * at 500 issues, and PDF files live under
  * `wp-content/traydigita-epaper/` (never in uploads). The first
- * page of a PDF is never rendered as a cover — that is out of
- * scope — so an issue without an uploaded cover shows a
+ * page of a PDF is never rendered as a cover - that is out of
+ * scope - so an issue without an uploaded cover shows a
  * generated placeholder (document icon) instead, and the UI
  * says so plainly.
  *
@@ -143,7 +143,7 @@ final class EPaperModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -274,8 +274,8 @@ final class EPaperModule implements ModuleInterface
     /**
      * Validate and save settings from a submitted form.
      *
-     * Expected flat keys in `$data`: `max_size_mb` (1–100, default
-     * 20) and `issues_per_page` (1–50, default 12). Unknown keys
+     * Expected flat keys in `$data`: `max_size_mb` (1-100, default
+     * 20) and `issues_per_page` (1-50, default 12). Unknown keys
      * are dropped. The rewrite rules are flushed on every save so
      * the `/epaper/` URLs start (or keep) resolving right after
      * the module is enabled and saved once.

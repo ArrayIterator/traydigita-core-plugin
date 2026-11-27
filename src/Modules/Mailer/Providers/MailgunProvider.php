@@ -15,7 +15,7 @@ use function implode;
  * auth (username `api`, password the API key). The payload is
  * form-encoded; attachments are not sent through this provider
  * (the Messages API needs multipart form data, which the
- * URL-encoded call cannot carry — the mail still goes out).
+ * URL-encoded call cannot carry - the mail still goes out).
  *
  * Free tier (Nov 2026): 100 emails/day. Best for: developers
  * who need detailed logs, routes, and suppression handling.

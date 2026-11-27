@@ -59,7 +59,7 @@ use function wp_using_ext_object_cache;
  *   shared cache.
  * - Transient flush (every transient and its timeout row) behind
  *   the same typed confirmation word the DB Tools module uses
- *   for its bulk deletes — exact, case-sensitive, default
+ *   for its bulk deletes - exact, case-sensitive, default
  *   `DELETE`.
  * - Optional Cloudflare purge-everything for one zone, using an
  *   API token and zone id stored in the module option. The token
@@ -68,7 +68,7 @@ use function wp_using_ext_object_cache;
  *   both fields are saved.
  *
  * Boundaries, stated on the page as well as in code:
- * - Browser-cache headers live in the Custom Headers module —
+ * - Browser-cache headers live in the Custom Headers module -
  *   this module links there instead of duplicating it.
  * - The DB Tools module owns the database side of transients
  *   (its cleaner deletes expired transients and orphaned timeout
@@ -215,7 +215,7 @@ final class CacheModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -282,7 +282,7 @@ final class CacheModule implements ModuleInterface
     /**
      * Whether this is a core module.
      *
-     * False: the module is optional and toggleable — and disabled
+     * False: the module is optional and toggleable - and disabled
      * by default, because it flushes caches other parts of the
      * site depend on.
      *
@@ -365,7 +365,7 @@ final class CacheModule implements ModuleInterface
      *
      * When true, wp_cache_flush() flushes the shared cache (for
      * example Redis or Memcached), not just this request's
-     * in-memory cache — the settings page says so next to the
+     * in-memory cache - the settings page says so next to the
      * flush button.
      *
      * @return bool
@@ -426,7 +426,7 @@ final class CacheModule implements ModuleInterface
      * `_timeout_` rows. This is a cache flush, not a cleanup: it
      * removes live transients too, which is why the AJAX endpoint
      * requires the typed confirmation word. Transients held only
-     * in a persistent object cache are not touched here — use the
+     * in a persistent object cache are not touched here - use the
      * object-cache flush for those.
      *
      * @return int Number of option rows deleted.
@@ -458,7 +458,7 @@ final class CacheModule implements ModuleInterface
      * The recommendation follows the web server, read through
      * ServerDetector (which parses $_SERVER['SERVER_SOFTWARE'],
      * with a filter override): LiteSpeed Cache on LiteSpeed and
-     * OpenLiteSpeed — it is built for that server — and W3 Total
+     * OpenLiteSpeed - it is built for that server - and W3 Total
      * Cache on Apache and nginx, the full-featured free plugin
      * that runs on any server. A development site gets no plugin
      * recommendation (page caching is not needed while
@@ -559,7 +559,7 @@ final class CacheModule implements ModuleInterface
      *
      * The detector is added in the same round as this method, so
      * a missing class or method falls back to 'unknown' instead
-     * of fataling — callers treat that as "no server-specific
+     * of fataling - callers treat that as "no server-specific
      * recommendation can be made". The label falls back to a
      * fixed name per slug when the detector returns none.
      *
@@ -686,7 +686,7 @@ final class CacheModule implements ModuleInterface
      *
      * Follows the Turnstile pattern: the markup is rendered inline
      * here, no template partial. The Cloudflare API token is
-     * stripped before the settings reach the markup — the token
+     * stripped before the settings reach the markup - the token
      * field is always rendered empty, and an empty submission
      * keeps the stored token. Action forms use the shell's generic
      * `data-action` handling, which shows the result as a toast;
@@ -1018,7 +1018,7 @@ final class CacheModule implements ModuleInterface
      * a non-empty value is submitted; an empty or missing token
      * field keeps the stored token. The zone id must be empty or
      * 32 hexadecimal characters; the confirmation word must be
-     * 3–20 letters or digits. On failure the returned message
+     * 3-20 letters or digits. On failure the returned message
      * lists every invalid field and nothing is saved. No secret is
      * ever included in the returned array.
      *

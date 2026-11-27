@@ -20,7 +20,7 @@ use function sprintf;
  *
  * The mail's To addresses are ignored: the newsletter goes to
  * every contact of the configured campaign, so a test email
- * sends to the whole campaign — never use it for a test unless
+ * sends to the whole campaign - never use it for a test unless
  * that is intended.
  *
  * Free tier (Nov 2026): 500 contacts. Best for: newsletters

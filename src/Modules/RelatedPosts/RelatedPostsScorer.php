@@ -13,7 +13,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\RelatedPosts;
  * the fallback chain; this class only ranks them.
  *
  * Weights: a shared tag is worth 3, a shared category 2, and the
- * same author 1 — so a post sharing one tag outranks a post that
+ * same author 1 - so a post sharing one tag outranks a post that
  * only shares a category or only shares the author, and a post
  * sharing two tags outranks one sharing a category and the author.
  * Ties break towards the more recent post, then towards the

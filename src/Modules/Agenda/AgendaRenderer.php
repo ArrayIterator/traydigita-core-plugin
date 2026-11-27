@@ -56,7 +56,7 @@ use TrayDigita\WP\Plugin\Core\Libs\ThemeImage;
  * post's featured image) cannot resolve it directly. The cover is
  * therefore rendered through ThemeImage::thumbnailFromArray() with
  * a FeatureImage-shaped array built from
- * wp_get_attachment_image_src() — the same escaped <img> output
+ * wp_get_attachment_image_src() - the same escaped <img> output
  * (srcset, Photon, alt text) the rest of the theme gets.
  */
 final class AgendaRenderer
@@ -196,9 +196,9 @@ final class AgendaRenderer
     /**
      * Print Event JSON-LD on single agenda views.
      *
-     * Hooked on `wp_head`. The template cannot print this itself —
+     * Hooked on `wp_head`. The template cannot print this itself -
      * get_header() (and wp_head) already ran before the template
-     * body — so the renderer emits it from the hook when the
+     * body - so the renderer emits it from the hook when the
      * single view carries a real event.
      *
      * @return void
@@ -424,7 +424,7 @@ final class AgendaRenderer
      * Render the event description as safe HTML.
      *
      * The description is stored as plain text (sanitize_textarea_field),
-     * so it is escaped first and then given paragraphs — no HTML
+     * so it is escaped first and then given paragraphs - no HTML
      * from the input can ever reach the page.
      *
      * @param array<string, mixed> $event Event row.
@@ -527,7 +527,7 @@ final class AgendaRenderer
     /**
      * Format an event's date range in the site date/time formats.
      *
-     * A single-day event shows one date with start–end times; a
+     * A single-day event shows one date with start-end times; a
      * multi-day event shows both dates; an event without an end
      * shows the start date and time only.
      *

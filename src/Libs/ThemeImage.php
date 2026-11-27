@@ -29,7 +29,7 @@ use function wp_get_registered_image_subsizes;
  * The theme's single image helper.
  *
  * Every featured image / thumbnail in the theme is rendered through
- * this class — never through get_the_post_thumbnail(),
+ * this class - never through get_the_post_thumbnail(),
  * the_post_thumbnail(), get_the_post_thumbnail_url() or
  * wp_get_attachment_image_url() directly.
  *
@@ -43,7 +43,7 @@ use function wp_get_registered_image_subsizes;
  * (wp_get_registered_image_subsizes() plus the theme sizes from
  * ThemeSupport::IMAGE_SIZES and 'full'). FeatureImage falls back
  * silently to 'thumbnail' for unknown sizes, so an unvalidated
- * typo would render the wrong size with no error — validation here
+ * typo would render the wrong size with no error - validation here
  * is what prevents that.
  */
 final class ThemeImage
@@ -190,7 +190,7 @@ final class ThemeImage
      * get() returns null and the slot default below is used, so this
      * works before the settings are registered. A stored value that
      * is not a registered size is ignored silently and the slot
-     * default is used instead — FeatureImage would otherwise fall
+     * default is used instead - FeatureImage would otherwise fall
      * back to 'thumbnail' without any error.
      *
      * @param string $slot Layout slot: 'hero', 'card' or 'list'.

@@ -108,9 +108,8 @@ final class Uuid implements Stringable
 
     public const UUID_VERSION_8 = 8;
 
-    /* ----------------------------------------------------------------------
+    /*
      * UUID Types
-     * ----------------------------------------------------------------------
      */
     public const UUID_TYPE_TIME = 1;
 
@@ -120,9 +119,8 @@ final class Uuid implements Stringable
 
     public const UUID_TYPE_RANDOM = 4;
 
-    /* ----------------------------------------------------------------------
+    /*
      * UUID Variant
-     * ----------------------------------------------------------------------
      */
     // NCS backward compatibility (with the obsolete Apollo Network Computing System 1.5 UUID format)
     // is: 0 - 7 (0x0 - 0x7)
@@ -151,9 +149,8 @@ final class Uuid implements Stringable
     // RFC 4122 / RFC 9562 use the same 10xx variant bits as DCE 1.1.
     public const VARIANT_RFC4122 = 0x80;
 
-    /* ----------------------------------------------------------------------
+    /*
      * UUID namespace constants for UUID::calculateNamespaceAndName()
-     * ----------------------------------------------------------------------
      * https://tools.ietf.org/html/rfc4122#appendix-C
      */
     public const NAMESPACE_DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
@@ -164,9 +161,8 @@ final class Uuid implements Stringable
 
     public const NAMESPACE_X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
-    /* ------------------------------------------------------------------------
+    /*
      * Variant Name Constants
-     * ------------------------------------------------------------------------
      */
     public const DCE_VERSION_NAME = 'DCE 1.1, ISO/IEC 11578:1996';
 

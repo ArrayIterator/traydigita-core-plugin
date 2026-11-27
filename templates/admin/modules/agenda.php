@@ -28,8 +28,8 @@
  *   `show_past_in_archive`, `ics_enabled`. The hidden `0` field
  *   before each checkbox guarantees the field is always submitted.
  * - Event form: posts to the module's OWN AJAX action
- *   (`data-agenda-event-form`, handled by admin-agenda.ts) — NOT
- *   the generic dispatcher — because the description is
+ *   (`data-agenda-event-form`, handled by admin-agenda.ts) - NOT
+ *   the generic dispatcher - because the description is
  *   multi-line text and the dispatcher's recursive
  *   sanitize_text_field() would collapse its newlines.
  * - List: filter links (all / upcoming / ongoing / past) plus a

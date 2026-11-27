@@ -33,7 +33,7 @@ use function wp_nonce_field;
  *
  * Lets contributors write and submit articles from the frontend
  * instead of wp-admin: a simple block editor (paragraph,
- * heading, list and quote only — enforced server-side on save),
+ * heading, list and quote only - enforced server-side on save),
  * a scoped featured-image upload (one image per post, no
  * `upload_files` capability, contributors can never open the
  * Media Library), and the Write section of the member

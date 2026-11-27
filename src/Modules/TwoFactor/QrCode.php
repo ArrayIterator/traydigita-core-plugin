@@ -14,10 +14,10 @@ use function substr_count;
  * QR code rendering for the TOTP enrolment screen.
  *
  * The matrix comes from the vendored phpqrcode library
- * (`vendor/phpqrcode/`, LGPL 3 — see its README.md): the encoder
+ * (`vendor/phpqrcode/`, LGPL 3 - see its README.md): the encoder
  * itself is a large, stable algorithm, and vendoring it keeps the
  * module free of runtime Composer dependencies. The library's own
- * PNG/SVG entry points are NOT used — they send HTTP headers,
+ * PNG/SVG entry points are NOT used - they send HTTP headers,
  * which would break the AJAX JSON responses the profile page
  * relies on. Instead this class takes the encoder frame (an array
  * of '0'/'1' strings) and renders it as inline SVG, which needs
@@ -25,8 +25,8 @@ use function substr_count;
  *
  * The frame has no quiet zone, so a four-module white margin is
  * added around it (the QR specification's minimum). The SVG is
- * built from computed numbers only — no user input ever reaches
- * the markup — and the caller wraps it in a figure with a text
+ * built from computed numbers only - no user input ever reaches
+ * the markup - and the caller wraps it in a figure with a text
  * alternative (the otpauth:// URI and the secret itself, for
  * manual entry).
  *
@@ -59,7 +59,7 @@ final class QrCode
      * Render text as an inline SVG QR code.
      *
      * Returns an empty string when the text is empty or the
-     * encoder cannot be loaded — the caller must fall back to
+     * encoder cannot be loaded - the caller must fall back to
      * showing the secret and the otpauth:// URI for manual entry.
      *
      * @param string $text Text to encode (an otpauth:// URI).
@@ -170,7 +170,7 @@ final class QrCode
      *
      * The require is guarded by class_exists() so a site where
      * another plugin already loaded phpqrcode never fatals on a
-     * redeclaration — the already-loaded copy is used instead.
+     * redeclaration - the already-loaded copy is used instead.
      * The library files live in the global namespace, which is
      * why the leading backslash is used at the call sites.
      *

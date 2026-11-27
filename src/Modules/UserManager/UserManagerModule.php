@@ -209,7 +209,7 @@ final class UserManagerModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -302,7 +302,7 @@ final class UserManagerModule implements ModuleInterface
             class="traydigita-module-settings user-manager-settings"
             data-user-manager-admin
             data-msg-saved="<?php esc_attr_e('Role updated.', 'traydigita-core'); ?>"
-            data-msg-error="<?php esc_attr_e('Something went wrong. Try again.', 'traydigita-core'); ?>"
+            data-msg-error="<?php esc_attr_e('Request failed. Try again.', 'traydigita-core'); ?>"
             data-msg-no-user="<?php esc_attr_e('Choose at least one user first.', 'traydigita-core'); ?>"
             data-msg-no-role="<?php esc_attr_e('Choose a role first.', 'traydigita-core'); ?>"
             data-msg-working="<?php esc_attr_e('Working…', 'traydigita-core'); ?>"
@@ -509,7 +509,7 @@ final class UserManagerModule implements ModuleInterface
      * capability per user for its bulk role change and for the
      * role field on the profile screen. When the target user can
      * manage options and the actor is a different user, the check
-     * fails closed with `do_not_allow` — which also binds a
+     * fails closed with `do_not_allow` - which also binds a
      * super admin. An administrator changing their own role is
      * untouched, and users without `manage_options` are
      * unaffected. Only the capability map is filtered here; no
@@ -585,7 +585,7 @@ final class UserManagerModule implements ModuleInterface
      *
      * Only the module's own columns are handled; every other
      * column returns the passed value untouched. No password
-     * hash or other sensitive field is ever printed here — the
+     * hash or other sensitive field is ever printed here - the
      * cells contain only the avatar image, a formatted date,
      * or the role select.
      *
@@ -645,7 +645,7 @@ final class UserManagerModule implements ModuleInterface
      * The admin entry (which carries admin-user-manager.ts once
      * the coordinator wires the import) is otherwise only
      * loaded on TrayDigita pages. The quick-role control on
-     * users.php needs it, so this loads the entry there too —
+     * users.php needs it, so this loads the entry there too -
      * only for users who may change roles.
      *
      * @param string $hookSuffix Current admin page hook suffix.
@@ -734,8 +734,8 @@ final class UserManagerModule implements ModuleInterface
      * A select of the editable roles with the user's current
      * (first) role selected, carrying the AJAX action data the
      * JavaScript needs (nonce, ajax URL, user id) plus the
-     * translatable status strings. For a protected user — one
-     * who can `manage_options` and is not the current user —
+     * translatable status strings. For a protected user - one
+     * who can `manage_options` and is not the current user -
      * the select is rendered disabled with an explanation, so
      * the protection is visible before any request is made
      * (the server refuses it too).
@@ -772,7 +772,7 @@ final class UserManagerModule implements ModuleInterface
             . ' data-action="' . esc_attr(UserManagerAjax::ACTION_CHANGE_ROLE) . '"'
             . ' data-current-role="' . esc_attr($currentRole) . '"'
             . ' data-msg-saved="' . esc_attr__('Role updated.', 'traydigita-core') . '"'
-            . ' data-msg-error="' . esc_attr__('Something went wrong. Try again.', 'traydigita-core') . '"'
+            . ' data-msg-error="' . esc_attr__('Request failed. Try again.', 'traydigita-core') . '"'
             . ' aria-label="' . esc_attr__('Change role', 'traydigita-core') . '"'
             . ($protected ? ' disabled' : '') . '>';
         foreach ($roles as $roleKey => $roleData) {
@@ -871,7 +871,7 @@ final class UserManagerModule implements ModuleInterface
         // a ladder to administrator. A caller without
         // `manage_options` (for example an editor handed
         // `promote_users` through the Role Editor) cannot assign
-        // a role that itself grants `manage_options` — including
+        // a role that itself grants `manage_options` - including
         // promoting their own account.
         if (!$actor->has_cap('manage_options')) {
             $roleObject = get_role($role);

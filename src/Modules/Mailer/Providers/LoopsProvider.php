@@ -12,7 +12,7 @@ use function array_merge;
  * Endpoint `POST https://app.loops.so/api/v1/transactional`
  * with the API key as a Bearer token. Loops is
  * template-based: there is no raw HTML or subject in the
- * request — the mail is sent through a Loops transactional
+ * request - the mail is sent through a Loops transactional
  * template, and the subject and body are passed as data
  * variables (`subject` and `body`) so templates that use
  * `{{subject}}` and `{{body}}` render the mail content. One

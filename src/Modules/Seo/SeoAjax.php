@@ -27,7 +27,7 @@ use WP_Post;
  * disabled. All endpoints require the shared `traydigita-admin`
  * nonce (sent as `_ajax_nonce`) and the `manage_options`
  * capability, following the TurnstileAjax pattern, and all are
- * rate-limited per user. Responses carry a `message` key only —
+ * rate-limited per user. Responses carry a `message` key only -
  * never keys, tokens, or service-account material.
  *
  * - traydigita_seo_indexnow_ping: POST post_id; pings IndexNow

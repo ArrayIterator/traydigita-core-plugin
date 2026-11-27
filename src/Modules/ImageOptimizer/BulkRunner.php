@@ -38,7 +38,7 @@ use function wp_send_json_success;
  *
  * The queue holds every JPEG, PNG, and WebP attachment id. The
  * chunk handler skips attachments that are already optimized for
- * the current format and quality — that check reads one postmeta
+ * the current format and quality - that check reads one postmeta
  * row, so a re-run over an already-optimized library is cheap.
  * Per-attachment outcomes (optimized / skipped / failed) are
  * recorded by `Optimizer` in postmeta; the progress transient

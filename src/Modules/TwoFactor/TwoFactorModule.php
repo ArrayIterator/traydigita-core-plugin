@@ -103,20 +103,20 @@ use const OPENSSL_RAW_DATA;
  * Two-Factor Authentication module (TOTP + trusted devices).
  *
  * What it does:
- * - TOTP (RFC 6238, SHA-1, 30-second step, ±1 window) via Totp.php,
+ * - TOTP (RFC 6238, SHA-1, 30-second step, +/-1 window) via Totp.php,
  *   with the secret encrypted in user meta (AES-256-CBC, key derived
  *   from wp_salt('secure_auth')) and the QR code rendered locally as
  *   inline SVG by QrCode.php (vendored phpqrcode, no external
  *   service, no GD). Ten single-use backup codes, hashed with
  *   wp_hash_password(), are generated BEFORE the authenticator is
- *   activated — a user can never be locked out by enabling 2FA
+ *   activated - a user can never be locked out by enabling 2FA
  *   without a recovery path.
  * - Passkeys are NOT owned here: they live in the Passkeys module
  *   (PasskeysModule), which owns the WebAuthn server, the
  *   credential store, the enrolment UI, and the login-form button.
  *   This module only offers an enrolled passkey as a second
  *   factor on its challenge screen, through the Passkeys
- *   module's public API — see hasAnyMethod() and
+ *   module's public API - see hasAnyMethod() and
  *   renderChallengeForm(). The passkey setting
  *   (`passkey_enabled` in getSettings()) reads through to the
  *   Passkeys module, and the deprecated passkey helpers below
@@ -130,13 +130,13 @@ use const OPENSSL_RAW_DATA;
  *   section until they enroll; the frontend is untouched.
  * - Rate limiting: per-user transient lockout after N failed
  *   verification attempts, plus a lightweight failed-attempt log
- *   (200 rows, auto-pruned — a security log, not a full activity
+ *   (200 rows, auto-pruned - a security log, not a full activity
  *   log).
  * - Safe anti-lockout recovery: WP-CLI commands
  *   (`wp traydigita-2fa status|disable|reset-lockout <user>`) and
  *   the `TRAYDIGITA_2FA_DISABLE` wp-config.php constant (or the
  *   `traydigita:core:two-factor:disable` filter). Both require
- *   server access or another administrator — they are escape
+ *   server access or another administrator - they are escape
  *   hatches, not backdoors.
  *
  * Login flow (integrates with the Login Builder and Turnstile,
@@ -148,7 +148,7 @@ use const OPENSSL_RAW_DATA;
  * single-use token. That action is a custom login action
  * (verified against WP core: wp-login.php keeps an unknown action
  * when a `login_form_{action}` hook exists, and fires it before
- * the switch — the handler owns the whole page: login_header(),
+ * the switch - the handler owns the whole page: login_header(),
  * the challenge form, login_footer(), exit). The challenge accepts
  * a TOTP code, a backup code, or a passkey assertion; success sets
  * the auth cookie exactly as a normal login would. REST, XML-RPC,
@@ -159,7 +159,7 @@ use const OPENSSL_RAW_DATA;
  *
  * TOTP secrets and wp_salt rotation: the encryption key is derived
  * from wp_salt('secure_auth'), so rotating the salts in
- * wp-config.php makes stored secrets unreadable — affected users
+ * wp-config.php makes stored secrets unreadable - affected users
  * simply re-enroll (the profile page says so). This is the safer
  * failure: a database read alone never yields a usable secret.
  *
@@ -204,7 +204,7 @@ final class TwoFactorModule implements ModuleInterface
 
     /**
      * Nonce action for the login-page (unauthenticated) AJAX
-     * endpoints — the passkey options/verify calls from
+     * endpoints - the passkey options/verify calls from
      * wp-login.php. The nonce is printed in the login config
      * block; it is a CSRF token for a public page, not a secret.
      */
@@ -225,7 +225,7 @@ final class TwoFactorModule implements ModuleInterface
      * Style handle of the CSS bundled with the `two-factor` entry.
      *
      * AssetLoader registers an entry's CSS dependencies under the
-     * entry handle (first dependency) — see AssetLoader::initAssets().
+     * entry handle (first dependency) - see AssetLoader::initAssets().
      */
     public const string STYLE_HANDLE = 'traydigita-theme-two-factor';
 
@@ -454,7 +454,7 @@ final class TwoFactorModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -649,8 +649,8 @@ final class TwoFactorModule implements ModuleInterface
      * The `passkey_enabled` value reads through to the Passkeys
      * module (PasskeysModule::isPasskeysEnabled()): passkeys are
      * owned there now, and this module must report the effective
-     * value — false when the Passkeys module is disabled or its
-     * setting is off — so the challenge screen and the
+     * value - false when the Passkeys module is disabled or its
+     * setting is off - so the challenge screen and the
      * enforcement redirect never offer a method that cannot
      * actually be used. The stored legacy value in this
      * module's own option is only a fallback source for the
@@ -702,9 +702,7 @@ final class TwoFactorModule implements ModuleInterface
         ];
     }
 
-    // ------------------------------------------------------------------
     // Per-user data
-    // ------------------------------------------------------------------
 
     /**
      * Whether the user has any usable 2FA method.
@@ -1000,9 +998,7 @@ final class TwoFactorModule implements ModuleInterface
         delete_user_meta($userId, self::META_DEVICES);
     }
 
-    // ------------------------------------------------------------------
     // TOTP secret encryption
-    // ------------------------------------------------------------------
 
     /**
      * Encrypt a TOTP secret for storage.
@@ -1028,7 +1024,7 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Decrypt a stored TOTP secret.
      *
-     * Returns null for anything unreadable — wrong format, bad
+     * Returns null for anything unreadable - wrong format, bad
      * base64, or a decryption failure (for example after a
      * wp_salt rotation). Callers treat null as "not enrolled".
      *
@@ -1054,9 +1050,7 @@ final class TwoFactorModule implements ModuleInterface
         return $secret;
     }
 
-    // ------------------------------------------------------------------
     // Trusted-device cookie
-    // ------------------------------------------------------------------
 
     /**
      * Issue a trusted-device cookie for the user.
@@ -1171,9 +1165,7 @@ final class TwoFactorModule implements ModuleInterface
         return 'Unknown browser';
     }
 
-    // ------------------------------------------------------------------
     // Rate limiting and logging
-    // ------------------------------------------------------------------
 
     /**
      * Transient name for a user's failed-attempt counter.
@@ -1251,9 +1243,7 @@ final class TwoFactorModule implements ModuleInterface
         delete_transient(self::lockoutTransient($userId));
     }
 
-    // ------------------------------------------------------------------
     // Per-IP throttling
-    // ------------------------------------------------------------------
 
     /**
      * Failed attempts from one IP before that IP is blocked.
@@ -1261,7 +1251,7 @@ final class TwoFactorModule implements ModuleInterface
      * Deliberately twice the per-user limit (5): a single IP
      * can lock at most two accounts per window (5 failures each)
      * before the IP itself is refused, so one address can no
-     * longer lock out arbitrary accounts at will — while a
+     * longer lock out arbitrary accounts at will - while a
      * shared IP (office NAT, CGNAT) still tolerates 10 combined
      * typos before blocking. The block only refuses further
      * attempts from that IP for the window; it never locks an
@@ -1274,9 +1264,9 @@ final class TwoFactorModule implements ModuleInterface
     /**
      * Transient name for one IP's failure counter.
      *
-     * The key is an HMAC of the client IP, never the raw IP —
+     * The key is an HMAC of the client IP, never the raw IP -
      * the same "IP as HMAC only" policy as the failed-attempt
-     * log — so no address is stored in the options table.
+     * log - so no address is stored in the options table.
      *
      * @param string $ipKey HMAC key from clientIpKey().
      * @return string
@@ -1338,7 +1328,7 @@ final class TwoFactorModule implements ModuleInterface
      * the counter lives for the lockout window and the IP is
      * blocked once it reaches IP_MAX_ATTEMPTS. The block is
      * logged (user 0, no account is named) so it is visible
-     * to the administrator instead of silent — one event per
+     * to the administrator instead of silent - one event per
      * attempt at or past the threshold, mirroring the
      * per-user counter.
      *
@@ -1386,7 +1376,7 @@ final class TwoFactorModule implements ModuleInterface
      * verification outcomes only, keeps at most MAX_LOG_ENTRIES
      * entries, and stores an HMAC of the client IP instead of the
      * IP itself. Successes are logged too, so an administrator
-     * can see when a method was used — but secrets and codes are
+     * can see when a method was used - but secrets and codes are
      * never logged.
      *
      * @param int $userId User id.
@@ -1412,7 +1402,7 @@ final class TwoFactorModule implements ModuleInterface
         ]);
         update_option(self::LOG_OPTION, array_slice($log, 0, self::MAX_LOG_ENTRIES), false);
         // Hook point for listeners (Activity Log): one action
-        // for every outcome — success, failure and lockout —
+        // for every outcome - success, failure and lockout -
         // including TOTP enrolment confirmation and passkey
         // verification, which all flow through here.
         do_action(self::VERIFIED_ACTION, $userId, $method, $result, $reason);
@@ -1482,9 +1472,7 @@ final class TwoFactorModule implements ModuleInterface
         return filter_var($ip, FILTER_VALIDATE_IP) !== false ? $ip : null;
     }
 
-    // ------------------------------------------------------------------
     // Pending logins and passkey challenges
-    // ------------------------------------------------------------------
 
     /**
      * Transient name for a parked login.
@@ -1593,7 +1581,7 @@ final class TwoFactorModule implements ModuleInterface
      * Mirrors TurnstileModule::isLoginChallengeRenderable(): when
      * the coordinator has not wired the entry into
      * AssetLoader::ASSETS yet, the passkey UI is omitted
-     * instead of rendering a button that can never work — password
+     * instead of rendering a button that can never work - password
      * and TOTP login keep working.
      *
      * @return bool
@@ -1641,9 +1629,7 @@ final class TwoFactorModule implements ModuleInterface
         return $redirect;
     }
 
-    // ------------------------------------------------------------------
     // Login flow
-    // ------------------------------------------------------------------
 
     /**
      * Enqueue the login-page assets.
@@ -1703,7 +1689,7 @@ final class TwoFactorModule implements ModuleInterface
      * WordPress core (20/30) and Turnstile (40). A failed
      * credential check is returned untouched, and a valid user is
      * only parked when they actually have an enabled 2FA method.
-     * Requests that are not login-form posts (no `log` field —
+     * Requests that are not login-form posts (no `log` field -
      * XML-RPC, REST, application passwords, and programmatic
      * logins) pass through untouched, as do logins while
      * enforcement is disabled or the user has a valid trusted
@@ -1764,7 +1750,7 @@ final class TwoFactorModule implements ModuleInterface
      * else returns immediately. On success the login is completed
      * (auth cookie + redirect + exit). On failure the error is
      * stored for the form to show when it renders in the same
-     * request — the user stays on the challenge screen and can
+     * request - the user stays on the challenge screen and can
      * retry until the lockout limit. Failures count against
      * both the per-user lockout and the per-IP throttle, so one
      * address cannot lock out arbitrary accounts at will. Every
@@ -1842,7 +1828,7 @@ final class TwoFactorModule implements ModuleInterface
      * Runs on `login_form_traydigita_2fa`, which wp-login.php
      * fires before the switch for any action that has the hook
      * (verified against WP core source). The handler owns the
-     * whole page — login_header(), the form, login_footer() —
+     * whole page - login_header(), the form, login_footer() -
      * and exits, so the normal login form never renders after it.
      *
      * The form shows the TOTP field when the user has TOTP, the
@@ -1955,16 +1941,14 @@ final class TwoFactorModule implements ModuleInterface
         exit;
     }
 
-    // ------------------------------------------------------------------
     // Enforcement
-    // ------------------------------------------------------------------
 
     /**
      * Redirect users in enforced roles without any 2FA method.
      *
      * Runs on `admin_init`. The user is sent to their own profile
      * page (where they can enroll) and stays there until they
-     * have a method — every other admin page redirects back.
+     * have a method - every other admin page redirects back.
      * Exclusions, each deliberate:
      * - admin-ajax.php (wp_doing_ajax): the enrolment wizard and
      *   other admin AJAX must keep working while the user sets up.
@@ -2052,7 +2036,7 @@ final class TwoFactorModule implements ModuleInterface
      *
      * Runs on `admin_notices`, only on profile.php, only for
      * logged-in users in an enforced role who have not enrolled
-     * yet. The notice is informational — the redirect in
+     * yet. The notice is informational - the redirect in
      * maybeEnforceSetup() does the enforcing.
      *
      * @return void
@@ -2065,9 +2049,7 @@ final class TwoFactorModule implements ModuleInterface
         AdminNotice::render('warning', __('Your role requires two-factor authentication. Set it up below to keep using the admin area.', 'traydigita-core'));
     }
 
-    // ------------------------------------------------------------------
     // Profile UI
-    // ------------------------------------------------------------------
 
     /**
      * Number of unused backup codes for a user.
@@ -2093,14 +2075,14 @@ final class TwoFactorModule implements ModuleInterface
      * submit the surrounding profile form; the frontend script
      * drives them over AJAX with the user nonce. Passkey
      * management by another admin requires the `edit_users`
-     * capability — the AJAX layer enforces that, not the markup.
+     * capability - the AJAX layer enforces that, not the markup.
      *
      * The JSON config block is printed by
      * PasskeysModule::printProfileConfig() (shared with the
      * Passkeys module's own profile section, printed at most
      * once per request). The passkey block itself is rendered
      * by PasskeysModule::renderPasskeyBlock() in place, between
-     * the TOTP and trusted-device blocks — it must stay inside
+     * the TOTP and trusted-device blocks - it must stay inside
      * this container, because the theme script only queries the
      * first `data-traydigita-two-factor-profile` element.
      *
@@ -2118,7 +2100,7 @@ final class TwoFactorModule implements ModuleInterface
         ?>
         <h2><?php esc_html_e('Two-factor authentication', 'traydigita-core'); ?></h2>
         <div class="traydigita-two-factor-profile" data-traydigita-two-factor-profile
-            data-msg-error="<?php echo esc_attr__('Something went wrong. Please try again.', 'traydigita-core'); ?>"
+            data-msg-error="<?php echo esc_attr__('Request failed. Please try again.', 'traydigita-core'); ?>"
             data-msg-copied="<?php echo esc_attr__('Copied.', 'traydigita-core'); ?>"
             data-msg-passkey-no-support="<?php echo esc_attr__('This browser does not support passkeys.', 'traydigita-core'); ?>"
             data-msg-passkey-cancelled="<?php echo esc_attr__('Passkey registration was cancelled.', 'traydigita-core'); ?>"
@@ -2234,9 +2216,7 @@ final class TwoFactorModule implements ModuleInterface
         <?php
     }
 
-    // ------------------------------------------------------------------
     // Settings page
-    // ------------------------------------------------------------------
 
     /**
      * Framework sections for the left navigation.
@@ -2262,9 +2242,9 @@ final class TwoFactorModule implements ModuleInterface
      * for the long descriptions, modern controls), like the
      * other modules: an intro, one section per concern, and the
      * sticky framework save bar. The form itself is unchanged
-     * — it still posts through the module dispatcher
+     * - it still posts through the module dispatcher
      * (`data-traydigita-module-form` + `data-module`, nonce
-     * field `_ajax_nonce` with action `traydigita-admin`) —
+     * field `_ajax_nonce` with action `traydigita-admin`) -
      * and saveSettings() is untouched, so the save round-trip
      * behaves exactly as before. Checkboxes use the
      * "absent means off" convention the dispatcher relies on,

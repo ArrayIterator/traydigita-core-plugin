@@ -68,7 +68,7 @@ use function wp_nonce_field;
  * applies the fallback chain, caches, renders, and owns the
  * settings page.
  *
- * Fallback chain, in order: (1) scored candidates — posts
+ * Fallback chain, in order: (1) scored candidates - posts
  * sharing a tag, a category, or the author; (2) when fewer
  * than the requested count match, the latest posts in the
  * current post's primary (first) category; (3) when the post
@@ -86,11 +86,11 @@ use function wp_nonce_field;
  * versioned transients simply expire after 15 minutes.
  *
  * Thumbnails go through ThemeImage (stack FeatureImage +
- * Photon) — never through get_the_post_thumbnail() directly.
+ * Photon) - never through get_the_post_thumbnail() directly.
  *
  * Placement: the block renders explicitly after the share row
  * in layouts/entry/footer.php (padangkita.com order: tags,
- * share, related), so boot() registers no content filter —
+ * share, related), so boot() registers no content filter -
  * only the cache invalidation on post save/delete. The
  * content-filter order on a single post is therefore Ads at
  * 12, Author Box at 13, Share at 20 (or explicit, when its
@@ -253,7 +253,7 @@ final class RelatedPostsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -377,7 +377,7 @@ final class RelatedPostsModule implements ModuleInterface
      * Validate and save settings from a submitted form.
      *
      * Expected flat keys in `$data`: `count` (integer, clamped
-     * to 1–12), `show_thumbnails` (`1` when checked; an absent
+     * to 1-12), `show_thumbnails` (`1` when checked; an absent
      * key means the checkbox was unchecked), `heading` (plain
      * text; empty resets to the default). Every value is
      * re-sanitized for its own type; unknown keys are dropped.
@@ -664,7 +664,7 @@ final class RelatedPostsModule implements ModuleInterface
      * beyond the cap are never scored.
      *
      * The candidate queries use `fields => ids`, which does
-     * NOT prime the term caches — so the per-candidate tag
+     * NOT prime the term caches - so the per-candidate tag
      * and category lookups below would each fire their own
      * query (an N+1: ~215 queries on a cold cache). The term
      * relationships for every candidate are therefore primed

@@ -61,7 +61,7 @@ use function __;
  *   or link-local host may ever be fetched from the server),
  *   a `wp_remote_head()` pre-check must return HTTP 200 with an
  *   allowlisted image Content-Type, then the file is downloaded
- *   to a temporary file and checked with `getimagesize()` — the
+ *   to a temporary file and checked with `getimagesize()` - the
  *   MIME type reported by the image itself is what counts. The
  *   temporary file is deleted afterwards. A non-image URL is
  *   rejected with a clear error.
@@ -309,13 +309,13 @@ final class AvatarStorage
      * SSRF guard for the remote-avatar fetch: the URL comes from a
      * logged-in user (self-service avatars are on by default), so a
      * loopback, private, or link-local host must never be requested
-     * — that would let a low-privilege user probe the server itself
+     * - that would let a low-privilege user probe the server itself
      * or cloud metadata (169.254.169.254). Hostnames are resolved
      * once and every resolved address is checked the same way as a
      * literal IP; an unresolvable hostname fails closed. Both
      * address families are checked: gethostbynamel() resolves
      * IPv4 only, so AAAA records are resolved separately with
-     * dns_get_record() — a hostname may resolve to a mix of
+     * dns_get_record() - a hostname may resolve to a mix of
      * public and private addresses, and one private address
      * anywhere in the answer rejects the host. DNS rebinding
      * between this check and the fetch (TOCTOU) remains a
@@ -330,7 +330,7 @@ final class AvatarStorage
         $host = strtolower(trim($host));
         // parse_url() keeps the brackets on a literal IPv6 host
         // ("[::1]"), and filter_var() rejects a bracketed address
-        // — without this trim every bracketed IPv6 URL would be
+        // - without this trim every bracketed IPv6 URL would be
         // refused as unresolvable, including a public one, while
         // a private one would be rejected for the wrong reason.
         // Trim exactly one surrounding pair before any check.
@@ -379,7 +379,7 @@ final class AvatarStorage
      * HTTP 200 with an allowlisted image Content-Type; hosts that
      * refuse HEAD requests fall through to the download instead.
      * The file is then downloaded to a temporary file and checked
-     * with `getimagesize()` — the MIME type of the actual image
+     * with `getimagesize()` - the MIME type of the actual image
      * data is authoritative, never the header or the URL. The
      * temporary file is always deleted again.
      *

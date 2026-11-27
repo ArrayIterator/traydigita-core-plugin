@@ -17,11 +17,11 @@ use function wp_json_encode;
  *
  * Endpoint `POST https://email.{region}.amazonaws.com/v2/email/outbound-emails`
  * with AWS Signature Version 4 signing done in pure PHP
- * (HMAC-SHA256 chain, service `ses`) — no AWS SDK, no extra
+ * (HMAC-SHA256 chain, service `ses`) - no AWS SDK, no extra
  * dependency. A 200 response with a `MessageId` means the mail
  * was accepted.
  *
- * Pricing (Nov 2026): no free tier — $0.10 per 1,000 emails
+ * Pricing (Nov 2026): no free tier - $0.10 per 1,000 emails
  * (plus $0.12/GB data). Best for: high-volume transactional
  * mail on AWS, where cost per email matters most.
  *

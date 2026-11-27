@@ -79,7 +79,7 @@ use function wp_verify_nonce;
  *
  * The module also registers the [traydigita_form] shortcode,
  * which renders a saved form and validates submissions through
- * the `traydigita:core:form-builder/submitted` action — other
+ * the `traydigita:core:form-builder/submitted` action - other
  * modules hook that action to store or mail the values.
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\FormBuilder
@@ -248,7 +248,7 @@ final class FormBuilderModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -384,7 +384,7 @@ final class FormBuilderModule implements ModuleInterface
      * and submissions page keep working after the fold. The old
      * id is dropped from the stored list (ModuleRegistry drops
      * unknown ids on read anyway). Runs from
-     * ModuleRegistry::bootEnabled() before the boot loop — NOT
+     * ModuleRegistry::bootEnabled() before the boot loop - NOT
      * from boot(), which only runs when FormBuilder is already
      * enabled, so a site with 'contact-form' enabled but
      * 'form-builder' disabled would otherwise never migrate.
@@ -594,7 +594,7 @@ final class FormBuilderModule implements ModuleInterface
      *   create_template | save_template | delete_template
      * - `contact_action`: save_settings | create_form | save_form
      *   | delete_form (contact forms, folded in from the old
-     *   Contact Form module — dispatched first when present)
+     *   Contact Form module - dispatched first when present)
      * - `form_id` / `template_id`: the target id
      * - `title`: title for a new form/template
      * - `fields`: nested field rows for save_form
@@ -831,7 +831,7 @@ final class FormBuilderModule implements ModuleInterface
      *
      * Note: rows arriving through the shell's generic save are
      * deep-sanitized first (AdminAjax::deepSanitize()), so block
-     * HTML and line breaks do not survive that path — the
+     * HTML and line breaks do not survive that path - the
      * WYSIWYG editor saves through the Email AJAX endpoints
      * instead, which keep them intact.
      *
@@ -1045,14 +1045,13 @@ final class FormBuilderModule implements ModuleInterface
         wp_send_json_success(['message' => __('Thank you. Your submission was received.', 'traydigita-core')]);
     }
 
-    // -----------------------------------------------------------------
-    // Contact forms (folded in from the Contact Form module).
+    // Contact forms.
     //
     // A contact form is a config record: it points at a Form
     // Builder form, a recipient, a send-to-email toggle, a spam
     // mode and an optional shared email template. Submissions are
     // stored FIRST in the SubmissionStore table and only then is
-    // the notification mail sent via the Core Mailer — a
+    // the notification mail sent via the Core Mailer - a
     // submission is never lost even when the email fails. Spam
     // protection is Turnstile (when that module is active and
     // configured) and reCAPTCHA v2/v3 (keys in the Recaptcha
@@ -1061,7 +1060,6 @@ final class FormBuilderModule implements ModuleInterface
     // Recaptcha modules, which own their widgets and
     // verification. The frontend form is the
     // [traydigita_contact_form] shortcode alias.
-    // -----------------------------------------------------------------
 
     /**
      * Default contact-form settings.

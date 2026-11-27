@@ -151,7 +151,7 @@ final class SeoOutput
      * Hooked on `document_title_parts`. Only when no SEO plugin is
      * active and the meta toggle is on: the parts are replaced with
      * a single `title` part holding the fully rendered template
-     * (SeoTemplates), so WordPress appends nothing else to it —
+     * (SeoTemplates), so WordPress appends nothing else to it -
      * the site name and separator already live inside the
      * template. A per-post title override (see META_TITLE) wins
      * over the template on singular posts and pages. Search and
@@ -195,7 +195,7 @@ final class SeoOutput
      * Per-post SEO override for the current singular post, or an empty string when none is stored.
      *
      * Overrides are written by the AI suggestions panel (or any
-     * future editor) and are read only in native mode — the
+     * future editor) and are read only in native mode - the
      * callers of this method are all gated on the SEO plugin
      * detection, so an override can never leak into a page an SEO
      * plugin owns.
@@ -227,7 +227,7 @@ final class SeoOutput
      * (maybeServeNewsSitemap) re-checks the toggle and the SEO
      * plugin detection at request time, so a stale rule left in
      * the database after the toggle was switched off can never
-     * serve a sitemap — it answers 404 instead.
+     * serve a sitemap - it answers 404 instead.
      *
      * @return void
      */
@@ -334,7 +334,7 @@ final class SeoOutput
      * Outputs, only when no SEO plugin is active and the meta
      * toggle is on: robots, meta description, canonical, Open
      * Graph, and Twitter card tags. Search and 404 pages get a
-     * `noindex, nofollow` robots tag and nothing else — there is
+     * `noindex, nofollow` robots tag and nothing else - there is
      * no description or canonical worth publishing for them.
      *
      * @return void
@@ -543,7 +543,7 @@ final class SeoOutput
      * (guarded by class_exists, because the stack plugin could be
      * unavailable in a partial load). The helper falls back to the
      * first content image when no featured image is set, and
-     * returns null when the post has no image at all — in that
+     * returns null when the post has no image at all - in that
      * case no image tag is printed anywhere.
      *
      * @return array{url: string, width: int, height: int}|null
@@ -581,7 +581,7 @@ final class SeoOutput
      * Headline, dates, author, publisher, and image are included
      * only when the data exists: a post without an author name
      * gets no author block, and a site without a custom logo gets
-     * a publisher without a logo — never a placeholder.
+     * a publisher without a logo - never a placeholder.
      *
      * @return array<string, mixed>|null
      */

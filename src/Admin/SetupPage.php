@@ -47,7 +47,7 @@ use function _n;
  * Renders the checklist inside the admin shell (the wiring builder
  * adds the page and sets $traydigita_setup_page; the thin template
  * templates/admin/setup-page.php calls render() here). Every status
- * is read live from the running site on each render — nothing is
+ * is read live from the running site on each render - nothing is
  * cached and no status is hardcoded.
  *
  * Checklist items (see items()):
@@ -69,7 +69,7 @@ use function _n;
  * - cache: a page-cache plugin (CacheDetector). 'done' when one
  *   is active; otherwise 'pending' with the server-aware
  *   recommendation (CacheModule::recommendedPlugin()) and a link
- *   to the cache group on the Plugin Suggestions page — or to
+ *   to the cache group on the Plugin Suggestions page - or to
  *   the Plugins screen when the stack is inactive and that page
  *   does not exist yet.
  *
@@ -78,7 +78,7 @@ use function _n;
  * 'pending' or 'info' and 'action' is one of 'stack-install',
  * 'stack-activate', 'stack-upload', 'link-installer',
  * 'link-installer-cache', 'flush-permalinks', 'link-plugins',
- * 'link-push' or 'none'. No HTML lives in items() — the template owns the markup. Two
+ * 'link-push' or 'none'. No HTML lives in items() - the template owns the markup. Two
  * exceptions, both documented where they occur:
  * - The 'stack-install' action renders BOTH the GitHub install
  *   button and the zip-upload fallback form: the upload form is
@@ -165,7 +165,7 @@ final class SetupPage
             data-msg-active="<?php echo esc_attr(__('Active', 'traydigita-core')); ?>"
             data-msg-done="<?php echo esc_attr(__('Done', 'traydigita-core')); ?>"
             data-msg-pending="<?php echo esc_attr(__('Pending', 'traydigita-core')); ?>"
-            data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
+            data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>">
             <?php self::renderUploadResult(); ?>
             <p class="traydigita-module-intro">
                 <?php esc_html_e('Work through this list once after installing the theme. Every status below is checked live — reload the page to re-check after installing or activating something.', 'traydigita-core'); ?>
@@ -261,7 +261,7 @@ final class SetupPage
      *
      * 'done' only when the Agenda flag is set AND the stored rules
      * contain both the Agenda and the E-Paper rules. The detail
-     * names each signal, and says when a module is disabled —
+     * names each signal, and says when a module is disabled -
      * a disabled module registers no rules, so flushing alone
      * cannot make its rules appear.
      *
@@ -358,7 +358,7 @@ final class SetupPage
      * The recommended-plugins checklist item.
      *
      * Summary counts over the fourteen installable curated entries
-     * (PluginList::all() filtered by installable — the stack entry
+     * (PluginList::all() filtered by installable - the stack entry
      * is excluded). 'done' only when all six are active; anything
      * less is 'pending' because there is still something to
      * install or activate.
@@ -525,7 +525,7 @@ final class SetupPage
      *
      * 'done' when the module is enabled and its table exists
      * (detail counts the logged entries). 'pending' when the
-     * module is enabled but the table is missing — the create
+     * module is enabled but the table is missing - the create
      * action runs dbDelta immediately. 'info' when the module
      * is disabled: logging is optional, and the action links to
      * the module settings page instead of creating anything.
@@ -577,9 +577,9 @@ final class SetupPage
      * The cache-plugin checklist item.
      *
      * 'done' when a cache plugin is active (CacheDetector), with
-     * the detail naming it. Otherwise 'pending' — a cache plugin
+     * the detail naming it. Otherwise 'pending' - a cache plugin
      * is optional, but the setup list is the place to surface the
-     * recommendation — with the server-aware recommendation
+     * recommendation - with the server-aware recommendation
      * (CacheModule::recommendedPlugin()) as the detail. The
      * action links to the cache group on the Plugin Suggestions
      * page when the stack is active; that page does not exist
@@ -813,7 +813,7 @@ final class SetupPage
      * actions (stack install / stack activate / flush / create
      * the activity-log table) get a live status line rendered by
      * renderItem(); the link actions are plain links; 'none'
-     * renders nothing — except the recommended item, whose
+     * renders nothing - except the recommended item, whose
      * per-plugin cards are rendered by renderItemExtras() instead.
      *
      * @param array{id: string, title: string, description: string, status: string, detail: string, action: string, plugins?: array<int, array{slug: string, name: string, reason: string, status: string}>} $item Checklist item from items().
@@ -941,7 +941,7 @@ final class SetupPage
      * when the stack is inactive).
      *
      * One card per plugin in the same language as the
-     * integrations hub — icon tile (a generic category glyph from
+     * integrations hub - icon tile (a generic category glyph from
      * PluginList::iconFor(), never a brand logo), name, one-line
      * reason, icon+text status pill, and Install / Activate
      * buttons. Same markup and data attributes as the installer
@@ -949,12 +949,12 @@ final class SetupPage
      * [data-installer-admin] root with the translatable strings,
      * [data-installer-plugin] cards with data-slug, and
      * [data-installer-install] / [data-installer-activate]
-     * buttons — so resources/js/modules/admin-installer.ts wires
+     * buttons - so resources/js/modules/admin-installer.ts wires
      * them with no extra JavaScript. The stack entry is not in
      * this list: it cannot be installed from wordpress.org.
      *
      * Paginated, six per page, with prev/next links back to this
-     * page (`td_recommended_page` query arg) — the same pattern
+     * page (`td_recommended_page` query arg) - the same pattern
      * as the Activity Log viewer. The cards are plain
      * server-rendered markup, so the Install / Activate buttons
      * keep working on every page: the installer JavaScript binds
@@ -984,7 +984,7 @@ final class SetupPage
             data-msg-activate="<?php echo esc_attr(__('Activate', 'traydigita-core')); ?>"
             data-msg-installed="<?php echo esc_attr(__('Installed', 'traydigita-core')); ?>"
             data-msg-active="<?php echo esc_attr(__('Active', 'traydigita-core')); ?>"
-            data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
+            data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>">
             <?php foreach ($pagePlugins as $plugin) : ?>
                 <?php
                 $badgeClass = $plugin['status'] === PluginList::STATUS_ACTIVE

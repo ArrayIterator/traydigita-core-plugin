@@ -106,8 +106,8 @@ final class PushAjax
      * When the koperasi-kita-push plugin is active it serves the
      * root service worker and the token endpoint, so the module
      * must not test or send against its own (possibly different)
-     * config at the same time. Config saving stays allowed — it
-     * only stores options — but test and send refuse here.
+     * config at the same time. Config saving stays allowed - it
+     * only stores options - but test and send refuse here.
      *
      * @return bool True when the plugin owns push right now.
      */
@@ -159,7 +159,7 @@ final class PushAjax
      *
      * POST fields: title (required), body (required), link,
      * image, target ('all' | 'test'), test_token (required when
-     * target is 'test'). Sending is manual only — nothing here
+     * target is 'test'). Sending is manual only - nothing here
      * runs on publish.
      *
      * @return void

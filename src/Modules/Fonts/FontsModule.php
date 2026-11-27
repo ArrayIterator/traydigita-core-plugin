@@ -45,7 +45,7 @@ use function wp_mkdir_p;
  *
  * Downloads Google Fonts to local files (or accepts uploaded
  * woff2/woff/ttf files), stores them under
- * `wp-content/traydigita-fonts/` — never in the uploads directory —
+ * `wp-content/traydigita-fonts/` - never in the uploads directory -
  * generates one `@font-face` stylesheet from the stored files, and
  * enqueues it on the frontend. Google Fonts are never hotlinked:
  * once a family is downloaded, the frontend only ever loads the
@@ -62,8 +62,8 @@ use function wp_mkdir_p;
  * removed again when the last font is deleted.
  *
  * Applying a font: the module registers two Customizer settings
- * through the `traydigita:core:customizer/definitions` filter —
- * `traydigita_body_font` and `traydigita_heading_font` — each a
+ * through the `traydigita:core:customizer/definitions` filter -
+ * `traydigita_body_font` and `traydigita_heading_font` - each a
  * select over the installed families (plus "System default"). The
  * module settings page offers the same two selects, saved as
  * theme mods by saveSettings(). On the frontend the body font is
@@ -211,7 +211,7 @@ final class FontsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -352,7 +352,7 @@ final class FontsModule implements ModuleInterface
      * Sanitize a Customizer font choice (or a module-form value).
      *
      * Returns the slug when it names an installed family, or an
-     * empty string (system default) for anything else — including
+     * empty string (system default) for anything else - including
      * a slug whose family was deleted after the value was stored.
      *
      * @param mixed $value Submitted value.
@@ -496,7 +496,7 @@ final class FontsModule implements ModuleInterface
      *
      * The form carries `body_font` and `heading_font` (family
      * slugs, or empty for the system default). Both are stored as
-     * theme mods — the same settings the Customizer exposes — so
+     * theme mods - the same settings the Customizer exposes - so
      * there is a single source of truth for which font applies.
      * The font registry itself is managed only through the
      * module-owned AJAX endpoints, never through this form.
@@ -629,7 +629,7 @@ final class FontsModule implements ModuleInterface
      * Safe font list for admin responses and the settings template.
      *
      * Only family names, slugs, sources, and per-file weight/style/
-     * format are exposed — never absolute paths.
+     * format are exposed - never absolute paths.
      *
      * @return array<int, array{family: string, slug: string, source: string, files: array<int, array{weight: int, style: string, format: string}>}>
      */
@@ -712,7 +712,7 @@ final class FontsModule implements ModuleInterface
     /**
      * Parse a comma-separated weight list into sorted unique weights.
      *
-     * Only weights 100–900 in steps of 100 are kept, at most
+     * Only weights 100-900 in steps of 100 are kept, at most
      * FontDownloader::MAX_WEIGHTS of them.
      *
      * @param string $raw Raw input, e.g. `400, 700,400`.

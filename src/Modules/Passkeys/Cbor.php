@@ -20,7 +20,7 @@ use const NAN;
  * Minimal CBOR decoder (RFC 8949).
  *
  * WebAuthn attestation objects and COSE keys are CBOR, so the
- * WebAuthn server needs a decoder — but the theme ships zero
+ * WebAuthn server needs a decoder - but the theme ships zero
  * runtime Composer dependencies, and pulling in a CBOR library
  * for one decode path would be disproportionate. This decoder
  * covers what WebAuthn produces: unsigned and negative integers,
@@ -29,7 +29,7 @@ use const NAN;
  * (false, true, null, undefined), half/single/double floats, and
  * tags (the tag number is dropped and the content is decoded).
  *
- * Hardened for untrusted input: a maximum input size (64 KiB —
+ * Hardened for untrusted input: a maximum input size (64 KiB -
  * an attestation object is a few hundred bytes), a maximum
  * nesting depth (32), duplicate map keys are rejected, text
  * strings must be valid UTF-8, and every length is checked
@@ -58,7 +58,7 @@ final class Cbor
     /**
      * Decode a complete CBOR value.
      *
-     * The whole input must be exactly one value — trailing bytes
+     * The whole input must be exactly one value - trailing bytes
      * raise, so a concatenated second value cannot hide behind a
      * valid first one.
      *
@@ -198,14 +198,14 @@ final class Cbor
     /**
      * Read the argument of a CBOR head.
      *
-     * Additional information 0–23 is the value itself; 24 reads one
+     * Additional information 0-23 is the value itself; 24 reads one
      * byte, 25 two, 26 four, 27 eight. Eight-byte values above
-     * PHP_INT_MAX raise — WebAuthn never produces them, and silently
+     * PHP_INT_MAX raise - WebAuthn never produces them, and silently
      * truncating an integer would be worse than refusing it.
      *
      * @param string $data CBOR bytes.
      * @param int $pos Offset just after the head byte.
-     * @param int $info Additional information (0–27).
+     * @param int $info Additional information (0-27).
      * @param int $total Total input length.
      * @return array{value: int, length: int} Value and bytes consumed after the head.
      * @throws CborException When the argument is truncated or too large.
@@ -463,7 +463,7 @@ final class Cbor
     /**
      * Encode a PHP value as CBOR (test support).
      *
-     * The server never encodes CBOR — the browser does — but the
+     * The server never encodes CBOR - the browser does - but the
      * test harness needs an encoder to build synthetic attestation
      * objects, so a small one lives here. It covers ints, strings,
      * byte strings (wrapped in CborBytes), booleans, null, floats,
@@ -518,7 +518,7 @@ final class Cbor
     /**
      * Encode a CBOR head (major type + argument).
      *
-     * @param int $major Major type (0–7).
+     * @param int $major Major type (0-7).
      * @param int $argument Argument value.
      * @return string Head bytes.
      */

@@ -78,7 +78,7 @@ use const UPLOAD_ERR_OK;
  *
  * PDF verification never trusts the file extension or the
  * client-sent MIME type alone: the file must pass all three
- * checks — `wp_check_filetype_and_ext()` reporting
+ * checks - `wp_check_filetype_and_ext()` reporting
  * `application/pdf`, `finfo` reporting `application/pdf`, and
  * the first bytes being the `%PDF-` magic header.
  */
@@ -300,7 +300,7 @@ final class EPaperStorage
     /**
      * The newest issues, newest first.
      *
-     * @param int $count How many to return (clamped to 1–10).
+     * @param int $count How many to return (clamped to 1-10).
      * @return array<int, array{id: string, title: string, date: string, file: string, size: int, cover_id: int, created: int}>
      */
     public static function latest(int $count = 1): array

@@ -20,7 +20,7 @@
  *   upload progress bar works). Field names: `title`, `date`,
  *   `cover_id`, `epaper_file`. The cover is a media-library
  *   attachment id picked with wp.media; 0 means no cover, and
- *   the issue then shows a generated placeholder — the first
+ *   the issue then shows a generated placeholder - the first
  *   page of the PDF is never rendered as a cover.
  * - Per-issue edit form (`data-epaper-update-form`): posts
  *   `issue_id`, `title`, `date`, `cover_id` to
@@ -50,7 +50,7 @@ $epaperToday = current_time('Y-m-d');
     data-msg-no-file="<?php esc_attr_e('Choose a PDF file first.', 'traydigita-core'); ?>"
     data-msg-no-title="<?php esc_attr_e('Enter a title for the issue.', 'traydigita-core'); ?>"
     data-msg-no-media="<?php esc_attr_e('The Media Library is not available.', 'traydigita-core'); ?>"
-    data-msg-error="<?php esc_attr_e('Something went wrong. Please try again.', 'traydigita-core'); ?>">
+    data-msg-error="<?php esc_attr_e('Request failed. Please try again.', 'traydigita-core'); ?>">
     <div class="epaper-status" role="status">
         <p class="epaper-status-text">
             <?php

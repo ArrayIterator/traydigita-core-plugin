@@ -19,7 +19,7 @@ use function esc_url;
  * settings, the token table, the send code, the AJAX/REST
  * endpoints, the subscribe shortcode, and the shared service
  * worker all live there now. This module keeps only the PWA
- * half: the phase-1 behaviour behind the enabled flag —
+ * half: the phase-1 behaviour behind the enabled flag -
  * manifest link + theme-color meta (gated in functions.php),
  * install sheet + "Install App" buttons (gated in the header /
  * footer / mobile sidebar templates), `initPwa()` in app.ts.
@@ -34,8 +34,8 @@ use function esc_url;
  * This module has no settings of its own: the settings page
  * is a read-only summary of what the PWA does (and what
  * disabling removes), with a link to the Push module for
- * notifications. It registers no hooks — the PWA frontend
- * behaviour lives in the theme — so boot() only runs the
+ * notifications. It registers no hooks - the PWA frontend
+ * behaviour lives in the theme - so boot() only runs the
  * push-enabled migration.
  */
 final class PwaModule implements ModuleInterface
@@ -137,7 +137,7 @@ final class PwaModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -248,9 +248,9 @@ final class PwaModule implements ModuleInterface
      * Render the settings page inside the admin shell content area.
      *
      * Read-only: the PWA has no settings to save, so the page
-     * is a visible info page in three sections — what the PWA
+     * is a visible info page in three sections - what the PWA
      * does, what disabling removes, and where push
-     * notifications live — with nothing hidden behind a Help
+     * notifications live - with nothing hidden behind a Help
      * toggle.
      *
      * @return void

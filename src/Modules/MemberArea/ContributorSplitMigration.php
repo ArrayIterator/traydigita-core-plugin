@@ -33,7 +33,7 @@ use function update_option;
  *    member-profile, role-access, editorial-workflow), so a
  *    site that had the old module enabled keeps everything
  *    working. When the old id is NOT in the list, nothing is
- *    enabled — the replacement modules must not silently turn
+ *    enabled - the replacement modules must not silently turn
  *    on for a site that had the old module disabled. (On a
  *    fresh install there is no stored list at all, and the
  *    registry's DEFAULT_ENABLED applies instead: bookmarks is

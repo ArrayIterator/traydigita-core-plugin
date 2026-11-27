@@ -17,7 +17,7 @@ use function wp_remote_retrieve_body;
  *
  * Every request goes through wp_remote_get with an 8 second timeout
  * and an allowlisted host, and is only ever made from admin save,
- * WP-Cron refresh, or the admin preview — never from a frontend
+ * WP-Cron refresh, or the admin preview - never from a frontend
  * render path. Any failure returns null so the caller can fall back
  * to the manual snapshot or an honest empty state.
  */

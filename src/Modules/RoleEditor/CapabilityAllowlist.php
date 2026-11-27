@@ -22,10 +22,10 @@ use function in_array;
  * go through `__()`.
  *
  * Deliberately excluded:
- * - Legacy `level_0` … `level_10` capabilities: deprecated since
+ * - Legacy `level_0` ... `level_10` capabilities: deprecated since
  *   WordPress 3.0 and no longer used by core.
  * - `manage_links`: the Links Manager is long deprecated.
- * - Meta capabilities (`edit_post`, `edit_user`, …): they are
+ * - Meta capabilities (`edit_post`, `edit_user`, ...): they are
  *   mapped by WordPress at runtime from the primitive
  *   capabilities below and must never be granted directly.
  * - Any capability belonging to a plugin that is not listed

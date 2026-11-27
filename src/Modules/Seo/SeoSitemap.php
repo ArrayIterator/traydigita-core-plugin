@@ -25,7 +25,7 @@ use function status_header;
  *
  * Served at /sitemap.xml (index), /sitemap-posts.xml,
  * /sitemap-pages.xml, and /sitemap-categories.xml, only while the
- * XML sitemap toggle is on and no SEO plugin is active — an active
+ * XML sitemap toggle is on and no SEO plugin is active - an active
  * SEO plugin serves its own sitemaps, so the theme must not serve a
  * second set. Every public entry point re-checks both conditions
  * at request time, so a stale rewrite rule left in the database

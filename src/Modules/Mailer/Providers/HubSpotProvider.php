@@ -19,7 +19,7 @@ use function is_array;
  * recipient). A 200 response with a `statusId` means the mail
  * was accepted.
  *
- * Free tier (Nov 2026): 2,000 emails/month — but only with
+ * Free tier (Nov 2026): 2,000 emails/month - but only with
  * the Transactional Email add-on or Marketing Hub Enterprise.
  * Best for: sites already running HubSpot CRM and marketing.
  *

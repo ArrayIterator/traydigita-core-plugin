@@ -67,7 +67,7 @@ use function _n;
  *
  * Social links come only from profile fields that already exist:
  * the core `user_url` (Website) plus four read-only user-meta keys
- * that other plugins and themes commonly fill — `twitter`,
+ * that other plugins and themes commonly fill - `twitter`,
  * `facebook`, `instagram`, `linkedin`. These keys are READ, never
  * written, by this module: an empty or absent key simply renders
  * no link, and no new user meta is ever created. A stored value
@@ -121,7 +121,7 @@ final class AuthorBoxModule implements ModuleInterface
      * and the URL prefix used when the stored value is a bare
      * handle instead of a full URL. The `user_url` Website field
      * is handled separately (see socialLinks()). These keys are
-     * only ever read — this module never writes user meta.
+     * only ever read - this module never writes user meta.
      *
      * @var array<string, array{label: string, prefix: string}>
      */
@@ -230,7 +230,7 @@ final class AuthorBoxModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -378,7 +378,7 @@ final class AuthorBoxModule implements ModuleInterface
      * Expected flat keys: `position` (allowlisted), `show_on_pages`,
      * `show_social`, `show_post_count` (checkboxes: `1` when
      * checked, absent when unchecked), `avatar_size` (integer
-     * clamped to 48–256). Unknown keys are dropped.
+     * clamped to 48-256). Unknown keys are dropped.
      *
      * @param array<string, mixed> $data Sanitized form data.
      * @return array{success: bool, message: string}
@@ -424,7 +424,7 @@ final class AuthorBoxModule implements ModuleInterface
     /**
      * Register the module hooks. Called only when the module is enabled.
      *
-     * Registers the `the_content` filter at priority 13 — after the
+     * Registers the `the_content` filter at priority 13 - after the
      * Table of Contents filter at 12, so a box placed above the
      * content lands outside the TOC. With the `manual` placement
      * the filter does nothing and the box renders only from the
@@ -587,7 +587,7 @@ final class AuthorBoxModule implements ModuleInterface
      * module exists (its class is built by the parallel Avatar
      * track); otherwise falls back to core get_avatar(), which the
      * Avatar module also overrides through the `get_avatar` filter
-     * when it is enabled — so a custom avatar renders either way
+     * when it is enabled - so a custom avatar renders either way
      * and no avatar logic is duplicated here. Any failure in the
      * helper falls back to get_avatar() as well.
      *
@@ -700,7 +700,7 @@ final class AuthorBoxModule implements ModuleInterface
      * Registered by boot() through the
      * `traydigita:core:customizer/definitions` filter (see
      * SettingsCustomizer). Only the two settings readers most often
-     * reach for are exposed here — the full set stays on the module
+     * reach for are exposed here - the full set stays on the module
      * page. The module option stays the source of truth; the theme
      * mods are kept in sync by saveSettings() and
      * syncFromCustomizer().

@@ -15,7 +15,7 @@
  *   switcher pattern.
  *
  * One overlay, one card, one header / body / footer structure,
- * one focus trap, one close behaviour — the popups differ only
+ * one focus trap, one close behaviour - the popups differ only
  * in body content. All data is server-rendered JSON embedded on
  * the page (no new AJAX or REST endpoint). All user-visible
  * strings come from data-msg-* attributes on the admin shell
@@ -87,9 +87,7 @@
         }
     }
 
-    /* ------------------------------------------------------------------ */
     /* Modal core                                                          */
-    /* ------------------------------------------------------------------ */
 
     var overlay = null;
     var dialog = null;
@@ -295,7 +293,7 @@
             focusTarget = items.length > 0 ? items[0] : dialog;
         }
         /* preventScroll: focusing the picker search input must not
-           scroll the overlay — on a narrow viewport that scroll
+           scroll the overlay - on a narrow viewport that scroll
            would push the modal header out of view. Focus still
            lands in the dialog, so keyboard users can type at once. */
         focusTarget.focus({ preventScroll: true });
@@ -341,9 +339,7 @@
         return button;
     }
 
-    /* ------------------------------------------------------------------ */
     /* Module info popup                                                   */
-    /* ------------------------------------------------------------------ */
 
     /**
      * Clean a dashicon slug: letters, digits and dashes only.
@@ -379,7 +375,7 @@
      * sits above an underline tab bar
      * that reuses the settings shell's tab pattern
      * (.traydigita-admin-tabs / .traydigita-admin-tab), and
-     * only the active panel is shown — (1) Features, (2)
+     * only the active panel is shown - (1) Features, (2)
      * Changelog, (3) Details (version, author, category,
      * status, settings link). The tab headings replace the
      * old stacked section titles, so nothing is repeated.
@@ -514,7 +510,7 @@
                     // and settings that do nothing must not be
                     // one click away without saying so. Enable
                     // instead, through the existing toggle
-                    // endpoint — the settings stay reachable from
+                    // endpoint - the settings stay reachable from
                     // the module list for pre-configuration.
                     var enableButton = el(
                         'button',
@@ -632,7 +628,7 @@
                 if (String(info.status || '') === 'disabled' && String(info.id || '') !== '') {
                     // Same rule as the Details tab's Settings row
                     // above: no "Open settings" for a disabled
-                    // module — Enable instead, through the
+                    // module - Enable instead, through the
                     // existing toggle endpoint.
                     var footerEnable = el(
                         'button',
@@ -659,9 +655,7 @@
         });
     }
 
-    /* ------------------------------------------------------------------ */
     /* Module enable (disabled banner + info popup)                      */
-    /* ------------------------------------------------------------------ */
 
     /**
      * Enable one module through the existing toggle endpoint,
@@ -732,9 +726,7 @@
         });
     }
 
-    /* ------------------------------------------------------------------ */
     /* Context rail: clamp + "More" trigger                                */
-    /* ------------------------------------------------------------------ */
 
     /**
      * Show the rail "More" button only when the clamped
@@ -772,9 +764,7 @@
         window.addEventListener('resize', check);
     }
 
-    /* ------------------------------------------------------------------ */
     /* Modules page: info button on every card                             */
-    /* ------------------------------------------------------------------ */
 
     var moduleInfoById = null;
 
@@ -873,9 +863,7 @@
         }
     }
 
-    /* ------------------------------------------------------------------ */
     /* Picker (Mailer provider + SMTP preset: same component)              */
-    /* ------------------------------------------------------------------ */
 
     /**
      * Open a searchable picker popup for one field.
@@ -893,7 +881,7 @@
             initialFocus: '.traydigita-modal-search',
             build: function (body) {
                 /* Toolbar: the search input plus the grid / list
-                   view switcher — the same switcher the Modules
+                   view switcher - the same switcher the Modules
                    page uses (.traydigita-ui-view-switch with
                    grid_view / list icons and the same active
                    state), so the popup looks like it belongs to
@@ -975,7 +963,7 @@
                     if (String(item.id) === selectedId) {
                         button.classList.add('is-selected');
                     }
-                    /* Readiness (Mailer provider picker only — the
+                    /* Readiness (Mailer provider picker only - the
                        preset picker carries no flags, so a missing
                        flag means ready): an unverified provider is
                        shown but cannot be picked. The server-side
@@ -1149,9 +1137,7 @@
         });
     }
 
-    /* ------------------------------------------------------------------ */
     /* Public API                                                           */
-    /* ------------------------------------------------------------------ */
 
     /* One public opener for popups that are not a picker or a module
        info card (for example the Mailer DKIM DNS check): the same
@@ -1164,9 +1150,7 @@
         open: openModal,
     };
 
-    /* ------------------------------------------------------------------ */
     /* Boot                                                                */
-    /* ------------------------------------------------------------------ */
 
     function init() {
         initRail();

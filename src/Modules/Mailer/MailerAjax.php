@@ -43,7 +43,7 @@ use function wp_unslash;
  *   (optional; defaults are provided when empty)
  *
  * The test goes through `wp_mail()`, so it exercises the
- * selected provider end to end — SMTP via PHPMailer, SendGrid
+ * selected provider end to end - SMTP via PHPMailer, SendGrid
  * and Gmail via the `pre_wp_mail` short-circuit. Responses are
  * JSON via `wp_send_json_success()` / `wp_send_json_error()`
  * with a `message` key. On failure the message is the mailer
@@ -78,7 +78,7 @@ final class MailerAjax
      * Minimum seconds between DKIM DNS checks from the same user.
      *
      * The check hits DNS (and DNS-over-HTTPS) on every call, so
-     * it is rate-limited like the test email — and the browser
+     * it is rate-limited like the test email - and the browser
      * caches results for five minutes as well, so a normal user
      * never hits this limit twice in a row.
      */
@@ -167,7 +167,7 @@ final class MailerAjax
         // Capture the WP_Error from the `wp_mail_failed` action so
         // the real mailer error can be returned to the admin.
         // (API providers short-circuit before that action fires,
-        // so their failure text comes from the send log instead —
+        // so their failure text comes from the send log instead -
         // see the fallback below.)
         /** @var WP_Error|null $mailError */
         $mailError = null;
@@ -214,7 +214,7 @@ final class MailerAjax
      * Check the published DKIM TXT record against the stored key.
      *
      * POST: `domain` + `selector` (both required, strictly
-     * validated). The private key is NEVER accepted here — it
+     * validated). The private key is NEVER accepted here - it
      * is not sent by the browser and not read from the request;
      * the check compares the published record against the public
      * key derived from the key already stored in settings.

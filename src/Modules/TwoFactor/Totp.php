@@ -28,7 +28,7 @@ use const STR_PAD_LEFT;
  * instead of big-endian, and `verifyTOTP()` only checked future
  * time steps. The adapter still computes codes per counter
  * (rather than calling `StackTotp::generate()`) so the `$now`
- * parameter of `verifyCode()` — used by tests and by the CLI —
+ * parameter of `verifyCode()` - used by tests and by the CLI -
  * is honoured.
  *
  * Parameters are the authenticator-app defaults: SHA-1,
@@ -68,7 +68,7 @@ final class Totp
      * Generate a random TOTP secret.
      *
      * 20 random bytes (160 bits, the RFC 6238 recommendation)
-     * via the Stack TOTP generator, as base32 without padding —
+     * via the Stack TOTP generator, as base32 without padding -
      * the form every authenticator app accepts for manual entry.
      *
      * @param int $bytes Random bytes to draw (20 by default).
@@ -183,7 +183,7 @@ final class Totp
      * Each code is 8 random digits shown as XXXX-XXXX. Uniqueness
      * inside the set is enforced by regeneration. The caller must
      * hash the returned codes before storing them and show them to
-     * the user exactly once — there is no way to recover a lost
+     * the user exactly once - there is no way to recover a lost
      * code, by design.
      *
      * @param int $count Codes to generate.

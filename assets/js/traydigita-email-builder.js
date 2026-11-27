@@ -381,7 +381,7 @@
                     + '<button type="button" class="td-eb-block-tool" data-format="bold" aria-label="Bold"><b>B</b></button>'
                     + '<button type="button" class="td-eb-block-tool" data-format="italic" aria-label="Italic"><i>I</i></button>'
                     + '<button type="button" class="td-eb-block-tool" data-format="link" aria-label="Add link">Link</button>'
-                    + '<input type="url" class="td-eb-link-input" placeholder="https://…" spellcheck="false" hidden />'
+                    + '<input type="url" class="td-eb-link-input" placeholder="https://..." spellcheck="false" hidden />'
                     + '<button type="button" class="td-eb-block-tool td-eb-link-apply" hidden>Apply link</button>'
                     + '</div>';
             }
@@ -1176,7 +1176,7 @@
         /* FormBuilder submit publishes (the shell save is
          * bypassed for this form: the editor saves through
          * the Email AJAX endpoints, which keep block HTML
-         * intact — the generic save would strip it). */
+         * intact - the generic save would strip it). */
         if (formEl) {
             formEl.addEventListener('submit', function (event) {
                 event.preventDefault();

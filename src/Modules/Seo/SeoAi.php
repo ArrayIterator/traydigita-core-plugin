@@ -33,7 +33,7 @@ use WP_Post;
  * core AI Client API (wp-includes/ai-client.php, since WordPress
  * 7.0.0): wp_supports_ai() and wp_ai_client_prompt(), whose
  * builder offers is_supported_for_text_generation() and
- * generate_text(). Core ships NO AI provider of its own — a
+ * generate_text(). Core ships NO AI provider of its own - a
  * provider is registered only by a provider plugin (for example
  * the AI Services provider plugins, ai-provider-for-anthropic /
  * ai-provider-for-google / ai-provider-for-openai, which core's
@@ -50,7 +50,7 @@ use WP_Post;
  * demand for one post at a time, from that post's real title,
  * excerpt, and content; the generated title is capped at 60
  * characters and the description at 160, at a word boundary.
- * Nothing is applied automatically — the admin reviews the
+ * Nothing is applied automatically - the admin reviews the
  * suggestions and applies them explicitly as per-post overrides.
  */
 final class SeoAi
@@ -170,7 +170,7 @@ final class SeoAi
      * defensively: an unparsable answer, a provider error, or a
      * missing post all return an error instead of invented text.
      * At most one request per user per minute (transient rate
-     * limit); the generated text is never stored here — the caller
+     * limit); the generated text is never stored here - the caller
      * decides whether to apply it.
      *
      * @param int $postId Post or page ID.

@@ -19,7 +19,7 @@ use function wp_remote_retrieve_body;
  * Uses `/api/XAU/USD` with the `X-API-KEY` header. A key is
  * REQUIRED (there is no keyless tier). The response carries the
  * price per gram in USD (`price_gram_24k`), which is converted to
- * IDR with the Yahoo `USDIDR=X` rate — whether GoldAPI serves
+ * IDR with the Yahoo `USDIDR=X` rate - whether GoldAPI serves
  * `XAU/IDR` directly could not be verified from the public docs,
  * so USD plus the Yahoo rate is used and stated here instead of
  * guessed. The change (`ch`, USD per ounce) is converted the same
@@ -27,7 +27,7 @@ use function wp_remote_retrieve_body;
  *
  * The live path could not be verified from this sandbox (no API
  * key exists). Without a key this provider returns no prices at
- * all (and the module shows a "key required" notice) — never a
+ * all (and the module shows a "key required" notice) - never a
  * fabricated price.
  *
  * @see https://www.goldapi.io/documentation

@@ -22,7 +22,7 @@ use function trim;
  * instance's display labels; the adapter forwards the ids to the
  * crypto provider and converts the returned prices to MarketQuote
  * rows. A provider failure yields an empty list, so the widget
- * falls back to the manual snapshot (or an honest empty state) —
+ * falls back to the manual snapshot (or an honest empty state) -
  * never a fabricated price.
  */
 final class CryptoProviderAdapter implements MarketDataProvider

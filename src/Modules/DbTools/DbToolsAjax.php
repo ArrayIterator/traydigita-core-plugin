@@ -38,7 +38,7 @@ use function wp_unslash;
  * - `traydigita_db_tools_counts`: cleaner counts per category.
  * - `traydigita_db_tools_clean`: delete the posted cleaner
  *   categories. POST `categories[]` (category keys) and
- *   `confirm` — the typed confirmation word, which must match
+ *   `confirm` - the typed confirmation word, which must match
  *   the module's configured word exactly.
  * - `traydigita_db_tools_convert`: convert one table MyISAM to
  *   InnoDB. POST `table`. Refuses with the safety-check reasons

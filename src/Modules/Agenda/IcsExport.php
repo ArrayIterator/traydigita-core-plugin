@@ -29,14 +29,14 @@ use function trim;
  * `Z` (DTSTART / DTEND), as RFC 5545 requires for UTC times.
  *
  * Text values (SUMMARY, DESCRIPTION, LOCATION) are escaped per
- * RFC 5545 — backslash, semicolon, comma, and newlines — and
+ * RFC 5545 - backslash, semicolon, comma, and newlines - and
  * every content line is folded at 75 octets, so a long title or
  * description can never produce an invalid line.
  */
 final class IcsExport
 {
     /**
-     * Maximum line length in octets before folding (RFC 5545 §3.1).
+     * Maximum line length in octets before folding (RFC 5545 Sec. 3.1).
      */
     public const int MAX_LINE_OCTETS = 75;
 
@@ -110,7 +110,7 @@ final class IcsExport
     }
 
     /**
-     * Escape a text value per RFC 5545 §3.3.11.
+     * Escape a text value per RFC 5545 Sec. 3.3.11.
      *
      * Backslash first (so the escapes added below are not
      * re-escaped), then semicolon, comma, and newlines (CRLF and
@@ -129,7 +129,7 @@ final class IcsExport
     }
 
     /**
-     * Fold one content line at 75 octets (RFC 5545 §3.1).
+     * Fold one content line at 75 octets (RFC 5545 Sec. 3.1).
      *
      * Continuation lines start with a single space. Folding is
      * byte-based but never splits a multi-byte character: the cut

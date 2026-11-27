@@ -24,7 +24,7 @@ use function sprintf;
  * The API key travels in the `X-Api-Key` header. The mail's To
  * addresses are ignored: the campaign goes to every subscriber
  * of the configured group, so a test email sends to the whole
- * group — never use it for a test unless that is intended.
+ * group - never use it for a test unless that is intended.
  *
  * Free tier (Nov 2026): 1,000 subscribers / 12,000
  * emails/month. Best for: newsletters and marketing campaigns

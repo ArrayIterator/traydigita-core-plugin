@@ -20,10 +20,10 @@ use function trim;
  *
  * Uses the quotes endpoint with the `X-CMC_PRO_API_KEY` header.
  * A key is REQUIRED even on the free Basic plan (10,000 credits a
- * month) — the free and paid tiers share the same endpoint and
+ * month) - the free and paid tiers share the same endpoint and
  * differ only in credit limits, so one key field covers both.
  * Without a key this provider returns no prices at all (and the
- * module shows a "key required" notice) — never a fabricated price.
+ * module shows a "key required" notice) - never a fabricated price.
  *
  * The live path could not be verified from this sandbox (no API key
  * exists); the endpoint contract below is the documented public

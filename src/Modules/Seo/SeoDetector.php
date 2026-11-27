@@ -32,8 +32,8 @@ use function is_string;
  *
  * Plugins are checked in a fixed priority order (Yoast SEO, Rank
  * Math, All in One SEO, SEOPress). When more than one SEO plugin
- * is active at the same time — which is a misconfiguration on the
- * site, not something the theme can fix — the first match in that
+ * is active at the same time - which is a misconfiguration on the
+ * site, not something the theme can fix - the first match in that
  * order is reported as the plugin in charge.
  */
 final class SeoDetector

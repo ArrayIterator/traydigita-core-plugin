@@ -58,7 +58,7 @@ use function wp_create_nonce;
 use function wp_is_mobile;
 
 /**
- * Ads Inserter module — smart in-article ad placement.
+ * Ads Inserter module - smart in-article ad placement.
  *
  * Multiple rules, each with ad code + placement + conditions, all
  * stored in the single option `traydigita_ads` (autoload `no`):
@@ -73,8 +73,8 @@ use function wp_is_mobile;
  * Ad-code trust model (read before touching saveSettings() or the
  * output path):
  * - Ad code may contain <script> and <ins> (AdSense). It is stored
- *   exactly as submitted — never through sanitize_text_field() or
- *   wp_kses(), which would strip the scripts — and it is output
+ *   exactly as submitted - never through sanitize_text_field() or
+ *   wp_kses(), which would strip the scripts - and it is output
  *   exactly as stored through the single dedicated function
  *   PlacementEngine::renderAdCode(), never through any other path.
  * - Only users with `manage_options` can save it: saving goes
@@ -101,7 +101,7 @@ use function wp_is_mobile;
  * (no template file): this track owns src/Admin/Modules/Ads/
  * only, so the markup lives in this class. The form deliberately
  * carries no `data-traydigita-module-form` / `data-action`
- * attributes — the shell's generic handler would submit the raw
+ * attributes - the shell's generic handler would submit the raw
  * ad code through the dispatcher and mangle it; the module's own
  * JavaScript (resources/js/modules/ads-preview.ts) submits the
  * form instead, base64-encoding the ad code first.
@@ -286,7 +286,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -362,7 +362,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
      *
      * Always false: the inserter is optional and can be disabled
      * from the grid. It also ships disabled by default (see
-     * ModuleRegistry::DEFAULT_ENABLED — 'ads' must NOT be listed
+     * ModuleRegistry::DEFAULT_ENABLED - 'ads' must NOT be listed
      * there), because no rules configured means nothing renders.
      *
      * @return bool
@@ -450,7 +450,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
      *
      * Ad code arrives base64-encoded (see the class docblock for
      * why) when `$data['ad_code_encoding']` is 'base64'; it is
-     * decoded back to the raw code and stored as-is — never through
+     * decoded back to the raw code and stored as-is - never through
      * sanitize_text_field() or wp_kses(), which would strip the
      * <script>/<ins> tags. When the encoding flag is absent the
      * code is stored as-is from the already-unslashed dispatcher
@@ -508,7 +508,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
      * unslashes before saveSettings(); AdsAjax unslashes the raw
      * POST array before calling this for previews; stored values
      * were never slashed), so this method never calls wp_unslash()
-     * itself — doing so here would strip legitimate backslashes
+     * itself - doing so here would strip legitimate backslashes
      * from stored ad code.
      *
      * Every field is validated for its own type: placements and
@@ -787,7 +787,7 @@ final class AdsModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterfac
      * Rendered inline (no template file): this track owns
      * src/Admin/Modules/Ads/ only. The settings form carries no
      * `data-traydigita-module-form` / `data-action` attributes on
-     * purpose — the shell's generic handler would submit the raw
+     * purpose - the shell's generic handler would submit the raw
      * ad code through the dispatcher and mangle it; the module's
      * own JavaScript submits the form and base64-encodes the ad
      * code first (see the class docblock).

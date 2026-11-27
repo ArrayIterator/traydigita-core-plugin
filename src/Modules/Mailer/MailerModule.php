@@ -149,8 +149,8 @@ use function wp_verify_nonce;
  * - Every other provider: the `pre_wp_mail` filter
  *   short-circuits `wp_mail()` and sends through the provider
  *   API instead. This keeps every existing `wp_mail()` caller
- *   working unchanged — the Email/newsletter module, password
- *   resets, everything — while the provider does the delivery.
+ *   working unchanged - the Email/newsletter module, password
+ *   resets, everything - while the provider does the delivery.
  *   (Verified against WP 7.1.5: a `pre_wp_mail` short-circuit
  *   returns before the `wp_mail_succeeded` / `wp_mail_failed`
  *   actions fire, so the API path logs its own result directly
@@ -284,8 +284,8 @@ final class MailerModule implements ModuleInterface
      *
      * `smtp` goes through PHPMailer and `local` through the
      * wp_mail default transport, so neither is listed here;
-     * every other built-in provider — SendGrid and Gmail
-     * included — is a class in this list, in dropdown order.
+     * every other built-in provider - SendGrid and Gmail
+     * included - is a class in this list, in dropdown order.
      * The hookable registry (see providerDefinitions())
      * merges these with any third-party providers registered
      * through the `traydigita:core:mailer/providers` filter.
@@ -335,9 +335,9 @@ final class MailerModule implements ModuleInterface
      *
      * Readiness is curated, not proven. A provider is ready when
      * (1) its endpoint answered in the 2026-11-24 health audit
-     * (`files/mailer-providers-health-2026-11-24.md`) — `smtp`
+     * (`files/mailer-providers-health-2026-11-24.md`) - `smtp`
      * and `local` need no remote endpoint, so they pass on their
-     * transport alone; (2) it is well-known — real public docs
+     * transport alone; (2) it is well-known - real public docs
      * and a standard auth flow (API key or OAuth) a new user can
      * obtain today; and (3) its send path is implemented through
      * the shared helpers (`AbstractApiProvider::postJson()` and
@@ -348,15 +348,15 @@ final class MailerModule implements ModuleInterface
      * test send with a real key promotes it to PROVEN_PROVIDERS
      * below. Live-proven is currently empty: the first
      * candidate, Zoho Mail over SMTP, cannot be tested from this
-     * VM yet — outbound SMTP is denied for this assistant until
-     * the site owner allows it — and the Zoho CPaaS API route
+     * VM yet - outbound SMTP is denied for this assistant until
+     * the site owner allows it - and the Zoho CPaaS API route
      * was declined by the user.
      *
      * The ready set (15 of 37): `smtp`, `local`, Gmail OAuth and
      * the household-name transactional APIs (SendGrid, Mailgun,
      * Amazon SES, Brevo, Mailjet, Postmark, Resend, SMTP2GO,
      * MailerSend, Elastic Email, Mandrill / Mailchimp
-     * Transactional, ZeptoMail / Zoho CPaaS — both renames keep
+     * Transactional, ZeptoMail / Zoho CPaaS - both renames keep
      * the old API host and credentials, per the audit). The other
      * 22 start unverified: the 10 marketing campaign providers
      * (their send is a campaign, not a direct transactional
@@ -364,12 +364,12 @@ final class MailerModule implements ModuleInterface
      * the testing sandbox (Mailtrap), the rename whose new keys
      * are unverified on the old API (SparkPost / Bird), and the
      * smaller second-tier APIs (Sender.net, SendPulse, OneSignal,
-     * SendLayer, SocketLabs, SMTP.com, Unisender, Loops) — all
+     * SendLayer, SocketLabs, SMTP.com, Unisender, Loops) - all
      * alive per the audit, none proven to send.
      *
      * `providerDefinitions()` stamps every definition with
      * `is_ready` (in either list, or an explicit third-party
-     * opt-in — see below) and `ready_proven` (in PROVEN only),
+     * opt-in - see below) and `ready_proven` (in PROVEN only),
      * so the picker, the settings page and `saveSettings()` all
      * read one source of truth. A new selection of an unverified
      * provider is refused in `saveSettings()`; a provider that
@@ -400,7 +400,7 @@ final class MailerModule implements ModuleInterface
      * succeeded with a real key. Record the proof next to the
      * id when one is added (date, endpoint, response).
      *
-     * Currently empty — see READY_PROVIDERS above for why no
+     * Currently empty - see READY_PROVIDERS above for why no
      * provider is proven yet.
      *
      * @var array<int, string>
@@ -426,7 +426,7 @@ final class MailerModule implements ModuleInterface
         'icloud',
         'gmx',
         'mailcom',
-        // 'aol', // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
+        // 'aol', // DISABLED: AOL uses Yahoo Mail API - pending Yahoo approval (same as Yahoo).
         'qq',
         'mail163',
         'mail126',
@@ -476,7 +476,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => ['host' => 'smtp.mail.me.com', 'port' => 587, 'encryption' => 'tls'],
         'gmx' => ['host' => 'mail.gmx.com', 'port' => 587, 'encryption' => 'tls'],
         'mailcom' => ['host' => 'smtp.mail.com', 'port' => 587, 'encryption' => 'tls'],
-        // 'aol' => ['host' => 'smtp.aol.com', 'port' => 587, 'encryption' => 'tls'], // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
+        // 'aol' => ['host' => 'smtp.aol.com', 'port' => 587, 'encryption' => 'tls'], // DISABLED: AOL uses Yahoo Mail API - pending Yahoo approval (same as Yahoo).
         'qq' => ['host' => 'smtp.qq.com', 'port' => 465, 'encryption' => 'ssl'],
         'mail163' => ['host' => 'smtp.163.com', 'port' => 465, 'encryption' => 'ssl'],
         'mail126' => ['host' => 'smtp.126.com', 'port' => 465, 'encryption' => 'ssl'],
@@ -512,7 +512,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => ['label' => 'iCloud Mail', 'description' => 'Needs an Apple app-specific password; use the full @icloud.com address as the username.'],
         'gmx' => ['label' => 'GMX Mail', 'description' => 'Enable SMTP access in the GMX settings first.'],
         'mailcom' => ['label' => 'Mail.com', 'description' => 'SMTP access is a premium Mail.com feature.'],
-        // 'aol' => ['label' => 'AOL Mail', 'description' => 'Needs an AOL app password when 2-Step Verification is on.'], // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
+        // 'aol' => ['label' => 'AOL Mail', 'description' => 'Needs an AOL app password when 2-Step Verification is on.'], // DISABLED: AOL uses Yahoo Mail API - pending Yahoo approval (same as Yahoo).
         'qq' => ['label' => 'QQ Mail', 'description' => 'Needs a QQ Mail authorization code (not the account password).'],
         'mail163' => ['label' => '163 Mail', 'description' => 'Needs a 163 Mail authorization code (not the account password).'],
         'mail126' => ['label' => '126 Mail', 'description' => 'Needs a 126 Mail authorization code (not the account password).'],
@@ -537,7 +537,7 @@ final class MailerModule implements ModuleInterface
      * The files live in assets/images/providers/ and are
      * lettermark SVGs (initials on a rounded rect, brand-ish
      * colours) copied from the shared Unified lettermark set
-     * — see assets/images/providers/README.md for provenance.
+     * - see assets/images/providers/README.md for provenance.
      * They are clean initial monograms, not trademarked artwork
      * redrawn in detail. A provider without an entry here (for
      * example a third-party provider from the filter) falls
@@ -606,7 +606,7 @@ final class MailerModule implements ModuleInterface
         'icloud' => 'email-icloud',
         'gmx' => 'email-gmx',
         'mailcom' => 'email-mail-com',
-        // 'aol' => 'email-aol', // DISABLED: AOL uses Yahoo Mail API — pending Yahoo approval (same as Yahoo).
+        // 'aol' => 'email-aol', // DISABLED: AOL uses Yahoo Mail API - pending Yahoo approval (same as Yahoo).
         'qq' => 'email-qq-mail',
         'mail163' => 'email-mail-163',
         'mail126' => 'email-mail-126',
@@ -724,7 +724,7 @@ final class MailerModule implements ModuleInterface
      * every class in API_PROVIDER_CLASSES (SendGrid and Gmail
      * included). Each definition
      * carries: `id`, `label`, `description` (free tier + best
-     * for), `free_tier`, `best_for`, `link` (empty in v1.0.0 —
+     * for), `free_tier`, `best_for`, `link` (empty in v1.0.0 -
      * a slot reserved for a future affiliate link, never an
      * active link), `fields` (settings fields), `type`
      * (`smtp`, `oauth`, or `api`), and either `class` (a
@@ -732,7 +732,7 @@ final class MailerModule implements ModuleInterface
      * Every definition also carries `is_ready` (see
      * READY_PROVIDERS: in the ready list, the proven list, or
      * an explicit third-party opt-in) and `ready_proven` (in
-     * PROVEN_PROVIDERS only) — the single source of truth the
+     * PROVEN_PROVIDERS only) - the single source of truth the
      * picker, the settings page and `saveSettings()` read.
      *
      * Third-party plugins register extra providers through the
@@ -745,7 +745,7 @@ final class MailerModule implements ModuleInterface
      * third-party entry starts unverified unless it explicitly
      * declares `'is_ready' => true`; the site owner installed
      * that plugin on purpose, so its own readiness claim is
-     * honoured — built-ins never self-declare, the two lists
+     * honoured - built-ins never self-declare, the two lists
      * above decide for them. The result is cached for the
      * request.
      *
@@ -870,7 +870,7 @@ final class MailerModule implements ModuleInterface
      * Reads the `is_ready` flag `providerDefinitions()` stamps
      * on every definition (see READY_PROVIDERS), so callers
      * never re-implement the readiness rule. Unknown ids are
-     * not ready. Readiness gates new selection only — a stored
+     * not ready. Readiness gates new selection only - a stored
      * unverified provider keeps sending (see `saveSettings()`).
      *
      * @param string $id Provider id.
@@ -1079,7 +1079,7 @@ final class MailerModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -1174,7 +1174,7 @@ final class MailerModule implements ModuleInterface
      * the `phpmailer_init` hook (SMTP provider only), the
      * `pre_wp_mail` filter (API providers), the
      * `wp_mail_succeeded` / `wp_mail_failed` send-log hooks
-     * (SMTP / default path only — see maybeSendViaApi()), the
+     * (SMTP / default path only - see maybeSendViaApi()), the
      * incomplete-setup admin notice (only when unconfigured),
      * the test-email AJAX endpoint, and the Gmail OAuth
      * admin-post actions.
@@ -1313,7 +1313,7 @@ final class MailerModule implements ModuleInterface
      *
      * Provider credential fields come from the provider
      * definitions (empty by default; `mailgun_region` defaults
-     * to `us`). Deliverability headers default on — see
+     * to `us`). Deliverability headers default on - see
      * applyDeliverabilityHeaders() for what each group does.
      *
      * @return array<string, mixed>
@@ -1668,7 +1668,7 @@ final class MailerModule implements ModuleInterface
         // READY_PROVIDERS). Re-saving the provider that is
         // already stored is always allowed, so a site that
         // selected a provider before verification keeps working
-        // — grandfathered, not broken by this gate.
+        // - grandfathered, not broken by this gate.
         $providerNotReady = false;
 
         if (array_key_exists('provider', $data)) {
@@ -1815,7 +1815,7 @@ final class MailerModule implements ModuleInterface
 
         // DKIM signing (SMTP only). The toggle, domain and
         // selector are plain values; the private key and
-        // passphrase are secrets — stored as-is and only
+        // passphrase are secrets - stored as-is and only
         // overwritten when a non-empty value is submitted, so
         // an empty field keeps the stored key. A submitted key
         // must parse as an RSA private key, otherwise nothing
@@ -1975,7 +1975,7 @@ final class MailerModule implements ModuleInterface
         // The DNS check tool only appears when the saved DKIM
         // configuration is complete and valid (domain + selector
         // + a parseable RSA key). The check itself never receives
-        // the private key — it only gets domain + selector, and
+        // the private key - it only gets domain + selector, and
         // the server compares against the stored key.
         $mailerDkimCheckReady = $mailerDkimDns !== null
             && is_string($settings['dkim_domain']) && self::isValidHost($settings['dkim_domain'])
@@ -2072,7 +2072,7 @@ final class MailerModule implements ModuleInterface
             }
             $phpmailer->Timeout = 10;
             // Always verify the server certificate; never disable
-            // verification to work around a bad certificate — with
+            // verification to work around a bad certificate - with
             // one exception: a loopback host (Proton Mail Bridge,
             // 127.0.0.1:1025) presents a self-signed certificate
             // for a connection that never leaves this machine, so
@@ -2173,22 +2173,22 @@ final class MailerModule implements ModuleInterface
      * into the provider payload). Each group is a setting, all
      * default on:
      *
-     * - `headers_from` — Reply-To set to the From address, so
+     * - `headers_from` - Reply-To set to the From address, so
      *   replies go to the site instead of bouncing from a
      *   no-reply address. Skipped when the caller already set a
      *   Reply-To header.
-     * - `headers_unsubscribe` — List-Unsubscribe (a `mailto:`
+     * - `headers_unsubscribe` - List-Unsubscribe (a `mailto:`
      *   link to the From address, plus an unsubscribe URL when
      *   a module provides one through the
      *   `traydigita:core:mailer/unsubscribe-url` filter) and
      *   List-Unsubscribe-Post for one-click unsubscribe. Mailbox
      *   providers use this to show an unsubscribe button instead
      *   of a spam button, and Gmail requires it for bulk senders.
-     * - `headers_auto` — Auto-Submitted: auto-generated, so
+     * - `headers_auto` - Auto-Submitted: auto-generated, so
      *   auto-replies and out-of-office replies do not loop.
      *   Bulk mail (a mail carrying the `X-TrayDigita-Bulk`
      *   header, e.g. a newsletter) also gets Precedence: bulk.
-     * - `headers_feedback` — Feedback-ID for bulk mail only,
+     * - `headers_feedback` - Feedback-ID for bulk mail only,
      *   so the site owner can track complaints per list in the
      *   provider dashboard. The list id comes from the
      *   `traydigita:core:mailer/feedback-id` filter (default
@@ -2313,7 +2313,7 @@ final class MailerModule implements ModuleInterface
      *
      * `pre_wp_mail` filter: return null to let WordPress send
      * normally (SMTP provider, unconfigured provider, or a
-     * provider whose credentials are missing — the test endpoint
+     * provider whose credentials are missing - the test endpoint
      * refuses those before calling `wp_mail()`), or a boolean
      * for an API attempt. A non-null `$pre` is returned untouched:
      * another `pre_wp_mail` callback already handled the mail.
@@ -2478,9 +2478,9 @@ final class MailerModule implements ModuleInterface
      *
      * Verifies the state nonce and the capability, exchanges the
      * code for tokens, and stores them. Google redirects here
-     * with `?code=…&state=…`; a missing or invalid state, a
+     * with `?code=...&state=...`; a missing or invalid state, a
      * Google error, or a failed exchange all redirect back to
-     * the settings page with an allowlisted error code — the
+     * the settings page with an allowlisted error code - the
      * raw error text is never placed in the URL.
      *
      * @return void
@@ -2704,7 +2704,7 @@ final class MailerModule implements ModuleInterface
      * is stripped from the payload headers. Message-ID and
      * X-Mailer are added here for the API path (the SMTP path
      * gets them from configurePhpMailer() instead). Returns null
-     * when there is no usable recipient — the caller then falls
+     * when there is no usable recipient - the caller then falls
      * through to normal `wp_mail()` instead of short-circuiting
      * a send to nowhere.
      *
@@ -3132,7 +3132,7 @@ final class MailerModule implements ModuleInterface
      * Whether DKIM signing applies to the next send.
      *
      * Signing needs all of: enabled, domain, selector, private
-     * key — and the DKIM domain must match the From domain, so
+     * key - and the DKIM domain must match the From domain, so
      * the signature aligns for DMARC. A mismatched domain would
      * still sign but fail alignment, which hurts deliverability
      * instead of helping it.
@@ -3165,7 +3165,7 @@ final class MailerModule implements ModuleInterface
      *
      * Tries the server resolver first (`dns_get_record`), then
      * DNS-over-HTTPS (Cloudflare) when the resolver is
-     * unavailable or returns nothing — shared hosting often
+     * unavailable or returns nothing - shared hosting often
      * has a broken or restricted resolver, while outbound
      * HTTPS (which WordPress needs anyway) usually works.
      * Returns null only when both lookups fail outright (as

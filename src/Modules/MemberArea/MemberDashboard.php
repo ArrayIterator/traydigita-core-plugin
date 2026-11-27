@@ -71,7 +71,7 @@ use function wp_unslash;
  * Email). Guests see a login prompt. Every section renders only
  * when the user has the capability for it AND the underlying
  * feature is available; a hidden menu never means an accessible
- * URL — the view resolver redirects server-side.
+ * URL - the view resolver redirects server-side.
  *
  * This class owns the shell and the built-in list views only.
  * The Write view lives in FrontendEditor, Profile and Change
@@ -202,7 +202,7 @@ final class MemberDashboard
      *
      * Dashboard-mode users (the default for unconfigured roles,
      * and always for administrators) go to wp-admin
-     * post-new.php — the full Gutenberg editor. Frontend-only
+     * post-new.php - the full Gutenberg editor. Frontend-only
      * users open the frontend block editor: sending them to
      * wp-admin would only bounce them straight back to the
      * member area.
@@ -223,7 +223,7 @@ final class MemberDashboard
      *
      * Dashboard-mode users edit in wp-admin (post.php); the
      * frontend editor is only a destination for frontend-only
-     * users editing their own draft or needs-revision post —
+     * users editing their own draft or needs-revision post -
      * there is no frontend way to edit anyone else's post, so
      * no Edit link renders for those.
      *
@@ -274,7 +274,7 @@ final class MemberDashboard
      * section redirects to Overview with a notice. The Write
      * section is frontend-only: a dashboard-mode user (or an
      * administrator or editor) asking for it goes to wp-admin
-     * post-new.php instead of the frontend editor — the menu
+     * post-new.php instead of the frontend editor - the menu
      * already links them there, and a direct
      * `?traydigita_view=write` URL must not serve the
      * frontend editor to them. A logged-in non-contributor
@@ -391,7 +391,7 @@ final class MemberDashboard
      * True only when the traydigita-stack analytics collector
      * exists AND the user has at least one recorded view across
      * their published posts in the last 30 days. No data means
-     * no statistics block — numbers are never invented.
+     * no statistics block - numbers are never invented.
      *
      * @return bool
      */
@@ -459,7 +459,7 @@ final class MemberDashboard
      * recorded under the retired 'contributor-frontend' module
      * id are read too, so notifications recorded before the
      * MUST-4 split keep showing. Returns an empty list when
-     * the module is off or nothing was recorded — the Overview
+     * the module is off or nothing was recorded - the Overview
      * then shows an honest empty state.
      *
      * @return array<int, array{message: string, date: string, url: string}>
@@ -551,7 +551,7 @@ final class MemberDashboard
      *
      * The real source is the Customizer announcement bar text
      * (Settings::get('announcement_text')). An empty
-     * setting means no announcements — the Overview then shows
+     * setting means no announcements - the Overview then shows
      * an honest empty state instead of inventing one.
      *
      * @return string Announcement text, or ''.
@@ -1090,7 +1090,7 @@ final class MemberDashboard
      * status, including trash.
      *
      * Demotion-proof: the list is ownership-scoped, never
-     * capability-scoped — a user demoted to subscriber still
+     * capability-scoped - a user demoted to subscriber still
      * sees their own posts, read-only when they no longer have
      * edit_posts.
      *

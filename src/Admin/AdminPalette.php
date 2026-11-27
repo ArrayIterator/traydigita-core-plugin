@@ -34,7 +34,7 @@ use function sprintf;
  * - --traydigita-admin-accent-strong: a darker step of the same
  *   hue, used as the fill of primary buttons. Every palette's
  *   strong step is dark enough for white text at WCAG AA (4.5:1)
- *   by construction — buttons never pair a light text with a
+ *   by construction - buttons never pair a light text with a
  *   mid-tone fill, which is what made the old "Open" button text
  *   unreadable (blue link text on a green button).
  * - --traydigita-admin-accent-soft: a pale tint of the primary,

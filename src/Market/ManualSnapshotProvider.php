@@ -16,7 +16,7 @@ use function trim;
  *
  * Quotes are entered by the site owner in the widget form (or supplied
  * by the Customizer) as snapshot rows. No network request is ever made,
- * so this provider always works and never invents a price — a symbol
+ * so this provider always works and never invents a price - a symbol
  * without a snapshot simply has no quote.
  *
  * Snapshot row shape (also used by the widget form textarea):

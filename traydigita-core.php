@@ -51,7 +51,7 @@ add_action('plugins_loaded', static function (): void {
 register_activation_hook(__FILE__, static function (): void {
     // Custom rewrite rules (Agenda, E-Paper) are registered by the
     // modules on `init`, which has not run yet during activation,
-    // so register them directly here before flushing — otherwise
+    // so register them directly here before flushing - otherwise
     // the flushed rules would miss them until the next flush.
     Core::getInstance(__FILE__)->init();
     if (class_exists(\TrayDigita\WP\Plugin\Core\Modules\Agenda\AgendaRenderer::class)) {

@@ -24,7 +24,7 @@ use function wp_remote_retrieve_response_code;
  * with `wp_remote_post()` and interprets the answer. The secret key
  * is read from the module settings and is only ever sent to
  * Cloudflare over HTTPS; it is never included in any returned
- * array, never logged, and never appears in an error message —
+ * array, never logged, and never appears in an error message -
  * Cloudflare's `error-codes` are mapped onto a small allowlist of
  * internal codes first, so nothing Cloudflare returns verbatim
  * reaches the caller.
@@ -37,7 +37,7 @@ use function wp_remote_retrieve_response_code;
  * be reached at all (network error, non-200 status, or an
  * unparseable answer); callers apply their fail-open / fail-closed
  * setting to that case. A token Cloudflare definitively rejects is
- * NOT unreachable — it is a failed verification and always blocks,
+ * NOT unreachable - it is a failed verification and always blocks,
  * whichever way the fail-open setting points.
  *
  * The `hostname` returned by Cloudflare is the domain the widget

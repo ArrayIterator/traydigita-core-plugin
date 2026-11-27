@@ -33,7 +33,7 @@ use function str_contains;
  *
  * The mail's To addresses are ignored: the campaign goes to
  * the configured segment (or all subscribers), so a test
- * email sends to the whole audience — never use it for a test
+ * email sends to the whole audience - never use it for a test
  * unless that is intended. The first campaign (or the first in
  * 90+ days) is verified by Omnisend before full delivery.
  *

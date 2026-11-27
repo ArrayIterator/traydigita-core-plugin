@@ -36,7 +36,7 @@ use function wp_unslash;
  *   strict-origin-when-cross-origin)
  * - Permissions-Policy: camera=(), microphone=(), geolocation=()
  * - Content-Security-Policy-Report-Only: a site-owner policy
- *   (report-only mode ONLY — never an enforcing CSP)
+ *   (report-only mode ONLY - never an enforcing CSP)
  *
  * Why report-only only: an enforcing Content-Security-Policy can
  * break the site (blocked scripts, styles, fonts, embeds) the
@@ -50,7 +50,7 @@ use function wp_unslash;
  * replaces any same-name header already set by PHP, so this module
  * never duplicates its own headers. Headers set at the server level
  * (Apache / nginx / OpenLiteSpeed / Cloudflare) are applied after
- * PHP runs and cannot be removed from here — if the server already
+ * PHP runs and cannot be removed from here - if the server already
  * sends one of these headers, both values may reach the browser.
  * Configure each header in exactly one place: either here or at
  * the server level, not both.
@@ -64,7 +64,7 @@ use function wp_unslash;
  * own headers plus, when the Custom Headers module is enabled,
  * that module's headers too (its Strict-Transport-Security and
  * any overlapping header it owns while this module is disabled)
- * — the overlapping values are never sent twice, this module's
+ * - the overlapping values are never sent twice, this module's
  * value wins, and the Custom Headers advanced rules (path
  * exceptions, logged-in / role bypass) still apply to its own
  * headers only. The shared values and builders live in
@@ -220,7 +220,7 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -406,13 +406,13 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
      * overlapping header this module's value wins (the Custom
      * Headers value is skipped), so no header is ever sent
      * twice. The Custom Headers advanced rules still apply to
-     * its own headers only — they never suppress this module's
+     * its own headers only - they never suppress this module's
      * headers.
      *
      * header() replaces any same-name header already set by PHP,
      * so the module never duplicates its own headers. Server-level
      * headers are applied after PHP and may still duplicate or
-     * override these — see the class docblock.
+     * override these - see the class docblock.
      *
      * @return void
      */
@@ -507,7 +507,7 @@ final class SecurityHeadersModule implements \TrayDigita\WP\Plugin\Core\Admin\Mo
         foreach (self::BOOLEAN_KEYS as $key) {
             // An absent toggle keeps its default; a present one is
             // coerced to boolean. (On the save path the input is
-            // always complete — merged over the stored settings —
+            // always complete - merged over the stored settings -
             // so absent keys only occur when reading a partial
             // stored option, where the default is the safe choice.)
             $clean[$key] = array_key_exists($key, $data)

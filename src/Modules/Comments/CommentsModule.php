@@ -198,7 +198,7 @@ final class CommentsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -428,7 +428,7 @@ final class CommentsModule implements ModuleInterface
      * Render the settings page inside the admin shell content area.
      *
      * Provider select (populated from the registry), scope select,
-     * follow-setting toggle, and one field group per provider —
+     * follow-setting toggle, and one field group per provider -
      * each group is shown only while its provider is selected
      * (toggled by resources/js/modules/admin-comments.ts). The
      * form is submitted through the generic module-settings AJAX
@@ -536,7 +536,7 @@ final class CommentsModule implements ModuleInterface
      * Render one provider settings field.
      *
      * Field types: text, password (always rendered empty, like
-     * the Turnstile secret — an empty submission keeps the saved
+     * the Turnstile secret - an empty submission keeps the saved
      * value), number (clamped on save), select, checkbox.
      *
      * @param string $key Option key (field name).
@@ -739,7 +739,7 @@ final class CommentsModule implements ModuleInterface
      * itself stops accepting comments and pingbacks); any other
      * provider enqueues its scripts from `wp_enqueue_scripts`
      * through enqueueProvider(). The comment area itself renders
-     * explicitly from layouts/entry/footer.php — no content
+     * explicitly from layouts/entry/footer.php - no content
      * filter is registered, so it can never appear twice.
      *
      * @return void
@@ -769,7 +769,7 @@ final class CommentsModule implements ModuleInterface
      * and Disqus when its shortname is saved, otherwise
      * 'not-configured'. A disabled provider is 'not-configured'
      * with a description saying so, and a disabled module is
-     * 'module-disabled' — the entry appears in both cases because
+     * 'module-disabled' - the entry appears in both cases because
      * registration is central, not in boot().
      *
      * @param array<int, array<string, mixed>> $entries Entries so far.
@@ -890,7 +890,7 @@ final class CommentsModule implements ModuleInterface
      * Default settings.
      *
      * Provider WordPress, articles only, follow the post's own
-     * comment setting — plus every registered provider's field
+     * comment setting - plus every registered provider's field
      * defaults.
      *
      * @return array<string, mixed>

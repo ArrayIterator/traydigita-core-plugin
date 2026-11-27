@@ -304,7 +304,7 @@ $bypassTokenHint = $bypassUrl !== ''
                         <?php
                         echo esc_html(
                             sprintf(
-                                /* translators: %s is the masked bypass-secret hint, e.g. "a1b2…9f3e". */
+                                /* translators: %s is the masked bypass-secret hint, e.g. "a1b2...9f3e". */
                                 __('Bypass secret: %s (the full secret is never shown).', 'traydigita-core'),
                                 $bypassHint
                             )
@@ -316,7 +316,7 @@ $bypassTokenHint = $bypassUrl !== ''
                             <?php
                             echo esc_html(
                                 sprintf(
-                                    /* translators: %s is the masked bypass-token hint, e.g. "ab12…ef90". */
+                                    /* translators: %s is the masked bypass-token hint, e.g. "ab12...ef90". */
                                     __('Bypass token: %s', 'traydigita-core'),
                                     $bypassTokenHint
                                 )

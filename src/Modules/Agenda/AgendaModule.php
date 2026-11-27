@@ -33,8 +33,8 @@ use function wp_unslash;
  * Agenda / Event Manager module.
  *
  * Events are stored in their own custom table
- * (`$wpdb->prefix . 'traydigita_agenda'`, see AgendaTable) — never
- * in `wp_posts` — with a computed (never stored) status of
+ * (`$wpdb->prefix . 'traydigita_agenda'`, see AgendaTable) - never
+ * in `wp_posts` - with a computed (never stored) status of
  * upcoming / ongoing / past. The frontend is served through
  * rewrite rules (`/agenda/`, `/agenda/<id>/`, `/agenda/<id>.ics`),
  * the `[traydigita_agenda]` shortcode lists upcoming events, and
@@ -46,7 +46,7 @@ use function wp_unslash;
  * every write (insert/update/delete) runs through
  * AgendaTable::ensureTableExists(), which checks once per request
  * and creates a missing table with one idempotent CREATE TABLE IF
- * NOT EXISTS — so a deleted table self-heals on the next write.
+ * NOT EXISTS - so a deleted table self-heals on the next write.
  * dbDelta is reserved for schema upgrades only
  * (AgendaTable::ensureTable(), admin-only, version-gated, checked
  * at most once an hour behind a transient, serialised by a 60s
@@ -180,7 +180,7 @@ final class AgendaModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -234,7 +234,7 @@ final class AgendaModule implements ModuleInterface
      * Whether the module is configured enough to do its job.
      *
      * Configured means the agenda table exists (the schema version
-     * flag is set). A single option read — no schema query — so the
+     * flag is set). A single option read - no schema query - so the
      * module grid stays cheap.
      *
      * @return bool
@@ -346,12 +346,12 @@ final class AgendaModule implements ModuleInterface
     /**
      * Validate and save settings from a submitted form.
      *
-     * Expected flat keys in `$data`: `archive_per_page` (1–100),
+     * Expected flat keys in `$data`: `archive_per_page` (1-100),
      * `show_past_in_archive` and `ics_enabled` (each `1` when
      * checked; the form always submits a hidden `0` first, so an
      * unchecked box arrives as `0`). Every value is cast to its
      * own type explicitly. Unknown keys are dropped. Event data is
-     * never saved here — events go through AgendaAjax::saveEvent().
+     * never saved here - events go through AgendaAjax::saveEvent().
      *
      * @param array<string, mixed> $data Sanitized form data.
      * @return array{success: bool, message: string}
@@ -440,7 +440,7 @@ final class AgendaModule implements ModuleInterface
     /**
      * Shortcode `[traydigita_agenda]`: upcoming events list.
      *
-     * Attributes: `count` (1–20, default 5), `category` (exact
+     * Attributes: `count` (1-20, default 5), `category` (exact
      * match, default all), `show_cover` (`1` / `0`, default 1).
      * Renders nothing but the empty-state line when there are no
      * upcoming events, and nothing at all when the table is missing.

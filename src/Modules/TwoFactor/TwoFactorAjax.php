@@ -33,7 +33,7 @@ use const MINUTE_IN_SECONDS;
  * `wp_ajax_*` only): TOTP enrolment, backup codes, and
  * trusted-device revocation. The caller always acts on their
  * own account, unless they hold `edit_users`, in which case
- * they may act on another user's account — the capability check
+ * they may act on another user's account - the capability check
  * lives in targetUserId().
  *
  * Passkey endpoints (registration, removal, login options and
@@ -104,9 +104,7 @@ final class TwoFactorAjax
         }
     }
 
-    // ------------------------------------------------------------------
     // Shared helpers
-    // ------------------------------------------------------------------
 
     /**
      * Verify the authenticated-user nonce (dies on failure).
@@ -154,9 +152,7 @@ final class TwoFactorAjax
         return sanitize_text_field(wp_unslash($_POST[$key]));
     }
 
-    // ------------------------------------------------------------------
     // TOTP enrolment
-    // ------------------------------------------------------------------
 
     /**
      * Start TOTP enrolment: issue a secret and its QR code.
@@ -165,7 +161,7 @@ final class TwoFactorAjax
      * becomes active when the user confirms a correct code
      * (totpConfirm). Until then the account is unchanged. The
      * transient holds the secret encrypted (the same AES-256-CBC
-     * as enrolled secrets), never plaintext — a database read
+     * as enrolled secrets), never plaintext - a database read
      * must not expose a usable secret.
      *
      * @return void
@@ -188,7 +184,7 @@ final class TwoFactorAjax
         $secret = Totp::generateSecret();
         // Encrypted at rest: an openssl failure stores '' and
         // totpConfirm treats it as an expired session, so the
-        // user simply starts again — no plaintext secret is
+        // user simply starts again - no plaintext secret is
         // ever written to the options table.
         set_transient(
             TwoFactorModule::totpPendingTransient($userId),
@@ -318,9 +314,7 @@ final class TwoFactorAjax
         ]);
     }
 
-    // ------------------------------------------------------------------
     // Trusted devices
-    // ------------------------------------------------------------------
 
     /**
      * Revoke one trusted device.

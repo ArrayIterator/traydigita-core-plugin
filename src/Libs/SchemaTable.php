@@ -29,7 +29,7 @@ use function update_option;
  * The two paths, kept strictly apart:
  * - INSERT PATH (`ensureForInsert()`): static-cached existence
  *   check, then ONE `CREATE TABLE IF NOT EXISTS` when the table
- *   is missing. No dbDelta here, no error_log, never throws — a
+ *   is missing. No dbDelta here, no error_log, never throws - a
  *   write failure just returns false and the caller carries on.
  * - UPGRADE PATH (`ensureSchema()`): dbDelta only, version-gated
  *   and throttled by the check transient (default 3600s), with a
@@ -40,8 +40,8 @@ use function update_option;
  *   create-table button); the lock is still respected.
  *
  * The existence cache is keyed by full table name, not a single
- * bool: a mid-request prefix change — multisite
- * `switch_to_blog()` does exactly that — re-checks the new
+ * bool: a mid-request prefix change - multisite
+ * `switch_to_blog()` does exactly that - re-checks the new
  * table instead of trusting the old prefix's verdict.
  */
 final class SchemaTable
@@ -145,7 +145,7 @@ final class SchemaTable
     /**
      * Whether the stored schema version is current.
      *
-     * A single option read — no schema query — so module grids
+     * A single option read - no schema query - so module grids
      * and status checks stay cheap.
      *
      * @return bool
@@ -190,11 +190,11 @@ final class SchemaTable
      * Version-gated dbDelta upgrade path (admin-only).
      *
      * Gating, in order:
-     * 1. Non-admin callers return immediately unless $force —
+     * 1. Non-admin callers return immediately unless $force -
      *    dbDelta never runs on frontend requests.
      * 2. A fresh check transient returns immediately with no DB
      *    query at all.
-     * 3. Table present AND stored version current → set the
+     * 3. Table present AND stored version current -> set the
      *    transient and return (no dbDelta).
      * 4. Otherwise acquire the lock transient; when it already
      *    exists an upgrade is running elsewhere, so skip.

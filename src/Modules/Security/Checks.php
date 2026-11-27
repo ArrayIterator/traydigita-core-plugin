@@ -210,7 +210,7 @@ final class Checks
      *
      * A path that is world-writable (other-write bit set) is a
      * fail: any user on the server could change it. Group-writable
-     * is a warning. A missing path is a warning too — it cannot be
+     * is a warning. A missing path is a warning too - it cannot be
      * audited (`.htaccess` legitimately does not exist on nginx
      * servers, and the uploads directory may use a custom path).
      * The overall status is the worst of the three.
@@ -314,7 +314,7 @@ final class Checks
      *
      * `admin` is the first username every brute-force attack tries.
      * Existing is a fail; the fix is manual (create a new
-     * administrator, move the content over, then delete `admin`) —
+     * administrator, move the content over, then delete `admin`) -
      * deleting a user is destructive, so no button is offered.
      *
      * @param array<string, mixed> $env Environment.
@@ -436,7 +436,7 @@ final class Checks
      * is a pass. An enabled XML-RPC endpoint is a warning, not a
      * fail: it is a real brute-force and pingback-abuse vector, but
      * the WordPress mobile apps, Jetpack, and some publishing tools
-     * need it, so disabling it is the site owner’s call.
+     * need it, so disabling it is the site owner's call.
      *
      * @param array<string, mixed> $env Environment.
      * @return array<string, mixed>
@@ -495,7 +495,7 @@ final class Checks
      * and page headers.
      *
      * A disclosed version is a warning, not a fail: hiding the
-     * version is obscurity, not a fix — an outdated WordPress is
+     * version is obscurity, not a fix - an outdated WordPress is
      * still vulnerable. The real fix is keeping WordPress updated;
      * hiding the version only makes mass scanning slightly harder.
      *

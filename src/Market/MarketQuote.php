@@ -8,7 +8,7 @@ namespace TrayDigita\WP\Plugin\Core\Market;
  *
  * Prices are stored as plain floats in the provider's currency; the
  * widget partial formats them for display (Indonesian number format).
- * A null price means "no data available" — the widget renders an
+ * A null price means "no data available" - the widget renders an
  * honest empty state for that row, never a zero or a guessed price.
  */
 final class MarketQuote

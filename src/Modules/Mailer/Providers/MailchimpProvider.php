@@ -28,7 +28,7 @@ use function is_string;
  * the password); the data center (`dc`) is the suffix after
  * the `-` in the API key. The mail's To addresses are ignored:
  * the campaign goes to every subscriber of the configured
- * list, so a test email sends to the whole list — never use it
+ * list, so a test email sends to the whole list - never use it
  * for a test unless that is intended.
  *
  * Free tier (Nov 2026): 500 contacts / 1,000 emails per

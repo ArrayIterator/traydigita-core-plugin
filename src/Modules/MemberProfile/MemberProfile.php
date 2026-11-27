@@ -84,11 +84,11 @@ final class MemberProfile
      * Handle a profile save via admin-post.php.
      *
      * Saves the contributor's own display name, website and
-     * bio, and — when the Avatar module is active — an uploaded
+     * bio, and - when the Avatar module is active - an uploaded
      * avatar through AvatarStorage. No capability beyond being
      * logged in is needed: wp_update_user() only allows users
      * to edit themselves, and the posted user id is never read
-     * — the id is always the current user. Password changes
+     * - the id is always the current user. Password changes
      * stay on the wp-admin profile page (which frontend-only
      * users may reach).
      *

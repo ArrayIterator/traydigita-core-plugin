@@ -20,7 +20,7 @@ use function serialize;
  * minutes; a newly saved event appears once the TTL expires.
  *
  * NOTE: unlike the post widgets, this widget does NOT render
- * through a `templates/widgets/` partial — the owned file list
+ * through a `templates/widgets/` partial - the owned file list
  * for the agenda build has no widget partial, so renderContent()
  * is overridden to build the list through
  * AgendaRenderer::renderListHtml(), the same renderer the

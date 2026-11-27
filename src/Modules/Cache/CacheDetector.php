@@ -30,7 +30,7 @@ use function is_string;
  * the network-activated list on multisite) plus a class,
  * function, or constant the plugin defines once loaded. A
  * plugin is only offered a purge button when its purge API is
- * actually callable right now — every call is guarded by
+ * actually callable right now - every call is guarded by
  * function_exists() / class_exists() and wrapped so a plugin
  * that throws cannot take the admin screen down with it. The
  * class guard is enough for the LiteSpeed and Cache Enabler

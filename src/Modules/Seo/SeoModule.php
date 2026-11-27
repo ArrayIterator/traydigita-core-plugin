@@ -57,7 +57,7 @@ use WP_Post;
  * Compatibility first: when a known SEO plugin (Yoast SEO, Rank
  * Math, All in One SEO, or SEOPress) is active, the theme outputs
  * no duplicate title, meta, canonical, Open Graph, Twitter, or
- * structured-data tags and serves no duplicate sitemap — the
+ * structured-data tags and serves no duplicate sitemap - the
  * plugin is in charge, and the settings page says so with a
  * connector card linking to that plugin's own settings page. When
  * no SEO plugin is active, the theme outputs a minimal, correct
@@ -98,8 +98,8 @@ use WP_Post;
  * saveSettings() still checks the capability itself and sanitizes
  * every field. The Google service-account JSON lives in its own
  * option (`traydigita_seo_google_sa`) and is saved through a
- * classic POST form handled inside renderSettingsPage() — the
- * admin shell leaves forms without a data-action marker alone —
+ * classic POST form handled inside renderSettingsPage() - the
+ * admin shell leaves forms without a data-action marker alone -
  * because the JSON must not pass through the generic dispatcher's
  * sanitize_text_field(), which would corrupt the private key, and
  * because the JSON must never be returned in any response. The AI
@@ -217,7 +217,7 @@ final class SeoModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -630,7 +630,7 @@ final class SeoModule implements ModuleInterface
      * Lists the sitemap index and the posts, pages, and categories
      * sitemaps through SeoSitemap::url() plus the Google News
      * sitemap through SeoOutput::sitemapUrl(), but only for the
-     * sitemaps that are switched on — a switched-off sitemap
+     * sitemaps that are switched on - a switched-off sitemap
      * answers 404, so linking to it would be a dead link. While
      * an SEO plugin is active the plugin serves its own sitemaps,
      * so no theme sitemap URL is listed.
@@ -1279,7 +1279,7 @@ final class SeoModule implements ModuleInterface
      * `description_post`, `description_home`,
      * `description_archive`, each cut to 200 characters) and the
      * title separator (`title_sep`, cut to 3 characters). Every
-     * value is sanitized for its own type — the dispatcher
+     * value is sanitized for its own type - the dispatcher
      * deep-sanitizes strings, so a checkbox arrives as the string
      * '1' or not at all. Unknown keys are dropped.
      *
@@ -1370,7 +1370,7 @@ final class SeoModule implements ModuleInterface
      * Canonical: WordPress core prints its own canonical on
      * `wp_head` (`rel_canonical`, singular views only) while this
      * module prints one of its own in `SeoOutput::renderMeta()`,
-     * so the module-managed tag is kept and core's is removed —
+     * so the module-managed tag is kept and core's is removed -
      * but only while the module will actually output its own
      * (meta output on, no SEO plugin active). Otherwise core's
      * tag stays as the only canonical on the page.
@@ -1407,7 +1407,7 @@ final class SeoModule implements ModuleInterface
      * Disable WordPress core's sitemaps while the native sitemaps are served.
      *
      * Filtered on `wp_sitemaps_enabled`, which core applies when it
-     * builds its sitemap server on `init` — after this module boots
+     * builds its sitemap server on `init` - after this module boots
      * on `after_setup_theme`, so the filter is always in place in
      * time. The decision re-checks the exact conditions the native
      * sitemap uses (SeoSitemap::canServe(): the XML sitemap toggle
@@ -1440,7 +1440,7 @@ final class SeoModule implements ModuleInterface
      * request carries one of the module's query vars; every other
      * request is left alone. The request-URI fallback covers
      * switched-off toggles, whose query vars are only registered
-     * while their toggle is on — without it a switched-off sitemap
+     * while their toggle is on - without it a switched-off sitemap
      * would 301 instead of answering 404 directly.
      *
      * @param string|false $redirectUrl URL core wants to redirect to, or false.

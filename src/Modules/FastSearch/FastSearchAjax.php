@@ -114,7 +114,7 @@ final class FastSearchAjax
             // missing, or a build is already running. The running
             // case was answered with 409 above, so re-check what
             // is actually missing instead of assuming the
-            // already-installed case — a stale lock used to land
+            // already-installed case - a stale lock used to land
             // here too and report "already installed" while all
             // four indexes were still missing.
             $missing = IndexManager::missingKeys(IndexManager::checkStatus());

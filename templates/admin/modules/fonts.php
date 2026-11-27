@@ -56,7 +56,7 @@ $fontsSourceLabels = [
     data-msg-downloading="<?php esc_attr_e('Downloading font…', 'traydigita-core'); ?>"
     data-msg-uploading="<?php esc_attr_e('Uploading font…', 'traydigita-core'); ?>"
     data-msg-deleting="<?php esc_attr_e('Deleting font…', 'traydigita-core'); ?>"
-    data-msg-error="<?php esc_attr_e('Something went wrong. Please try again.', 'traydigita-core'); ?>"
+    data-msg-error="<?php esc_attr_e('Request failed. Please try again.', 'traydigita-core'); ?>"
     data-msg-no-file="<?php esc_attr_e('Choose a font file to upload.', 'traydigita-core'); ?>"
 >
     <div class="traydigita-fonts-status" role="status">

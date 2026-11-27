@@ -35,16 +35,16 @@ use function wp_unslash;
  *   PDF is MIME-verified by EPaperStorage, never trusted on its
  *   extension or client-sent MIME type.
  * - `traydigita_epaper_update`: `issue_id`, `title`, `date`,
- *   `cover_id` — metadata only, the PDF file is never replaced
+ *   `cover_id` - metadata only, the PDF file is never replaced
  *   here.
- * - `traydigita_epaper_delete`: `issue_id` — deletes the issue
+ * - `traydigita_epaper_delete`: `issue_id` - deletes the issue
  *   record and its PDF file. The admin UI asks for confirmation
  *   (shell `data-confirm` handler) before the request is sent.
  *
  * Responses are JSON via `wp_send_json_success()` /
  * `wp_send_json_error()` with a `message` key; successful
  * upload/update responses also carry the stored `issue` record
- * (public URLs only — never an absolute server path).
+ * (public URLs only - never an absolute server path).
  */
 final class EPaperAjax
 {

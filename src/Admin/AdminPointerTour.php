@@ -32,7 +32,7 @@ use function wp_unslash;
  *
  * First-time administrators get the standard WordPress pointer
  * (wp_enqueue_script('wp-pointer') + wp_enqueue_style('wp-pointer'),
- * the jQuery pointer API) anchored to real UI elements — the
+ * the jQuery pointer API) anchored to real UI elements - the
  * built-in WordPress look, no custom tour card or styling.
  *
  * Steps cover the module list, the General hub, the colour

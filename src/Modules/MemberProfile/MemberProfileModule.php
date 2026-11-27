@@ -29,7 +29,7 @@ use function wp_nonce_field;
  * `traydigita:core:member/sections` filter: members edit
  * their own display name, website, bio and avatar, and may
  * change their own email address when the admin allows it
- * (through WordPress core's own confirmation flow — the new
+ * (through WordPress core's own confirmation flow - the new
  * address only takes effect after the member clicks the
  * confirmation link).
  *

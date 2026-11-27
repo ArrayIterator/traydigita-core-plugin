@@ -49,7 +49,7 @@ use function wp_max_upload_size;
  * WordPress, PHP, and MySQL versions, theme and traydigita-stack
  * versions, active plugins, upload and memory limits, debug
  * constants, WP-Cron status, and every registered image size.
- * Nothing on the page writes anything — there are no settings to
+ * Nothing on the page writes anything - there are no settings to
  * save (saveSettings() is a no-op success, as the interface
  * requires), and no network request is made while rendering: every
  * value comes from WordPress core data already available in the
@@ -157,7 +157,7 @@ final class SiteInfoModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -319,7 +319,7 @@ final class SiteInfoModule implements ModuleInterface
      * Gather the whole report, grouped into sections.
      *
      * Every value is a plain string, gathered from WordPress core
-     * data only — no network request, no file scan, no write. A
+     * data only - no network request, no file scan, no write. A
      * value that cannot be determined is reported as unknown
      * rather than guessed.
      *
@@ -655,7 +655,7 @@ final class SiteInfoModule implements ModuleInterface
      *
      * WP-Cron is a pseudo-cron: it only runs when the site gets a
      * visit, so "working" here means scheduled events exist and
-     * nothing disables it — it cannot prove a run happened. When
+     * nothing disables it - it cannot prove a run happened. When
      * DISABLE_WP_CRON is defined the status says so plainly, and
      * the next-event row is omitted because no event will run
      * without a real system cron.
@@ -726,7 +726,7 @@ final class SiteInfoModule implements ModuleInterface
      * Registered image size rows.
      *
      * Uses wp_get_registered_image_subsizes(), which covers core
-     * sizes and every size registered with add_image_size() —
+     * sizes and every size registered with add_image_size() -
      * including the theme's own sizes. A height of 0 means the
      * size scales proportionally instead of cropping to a fixed
      * height.

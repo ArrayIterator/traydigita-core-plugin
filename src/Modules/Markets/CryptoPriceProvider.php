@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Modules\Markets;
 
 /**
- * Contract for crypto price providers (CoinGecko, CoinPaprika, Binance…).
+ * Contract for crypto price providers (CoinGecko, CoinPaprika, Binance...).
  *
  * A provider turns a list of CoinGecko ids into prices. Providers are
  * resolved through the Markets module registry
@@ -17,7 +17,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Markets;
  *
  * Coin ids are always CoinGecko ids (bitcoin, ethereum, solana);
  * providers whose native ids differ (CoinPaprika, Binance) map them
- * internally and silently skip ids they cannot map — never guess.
+ * internally and silently skip ids they cannot map - never guess.
  */
 interface CryptoPriceProvider
 {
@@ -37,7 +37,7 @@ interface CryptoPriceProvider
 
     /**
      * Short description shown on the module settings page, including
-     * any honesty note (keyless tier, USDT-only, unofficial…).
+     * any honesty note (keyless tier, USDT-only, unofficial...).
      *
      * @return string
      */
@@ -45,7 +45,7 @@ interface CryptoPriceProvider
 
     /**
      * Whether this provider can quote in the given currency
-     * ('USD', 'IDR', 'USDT' — case-insensitive).
+     * ('USD', 'IDR', 'USDT' - case-insensitive).
      *
      * @param string $currency Currency code.
      * @return bool

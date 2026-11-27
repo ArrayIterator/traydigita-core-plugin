@@ -30,7 +30,7 @@ use function update_option;
  * the configured quality (default 82), and bulk-optimizes the
  * existing media library in chunked AJAX runs. Conversion runs
  * through `wp_get_image_editor()` (see `Optimizer`), only when the
- * editor actually supports the target format — an unsupported
+ * editor actually supports the target format - an unsupported
  * format is skipped with a recorded reason, never a fatal error.
  *
  * Safety rules:
@@ -164,7 +164,7 @@ final class ImageOptimizerModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -386,7 +386,7 @@ final class ImageOptimizerModule implements ModuleInterface
      * Optimize an image right after WordPress generates its sizes.
      *
      * Runs on `wp_generate_attachment_metadata`, which fires for
-     * every image upload after the sub-sizes exist — so the
+     * every image upload after the sub-sizes exist - so the
      * original and every size are converted together and the
      * returned metadata already points at the converted files.
      * (A `wp_handle_upload` hook would fire before the sizes are

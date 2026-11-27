@@ -20,7 +20,7 @@ use function trim;
  *
  * Uses the public market-data endpoint (no API key, weight-based
  * rate limits). Prices are USDT pairs, so the display currency is
- * always USDT — never USD or IDR. There is no Pro tier for public
+ * always USDT - never USD or IDR. There is no Pro tier for public
  * market data: Binance API keys are for trading endpoints only, so
  * this provider has no key field.
  *

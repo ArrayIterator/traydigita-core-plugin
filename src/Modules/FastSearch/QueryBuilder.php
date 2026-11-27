@@ -24,7 +24,7 @@ use function trim;
  * fulltext minimum word length ignores them anyway), and every
  * remaining word becomes a required prefix token (`+word*`).
  *
- * The builder is pure string work — no database access — so the
+ * The builder is pure string work - no database access - so the
  * output is fully unit-testable without WordPress. The resulting
  * string is always passed to MySQL through `$wpdb->prepare()`
  * as a `%s` placeholder, never interpolated into SQL.

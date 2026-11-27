@@ -30,7 +30,7 @@ use function wp_unslash;
  *
  * Registered from `AdsModule::boot()` (only when the module is
  * enabled), so the endpoint does not exist while the module is
- * disabled — the same pattern as the SMTP test-email endpoint.
+ * disabled - the same pattern as the SMTP test-email endpoint.
  *
  * Request (POST to `admin-ajax.php`):
  * - `action` = `traydigita_ads_preview`
@@ -42,7 +42,7 @@ use function wp_unslash;
  *   `rules[N][field]` fields; the ad code travels raw here, NOT
  *   base64-encoded, because this endpoint is module-owned and
  *   does not pass through the shell dispatcher's
- *   sanitize_text_field() — the values are unslashed and then
+ *   sanitize_text_field() - the values are unslashed and then
  *   normalized by AdsModule::sanitizeRules())
  *
  * The endpoint renders `the_content` of the chosen post with the

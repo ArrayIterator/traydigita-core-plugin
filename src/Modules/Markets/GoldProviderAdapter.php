@@ -15,7 +15,7 @@ use function time;
  * MarketDataProvider contract.
  *
  * Gold has a single spot price, so the adapter returns exactly one
- * quote — labelled "Gold spot", priced per gram in IDR — whatever
+ * quote - labelled "Gold spot", priced per gram in IDR - whatever
  * symbols the widget instance tracks. Per-brand rows are never
  * synthesized from the spot price: the widget shows the spot row
  * alone when a live gold provider is selected, and the manual

@@ -150,7 +150,7 @@ final class EmailModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -241,8 +241,8 @@ final class EmailModule implements \TrayDigita\WP\Plugin\Core\Admin\ModuleInterf
     {
         // The registry has no activation hook, so the
         // templates-table schema-upgrade check runs here, the
-        // first time the enabled module boots — mirroring
-        // AgendaModule::boot() → AgendaTable::ensureTable().
+        // first time the enabled module boots - mirroring
+        // AgendaModule::boot() -> AgendaTable::ensureTable().
         // Without this call nothing ever runs
         // TemplateStore::ensureTable(): the read/write paths
         // only call ensureTableExists(), which returns at once

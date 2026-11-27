@@ -76,7 +76,7 @@ use const LIBXML_HTML_NOIMPLIED;
  *
  * When nothing can be inserted (no applicable rule, no paragraph
  * target, budget exhausted), the original content is returned
- * untouched — it is never re-serialized through DOMDocument.
+ * untouched - it is never re-serialized through DOMDocument.
  */
 final class PlacementEngine
 {
@@ -162,7 +162,7 @@ final class PlacementEngine
      * sanitizing or filtering of any kind. Ad code is trusted
      * markup (typically AdSense <script>/<ins> pairs): any
      * escaping here would break the ad. The trust boundary is at
-     * save time, not at output time — only users with
+     * save time, not at output time - only users with
      * `manage_options` can save ad code (see
      * AdsModule::saveSettings()), the same trust level WordPress
      * grants the Custom HTML widget. Every insertion in this

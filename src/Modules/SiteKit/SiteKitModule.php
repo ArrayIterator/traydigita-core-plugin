@@ -28,7 +28,7 @@ use function esc_url;
  * settings, and never installs or activates it.
  *
  * No-duplicate-tracking guard: the theme ships NO analytics or tag
- * code of its own at all — no `gtag`, `googletagmanager` or
+ * code of its own at all - no `gtag`, `googletagmanager` or
  * `google-analytics` script is output anywhere in the theme, and
  * nothing in the theme strips Site Kit's verification meta tags
  * (verified by code search, see the coordinator's report). When
@@ -149,7 +149,7 @@ final class SiteKitModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -211,7 +211,7 @@ final class SiteKitModule implements ModuleInterface
      * would claim the module is configured while the plugin is
      * not even installed, which is exactly the false "Configured"
      * the sidebar used to show. The module still has no settings
-     * of its own — this only reports Site Kit's real state.
+     * of its own - this only reports Site Kit's real state.
      *
      * @return bool True only when Site Kit is active and connected.
      */

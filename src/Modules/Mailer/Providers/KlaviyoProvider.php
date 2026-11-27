@@ -24,7 +24,7 @@ use function sprintf;
  *
  * The mail's To addresses are ignored: the campaign goes to
  * every profile of the configured list, so a test email sends
- * to the whole list — never use it for a test unless that is
+ * to the whole list - never use it for a test unless that is
  * intended.
  *
  * Free tier (Nov 2026): 500 profiles. Best for: e-commerce
@@ -32,7 +32,7 @@ use function sprintf;
  *
  * Note: the campaign-create payload shape follows Klaviyo's
  * API reference (revision 2024-06-15) but has not been
- * verified against a live Klaviyo account — confirm the
+ * verified against a live Klaviyo account - confirm the
  * campaign arrives before relying on it in production.
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers

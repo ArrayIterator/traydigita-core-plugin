@@ -37,7 +37,7 @@ use function time;
  *
  * The mail's To addresses are ignored: the campaign goes to
  * every contact of the configured list, so a test email sends
- * to the whole list — never use it for a test unless that is
+ * to the whole list - never use it for a test unless that is
  * intended.
  *
  * Pricing (Nov 2026): trial only, no free plan. Best for:
@@ -46,7 +46,7 @@ use function time;
  *
  * Note: the middle PUT payload shape follows Constant
  * Contact's API reference but has not been verified against a
- * live account — confirm the campaign arrives before relying
+ * live account - confirm the campaign arrives before relying
  * on it in production.
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\Mailer\Providers

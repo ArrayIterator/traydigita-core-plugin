@@ -278,10 +278,10 @@
 }
 
 /*
- * Injected save bars after inline action forms (task 33).
+ * Injected save bars after inline action forms.
  *
  * The shell JavaScript injects a floating `.traydigita-admin-save-bar`
- * after every form matching `form[data-action][data-module]` — which
+ * after every form matching `form[data-action][data-module]` - which
  * includes the Form Builder's small inline forms (the per-row Delete
  * forms inside the tables and the Create form/template/contact-form
  * forms). Each of those forms already shows its own submit button
@@ -289,7 +289,7 @@
  * scrolls through the sections above one of these forms, its bar
  * sticks to the viewport bottom and floats over unrelated content
  * (the template table header, the forms list). The bars after real
- * settings forms are untouched — those forms either carry
+ * settings forms are untouched - those forms either carry
  * `data-traydigita-module-form` or render their own saveBar, and
  * the injected bar is the framework's fallback for them.
  */
@@ -684,8 +684,8 @@
 /*
  * Ads rule fields: the rule fieldset renders as plain paragraphs
  * (label, `<br>`, bare control, `<br>`, description) with no
- * section card around them. Stack each field the framework way —
- * label above, control below, description full-width underneath —
+ * section card around them. Stack each field the framework way -
+ * label above, control below, description full-width underneath -
  * and give the rule fieldset the framework section-card treatment
  * so a rule reads as one card instead of a loose pile of fields.
  * The checkbox rows keep their inline label (the label is not the
@@ -798,7 +798,7 @@
 
 /*
  * Email + Mailer log tables: neither table is a `.widefat`
- * table, so their cells have no padding at all (0px) — at 390px
+ * table, so their cells have no padding at all (0px) - at 390px
  * the Sent/Failed headers touched ("TerkirimGagal") even though
  * the table itself fits and the block-scroll rule applies. Give
  * the cells the same padding a widefat table has so the columns

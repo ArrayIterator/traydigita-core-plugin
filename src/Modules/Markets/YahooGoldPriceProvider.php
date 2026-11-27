@@ -11,13 +11,13 @@ use function is_numeric;
  * Yahoo Finance gold provider.
  *
  * Gold spot on Yahoo is quoted through COMEX gold futures (`GC=F`,
- * USD per troy ounce) — the `XAUUSD=X` forex symbol is delisted
+ * USD per troy ounce) - the `XAUUSD=X` forex symbol is delisted
  * (verified live 2026-11-21: "No data found, symbol may be
  * delisted"). The price is converted to IDR per gram with the
- * `USDIDR=X` rate: price × rate / 31.1035. The change is derived
+ * `USDIDR=X` rate: price x rate / 31.1035. The change is derived
  * from the futures previous close the same way; the change percent
  * is the futures session move. Both conversions are plain
- * arithmetic on observed values, never guesses — and the provider
+ * arithmetic on observed values, never guesses - and the provider
  * says "futures" in its label and description so nobody mistakes
  * it for a retail brand price.
  *

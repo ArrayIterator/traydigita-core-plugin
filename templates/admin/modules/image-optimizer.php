@@ -34,7 +34,7 @@
  * SettingsControls (select, number, toggles) inside framework
  * sections (`td-section-*`), and the form ends in the sticky
  * framework save bar. The support/library/bulk blocks keep their
- * own markup — they are status displays, not settings fields.
+ * own markup - they are status displays, not settings fields.
  */
 declare(strict_types=1);
 
@@ -49,7 +49,7 @@ $progressPercent = $imageOptimizerProgress['total'] > 0
     data-msg-running="<?php esc_attr_e('Optimizing images…', 'traydigita-core'); ?>"
     data-msg-finished="<?php esc_attr_e('Bulk optimization finished.', 'traydigita-core'); ?>"
     data-msg-cancelled="<?php esc_attr_e('Bulk optimization cancelled.', 'traydigita-core'); ?>"
-    data-msg-error="<?php esc_attr_e('Something went wrong. Please try again.', 'traydigita-core'); ?>"
+    data-msg-error="<?php esc_attr_e('Request failed. Please try again.', 'traydigita-core'); ?>"
     data-msg-no-run="<?php esc_attr_e('No bulk optimization is running.', 'traydigita-core'); ?>"
     data-msg-confirm-cancel="<?php esc_attr_e('Cancel the running bulk optimization? Images already processed stay optimized.', 'traydigita-core'); ?>"
 >

@@ -75,7 +75,7 @@ use const FILTER_VALIDATE_IP;
  * Bypass rules, checked in this order inside the `template_redirect`
  * gate: a user who can `manage_options` or holds an allowlisted role;
  * a request IP in the allowlist (compared against `REMOTE_ADDR`
- * only — `X-Forwarded-For` is never trusted, because it is trivially
+ * only - `X-Forwarded-For` is never trusted, because it is trivially
  * spoofable when the site sits behind an untrusted proxy); a valid
  * bypass query token, which sets a 24 hour HttpOnly cookie and then
  * redirects to strip the token from the URL; a valid bypass cookie.
@@ -235,7 +235,7 @@ final class MaintenanceModule implements \TrayDigita\WP\Plugin\Core\Admin\Module
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */

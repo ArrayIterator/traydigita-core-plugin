@@ -56,7 +56,7 @@ use function wp_unslash;
  * - Filesystem: only the `direct` method is used. When the site's
  *   filesystem method is anything else (for example FTP), the
  *   install is refused with a clear error instead of asking for
- *   FTP credentials inside this UI — core's own credentials form
+ *   FTP credentials inside this UI - core's own credentials form
  *   is never triggered from here, and no credentials are ever
  *   collected or stored by this module.
  * - One install at a time: a transient lock rejects a second
@@ -276,7 +276,7 @@ final class InstallerAjax
      * installable (a wordpress.org package exists). Returns null
      * for unknown slugs and for traydigita-core, so callers can
      * refuse before any network or filesystem work happens. Pure
-     * allowlist check — no WordPress state is read or changed.
+     * allowlist check - no WordPress state is read or changed.
      *
      * @param string $slug Plugin slug, already sanitized with sanitize_key().
      * @return array{slug: string, file: string, name: string, reason: string, category: string, recommended: bool, required: bool, installable: bool, duplicates: string|null}|null
@@ -294,7 +294,7 @@ final class InstallerAjax
      *
      * Only `https://downloads.wordpress.org/...` passes. Any other
      * host, a relative URL, or an unparseable URL fails closed.
-     * Pure check — no network call.
+     * Pure check - no network call.
      *
      * @param string $url Package URL from plugins_api().
      * @return bool
@@ -314,7 +314,7 @@ final class InstallerAjax
      *
      * Unknown slugs get a generic refusal. The core slug gets the
      * specific explanation: it has no wordpress.org package, so
-     * this installer cannot fetch it — it must come from the
+     * this installer cannot fetch it - it must come from the
      * project's own release, and the theme cannot boot without it.
      *
      * @param string $slug Plugin slug, already sanitized with sanitize_key().
@@ -406,8 +406,8 @@ final class InstallerAjax
             ];
         }
         if ($installed === false || $installed === null) {
-            // Plugin_Upgrader::install() returns null — not false
-            // or a WP_Error — when the package download fails:
+            // Plugin_Upgrader::install() returns null - not false
+            // or a WP_Error - when the package download fails:
             // $this->result is only set by install_package(),
             // which never runs. Treat null as a failed install
             // and surface the skin's error, or the user gets the

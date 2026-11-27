@@ -26,7 +26,7 @@ use function sprintf;
  *
  * The mail's To addresses are ignored: the campaign goes to
  * every subscriber of the configured mailing list, so a test
- * email sends to the whole list — never use it for a test
+ * email sends to the whole list - never use it for a test
  * unless that is intended.
  *
  * Pricing (Nov 2026): 30-day trial, then paid. Best for:
@@ -34,7 +34,7 @@ use function sprintf;
  *
  * Note: the `Content` field of the create call follows
  * Moosend's API reference but the docs page could not be
- * re-read while this provider was written — confirm the
+ * re-read while this provider was written - confirm the
  * campaign carries the mail body before relying on it in
  * production.
  *

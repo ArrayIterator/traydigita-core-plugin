@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 /**
- * Plugin Name: TrayDigita Mailer — Dummy Provider Example
+ * Plugin Name: TrayDigita Mailer - Dummy Provider Example
  * Plugin URI: https://github.com/ArrayIterator/traydigita-core-plugin
- * Description: Example third-party provider for the TrayDigita Core Mailer. Registers a "Dummy" provider through the traydigita:core:mailer/providers filter: it appears in the Mailer settings dropdown, works in test-send, and appears in the send log — without sending any real mail. Copy this file as a starting point for a real provider.
+ * Description: Example third-party provider for the TrayDigita Core Mailer. Registers a "Dummy" provider through the traydigita:core:mailer/providers filter: it appears in the Mailer settings dropdown, works in test-send, and appears in the send log - without sending any real mail. Copy this file as a starting point for a real provider.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Requires PHP: 8.3
@@ -86,7 +86,7 @@ add_filter('traydigita:core:mailer/providers', 'traydigita_mailer_dummy_provider
 
 /**
  * React to dummy sends: log the recipient to the PHP error log
- * (development only — remove this in a real provider).
+ * (development only - remove this in a real provider).
  *
  * The Mailer fires `traydigita:core:mailer/send` before the
  * attempt and `traydigita:core:mailer/sent` /

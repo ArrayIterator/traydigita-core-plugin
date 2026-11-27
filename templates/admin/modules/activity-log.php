@@ -70,7 +70,7 @@ $baseUrl = admin_url('admin.php?page=' . \TrayDigita\WP\Plugin\Core\Modules\Acti
     data-msg-creating="<?php echo esc_attr(__('Creating the log table…', 'traydigita-core')); ?>"
     data-msg-deleting="<?php echo esc_attr(__('Deleting…', 'traydigita-core')); ?>"
     data-msg-clearing="<?php echo esc_attr(__('Clearing the log…', 'traydigita-core')); ?>"
-    data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
+    data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>">
     <section id="td-section-viewer" class="traydigita-ui-section td-settings-section" data-traydigita-panel="viewer" role="tabpanel" aria-labelledby="traydigita-tab-viewer">
     <div class="traydigita-activity-log-status" role="status">
         <?php if ($activityTableExists) : ?>

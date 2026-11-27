@@ -52,7 +52,7 @@ use function wp_nonce_field;
  * or admin screens. The stylesheet is bundled into the
  * theme's app entry; this module registers no separate assets.
  * The print itself is the browser's `window.print()`, bound
- * by `resources/js/modules/print-article.ts` — no server
+ * by `resources/js/modules/print-article.ts` - no server
  * cost, no PDF generation, no network request.
  *
  * Settings live in the single option `traydigita_print_article`
@@ -169,7 +169,7 @@ final class PrintArticleModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -311,7 +311,7 @@ final class PrintArticleModule implements ModuleInterface
      *
      * Expected flat keys: `show_button`, `hide_images` and
      * `show_source` (checkboxes: `1` when checked, absent when
-     * unchecked), `position` (`above` or `below` — anything
+     * unchecked), `position` (`above` or `below` - anything
      * else falls back to `below`). Unknown keys are dropped.
      *
      * @param array<string, mixed> $data Sanitized form data.

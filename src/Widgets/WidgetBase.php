@@ -56,7 +56,7 @@ use function wp_create_nonce;
  *
  * Templates receive their data as extracted variables; each partial
  * documents its variables in its header comment. Templates use
- * semantic CSS classes only — no Tailwind utilities.
+ * semantic CSS classes only - no Tailwind utilities.
  */
 abstract class WidgetBase extends WP_Widget
 {
@@ -403,10 +403,8 @@ abstract class WidgetBase extends WP_Widget
         return false;
     }
 
-    // ------------------------------------------------------------------
     // Admin form helpers. All helpers echo their markup (WP_Widget::form
     // convention) and escape every value.
-    // ------------------------------------------------------------------
 
     /**
      * Text input field.

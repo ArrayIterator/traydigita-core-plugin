@@ -27,7 +27,7 @@ use function wp_enqueue_script;
  * Renders the Facebook Comments Plugin (`<div class="fb-comments">`)
  * for the post permalink and enqueues the Facebook SDK once, async.
  * Comments are stored and moderated by Facebook, in Facebook's own
- * tools — never in this site's database. The SDK loads only after
+ * tools - never in this site's database. The SDK loads only after
  * the visitor accepted cookies (see
  * CommentsModule::hasConsentForFacebook()); without an App ID the
  * provider renders nothing at all.

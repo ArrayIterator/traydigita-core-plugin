@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace TrayDigita\WP\Plugin\Core\Modules\Markets;
 
 /**
- * Contract for gold price providers (Yahoo Finance, GoldAPI…).
+ * Contract for gold price providers (Yahoo Finance, GoldAPI...).
  *
  * Unlike crypto, gold has a single spot price: providers return
  * one price per gram in Indonesian Rupiah, not one price per
@@ -38,7 +38,7 @@ interface GoldPriceProvider
 
     /**
      * Short description shown on the module settings page, including
-     * any honesty note (unofficial endpoint, futures not spot…).
+     * any honesty note (unofficial endpoint, futures not spot...).
      *
      * @return string
      */

@@ -62,7 +62,7 @@ use const HOUR_IN_SECONDS;
  * untouched as the standalone alternative). The web config +
  * VAPID key live in `traydigita_push`, the Service Account
  * JSON in its own option, subscriber tokens in the module's
- * own table (see PushSender). Sending is manual only —
+ * own table (see PushSender). Sending is manual only -
  * nothing here auto-sends on publish.
  *
  * The option and table names are unchanged since the push half
@@ -93,12 +93,12 @@ use const HOUR_IN_SECONDS;
  * endpoint and the subscribe button, so the module defers all
  * push runtime to it (boot() registers no SW / REST /
  * shortcode hooks, and the test + send endpoints refuse).
- * Saving push config stays allowed — it only stores options —
+ * Saving push config stays allowed - it only stores options -
  * so a config can be ready for the day the plugin is
  * deactivated.
  *
  * Settings surface: ONE page (slug 'traydigita-push') with two
- * tabs — Settings (push config, with two-way JS + PHP
+ * tabs - Settings (push config, with two-way JS + PHP
  * validation, lock-on-valid with Unlock / Delete, and a
  * Test-config button that fetches an FCM access token
  * without sending anything) and Message (manual send form,
@@ -216,7 +216,7 @@ final class PushModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -343,7 +343,7 @@ final class PushModule implements ModuleInterface
      * Called from PwaModule::boot(), which only runs while the
      * PWA module is enabled. Under the old merged module,
      * enabling 'pwa' enabled the push half too, so a stored
-     * list that has 'pwa' but not 'push' gains 'push' here —
+     * list that has 'pwa' but not 'push' gains 'push' here -
      * existing sites keep push working without an admin having
      * to re-enable anything. Idempotent: once 'push' is in the
      * stored list this returns without touching the option.
@@ -374,7 +374,7 @@ final class PushModule implements ModuleInterface
      * resources/js/modules/admin-push.ts (which validates
      * client-side first), and the send form posts to the
      * module-owned send endpoint. The Service Account JSON is
-     * never printed back to the page — only a "saved" summary
+     * never printed back to the page - only a "saved" summary
      * (project id + client email) is shown.
      *
      * @return void
@@ -641,7 +641,7 @@ final class PushModule implements ModuleInterface
         $stored = PushSender::getSettings();
         // Locked config guard: once a valid config is saved the
         // form locks, and the lock must be enforced here, not
-        // only by the readonly fields in the browser — a direct
+        // only by the readonly fields in the browser - a direct
         // POST could otherwise overwrite the Service Account
         // without ever unlocking. An explicit `push_unlock` flag
         // (sent only after the Unlock button is clicked) is the
@@ -721,7 +721,7 @@ final class PushModule implements ModuleInterface
      * PushAjax endpoints + the tokens table are always registered
      * when enabled. The push runtime (root service worker, token
      * REST routes, subscribe shortcode) is skipped while the
-     * standalone push plugin is active — the plugin owns those
+     * standalone push plugin is active - the plugin owns those
      * URLs then (see the class docblock).
      *
      * @return void
@@ -784,7 +784,7 @@ final class PushModule implements ModuleInterface
      *
      * Generous on purpose: a device re-registers when its
      * service worker updates, and many visitors can share one
-     * egress address — but without any limit the public
+     * egress address - but without any limit the public
      * endpoint would let anyone fill the tokens table with
      * random 20+ character strings. Deletes need no limit: a
      * delete names a token hash, so a random token deletes
@@ -856,7 +856,7 @@ final class PushModule implements ModuleInterface
      * This module owns the shared worker: it runs the Firebase
      * background-message handler and a network-first fetch
      * passthrough (no caching, so it can never serve stale
-     * content), so it is also the PWA worker — installing the
+     * content), so it is also the PWA worker - installing the
      * app and receiving push in the background share one
      * registration and cannot conflict.
      *
@@ -909,8 +909,8 @@ final class PushModule implements ModuleInterface
         echo "  event.waitUntil(clients.openWindow(url));\n";
         echo "});\n";
         // PWA half of the same worker: a network-first fetch
-        // passthrough. No caching is done here — the worker
-        // must never serve stale content — but the fetch
+        // passthrough. No caching is done here - the worker
+        // must never serve stale content - but the fetch
         // handler is what makes this a real PWA worker for
         // installability, alongside the push handler above.
         echo "self.addEventListener('fetch', function (event) {\n";

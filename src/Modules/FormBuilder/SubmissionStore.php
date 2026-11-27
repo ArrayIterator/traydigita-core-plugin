@@ -47,7 +47,7 @@ use function stream_get_contents;
  * - Schema upgrades are version-gated: SCHEMA_VERSION is
  *   compared with the `traydigita_contact_form_db_version`
  *   option, and ensureTable() (dbDelta) runs again when the
- *   stored version is older — throttled by a 3600s check
+ *   stored version is older - throttled by a 3600s check
  *   transient, serialised by a 60s lock, admin-only. Bump
  *   SCHEMA_VERSION when the schema changes.
  * - Retention is enforced by prune(): rows older than the
@@ -236,7 +236,7 @@ final class SubmissionStore
      * The admin list query was verified against this:
      * `form_id` is filtered alone and is the leftmost prefix
      * of `form_status_created`. Never throws, never
-     * error_logs — a leftover duplicate is harmless.
+     * error_logs - a leftover duplicate is harmless.
      *
      * @return void
      */

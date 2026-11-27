@@ -100,7 +100,7 @@ use function wp_trim_words;
  * The module class list is filterable for child themes through the
  * `traydigita:core:modules` filter (hook prefix from
  * Core::HOOK_PREFIX). A child theme adds or replaces modules with
- * add_filter — it never edits this class:
+ * add_filter - it never edits this class:
  *
  *     add_filter('traydigita:core:modules', function (array $classes) {
  *         $classes[] = MyModule::class;
@@ -116,7 +116,7 @@ use function wp_trim_words;
  * normal request. idMap() (backed by the static DEFAULT_MAP)
  * resolves ids to classes without autoloading anything, and
  * enabled(), isEnabled(), get() and bootEnabled() all work
- * from it — only enabled modules, and the one module a request
+ * from it - only enabled modules, and the one module a request
  * explicitly asks for, are ever loaded. all() still loads
  * every class, by design: the modules list and the hub need
  * every module's name and description, so those admin pages
@@ -213,7 +213,7 @@ final class ModuleRegistry
      * cards already use), so only known ligature names are
      * accepted from admins and filter callbacks; anything else
      * falls back to 'extension'. Keep the list to common,
-     * stable ligatures — a name that does not exist in the
+     * stable ligatures - a name that does not exist in the
      * loaded icon font renders as blank text.
      *
      * @var array<int, string>
@@ -444,7 +444,7 @@ final class ModuleRegistry
      * be loaded just to answer "is this id enabled?" or "which
      * class is this id?". DEFAULT_CLASSES is a plain list, so
      * resolving an id from it needs class_exists() (which
-     * autoloads the file) plus $class::id() for every entry —
+     * autoloads the file) plus $class::id() for every entry -
      * all 56 classes on every request, even with everything
      * disabled. This map answers id => class from static data
      * instead, so enabled(), isEnabled(), get() and
@@ -454,7 +454,7 @@ final class ModuleRegistry
      * MUST mirror each class's id() exactly: idMap() trusts
      * these keys without loading the class, and all() / get()
      * drop any entry whose loaded class reports a different id,
-     * so a drifted key can never mislabel a module — the module
+     * so a drifted key can never mislabel a module - the module
      * would disappear from the list instead of resolving to the
      * wrong class. When a module changes its id(), update this
      * map in the same commit.
@@ -529,7 +529,7 @@ final class ModuleRegistry
      * to ask isCore(). When a module flips isCore() to true, add
      * its id here in the same commit; when it flips back, remove
      * it. Third-party modules that report isCore() true are NOT
-     * listed here — isCore($id) still loads that one class to ask
+     * listed here - isCore($id) still loads that one class to ask
      * it, so they keep working.
      *
      * @var array<int, string>
@@ -690,7 +690,7 @@ final class ModuleRegistry
      * idMap()), so the usual path resolves the id from the slug
      * and loads only that one class. A slug in any other shape
      * (a third-party module with its own slug) falls back to
-     * scanning all(), which loads every class — that path is
+     * scanning all(), which loads every class - that path is
      * admin-only and rare.
      *
      * @param string $slug Settings page slug, e.g. 'traydigita-login'.
@@ -781,11 +781,11 @@ final class ModuleRegistry
      * Stored ids of unknown modules are dropped; the option
      * itself is never written by a read. (A stored 'push' id from
      * before the PWA & Push merge resolves to the Push module
-     * again since the 2026-11-23 split — no migration step is
+     * again since the 2026-11-23 split - no migration step is
      * needed for the id itself.)
      *
      * Core modules (see isCore()) are always included, even when
-     * the stored option does not list them — a core module cannot
+     * the stored option does not list them - a core module cannot
      * be deactivated, so its id is not stored state. The core
      * ids come from CORE_IDS, so this read loads no class at all.
      *
@@ -839,7 +839,7 @@ final class ModuleRegistry
      * Core modules are always enabled and cannot be deactivated.
      * Unknown ids are never core. Shipped core modules answer
      * from CORE_IDS without loading any class; a third-party
-     * module that reports isCore() true still answers true — it
+     * module that reports isCore() true still answers true - it
      * is asked directly, which loads that one class.
      *
      * @param string $id Module id.
@@ -862,12 +862,12 @@ final class ModuleRegistry
     /**
      * Whether a module class ships with Core (is built-in).
      *
-     * Built-in means the class is listed in DEFAULT_CLASSES —
+     * Built-in means the class is listed in DEFAULT_CLASSES -
      * it ships in src/Modules/ under the
      * TrayDigita\WP\Plugin\Core\Modules\ namespace. This is
      * NOT the same as isCore(): isCore() marks the few modules
      * that are always enabled and cannot be deactivated, while
-     * every shipped module — optional or not — is built-in.
+     * every shipped module - optional or not - is built-in.
      * A module registered through the public
      * `traydigita:core:modules` filter is never built-in, even
      * when it extends a shipped class, because membership is
@@ -956,7 +956,7 @@ final class ModuleRegistry
      * does not exist yet, the toggle simply goes unlogged.
      * record() itself is fail-open and checks that the Activity
      * Log module is enabled, so disabling the Activity Log
-     * itself logs nothing — which is the correct outcome.
+     * itself logs nothing - which is the correct outcome.
      *
      * @param string $id Module id that was toggled.
      * @param bool $enabled True when it was enabled.
@@ -1049,7 +1049,7 @@ final class ModuleRegistry
      * method returning an int; AdminMenu orders the data-driven
      * submenu entries by it (ascending, registry order breaking
      * ties) and registers entries below 0 before Site Health and
-     * entries at 0 or above after it — Site Health sits at
+     * entries at 0 or above after it - Site Health sits at
      * position 0 by definition. A missing method or a
      * non-integer return means 0. The method is optional on
      * purpose: adding it to ModuleInterface would force every
@@ -1076,8 +1076,8 @@ final class ModuleRegistry
      * 'admin.php?page=traydigita-login'). The target must name a
      * WordPress admin file: it must contain '.php' and must not
      * be an absolute or external URL (no '://', no leading
-     * slash). Anything else — a missing method, a non-string, an
-     * empty string, or a target that fails validation — returns
+     * slash). Anything else - a missing method, a non-string, an
+     * empty string, or a target that fails validation - returns
      * null, which means the module's own settings page (see
      * openTarget()).
      *
@@ -1110,7 +1110,7 @@ final class ModuleRegistry
      * settingsPageSlug()). This is the single source of truth
      * for the module's open link: AdminMenu::moduleUrl() builds
      * the card "Open" URL from it, the module list JSON 'url'
-     * field carries it, and the submenu entry links to it — so
+     * field carries it, and the submenu entry links to it - so
      * the card button and the submenu item always use one
      * identical value.
      *
@@ -1177,7 +1177,7 @@ final class ModuleRegistry
      * no usable changes are dropped and the list is capped at
      * 8 entries, newest first as declared. A missing method
      * or an empty list falls back to a single entry built from
-     * version() — "Initial release in TrayDigita Core." — so
+     * version() - "Initial release in TrayDigita Core." - so
      * the popup's Changelog section is never empty and no
      * history is ever invented. The method is optional on
      * purpose, for the same reason as features() above.
@@ -1244,7 +1244,7 @@ final class ModuleRegistry
      * (templates/admin/shell.php) and moduleListData() embeds
      * it per module for the Modules page cards, so both
      * openings render the same popup from the same shape.
-     * The data is server-rendered JSON — no new AJAX or REST
+     * The data is server-rendered JSON - no new AJAX or REST
      * endpoint, no new nonce or capability surface. Status
      * uses the same exclusive bucket as moduleListData():
      * not available, core, needs setup (enabled only),
@@ -1616,8 +1616,8 @@ final class ModuleRegistry
     /**
      * A module's base category: filter reassignment, then its
      * declared category(), then the default map, then the
-     * fallback. Overrides are NOT applied here — see
-     * categoryOf() — so assignModuleToCategory() can compare
+     * fallback. Overrides are NOT applied here - see
+     * categoryOf() - so assignModuleToCategory() can compare
      * against the base and drop a redundant override.
      *
      * @param class-string<ModuleInterface> $moduleClass Module class.
@@ -1806,7 +1806,7 @@ final class ModuleRegistry
      *
      * The slug is immutable: renaming a slug would break the
      * stored overrides pointing at it. Built-in categories
-     * cannot be renamed here — their labels live in
+     * cannot be renamed here - their labels live in
      * defaultCategories().
      *
      * @param string $slug Custom category slug.
@@ -1842,7 +1842,7 @@ final class ModuleRegistry
      * Only custom categories can be deleted. Every module
      * assigned to the deleted category has its override
      * removed server-side, so it falls back to its base
-     * category (declared category() / default map) — a delete
+     * category (declared category() / default map) - a delete
      * never orphans a module.
      *
      * @param string $slug Custom category slug.
@@ -1910,17 +1910,17 @@ final class ModuleRegistry
      * endpoint both serve it: one entry per module plus the
      * full category list with counts.
      *
-     * This is the single source of truth for the list JSON —
+     * This is the single source of truth for the list JSON -
      * templates/admin/modules-page.php renders it into the
      * data-modules / data-categories attributes and
-     * AdminAjax::listModules() returns it as JSON — so the
+     * AdminAjax::listModules() returns it as JSON - so the
      * first render and every refresh after a category change
      * agree. Every existing field is kept; each entry gains
      * `category` (resolved slug) and `category_label`.
      *
      * Each entry also carries `description_short`: the
      * description truncated server-side to 20 words, which is
-     * what the cards and rows display — the truncation happens
+     * what the cards and rows display - the truncation happens
      * in PHP, never in the browser. The full `description` is
      * kept alongside it for search (the list search matches
      * against the full text) and for the module info popup,
@@ -2021,18 +2021,18 @@ final class ModuleRegistry
      * Only modules that are enabled AND available get boot() called,
      * so a disabled module registers no hooks and enqueues nothing.
      * Core modules are always enabled (see enabled()), so they boot
-     * unconditionally — unless they are unavailable. Missing classes
+     * unconditionally - unless they are unavailable. Missing classes
      * are skipped (see all()).
      *
      * Iteration is over idMap() in card order (the DEFAULT_MAP
-     * order), so boot order matches the old all() order — the
+     * order), so boot order matches the old all() order - the
      * Table of Contents filter still registers before the Ads
-     * filter — while only enabled classes are ever loaded.
+     * filter - while only enabled classes are ever loaded.
      *
      * The Contact Form fold migration runs first
      * (FormBuilderModule::migrateEnabledFromContactForm()): it must
      * not live in FormBuilderModule::boot(), which only runs when
-     * FormBuilder is already enabled — a site with 'contact-form'
+     * FormBuilder is already enabled - a site with 'contact-form'
      * enabled but 'form-builder' disabled would never migrate.
      * Running it here, before enabled() is read, also lets the
      * newly enabled FormBuilder boot in this same request.

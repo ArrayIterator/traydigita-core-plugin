@@ -55,8 +55,8 @@ use function wp_nonce_field;
  * stored definition edited by hand in the database is still safe.
  *
  * Spam protection is NOT part of a definition: the calling module
- * (Contact Form) adds Turnstile / reCAPTCHA — each from its own
- * module — around the rendered form and verifies the token
+ * (Contact Form) adds Turnstile / reCAPTCHA - each from its own
+ * module - around the rendered form and verifies the token
  * before calling validateSubmission().
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\FormBuilder

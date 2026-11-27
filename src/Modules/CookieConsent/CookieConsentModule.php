@@ -54,9 +54,9 @@ use function wp_unslash;
  * Appearance (banner message, button labels, colours, position) can
  * also be controlled from the Customizer (section
  * `traydigita_cookie_consent`). The Customizer writes the SAME
- * option and the SAME keys as this page — one source of truth, so
+ * option and the SAME keys as this page - one source of truth, so
  * a value changed in the Customizer shows up here and vice versa.
- * Consent behaviour — duration, privacy policy page and URL —
+ * Consent behaviour - duration, privacy policy page and URL -
  * lives only here in the module and has no Customizer equivalent.
  *
  * Legacy theme_mods written by the Customizer before the settings
@@ -67,8 +67,8 @@ use function wp_unslash;
  *
  * isConfigured() returns true once the settings option exists and
  * holds a non-empty message and accept-button text. Both fields have
- * defaults, so saving the settings once — even without changing
- * anything — counts as configured. Before the first save the module
+ * defaults, so saving the settings once - even without changing
+ * anything - counts as configured. Before the first save the module
  * reports "needs setup" on its card.
  *
  * The banner is rendered only when the module is enabled (boot()
@@ -189,7 +189,7 @@ final class CookieConsentModule implements \TrayDigita\WP\Plugin\Core\Admin\Modu
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -422,7 +422,7 @@ final class CookieConsentModule implements \TrayDigita\WP\Plugin\Core\Admin\Modu
      * Before sanitizing, any legacy Customizer theme_mod value
      * (written before the Customizer and this page were unified
      * onto this option) is imported for a key the option does not
-     * hold yet — see importLegacyThemeMods(). The next save then
+     * hold yet - see importLegacyThemeMods(). The next save then
      * persists the imported value into the option.
      *
      * @return array<string, mixed>
@@ -508,7 +508,7 @@ final class CookieConsentModule implements \TrayDigita\WP\Plugin\Core\Admin\Modu
      * Empty button texts fall back to their defaults so the banner
      * can never render with an unlabeled button. An unknown or
      * missing position falls back to `bottom`; the duration is
-     * clamped to 30–365 days.
+     * clamped to 30-365 days.
      *
      * @param array<string, mixed> $data Raw settings (already unslashed).
      * @return array<string, mixed>

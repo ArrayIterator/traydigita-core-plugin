@@ -11,7 +11,7 @@ use function __;
  * Sends through the Gmail API as the connected Google account,
  * via GmailOAuth (authorization-code flow + token refresh +
  * base64url RFC 822 send). The OAuth connect / callback /
- * disconnect flow itself stays in MailerModule — it is
+ * disconnect flow itself stays in MailerModule - it is
  * settings-page flow (nonce, capability, redirects to the
  * module's settings slug), not send logic.
  *

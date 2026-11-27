@@ -27,7 +27,7 @@ use function wp_nonce_field;
  * optional colour) is part of the theme itself, so this module is
  * core: always enabled, never deactivated. Icons are picked per
  * menu item on the Menus screen; this page holds the default
- * behaviour for every icon on the frontend — whether icons render
+ * behaviour for every icon on the frontend - whether icons render
  * at all, and whether they sit before or after the label
  * (MenuIcons::prependIconToTitle() reads these settings on every
  * render). boot() creates the single shared MenuIcons instance
@@ -137,7 +137,7 @@ final class MenuIconsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */

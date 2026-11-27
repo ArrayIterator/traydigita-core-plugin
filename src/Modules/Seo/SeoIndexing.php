@@ -374,7 +374,7 @@ final class SeoIndexing
      * Each endpoint is fetched with a 10-second timeout; a network
      * failure records code 0 instead of failing the request. The
      * stored log holds only the time, the URL, and one status code
-     * per endpoint — never the key.
+     * per endpoint - never the key.
      *
      * @param string $url Absolute URL to submit.
      * @return array{success: bool, endpoints: array<int, array{endpoint: string, code: int}>}

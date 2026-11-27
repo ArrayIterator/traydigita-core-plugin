@@ -18,7 +18,7 @@ use function wp_strip_all_tags;
 /**
  * Reader bookmarks, stored in the browser only (IndexedDB).
  *
- * There is NO database storage for bookmarks — no user meta, no
+ * There is NO database storage for bookmarks - no user meta, no
  * REST sync endpoints, nothing on the server. The single source
  * of truth is one IndexedDB database in the reader's browser,
  * shared by the article toggle, the bookmark.php page and the
@@ -33,7 +33,7 @@ use function wp_strip_all_tags;
  *   database: `traydigita-bookmarks` (version 1)
  *   object store: `bookmarks`, keyed by `postId`
  *
- * Entry shape (exact — do not add fields without bumping the
+ * Entry shape (exact - do not add fields without bumping the
  * database version and documenting the migration):
  *
  *   {
@@ -138,7 +138,7 @@ final class Bookmarks
      * resources/js/modules/bookmarks.ts), so the same shell is
      * used by the bookmark.php page and the member-area
      * Bookmarks section. All strings the JavaScript renders
-     * travel as data-msg-* attributes — no string is hardcoded
+     * travel as data-msg-* attributes - no string is hardcoded
      * in JavaScript. The status line doubles as the loading and
      * empty state; the list itself starts empty.
      *

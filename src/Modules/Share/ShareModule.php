@@ -48,7 +48,7 @@ use function wp_reset_postdata;
  * light-grey border and dark navy icons/text, and no brand
  * colours: Facebook, X, WhatsApp, Email (all icon-only), Copy
  * link ("Salin tautan") and Print ("Cetak"). No share counts are
- * fetched anywhere (no external count APIs — privacy and
+ * fetched anywhere (no external count APIs - privacy and
  * performance), no share row is shown at the top, and no
  * floating rail is shown by default.
  *
@@ -189,7 +189,7 @@ final class ShareModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -230,7 +230,7 @@ final class ShareModule implements ModuleInterface
      *
      * Configured means at least one network is switched on. Copy
      * link and Print are always available, so a module with every
-     * network off still renders a (much smaller) block — the
+     * network off still renders a (much smaller) block - the
      * badge only reflects the network setup.
      *
      * @return bool
@@ -444,7 +444,7 @@ final class ShareModule implements ModuleInterface
      * Append or prepend the share block to the post content.
      *
      * Only for the main query, inside the loop, on a singular
-     * view, and only for the below/above positions — the
+     * view, and only for the below/above positions - the
      * floating rail is rendered by `renderFloating()` instead.
      * Feeds and admin screens never get a share block. A
      * coordinator that renders the block explicitly (see the

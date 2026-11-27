@@ -95,7 +95,7 @@ final class HeadersModule implements ModuleInterface
 
     /**
      * Strict-Transport-Security value: HTTPS only, one year,
-     * including subdomains. No preload flag — preloading is a
+     * including subdomains. No preload flag - preloading is a
      * one-way commitment that belongs in a deliberate, separate
      * decision, not a theme toggle.
      */
@@ -252,7 +252,7 @@ final class HeadersModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -421,7 +421,7 @@ final class HeadersModule implements ModuleInterface
      * that callback, so this boot registers it only as the
      * fallback that keeps this module's headers going out while
      * Security Headers is disabled. Headers are sent on frontend
-     * responses only — skipped in wp-admin, during AJAX
+     * responses only - skipped in wp-admin, during AJAX
      * requests, for REST requests, and on wp-login.php.
      *
      * @return void
@@ -608,7 +608,7 @@ final class HeadersModule implements ModuleInterface
      * (disabled); anything else disables the header. HSTS is
      * forced off while the site is not HTTPS. The CSP is cleaned
      * defensively and falls back to the default policy when
-     * empty. The timeout is clamped to 3–30 seconds. Role
+     * empty. The timeout is clamped to 3-30 seconds. Role
      * exceptions keep only roles that exist; path exceptions
      * keep only entries starting with `/`, at most 200
      * characters, at most 20 entries, deduplicated.
@@ -730,7 +730,7 @@ final class HeadersModule implements ModuleInterface
      *
      * Both string keys (field names) and integer keys (list
      * entries such as path_exceptions[] and bypass_roles[]) are
-     * preserved — dropping the numeric keys would silently wipe
+     * preserved - dropping the numeric keys would silently wipe
      * every submitted list.
      *
      * @param array<mixed> $data Raw submitted data.

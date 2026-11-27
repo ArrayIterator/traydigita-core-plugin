@@ -31,7 +31,7 @@ use const WP_CONTENT_DIR;
 /**
  * Security Monitor module.
  *
- * Checks only — never reckless writes. The module audits six
+ * Checks only - never reckless writes. The module audits six
  * security-relevant facts about the site and shows each as pass,
  * warning, or fail with a plain-language explanation and the
  * recommended fix:
@@ -157,7 +157,7 @@ final class SecurityModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -210,7 +210,7 @@ final class SecurityModule implements ModuleInterface
     /**
      * Whether the module is configured enough to do its job.
      *
-     * Always true: the monitor needs no setup — checks run on
+     * Always true: the monitor needs no setup - checks run on
      * demand from the settings page.
      *
      * @return bool Always true.

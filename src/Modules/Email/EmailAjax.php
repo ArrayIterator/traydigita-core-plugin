@@ -40,7 +40,7 @@ use function wp_verify_nonce;
  *   EmailModule::PUBLIC_NONCE_ACTION), created with wp_create_nonce()
  *   and printed by EmailModule::subscribeFormHtml().
  * - traydigita_email_confirm / traydigita_email_unsubscribe (GET):
- *   no nonce — the emailed token IS the secret, compared with
+ *   no nonce - the emailed token IS the secret, compared with
  *   hash_equals() only, and rate-limited per IP (10/hour).
  *
  * Endpoint reference (POST fields unless noted):

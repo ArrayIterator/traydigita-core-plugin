@@ -60,7 +60,7 @@ use function wp_unslash;
 /**
  * Cloudflare Turnstile module.
  *
- * DECISION — standalone module, not part of the Login Builder:
+ * DECISION - standalone module, not part of the Login Builder:
  * the Login Builder designs the login page; Turnstile is bot
  * protection that spans the login form, the comment form, and the
  * Email module's newsletter subscribe form. Keeping it a separate,
@@ -92,7 +92,7 @@ use function wp_unslash;
  * single option `traydigita_turnstile` (autoload `no`), rendered
  * as an always-empty password field, only overwritten when a
  * non-empty value is submitted, and never printed, never logged,
- * and never returned by any endpoint — the same rule the SMTP
+ * and never returned by any endpoint - the same rule the SMTP
  * module applies to its password. `saveSettings()` returns no
  * `data` at all, so the generic dispatcher has nothing secret to
  * echo back.
@@ -114,7 +114,7 @@ use function wp_unslash;
  * simply not rendered and login works normally (the module card
  * shows "needs setup"). And when the login script entry has not
  * been wired into the Vite manifest yet, the widget cannot render,
- * so verification is skipped rather than blocking every login —
+ * so verification is skipped rather than blocking every login -
  * the settings page warns about the missing entry instead.
  * Emergency escape hatch: define
  * `TRAYDIGITA_TURNSTILE_FAIL_OPEN` as `true` in `wp-config.php`
@@ -127,7 +127,7 @@ use function wp_unslash;
  * widget through Cloudflare's explicit-render API and injects it
  * into the newsletter form. It ships inside the `app` entry on the
  * frontend (the coordinator imports it there) and as its own
- * `turnstile` Vite entry on `wp-login.php` — the coordinator must
+ * `turnstile` Vite entry on `wp-login.php` - the coordinator must
  * register that entry in `AssetLoader::ASSETS` for the login
  * widget to load; see `isLoginChallengeRenderable()`.
  *
@@ -301,7 +301,7 @@ final class TurnstileModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -356,7 +356,7 @@ final class TurnstileModule implements ModuleInterface
      *
      * Configured means both keys are saved. A configured module
      * whose login script entry is not registered yet still counts
-     * as configured — the settings page warns about the entry
+     * as configured - the settings page warns about the entry
      * instead, and login verification is skipped until the widget
      * can actually render (see `isLoginChallengeRenderable()`).
      *
@@ -403,7 +403,7 @@ final class TurnstileModule implements ModuleInterface
             add_action('login_enqueue_scripts', [self::class, 'enqueueLoginScript']);
             // WordPress prints script modules only on `wp_footer` and
             // `admin_print_footer_scripts`, neither of which fires on
-            // `wp-login.php` — without this the enqueued module would
+            // `wp-login.php` - without this the enqueued module would
             // never reach the browser (see printLoginScriptModules()).
             add_action('login_footer', [self::class, 'printLoginScriptModules'], 9);
             add_action('login_form', [self::class, 'renderLoginWidget']);
@@ -623,7 +623,7 @@ final class TurnstileModule implements ModuleInterface
      * registers it by adding the entry to
      * `AssetLoader::ASSETS`). When the entry is not registered
      * the widget cannot load on `wp-login.php`, so login
-     * verification is skipped rather than blocking every login —
+     * verification is skipped rather than blocking every login -
      * the settings page warns about the missing entry instead.
      *
      * @return bool
@@ -677,8 +677,8 @@ final class TurnstileModule implements ModuleInterface
      * Enqueue the standalone Turnstile script on `wp-login.php`.
      *
      * Runs on `login_enqueue_scripts`. When the entry has not been
-     * registered in `AssetLoader::ASSETS` yet this is a no-op —
-     * WordPress silently skips unregistered script modules — and
+     * registered in `AssetLoader::ASSETS` yet this is a no-op -
+     * WordPress silently skips unregistered script modules - and
      * `isLoginChallengeRenderable()` reports the gap so the
      * settings page can warn about it. The module is printed by
      * `printLoginScriptModules()` on `login_footer`.
@@ -706,8 +706,8 @@ final class TurnstileModule implements ModuleInterface
      * reach the browser: the widget div renders but no challenge
      * ever loads, and with `login_fail_closed` every login fails.
      * This mirrors what core's `WP_Script_Modules::add_hooks()`
-     * does for the admin footer — import map, then the modules,
-     * then preloads — at priority 9, before the classic footer
+     * does for the admin footer - import map, then the modules,
+     * then preloads - at priority 9, before the classic footer
      * scripts print at priority 20. Printing is idempotent
      * (core marks printed modules done), so a module is never
      * printed twice even if another footer hook prints it too.
@@ -821,7 +821,7 @@ final class TurnstileModule implements ModuleInterface
      * (priorities 20 and 30). A failed credential check is returned
      * untouched, and a valid user is only blocked when the challenge
      * itself fails. Requests that are not login-form posts (no `log`
-     * field — XML-RPC, REST, and programmatic logins) are passed
+     * field - XML-RPC, REST, and programmatic logins) are passed
      * through, as are logins while the module is unconfigured or
      * the login widget cannot render.
      *
@@ -905,7 +905,7 @@ final class TurnstileModule implements ModuleInterface
      * Runs at priority 1 on both subscribe AJAX actions, before
      * `EmailAjax::subscribe()` (priority 10), so a failed challenge
      * never reaches the subscriber list. Runs only while the Email
-     * module itself is enabled — when it is off there is no
+     * module itself is enabled - when it is off there is no
      * subscribe endpoint to protect. An unreachable Cloudflare
      * follows the forms fail-open setting.
      *
@@ -984,7 +984,7 @@ final class TurnstileModule implements ModuleInterface
      *
      * Follows the SeoModule pattern: the form is rendered inline
      * here, no template partial. The secret key is stripped before
-     * the settings reach the markup — the password field is always
+     * the settings reach the markup - the password field is always
      * rendered empty, and an empty submission keeps the stored key.
      * The test form posts to the module's own AJAX action through
      * the shell's generic `data-action` handling, which shows the
@@ -1172,7 +1172,7 @@ final class TurnstileModule implements ModuleInterface
      * values (possibly slashed); they are unslashed here.
      *
      * Site and secret keys must match Cloudflare's documented key
-     * format (`0x…` for production keys, `1x…` for the documented
+     * format (`0x...` for production keys, `1x...` for the documented
      * test keys, alphanumeric, at least 10 characters after the
      * prefix). On failure the returned message lists every invalid
      * field and nothing is saved. No secret is ever included in the

@@ -77,8 +77,6 @@ interface RegistryInterface extends ContainerInterface
     /**
      * Get raw value from the registry without any processing,
      * or value that already processed and stored in the registry.
-     * This method is useful for retrieving values that may have been modified or processed by the registry,
-     * allowing you to access the original value as it was set.
      *
      * @param string $id
      * @return mixed

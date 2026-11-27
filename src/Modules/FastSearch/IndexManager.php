@@ -27,7 +27,7 @@ use function wp_generate_password;
  * FULLTEXT index on terms.name, and two join indexes on the term
  * relationship / taxonomy tables.
  *
- * All DDL is fixed SQL built here from the definitions — table
+ * All DDL is fixed SQL built here from the definitions - table
  * names come from `$wpdb` itself, index names and columns are
  * literals in this file, and no user input ever reaches DDL.
  * Index builds run one index per AJAX request (see
@@ -42,7 +42,7 @@ use function wp_generate_password;
  * Deliberately NOT a `Libs\SchemaTable`: SchemaTable owns
  * CREATE TABLE + dbDelta for a plugin-owned table, while this
  * class adds indexes to WordPress core tables with chunked
- * ALTER TABLE builds, one index per AJAX request — a different
+ * ALTER TABLE builds, one index per AJAX request - a different
  * object with a different lifecycle.
  */
 final class IndexManager
@@ -87,7 +87,7 @@ final class IndexManager
      * There is deliberately NO `type_status_date` entry here:
      * WordPress core already ships that exact index on
      * `wp_posts` (post_type, post_status, post_date, ID), so
-     * defining it again would only duplicate a core index —
+     * defining it again would only duplicate a core index -
      * the post-type/status/date filtering the search relies on
      * is already served by core's index.
      *
@@ -221,7 +221,7 @@ final class IndexManager
      *
      * The `$key` is validated against the definition allowlist
      * first, so an unknown or crafted key can never reach DDL.
-     * The SQL itself is the fixed string from definitions() — no
+     * The SQL itself is the fixed string from definitions() - no
      * user input is involved at any point. The index is re-checked
      * afterwards so a "created" result means the index is really
      * there, not just that the query returned without error.
@@ -317,7 +317,7 @@ final class IndexManager
         // sanitize_key() round-trip: wp_generate_password()
         // emits upper-case letters, and sanitize_key()
         // lower-cases them, so a raw token could never match the
-        // stored one — every chunk call 404'd with "Build job
+        // stored one - every chunk call 404'd with "Build job
         // not found or expired." while start() had already
         // reported 0 / N. Normalise the token here, once, so
         // the stored token and the sanitised POST value agree.

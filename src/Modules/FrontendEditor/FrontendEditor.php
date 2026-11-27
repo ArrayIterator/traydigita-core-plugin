@@ -82,7 +82,7 @@ use function wp_verify_nonce;
  * FrontendEditorModule::SAVE_ACTION and friends): a submission
  * inserts or updates a post as a draft ("Save draft") or pending
  * ("Submit for review"). Contributors may only ever produce draft
- * or pending posts — the editorial statuses are enforced in
+ * or pending posts - the editorial statuses are enforced in
  * EditorialWorkflowModule::enforceEditorialStatus().
  *
  * The shortcode entry point (shortcode()) renders the full
@@ -134,7 +134,7 @@ final class FrontendEditor
         // Paragraph and heading both accept textAlign as well
         // as align: Gutenberg's native text-alignment attribute
         // is textAlign on heading (and on quote), and an editor
-        // re-save submits {"textAlign":"center"} — without it in
+        // re-save submits {"textAlign":"center"} - without it in
         // the allowlist a centered paragraph/heading silently
         // loses its alignment on re-save. align stays first in
         // textAlignClass(), so handler-saved content behaves
@@ -228,7 +228,7 @@ final class FrontendEditor
      * inserts or updates a post as a draft ("Save draft") or
      * pending ("Submit for review"). When editing, the post
      * must exist, belong to the current user, be a post, and be
-     * a draft or needs-revision — anything else is refused with
+     * a draft or needs-revision - anything else is refused with
      * a `not-editable` error (never silently turned into a new
      * post). Content blocks are filtered server-side against
      * the allowlist. Contributors may only produce draft or
@@ -343,9 +343,9 @@ final class FrontendEditor
      *
      * Parses the submitted HTML with parse_blocks() and keeps
      * only paragraph, heading, list and quote blocks (and
-     * list-item blocks inside a list). Everything else —
+     * list-item blocks inside a list). Everything else -
      * HTML, code, image, media, embed, reusable and pattern
-     * blocks — is dropped entirely. Inline formatting is
+     * blocks - is dropped entirely. Inline formatting is
      * reduced to bold, italic and line breaks, plus links only
      * when the allow-links setting is on. Block attributes are
      * reduced to a small safe list per block type. Each kept
@@ -389,7 +389,7 @@ final class FrontendEditor
      * Sanitize one parsed block (recursively for inner blocks).
      *
      * Returns null when the block is dropped. A freeform block
-     * (no block name — plain pasted text) is converted into
+     * (no block name - plain pasted text) is converted into
      * paragraph blocks.
      *
      * @param array<string, mixed> $block Parsed block.
@@ -425,7 +425,7 @@ final class FrontendEditor
      * sources paragraph content from <p>, heading content
      * from <h1>-<h6> and list-item content from <li>, so
      * stripping those wrappers makes the editor read the
-     * content back as undefined — and a re-save then
+     * content back as undefined - and a re-save then
      * overwrites the author's text with that undefined.
      * Leaf blocks are therefore re-wrapped when the wrapper
      * is missing, which also repairs drafts saved before
@@ -539,7 +539,7 @@ final class FrontendEditor
      *
      * The old sanitizer stripped the inner <p>, so a legacy
      * quote reaches save as bare text inside the blockquote
-     * with no inner blocks — and wp.blocks.parse() reads that
+     * with no inner blocks - and wp.blocks.parse() reads that
      * back as an invalid block forever: the leaf repair in
      * cleanBlock() never runs for a container, and clicking
      * "Attempt recovery" in the editor wipes the text. When
@@ -548,13 +548,13 @@ final class FrontendEditor
      * same repair the leaf blocks get, one level up), with
      * innerContent carrying the null placeholder so
      * serialize_block() renders the paragraph delimiters.
-     * The blockquote class — including any align class from
-     * the block attrs — survives the rebuild, so a repaired
+     * The blockquote class - including any align class from
+     * the block attrs - survives the rebuild, so a repaired
      * aligned quote does not migrate on the next reopen.
      *
      * A quote that already has inner blocks is left
      * untouched, and a quote with empty content stays empty
-     * — text is never invented. A trailing citation stays
+     * - text is never invented. A trailing citation stays
      * outside the paragraph, and a lone <p> without inner
      * block delimiters is kept as the paragraph HTML.
      *
@@ -570,14 +570,14 @@ final class FrontendEditor
         $innerHtml = is_string($block['innerHTML'] ?? null) ? (string) $block['innerHTML'] : '';
         // parse_blocks() wraps innerHTML in newlines, and the
         // class cleanBlock() just injected carries the align
-        // class for aligned quotes — the pattern must tolerate
+        // class for aligned quotes - the pattern must tolerate
         // both, or this repair never runs on real input.
         $pattern = '/\A\s*<blockquote(?:\s+class="([^"]*)")?\s*>(.*)<\/blockquote>\s*\z/s';
         if (preg_match($pattern, $innerHtml, $matches) !== 1) {
             return $block;
         }
         // The class is the one cleanBlock() injected from the
-        // allowlisted align attr, never input HTML — preserving
+        // allowlisted align attr, never input HTML - preserving
         // it keeps an aligned quote aligned after the repair.
         $quoteClass = ($matches[1] ?? '') !== ''
             ? (string) $matches[1]
@@ -677,8 +677,8 @@ final class FrontendEditor
      * Content that already has its wrapper is kept (a
      * heading is rebuilt at the level from its attributes,
      * default 2, so the tag and the stored level always
-     * agree). Bare text — as saved by the old sanitizer,
-     * which stripped the wrapper — is wrapped here, so a
+     * agree). Bare text - as saved by the old sanitizer,
+     * which stripped the wrapper - is wrapped here, so a
      * legacy draft loads as text and survives a no-edit
      * re-save instead of coming back as undefined.
      *
@@ -745,8 +745,8 @@ final class FrontendEditor
     // before, then textAlign: Gutenberg's native text-alignment
     // attribute is textAlign on heading and quote (and an editor
     // re-save submits {"textAlign":"center"}), so without the
-    // fallback an aligned heading — and a paragraph saved that
-    // way — silently loses its class on re-save. A heading's
+    // fallback an aligned heading - and a paragraph saved that
+    // way - silently loses its class on re-save. A heading's
     // align can also mean block alignment (wide/full); the
     // value check below rejects those, so they never become a
     // text-alignment class.
@@ -935,7 +935,7 @@ final class FrontendEditor
      * when `?traydigita_edit=<id>` names one; anything else
      * (another user's post, a published or rejected post, a
      * missing post) shows only an error notice with a link
-     * back to the author's own posts — never a blank new-post
+     * back to the author's own posts - never a blank new-post
      * form, so the screen cannot invite an accidental new
      * post.
      *
@@ -995,7 +995,7 @@ final class FrontendEditor
         // path uses, so drafts saved before the save-output
         // classes were added (headings/lists without their
         // wp-block-* classes) also reopen without block-validation
-        // noise — and the next save persists the clean version.
+        // noise - and the next save persists the clean version.
         $content = self::sanitizeBlocks($content, $settings);
         self::enqueueEditorAssets();
         $html = '';
@@ -1124,7 +1124,7 @@ final class FrontendEditor
      * friends) provide the global `wp` object the bundle uses,
      * and the core editor styles dress the canvas. The bundle
      * itself is the `contributor-editor` Vite entry, loaded
-     * only on this view — never site-wide.
+     * only on this view - never site-wide.
      *
      * @return void
      */

@@ -30,7 +30,7 @@ use function update_option;
  * post_excerpt), a FULLTEXT index on terms.name, and join
  * indexes on the term relationship / taxonomy tables. The
  * post-type/status/date filtering is served by WordPress
- * core's own `type_status_date` index on `wp_posts` — it is
+ * core's own `type_status_date` index on `wp_posts` - it is
  * deliberately NOT redefined here. The frontend search then runs
  * `MATCH ... AGAINST (... IN BOOLEAN MODE)` (words cleaned of
  * boolean operators, minimum two characters, `+word*` tokens)
@@ -154,7 +154,7 @@ final class FastSearchModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */

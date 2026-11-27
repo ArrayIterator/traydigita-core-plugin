@@ -39,7 +39,7 @@ use function wp_unslash;
  * - `traydigita_cache_object_flush`: flush the object cache
  *   with wp_cache_flush().
  * - `traydigita_cache_transients_flush`: delete every transient
- *   (and its timeout row). POST `confirm` — the typed
+ *   (and its timeout row). POST `confirm` - the typed
  *   confirmation word, which must match the module's configured
  *   word exactly. Runs under a transient lock like the DB Tools
  *   cleaner.

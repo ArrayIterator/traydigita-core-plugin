@@ -210,7 +210,7 @@ final class WeatherHelper
     /**
      * Fetch current weather from Open-Meteo (network call).
      *
-     * Only call this from AJAX endpoints, admin save, or WP-Cron —
+     * Only call this from AJAX endpoints, admin save, or WP-Cron -
      * never from a widget render path.
      *
      * @param float $latitude Latitude.

@@ -2,7 +2,7 @@
 /**
  * Modules list page (the TrayDigita parent menu page).
  *
- * The list is rendered by JavaScript from the JSON data below —
+ * The list is rendered by JavaScript from the JSON data below -
  * no cards are rendered server-side. The data is printed once as
  * JSON blobs in data attributes (escaped with wp_json_encode,
  * read by resources/js/modules/admin-ui.ts): data-modules holds
@@ -15,7 +15,7 @@
  * (the saved per-user view comes from user meta as
  * data-modules-view), and one card per module showing its
  * author. The dropdown is the single place categories appear on
- * the page — cards and list rows carry no category label.
+ * the page - cards and list rows carry no category label.
  *
  * Each module entry carries `category` (resolved slug) and
  * `category_label` next to every pre-existing field; the
@@ -23,11 +23,11 @@
  * lives in data-categories and in the
  * traydigita_admin_modules_list AJAX response, which returns
  * the same ModuleRegistry::moduleListData() shape the page
- * renders — so the first render and every refresh after a
+ * renders - so the first render and every refresh after a
  * category change agree.
  *
  * Status is one exclusive bucket, in this order: not available,
- * core, needs setup (only when the module is enabled — a disabled
+ * core, needs setup (only when the module is enabled - a disabled
  * module that is also unconfigured is Disabled, never Needs
  * setup, so the tab counts match the registry's enabled /
  * disabled split), enabled, disabled.

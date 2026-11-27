@@ -41,16 +41,16 @@ use const OPENSSL_ALGO_SHA256;
  * OpenSSL keys and checks every rejection path). The theme ships
  * zero runtime Composer dependencies, so this is a deliberate,
  * scope-limited implementation instead of the 31-package
- * web-auth/webauthn-lib tree — see the class docblock of
+ * web-auth/webauthn-lib tree - see the class docblock of
  * PasskeysModule for the trade-off.
  *
  * Scope (documented, not accidental):
- * - Algorithms: ES256 (P-256) and RS256 (RSA with SHA-256) — the
+ * - Algorithms: ES256 (P-256) and RS256 (RSA with SHA-256) - the
  *   algorithms real passkeys use: platform authenticators
  *   (Touch ID, Face ID, Windows Hello, Android) create ES256
  *   credentials, and security keys offer ES256 or RS256.
  *   EdDSA (Ed25519) is deliberately NOT accepted: PHP's
- *   openssl_verify() cannot verify Ed25519 signatures — OpenSSL
+ *   openssl_verify() cannot verify Ed25519 signatures - OpenSSL
  *   requires a NULL digest for Ed25519 and PHP always supplies
  *   one, so verification returns an error (verified 2026-11-21:
  *   the CLI verifies the same signature fine, PHP returns -1).
@@ -58,7 +58,7 @@ use const OPENSSL_ALGO_SHA256;
  *   that can never log in, so the server rejects them with a
  *   clear error instead. P-384/P-521 are rejected the same way.
  * - Attestation formats: `none` and `packed` with self-attestation
- *   only. `packed` with an x5c certificate chain is rejected —
+ *   only. `packed` with an x5c certificate chain is rejected -
  *   validating attestation chains is out of scope for a theme, and
  *   the creation options ask for attestation `none` anyway, so a
  *   conforming authenticator returns `none`.
@@ -139,7 +139,7 @@ final class WebAuthn
     }
 
     /**
-     * Encode bytes as unpadded base64url (RFC 4648 §5).
+     * Encode bytes as unpadded base64url (RFC 4648 Sec. 5).
      *
      * @param string $data Binary data.
      * @return string Base64url text without padding.
@@ -203,7 +203,7 @@ final class WebAuthn
      * strings, and the frontend converts them back to ArrayBuffers
      * before calling navigator.credentials.create(). The raw
      * challenge bytes are returned alongside for storage in a
-     * short-lived transient — never send the raw bytes to the
+     * short-lived transient - never send the raw bytes to the
      * browser, and never reuse a challenge.
      *
      * @param string $userId Stable user id bytes (the WordPress user id).
@@ -332,7 +332,7 @@ final class WebAuthn
         $coseKey = $parsed['cose_key'];
 
         // The credential id the browser reports must be the one in
-        // the authenticator data — a mismatch means the response was
+        // the authenticator data - a mismatch means the response was
         // stitched together from two ceremonies.
         $reportedId = $this->requireBase64url($response['id'] ?? null, 'bad_credential_id');
         $reportedRawId = $this->requireBase64url($response['rawId'] ?? null, 'bad_credential_id');
@@ -379,7 +379,7 @@ final class WebAuthn
      * the base64url user handle, and must return
      * `['user_id' => int, 'record' => [...]]` where the record has
      * the keys `id` (base64url), `public_key` (base64url COSE CBOR),
-     * and `counter` (int) — or null. Ownership is the callback's
+     * and `counter` (int) - or null. Ownership is the callback's
      * job: for a second-factor flow it must only return credentials
      * of the pending user; for a discoverable flow it resolves the
      * user from the handle.
@@ -572,9 +572,9 @@ final class WebAuthn
      * Parse a COSE public key from its CBOR bytes.
      *
      * Accepts EC2 P-256 (kty 2, crv 1) and RSA (kty 3). Anything
-     * else — including OKP Ed25519 (PHP's OpenSSL cannot verify
+     * else - including OKP Ed25519 (PHP's OpenSSL cannot verify
      * Ed25519 signatures, see the class docblock) and P-384/P-521
-     * — is rejected with a clear error instead of being silently
+     * - is rejected with a clear error instead of being silently
      * misread.
      *
      * @param string $coseBytes COSE key CBOR.

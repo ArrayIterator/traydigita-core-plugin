@@ -22,7 +22,7 @@ use function usort;
  * isolation: given the font registry (families with their stored
  * files) and the public base URL of the font directory, it emits
  * one `@font-face` block per stored file, each pointing at the
- * local file only. Google Fonts URLs never appear in the output —
+ * local file only. Google Fonts URLs never appear in the output -
  * the module downloads the files first and serves them from the
  * site itself.
  *

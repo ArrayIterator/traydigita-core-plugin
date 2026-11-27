@@ -33,7 +33,7 @@ use function time;
  *
  * The mail's To addresses are ignored: the broadcast goes to
  * every subscriber of the configured list, so a test email
- * sends to the whole list — never use it for a test unless
+ * sends to the whole list - never use it for a test unless
  * that is intended.
  *
  * Free tier (Nov 2026): 500 subscribers. Best for: email

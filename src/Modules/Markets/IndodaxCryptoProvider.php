@@ -16,15 +16,15 @@ use function trim;
  * Indodax crypto provider.
  *
  * Uses the public tickers endpoint (no API key, one request returns
- * every pair). Prices are IDR pairs natively — Indodax is an
+ * every pair). Prices are IDR pairs natively - Indodax is an
  * Indonesian exchange, so this provider only supports IDR. (A few
  * pairs also trade against USDT, e.g. btc_usdt, but only for BTC
  * and ETH, so USDT is not offered as a display currency.) The
  * tickers endpoint carries no 24h change, so change_24h is always
- * null — an honest omission, never a computed guess.
+ * null - an honest omission, never a computed guess.
  *
  * Coin ids are CoinGecko ids; the built-in map below translates the
- * common ones to Indodax pairs (btc_idr, eth_idr…). Aptos is not
+ * common ones to Indodax pairs (btc_idr, eth_idr...). Aptos is not
  * listed on Indodax (verified live 2026-11-21: no apt_idr pair),
  * so it is absent from the map. Unmapped ids are skipped, never
  * guessed.

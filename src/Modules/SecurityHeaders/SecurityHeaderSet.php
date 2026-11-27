@@ -133,7 +133,7 @@ final class SecurityHeaderSet
     /**
      * Keep a Referrer-Policy value only when it is allowlisted.
      *
-     * Anything else — including a non-string value — disables
+     * Anything else - including a non-string value - disables
      * the header (empty string).
      *
      * @param mixed $value Raw Referrer-Policy value.

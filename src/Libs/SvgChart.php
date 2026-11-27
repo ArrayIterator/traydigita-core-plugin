@@ -25,13 +25,13 @@ use function wp_json_encode;
  * Dependency-free SVG chart helper.
  *
  * Renders line, area, bar, and sparkline charts as inline SVG from
- * a series of points — no chart library, no canvas, no JavaScript
+ * a series of points - no chart library, no canvas, no JavaScript
  * required for the picture itself. Colours come from `currentColor`
  * (see resources/css/components/charts.css), so charts follow the
  * theme tokens in light and dark mode.
  *
  * Data honesty: only real fetched points are drawn. A null value is
- * a gap — the line breaks there, it is never interpolated. A series
+ * a gap - the line breaks there, it is never interpolated. A series
  * with fewer than two real points renders nothing (empty string),
  * never a fake flat line. Every chart carries its source and period
  * in an accessible description.
@@ -67,7 +67,7 @@ final class SvgChart
     /**
      * Render a chart from a series of points.
      *
-     * Points are `['t' => int|null, 'v' => float|null]` — Unix
+     * Points are `['t' => int|null, 'v' => float|null]` - Unix
      * timestamp in seconds (or null) and value (or null for a gap).
      * The x position is time-based when every point has a timestamp
      * and the last is later than the first, otherwise evenly spaced

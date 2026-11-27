@@ -20,7 +20,7 @@ use function sprintf;
  * Renders the Disqus embed (`#disqus_thread` plus the Disqus
  * `disqus_config` and embed script) for the post permalink, with
  * the page identifier `traydigita-{post ID}`. Comments are stored
- * and moderated by Disqus, in Disqus's own tools — never in this
+ * and moderated by Disqus, in Disqus's own tools - never in this
  * site's database. Without a shortname the provider renders
  * nothing at all. The embed script loads from the render output
  * itself (the official Disqus pattern), so enqueue() is a no-op.

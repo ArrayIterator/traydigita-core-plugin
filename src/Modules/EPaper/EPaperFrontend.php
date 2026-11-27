@@ -32,9 +32,9 @@ use function strtotime;
  *
  * Routes (registered on `init` from EPaperModule::boot(), only
  * while the module is enabled):
- * - `/epaper/` — the issue archive, newest first, paginated with
+ * - `/epaper/` - the issue archive, newest first, paginated with
  *   `?epage=N`.
- * - `/epaper/<issue-id>/` — one issue: the cover (or the
+ * - `/epaper/<issue-id>/` - one issue: the cover (or the
  *   generated placeholder), a native browser PDF embed, a
  *   download link, and prev/next issue navigation.
  *
@@ -47,7 +47,7 @@ use function strtotime;
  * No custom post type is involved: the issue list comes from the
  * `traydigita_epaper_issues` option via EPaperStorage.
  *
- * The shortcode `[traydigita_epaper]` (attributes: `count` 1–5,
+ * The shortcode `[traydigita_epaper]` (attributes: `count` 1-5,
  * default 1; `show_cover` 1/0, default 1) renders the newest
  * issue(s) as cards, and the EPaperWidget renders the same cards
  * through renderIssueCard(), so the shortcode, the widget, and
@@ -89,7 +89,7 @@ final class EPaperFrontend
      * Called on `init` from EPaperModule::boot(). The rules only
      * exist while the module is enabled; after enabling the module
      * the rules must be flushed once (saving the module settings
-     * does this, as does visiting Settings → Permalinks).
+     * does this, as does visiting Settings -> Permalinks).
      *
      * @return void
      */
@@ -253,7 +253,7 @@ final class EPaperFrontend
     /**
      * Render the `[traydigita_epaper]` shortcode.
      *
-     * Attributes: `count` (1–5, default 1) and `show_cover`
+     * Attributes: `count` (1-5, default 1) and `show_cover`
      * (1/0, default 1). Shows the newest issue(s) as cards; with
      * no issues at all it renders a short "no issues yet" note
      * instead of an empty block.

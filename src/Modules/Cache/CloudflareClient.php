@@ -16,8 +16,8 @@ use function wp_remote_retrieve_response_code;
 /**
  * Minimal Cloudflare cache-purge client (purge-everything only).
  *
- * Talks to exactly one allowlisted host —
- * https://api.cloudflare.com/client/v4 — with a bearer API
+ * Talks to exactly one allowlisted host -
+ * https://api.cloudflare.com/client/v4 - with a bearer API
  * token. The token is never printed, never logged, and never
  * included in any returned message or stored result: error
  * messages are built from the HTTP status code and the generic
@@ -26,7 +26,7 @@ use function wp_remote_retrieve_response_code;
  * The client is deliberately small: it does one thing (purge
  * everything for one zone) and nothing else. It does not manage
  * DNS, page rules, or any other Cloudflare surface, and it never
- * retries a failed purge on its own — a failed purge is reported
+ * retries a failed purge on its own - a failed purge is reported
  * and the administrator decides whether to try again.
  */
 final class CloudflareClient
@@ -48,7 +48,7 @@ final class CloudflareClient
      * made; an empty token or a malformed zone id is refused
      * locally without touching the network. A non-200 answer or a
      * `success: false` body is reported with its HTTP status code
-     * only — the body is never echoed back, so no API detail (and
+     * only - the body is never echoed back, so no API detail (and
      * never the token) can leak into an admin notice or a log.
      *
      * @param string $token Cloudflare API token (bearer).

@@ -28,7 +28,7 @@ use function __;
  *
  * - A posted `user_id` that is not the current user is an admin
  *   action: it requires `manage_options` AND `edit_user` for that
- *   user, and the user must exist — an unknown user id is refused
+ *   user, and the user must exist - an unknown user id is refused
  *   with a 404 error, never acted on.
  * - No `user_id` (or the current user's own id) is self-service:
  *   the caller must be logged in, must be able to `read`, and

@@ -12,7 +12,7 @@
  * (`<object type="application/pdf">` with an `<embed>` fallback
  * and a download link for browsers without a PDF viewer). The
  * cover is the admin-uploaded media-library image when one
- * exists; otherwise a generated placeholder is shown — the
+ * exists; otherwise a generated placeholder is shown - the
  * first page of the PDF is never rendered as a cover.
  */
 declare(strict_types=1);

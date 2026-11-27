@@ -23,7 +23,7 @@ use function wp_get_current_user;
  * summary of what changed (capabilities added/removed, clone
  * source, user count at deletion). The log is shown on the
  * module's list view and is never exposed through any AJAX
- * response — only the settings page reads it.
+ * response - only the settings page reads it.
  *
  * The log is append-only from the module's point of view: there
  * is no UI to edit or delete entries, so the audit trail cannot

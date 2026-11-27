@@ -8,7 +8,7 @@
  * AgendaRenderer::singleData(); an unknown id never reaches this
  * template (the filter answers 404 instead). Event JSON-LD is
  * printed by AgendaRenderer::renderJsonLd() on `wp_head`.
- * Semantic classes only — no Tailwind utilities.
+ * Semantic classes only - no Tailwind utilities.
  *
  * @package Tray Digita Theme
  */

@@ -21,7 +21,7 @@
  * resources/css/components/admin-login.css.
  *
  * Framework (R4-5): the custom drag-drop builder is kept as-is
- * inside the framework shell — the shell provides the breadcrumb,
+ * inside the framework shell - the shell provides the breadcrumb,
  * the left navigation (one "Login designer" anchor, matching
  * LoginModule::settingsSections()) and the content cards. The
  * builder's own toolbar Save button stays the save action; there

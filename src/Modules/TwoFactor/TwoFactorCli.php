@@ -139,7 +139,7 @@ final class TwoFactorCli
      * Removes the authenticator app, backup codes, all passkeys,
      * and all trusted devices, and clears any lockout. The user
      * can enroll again from their profile page. This is the
-     * documented recovery for a locked-out account — it requires
+     * documented recovery for a locked-out account - it requires
      * shell access to the server.
      *
      * ## OPTIONS
@@ -190,7 +190,7 @@ final class TwoFactorCli
     /**
      * Clear the failed-attempt counter and lockout for a user.
      *
-     * The user's methods are untouched — this only lifts a
+     * The user's methods are untouched - this only lifts a
      * temporary lockout so they can try again.
      *
      * ## OPTIONS

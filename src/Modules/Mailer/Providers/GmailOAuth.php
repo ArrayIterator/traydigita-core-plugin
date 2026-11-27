@@ -242,7 +242,7 @@ final class GmailOAuth
      *
      * Refreshes the access token first when it is expired or
      * about to expire. The From header is always the connected
-     * account — the API rejects any other sender.
+     * account - the API rejects any other sender.
      *
      * @param array{to: array<int, array{email: string, name: string}>, cc: array<int, array{email: string, name: string}>, bcc: array<int, array{email: string, name: string}>, subject: string, body: string, is_html: bool, attachments: array<int, string>} $mail Normalized mail.
      * @return array{success: bool, message: string}

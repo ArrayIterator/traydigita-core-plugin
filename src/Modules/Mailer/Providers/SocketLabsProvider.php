@@ -14,7 +14,7 @@ use function is_array;
  * response carries an `ErrorCode` of `Success` when the mail
  * was accepted.
  *
- * Pricing (Nov 2026): no free plan — the first month is free
+ * Pricing (Nov 2026): no free plan - the first month is free
  * (40,000 emails), then from $39.95/month. Best for: high
  * deliverability with detailed analytics and dedicated IPs.
  *

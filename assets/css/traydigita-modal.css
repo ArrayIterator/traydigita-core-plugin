@@ -7,7 +7,7 @@
  * compact identity strip, and the Mailer provider / SMTP preset
  * pickers with a searchable list and a list / grid view switcher.
  * One overlay, one card, one header / body / footer structure, one set
- * of focus states — the pickers and the module info popup differ
+ * of focus states - the pickers and the module info popup differ
  * only in body content, never in chrome. Visual language matches
  * the Elegant Blue admin exactly: primary #2563eb (via the
  * --traydigita-admin-* variables the admin bundle defines, with
@@ -19,9 +19,7 @@
  * AssetLoader::enqueueAdminEntry() on TrayDigita pages.
  */
 
-/* ------------------------------------------------------------------ */
 /* Context rail: clamped description + "More" trigger                  */
-/* ------------------------------------------------------------------ */
 
 .traydigita-admin-rail-description.is-clamped {
     display: -webkit-box;
@@ -61,9 +59,7 @@
     border-radius: 0.25rem;
 }
 
-/* ------------------------------------------------------------------ */
 /* Modal shell (shared by module info + pickers)                       */
-/* ------------------------------------------------------------------ */
 
 .traydigita-modal-overlay {
     position: fixed;
@@ -166,9 +162,7 @@
     border-top: 1px solid var(--traydigita-admin-line, #dcdcde);
 }
 
-/* ------------------------------------------------------------------ */
 /* Module info body                                                    */
-/* ------------------------------------------------------------------ */
 
 .traydigita-modal-info-head {
     display: flex;
@@ -228,9 +222,7 @@
     color: var(--traydigita-admin-muted, #50575e);
 }
 
-/* ------------------------------------------------------------------ */
 /* Module info tabs                                                    */
-/* ------------------------------------------------------------------ */
 
 /* Tabbed body: a flex column whose head and tab bar stay put
    while only the active panel scrolls, so a long changelog
@@ -239,8 +231,8 @@
    shell's underline-tab pattern (.traydigita-admin-tabs /
    .traydigita-admin-tab) with the exact values of the shell's
    inline critical CSS (.td-settings-nav in
-   templates/admin/shell.php) — tight 12px 2px tabs, a 16px
-   gap, no container rule — so the tabs look identical next
+   templates/admin/shell.php) - tight 12px 2px tabs, a 16px
+   gap, no container rule - so the tabs look identical next
    to a real settings page; the 1rem gap the old container
    margin provided now lives on the panel instead. */
 .traydigita-modal-body-tabs {
@@ -307,9 +299,9 @@
    1rem below the tabs without a container rule or margin.
    The panel never grows (flex-grow 0): in a dialog that sizes
    to its content, a growing panel lets the flex pass resolve
-   it a fraction short of its content — the 22.4px fractional
+   it a fraction short of its content - the 22.4px fractional
    line-height rounds differently for the panel box and its
-   scroll height — and overflow-y: auto turns that 1px
+   scroll height - and overflow-y: auto turns that 1px
    shortfall into a phantom scrollbar on short modules. With
    grow 0 the panel is purely content-sized while space
    allows, so no scrollbar appears; it still shrinks (with
@@ -412,9 +404,7 @@
     border-radius: 0.25rem;
 }
 
-/* ------------------------------------------------------------------ */
 /* Picker body (provider + SMTP preset: same component)                */
-/* ------------------------------------------------------------------ */
 
 .traydigita-modal-search {
     width: 100%;
@@ -549,9 +539,7 @@
     text-align: center;
 }
 
-/* ------------------------------------------------------------------ */
 /* Picker toolbar: search + grid / list view switcher                 */
-/* ------------------------------------------------------------------ */
 
 /* The search input shares its row with the view switcher, so it
    gives up its own bottom margin to the toolbar. The switcher
@@ -616,9 +604,7 @@
     font-size: 1.25rem;
 }
 
-/* ------------------------------------------------------------------ */
 /* Picker grid view                                                    */
-/* ------------------------------------------------------------------ */
 
 /* Grid view turns the list into uniform square icon tiles:
    logo + name only, the description hidden (it stays on the
@@ -680,9 +666,7 @@
     right: 0.375rem;
 }
 
-/* ------------------------------------------------------------------ */
 /* Picker field button (replaces the provider / preset <select>)      */
-/* ------------------------------------------------------------------ */
 
 .traydigita-mailer-picker-button {
     display: flex;
@@ -730,17 +714,13 @@
     font-size: 1.25rem;
 }
 
-/* ------------------------------------------------------------------ */
 /* Module card info button (injected by JS into each card foot)        */
-/* ------------------------------------------------------------------ */
 
 .traydigita-admin-card-info {
     flex-shrink: 0;
 }
 
-/* ------------------------------------------------------------------ */
 /* Small screens                                                       */
-/* ------------------------------------------------------------------ */
 
 @media (max-width: 600px) {
     .traydigita-modal-overlay {

@@ -39,21 +39,21 @@ use function wp_unslash;
  *   (templates/admin/modules-page.php).
  * - Submenu "Settings": the General/Settings hub page
  *   (templates/admin/hub-page.php), which lists the settings of
- *   the ACTIVE modules — each entry links to that module's
+ *   the ACTIVE modules - each entry links to that module's
  *   settings page, only for modules that actually have settings.
  *   The hub is the way into module settings.
  * - Submenu "Setup": the first-run setup checklist
  *   (templates/admin/setup-page.php, via SetupPage), registered
- *   directly — not module-driven — right after the Settings hub.
+ *   directly - not module-driven - right after the Settings hub.
  * - Submenu "Site Health": a menu link straight to WordPress
- *   core Site Health (site-health.php) — the theme
+ *   core Site Health (site-health.php) - the theme
  *   has no custom health page; its environment checks are added
  *   to core Site Health through the `site_status_tests` filter
  *   (src/Admin/SiteHealth.php).
  * - Data-driven submenu entries: a module that opts in by
  *   declaring a static showInSubmenu() method returning true
  *   gets one submenu entry linking to its open link
- *   (ModuleRegistry::openTarget() — its own settings page by
+ *   (ModuleRegistry::openTarget() - its own settings page by
  *   default, or a declared openLink() target such as another
  *   module's page or a WordPress admin file). The default is
  *   off for every module. Entries are ordered by their declared
@@ -92,7 +92,7 @@ use function wp_unslash;
  * shell tab mechanism: a module declares its tabs through an
  * optional static tabs() method, extensions may add tabs through
  * the `traydigita:core:admin:module_tabs` filter, and a module
- * without declared tabs gets no tab bar at all — the tabbed shell
+ * without declared tabs gets no tab bar at all - the tabbed shell
  * only renders when a module declares at least two tabs, so no
  * page ever shows a lonely single tab.
  *
@@ -119,8 +119,8 @@ use function wp_unslash;
  * same trick; there is no Customizer entry in this menu.
  *
  * The shell top bar (templates/admin/shell.php) lists the same
- * sections through navItems() — curated pages plus the opt-in
- * entries, in submenu order — so the dropdown can never go
+ * sections through navItems() - curated pages plus the opt-in
+ * entries, in submenu order - so the dropdown can never go
  * stale. TrayDigita pages run full-screen: the WordPress
  * sidebar, admin bar and footer are hidden, scoped to these
  * pages by isTraydigitaPage().
@@ -178,7 +178,7 @@ final class AdminMenu
      * Booting is deferred to after_setup_theme on purpose:
      * booting translates (module names, settings defaults), and
      * WordPress 6.7+ refuses translation loading before
-     * after_setup_theme — a translated call any earlier raises
+     * after_setup_theme - a translated call any earlier raises
      * the `_load_textdomain_just_in_time was called incorrectly`
      * notice on every request, even when the languages path
      * itself is correct. Priority 5 runs the boot before
@@ -266,7 +266,7 @@ final class AdminMenu
      *
      * The `page` query var names the parent slug, the hub slug,
      * the setup slug, or a module's settings slug. Anything else
-     * — including core Site Health, which the submenu links to —
+     * - including core Site Health, which the submenu links to -
      * is not a TrayDigita page and keeps the WordPress chrome.
      */
     private static function isTraydigitaPage(): bool
@@ -330,13 +330,13 @@ final class AdminMenu
      * are registered with a null parent
      * (add_submenu_page(null, ...)): WordPress keeps them
      * reachable at their deep link with the capability check, but
-     * never lists them in the menu — so the menu never shows ~46
+     * never lists them in the menu - so the menu never shows ~46
      * module entries. (Register-then-remove_submenu_page() does
      * NOT work: WordPress then refuses access with 403, because
      * the page is no longer registered as reachable.) The one
      * exception is an opt-in module whose open link is its own
      * settings page: it is registered ONLY as a real submenu
-     * entry, never also as a hidden page — the same slug +
+     * entry, never also as a hidden page - the same slug +
      * callback registered twice would give WordPress an identical
      * hook suffix and the page callback would run twice, rendering
      * the whole page twice. Its hook suffix is recorded like the
@@ -413,7 +413,7 @@ final class AdminMenu
         // Site Health (site-health.php), using the
         // no-callback link trick: with no callback, WordPress
         // renders the slug itself as the href instead of routing
-        // through admin.php?page=... — so the entry opens core
+        // through admin.php?page=... - so the entry opens core
         // Site Health, where the theme's checks (SiteHealth, via
         // the `site_status_tests` filter) appear. The theme
         // has no custom health page. This entry is not a
@@ -517,8 +517,8 @@ final class AdminMenu
     /**
      * Sections for the shell top-bar dropdown, in submenu order.
      *
-     * Built from the same source as registerMenus() — the curated
-     * pages, the opt-in modules either side of Site Health — so
+     * Built from the same source as registerMenus() - the curated
+     * pages, the opt-in modules either side of Site Health - so
      * the dropdown lists exactly what the menu has. A module's
      * id is its settings slug, which is also what
      * currentNavId() returns for its page, so the active entry
@@ -610,7 +610,7 @@ final class AdminMenu
      * opens its own settings page is registered as a real submenu
      * entry (same callback as its hidden page), so WordPress
      * highlights it while the page is open; any other target uses
-     * the no-callback link trick, like Site Health — the target
+     * the no-callback link trick, like Site Health - the target
      * itself is the slug, so the entry is a plain link and the
      * target renders through its own registration.
      *

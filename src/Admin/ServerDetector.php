@@ -17,12 +17,12 @@ use function strtolower;
  *
  * The cache recommendation on the Plugin Suggestions page depends
  * on the server (LiteSpeed Cache only makes sense on LiteSpeed),
- * so this class answers one question — which server runs this
- * site — and nothing else. It parses the server-software string
+ * so this class answers one question - which server runs this
+ * site - and nothing else. It parses the server-software string
  * the SAPI reports; when that string says nothing recognisable
  * it returns 'unknown' instead of guessing, because a wrong
  * guess would recommend the wrong cache plugin. The result is
- * cached in a static property for the request only — never in an
+ * cached in a static property for the request only - never in an
  * option, since the server can change under the theme.
  *
  * A child theme can override the detected value with the
@@ -144,7 +144,7 @@ final class ServerDetector
      * Parse a server-software string into slug + label.
      *
      * OpenLiteSpeed is checked before LiteSpeed because its name
-     * contains "litespeed" — the other way round every
+     * contains "litespeed" - the other way round every
      * OpenLiteSpeed server would report as LiteSpeed. The PHP
      * built-in server is recognised by its "Development Server"
      * string (and by the cli-server SAPI, for a string that

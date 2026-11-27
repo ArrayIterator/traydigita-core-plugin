@@ -44,13 +44,13 @@ use function wp_nonce_field;
 /**
  * Markets module.
  *
- * One module for all market data — gold, stocks, and crypto — instead
+ * One module for all market data - gold, stocks, and crypto - instead
  * of three separate ones. It owns:
  *
  * - The master switch: turning the module off hides the market strip
  *   and unregisters the Gold, Stock, and Crypto widgets (see
  *   Sidebars::MODULE_WIDGETS), so existing widget instances never
- *   fatal — they simply stop rendering.
+ *   fatal - they simply stop rendering.
  * - The market strip toggle and one toggle per provider
  *   (gold / stock / crypto): a disabled provider contributes nothing
  *   anywhere, and a strip with no data hides entirely.
@@ -258,7 +258,7 @@ final class MarketsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -536,7 +536,7 @@ final class MarketsModule implements ModuleInterface
      * (the value the Market Data Customizer section used to own);
      * when there is no theme mod either, the module default wins.
      * When the key exists in the option but is empty, the empty
-     * value wins — clearing a field on the settings page really
+     * value wins - clearing a field on the settings page really
      * clears it instead of resurrecting the old theme mod.
      *
      * @param array<string, mixed> $stored Raw stored option value.
@@ -690,7 +690,7 @@ final class MarketsModule implements ModuleInterface
      * receives the built-in instances and may add, replace, or
      * remove providers; entries that are not GoldPriceProvider
      * instances are dropped, and duplicate ids are dropped (first
-     * wins). The manual snapshot is not a provider object — it is
+     * wins). The manual snapshot is not a provider object - it is
      * the fallback when the selected provider is `manual` or fails.
      *
      * Reads the API key straight from the option (not through
@@ -846,10 +846,10 @@ final class MarketsModule implements ModuleInterface
      * The strip reads this first (no widget instance needed) and
      * falls back to the first saved widget instance when the module
      * has no snapshots for the kind. Returns null when the module
-     * has no usable rows — or when stocks use Yahoo Finance, or
+     * has no usable rows - or when stocks use Yahoo Finance, or
      * gold uses a live provider (the strip then falls back to the
      * widget instance, which is primed from that provider, so strip
-     * and widget never disagree) — so the strip can hide instead of
+     * and widget never disagree) - so the strip can hide instead of
      * showing an empty bar.
      *
      * @param string $kind Market kind: 'gold' or 'stock'.
@@ -983,7 +983,7 @@ final class MarketsModule implements ModuleInterface
      * An earlier filter result (child theme / plugin) is respected
      * as-is. Otherwise: Yahoo Finance for stocks when selected;
      * the selected live gold provider (Yahoo futures or GoldAPI.io)
-     * for gold when selected — the adapter turns its spot price into
+     * for gold when selected - the adapter turns its spot price into
      * the single "Gold spot" quote, and a provider failure falls
      * back to the manual snapshots through the widget layer; the
      * module's manual snapshots for gold/stock when configured;
@@ -1041,9 +1041,9 @@ final class MarketsModule implements ModuleInterface
     /**
      * Apply the configured cache TTL to market transients.
      *
-     * @param mixed $ttl Default TTL in seconds (unused — the setting wins).
-     * @param string $kind Market kind (unused — one TTL for all kinds).
-     * @return int TTL in seconds, clamped to 1–60 minutes.
+     * @param mixed $ttl Default TTL in seconds (unused - the setting wins).
+     * @param string $kind Market kind (unused - one TTL for all kinds).
+     * @return int TTL in seconds, clamped to 1-60 minutes.
      */
     public static function filterCacheTtl(mixed $ttl, string $kind): int
     {
@@ -1096,7 +1096,7 @@ final class MarketsModule implements ModuleInterface
      *
      * One toggle per provider, a stock provider select, a crypto
      * provider select with currency and cache TTL, the provider
-     * extra settings (shown only for the selected provider — a
+     * extra settings (shown only for the selected provider - a
      * small inline script toggles the containers), and the manual
      * snapshot editors. The form is submitted through the generic
      * module-settings AJAX dispatcher (see
@@ -1477,7 +1477,7 @@ final class MarketsModule implements ModuleInterface
      * `stock_enabled`, `crypto_enabled` (each `1` when checked; an
      * absent key means the checkbox was unchecked), `stock_provider`,
      * `gold_provider` and `crypto_provider` (allowlisted),
-     * `crypto_currency` (IDR/USD), `cache_ttl_minutes` (1–60),
+     * `crypto_currency` (IDR/USD), `cache_ttl_minutes` (1-60),
      * `gold_snapshots` and `stock_snapshots` (plain text), plus one
      * key per provider-declared field (e.g. `api_key`,
      * `coinmarketcap_key`, `goldapi_key`). Every value is

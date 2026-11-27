@@ -20,7 +20,7 @@ use function is_string;
  *
  * Trust rule: a plugin is installable from here only when its package
  * comes from the wordpress.org plugin directory. Every entry below
- * is a wordpress.org slug — except traydigita-core, which is the
+ * is a wordpress.org slug - except traydigita-core, which is the
  * theme's own required companion plugin and is NOT on wordpress.org:
  * it is listed for its required-notice and status only, and
  * InstallerAjax refuses to install it (see isInstallable()).
@@ -35,7 +35,7 @@ use function is_string;
  * WP Rocket is deliberately absent: it is a premium plugin with no
  * wordpress.org package, so it can never be installed from here
  * and must never be added to this list. CacheDetector still
- * detects it (for purge support) — detection and installation
+ * detects it (for purge support) - detection and installation
  * are separate concerns.
  *
  * The cache recommendation is server-aware, not static, and it
@@ -50,7 +50,7 @@ use function is_string;
  * Site Kit keeps its recommended badge regardless of server, and
  * so does Rank Math for SEO. The badge is applied lazily: all()
  * layers it on top of the static definitions(), and only the
- * renders that show the badge call all() — status checks read
+ * renders that show the badge call all() - status checks read
  * definitions() and never detect anything (see all()).
  *
  * Status detection mirrors SiteKitDetector: get_plugins() for the
@@ -78,7 +78,7 @@ final class PluginList
     /**
      * Plugin file of the legacy traydigita-stack companion plugin.
      *
-     * No longer the theme's required dependency — that is
+     * No longer the theme's required dependency - that is
      * traydigita-core (see CORE_SLUG). The Setup flow
      * (SetupAjax/SetupPage) still installs and checks the stack
      * plugin, so the constants stay until that flow is updated.
@@ -144,7 +144,7 @@ final class PluginList
      * This is the render-facing list: it layers the badge from
      * cacheRecommendation() (which detects the server) on top of
      * definitions(). Only the renders that show the badge call
-     * it — the Plugin Suggestions page and the Setup checklist —
+     * it - the Plugin Suggestions page and the Setup checklist -
      * so detection runs only where a badge is actually shown.
      * Status checks (status(), statuses(), get(), isInstallable())
      * use definitions() instead and never detect anything, which
@@ -156,10 +156,10 @@ final class PluginList
      * activate_plugin()), name (product name, intentionally not
      * translated), reason (one line, translatable), category
      * (group the settings page renders the entry under),
-     * recommended (top recommendation badge — from the shared
+     * recommended (top recommendation badge - from the shared
      * cache mapping for cache plugins, static for the rest),
      * required (theme dependency badge), installable (false when
-     * no wordpress.org package exists — the core plugin),
+     * no wordpress.org package exists - the core plugin),
      * duplicates (theme module id this plugin overlaps, or null;
      * shown as a disclosure, never hidden).
      *
@@ -185,7 +185,7 @@ final class PluginList
      *
      * The same entries all() returns, except the cache badge is
      * never computed here: every cache entry carries
-     * 'recommended' => false. This is what status checks read —
+     * 'recommended' => false. This is what status checks read -
      * it runs no detection, touches no server state, and is safe
      * to call from isConfigured() or any other helper that runs
      * on pages where no badge is shown.
@@ -412,8 +412,8 @@ final class PluginList
      * Cache recommendation for the detected server.
      *
      * Delegates to the shared mapping in
-     * CacheModule::recommendedPlugin() — the same mapping Site
-     * Health, Setup, and the Cache module show — so the badge and
+     * CacheModule::recommendedPlugin() - the same mapping Site
+     * Health, Setup, and the Cache module show - so the badge and
      * the first card in the cache group can never disagree across
      * surfaces. `slug` is the plugin to list first in the cache
      * group (null while developing, when no cache plugin is
@@ -424,7 +424,7 @@ final class PluginList
      *
      * When the Cache module class is unavailable the fallback
      * degrades the same way CacheModule does for an unidentified
-     * server — the server-neutral choice, never badged — except
+     * server - the server-neutral choice, never badged - except
      * while developing, where nothing is suggested. The two
      * fallback notes repeat CacheModule's strings verbatim, so
      * they share its translations.
@@ -469,7 +469,7 @@ final class PluginList
     /**
      * Material Icons glyph for a curated plugin, by category.
      *
-     * Generic glyphs only — never a brand logo or emoji: the card
+     * Generic glyphs only - never a brand logo or emoji: the card
      * icon tile shows the plugin's category (analytics for Site
      * Kit, search for SEO plugins, and so on). Unknown slugs fall
      * back to the generic 'extension' glyph.
@@ -494,7 +494,7 @@ final class PluginList
      * Find one curated entry by slug.
      *
      * Reads definitions(), not all(): the entry carries the static
-     * flags only — the server-aware cache badge is not applied —
+     * flags only - the server-aware cache badge is not applied -
      * so this never runs detection. Callers that show the badge
      * use all().
      *
@@ -516,7 +516,7 @@ final class PluginList
      *
      * True only for a curated entry that has a wordpress.org
      * package. Unknown slugs and the traydigita-core slug (no
-     * wordpress.org package) are not installable — InstallerAjax
+     * wordpress.org package) are not installable - InstallerAjax
      * refuses them instead of fetching anything.
      *
      * @param string $slug Plugin slug, already sanitized with sanitize_key().

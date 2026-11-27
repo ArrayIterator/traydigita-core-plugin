@@ -16,7 +16,7 @@ use function is_array;
  * means the mail was accepted. The From address must be a
  * validated, active sender in Mailjet.
  *
- * Free tier (Nov 2026): 6,000 emails/month (200/day) — the
+ * Free tier (Nov 2026): 6,000 emails/month (200/day) - the
  * largest free monthly allowance of the built-in providers.
  * Best for: high-volume free sending with templates and
  * detailed delivery tracking.

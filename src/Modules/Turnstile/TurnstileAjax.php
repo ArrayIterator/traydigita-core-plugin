@@ -32,20 +32,20 @@ use function wp_send_json_success;
  * the documented dummy token `XXXX.DUMMY.TOKEN.XXXX` to siteverify.
  * Cloudflare always rejects a dummy token, so the outcome is read
  * from *which* error comes back:
- * - `success: true` — the test keys are in use (Cloudflare accepts
+ * - `success: true` - the test keys are in use (Cloudflare accepts
  *   any token with them), so the keys work.
- * - `invalid-input-response` — Cloudflare accepted the secret key
+ * - `invalid-input-response` - Cloudflare accepted the secret key
  *   and rejected only the dummy token, which is expected: the keys
  *   work.
- * - `invalid-input-secret` — the secret key itself was rejected:
+ * - `invalid-input-secret` - the secret key itself was rejected:
  *   the keys do not work.
- * - Cloudflare unreachable — the keys could not be checked.
+ * - Cloudflare unreachable - the keys could not be checked.
  *
  * Only administrators (`manage_options`) may call it, only while
  * the module is configured, and at most once every 30 seconds per
  * user (HTTP 429 while limited). Responses never contain the secret
  * key or the site key, and the stored test result is only a
- * timestamp plus a boolean — no key material, no error text.
+ * timestamp plus a boolean - no key material, no error text.
  *
  * @package TrayDigita\WP\Plugin\Core\Modules\Turnstile
  */
@@ -88,7 +88,7 @@ final class TurnstileAjax
      * Interprets the verifier result as described in the class
      * docblock and answers with a JSON success or error carrying a
      * `message` key only. The secret key never appears in any
-     * response, even redacted — messages are built from the
+     * response, even redacted - messages are built from the
      * allowlisted internal error codes, never from Cloudflare's raw
      * answer.
      *
@@ -131,7 +131,7 @@ final class TurnstileAjax
         }
         if ($result['error_code'] === 'invalid-token') {
             // Cloudflare accepted the secret key and rejected only
-            // the dummy token — that is the expected outcome for
+            // the dummy token - that is the expected outcome for
             // real keys, so the keys work.
             TurnstileModule::recordLastTest(true);
             wp_send_json_success(

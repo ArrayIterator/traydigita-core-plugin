@@ -51,7 +51,7 @@ use TrayDigita\WP\Plugin\Core\Modules\Share\ShareModule;
      * Brand marks (Facebook, X, WhatsApp, Telegram) are filled
      * single-colour glyphs; utility icons (email, copy, print)
      * are stroked. All use currentColor, so the dark navy comes
-     * from the button colour in CSS — no brand colours anywhere.
+     * from the button colour in CSS - no brand colours anywhere.
      *
      * @param string $key Control key from ShareModule::links().
      * @return string SVG markup, or an empty string for an unknown key.

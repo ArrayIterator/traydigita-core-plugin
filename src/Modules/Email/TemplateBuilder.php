@@ -55,7 +55,7 @@ use function wp_kses;
  *
  * All templates live in the generic templates table
  * (`{$wpdb->prefix}traydigita_templates`, see TemplateStore)
- * as type='email' rows — never in an option, so a large
+ * as type='email' rows - never in an option, so a large
  * template library cannot bloat the options blob. The old
  * option store ('traydigita_email_templates') is migrated
  * into the table once, on first read, by ensureMigrated();
@@ -252,7 +252,7 @@ final class TemplateBuilder
     /**
      * Get all templates, keyed by id.
      *
-     * Defaults to published email templates — the live set
+     * Defaults to published email templates - the live set
      * every existing caller expects. Pass another type (for
      * example 'maintenance' once MUST-10 moves it) or a status
      * ('draft', 'published', or null for every non-autosave
@@ -668,7 +668,7 @@ final class TemplateBuilder
         }
         // "Newer" means the autosave holds changes the parent
         // row does not: a later timestamp, or different content.
-        // The timestamp alone is not enough — DATETIME has
+        // The timestamp alone is not enough - DATETIME has
         // one-second precision, so an autosave written in the
         // same second as the parent save would compare equal
         // even when its content differs.
@@ -745,7 +745,7 @@ final class TemplateBuilder
 
     /**
      * Default blocks for a brand-new template: header, one text
-     * block, footer — all empty, for the editor to fill in.
+     * block, footer - all empty, for the editor to fill in.
      *
      * The blocks are intentionally unsanitized empties: they are
      * editor placeholder rows, dropped by sanitizeTemplate() on

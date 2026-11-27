@@ -16,11 +16,11 @@ use function delete_transient;
  * Two authentication modes, in order of preference:
  *
  * 1. OAuth 2.0 client credentials (`client_id` +
- *    `client_secret` from Account Settings → API): the token
+ *    `client_secret` from Account Settings -> API): the token
  *    endpoint `POST https://api.sendpulse.com/oauth/access_token`
  *    returns a Bearer token valid for one hour; it is cached in
  *    a transient and refreshed on HTTP 401 (one retry).
- * 2. A static single API key (Settings → API → API keys),
+ * 2. A static single API key (Settings -> API -> API keys),
  *    used directly as the Bearer token when the OAuth fields
  *    are empty.
  *

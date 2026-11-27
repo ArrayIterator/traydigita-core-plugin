@@ -55,7 +55,7 @@ use TrayDigita\WP\Plugin\Core\Modules\DbTools\DbToolsModule;
     data-msg-optimize-all-confirm="<?php echo esc_attr(__('This will optimize every table. Type the confirmation word to continue.', 'traydigita-core')); ?>"
     data-msg-optimize-all-wrong-word="<?php echo esc_attr(sprintf(__('Type %s to confirm optimizing all tables.', 'traydigita-core'), $settings['confirm_word'])); ?>"
     data-msg-working="<?php echo esc_attr(__('Working…', 'traydigita-core')); ?>"
-    data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>"
+    data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>"
     data-msg-convert-confirm="<?php echo esc_attr(__('Convert table %s from MyISAM to InnoDB? This alters the table.', 'traydigita-core')); ?>"
     data-msg-optimize-confirm="<?php echo esc_attr(__('Optimize table %s?', 'traydigita-core')); ?>"
     data-msg-convert-label="<?php echo esc_attr(__('Convert to InnoDB', 'traydigita-core')); ?>"

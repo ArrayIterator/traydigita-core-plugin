@@ -41,7 +41,7 @@ use WP_Error;
  * Adapted from the standalone koperasi-kita-push plugin (which
  * stays untouched as the standalone alternative): an OAuth
  * access token from the shared GoogleServiceAccount client,
- * then FCM HTTP v1 sends — no Composer, no SDK on the server.
+ * then FCM HTTP v1 sends - no Composer, no SDK on the server.
  * Sending is manual only; nothing here ever auto-sends on
  * publish.
  *
@@ -429,7 +429,7 @@ final class PushSender
     /**
      * Make sure the subscriber-token table exists, lazily.
      *
-     * Called from the insert path (saveToken()) only — never from
+     * Called from the insert path (saveToken()) only - never from
      * a page load. When the table is missing it is created with
      * one idempotent CREATE TABLE IF NOT EXISTS and the insert
      * then proceeds, so no token is ever lost to a deleted table.
@@ -555,7 +555,7 @@ final class PushSender
      *
      * The token is cached in a transient for ~50 minutes. The
      * token value itself is never logged or returned to the
-     * browser — callers only learn whether one was obtained.
+     * browser - callers only learn whether one was obtained.
      *
      * @param bool $force Skip the transient cache.
      * @return string|WP_Error Access token, or an error describing why none could be obtained.

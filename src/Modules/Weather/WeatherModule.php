@@ -37,7 +37,7 @@ use function wp_nonce_field;
  * `weather_default_longitude`, `weather_locations`). This
  * module is the single on/off switch and the single source
  * of truth for those settings. Default ON, preserving the
- * live site's behaviour — the user asked for the choice,
+ * live site's behaviour - the user asked for the choice,
  * not for weather to be forced off.
  *
  * The module owns the settings (option `traydigita_weather`).
@@ -152,7 +152,7 @@ final class WeatherModule implements ModuleInterface
     /**
      * Module version.
      *
-     * 1.0.0: created as its own module — weather used to be
+     * 1.0.0: created as its own module - weather used to be
      * always on with no toggle and its settings lived in the
      * Customizer.
      *
@@ -352,7 +352,7 @@ final class WeatherModule implements ModuleInterface
      * has never stored the key, the theme mod of the same
      * name wins; when there is no theme mod either, the
      * module default wins. When the key exists in the option
-     * but is empty, the empty value wins — clearing a field
+     * but is empty, the empty value wins - clearing a field
      * on the settings page really clears it instead of
      * resurrecting the old theme mod.
      *

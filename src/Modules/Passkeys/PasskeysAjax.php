@@ -42,7 +42,7 @@ use const MINUTE_IN_SECONDS;
  *   `wp_ajax_*` only): passkey registration and removal. The
  *   caller always acts on their own account, unless they hold
  *   `edit_users`, in which case they may act on another user's
- *   account — the capability check lives in targetUserId().
+ *   account - the capability check lives in targetUserId().
  * - Unauthenticated endpoints (nonce `traydigita_2fa_login`,
  *   `wp_ajax_nopriv_*` only): passkey options and verification
  *   for the login page. These run before any auth cookie exists,
@@ -104,9 +104,7 @@ final class PasskeysAjax
         add_action('wp_ajax_nopriv_' . self::PASSKEY_VERIFY_ACTION, [self::class, 'passkeyVerify']);
     }
 
-    // ------------------------------------------------------------------
     // Shared helpers
-    // ------------------------------------------------------------------
 
     /**
      * Verify the authenticated-user nonce (dies on failure).
@@ -279,9 +277,7 @@ final class PasskeysAjax
         );
     }
 
-    // ------------------------------------------------------------------
     // Passkey registration
-    // ------------------------------------------------------------------
 
     /**
      * Issue passkey registration options.
@@ -291,7 +287,7 @@ final class PasskeysAjax
      * hex-encoded before storage: the raw bytes break
      * MariaDB's utf8mb4 validation on the options table.
      * Registration is refused on plain HTTP (except
-     * localhost) — the profile page explains why instead of
+     * localhost) - the profile page explains why instead of
      * offering a button that fails.
      *
      * @return void
@@ -411,23 +407,21 @@ final class PasskeysAjax
         wp_send_json_success(['message' => __('Passkey removed.', 'traydigita-core')]);
     }
 
-    // ------------------------------------------------------------------
     // Passkey login (unauthenticated)
-    // ------------------------------------------------------------------
 
     /**
      * Issue passkey authentication options for the login page.
      *
      * Two modes, both unauthenticated (the login nonce is the
-     * only gate — the challenge itself is worthless without the
+     * only gate - the challenge itself is worthless without the
      * private key):
      * - `challenge`: second factor after a password login. The
      *   pending-login token identifies the user; only their own
      *   credentials are offered, and a locked-out user gets no
      *   challenge at all.
      * - `login`: usernameless login from the login form. No
-     *   allow list — the browser offers any discoverable
-     *   credential — and the token returned here must be sent
+     *   allow list - the browser offers any discoverable
+     *   credential - and the token returned here must be sent
      *   back with the verification, so the challenge cannot be
      *   replayed against a different session.
      *
@@ -639,7 +633,7 @@ final class PasskeysAjax
      * The user handle the browser returns is the base64url of
      * the WordPress user id string (set at registration). Used
      * only to attach a failed attempt to the right user in the
-     * log — never trusted for authentication.
+     * log - never trusted for authentication.
      *
      * @param array<string, mixed> $response Browser response.
      * @return int User id, or 0 when it cannot be resolved.

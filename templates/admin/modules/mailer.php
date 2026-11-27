@@ -30,7 +30,7 @@
  *
  * Forms:
  * - Settings form: posts to the shell generic save endpoint
- *   (`data-action` + `data-module="smtp"` — the module id is
+ *   (`data-action` + `data-module="smtp"` - the module id is
  *   still `smtp`, see MailerModule::id()); the shell passes the
  *   fields to MailerModule::saveSettings(). Field names are flat.
  *   Secret fields (SMTP password, API keys, client secret) are
@@ -341,7 +341,7 @@ $dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResul
                     // is read-only (no name, so it never submits)
                     // with the framework copy button, and the
                     // five setup steps sit behind the framework
-                    // Help toggle — only one short line is
+                    // Help toggle - only one short line is
                     // visible inline. The URI comes from
                     // GmailOAuth::redirectUri(), the same value
                     // the authorization request and the code
@@ -483,7 +483,7 @@ $dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResul
 
             <?php
             // DKIM signing: a sub-group inside Deliverability. The
-            // private key is a secret — it is always rendered empty
+            // private key is a secret - it is always rendered empty
             // (the stored key is never printed), and the passphrase
             // likewise. The long help lives behind the framework
             // Help toggle, like every other field here.
@@ -596,7 +596,7 @@ $dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResul
                 if ($mailerDkimDns !== null) :
                     // DNS TXT guidance: the record name and value,
                     // readonly with the framework copy button. The
-                    // value holds only the public key — the private
+                    // value holds only the public key - the private
                     // key is never in DNS.
                     $dnsHostControl = '<span class="td-settings-code-wrap">'
                         . '<input class="traydigita-ui-input traydigita-ui-input-mono" type="text" id="mailer-dkim-dns-host" value="' . esc_attr($mailerDkimDns['host']) . '" readonly spellcheck="false" autocomplete="off">'
@@ -633,7 +633,7 @@ $dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResul
                         // The DNS check tool only appears when the
                         // saved DKIM configuration is complete and
                         // valid. It sends only domain + selector to
-                        // the server — never the private key.
+                        // the server - never the private key.
                         ?>
                         <button type="button" class="traydigita-admin-button" data-mailer-dkim-check
                             data-action="<?php echo esc_attr($mailerDkimCheckAction); ?>"
@@ -765,13 +765,13 @@ $dkimResultMessage = MailerModule::dkimResultMessage($mailerResult, $mailerResul
 // - Save confirmation when DKIM is enabled: the form is stopped
 //   before the shell's AJAX save handler runs (preventDefault +
 //   stopImmediatePropagation, the same pair the role editor uses
-//   to block a submit), a confirm dialog is shown — with a warning
-//   listing the invalid fields when any — and on confirm the form
+//   to block a submit), a confirm dialog is shown - with a warning
+//   listing the invalid fields when any - and on confirm the form
 //   is re-submitted once, so the shell handler runs.
 // - DNS check popup (shared modal): results are cached in a JS
 //   Map keyed by the full DNS name, 5-minute TTL, memory only
 //   (no localStorage / sessionStorage). The server is only called
-//   on a cache miss. Only domain + selector are sent — never the
+//   on a cache miss. Only domain + selector are sent - never the
 //   private key.
 ?>
 <script>

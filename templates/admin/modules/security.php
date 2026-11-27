@@ -24,7 +24,7 @@
  * posts it to admin-ajax.php with the shell nonce and re-renders
  * the check list from the JSON response without a reload.
  * There is deliberately no save form on this page: the module
- * keeps no settings, so a save button would be a no-op — the
+ * keeps no settings, so a save button would be a no-op - the
  * shell's generic save endpoint still accepts the module (see
  * SecurityModule::saveSettings()) for the dispatcher contract.
  */
@@ -41,7 +41,7 @@ $statusLabels = [
     data-security-monitor
     data-recheck-action="<?php echo esc_attr($recheckAction); ?>"
     data-msg-rechecking="<?php echo esc_attr(__('Checking…', 'traydigita-core')); ?>"
-    data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>"
+    data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>"
     data-msg-copied="<?php echo esc_attr(__('Copied to clipboard.', 'traydigita-core')); ?>"
     data-msg-copy="<?php echo esc_attr(__('Copy', 'traydigita-core')); ?>"
     data-msg-fix="<?php echo esc_attr(__('Recommended fix', 'traydigita-core')); ?>"

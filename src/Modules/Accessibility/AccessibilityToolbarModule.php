@@ -29,7 +29,7 @@ use function wp_nonce_field;
  * JavaScript (`resources/js/modules/accessibility-toolbar.ts`,
  * `initAccessibilityToolbar()`) as `data-td-a11y-*` attributes
  * on the `<html>` element, which the toolbar stylesheet
- * (`resources/css/components/accessibility-toolbar.css`) reads —
+ * (`resources/css/components/accessibility-toolbar.css`) reads -
  * so a returning visitor gets their own settings on every page
  * without a single server round-trip, cookie, or account.
  *
@@ -152,7 +152,7 @@ final class AccessibilityToolbarModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -318,7 +318,7 @@ final class AccessibilityToolbarModule implements ModuleInterface
      *
      * Only on the frontend: never in admin screens or feeds. The
      * markup comes from render(), so a coordinator that prefers
-     * manual placement can call render() instead — but never
+     * manual placement can call render() instead - but never
      * both, or two toolbars render.
      *
      * @return void

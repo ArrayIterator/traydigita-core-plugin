@@ -34,7 +34,7 @@ use function wp_unslash;
  *
  * Why the post editor is special: the editor heartbeat drives
  * autosave and the post lock (the "another user is editing this
- * post" warning). Disabling it — or slowing it far down — would let
+ * post" warning). Disabling it - or slowing it far down - would let
  * two editors overwrite each other silently and would stop
  * autosaves, so the editor interval is clamped to a minimum of
  * 60 seconds and there is no off switch for it. The settings page
@@ -192,7 +192,7 @@ final class HeartbeatModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -348,7 +348,7 @@ final class HeartbeatModule implements ModuleInterface
      * Expected flat keys in `$data`: `dashboard_interval`,
      * `editor_interval`, `frontend_interval` (seconds, allowlisted
      * per context) and `frontend_enabled` (`1` when checked; an
-     * absent key means the checkbox was unchecked — the form also
+     * absent key means the checkbox was unchecked - the form also
      * posts a hidden `0` first, so the key is always present).
      * Values outside the allowlist fall back to the context
      * default instead of being stored. Unknown keys are dropped.

@@ -40,7 +40,7 @@ use function trim;
  *   filter (child themes / plugins may plug in an API provider) and
  *   fall back to the manual snapshot provider.
  * - Quotes are cached in a transient (TTL 5 minutes). widget() only
- *   ever reads the transient — it never performs a network request.
+ *   ever reads the transient - it never performs a network request.
  * - The cache is primed when the widget instance is saved (admin
  *   context, network allowed) and by the hourly WP-Cron event
  *   `traydigita_market_refresh` (registered in Sidebars).
@@ -87,7 +87,7 @@ abstract class MarketWidgetBase extends WidgetBase
      * Sanitize an instance without forcing a live fetch.
      *
      * WidgetBase::sanitizeInstance() routes through update(), which
-     * primes the cache — a network call. That is correct on admin
+     * primes the cache - a network call. That is correct on admin
      * save, but widget() calls sanitizeInstance() on every frontend
      * render, so routing through update() fetched live prices on
      * every page load and defeated the transient cache entirely
@@ -134,8 +134,8 @@ abstract class MarketWidgetBase extends WidgetBase
     /**
      * Format a money amount for the market tables.
      *
-     * IDR → "Rp1.234"; USD → "$1,234.56"; USDT → "1,234.56 USDT";
-     * anything else → "1,234.56 CODE". A null amount yields an
+     * IDR -> "Rp1.234"; USD -> "$1,234.56"; USDT -> "1,234.56 USDT";
+     * anything else -> "1,234.56 CODE". A null amount yields an
      * empty string (the partial renders "Unavailable" instead).
      *
      * @param float|null $amount Amount in the given currency.
@@ -231,7 +231,7 @@ abstract class MarketWidgetBase extends WidgetBase
      *
      * Stored as a newline-separated string in the instance; each line
      * may be "symbol" or "symbol|Label" (the label part is ignored
-     * here — providers carry their own labels).
+     * here - providers carry their own labels).
      *
      * @param array<string, mixed> $instance Sanitized widget instance.
      * @return string[]
@@ -414,14 +414,14 @@ abstract class MarketWidgetBase extends WidgetBase
      * snapshot/prime/clear paths below call protected base methods
      * (marketWidgetData, quotesCacheKey, deleteCached), which PHP
      * only allows from an ancestor scope. A class that does not
-     * extend this base — for example a theme widget built on the
-     * theme's own copy of the base — is ignored here; the theme
+     * extend this base - for example a theme widget built on the
+     * theme's own copy of the base - is ignored here; the theme
      * drives those through its own copy instead. A registered class
      * must also be constructible with no arguments: snapshotForKind()
      * builds it with `new $class()`, and a class that needs
      * constructor arguments is silently skipped. With no
      * registration this returns an empty map and snapshotForKind()
-     * / primeAllInstances() / clearAllCaches() stay no-ops — the
+     * / primeAllInstances() / clearAllCaches() stay no-ops - the
      * previous behaviour, now honest instead of naming classes
      * that do not exist in Core.
      *
@@ -545,7 +545,7 @@ abstract class MarketWidgetBase extends WidgetBase
      * transient from the previous provider is never served under the
      * new one: the next prime (or the honest empty state, when the
      * new provider fails) takes over at once instead of up to one
-     * TTL later. No raw SQL — the keys are recomputed per instance.
+     * TTL later. No raw SQL - the keys are recomputed per instance.
      * The 60-second failure markers are deleted alongside the quotes
      * caches, so a provider switch is never blocked by a stale
      * backoff from the previous provider. Widget classes come from

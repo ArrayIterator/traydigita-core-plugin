@@ -17,7 +17,7 @@ use function is_string;
  * of its own in v1.0.0, so this shim reads the same values the
  * theme stored: a Core option override first
  * (`traydigita_core_settings`), then the active theme's theme
- * mod — so existing values keep working while the theme is
+ * mod - so existing values keep working while the theme is
  * active, and Core-owned values win once the theme stops
  * providing them. Only the keys modules actually read are
  * known here; anything else returns the given default.

@@ -28,8 +28,8 @@ use function wp_unslash;
  * owns admin wiring); this class only defines the endpoints.
  *
  * Endpoints (both require the `traydigita-admin` nonce sent as
- * `_ajax_nonce` — check_ajax_referer() with no query arg reads
- * `_ajax_nonce` then `_wpnonce` — plus the `manage_options`
+ * `_ajax_nonce` - check_ajax_referer() with no query arg reads
+ * `_ajax_nonce` then `_wpnonce` - plus the `manage_options`
  * capability):
  * - traydigita_admin_toggle_module: POST module id, enabled 0/1.
  * - traydigita_admin_save: POST module id, fields either nested
@@ -39,8 +39,8 @@ use function wp_unslash;
  *   meta (see MODULES_VIEW_META). The modules page reads it back
  *   on render and passes it to the JS as data-modules-view.
  * - traydigita_admin_modules_list: returns the module list JSON
- *   (ModuleRegistry::moduleListData()): one entry per module —
- *   every existing field plus `category` / `category_label` —
+ *   (ModuleRegistry::moduleListData()): one entry per module -
+ *   every existing field plus `category` / `category_label` -
  *   and a top-level `categories` list (slug, label, icon, count,
  *   custom). The modules page renders the same data into its
  *   data-modules / data-categories attributes on first load; the
@@ -310,7 +310,7 @@ final class AdminAjax
     /**
      * Create an admin-managed custom category.
      *
-     * POST: slug (optional — derived from the label when empty),
+     * POST: slug (optional - derived from the label when empty),
      * label (required), icon (a known Material icon slug, or
      * empty for the default 'extension' icon). Slugs colliding
      * with a built-in category slug or an existing custom slug
@@ -383,7 +383,7 @@ final class AdminAjax
      *
      * POST: slug, label (required), icon (a known Material icon
      * slug, or empty). The slug itself is immutable, and
-     * built-in categories cannot be renamed — their labels live
+     * built-in categories cannot be renamed - their labels live
      * in ModuleRegistry::defaultCategories(). On success the
      * response carries the fresh categories list.
      *
@@ -445,7 +445,7 @@ final class AdminAjax
      * ModuleRegistry::deleteCustomCategory() removes the stored
      * overrides pointing at the deleted category, so every
      * affected module falls back to its base category
-     * server-side — the response reports how many modules
+     * server-side - the response reports how many modules
      * moved. The response also carries the fresh categories
      * list.
      *
@@ -538,7 +538,7 @@ final class AdminAjax
      * deep-sanitized here; per-field sanitization and storage are
      * the module's job inside saveSettings(). Only the module's own
      * returned message (plus its optional safe `data` and field
-     * `errors`) is sent back — never raw option values.
+     * `errors`) is sent back - never raw option values.
      *
      * @return void
      */

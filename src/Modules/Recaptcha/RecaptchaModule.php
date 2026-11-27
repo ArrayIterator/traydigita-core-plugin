@@ -35,7 +35,7 @@ use function wp_unslash;
 /**
  * Google reCAPTCHA module (v2 checkbox and v3 score).
  *
- * DECISION — standalone module, not part of the Contact Form:
+ * DECISION - standalone module, not part of the Contact Form:
  * reCAPTCHA is bot protection with its own key pair, its own
  * Google console, and its own verification endpoint. The
  * Contact Form only consumes it (widget + verification), the
@@ -48,7 +48,7 @@ use function wp_unslash;
  * What it does:
  * - Holds the site key and secret key in the single option
  *   `traydigita_recaptcha` (autoload `no`) and the v3 score
- *   threshold (0.0–1.0, default 0.5).
+ *   threshold (0.0-1.0, default 0.5).
  * - Verifies tokens against Google's siteverify endpoint
  *   (see Verifier) and renders the v2 checkbox widget or the
  *   v3 invisible execute script (see enqueueScript() /
@@ -56,7 +56,7 @@ use function wp_unslash;
  *
  * There is deliberately NO "Test keys" button (unlike
  * Turnstile): Google's siteverify cannot validate a secret
- * key with a dummy token — it answers `invalid-input-response`
+ * key with a dummy token - it answers `invalid-input-response`
  * for every dummy or empty token, whatever secret is sent
  * (verified live 2026-11-23: wrong, empty, and short-garbage
  * secrets all return only `invalid-input-response`; only the
@@ -79,7 +79,7 @@ use function wp_unslash;
  * in the single option `traydigita_recaptcha` (autoload `no`),
  * rendered as an always-empty password field, only overwritten
  * when a non-empty value is submitted, and never printed, never
- * logged, and never returned by any endpoint — the same rule
+ * logged, and never returned by any endpoint - the same rule
  * the SMTP and Turnstile modules apply to their secrets.
  * `saveSettings()` returns no `data` at all, so the generic
  * dispatcher has nothing secret to echo back.
@@ -223,7 +223,7 @@ final class RecaptchaModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -300,7 +300,7 @@ final class RecaptchaModule implements ModuleInterface
      *
      * This module has no hooks of its own: it registers nothing
      * on the frontend and no AJAX endpoint (there is no test-keys
-     * endpoint — see the class docblock). The Contact Form module
+     * endpoint - see the class docblock). The Contact Form module
      * calls enqueueScript() / widgetHtml() and the verifier
      * directly. The method exists only to satisfy the interface.
      *
@@ -368,7 +368,7 @@ final class RecaptchaModule implements ModuleInterface
      * module has no keys yet and that option still holds any
      * reCAPTCHA value, the values are copied here and the
      * `migrated_from_contact_form` flag is stored, so the copy
-     * never runs again — clearing the keys here afterwards stays
+     * never runs again - clearing the keys here afterwards stays
      * cleared. The old values are copied, never deleted.
      *
      * @param array{site_key: string, secret_key: string, v3_threshold: float, migrated_from_contact_form: bool} $settings Normalized settings.
@@ -503,7 +503,7 @@ final class RecaptchaModule implements ModuleInterface
      * the page has the same two-column layout, dividers and
      * sticky save bar as every other module settings page. The
      * secret key is stripped before the settings reach the
-     * markup — the password field is always rendered empty, and
+     * markup - the password field is always rendered empty, and
      * an empty submission keeps the stored key.
      *
      * @return void
@@ -611,7 +611,7 @@ final class RecaptchaModule implements ModuleInterface
      * their stored values. The secret key is only overwritten when
      * a non-empty value is submitted; an empty or missing secret
      * field keeps the stored key. The v3 threshold is clamped to
-     * 0.0–1.0; a non-numeric threshold keeps the stored value.
+     * 0.0-1.0; a non-numeric threshold keeps the stored value.
      * Values in `$data` are raw POST values (possibly slashed);
      * they are unslashed here. No secret is ever included in the
      * returned array.

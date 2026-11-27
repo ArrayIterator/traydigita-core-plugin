@@ -29,7 +29,7 @@ use function wp_kses_post;
  * name, real <button> controls, an `aria-expanded` customize toggle
  * that reveals an explanation panel, and a `prefers-reduced-motion`
  * media query that disables the entrance transition. The banner is
- * `position: fixed` and never covers content permanently — it is
+ * `position: fixed` and never covers content permanently - it is
  * dismissible, and once a choice is made it is hidden and never
  * rendered again until the consent cookie expires or is cleared.
  *

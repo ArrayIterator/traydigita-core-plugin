@@ -44,7 +44,7 @@ use function wp_using_ext_object_cache;
  * check passed, `recommended` means it deserves attention
  * but the site still works, `critical` means a hard
  * requirement is missing (PHP below 8.3, or the Stack
- * plugin inactive — the theme cannot boot without it).
+ * plugin inactive - the theme cannot boot without it).
  * The push half of the PWA module is never `critical`: push is
  * optional, so an unconfigured push half is `recommended`.
  * A missing cache plugin is likewise only `recommended`:
@@ -246,7 +246,7 @@ final class SiteHealth
     /**
      * Cache plugin test: a page-cache plugin is recommended.
      *
-     * Optional, so never `critical` — the site works without
+     * Optional, so never `critical` - the site works without
      * one, just slower. When a plugin is active the description
      * names it; otherwise it carries the server-aware
      * recommendation (CacheModule::recommendedPlugin()) and the
@@ -369,7 +369,7 @@ final class SiteHealth
      *
      * WordPress 6.5+ loads a theme's translations from the
      * locale-named file (languages/{locale}.mo), so that is
-     * the file this test checks — not the legacy
+     * the file this test checks - not the legacy
      * traydigita-{locale}.mo name.
      *
      * @return array<string, mixed> Test result in the core Site Health shape.

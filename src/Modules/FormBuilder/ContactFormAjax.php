@@ -46,8 +46,8 @@ use const HOUR_IN_SECONDS;
  * submissions they store live in the FormBuilder-owned
  * SubmissionStore table.
  *
- * The frontend flow is: nonce → spam verification → Form
- * Builder validation → STORE the submission → send the
+ * The frontend flow is: nonce -> spam verification -> Form
+ * Builder validation -> STORE the submission -> send the
  * notification mail via the Core Mailer (only when the form
  * has send-to-email on). The store step happens before the
  * mail step on purpose: a failed mail must never lose the
@@ -400,7 +400,7 @@ final class ContactFormAjax
      * get the admin page instead of the file. That is why
      * `FormBuilderModule` runs this on `load-{$hook}` for the
      * submissions page and only calls it again from
-     * `renderSubmissionsPage()` as a fallback — the handled
+     * `renderSubmissionsPage()` as a fallback - the handled
      * guard makes the second call a no-op.
      *
      * @return string|null 'csv' when the CSV was streamed, else null.

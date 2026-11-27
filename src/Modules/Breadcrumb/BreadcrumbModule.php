@@ -57,14 +57,14 @@ use const JSON_UNESCAPED_UNICODE;
  *
  * Visible trail (Home / Category / Post title) with a matching
  * BreadcrumbList JSON-LD block, modelled on the verified
- * padangkita.com reference: "Beranda › Berita Utama › [full
+ * padangkita.com reference: "Beranda > Berita Utama > [full
  * article title]" above the headline, the first two items
  * linked. The category parent chain is respected (Home /
  * Parent / Child / Post), and pages use their ancestor chain.
  *
  * Position is ONE setting, exposed in both the module page and
  * the Customizer: `above-title` (default, directly above the
- * entry header — the reference placement) or `below-header`
+ * entry header - the reference placement) or `below-header`
  * (directly below the entry header). The module option
  * `traydigita_breadcrumb` is the source of truth; the
  * Customizer control writes the same value through the
@@ -75,7 +75,7 @@ use const JSON_UNESCAPED_UNICODE;
  *
  * Structured data is emitted only when no SEO plugin provides
  * it: the check reuses `SeoDetector` (never re-implemented),
- * and the theme's own SEO module is also respected — when the
+ * and the theme's own SEO module is also respected - when the
  * SEO module is enabled with its breadcrumb output on, it owns
  * the JSON-LD and this module stays silent, so the page never
  * carries two BreadcrumbList blocks.
@@ -87,8 +87,8 @@ use const JSON_UNESCAPED_UNICODE;
  * hooks (fired by `templates/sections/entry-header.php`
  * around the entry header layout), so no entry template has to
  * be edited. A coordinator that prefers explicit placement can
- * call `BreadcrumbModule::render()` directly instead — e.g. at
- * the top of `layouts/entry/header.php`, before the `<h1>` —
+ * call `BreadcrumbModule::render()` directly instead - e.g. at
+ * the top of `layouts/entry/header.php`, before the `<h1>` -
  * and must then not rely on the boot() hooks, or the trail
  * will appear twice.
  *
@@ -124,7 +124,7 @@ final class BreadcrumbModule implements ModuleInterface
      * meant the hook never fired and the trail never rendered.
      * The full theme-prefixed name is used here, registered via
      * `Hooks::directAdd()` (which does not add Core's prefix),
-     * so the two sides meet. This re-wire is Core-side only —
+     * so the two sides meet. This re-wire is Core-side only -
      * the theme repo is not touched.
      */
     public const string THEME_ENTRY_HEADER_BEFORE = 'traydigita:theme:entry_header:before';
@@ -233,7 +233,7 @@ final class BreadcrumbModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -440,7 +440,7 @@ final class BreadcrumbModule implements ModuleInterface
      * the visible trail on the theme's `entry_header:before`
      * (above-title) or `entry_header:after` (below-header) hook.
      * The Customizer control only appears while the module is
-     * enabled — when the module is off there is no trail to
+     * enabled - when the module is off there is no trail to
      * position.
      *
      * The frontend CSS (`resources/css/components/breadcrumb.css`)
@@ -549,7 +549,7 @@ final class BreadcrumbModule implements ModuleInterface
      * (Home / Parent / Child / Post); pages use their ancestor
      * chain (Home / Parent page / Current page); other post
      * types use the post-type archive when one exists. The last
-     * item is always the current page and carries its URL too —
+     * item is always the current page and carries its URL too -
      * the partial renders it as plain text, while the JSON-LD
      * output links it, as schema.org expects.
      *
@@ -682,7 +682,7 @@ final class BreadcrumbModule implements ModuleInterface
      * `traydigita:core:customizer/definitions` filter (never by
      * editing Definitions.php). The setting is a select in the
      * Navigation section, with the same values as the module
-     * page. The sanitize callback only validates — the
+     * page. The sanitize callback only validates - the
      * module-option sync happens on `customize_save_after`
      * (see `syncPositionFromCustomizer()`), so merely previewing
      * a value in the Customizer never writes to the database.
@@ -714,7 +714,7 @@ final class BreadcrumbModule implements ModuleInterface
      *
      * Used as the sanitize_callback for the Customizer setting.
      * Unknown values fall back to the default; this method never
-     * writes anything — syncing is `syncPositionFromCustomizer()`.
+     * writes anything - syncing is `syncPositionFromCustomizer()`.
      *
      * @param mixed $value Raw value from the Customizer.
      * @return string A valid position.
@@ -731,7 +731,7 @@ final class BreadcrumbModule implements ModuleInterface
      * Sync the module option from the Customizer after a Customizer save.
      *
      * Runs on `customize_save_after`, i.e. only when the user
-     * actually saves in the Customizer — not while previewing.
+     * actually saves in the Customizer - not while previewing.
      * Reads the saved theme_mod and stores it in the module
      * option, which is the single source of truth for rendering.
      *

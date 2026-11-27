@@ -26,14 +26,14 @@ use WP_REST_Response;
  * rest_do_request(), in the current admin user's request context,
  * so Site Kit's own permission checks still apply. It never reads
  * or stores Site Kit tokens, never calls Site Kit internals, and
- * never injects any tracking of its own — the theme ships no
+ * never injects any tracking of its own - the theme ships no
  * analytics code at all.
  *
  * Data is cached for one hour in the `traydigita_seo_sc_data`
  * transient; the dashboard offers a refresh that clears the cache
  * and refetches. When Site Kit is not connected, or its
  * Search Console module is not active, the dashboard reports that
- * state instead of data — never empty or invented rows. All
+ * state instead of data - never empty or invented rows. All
  * response parsing is defensive: an unexpected shape yields an
  * error state, not a fatal.
  *

@@ -49,7 +49,7 @@ use function wp_safe_redirect;
  * flows, and a redirect loop is impossible (the target is
  * always a frontend page).
  *
- * HARD RULE — administrators are never affected. The
+ * HARD RULE - administrators are never affected. The
  * `administrator` role is never listed on the settings page, is
  * never stored in the settings, and every enforcement point
  * checks `manage_options` first (see isFrontendOnlyUser()).
@@ -591,7 +591,7 @@ final class RoleAccessModule implements ModuleInterface
      * so the frontend can never trigger it. Never fires for
      * administrators (hard rule in isFrontendOnlyUser()),
      * admin-ajax.php, admin-post.php (the editor's own form
-     * handler — blocking it would break every submission),
+     * handler - blocking it would break every submission),
      * the user's own profile page (password and 2FA management
      * live there), REST requests, WP-CLI, or cron. The target
      * is always a frontend page, so a redirect loop is

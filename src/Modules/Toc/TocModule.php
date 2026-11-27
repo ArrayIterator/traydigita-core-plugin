@@ -61,7 +61,7 @@ use const LIBXML_HTML_NOIMPLIED;
  * (for example `toc-getting-started`, with `-2`, `-3` suffixes for
  * duplicates); headings that already carry an id keep it. The list
  * itself is plain anchor links, so the content stays fully usable
- * with JavaScript disabled — the JavaScript only adds smooth
+ * with JavaScript disabled - the JavaScript only adds smooth
  * scrolling, active-section highlighting, and the collapse toggle.
  *
  * Headings inside blockquotes, `<pre>` blocks, and inline `<code>`
@@ -72,8 +72,8 @@ use const LIBXML_HTML_NOIMPLIED;
  * (floating sticky rail on desktop, full-width block on mobile),
  * `after_first_paragraph`, or `manual` (the `the_content` filter
  * only injects heading ids and the coordinator places the partial
- * `templates/sections/table-of-contents.php` — or calls
- * `TocModule::render()` — wherever the TOC belongs). The TOC is
+ * `templates/sections/table-of-contents.php` - or calls
+ * `TocModule::render()` - wherever the TOC belongs). The TOC is
  * shown only when the post has at least `min_headings` headings
  * (default 3); below that threshold the content is returned
  * untouched, with no ids injected.
@@ -228,7 +228,7 @@ final class TocModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -371,7 +371,7 @@ final class TocModule implements ModuleInterface
      * Validate and save settings from a submitted form.
      *
      * Expected flat keys: `position` (allowlisted), `min_headings`
-     * (integer clamped to 1–10), `show_toggle` and `sticky`
+     * (integer clamped to 1-10), `show_toggle` and `sticky`
      * (checkboxes: `1` when checked, absent when unchecked).
      * Unknown keys are dropped.
      *
@@ -448,7 +448,7 @@ final class TocModule implements ModuleInterface
      *
      * Parses the post's raw content for h2/h3 headings (the same
      * parser the content filter uses), injects stable ids, and
-     * returns the `<nav>` markup — or an empty string when the post
+     * returns the `<nav>` markup - or an empty string when the post
      * does not exist, is not a post, or has fewer headings than the
      * minimum. The returned markup is a complete, escaped nav; the
      * ids it links to are injected into the rendered content by the
@@ -660,7 +660,7 @@ final class TocModule implements ModuleInterface
      *
      * h3 headings nest under the preceding h2; a leading h3 with
      * no h2 above it is promoted to the top level. The list is
-     * plain anchor links — no JavaScript is required to use it.
+     * plain anchor links - no JavaScript is required to use it.
      *
      * @param array<int, array{id: string, level: int, text: string}> $headings Parsed headings.
      * @param int $postId Post id (used to keep the list id unique on the page).
@@ -812,7 +812,7 @@ final class TocModule implements ModuleInterface
      * Registered by boot() through the
      * `traydigita:core:customizer/definitions` filter (see
      * SettingsCustomizer). Only the two settings readers most
-     * often reach for are exposed here — the full set stays on
+     * often reach for are exposed here - the full set stays on
      * the module page. The module option stays the source of
      * truth; the theme mods are kept in sync by
      * saveSettings() and syncFromCustomizer().

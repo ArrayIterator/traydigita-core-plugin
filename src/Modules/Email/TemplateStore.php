@@ -26,8 +26,8 @@ use function wp_date;
  * login, form, ...).
  *
  * One generic table, post-type-like: `{$wpdb->prefix}traydigita_templates`.
- * The table name is ALWAYS built from `$wpdb->prefix` — never a
- * hardcoded prefix — so the plugin works on any prefix. Every
+ * The table name is ALWAYS built from `$wpdb->prefix` - never a
+ * hardcoded prefix - so the plugin works on any prefix. Every
  * query in this class resolves the name through tableName().
  *
  * Columns:
@@ -65,7 +65,7 @@ use function wp_date;
  * Migration: migrateFromOption() imports the old option store
  * ('traydigita_email_templates') into type='email' rows, one
  * time, idempotently. The old option is NEVER deleted or
- * written after migration — it stays as the rollback source.
+ * written after migration - it stays as the rollback source.
  * Maintenance and Login designs are migrated by
  * DesignerEngine::migrateLegacyDesign() (MUST-10), not here.
  */
@@ -84,7 +84,7 @@ final class TemplateStore
      * is served from the index, replaces the single-column
      * `parent_id` key with `type_parent_status`
      * (type, parent_id, status) for the children queries, and
-     * drops the single-column `is_default` key — no query
+     * drops the single-column `is_default` key - no query
      * filters on `is_default` alone.
      * Version 3 drops the legacy `type_status`, `parent_id`
      * and `is_default` keys left behind by version 2
@@ -267,7 +267,7 @@ final class TemplateStore
     /**
      * Make sure the templates table exists, lazily.
      *
-     * Called from the read and write paths — never from a page
+     * Called from the read and write paths - never from a page
      * load that does not touch templates. When the table is
      * missing it is created with one idempotent CREATE TABLE IF
      * NOT EXISTS and the operation then proceeds, so no template
@@ -326,7 +326,7 @@ final class TemplateStore
      * alone; the only query using `is_default` is the default
      * lookup (type + status + is_default), served exactly by
      * `type_status_default`, and no query filters `is_default`
-     * alone. Never throws, never error_logs — a leftover
+     * alone. Never throws, never error_logs - a leftover
      * duplicate is harmless.
      *
      * @return void
@@ -363,7 +363,7 @@ final class TemplateStore
     /**
      * Whether the templates table schema is installed.
      *
-     * A single option read — no schema query — so the module grid
+     * A single option read - no schema query - so the module grid
      * stays cheap.
      *
      * @return bool
@@ -944,7 +944,7 @@ final class TemplateStore
      * twice. Every template becomes a type='email',
      * status='published' row with slug = template id, and the
      * old default_id keeps its is_default flag. The old option
-     * is NEVER deleted or written here — it stays as the
+     * is NEVER deleted or written here - it stays as the
      * rollback source.
      *
      * Only email templates are migrated here; Maintenance and

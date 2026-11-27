@@ -64,7 +64,7 @@ use function wp_get_attachment_image_url;
  * ('maintenance' | 'login'), marked as the default row of its
  * type. The row's `blocks` column holds ONLY the blocks array;
  * `version` is not stored in the row (the table has no version
- * column) — the engine re-attaches the current SCHEMA_VERSION
+ * column) - the engine re-attaches the current SCHEMA_VERSION
  * when a row is read back into a design array, so a row written
  * by this engine is by construction a design of the current
  * schema version. If SCHEMA_VERSION is ever bumped, rows written
@@ -80,7 +80,7 @@ use function wp_get_attachment_image_url;
  * option is read at most once) and by an existence check, so a
  * design row saved after the table arrived is never overwritten
  * by the legacy option. The legacy option is NEVER deleted or
- * written after migration — it stays as the rollback source.
+ * written after migration - it stays as the rollback source.
  * The imported row holds the sanitized legacy design's blocks,
  * byte-identical to the sanitized legacy blocks array.
  *
@@ -357,7 +357,7 @@ abstract class DesignerEngine
      * (set even when there was nothing to migrate) and by an
      * existence check, so a design row saved after the table
      * arrived is never overwritten by the legacy option. The
-     * legacy option is NEVER deleted or written here — it stays
+     * legacy option is NEVER deleted or written here - it stays
      * as the rollback source. The imported row holds the
      * sanitized legacy design's blocks, byte-identical to the
      * sanitized legacy blocks array.
@@ -457,7 +457,7 @@ abstract class DesignerEngine
      * under a `design` key, a JSON string, or a base64-encoded JSON
      * string. The base64 shape exists because the shell's generic
      * save endpoint deep-sanitizes every posted string with
-     * sanitize_text_field(), which strips `%XX` sequences — a raw
+     * sanitize_text_field(), which strips `%XX` sequences - a raw
      * JSON payload carrying a `%20` URL or a `%` CSS value would be
      * corrupted before it reaches this method. Unknown block types,
      * duplicate blocks and unknown setting keys are dropped. Every
@@ -904,7 +904,7 @@ abstract class DesignerEngine
      * Logo width for a design, clamped to the allowed range.
      *
      * @param array<string, mixed> $design Design array.
-     * @return int Width in pixels (80–600).
+     * @return int Width in pixels (80-600).
      */
     protected static function logoWidth(array $design): int
     {

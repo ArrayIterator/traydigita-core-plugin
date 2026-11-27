@@ -18,7 +18,7 @@ use function wp_die;
  * Bookmarks module.
  *
  * Reader bookmarks, stored in the browser only (IndexedDB).
- * There is NO database storage for bookmarks — no user meta, no
+ * There is NO database storage for bookmarks - no user meta, no
  * REST sync endpoints, nothing on the server. The single source
  * of truth is one IndexedDB database in the reader's browser
  * (see Bookmarks): database `traydigita-bookmarks`, version 1,
@@ -29,7 +29,7 @@ use function wp_die;
  * Guests can bookmark exactly like logged-in users.
  *
  * The module plugs into the member area through the
- * `traydigita:core:member/sections` filter — the member-area
+ * `traydigita:core:member/sections` filter - the member-area
  * module never calls this module directly. Disabling this
  * module removes the Bookmarks section from the member area
  * and hides the toggle on posts (Bookmarks::renderToggle()
@@ -202,8 +202,8 @@ final class BookmarksModule implements ModuleInterface
      * Render the settings page inside the admin shell content area.
      *
      * Bookmarks have no settings: the page is a visible info
-     * page in two sections — what the module does and what
-     * disabling removes — with nothing hidden behind a Help
+     * page in two sections - what the module does and what
+     * disabling removes - with nothing hidden behind a Help
      * toggle. There is no form to save.
      *
      * @return void
@@ -269,7 +269,7 @@ final class BookmarksModule implements ModuleInterface
      *
      * Guards with ModuleRegistry::isEnabled() so a direct call is
      * safe too. The Bookmarks section is registered through the
-     * member sections filter — the member-area module never
+     * member sections filter - the member-area module never
      * calls this module directly.
      *
      * @return void
@@ -308,7 +308,7 @@ final class BookmarksModule implements ModuleInterface
      * Render the Bookmarks section: the reader's saved articles.
      *
      * The list shell is the same one the bookmark.php page
-     * renders — the entries themselves live in the browser's
+     * renders - the entries themselves live in the browser's
      * IndexedDB store (see Bookmarks), so the list is filled
      * in by JavaScript on both surfaces.
      *

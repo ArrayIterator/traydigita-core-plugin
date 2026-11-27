@@ -31,7 +31,7 @@ use function wp_timezone;
  * Storage layer for agenda events.
  *
  * Events live in their own custom table
- * `$wpdb->prefix . 'traydigita_agenda'` — never in `wp_posts` — so
+ * `$wpdb->prefix . 'traydigita_agenda'` - never in `wp_posts` - so
  * the agenda is independent of the post workflow (no post statuses,
  * no revisions, no trash). Table handling lives in the shared
  * `SchemaTable` kernel: the table is created lazily with
@@ -50,8 +50,8 @@ use function wp_timezone;
  * never go stale.
  *
  * Security: every query uses $wpdb placeholders. Table and column
- * names come only from fixed constants and the $wpdb prefix —
- * never from user input — and no user input ever reaches DDL.
+ * names come only from fixed constants and the $wpdb prefix -
+ * never from user input - and no user input ever reaches DDL.
  */
 final class AgendaTable
 {
@@ -243,7 +243,7 @@ final class AgendaTable
     /**
      * Make sure the agenda table exists, lazily.
      *
-     * Called from the write path (insert/update/delete) only —
+     * Called from the write path (insert/update/delete) only -
      * never from a page load. When the table is missing it is
      * created with one idempotent CREATE TABLE IF NOT EXISTS
      * and the write then proceeds, so no event is ever lost to
@@ -301,7 +301,7 @@ final class AgendaTable
      * so `start_end` covers it as its leftmost prefix, and
      * the category filter orders by `start_datetime`, so
      * `category_start` covers it. Never throws, never
-     * error_logs — a leftover duplicate is harmless.
+     * error_logs - a leftover duplicate is harmless.
      *
      * @return void
      */
@@ -336,7 +336,7 @@ final class AgendaTable
     /**
      * Whether the agenda table is installed.
      *
-     * A single option read — no schema query — so the module grid
+     * A single option read - no schema query - so the module grid
      * stays cheap.
      *
      * @return bool
@@ -465,7 +465,7 @@ final class AgendaTable
      * Every field is sanitized for its own type: title / location /
      * category with sanitize_text_field() and length caps,
      * description with sanitize_textarea_field() (newlines are
-     * kept — callers must NOT route this through the generic admin
+     * kept - callers must NOT route this through the generic admin
      * dispatcher, which collapses newlines; AgendaAjax reads the
      * raw POST for this reason), datetimes with strict parsing in
      * the site timezone, the cover image id with absint() plus an
@@ -783,7 +783,7 @@ final class AgendaTable
      *
      * Only ever called from AgendaAjax::deleteAll() after the
      * administrator typed the confirmation word. The DROP TABLE
-     * statement is fixed — the table name comes from the prefix
+     * statement is fixed - the table name comes from the prefix
      * and a constant suffix, never from user input. Deactivation
      * alone never calls this: data is kept by default.
      *

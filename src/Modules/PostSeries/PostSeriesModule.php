@@ -68,9 +68,9 @@ use function wp_verify_nonce;
  * `td_series` taxonomy (rewrite slug `series`, so a series
  * archive lives at /series/<slug>/), and the order of a post
  * inside its series is the `_traydigita_series_order` post
- * meta. A post belongs to one series at a time — the meta box
+ * meta. A post belongs to one series at a time - the meta box
  * on the post screen is a single select, and saving it
- * replaces the post's series terms — because the order is
+ * replaces the post's series terms - because the order is
  * stored per post, not per (post, series) pair.
  *
  * Frontend: on a single post that belongs to a series,
@@ -252,7 +252,7 @@ final class PostSeriesModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -416,7 +416,7 @@ final class PostSeriesModule implements ModuleInterface
      * would be wrapped by WordPress into AND(EXISTS, OR(...)),
      * silently dropping posts without an order value). The OR
      * meta query keeps posts without an order value in the
-     * list — they sort first (NULL), before the ordered posts —
+     * list - they sort first (NULL), before the ordered posts -
      * and WordPress turns every meta JOIN in the query into a
      * LEFT JOIN when any of them is one, so no post is lost.
      * Such posts are the exception: every post that gains a
@@ -446,9 +446,7 @@ final class PostSeriesModule implements ModuleInterface
         $query->set('order', 'ASC');
     }
 
-    // ------------------------------------------------------------------
     // Frontend: series navigation box
-    // ------------------------------------------------------------------
 
     /**
      * Render the series navigation box for a post.
@@ -457,7 +455,7 @@ final class PostSeriesModule implements ModuleInterface
      * only when the navigation is enabled in the settings. The
      * box shows the series title (linked to the archive), the
      * series description when it has one, previous/next links
-     * in series order, and — when the list is enabled — the
+     * in series order, and - when the list is enabled - the
      * full ordered list with the current post highlighted.
      * Returns an empty string when there is nothing to show.
      *
@@ -678,9 +676,7 @@ final class PostSeriesModule implements ModuleInterface
         ));
     }
 
-    // ------------------------------------------------------------------
     // Post screen: meta box + order auto-assignment
-    // ------------------------------------------------------------------
 
     /**
      * Register the "Post Series" meta box on the post screen.
@@ -877,9 +873,7 @@ final class PostSeriesModule implements ModuleInterface
         return $next > self::MAX_ORDER ? self::MAX_ORDER : $next;
     }
 
-    // ------------------------------------------------------------------
     // Settings page
-    // ------------------------------------------------------------------
 
     /**
      * Handle the classic POST forms on the settings page.

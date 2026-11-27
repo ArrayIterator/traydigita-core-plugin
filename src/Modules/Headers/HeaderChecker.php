@@ -19,7 +19,7 @@ use function wp_remote_retrieve_response_code;
  *
  * Sends a GET request to the home URL with a real browser
  * User-Agent and Accept headers (some hosts and security plugins
- * answer differently — or not at all — to requests that look like
+ * answer differently - or not at all - to requests that look like
  * bots), then reports which of the recommended headers are present
  * or missing, with a plain-language explanation for each.
  *

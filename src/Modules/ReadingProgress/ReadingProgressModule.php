@@ -45,7 +45,7 @@ use const PREG_SPLIT_NO_EMPTY;
  *
  * Reading time is computed server-side from the post word count
  * at the configured words-per-minute rate (default 200), rounded
- * up, with a minimum of one minute — so even an empty post reads
+ * up, with a minimum of one minute - so even an empty post reads
  * as one minute. The bar itself is pure progressive enhancement:
  * with JavaScript disabled the bar simply stays at zero width
  * and the reading time still renders.
@@ -58,13 +58,13 @@ use const PREG_SPLIT_NO_EMPTY;
  * overrides it through the `--reading-progress-color` custom
  * property set inline on the bar element.
  *
- * Placement (coordinator wiring — this module edits no entry
+ * Placement (coordinator wiring - this module edits no entry
  * template itself):
  * - Bar: `boot()` hooks `wp_footer` (priority 20) and prints
  *   `render()` there, gated on `is_singular('post')`. No
  *   template edit is needed for the bar. The partial
  *   `templates/sections/reading-progress.php` calls the same
- *   `render()` for manual placement — use one or the other,
+ *   `render()` for manual placement - use one or the other,
  *   never both, or two bars render.
  * - Reading time: call `ReadingProgressModule::renderReadingTime()`
  *   in the entry-header meta area (for example inside
@@ -204,7 +204,7 @@ final class ReadingProgressModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -348,8 +348,8 @@ final class ReadingProgressModule implements ModuleInterface
      * Expected flat keys: `show_bar` and `show_reading_time`
      * (checkboxes: `1` when checked, absent when unchecked),
      * `bar_color` (hex colour or an empty string for the theme
-     * accent — anything else is discarded to empty), and
-     * `words_per_minute` (integer clamped to 50–1000). Unknown
+     * accent - anything else is discarded to empty), and
+     * `words_per_minute` (integer clamped to 50-1000). Unknown
      * keys are dropped.
      *
      * @param array<string, mixed> $data Sanitized form data.
@@ -391,7 +391,7 @@ final class ReadingProgressModule implements ModuleInterface
      *
      * Hooks the bar render into `wp_footer` (priority 20), gated
      * on single posts inside renderBar(). The reading time has no
-     * suitable WordPress hook — it is placed by an explicit
+     * suitable WordPress hook - it is placed by an explicit
      * `renderReadingTime()` call in the entry-header meta area
      * (see the class docblock). A disabled module registers
      * nothing; the isEnabled() guard is belt and braces for a
@@ -418,7 +418,7 @@ final class ReadingProgressModule implements ModuleInterface
      * The markup comes from render(), so a coordinator that
      * prefers manual placement can call render() (or the
      * `templates/sections/reading-progress.php` partial) instead
-     * — but never both, or two bars render.
+     * - but never both, or two bars render.
      *
      * @return void
      */
@@ -554,7 +554,7 @@ final class ReadingProgressModule implements ModuleInterface
      *
      * Tags, shortcodes brackets excluded: all markup is stripped
      * first, then the remaining text is split on whitespace. HTML
-     * entities are left as-is — they contain no whitespace, so
+     * entities are left as-is - they contain no whitespace, so
      * they cannot inflate the count.
      *
      * @param string $content Post content HTML.

@@ -13,7 +13,7 @@ use function time;
  *
  * Every category is counted before anything is deleted, and each
  * category is selectable on its own. Deleting is done with
- * `$wpdb` placeholders only — no user input ever reaches SQL;
+ * `$wpdb` placeholders only - no user input ever reaches SQL;
  * the only variable parts are fixed category keys validated
  * against the allowlist below.
  *
@@ -25,7 +25,7 @@ use function time;
  * - Orphaned timeout: a timeout row whose value row is missing.
  *   The timeout row is deleted.
  * A value row with no timeout row is a transient without an
- * expiry — that is legitimate and is never deleted. Site
+ * expiry - that is legitimate and is never deleted. Site
  * transients (`_site_transient_*`, multisite scope) are left
  * alone by design and are not counted here.
  *

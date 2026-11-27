@@ -225,7 +225,7 @@ final class RedirectStore
      *
      * `from` must be a site path starting with `/` (optionally
      * ending in a single trailing `/*` wildcard); the site root
-     * `/` and `/*` are rejected — redirecting the home page (or
+     * `/` and `/*` are rejected - redirecting the home page (or
      * everything) is never what an administrator means. `to`
      * must be a site path starting with `/` or an absolute
      * `http(s)` URL; protocol-relative and non-http(s) targets

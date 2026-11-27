@@ -167,7 +167,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Push a value to the end of the iterable.
      *
-     * This method adds a value to the end of the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it appends the value directly. If it's an `Iter`, `SplDoublyLinkedList`, or `ArrayIterator`,
      * it uses their respective methods to add the value. If the iterable is a `Generator` or other
      * types, it converts it to an array and then appends the value.
@@ -217,7 +217,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Unshift a value to the beginning of the iterable.
      *
-     * This method adds a value to the beginning of the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it uses the `array_unshift()` function to add the value. If it's an `Iter`, `SplDoublyLinkedList`,
      * or `ArrayIterator`, it uses their respective methods to add the value. If the iterable is a
      * `Generator` or other types, it converts it to an array and then unshifts the value.
@@ -260,7 +260,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Pop a value from the end of the iterable.
      *
-     * This method removes and returns the last value from the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it uses the `array_pop()` function to remove and return the last element.
      * If it's an `Iter`, `SplDoublyLinkedList`,
      * or `ArrayIterator`, it uses their respective methods to remove and return the last value. If the iterable is a
@@ -312,7 +312,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Shift a value from the beginning of the iterable.
      *
-     * This method removes and returns the first value from the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it uses the `array_shift()` function to remove and return the first element.
      * If it's an `Iter`, `SplDoublyLinkedList`,
      * or `ArrayIterator`, it uses their respective methods to remove and return the first value. If the iterable is a
@@ -368,7 +368,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Convert the iterable to an array.
      *
-     * This method converts the internal iterable to an array. If the iterable is already an array,
+     * If the iterable is already an array,
      * it returns it directly. If it's a `Generator`, it iterates through it and stores the values
      * in a temporary buffer before returning the array. If it's an `Iterator`, it also iterates
      * through it and stores the values in a temporary buffer before returning the array.
@@ -400,7 +400,6 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Move the internal pointer to the next element.
      *
-     * This method is used to move the internal pointer of the iterable to the next element.
      * If the iterable is an array, it uses the `next()` function to move the pointer.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is an `Iterator`, it stores the current key-value pair
@@ -424,7 +423,6 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Move the internal pointer to the previous element.
      *
-     * This method is used to move the internal pointer of the iterable to the previous element.
      * If the iterable is an array, it uses the `prev()` function to move the pointer.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is a `SeekableIterator`, it seeks to the previous element.
@@ -490,7 +488,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Get the first element of the iterable.
      *
-     * This method returns the first element of the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it uses the `reset()` function to move the pointer to the first element and return it.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is an `Iterator`, it stores the current key-value pair
@@ -509,7 +507,7 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Get the last element of the iterable.
      *
-     * This method returns the last element of the internal iterable. If the iterable is an array,
+     * If the iterable is an array,
      * it uses the `end()` function to move the pointer to the last element and return it.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is an `Iterator`, it stores the current key-value pair
@@ -529,7 +527,6 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Move the internal pointer to the beginning of the iterable.
      *
-     * This method is used to move the internal pointer of the iterable to the first element.
      * If the iterable is an array, it uses the `reset()` function to move the pointer.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is an `Iterator`, it stores the current key-value pair
@@ -563,7 +560,6 @@ final class Iter implements SeekableIterator, Countable, JsonSerializable
     /**
      * Move the internal pointer to the end of the iterable.
      *
-     * This method is used to move the internal pointer of the iterable to the last element.
      * If the iterable is an array, it uses the `end()` function to move the pointer.
      * If the iterable is a `Generator`, it checks if it's closed or running and handles accordingly.
      * If the iterable is an `Iterator`, it stores the current key-value pair

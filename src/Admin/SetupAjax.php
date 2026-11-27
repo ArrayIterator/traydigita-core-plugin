@@ -52,7 +52,7 @@ use function wp_send_json_success;
  * AJAX and admin-post endpoints for the Setup page.
  *
  * Endpoints (all authenticated admin only, nonce action
- * `traydigita-admin` — InstallerAjax::NONCE_ACTION — sent as
+ * `traydigita-admin` - InstallerAjax::NONCE_ACTION - sent as
  * `_ajax_nonce` for AJAX and `_wpnonce` for the upload form,
  * exactly like the generic admin dispatcher):
  * - traydigita_setup_install_stack: install TrayDigita Stack from
@@ -74,8 +74,8 @@ use function wp_send_json_success;
  *   its download URL must parse to host `github.com` with a path
  *   under the project's releases/download directory, or the
  *   install is refused and nothing is downloaded.
- * - The upload endpoint accepts a file upload only — never a
- *   URL — and only a .zip under 20 MB.
+ * - The upload endpoint accepts a file upload only - never a
+ *   URL - and only a .zip under 20 MB.
  * - Filesystem: only the `direct` method is used. When the
  *   site's filesystem method is anything else, the install is
  *   refused with a clear error instead of asking for FTP
@@ -198,7 +198,7 @@ final class SetupAjax
      * final statement: that method verifies the nonce and the
      * capability itself, reads the slug from $_POST['plugin'],
      * and ends with wp_send_json_* (dies). The slug is forced to
-     * the stack constant here — never caller input — so this
+     * the stack constant here - never caller input - so this
      * endpoint can only ever activate the stack plugin.
      *
      * @return void
@@ -260,7 +260,7 @@ final class SetupAjax
      * immediately (bypassing the 1-hour check transient) through
      * `ActivityLogModule::ensureSchema(true)`, which acquires
      * the dbDelta lock transient itself and releases it in a
-     * `finally` block — so this endpoint never holds the lock
+     * `finally` block - so this endpoint never holds the lock
      * while calling it (a pre-acquired lock would make the
      * ensure call skip every time). A request arriving while
      * the lock is held gets a 409 instead of a second
@@ -302,7 +302,7 @@ final class SetupAjax
             // Neutral wording on purpose: the module boot already
             // heals a missing table on admin requests (version-gated
             // + throttled), so by the time this endpoint runs the
-            // table may exist already — "created" vs "already exists"
+            // table may exist already - "created" vs "already exists"
             // cannot be told apart reliably here. The detail line
             // carries the live state either way.
             'message' => esc_html__('The log table is ready.', 'traydigita-core'),
@@ -322,7 +322,7 @@ final class SetupAjax
      * and redirects back to the Setup page with
      * ?setup-result=installed|error&setup-message=<code>. The
      * message is always a short code from the allowlist in
-     * SetupPage (rendered as human text there) — raw input is
+     * SetupPage (rendered as human text there) - raw input is
      * never reflected in the redirect.
      *
      * @return void
@@ -477,8 +477,8 @@ final class SetupAjax
             ];
         }
         if ($installed === false || $installed === null) {
-            // Plugin_Upgrader::install() returns null — not false
-            // or a WP_Error — when the package download fails:
+            // Plugin_Upgrader::install() returns null - not false
+            // or a WP_Error - when the package download fails:
             // $this->result is only set by install_package(),
             // which never runs. Treat null as a failed install
             // and surface the skin's error, or the user gets the
@@ -607,7 +607,7 @@ final class SetupAjax
      * Only `https://github.com/ArrayIterator/traydigita-stack/
      * releases/download/...` passes. Any other host, scheme or
      * path, a relative URL, or an unparseable URL fails closed.
-     * Pure check — no network call.
+     * Pure check - no network call.
      *
      * @param string $url Download URL from the GitHub API response.
      * @return bool

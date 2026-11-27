@@ -43,17 +43,17 @@ use WP_Term;
  * Supported variables (every template may use any of them; a
  * variable with no value for the current page expands to an empty
  * string and is cleaned up afterwards):
- * - %title% — post or page title, term name, author name, or the
+ * - %title% - post or page title, term name, author name, or the
  *   site name on the home page.
- * - %site% — site name.
- * - %sitetagline% — site tagline.
- * - %sep% — the configured title separator.
- * - %excerpt% — post excerpt, page excerpt, or term description.
- * - %category% — first category name (posts only).
- * - %tag% — first tag name (posts only).
- * - %author% — post author display name, or the author archive name.
- * - %date% — post date, or the date archive label.
- * - %page% — "Page N" on paged archives, empty otherwise.
+ * - %site% - site name.
+ * - %sitetagline% - site tagline.
+ * - %sep% - the configured title separator.
+ * - %excerpt% - post excerpt, page excerpt, or term description.
+ * - %category% - first category name (posts only).
+ * - %tag% - first tag name (posts only).
+ * - %author% - post author display name, or the author archive name.
+ * - %date% - post date, or the date archive label.
+ * - %page% - "Page N" on paged archives, empty otherwise.
  *
  * Expansion never invents data: unknown placeholders are left
  * untouched so a typo stays visible in the settings preview

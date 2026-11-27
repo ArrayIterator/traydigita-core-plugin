@@ -18,7 +18,7 @@ use function trim;
  *
  * Uses the free public tier (no API key, 20,000 calls a month for
  * personal use). One request per coin (`/v1/tickers/{coin_id}`),
- * with the `quotes` parameter for the fiat currency — verified live
+ * with the `quotes` parameter for the fiat currency - verified live
  * 2026-11-21: USD and IDR quotes are both returned.
  *
  * CoinPaprika paid plans exist, but their Pro authentication (host /
@@ -27,7 +27,7 @@ use function trim;
  * is offered. Do not invent a Pro host or header.
  *
  * Coin ids are CoinGecko ids; the built-in map below translates the
- * common ones to CoinPaprika ids (btc-bitcoin, eth-ethereum…).
+ * common ones to CoinPaprika ids (btc-bitcoin, eth-ethereum...).
  * Unmapped ids are skipped, never guessed.
  *
  * @see https://docs.coinpaprika.com/

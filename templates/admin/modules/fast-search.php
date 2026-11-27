@@ -21,7 +21,7 @@
  *   data-fast-search-row="<key>" so the build-progress script can
  *   flip them to "Installed" as each index finishes.
  * - Build button (outside the settings form): starts a chunked
- *   build via the admin-fast-search script — one index per AJAX
+ *   build via the admin-fast-search script - one index per AJAX
  *   request, with a visible progress bar and a "processing"
  *   notice while it runs. Disabled while a build is running.
  * - Missing SQL: shown in a read-only textarea for manual
@@ -37,7 +37,7 @@
  * SettingsControls (toggles) inside a framework section
  * (`td-section-behaviour`), and the form ends in the sticky
  * framework save bar. The index table, build button and missing
- * SQL keep their own markup — they are status/tools, not
+ * SQL keep their own markup - they are status/tools, not
  * settings fields.
  */
 declare(strict_types=1);

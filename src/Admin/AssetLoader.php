@@ -231,7 +231,7 @@ final class AssetLoader
      * the admin entry: WordPress prints a <script type="module">
      * tag only for enqueued modules, while their dependencies
      * get a mere modulepreload link, and a preloaded module
-     * never executes — so $.fn.select2 would never register.
+     * never executes - so $.fn.select2 would never register.
      *
      * @return void
      */

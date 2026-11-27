@@ -52,14 +52,14 @@ use function wp_unslash;
  * to them. A rule picks WHEN a custom sidebar replaces one of the
  * theme's default areas: the rule names the default area it can
  * replace (`traydigita-home-left`, `traydigita-home-right`, or
- * `traydigita-sidebar-article`) and optional conditions — category,
- * tag, author, or a specific post/page — which must ALL match the
+ * `traydigita-sidebar-article`) and optional conditions - category,
+ * tag, author, or a specific post/page - which must ALL match the
  * current request. Rules are ordered by priority (lower wins);
  * the first matching rule wins and anything else falls back to
  * the theme's default area for that spot.
  *
  * Why the area IS the context: the theme renders a sidebar in
- * exactly three places — the two homepage columns
+ * exactly three places - the two homepage columns
  * (`templates/sections/sidebar-left.php` /
  * `sidebar-right.php`) and the single-post/page rail
  * (`templates/sections/article-sidebar.php`). Archive, search,
@@ -72,15 +72,15 @@ use function wp_unslash;
  *
  * Registration: custom sidebars are registered with
  * register_sidebar() on `widgets_init` (id
- * `traydigita-dynamic-{slug}`), so they appear in Appearance →
+ * `traydigita-dynamic-{slug}`), so they appear in Appearance ->
  * Widgets like a normal area. Deleting a sidebar removes only
- * its definition from the module option — WordPress keeps the
+ * its definition from the module option - WordPress keeps the
  * widget instances, which reappear under Inactive Widgets. When
  * the module is disabled, custom sidebars are not registered and
  * templates fall back to their default areas.
  *
  * Extension points (hook prefix from Core::HOOK_PREFIX):
- * - `traydigita:core:dynamic-sidebars/sidebars` — filter the
+ * - `traydigita:core:dynamic-sidebars/sidebars` - filter the
  *   list of sidebar definitions (stored ones first, then the
  *   filter). A builder adds a sidebar programmatically:
  *
@@ -96,7 +96,7 @@ use function wp_unslash;
  *           return $sidebars;
  *       });
  *
- * - `traydigita:core:dynamic-sidebars/resolved-area` — filter
+ * - `traydigita:core:dynamic-sidebars/resolved-area` - filter
  *   the resolved area id, receiving ($area, $defaultArea).
  *
  * Settings live in the single option `traydigita_dynamic_sidebars`
@@ -249,7 +249,7 @@ final class DynamicSidebarsModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -375,13 +375,13 @@ final class DynamicSidebarsModule implements ModuleInterface
      * disabled, when no rule matches, or when the default area is
      * not replaceable. Otherwise returns the first matching custom
      * sidebar id (lowest priority wins; ties keep creation order
-     * — usort() is stable since PHP 8.0). The result passes
+     * - usort() is stable since PHP 8.0). The result passes
      * through the resolved-area filter, so a builder can override
      * it. The caller still guards with is_active_sidebar(), so an
      * empty custom sidebar renders no widget markup at all.
      *
      * Cheap by design: one option read per request at most (static
-     * cache), no network, no heavy queries — condition checks read
+     * cache), no network, no heavy queries - condition checks read
      * only the already-queried post and its terms.
      *
      * @param string $defaultArea Default area id being resolved.
@@ -414,7 +414,7 @@ final class DynamicSidebarsModule implements ModuleInterface
      *
      * All non-zero conditions must match (AND). A rule with no
      * conditions always matches. Conditions never apply to home
-     * areas (no current post there) — such rules are stored with
+     * areas (no current post there) - such rules are stored with
      * all conditions at zero, and this method treats them as a
      * match without looking at the post. Missing terms, users, or
      * posts simply never match; nothing here can fatal.
@@ -545,7 +545,7 @@ final class DynamicSidebarsModule implements ModuleInterface
      * Normalize one raw sidebar definition, or null when invalid.
      *
      * Names are capped (120 chars) and descriptions (500 chars);
-     * the area must be replaceable; priority is clamped to 1–999;
+     * the area must be replaceable; priority is clamped to 1-999;
      * conditions are integer ids (0 = any). Home-area rules get
      * their conditions forced to zero (no current post there).
      *
@@ -752,7 +752,7 @@ final class DynamicSidebarsModule implements ModuleInterface
      *
      * Only the definition is removed. WordPress keeps the widget
      * instances assigned to it; they reappear under Inactive
-     * Widgets in Appearance → Widgets.
+     * Widgets in Appearance -> Widgets.
      *
      * @param string $id Sidebar id.
      * @return array{success: bool, message: string}
@@ -918,8 +918,8 @@ final class DynamicSidebarsModule implements ModuleInterface
     /**
      * Save the module settings from already deep-sanitized data.
      *
-     * The module has no flat settings of its own — the sidebar
-     * list is managed through DynamicSidebarsAjax — but the
+     * The module has no flat settings of its own - the sidebar
+     * list is managed through DynamicSidebarsAjax - but the
      * generic dispatcher can still reach here, so the same
      * operations are routed by the `ds_action` field (`save` /
      * `delete`). Unknown actions are rejected.

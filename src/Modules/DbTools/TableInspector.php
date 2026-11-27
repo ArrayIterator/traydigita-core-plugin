@@ -23,7 +23,7 @@ use function version_compare;
  * `SHOW TABLE STATUS`, filtered to names that start with the
  * site's table prefix. A table name supplied by the user (for a
  * convert or optimize request) is accepted only when it is on
- * that allowlist, and it is then quoted with backticks — user
+ * that allowlist, and it is then quoted with backticks - user
  * input never reaches DDL unvalidated, and no DDL is ever built
  * from raw user input.
  *

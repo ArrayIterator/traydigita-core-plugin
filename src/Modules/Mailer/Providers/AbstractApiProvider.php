@@ -355,7 +355,7 @@ abstract class AbstractApiProvider
      * Encode attachment files as base64 for a JSON payload.
      *
      * Unreadable or missing files are skipped (the mail still
-     * sends — a missing file must not lose the whole message);
+     * sends - a missing file must not lose the whole message);
      * oversize files fail the send with a clear error instead.
      *
      * @param array<int, string> $files Attachment paths.

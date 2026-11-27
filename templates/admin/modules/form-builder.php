@@ -482,8 +482,8 @@ $traydigita_spam_labels = [
                 <?php else : ?>
                     <?php
                     // Two separate strings on purpose: splitHelp() cannot
-                    // split this note — its first sentence is under the
-                    // 40-character floor — so the short/long split is
+                    // split this note - its first sentence is under the
+                    // 40-character floor - so the short/long split is
                     // written out instead of derived.
                     \TrayDigita\WP\Plugin\Core\Admin\Settings\SettingsControls::helpText(
                         __('reCAPTCHA keys are not set yet.', 'traydigita-core'),

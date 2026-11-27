@@ -32,7 +32,7 @@ use function wp_nonce_field;
  * - Exactly one hook is registered, `admin_enqueue_scripts`, which
  *   enqueues one plain stylesheet (see enqueueAdminStyle()). No
  *   JavaScript, no menu changes, no capability changes, no filters
- *   on admin behaviour, and nothing is ever hidden — the preset
+ *   on admin behaviour, and nothing is ever hidden - the preset
  *   stylesheets contain no `display: none`, `visibility: hidden`
  *   or any other hiding rule.
  * - Scope comes from the hook itself: `admin_enqueue_scripts`
@@ -193,7 +193,7 @@ final class DashboardDesignerModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -374,7 +374,7 @@ final class DashboardDesignerModule implements ModuleInterface
      * is enabled.
      *
      * Guards with ModuleRegistry::isEnabled() so a direct call is
-     * safe too. Exactly one hook is registered — see the class
+     * safe too. Exactly one hook is registered - see the class
      * docblock for why the CSS-only rule allows nothing else.
      *
      * @return void
@@ -391,8 +391,8 @@ final class DashboardDesignerModule implements ModuleInterface
      * Enqueue the preset stylesheet on admin screens.
      *
      * Runs on `admin_enqueue_scripts`, which WordPress fires only
-     * inside wp-admin — never on wp-login.php and never on the
-     * frontend — so the stylesheet cannot leak anywhere else. The
+     * inside wp-admin - never on wp-login.php and never on the
+     * frontend - so the stylesheet cannot leak anywhere else. The
      * `default` preset enqueues nothing, and a missing preset file
      * (for example a release install that excluded `resources/`)
      * is skipped silently instead of producing a broken link.

@@ -10,7 +10,7 @@ use function is_string;
 /**
  * Shared admin notification renderer (Part G).
  *
- * Every admin notification — inline notices and toasts — speaks
+ * Every admin notification - inline notices and toasts - speaks
  * one visual language from the core admin UI library
  * (resources/css/components/admin-ui.css): a status icon (never
  * colour alone), a title plus a message, and a dismiss button.

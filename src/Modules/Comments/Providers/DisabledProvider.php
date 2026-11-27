@@ -51,7 +51,7 @@ final class DisabledProvider implements CommentProviderInterface
     /**
      * Provider-specific settings fields.
      *
-     * None — disabling needs no setup.
+     * None - disabling needs no setup.
      *
      * @return array<string, array{type: string, label: string, help?: string, default?: mixed, options?: array<string, string>, min?: int, max?: int, placeholder?: string, sanitize?: string}>
      */

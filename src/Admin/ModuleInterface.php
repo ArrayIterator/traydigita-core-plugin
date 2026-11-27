@@ -163,7 +163,7 @@ interface ModuleInterface
      * and its module-card "Open" button both link to; null (or no
      * method) means the module's own settings page
      * ('admin.php?page=' . settingsPageSlug()). The target must
-     * name a WordPress admin file — ModuleRegistry::openLink()
+     * name a WordPress admin file - ModuleRegistry::openLink()
      * validates it and falls back to the own settings page for
      * anything else, so an absolute or external URL can never
      * leak into the menu or the module list JSON.
@@ -181,7 +181,7 @@ interface ModuleInterface
      * without features() shows its short description in the
      * popup's Features section, and a module without
      * changelog() shows a single entry built from version().
-     * Only recorded history belongs in changelog() — never
+     * Only recorded history belongs in changelog() - never
      * invent earlier versions.
      */
 
@@ -222,8 +222,8 @@ interface ModuleInterface
     /**
      * Register the module's frontend/login hooks.
      *
-     * Called ONLY when the module is enabled (and available) — or
-     * unconditionally when it is a core module — by
+     * Called ONLY when the module is enabled (and available) - or
+     * unconditionally when it is a core module - by
      * ModuleRegistry::bootEnabled(). A disabled module must register
      * no hooks and enqueue nothing.
      *

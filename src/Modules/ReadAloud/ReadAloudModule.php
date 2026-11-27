@@ -30,7 +30,7 @@ use function wp_nonce_field;
  * Read Aloud module.
  *
  * A "Listen to this article" button on single posts, powered by
- * the browser's built-in SpeechSynthesis API — zero server cost,
+ * the browser's built-in SpeechSynthesis API - zero server cost,
  * no audio files, no network request, no account. The button is
  * inserted by a `the_content` filter (priority 21, after the
  * Table of Contents filter at 12 and the Share filter at 20), so
@@ -41,13 +41,13 @@ use function wp_nonce_field;
  * The frontend JavaScript (`resources/js/modules/read-aloud.ts`,
  * `initReadAloud()`) reads the article text from the
  * `.entry-content` element, splits it into sentences and speaks
- * them as a queue of short utterances — one long utterance is
+ * them as a queue of short utterances - one long utterance is
  * unreliable in Chrome (it stalls or stops mid-article), so
  * chunking is what makes long articles actually finish. The
  * button toggles Listen / Stop, shows a Listening state while
  * speaking, and hides itself entirely when the browser has no
  * SpeechSynthesis support, so unsupported browsers see nothing
- * at all. Speech rate is the admin-configured rate (0.5–2.0,
+ * at all. Speech rate is the admin-configured rate (0.5-2.0,
  * default 1.0); the voice is picked by the browser from the
  * article language (the `lang` attribute on the button, taken
  * from the site locale), falling back to the browser default.
@@ -181,7 +181,7 @@ final class ReadAloudModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -310,8 +310,8 @@ final class ReadAloudModule implements ModuleInterface
      *
      * Expected flat keys: `show_button` (checkbox: `1` when
      * checked, absent when unchecked), `position` (`above` or
-     * `below` — anything else falls back to `above`), and `rate`
-     * (float clamped to 0.5–2.0). Unknown keys are dropped.
+     * `below` - anything else falls back to `above`), and `rate`
+     * (float clamped to 0.5-2.0). Unknown keys are dropped.
      *
      * @param array<string, mixed> $data Sanitized form data.
      * @return array{success: bool, message: string}

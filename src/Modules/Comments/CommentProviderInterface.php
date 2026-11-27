@@ -13,7 +13,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Comments;
  * render, renders its markup, and enqueues whatever scripts it
  * needs. Built-in providers (WordPress, Facebook, Disqus, the
  * totally-disabled provider) register through the same registry
- * as third-party ones — nothing in the module special-cases a
+ * as third-party ones - nothing in the module special-cases a
  * built-in provider id.
  *
  * Registration: the module collects provider classes through the
@@ -27,7 +27,7 @@ namespace TrayDigita\WP\Plugin\Core\Modules\Comments;
  *     });
  *
  * Settings values live in the `traydigita_comments` option and are
- * read through CommentsModule::getSettings() — providers must not
+ * read through CommentsModule::getSettings() - providers must not
  * read the option directly, and must never print a stored secret.
  */
 interface CommentProviderInterface
@@ -70,7 +70,7 @@ interface CommentProviderInterface
      *         'default' => '',                          // optional
      *         'options' => ['a' => __('A', 'traydigita-core')], // select only
      *         'min' => 1, 'max' => 100,                 // number only
-     *         'placeholder' => __('…', 'traydigita-core'),   // optional
+     *         'placeholder' => __('...', 'traydigita-core'),   // optional
      *         'sanitize' => 'key',                      // optional: 'key' for slug-like values
      *     ]
      *
@@ -88,7 +88,7 @@ interface CommentProviderInterface
      *
      * Receives the merged module settings (see
      * CommentsModule::getSettings()). A provider returns false
-     * when it is missing what it needs — for example the Facebook
+     * when it is missing what it needs - for example the Facebook
      * provider without an App ID, or before cookie consent. The
      * module renders nothing for a provider that reports false;
      * render() must not be called for it, but must also be safe

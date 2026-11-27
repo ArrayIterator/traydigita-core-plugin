@@ -30,13 +30,13 @@ use function _n;
  *
  * Its own admin page lists a short curated set of plugins for a
  * news site, with Google Site Kit as the top recommendation and
- * traydigita-core flagged as required — the theme does not boot
+ * traydigita-core flagged as required - the theme does not boot
  * without the core plugin (functions.php gates on it), so the
  * core row carries a "required" notice and its status is checked,
  * not assumed. Each plugin shows its status (not installed /
  * installed / active) with per-plugin Install and Activate
  * buttons that run live over AJAX with progress; installing never
- * activates anything — activation always takes a separate click.
+ * activates anything - activation always takes a separate click.
  *
  * Trust rules (see PluginList and InstallerAjax): only curated
  * wordpress.org slugs can be installed, the package must come
@@ -48,8 +48,8 @@ use function _n;
  * filesystem access is unavailable instead of asking for FTP
  * credentials.
  *
- * The page has one real setting — whether to hide plugins that
- * are already active from the list — saved in the single option
+ * The page has one real setting - whether to hide plugins that
+ * are already active from the list - saved in the single option
  * `traydigita_installer` (autoload `no`) through the generic
  * admin AJAX dispatcher. Everything else on the page is status
  * and actions, not settings.
@@ -159,7 +159,7 @@ final class InstallerModule implements ModuleInterface
      * Optional: resolved by ModuleRegistry::changelog()
      * when present; a module without it shows a single
      * entry built from version(). Only recorded history
-     * belongs here — never invent earlier versions.
+     * belongs here - never invent earlier versions.
      *
      * @return array<int, array{version: string, changes: array<int, string>}>
      */
@@ -267,17 +267,17 @@ final class InstallerModule implements ModuleInterface
      *
      * A required-plugin notice for traydigita-core, a short "how
      * installing works" note, then the curated plugins grouped by
-     * category — Required, Cache, SEO, Analytics, Security, Image
-     * — with the recommended plugin first in its group. The cache
+     * category - Required, Cache, SEO, Analytics, Security, Image
+     * - with the recommended plugin first in its group. The cache
      * group carries the shared server-aware note from
      * CacheModule::recommendedPlugin() (via PluginList): the
      * recommended plugin on a known server, no recommendation
      * while developing, and W3 Total Cache as the safe general
-     * choice — without the badge — when the server cannot be
+     * choice - without the badge - when the server cannot be
      * identified. Each card uses the same card
-     * language as the integrations hub — icon tile, name, one-line
+     * language as the integrations hub - icon tile, name, one-line
      * reason, icon+text status pill, and Install / Activate
-     * buttons — with a search box, status filter chips and a
+     * buttons - with a search box, status filter chips and a
      * Refresh status button above the list (see
      * resources/js/modules/admin-installer.ts). The buttons are
      * driven by that module, which reads the translatable strings
@@ -335,7 +335,7 @@ final class InstallerModule implements ModuleInterface
             data-msg-refresh="<?php echo esc_attr(__('Refresh status', 'traydigita-core')); ?>"
             data-msg-refreshing="<?php echo esc_attr(__('Refreshing…', 'traydigita-core')); ?>"
             data-msg-refreshed="<?php echo esc_attr(__('Statuses refreshed.', 'traydigita-core')); ?>"
-            data-msg-error="<?php echo esc_attr(__('Something went wrong. Please try again.', 'traydigita-core')); ?>">
+            data-msg-error="<?php echo esc_attr(__('Request failed. Please try again.', 'traydigita-core')); ?>">
             <?php if ($coreStatus !== PluginList::STATUS_ACTIVE) : ?>
                 <div class="traydigita-admin-notice traydigita-admin-notice-warning">
                     <p>
@@ -615,7 +615,7 @@ final class InstallerModule implements ModuleInterface
     /**
      * Curated plugins grouped for the settings page, in group order.
      *
-     * Groups with no visible card are left out entirely — a group
+     * Groups with no visible card are left out entirely - a group
      * whose plugins are all hidden by "hide active plugins" has
      * no heading to show. Inside a group the recommended plugin
      * sorts first, then the shared cache pick when it carries no
